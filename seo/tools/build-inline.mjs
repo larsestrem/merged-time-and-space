@@ -210,7 +210,7 @@ const SECTION_PROBES = {
      "Use the time now" button are core form/.btn styling, so the cv- family is
      the whole of what this page needs */
   convert: /class="[^"]*\bcv-/,
-  concept: /class="[^"]*\b(kicker|hub-teaser|hub-teasers|glossary-item|more-info|graphic-block)\b/,
+  concept: /class="[^"]*\b(kicker|hub-teaser|hub-teasers|hub-qs|hub-kicker|hub-sim|glossary-item|more-info|graphic-block)\b/,
 };
 {
   const unknown = Object.keys(SECTION_PROBES).filter((s) => !SECTIONS.includes(s));

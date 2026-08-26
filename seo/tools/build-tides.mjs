@@ -458,30 +458,20 @@ ${faqLd(FAQ(""))}
   <p class="sub">Official NOAA tide predictions for 3,300+ U.S. coastal stations — today's highs and lows, an interactive chart, and a high-tide finder that looks up to a year ahead. Want your local tides? <a href="/tides/near-me/">Tides near me →</a></p>
 ${BETA_NOTE}
 ${TOOL(true, "")}
-${hubQuestionsCard("/tides/")}
-  <div class="card">
-    <h2>How the tide pages work</h2>
-    <p>Tide results live on each location's own page: today's high &amp; low tides, an interactive chart, king-tide dates, and a year-ahead high-tide finder. Your Saved Stations appear above as one-tap cards (the ★ is your default); click the search box to see the stations nearest you, or type a coastal town, a state, or a NOAA station ID.</p>
-    <p><strong>The chart is the date control.</strong> Drag the ‹ › handles to resize the bright band, hold the ⇔ button to move it to different dates (the chart zooms out to 30 days while you hold), and use Settings under the chart for the day count or a pinned 30-day view.</p>
+  <div class="card" id="how">
+    <h2>What this is, and how it works</h2>
+    <p>Official NOAA tide predictions for 3,300+ U.S. coastal stations. Today’s highs and lows, an interactive chart, and a high-tide finder that looks a year ahead live on each location’s own page. Your Saved Stations appear above as one-tap cards; type a coastal town, a state, or a NOAA station ID.</p>
+    <p><strong>The chart is the date control.</strong> Drag the ‹ › handles to resize the bright band, hold the ⇔ button to move it, and use Settings under the chart for the day count.</p>
   </div>
+${hubQuestionsCard("/tides/")}
   <div class="card">
     <h2>Tide charts by state</h2>
     <div class="td-states">${directory}</div>
     <p class="hint">Each state opens its full list of stations, organized by county. States with a single station open that station directly.</p>
   </div>
   <div class="card">
-    <h2>How fast does the tide come in? Speed is the hidden danger</h2>
-    <p>What catches people isn't usually the height of the tide — it's the <strong>speed</strong>. The time from low to high is essentially fixed (about 6¼ hours on most coasts), so a big tide <em>must</em> move faster: a 30-ft range like Anchorage's climbs <strong>6–7+ feet per hour</strong> at its peak, while a 3-ft tide creeps a few inches. Same clock, ten times the water.</p>
-    <p>And no tide rises steadily. Sailors use the <strong>Rule of Twelfths</strong> as a rough guide: the tide rises in hourly shares of 1-2-3-3-2-1 twelfths, so about <strong>half the whole tide arrives in the middle two hours</strong>. A 10-ft tide puts on roughly 5 ft in that window — about six times faster than in its first hour. If you walked out at low tide, the water coming back at hour three is a different animal from the trickle at hour one. It is a teaching approximation: it doesn't fit every station or shoreline, and it should never be used to time a safe walk back.</p>
-    <p>Where it gets dangerous: on <strong>flat beaches, mudflats and sandbars</strong>, a fast vertical rise turns into water advancing horizontally faster than you can comfortably walk — and it fills the low channels <em>behind</em> you first. In funnel-shaped estuaries (Turnagain Arm, the UK's Severn) the incoming tide compresses into a <strong>bore</strong> — an actual moving wall of water. Gulf of Mexico coasts get the opposite: one small tide spread over ~12 hours, about as gentle as tides come. Incoming tides can cut off beaches, rocks, sandbars and mudflats, and conditions vary substantially by location. This is background on tide physics, not a personal safety plan.</p>
-  </div>
-  <div class="card">
-    <h2>The largest tides in the U.S. and the world</h2>
-    <p>The world record belongs to Canada's <strong>Bay of Fundy</strong> (up to ~52 ft); America's giants are Alaska's Cook Inlet — <a href="/tides/anchorage-ak/">Anchorage, AK</a> swings 26–30 ft — and <a href="/tides/eastport-me/">Eastport, ME</a> (~18 ft) on the East Coast. We wrote up the whole leaderboard, with live charts for every U.S. entry:</p>
-    <p><a class="btn secondary" style="width:auto;display:inline-flex" href="/tides/biggest-tides/">🌊 See the biggest tides on Earth →</a></p>
-  </div>
-  <div class="card cd-answer">
-    ${FAQ("").map(([q, a]) => `<h2>${esc(q)}</h2><p>${esc(a)}</p>`).join("\n    ")}
+    <h2>The largest tides</h2>
+    <p>The world record belongs to Canada’s Bay of Fundy. America’s giants are Alaska’s Cook Inlet and Eastport, Maine. The height is not the hidden danger — the <strong>speed</strong> is. Same clock, a bigger tide moves faster. <a href="/concepts/what-causes-tides/">What causes tides?</a> · <a href="/tides/biggest-tides/">The biggest tides on Earth</a>.</p>
   </div>
 ${TIDE_FOOTER}
 </div>

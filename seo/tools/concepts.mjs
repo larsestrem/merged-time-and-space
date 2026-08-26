@@ -75,19 +75,35 @@ export function hubQuestionsCard(hubPath, heading = "Questions this page answers
   const rows = conceptsForHub(hubPath);
   if (!rows.length) return "";
   const used = new Set();
-  const items = rows.map((c) => {
-    let hid = teaserAnchor(c, hubPath);
-    if (used.has(hid)) hid = c.slug;
-    used.add(hid);
-    return `<p class="hub-teaser" id="${esc(hid)}"><a href="/concepts/${esc(c.slug)}/">${esc(c.question)}</a> ${esc(c.shortAnswer)} <a class="hub-more" href="/concepts/${esc(c.slug)}/">Get more</a></p>`;
-  }).join("\n    ");
+  const items = rows.map((c) => teaserLi(c, hubPath, used)).join("\n    ");
   const idAttr = id ? ` id="${esc(id)}"` : "";
   return `  <div class="card hub-teasers"${idAttr}>
     <h2>${esc(heading)}</h2>
     <p class="sub">The question is the link. A short answer sits here; tap through for the drawing and the deeper pass.</p>
+    <ul class="hub-qs">
     ${items}
+    </ul>
   </div>
 `;
+}
+
+/** Compact list with no card chrome — sits under a picture, as on the home page. */
+export function hubQs(slugs) {
+  const by = conceptBySlug();
+  const used = new Set();
+  const items = slugs.map((slug) => {
+    const c = by.get(slug);
+    if (!c) throw new Error(`hubQs missing: ${slug}`);
+    return teaserLi(c, c.hubUrls[0]?.href?.split("#")[0] || "", used);
+  }).join("\n");
+  return `<ul class="hub-qs">\n${items}\n</ul>`;
+}
+
+function teaserLi(c, hubPath, used) {
+  let hid = teaserAnchor(c, hubPath);
+  if (used.has(hid)) hid = c.slug;
+  used.add(hid);
+  return `<li id="${esc(hid)}"><p><a href="/concepts/${esc(c.slug)}/">${esc(c.question)}</a> ${esc(c.shortAnswer)}</p></li>`;
 }
 
 /* ---- graphics: the live-site drawings, baked at the current instant ------ */

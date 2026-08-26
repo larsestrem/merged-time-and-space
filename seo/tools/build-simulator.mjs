@@ -1010,29 +1010,8 @@ const teachCard = hubQuestionsCard(SIM_PATH, "What this picture is telling you",
 
 const classroomCard = `  <div class="card sim-teach" id="classroom">
     <h2>Using it in a classroom</h2>
-    <p>Every control here is a lesson, and every view is a link: build one in the link builder below and a whole class opens the same sky on thirty screens. It is free, needs no sign-up, and runs entirely in the browser — nothing is uploaded and nothing is stored.</p>
-
-    <h3>Start here — the two big questions</h3>
-    <ul class="bullets">
-      <li><strong>Why do we have day and night?</strong> Set the slider to cover a <strong>day</strong> and press <strong>Play</strong>. The Earth turns, and the marker rides its dotted circle in and out of the lit half; nothing about the sun moves at all. Ask the class to shout when the marker crosses the day/night line — then check them against the <em>Sunrise · sunset</em> row, which is the same event in numbers.</li>
-      <li><strong>Why does the moon have phases?</strong> Leave the slider on a <strong>month</strong> and press Play. Watch two things together: the <em>Moon–sun angle</em> row and the phase disc. 0° is a new moon, 90° a quarter, 180° full. Nothing covers the moon up — the angle is the phase.</li>
-    </ul>
-
-    <h3>Then, if there is time</h3>
-    <ul class="bullets">
-      <li><strong>Two views of one moon.</strong> The moon in the picture looks half lit at every phase, because you are looking down on it from above and seeing the lit boundary edge-on. The disc beside the read-out is the same moon at the same instant <em>seen from the ground</em>, and says so. Good discussion: which one is “what the moon really looks like”? (Both. They are two viewpoints of one object.)</li>
-      <li><strong>Jump to a full moon.</strong> Use the <strong>full moon</strong> button, then switch the span to a day: now you can find what time it rises that night in the <em>Moonrise · moonset</em> row, and see it climb as you drag.</li>
-      <li><strong>Why is moonrise later every day?</strong> On a month span, watch the moonrise time slide — roughly 50 minutes a day. The picture shows why: while the Earth spins once, the moon has moved on around its orbit.</li>
-      <li><strong>Why are days longer in summer?</strong> Build two links for the same city, 21 June and 21 December, same time of day. Watch the <strong>N</strong> tick lean toward the sun and away from it, and how much of the dotted circle falls in the light. The <em>Daylight that day</em> row puts a number on it.</li>
-      <li><strong>What happens at the poles?</strong> Try a far-northern city in June: the daily circle never leaves the daylight at all. That is the midnight sun, and the same city in December shows the opposite.</li>
-      <li><strong>Two places, one instant.</strong> Build a link for each of two cities with the same date and time, open them side by side, and compare where the sun is for each. A class in one hemisphere and a class in the other is the version worth doing.</li>
-      <li><strong>Spring and neap tides.</strong> Drag through a month watching only the <em>Moon–sun angle</em>: 0° and 180° are when the sun and moon pull together and the tides run biggest; 90° — either quarter — is when they fight and the tides are smallest. The row never passes 180°, because it measures the angle between them.</li>
-    </ul>
-
-    <h3>Away from the screen</h3>
-    <p>The scale card above is the physical activity, and it is the one students remember: a ${MARBLE_MM} mm marble for the Earth, a peppercorn for the moon held ${Math.round(marble.moonDist * 100)} cm away, and the sun a ball taller than a person ${Math.round(marble.sunDist)} metres down the corridor. Walk it out. The point of this page is that the picture on it cannot show that, and says so.</p>
-
-    <p class="hint">Ages roughly 9 and up; the tidal-locking, sidereal-month and eclipse notes above suit older classes. Every city has a permanent page of its own, so a link you make today still works next term.</p>
+    <p>Every control here is a lesson. Set the slider to a <strong>day</strong> and press Play — the Earth turns, and the marker rides in and out of the light. That is day and night. Leave it on a <strong>month</strong> and watch the moon–sun angle and the phase disc together: 0° is new, 180° is full. Nothing covers the moon up.</p>
+    <p>The scale card above is the activity students remember: a marble, a peppercorn, and a ball down the corridor. <a href="/classroom/">The classroom guide</a> has timed plans; the link builder below hands every screen the same sky.</p>
   </div>
 `;
 
@@ -1151,7 +1130,7 @@ ${featured.map((c) => `      <a class="chip" href="${SIM_PATH}${c.slug}/">${esc(
     <p class="hint">Or browse the families: <a href="/sun/">sunrise &amp; sunset by city</a>, <a href="/moon/">moonrise, moonset &amp; phase</a>, <a href="/tides/">predicted tide times</a>, <a href="/world-clock/">world clock</a>.</p>
   </div>
 
-${classroomCard}${builderCard}${faqCard()}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
+${classroomCard}${builderCard}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 ${script(HUB_CITY)}
 </body>
@@ -1188,7 +1167,6 @@ ${head({
     desc: `Watch the sun and moon move around the Earth as seen from ${label}: scrub a day, a week or a month, see the phase, altitude and direction of both, sunrise ${f.rise}, sunset ${f.set} and today's ${f.moonName.toLowerCase()} moon.`,
     path,
     ld: `\n<script type="application/ld+json">${breadcrumbLD(SITE, [{ name: "Time and Space Science", url: "/" }, { name: "Sun, Moon & Earth simulator", url: SIM_PATH }, { name: label, url: path }])}</script>\n${placeLd({ ...resolvePlace(c), elevKey: c.slug, url: `${SITE}${path}` })}`,
-    faq: cityFaq(c, f),
   })}
 </head>
 <body>
@@ -1210,11 +1188,12 @@ ${viewLadder("town")}${simCard(c, f)}  <div class="card">
       <div class="wc-frow"><span>Time zone</span><b>${esc(c.tz.replace(/_/g, " "))}</b></div>
     </div>
     <p class="hint">Baked for the moment this page was built; the simulator above recomputes everything in your browser for whatever instant you set.</p>
-  </div>
+    <ul class="hub-qs">
+      <li><p><a href="/concepts/why-does-the-moon-change-shape/">Why does the Moon change shape?</a> The angle between the Moon and the Sun is the phase.</p></li>
+      <li><p><a href="/concepts/what-is-tidal-locking/">What is tidal locking?</a> The Moon turns once per orbit, so the same face stays toward us.</p></li>
+    </ul>
+    <p class="hint">The full stack of questions sits on the <a href="${SIM_PATH}">simulator’s own page</a>.</p>
 
-${scaleCard}  <div class="card">
-    <h2>What the picture is quietly telling you</h2>
-    <p>The question is the link: <a href="/concepts/why-does-the-moon-change-shape/">Why does the Moon change shape?</a> · <a href="/concepts/what-is-tidal-locking/">What is tidal locking?</a> The full stack is on the <a href="${SIM_PATH}">simulator’s own page</a>, along with <a href="${SIM_PATH}#classroom">how to use this in a classroom</a>.</p>
   </div>
 
   <div class="card">
@@ -1225,7 +1204,7 @@ ${fam.map(([href, t, x]) => `      <a class="chip" href="${href}"${x ? ` data-xl
     <p class="hint">Nearby, for a side-by-side: ${near.map(({ o, mi }) => `<a href="${SIM_PATH}${o.slug}/">${esc(o.st ? `${o.city}, ${o.st}` : o.city)}</a> (${Math.round(mi)} mi)`).join(" · ")}.</p>
   </div>
 
-${builderCard}${faqCard(cityFaq(c, f), `${label}: common questions`)}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
+  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 ${script(c)}
 </body>

@@ -2023,6 +2023,30 @@ body.mt-fs-open{overflow:hidden}
 .sec-switch{margin:2px 0 14px}
 .sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 
+/* questions sit under a picture, not in a second essay */
+.hub-qs{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px}
+.hub-qs p,.hub-qs li{margin:0;color:var(--muted);max-width:70ch}
+.hub-qs a{font-weight:600;color:var(--accent);text-decoration:none}
+.hub-qs a:hover{text-decoration:underline}
+.hub-kicker{margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.hub-blurb{margin:0 0 14px;color:var(--muted);max-width:70ch}
+.home-hero .hub-qs{margin-top:16px}
+.hub-sim{margin:22px 0 0}
+.hub-live{margin:0 0 8px;line-height:0;border-radius:12px;overflow:hidden}
+.hub-live svg{display:block;width:100%;height:auto}
+.hub-live.pc-anim-sol{max-width:min(420px,100%);margin:0 auto 8px}
+.dir-grid{display:grid;gap:12px;margin-top:8px}
+@media(min-width:720px){.dir-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:980px){.dir-grid{grid-template-columns:1fr 1fr 1fr 1fr}}
+.dir-grid .card{margin:0;padding:16px 18px}
+.dir-grid .card h2{margin:0 0 6px;font-size:18px}
+.dir-grid .card p{margin:0;color:var(--muted);font-size:14.5px}
+.dir-grid a.card{color:inherit;text-decoration:none}
+.dir-grid a.card:hover{border-color:var(--accent)}
+.dir-grid a.card:hover h2{color:var(--accent)}
+.home-rest{margin:28px 0 0}
+.home-rest > h2{margin:0 0 4px}
+
 /*TOOLCSS-START*/
 /* egg-timer: the countdown sits in the middle of an egg */
 .egg-wrap{display:flex;justify-content:center;margin:6px 0 14px}
@@ -4458,3 +4482,16 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
   color: var(--muted);
 }
 .glossary-item[hidden], .letter[hidden] { display: none; }
+.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
+.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
+.hub-qs a:hover { text-decoration: underline; }
+.hub-kicker {
+  margin: 0 0 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+}
+.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }

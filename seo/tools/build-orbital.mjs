@@ -521,11 +521,7 @@ ${head({
   <h1>Orbital Velocity Simulator</h1>
   <p class="sub">Set how far out a planet sits and how fast it is moving sideways, and watch what gravity does with it — a circle, a long ellipse, an escape, or a fall into the sun. The two arrows are the whole story: where it is going, and where it is being pulled.</p>
 
-${simCard}${whyShort}${hubQuestionsCard(OV_PATH)}${tableCard}  <div class="card tool-about">
-    <h2>Common questions</h2>
-    ${FAQ.map(([q, a]) => `<p><strong>${esc(q)}</strong> ${esc(a)}</p>`).join("\n    ")}
-  </div>
-  <div class="card">
+${simCard}${whyShort}${hubQuestionsCard(OV_PATH)}${tableCard}  <div class="card">
     <h2>Keep going</h2>
     <p class="timer-presets">
       <a class="chip" href="/questions/">More big questions like this one</a>
@@ -563,7 +559,7 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "orbital-velocity", url: OV_PATH }, page: { label: "why planets don't fall in", url: OV_WHY } })}
   <h1>Why Don't the Planets Fall Into the Sun?</h1>
-  <p class="sub">Short answer: they <em>are</em> falling into the sun. They have been falling for four and a half billion years, and they keep missing. Here is how that works, and why the planet closest to the sun — the one pulled hardest by far — is the one in the least danger of arriving.</p>
+  <p class="sub">Short answer: they <em>are</em> falling into the sun. They keep missing. The question lives at <a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a> — this page keeps the unique numbers: pull per kilogram at each planet, the speed that answers it, and what it actually takes to hit the Sun.</p>
 
   <div class="card">
     <h2>1 · The pull really is much stronger close in</h2>

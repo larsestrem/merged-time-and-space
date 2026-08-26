@@ -488,15 +488,12 @@ ${GA_SNIPPET}
   <h1>Day and Night Map</h1>
   <p class="sub">Where it is light on Earth right now, where it is dark, and the twilight in between. Drag the slider to move through the next seven days, or press play and watch the line sweep round. The same picture as the <a href="/world-clock/">world clock</a>'s map, with time attached.</p>
 
-${simCard}${howCard}${sideCard}${tiltCard}${flatCard}${hubQuestionsCard(PATH)}${tryCard}  <div class="card tool-about">
-    <h2>Using this map</h2>
-    ${FAQ.map(([q, a]) => `<p><strong>${esc(q)}</strong> ${esc(a)}</p>`).join("\n    ")}
-  </div>
-  <div class="card">
+${simCard}${howCard}${sideCard}${hubQuestionsCard(PATH)}  <div class="card">
     <h2>Keep going</h2>
     <p>This map answers "where", to the nearest few hundred kilometres. For "when", to the minute, in your own town:</p>
     <p class="timer-presets">
       <a class="chip" href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a>
+      <a class="chip" href="/concepts/why-is-this-map-flat/">Why is this map flat?</a>
       <a class="chip" href="/glossary/">Glossary</a>
       <a class="chip" href="/sun/">Sunrise &amp; sunset for your city</a>
       <a class="chip" href="/moon/">Tonight's moon phase</a>

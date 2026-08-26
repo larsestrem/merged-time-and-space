@@ -36,6 +36,7 @@ import { DAYNIGHT_PATH, seasonPoints, DN_CORE, DN_W, DN_TOP, DN_BOT, dnX, dnY, d
    (/jupiter-and-moons-simulator/) and the launch hub moved, and a second copy
    of either rule here would rot the first time one changed */
 import { planetPath, PLANETS_PATH, LAUNCH_PATH as ROCKET_PATH } from "./solar-pages.mjs";
+import { hubQs } from "./concepts.mjs";
 /* the two-zone time-difference widget, shared with /time-difference-calculator/
    so the card and the page are one calculator rather than two */
 import { tdiffForm, TDIFF_JS } from "./time-diff.mjs";
@@ -1221,7 +1222,7 @@ ${SEARCH}
  * sun and moon city pages, six stopwatches, spans from a day to a century.
  */
 const LEDE = {
-  all: `<strong>Gravity, motion, time and space.</strong> Learn about <a href="/24-hour-clock-converter/">12/24&nbsp;hr clocks</a>, <a href="/world-clock/">time zones</a>, <a href="/countdown/">events</a>, <a href="/sun/">sunrise</a> and <a href="/moon/">moonrise</a>, <a href="/tides/">the tides</a>, <a href="${PLANETS_PATH}">planets and their moons</a>, and <a href="/solar-system-simulator/">the solar system</a>. Built for classrooms and for anyone else who is curious.`,
+  all: `<strong>Gravity, motion, time and space.</strong> A day is Earth turning. A year is it going round. Seasons are that turn being tilted. Built for classrooms and for anyone else who is curious.`,
   time: `<strong>Clocks, and what they are counting.</strong> An <a href="/alarm-clock/">alarm</a>, a <a href="/timer/">timer</a>, a <a href="/stopwatch/">stopwatch</a>, <a href="/world-clock/">every time zone at once</a>, and a <a href="/countdown/">countdown</a> to the day you are waiting for. All of it runs in the browser, with nothing to install and no sign-up.`,
   earth: `<strong>Your own sky, worked out for your own town.</strong> <a href="/sun/">Sunrise and sunset</a>, <a href="/moon/">tonight's moon and how full it is</a>, and <a href="/tides/">when the tide turns</a> — for more than a thousand cities, on whatever date you pick. Every figure is computed from the real motions rather than looked up in a table.`,
   space: `<strong>Where everything actually is, right now.</strong> <a href="${PLANETS_PATH}">Every planet</a>, a page each, turning on its own axis with its moons going round it — the <a href="/solar-system-simulator/">whole system on its real orbits</a>, and the <a href="${ROCKET_PATH}">next launch window to Mars</a>. The positions are solved when the page loads, not drawn from memory.`,
@@ -1591,22 +1592,50 @@ ${switcher("/")}
                are those?" — this is the answer, and it lands on the card that
                draws the sun and the Earth side by side with the one line
                between their centres. */""
-          }<a class="wk-all" href="${DAYNIGHT_PATH}#tropics">Why the tropics are there →</a>
+          }<a class="wk-all" href="/concepts/what-is-the-tropic-of-cancer/">Why the tropics are there →</a>
           <a class="wk-all" href="/world-clock/">Every time zone →</a>
         </div>
       </div>
     </div>
+    ${hubQs(["what-is-the-subsolar-point", "what-is-the-tropic-of-cancer", "why-do-we-have-seasons", "what-is-the-terminator"])}
   </div>
   ${/* the curiosity door: real questions, no audience label */""
   }<div class="home-q">
     <span class="home-q-lab">Start with a question</span>
-    <a class="chip" href="/questions/#dark-sky">Why is the night sky so dark?</a>
-    <a class="chip" href="/questions/#fall-in">Why do the planets orbit the sun instead of falling in?</a>
-    <a class="chip" href="/questions/#seasons">Why do we have seasons?</a>
-    <a class="chip" href="/questions/#moon-phases">Why does the moon change shape?</a>
+    <a class="chip" href="/concepts/why-is-the-night-sky-dark/">Why is the night sky so dark?</a>
+    <a class="chip" href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall in?</a>
+    <a class="chip" href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a>
+    <a class="chip" href="/concepts/why-does-the-moon-change-shape/">Why does the moon change shape?</a>
     <a class="chip chip-alt" href="/questions/">More questions →</a>
   </div>
-${PORTAL_SECTIONS.map(portalSection).join("\n")}
+  <div class="card hub-sim">
+    <p class="hub-kicker">Earth</p>
+    <h2>The Moon around the Earth</h2>
+    <p class="hub-blurb">The Sun holds still on the left. Earth and the Moon sit to the right so there is more sky between them. The Moon is about a quarter the width of Earth — that size is true. Distances are not: the simulator says by how much.</p>
+    <div class="hub-live pc-anim pc-anim-orr" id="home-orr">${orrFirst}</div>
+    <p class="home-moonprog-lab">${SIDEREAL}-day orbit. This picture is the phases. A month passes in about 24 seconds.</p>
+    <a class="wk-all" href="/sun-moon-earth-movement-simulator/">Open the Sun, Earth & Moon simulator →</a>
+    ${hubQs(["why-does-the-moon-change-shape", "what-is-a-synodic-month", "what-is-tidal-locking"])}
+  </div>
+  <div class="card hub-sim">
+    <p class="hub-kicker">Space</p>
+    <h2>The solar system, flat-on</h2>
+    <p class="hub-blurb">The inner planets on their real orbits. Mercury laps everybody — that difference in speed is the whole story of orbits. Distances are compressed so they fit.</p>
+    <div class="hub-live pc-anim pc-anim-sol" id="home-sol">${solFirst}</div>
+    <p class="home-moonprog-lab">A year every 24 seconds. Positions are real. Planet dots are not — they would be smaller than a pixel.</p>
+    <a class="wk-all" href="/solar-system-simulator/">Open the solar system simulator →</a>
+    ${hubQs(["why-dont-planets-fall-into-the-sun", "how-does-an-orbit-work"])}
+  </div>
+  <div class="home-rest">
+    <h2>The rest of the site</h2>
+    <p class="sub">A hint, not a catalogue. Each tab is its own page.</p>
+    <div class="dir-grid">
+      <a class="card" href="/time/"><h2>Time</h2><p>Clocks, and what they are counting — a world clock, a countdown to the day you are waiting for.</p></a>
+      <a class="card" href="/earth/"><h2>Earth</h2><p>Your own sky: day and night, sunrise, the Moon, and why the tropics sit where they do.</p></a>
+      <a class="card" href="/space/"><h2>Space</h2><p>Where everything actually is — planets, orbits, gravity, and the questions that open the door.</p></a>
+      <a class="card" href="/classroom/"><h2>Classroom</h2><p>Projector mode, questions written for ten-year-olds first, and a way to send the lesson you already run.</p></a>
+    </div>
+  </div>
   ${/* THE COLLABORATION ASK, promoted to the page itself (owner's call:
        working WITH teachers is a primary task of the site, not a footnote).
        The form posts to the same /api/report sink as every other form —
@@ -1687,6 +1716,7 @@ const SECTION_PAGES = [
     title: "Time — Online Alarm Clock, Timer, Stopwatch, World Clock & Countdowns",
     desc: "Free, full-screen clock tools that run in your browser: an alarm clock, a countdown timer, a stopwatch with laps, every time zone at once, a time-difference calculator, a 12/24-hour converter and countdowns to the days you are waiting for.",
     lede: LEDE.time,
+    questions: ["what-is-the-terminator", "what-is-twilight", "why-is-this-map-flat"],
     board: [[ALARM_CARD, 4], [TIMER_CARD, 4], [STOPWATCH_CARD, 4], [WORLD_CLOCK_CARD, 6], [TIMEDIFF_CARD, 6], [CONVERT_CARD, 6], [COUNTDOWN_BLOCK, 6]],
     js: () => `<script data-ac="shared" data-name="sec-time">${HOME_CLOCK_JS}${HOME_COLOR_JS}${WORLD_MAP_JS}${TDIFF_JS}${CONV_JS}${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>`,
   },
@@ -1695,6 +1725,7 @@ const SECTION_PAGES = [
     title: "Earth — Sunrise, Sunset, Moon Phases, Tides & the Day/Night Map",
     desc: "Your own sky, computed for your own town: sunrise and sunset times, tonight's moon phase, NOAA tide predictions, the live day/night map and the Sun–Earth–Moon simulator — for more than a thousand cities, on any date.",
     lede: LEDE.earth,
+    questions: ["what-is-the-tropic-of-cancer", "why-do-we-have-seasons", "why-does-the-moon-change-shape", "what-causes-tides"],
     board: [[SUN_HOME_CARD, 6], [MOON_CARD, 6], [SIM_CARD, 4], [TIDES_HOME_CARD, 8], [WORLD_CLOCK_CARD, 6]],
     js: () => `<script data-ac="shared" data-name="sec-earth">${WORLD_MAP_JS}${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>`,
   },
@@ -1703,6 +1734,7 @@ const SECTION_PAGES = [
     title: "Space — The Planets, Orbits, Moons & Solar System Simulators",
     desc: "Where everything actually is, right now: the solar system on its real orbits, every planet with its moons, gravity and orbital-velocity simulators, launch windows to Mars, and the moon systems of Jupiter, Saturn, Uranus and Neptune.",
     lede: LEDE.space,
+    questions: ["why-dont-planets-fall-into-the-sun", "how-does-an-orbit-work", "why-does-jupiter-have-so-many-moons"],
     board: [[SIM_CARD, 4], [SYSTEM_CARD, 4], [SOLAR_CARD, 4], [PLANETS_CARD, 4], [ROCKET_CARD, 4], [ORBIT_CARD, 4], ...MOON_CARDS.map((c) => [c, 4])],
     js: () => `<script data-ac="shared" data-name="sec-space">${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>${ORBIT_JS}`,
   },
@@ -1713,6 +1745,7 @@ for (const S of SECTION_PAGES) {
   <h1>${S.h1}</h1>
 ${switcher(`/${S.slug}/`)}
   <p class="home-lede">${S.lede}</p>
+  ${S.questions ? hubQs(S.questions) : ""}
   <div class="home-board">
 ${S.board.map(([card, n]) => sp(card, n, S.slug)).join("\n")}
   </div>

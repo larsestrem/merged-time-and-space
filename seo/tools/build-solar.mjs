@@ -1422,10 +1422,7 @@ function buildHub() {
     h1: "Solar System Simulator",
     sub: `The planets on their real orbits, moving. Drag through a <strong>month</strong>, a <strong>year</strong>, a <strong>decade</strong> or a <strong>century</strong>; zoom from Jupiter’s moons all the way out to Neptune; switch on the asteroid belt, the comets, and the flight path to Mars.`,
     cards: viewLadder("solar") + simCard("inner", 0, SOLAR_PATH, 1) + howItWorksCard() + hubQuestionsCard(SOLAR_PATH) + bodyLinks() + windowCard(PLANET.MARS) + TRANSFER_NOTE + ladderCard()
-      + factsCard("Things about the solar system worth knowing", FACTS.system.facts)
-      + questionsCard(FACTS.system.questions, "the solar system")
-      + findingsCard(FACTS.system.findings, "the solar system")
-      + shareCard(SOLAR_PATH) + elsewhereCard() + faqCard(FAQ, "Solar system simulator FAQ"),
+      + shareCard(SOLAR_PATH) + elsewhereCard(),
     cfg: { rung: "inner", path: SOLAR_PATH },
     /* the one page that keeps every module — its ladder climbs every rung in
        place, which is the whole point of it */

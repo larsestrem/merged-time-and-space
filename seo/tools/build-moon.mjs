@@ -554,11 +554,6 @@ ${SUN_STATES.map((st) => `        <a class="chip" href="/moon/state/${st.slug}/"
   </div>
   </div>
 
-  <div class="card tool-about">
-    <h2>Moon phase FAQ</h2>
-${faq.map(([q, a]) => `    <p><strong>${esc(q)}</strong> ${esc(a)}</p>`).join("\n")}
-  </div>
-
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 <script>
