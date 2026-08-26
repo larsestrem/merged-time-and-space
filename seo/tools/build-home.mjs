@@ -1555,6 +1555,8 @@ ${switcher("/")}
        at 7/12 width, and beside it the pitch, the four clocks stacked two by
        two, and the links. On a phone it stacks back to map-first. */""
   }<div class="card home-hero">
+    <p class="hub-kicker">Earth</p>
+    <h2>Where is the Sun right now?</h2>
     <div class="home-hero-grid">
       <div class="home-hero-map">
         ${WK.svg}

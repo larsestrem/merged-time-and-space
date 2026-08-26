@@ -589,6 +589,7 @@
 .hub-kicker{margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .hub-blurb{margin:0 0 14px;color:var(--muted);max-width:70ch}
 .home-hero .hub-qs{margin-top:16px}
+.home-hero > h2{margin:0 0 10px;font-size:1.35rem}
 .hub-sim{margin:22px 0 0}
 .hub-live{margin:0 0 8px;line-height:0;border-radius:12px;overflow:hidden}
 .hub-live svg{display:block;width:100%;height:auto}
