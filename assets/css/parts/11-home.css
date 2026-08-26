@@ -581,13 +581,9 @@
 .sec-switch{margin:2px 0 14px}
 .sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 
-/* questions sit under a picture, not in a second essay */
-.hub-qs{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px}
-.hub-qs p,.hub-qs li{margin:0;color:var(--muted);max-width:70ch}
-.hub-qs a{font-weight:600;color:var(--accent);text-decoration:none}
-.hub-qs a:hover{text-decoration:underline}
-.hub-kicker{margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
-.hub-blurb{margin:0 0 14px;color:var(--muted);max-width:70ch}
+/* questions sit under a picture, not in a second essay.
+   Base .hub-qs / .hub-kicker / .hub-blurb live in 23-concept.css so simulator
+   pages don't get pulled into the home section. Home-only layout stays here. */
 .home-hero .hub-qs{margin-top:16px}
 .home-hero > h2{margin:0 0 10px;font-size:1.35rem}
 .hub-sim{margin:22px 0 0}

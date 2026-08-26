@@ -103,9 +103,13 @@ const SPEC = [
      sitting AHEAD of tides + moon keeps the home page's deferred pair the last
      sections in any page's cascade (assertDeferIsSuffix in build-inline). */
   ["20i-clock-convert.css", "convert"],  /* the 12/24-hour converter: /24-hour-clock-converter/ + its per-time pages */
+  /* Concept teasers (.hub-qs, .hub-teasers) sit high on /earth/, /time/, /space/
+     and the hubs — above the tide and moon cards that /earth/ defers. Same
+     move as timediff/convert: keep tides+moon the last two sections so
+     DEFER_CSS on earth/index.html stays a suffix. */
+  ["23-concept.css", "concept"],
   ["21-tides.css", "tides"],
   ["22-moon.css", "moon"],
-  ["23-concept.css", "concept"],
 ];
 
 export const PARTS = SPEC.slice();

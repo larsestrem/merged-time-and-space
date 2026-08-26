@@ -9,15 +9,1451 @@
 <meta property="og:title" content="Rocket Launch to Jupiter — Next Launch Window, Flight Time &amp; Burn">
 <meta property="og:description" content="When the next launch window to Jupiter opens (around Oct 27, 2026), how long the crossing takes, what it costs in speed, and how the real missions compare — all solved from the real orbits, with the flight path drawn.">
 <meta property="og:type" content="website">
-<link rel="stylesheet" href="/assets/css/style.css">
+<style data-ac="css">:root{
+--bg:linear-gradient(#0b0e1c,#0b0e1c);
+--bg-solid:#0b0e1c;
+--accent:#fcd34d; --text:#f8fafc;
+--card: rgba(255,255,255,.08); --border: rgba(255,255,255,.16);
+--muted: rgba(255,255,255,.65);
+--accent-text:#1e1b4b;
+--menu-bg:#141a3a; --menu-text:#f8fafc;
+}
+html.pj{
+--bg:linear-gradient(#000308,#000308);
+--bg-solid:#000308;
+--text:#ffffff;
+--muted:rgba(255,255,255,.92);
+--card:rgba(255,255,255,.16);
+--border:rgba(255,255,255,.55);
+--accent:#ffd83d;
+}
+html.pj .card{border-width:1.5px}
+html.pj .hint,html.pj .sub{color:rgba(255,255,255,.88)}
+html.pj body{font-size:107%}
+html.pj a{text-decoration-thickness:2px}
+.skip-link{position:fixed;top:-48px;left:12px;z-index:200;padding:10px 16px;border-radius:0 0 10px 10px;
+background:var(--accent);color:var(--accent-text);font-weight:700;text-decoration:none;transition:top .15s}
+.skip-link:focus{top:0;outline:2px solid var(--text);outline-offset:2px}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{margin:0;padding:0}
+body{
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+background-image:var(--motif,none),var(--bg);
+background-size:var(--motif-size,200px),cover;
+background-repeat:repeat,no-repeat; background-attachment:fixed;
+color:var(--text); min-height:100vh; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent)}
+.wrap{max-width:1400px;margin:0 auto;padding:12px 18px 64px}
+.wrap-wide{max-width:1400px}
+.site-notice{display:flex;align-items:center;gap:10px;
+padding:7px 0 8px;margin:0 0 4px;border-bottom:1px solid var(--border);
+font-size:13px;line-height:1.35;color:var(--muted)}
+.site-notice p{margin:0;flex:1;min-width:0}
+.site-notice b{color:var(--text);font-weight:600}
+.site-notice-x{flex:none;display:inline-flex;align-items:center;justify-content:center;
+width:26px;height:26px;padding:0;border:0;border-radius:6px;
+background:none;color:var(--muted);cursor:pointer}
+.site-notice-x:hover{background:rgba(255,255,255,.07);color:var(--text)}
+.site-notice-x:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+html.nb-off .site-notice{display:none}
+@media (max-width:560px){.site-notice-sub{display:none}}
+.brand{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:2px 0 8px}
+.brand-titled{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;flex-wrap:nowrap}
+.brand-titled .crumbs{justify-self:start}
+.brand-titled .menu-dd{justify-self:end;margin-left:0}
+.brand-h1{justify-self:center;margin:0;text-align:center;line-height:1.1;
+font-size:clamp(19px,4.6vw,32px)}
+.brand-titled{min-height:45px}
+.brand-titled .crumbs,.brand-titled .brand-h1,.brand-titled .menu-dd{align-self:center}
+.brand-h1{min-width:0}
+@media (max-width:429px){
+.brand-h1{font-size:clamp(17px,5.1vw,22px)}
+.brand-titled{gap:4px}
+}
+.topnav{display:none}
+.menu-dd{margin-left:auto}
+.nav-dd{position:relative}
+.nav-dd summary{list-style:none;cursor:pointer;user-select:none;font-size:14px;font-weight:600;
+padding:8px 10px;border-radius:10px;color:var(--text);display:flex;align-items:center;gap:5px}
+.nav-dd summary::-webkit-details-marker{display:none}
+.nav-dd summary::after{content:"▾";font-size:10px;opacity:.7}
+.nav-dd summary:hover,.nav-dd[open] summary{background:var(--card)}
+.menu-dd summary{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;padding:0;font-size:30px;line-height:1;border-radius:10px;gap:0}
+.menu-dd summary::after{content:none}
+.nav-dd .menu{position:absolute;right:0;top:calc(100% + 6px);min-width:215px;z-index:60;
+background:var(--menu-bg);border:1px solid var(--border);border-radius:14px;padding:6px;
+box-shadow:0 12px 32px rgba(0,0,0,.35);list-style:none;margin:0}
+.nav-dd .menu a{display:block;padding:7px 13px;border-radius:9px;font-size:15px;font-weight:600;
+color:var(--menu-text);text-decoration:none;white-space:nowrap}
+.nav-dd .menu a:hover{background:rgba(125,125,125,.16)}
+.nav-dd .menu .sep{height:1px;background:var(--border);margin:5px 8px}
+.nav-dd .menu .nav-leaf{width:24px;height:24px;vertical-align:-7px;margin-right:-1px}
+.flag{display:inline-block;width:20px;height:14px;border-radius:2px;vertical-align:-2px;
+margin-right:6px;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.h1-flag .flag{width:30px;height:20px;vertical-align:-3px;margin-right:4px}
+.crumbs{display:inline-flex;align-items:center;gap:1px;flex-wrap:wrap;min-width:0}
+.brand-name{font-weight:800;font-size:18px;color:var(--text);text-decoration:none;display:inline-flex;align-items:center}
+.brand-name .logo{display:block;height:45px;width:auto}
+.brand-name:hover{color:var(--accent)}
+.brand-dd .menu{left:0;right:auto}
+.brand-dd summary{padding:2px 4px;gap:3px}
+.brand-dd .logo{display:block;height:45px;width:auto}
+.brand-menu a{display:flex;align-items:center;gap:9px}
+.brand-menu .nav-ico{flex:0 0 auto;opacity:.85}
+.brand{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.crumbs{display:contents}
+.brand-dd{justify-self:start}
+.brand-word{justify-self:center}
+.menu-dd{justify-self:end;margin-left:0}
+.brand-dd summary::after{content:none}
+.brand-word{display:inline-flex;align-items:baseline;margin:0;text-decoration:none;
+font-weight:800;letter-spacing:-.005em;line-height:1.1;white-space:nowrap;
+font-size:clamp(19px,4.2vw,30px)}
+.brand-word>*+*{margin-left:.1em}
+.wm-w{color:var(--text)}
+.wm-j{color:var(--muted)}
+.wm-tld{margin-left:0}
+a.brand-word:hover .wm-w{color:var(--accent)}
+a.brand-word:hover .wm-j{color:var(--accent);opacity:.55}
+@media (max-width:380px){.brand-word{font-size:17px}}
+.brand-cat{font-weight:600;font-size:18px;color:var(--muted);text-decoration:none;word-break:break-all}
+.brand-cat:hover{color:var(--text)}
+.copy-dd summary{padding:6px;color:var(--muted)}
+.copy-dd summary::after{content:none}
+.copy-dd summary svg{display:block}
+.copy-dd[open] summary,.copy-dd summary:hover{color:var(--text)}
+.copy-dd .menu{left:0;right:auto;min-width:200px}
+.copy-menu .menu-h{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);
+padding:4px 12px 6px;font-weight:700}
+.copy-item{display:block;width:100%;text-align:left;background:none;border:0;cursor:pointer;
+padding:9px 12px;border-radius:9px;font-size:14px;font-weight:600;color:var(--menu-text);
+white-space:nowrap;font-family:inherit}
+.copy-item:hover{background:rgba(125,125,125,.16)}
+.copy-item.copied{color:var(--accent)}
+@media (max-width:600px){
+.brand{position:relative}
+.nav-dd{position:static}
+.nav-dd .menu,.copy-dd .menu{left:12px;right:12px;top:calc(100% + 4px);min-width:0;
+max-height:72vh;overflow-y:auto}
+.copy-item,.nav-dd .menu a{white-space:normal}
+}
+@media (min-width:680px){
+.menu-dd summary{width:38px;height:38px;font-size:27px}
+}
+h1{font-size:26px;line-height:1.2;margin:2px 0 4px}
+.sub{color:var(--muted);margin:0 0 22px}
+.home-tagline{margin:0 0 14px;font-size:14px;color:var(--muted)}
+.home-tagline a{color:var(--accent);text-decoration:none;font-weight:600}
+.home-tagline a:hover{text-decoration:underline}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;margin:16px 0;backdrop-filter:blur(8px)}
+.duo{margin:16px 0;display:grid;grid-template-columns:1fr;gap:16px}
+.duo>.card{margin:0;min-width:0}
+@media (min-width:980px){
+.duo{grid-template-columns:1fr 1fr}
+.duo-23{grid-template-columns:2fr 1fr}
+}
+.duo-m{grid-template-columns:1fr 1fr}
+@media (max-width:560px){.duo-m{gap:10px}}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+input,select,textarea{
+width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
+background:rgba(0,0,0,.25);color:var(--text);font-size:16px;font-family:inherit
+}
+select option{background-color:#171327;color:#f8fafc}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.4)}
+textarea{resize:vertical;min-height:64px}
+.row{display:flex;gap:12px}
+.row>*{flex:1}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+.tool-warn{text-align:center;margin:10px auto 0}
+.tool-warn a{color:var(--muted)}
+.duration-equivalent{margin:14px auto 0;width:max-content;max-width:100%;padding:7px 15px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.03);text-align:center;font-size:14px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+.timer-illus{float:right;width:160px;height:160px;margin:0 0 10px 16px;border-radius:14px}
+@media (max-width:480px){.timer-illus{float:none;display:block;margin:0 auto 12px}}
+.clock-illus{float:right;width:150px;height:150px;margin:0 0 8px 16px}
+@media (max-width:480px){.clock-illus{float:none;display:block;margin:0 auto 10px}}
+.more-times{margin-top:12px}
+.more-times>summary{list-style:none;cursor:pointer;display:inline-block;font-size:13px;font-weight:700;color:var(--accent)}
+.more-times>summary::-webkit-details-marker{display:none}
+.more-times>summary::after{content:" ▾"}
+.more-times[open]>summary::after{content:" ▴"}
+.more-times>summary:hover{text-decoration:underline}
+.tide-figure{margin:12px 0 0;text-align:center}
+.tide-curve{display:block;width:100%;max-width:340px;height:auto;margin:0 auto}
+.tide-figure figcaption{font-size:11px;color:var(--muted);margin-top:4px}
+.td-nearme{border:1.5px solid var(--accent);box-shadow:0 0 0 4px rgba(125,211,252,.06)}
+.td-nearme .btn{margin-top:4px}
+.nm-status{margin:0 0 10px;color:var(--muted)}
+.nm-statusrow{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.nm-statusrow .nm-status{margin:0}
+.nm-spinner{flex:0 0 18px;width:18px;height:18px;border-radius:50%;border:2px solid var(--border);border-top-color:var(--accent);animation:nm-spin .7s linear infinite}
+.nm-spinner[hidden]{display:none}
+@keyframes nm-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.nm-spinner{animation-duration:2.4s}}
+.nm-list:not(:empty){margin-bottom:12px}
+.nm-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.nm-item{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;padding:10px 14px;border:1px solid var(--border);border-radius:12px;background:var(--card2,#171a26);text-decoration:none;color:inherit}
+.nm-item:hover{border-color:var(--accent);background:rgba(125,211,252,.08)}
+.nm-city{font-weight:600}
+.nm-mi{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.td-sunline{font-size:16px;margin:2px 0 8px;font-variant-numeric:tabular-nums}
+.td-sunline b{color:var(--accent);font-weight:700}
+.tide-today{width:100%;border-collapse:collapse;margin-top:4px}
+.tide-today th,.tide-today td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+.tide-today th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.tide-today td{font-variant-numeric:tabular-nums}
+.tide-today tr:last-child td{border-bottom:none}
+.theme-preview{margin:12px 0 4px;height:128px;border:1px solid var(--border);border-radius:14px;
+background-image:var(--motif,none),var(--bg);background-size:var(--motif-size,auto),cover;
+background-position:center;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.theme-preview svg{width:88px;height:88px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.45))}
+.art-row{align-items:stretch}
+.art-row .theme-preview{margin:14px 0 0;height:auto;min-height:74px}
+.art-row .theme-preview svg{width:60px;height:60px}
+.msg-suggest{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.msg-suggest button{cursor:pointer;border:1px solid var(--border);border-radius:999px;padding:5px 11px;
+font-size:12px;font-weight:600;color:var(--text);background:rgba(0,0,0,.18);font-family:inherit;width:auto}
+.msg-suggest button:hover{border-color:var(--accent)}
+.presets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.preset{
+display:block;cursor:pointer;border:1px solid var(--border);border-radius:14px;padding:12px 6px;text-align:center;
+background:rgba(0,0,0,.18);transition:.15s;font-size:13px;color:var(--text);text-decoration:none
+}
+.preset:hover{transform:translateY(-2px)}
+.preset.active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset;background:rgba(56,189,248,.12)}
+.preset .em{font-size:26px;display:block;margin-bottom:4px}
+.more-cta{display:block;text-align:center;margin-top:12px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none}
+.more-cta:hover{text-decoration:underline}
+.card h2{font-size:17px;margin:0 0 10px}
+.cat-link{color:var(--text);text-decoration:none}
+.cat-link:hover{text-decoration:underline}
+.facts{margin:0;padding-left:20px}
+.facts li{margin:7px 0}
+.tl-list{display:flex;flex-direction:column;gap:2px}
+.tl-row{display:flex;gap:14px;padding:9px 2px;border-bottom:1px solid var(--border)}
+.tl-row:last-child{border-bottom:none}
+.tl-year{flex:0 0 auto;min-width:64px;max-width:42%;font-weight:800;color:var(--accent);overflow-wrap:break-word}
+.tl-text{flex:1;min-width:0;line-height:1.4}
+.champ-note{color:var(--muted);font-weight:400}
+.rec-list{display:flex;flex-direction:column;gap:2px}
+.rec-row{display:flex;gap:14px;padding:9px 2px;border-bottom:1px solid var(--border)}
+.rec-row:last-child{border-bottom:none}
+.rec-label{flex:0 0 auto;min-width:160px;max-width:42%;font-weight:700;color:var(--muted);overflow-wrap:break-word}
+.rec-value{flex:1;min-width:0;line-height:1.4;font-weight:600}
+@media (max-width:560px){
+.tl-row,.rec-row{flex-direction:column;gap:3px}
+.tl-year,.rec-label{max-width:100%}
+}
+.list-head{display:flex;justify-content:space-between;gap:10px;padding:0 0 8px;margin-bottom:4px;border-bottom:1px solid var(--border)}
+.sortbtn{background:none;border:0;cursor:pointer;font:inherit;font-size:12px;font-weight:700;
+text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:2px}
+.sortbtn:hover{color:var(--text)}
+.sortbtn[data-dir]{color:var(--accent)}
+.sortbtn[data-dir="asc"]::after{content:" ▲";font-size:9px}
+.sortbtn[data-dir="desc"]::after{content:" ▼";font-size:9px}
+.toplist{list-style:none;margin:0;padding:0}
+.toplist li{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+padding:9px 2px;border-bottom:1px solid var(--border)}
+.toplist li:last-child{border-bottom:none}
+.toplist a{font-weight:600;text-decoration:none}
+.toplist a:hover{text-decoration:underline}
+.toplist .when{font-size:12px;color:var(--muted);white-space:nowrap}
+.btn{
+display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;
+border:none;border-radius:12px;padding:13px 18px;font-size:16px;font-weight:700;
+background:var(--accent);color:var(--accent-text);width:100%;font-family:inherit;text-decoration:none
+}
+.btn.secondary{background:rgba(255,255,255,.12);color:var(--text);border:1px solid var(--border)}
+.btn:active{transform:scale(.99)}
+.btn:disabled,.btn[disabled]{opacity:.45;cursor:default}
+.btn:disabled:active,.btn[disabled]:active{transform:none}
+.btn.small{padding:9px 12px;font-size:14px;width:auto}
+.share{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.share .btn{flex:1;min-width:120px}
+.share-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:16px}
+.cal-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:12px 0 22px}
+.share-label{font-weight:700;font-size:14px;color:var(--text)}
+.share-row .share-label{flex-basis:100%;font-weight:800;margin-bottom:2px}
+.ico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;
+border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;transition:.15s}
+.ico svg{width:20px;height:20px;fill:currentColor}
+.ico:hover{transform:translateY(-2px)}
+.ico.wa{background:#25d366;color:#fff;border-color:transparent}
+.ico.fb{background:#1877f2;color:#fff;border-color:transparent}
+.ico.x{background:#000;color:#fff;border-color:transparent}
+.ico.tg{background:#229ed9;color:#fff;border-color:transparent}
+.ico.sms{background:#34c759;color:#fff;border-color:transparent}
+.ico.em{background:#5b6472;color:#fff;border-color:transparent}
+.linkbox{display:flex;gap:8px;margin-top:8px}
+.linkbox input{font-size:13px}
+.notice{font-size:12px;color:var(--muted);border-left:3px solid var(--accent);padding:8px 12px;margin-top:14px;background:rgba(0,0,0,.18);border-radius:0 10px 10px 0}
+.notice-warn{margin-top:0;border-left-color:#f87171;background:rgba(248,113,113,.14);font-size:13px;color:var(--text)}
+.steps{margin:0 0 18px;padding:0;list-style:none;display:grid;gap:6px;font-size:14px;color:var(--muted)}
+.steps strong{color:var(--text)}
+.menu-sep{border-top:1px solid var(--border);margin-top:6px;padding-top:6px}
+.menu-units{border-top:1px solid var(--border);margin-top:6px;padding:6px 10px 2px;
+display:flex;align-items:center;justify-content:space-between;gap:10px}
+.menu-ulab{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px;white-space:nowrap}
+.menu-useg{display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden}
+.menu-ubtn{appearance:none;background:none;border:0;color:var(--muted);cursor:pointer;
+padding:4px 10px;font:inherit;font-size:12.5px;line-height:1.6}
+.menu-ubtn+.menu-ubtn{border-left:1px solid var(--border)}
+.menu-ubtn:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.menu-ubtn[aria-pressed="true"]{background:rgba(252,211,77,.16);color:var(--accent)}
+.menu-pj{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;
+padding:9px 12px;font:inherit;font-size:14px;color:var(--menu-text);cursor:pointer;
+text-align:left;border-radius:8px}
+.menu-pj:hover{background:rgba(255,255,255,.1)}
+.menu-pj[aria-pressed="true"]{color:var(--accent)}
+.menu-pj[aria-pressed="true"] span::after{content:" · on";opacity:.8}
+@media print{
+:root{--bg:#fff;--bg-solid:#fff;--text:#111;--muted:#444;--card:#fff;--border:#bbb;--accent:#111;--accent-text:#fff}
+body{background:#fff;color:#111}
+.topnav,.brand-dd,.menu-dd,.skip-link,.site-notice,.suggest-box,.cr-ask,.lp-actions,
+.privacy-notice,.footer.sitelinks,.report-link,button{display:none !important}
+.card{border:1px solid #bbb;box-shadow:none;break-inside:avoid}
+a{color:#111;text-decoration:underline}
+.lp-blank,.lp-blank-wide{border-color:#111}
+.lp-blank-wide{background:repeating-linear-gradient(to bottom,transparent,transparent 1.5em,#777 1.55em)}
+}
+.celebrate-list li{margin:7px 0}
+.faq-card summary{cursor:pointer;font-weight:700;padding:12px 0;list-style:none;position:relative;padding-right:26px}
+.faq-card summary::-webkit-details-marker{display:none}
+.faq-card summary::after{content:"+";position:absolute;right:4px;top:9px;font-size:22px;line-height:1;color:var(--muted)}
+.faq-card details[open] summary::after{content:"\2013"}
+.faq-card details{border-top:1px solid var(--border)}
+.faq-card details:first-of-type{border-top:0}
+.faq-card .faq-a{padding:0 0 12px;margin:0;color:var(--muted)}
+.tool-msg{color:var(--accent);font-weight:700;min-height:20px;margin:4px 0 0}
+.tool-msg-warn{color:#fca5a5;font-weight:600}
+.tool-msg-warn a,.set-err a{color:inherit;text-decoration:underline}
+.set-err{margin:12px 0 0;color:#fca5a5;font-size:14px;font-weight:600;line-height:1.5;text-align:center}
+.t-fs-note{position:fixed;left:0;right:0;bottom:0;z-index:2;margin:0;padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom));background:rgba(0,0,0,.55);color:#cbd5e1;font-size:13px;font-weight:500;line-height:1.45;text-align:center}
+.tool-uses{color:var(--muted);margin:-12px 0 22px}
+.tool-about{margin-top:10px}
+.timer-presets{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 0}
+.chip{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--text);text-decoration:none;background:rgba(0,0,0,.18);cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--accent)}
+.chip.chip-alt{border-color:var(--accent);color:var(--accent)}
+.chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.wc-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
+.wc-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:560px){.wc-grid{grid-template-columns:1fr 1fr}}
+.wc-card{display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:14px;padding:11px 14px;background:var(--card);min-width:0;position:relative}
+.wc-toolbar .btn{width:auto}
+.wc-icon{font-size:17px;flex:0 0 auto}
+.wc-info{flex:1 1 auto;min-width:0}
+.wc-city{font-weight:700;font-size:15px}
+.wc-tzname{display:block;font-weight:500;font-size:12px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wc-meta{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wc-time{font-variant-numeric:tabular-nums;font-weight:700;font-size:19px;white-space:nowrap;flex:0 0 auto}
+.wc-card.wc-night{background:rgba(40,55,82,.32)}
+.wc-card.wc-you{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.wc-sun{font-size:11px;color:var(--muted);margin-top:1px;font-variant-numeric:tabular-nums}
+.wc-sun-i{font-size:15px;font-weight:700;line-height:1}
+.wc-city a{color:inherit;text-decoration:none}
+.wc-city a:hover{text-decoration:underline}
+.wc-nowcard{text-align:center}
+.wc-bigtime{font-size:clamp(40px,13vw,72px);font-weight:800;font-variant-numeric:tabular-nums;line-height:1.05;letter-spacing:-.01em}
+.wc-bigdate{font-size:15px;color:var(--muted);margin-top:4px}
+.wc-diff{font-size:14px;margin:12px 0 10px}
+.wc-nowcard .btn{width:auto}
+.wc-facts{display:grid;grid-template-columns:1fr;gap:2px;max-width:760px}
+.wc-frow{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--border)}
+.wc-frow:last-child{border-bottom:0}
+.wc-frow span{color:var(--muted);font-size:14px}
+.wc-frow b{font-variant-numeric:tabular-nums;text-align:right}
+.lp-steps .wc-frow{align-items:baseline}
+.lp-steps .wc-frow>span{flex:0 0 118px}
+.lp-steps .wc-frow b{text-align:left;font-weight:400}
+.lp-steps .wc-frow b strong{font-weight:700}
+.lp-you{display:block;margin-top:6px;padding-top:6px;border-top:1px dashed var(--border);color:var(--muted);font-size:13.5px}
+.lp-you em{color:var(--accent);font-style:normal;font-weight:700}
+.lp-h3{margin:14px 0 6px;font-size:15px}
+.lp-key summary{cursor:pointer;font-weight:700;color:var(--accent);margin:8px 0}
+.lp-actions{margin-top:14px}
+.lp-blank{display:inline-block;min-width:180px;border-bottom:1px solid var(--muted);height:1em;vertical-align:bottom}
+.lp-blank-wide{display:block;min-width:0;margin:10px 0 14px;height:3.2em;border-bottom:none;
+background:repeating-linear-gradient(to bottom,transparent,transparent 1.5em,var(--muted) 1.55em)}
+.lp-exit li{margin-bottom:10px}
+.wc-ptable{width:100%;border-collapse:collapse;font-size:14px}
+.wc-ptable th,.wc-ptable td{text-align:left;padding:7px 10px 7px 0;border-bottom:1px solid var(--border)}
+.wc-ptable th{color:var(--muted);font-weight:600}
+.wc-ptable td:nth-child(2){font-variant-numeric:tabular-nums;white-space:nowrap}
+.wc-search{position:relative;margin:0 0 14px}
+.wc-search-lab{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.wc-search-row{display:flex;gap:8px}
+.wc-search-row input{flex:1;min-width:0;padding:10px 13px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:16px}
+.wc-search-row input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.wc-search-row .btn{width:auto;flex:0 0 auto}
+.wc-results{position:absolute;left:0;right:0;top:100%;z-index:30;margin:4px 0 0;padding:4px;list-style:none;
+background:var(--menu-bg);border:1px solid var(--border);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.45);max-height:320px;overflow:auto}
+.wc-results li{margin:0}
+.wc-results a{display:flex;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:8px;color:var(--menu-text);text-decoration:none;font-weight:600}
+.wc-results a:hover,.wc-results a.active{background:rgba(255,255,255,.12)}
+.wc-res-area{color:var(--muted);font-weight:500}
+.wc-res-empty{padding:9px 11px;color:var(--muted);font-size:14px}
+.wc-stretch{color:inherit;text-decoration:none}
+.wc-stretch::after{content:"";position:absolute;inset:0;z-index:0}
+.wc-card:hover{border-color:rgba(255,255,255,.34)}
+.wc-card:focus-within{border-color:var(--accent)}
+.wc-astro{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+.wc-astro a{font-size:11px;font-weight:600;line-height:1;padding:4px 8px;border-radius:999px;
+border:1px solid var(--border);color:var(--muted);text-decoration:none;background:rgba(0,0,0,.18)}
+.wc-astro a:hover{color:var(--text);border-color:var(--accent)}
+.ac-dialog{border:1px solid var(--border);border-radius:16px;background:var(--menu-bg,#15151b);color:var(--text);padding:0;max-width:380px;width:92%;max-height:92vh;max-height:92dvh;overflow-y:auto}
+.ac-dialog::backdrop{background:rgba(0,0,0,.55)}
+#mt-dlg{margin-top:14px;margin-bottom:auto}
+.ac-form{padding:18px}
+@media (max-height:560px){
+.ac-form{padding:12px 14px}
+.ac-form h2{margin:0 0 6px}
+.ac-form label{margin:8px 0 3px}
+.ac-form input,.ac-form select,.ac-form textarea{padding:7px 10px;font-size:15px}
+.ac-vol-hint{margin:8px 0 2px}
+.ac-form-btns{margin-top:8px}
+}
+.ac-form h2{margin:0 0 14px}
+.ac-form label{display:block;font-size:14px;font-weight:600;margin:0 0 12px}
+.ac-form input[type=time],.ac-form input[type=text],.ac-form input[type=number],.ac-form select{width:100%;margin-top:5px;padding:9px 10px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:15px}
+.ac-form input[readonly]{color:var(--muted);cursor:default}
+.ac-f-days{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.ac-f-days label{margin:0}
+.ac-f-days input{position:absolute;opacity:0;pointer-events:none}
+.ac-f-days span{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border);border-radius:9px;cursor:pointer;font-size:13px;font-weight:600}
+.ac-f-days input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
+.ac-f-mw{display:flex;gap:8px}
+.ac-form-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
+.ac-btns-3 .btn{flex:1 1 0;min-width:0;white-space:nowrap;padding:11px 8px}
+.ac-vol-hint{font-size:12px;color:var(--muted);line-height:1.5;margin:14px 0 4px}
+.ac-label-hint{font-size:12px;color:var(--muted);line-height:1.5;margin:-8px 0 4px}
+.views{text-align:center;color:var(--muted);font-size:13px;margin:10px 0;min-height:19px}
+.cta{text-align:center;margin:26px 0 10px}
+.more{margin:18px auto 4px;max-width:520px;text-align:center}
+.more-label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
+.more-links{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.more-links a{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:7px 14px;
+font-size:13px;font-weight:600;color:var(--text);text-decoration:none;background:rgba(0,0,0,.18)}
+.card .works-links{justify-content:flex-start;margin-top:4px}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+.footer a{color:var(--muted)}
+.footer.copyright{margin-top:6px}
+.footer.sitelinks,.footer.trademark{margin-top:6px}
+.suggest-box{max-width:560px;margin:40px auto 0;border:1px solid var(--border);border-radius:16px;background:var(--card);overflow:hidden}
+.suggest-box>summary{list-style:none;cursor:pointer;padding:14px 18px;font-size:14px;font-weight:600;color:var(--text);text-align:center;line-height:1.5}
+.suggest-box>summary::-webkit-details-marker{display:none}
+.suggest-box>summary:hover{background:rgba(255,255,255,.05)}
+.suggest-box .arrow{color:var(--accent);white-space:nowrap}
+.suggest-form{padding:0 18px 18px;text-align:left}
+.suggest-form .btn{margin-top:16px}
+.suggest-form .hp{position:absolute!important;left:-9999px;width:1px;height:1px}
+.suggest-note{margin-top:10px;min-height:14px}
+.privacy-notice{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;flex-wrap:wrap;
+align-items:center;justify-content:center;gap:6px 12px;padding:8px 36px 8px 12px;
+background:#11141f;border-top:1px solid var(--border);font-size:12px}
+.privacy-notice[hidden]{display:none}
+.privacy-text{flex:0 1 auto;margin:0;line-height:1.4;color:var(--muted)}
+.privacy-actions{flex:0 0 auto;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.privacy-actions a{color:var(--accent);font-size:12px}
+.privacy-actions button{font:inherit;font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px;
+border:1px solid var(--border);background:var(--accent);color:#111;cursor:pointer}
+.privacy-actions button.plain{background:transparent;color:var(--text)}
+.privacy-close{position:absolute;right:2px;top:50%;transform:translateY(-50%);background:none;border:0;
+color:var(--muted);font-size:17px;line-height:1;cursor:pointer;padding:8px 10px}
+.privacy-close:hover{color:var(--text)}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.card ul.bullets{margin:8px 0 0;padding:0 0 0 20px;list-style:disc}
+.card ul.bullets li{margin:0 0 7px;padding:0}
+.card ul.bullets li::marker{color:var(--muted)}
+.lt-line{font-size:14px;color:var(--muted);margin:6px 0 12px}
+.lt-line .lt-now{color:var(--text);font-variant-numeric:tabular-nums}
+.home-search{position:relative;max-width:640px;margin:6px 0 26px;padding:14px 16px 16px;background:var(--card);border:1.5px solid var(--accent);border-radius:14px;box-shadow:0 0 0 4px rgba(252,211,77,.08)}
+.hs-label{display:block;font-weight:800;font-size:15px;margin:0 0 9px}
+.hs-row{display:flex;gap:8px}
+.hs-row input{flex:1;min-width:0}
+.hs-btn{flex:0 0 auto;width:auto;font-weight:700}
+.pullquote{margin:14px 0;padding:12px 16px;border-left:3px solid var(--accent);
+background:rgba(252,211,77,.07);border-radius:0 12px 12px 0;font-size:15.5px;line-height:1.55;font-weight:600}
+.byline{margin:16px 0 0;font-size:15px;font-weight:700;color:var(--muted)}
+.home-suggest{margin:0 0 12px;font-size:14px;color:var(--muted)}
+.home-suggest:last-child{margin-bottom:22px}
+.tc-ico{vertical-align:-4px}
+.nav-ico{vertical-align:-4px;margin-right:2px;color:var(--accent)}
+h1,h2,.tc-head,.hs-label{font-family:ui-rounded,"SF Pro Rounded","Hiragino Maru Gothic ProN",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{letter-spacing:-.015em}
+.tc{transition:border-color .15s ease,transform .15s ease}
+.tc[data-href]:hover,a.tc:hover{border-color:rgba(252,211,77,.45);transform:translateY(-1px)}
+.updated{font-size:12px;color:var(--muted);text-align:center;margin:14px 0 0;font-style:italic}
+.nav-dd .menu .nav-ico{color:var(--accent)}
+.trend-sub{font-size:13px;color:var(--muted);margin:-4px 0 10px}
+.cr-door{transition:border-color .15s ease,transform .15s ease}
+.cr-door:hover{border-color:rgba(252,211,77,.45);transform:translateY(-1px)}
+.cr-door h2{margin-top:0}
+.cr-door h2 a{text-decoration:none}
+.cr-door h2 a:hover{text-decoration:underline}
+.cr-door-min{background:transparent}
+.cr-door-min h2{font-size:19px}
+.cr-more{font-weight:600;white-space:nowrap}
+.cr-cta{display:inline-block;width:auto;padding:11px 24px}
+.cr-ctarow{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:18px}
+.cr-plaque{margin:16px 0;padding:12px 14px;border-left:3px solid var(--accent);
+background:rgba(252,211,77,.07);border-radius:0 8px 8px 0;font-size:15px}
+.cr-lead{border-color:rgba(252,211,77,.4)}
+.cr-fs{margin:16px 0 0;padding:12px 14px;border:1px solid var(--border);border-radius:10px}
+.cr-fs legend{padding:0 6px;font-weight:600;font-size:14px}
+.cr-fs .cr-check{margin-top:6px}
+.cr-check span{font-weight:400}
+.cr-ok{color:#4ade80;font-weight:600}
+.cr-err{color:#fca5a5;font-weight:600}
+.cr-safety{margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
+.lg-fgroups{display:flex;flex-direction:column;gap:10px}
+.lg-fgroup{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.lg-flab{flex:0 0 52px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.lg-fgroup .chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+box-shadow:0 0 0 1px var(--accent) inset}
+.lg-count{min-height:18px;margin:10px 0 0}
+.cr-ask h3{margin:20px 0 4px;font-size:16px}
+.cr-ask h3+p{margin-top:0}
+.cr-ask form{margin-top:18px}
+.cr-ask label{display:block;margin-top:14px;font-weight:600;font-size:14px}
+.cr-opt{font-weight:400;color:var(--muted)}
+.cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
+.cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
+.cr-ask .btn{width:auto;padding:11px 24px}
+.sun-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.sun-tile{border:1px solid var(--border);border-radius:12px;padding:12px 10px;text-align:center;background:rgba(255,255,255,.03)}
+.sun-tile .sun-lab{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
+.sun-tile b{font-size:20px;font-variant-numeric:tabular-nums}
+.sun-main{border-color:rgba(252,211,77,.5)}
+.sun-main b{color:var(--accent)}
+.sun-table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.sun-table th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sun-table th,.sun-table td{padding:7px 10px;border-bottom:1px solid var(--border)}
+.sun-dial-card{display:flex;flex-direction:column;align-items:center}
+.sun-dial-card svg{width:100%;max-width:380px;height:auto}
+.sun-world summary{cursor:pointer;list-style:none}
+.sun-world summary h2{display:inline;margin:0}
+.sun-world summary::after{content:" ▾";color:var(--muted)}
+.sun-world[open] summary::after{content:" ▴"}
+.sun-world .timer-presets{margin-top:12px}
+.sun-ok{color:#4ade80;font-weight:700}
+.sun-mini{padding:3px 9px;font-size:12px;margin-left:8px}
+.sun-myhead{display:flex;align-items:center;justify-content:space-between;margin:14px 0 6px;font-weight:800;font-size:14px}
+.sun-myhead .chip{width:auto}
+.sun-myitem{display:flex;align-items:center;gap:10px;padding:7px 10px;border:1px solid var(--border);border-radius:10px;margin-bottom:5px}
+.sun-myitem a{font-weight:700;color:var(--text);text-decoration:none;flex:1;min-width:0}
+.sun-def{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.sun-def input{width:auto;margin:0;accent-color:var(--accent);cursor:pointer}
+#sun-results li{display:flex;align-items:center}
+#sun-results a{flex:1}
+#sun-year{width:100%;max-width:660px;height:auto;display:block}
+.sun-tmwday{margin:-4px 0 12px;color:var(--muted);font-size:14px}
+.sun-tmwcard .sun-grid{margin-bottom:4px}
+.sun-wd{color:var(--muted);font-weight:400;font-size:12.5px;white-space:nowrap}
+.sun-table tr.sun-tmw-row td{background:rgba(252,211,77,.05)}
+.xl-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:4px}
+.xl-tile{display:flex;flex-direction:column;gap:2px;padding:12px 13px;border:1px solid var(--border);
+border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
+.xl-tile:hover{border-color:var(--accent)}
+.xl-lab{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.xl-val{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.25}
+.xl-sub{font-size:13px;color:var(--muted)}
+.xl-cta{margin-top:6px;font-size:12.5px;font-weight:700;color:var(--accent)}
+.sun-year-wrap{position:relative;display:block;width:100%;max-width:660px;border-radius:12px}
+.sun-year-wrap:focus{outline:2px solid var(--accent);outline-offset:3px}
+.sun-year-wrap:focus:not(:focus-visible){outline:none}
+.sun-yt{position:absolute;top:8px;transform:translateX(10px);z-index:2;pointer-events:none;
+display:flex;flex-direction:column;gap:1px;padding:8px 11px;min-width:132px;
+background:var(--menu-bg);border:1px solid var(--border);border-radius:10px;
+box-shadow:0 10px 26px rgba(0,0,0,.5);font-size:12px;line-height:1.35;font-variant-numeric:tabular-nums}
+.sun-yt.is-left{transform:translateX(calc(-100% - 10px))}
+.sun-yt b{font-size:13px}
+.sun-yt span{display:flex;gap:8px;justify-content:space-between;white-space:nowrap;color:var(--text)}
+.sun-yt i{font-style:normal;color:var(--muted)}
+@media (max-width:560px){
+.sun-yt{left:0!important;right:0;transform:none!important;top:0;width:100%;min-width:0;
+flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:1px 10px;padding:6px 8px;font-size:11px}
+.sun-yt span{gap:5px}
+}
+.sun-yt em{font-style:normal;color:var(--muted)}
+.sun-dial-card{flex-direction:row;flex-wrap:wrap;gap:20px;justify-content:center;align-items:center}
+.sun-dial-wrap{flex:0 1 300px;max-width:300px;text-align:center}
+.sun-dial-wrap svg{width:100%;height:auto}
+.sun-side{flex:1 1 230px;min-width:220px;display:flex;flex-direction:column;gap:6px}
+.sun-srow{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border);border-radius:10px;padding:6px 11px;font-size:13px}
+.sun-srow span{color:var(--muted);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.sun-srow b{font-size:16px;font-variant-numeric:tabular-nums}
+.sun-srow.sun-main{border-color:rgba(252,211,77,.5)}
+.sun-srow.sun-main b{color:var(--accent)}
+.ml-place{margin:-4px 0 16px;text-align:center}
+body:has(#sun-arc) h1{font-size:21px}
+@media (min-width:560px){body:has(#sun-arc) h1{font-size:27px}}
+.sun-arccard h2{margin-bottom:6px}
+h2:has(> .sun-hdate){display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sun-hdate{width:auto;margin:0 0 0 auto;padding:3px 7px;font-size:13px;font-weight:400;color:var(--muted);vertical-align:middle}
+.sun-hdate:hover{color:var(--text);border-color:var(--accent)}
+.sun-arcbar{margin:0;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sun-arcbar #sun-arc-len{color:var(--accent);font-size:15px}
+.sun-arctimes{margin:1px 0 10px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sun-arctimes b{color:var(--text);font-size:15px}
+.sun-arcsep{opacity:.5;padding:0 2px}
+.sun-arccard .sun-next{display:block;margin:1px 0 0;padding:0;border:0;background:none;border-radius:0;font-size:14px;font-weight:400;color:var(--text)}
+.sun-dial-card h2{flex:1 0 100%;margin:0 0 6px;align-self:flex-start}
+#sun-arc{width:100%;height:auto;display:block}
+#sun-arc .sun-aS{display:none}
+@media (max-width:560px){
+#sun-arc text{font-size:19px}
+#sun-arc .sun-pk{font-size:17px}
+#sun-arc .sun-ax{font-size:16px}
+#sun-arc .sun-aL{display:none}
+#sun-arc .sun-aS{display:inline}
+}
+.sun-nowstats{display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px}
+@media (min-width:560px){.sun-nowstats{grid-template-columns:1fr 1fr}}
+.sun-nowgrid{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:center;margin-top:16px}
+.sun-nowgrid .orr{flex:0 1 440px;max-width:440px;margin-top:0}
+.sun-nowgrid .sun-nowstats{flex:1 1 230px;min-width:220px;grid-template-columns:1fr;margin-top:0}
+.sun-gb{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+.sun-gbcol{display:flex;flex-direction:column;gap:6px}
+.sun-gb .sun-srow b{font-size:13.5px}
+@media (max-width:560px){.sun-gb .sun-srow{flex-direction:column;align-items:flex-start;gap:1px}}
+.sun-gbh{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sun-tmwlink{text-align:center;margin:12px 0 0;font-size:13px}
+.sun-tmwlink a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border)}
+.sun-tmwlink a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.sun-tmwlink b{color:var(--text);font-variant-numeric:tabular-nums}
+.sun-nowmoon{margin:10px 0 0;padding-top:10px;border-top:1px solid var(--border);font-size:13.5px;color:var(--muted);line-height:1.5}
+.sun-nowmoon b{color:var(--text);font-variant-numeric:tabular-nums}
+.sun-nowmoon:empty{display:none}
+.sun-moon{display:flex;align-items:center;gap:10px;margin:10px 0 0;padding-top:10px;border-top:1px solid var(--border)}
+.sun-moon-ico{flex:0 0 auto;line-height:0}
+.sun-moon-txt{font-size:13px;color:var(--muted)}
+.sun-moon-txt b{color:var(--text)}
+@media (max-width:380px){.sun-gb{grid-template-columns:1fr}}
+.sun-facts{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.sun-facts li{font-size:14px;line-height:1.5}
+.sun-next{display:inline-block;margin:2px 0 10px;padding:6px 14px;border-radius:999px;background:rgba(252,211,77,.12);border:1px solid rgba(252,211,77,.35);color:var(--text);font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+@media (max-width:600px){
+.sun-dial-card{gap:10px}
+.sun-dial-wrap{flex-basis:230px;max-width:230px}
+}
+.sun-minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.sun-mini-card{border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center;background:rgba(255,255,255,.02)}
+.sun-mini-card svg{width:100%;max-width:120px;height:auto}
+.sun-mini-name{display:block;font-weight:700;color:var(--text);text-decoration:none;font-size:13px;margin-top:6px}
+.sun-mini-name:hover{color:var(--accent)}
+.sun-mini-times{font-size:12px;color:var(--text);margin-top:2px;font-variant-numeric:tabular-nums}
+.sun-mini-link{display:block;text-decoration:none}
+.sun-mini-link:hover .sun-mini-name{color:var(--accent)}
+.sun-mini-link .sun-mini-name{display:block;font-weight:700;color:var(--text);font-size:13px;margin-top:6px}
+.sun-home-note{font-size:13px;line-height:1.5;color:var(--muted);margin:-2px 0 12px}
+#home-sun-grid{grid-template-columns:repeat(6,1fr);gap:8px}
+@container (max-width:800px){#home-sun-grid{grid-template-columns:repeat(3,1fr)}}
+@container (max-width:430px){#home-sun-grid{grid-template-columns:repeat(2,1fr)}}
+#home-sun-grid .sun-mini-card{padding:6px}
+#home-sun-grid .sun-mini-card svg{max-width:72px}
+#home-sun-grid .sun-mini-name,#home-sun-grid .sun-mini-link .sun-mini-name{font-size:11px;margin-top:4px}
+#home-sun-grid .sun-mini-times{font-size:10.5px;margin-top:1px}
+.td-none{padding:4px 2px;color:var(--muted);font-size:13px;margin:0}
+.orr{margin:16px 0 0}
+.orr-fig{max-width:440px;margin:0 auto;line-height:0}
+.orr-fig svg{display:block;width:100%;height:auto}
+.orr-spin .orr-cityname,.orr-spin .orr-citytick{display:none}
+.orr-note{margin-top:12px;font-variant-numeric:tabular-nums}
+.orr-stamp{max-width:440px;margin:8px auto 0;display:flex;align-items:center;justify-content:center;
+flex-wrap:wrap;gap:6px 8px;font-size:12px;color:var(--muted)}
+.orr-at{flex:0 1 auto;min-width:0;width:auto;margin:0;padding:3px 6px;font-size:11.5px;
+font-variant-numeric:tabular-nums;color:var(--text);background:rgba(0,0,0,.18);
+border:1px solid var(--border);border-radius:8px}
+.orr-at:hover:enabled{border-color:var(--accent)}
+.orr-at:disabled{opacity:.75}
+.orr-now{flex:0 0 auto;padding:3px 10px;font-size:11.5px}
+.orr-play{min-width:6ch;justify-content:center}
+.orr-play[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.orr-tide{margin-top:10px}
+.orr-scrub{max-width:440px;margin:8px auto 0;text-align:center}
+.orr-slider{display:block;width:100%;margin:0;padding:0;accent-color:var(--accent);cursor:pointer}
+.orr-slider:disabled{opacity:.5;cursor:default}
+.orr-scrub-lab{display:block;margin-top:3px;font-size:11px;color:var(--muted)}
+.ov-stage{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:1000px){.ov-stage{grid-template-columns:minmax(0,1fr) minmax(300px,380px);align-items:start}}
+.ov-figwrap{min-width:0}
+.ov-fig{display:block;width:100%;max-width:min(100%,68vh);margin:0 auto;height:auto;border-radius:16px}
+.ov-panel{min-width:0}
+.ov-status{margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em}
+.ov-status.is-good{color:#4ade80}
+.ov-status.is-warn{color:#fbbf24}
+.ov-status.is-bad{color:#f87171}
+.ov-shape{margin:4px 0 14px;font-size:13px;line-height:1.5;color:var(--muted);min-height:2.6em}
+.ov-ctl{display:grid;gap:2px}
+.ov-ctl .sim-flab{margin:10px 0 2px}
+.ov-ctl .sim-flab:first-child{margin-top:0}
+.ov-row{display:flex;align-items:center;gap:10px;margin:0}
+.ov-row input[type=range]{flex:1 1 auto;min-width:70px;margin:0}
+.ov-row output{flex:0 0 auto;min-width:8.5ch;text-align:right;font-size:13px;font-weight:700;
+font-variant-numeric:tabular-nums;color:var(--text)}
+.ov-sub{margin:2px 0 0;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.ov-btns{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.ov-btns .chip{width:auto}
+#ov-play{min-width:7ch;justify-content:center}
+.ov-facts{display:grid;gap:6px;margin:14px 0 0}
+.ov-jump{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:14px 0 0;font-size:12.5px;color:var(--muted)}
+.ov-preset{width:auto;font-size:12.5px;padding:5px 11px}
+.ov-key{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;margin:8px 0 0;font-size:12px}
+.ov-k{display:inline-flex;align-items:center;gap:6px;color:var(--muted)}
+.ov-k::before{content:"";width:14px;height:3px;border-radius:2px;flex:0 0 auto}
+.ov-k-v::before{background:#4ade80}
+.ov-k-g::before{background:#fbbf24}
+.ov-ink-v{color:#4ade80}
+.ov-ink-g{color:#fbbf24}
+.ov-tablewrap{overflow-x:auto;margin-top:10px}
+.ov-table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+.ov-table th{text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+color:var(--muted);padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
+.ov-table th:first-child{text-align:left}
+.ov-table td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.06);text-align:right;white-space:nowrap}
+.ov-table td:first-child{text-align:left;font-weight:700}
+.ov-table .ov-hi{background:rgba(252,211,77,.09)}
+.ov-table .ov-hi td:first-child{color:var(--accent)}
+.ov-pull{margin:14px 0 0;padding:12px 16px;border-left:3px solid var(--accent);
+background:rgba(252,211,77,.07);border-radius:0 12px 12px 0;font-size:15.5px;line-height:1.55;font-weight:600}
+.ov-eq{margin:12px 0;text-align:center;font-size:22px;font-weight:700;color:var(--accent);
+font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.sys-vlad{margin:14px 0}
+.sys-vlad-lead{margin:0 0 8px;font-size:14px;font-weight:800;color:var(--text);
+letter-spacing:.01em;line-height:1.4}
+.sys-vlad-row{display:grid;grid-template-columns:1fr;gap:8px}
+@media (min-width:760px){.sys-vlad-row{grid-template-columns:1fr 1fr 1fr}}
+.sys-vlad-tile{position:relative;display:flex;flex-direction:column;gap:3px;min-width:0;
+padding:10px 12px;border:1px solid var(--border);border-radius:12px;
+background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
+a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
+.sys-vlad-k{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+.sys-vlad-tile b{font-size:14.5px;line-height:1.3}
+.sys-vlad-what{font-size:12px;color:var(--muted);line-height:1.45}
+.sys-vlad-tile.is-here{border-color:rgba(252,211,77,.55);background:rgba(252,211,77,.07)}
+.sys-vlad-here{position:absolute;top:8px;right:10px;font-size:10px;font-weight:700;
+text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+@media (max-width:759px){
+.sys-vlad-row{gap:6px}
+.sys-vlad-tile{flex-direction:row;align-items:center;flex-wrap:nowrap;gap:9px;padding:8px 11px}
+.sys-vlad-what,.sys-vlad-k{display:none}
+.sys-vlad-n{display:flex}
+.sys-vlad-tile b{font-size:13.5px;line-height:1.25;min-width:0}
+.sys-vlad-here{position:static;margin-left:auto;flex:0 0 auto}
+}
+@media (min-width:760px){.sys-vlad-note{display:none}}
+.sys-vlad-n{display:none;flex:0 0 auto;width:20px;height:20px;border-radius:50%;
+align-items:center;justify-content:center;font-size:11px;font-weight:800;
+background:rgba(252,211,77,.16);color:var(--accent)}
+.sim-title{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px}
+.sim-geo{font-size:13px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums;
+text-decoration:none;border-bottom:1px dotted currentColor}
+.sim-geo:hover,.sim-geo:focus-visible{color:var(--accent)}
+.sim-stage{margin-top:14px}
+.sim-figwrap{max-width:640px;margin:0 auto}
+.sim-fig{max-width:none;margin:0}
+.sim-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;
+max-width:640px;margin:10px auto 0}
+.sim-bar{display:flex;align-items:center;gap:12px;min-width:0}
+.sim-row .sim-ctl{margin:0 0 0 auto;max-width:none}
+.sim-when{margin:0;text-align:center;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.sim-ctl{display:flex;flex-wrap:nowrap;gap:8px;align-items:center;justify-content:center;
+margin:10px auto 0;max-width:640px}
+.sim-icobtn{display:inline-flex;align-items:center;gap:6px}
+@media (max-width:599px){
+.sim-icobtn span{display:none}
+.sim-ctl{gap:6px}
+.sim-ctl .chip{padding-left:9px;padding-right:9px}
+.sim-row{gap:6px 10px}
+.sim-row .sim-when{font-size:13.5px}
+}
+@media (max-width:399px){
+.sim-ctl{gap:5px}
+.sim-ctl .chip{padding-left:7px;padding-right:7px}
+.sim-row{gap:6px 8px}
+}
+#sim-play{min-width:8ch;justify-content:center}
+@media (min-width:600px){#sim-play{min-width:10ch}}
+@media (max-height:540px){
+.sim-stage:fullscreen .sim-icobtn span{display:none}
+.sim-stage:fullscreen .sim-ctl{gap:6px}
+.sim-stage:fullscreen .sim-ctl .chip{padding-left:9px;padding-right:9px}
+}
+.sim-icobtn svg{flex:0 0 auto}
+.sim-span{width:auto;margin:0;padding:3px 6px;font-size:11.5px}
+.sim-scrub{max-width:640px;margin-left:auto;margin-right:auto}
+.sim-q{width:100%;margin:0;padding:7px 10px;font-size:13px}
+.sim-dlg form{padding:16px}
+.sim-dlg h3{margin:0 0 12px;font-size:16px}
+.sim-flab{display:block;margin:12px 0 4px;font-size:11px;font-weight:700;
+text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sim-flab:first-of-type{margin-top:0}
+.sim-dlg .orr-at,.sim-dlg .sim-span{width:100%;margin:0;padding:7px 9px;font-size:13px}
+.sim-check{display:flex;align-items:center;gap:8px;margin:12px 0 0;font-size:13px;color:var(--muted)}
+.sim-check input{width:auto;margin:0;flex:none;accent-color:var(--accent)}
+.sim-pickrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 0;font-size:13px;color:var(--muted)}
+.sim-pickrow b{color:var(--text)}
+.sim-dlgbtns{display:flex;justify-content:flex-end;gap:8px;margin:18px 0 0;padding:0}
+.sim-dlg .hs-results{position:static;margin-top:4px}
+.sim-qhint{margin:5px 0 0;font-size:11.5px;color:var(--muted)}
+.sim-fields{display:grid;grid-template-columns:1fr}
+.sim-field .sim-flab{margin-top:12px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-fields{grid-template-columns:1fr 1fr;gap:0 12px}
+.sim-stage:fullscreen~.sim-dlg[open] form{padding:12px 16px}
+.sim-stage:fullscreen~.sim-dlg[open] h3{margin-bottom:8px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-flab{margin-top:9px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-qhint{margin-top:4px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-check{margin-top:9px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-dlgbtns{margin-top:12px}
+.sim-noresult{padding:9px 11px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.sim-stage:fullscreen{display:flex;align-items:center;justify-content:center;
+background:var(--bg,#0b0b10);margin:0}
+.sim-stage:fullscreen .sim-inner{display:flex;flex-direction:column;justify-content:center;
+gap:6px;width:100%;height:100%;padding:10px 16px;box-sizing:border-box}
+.sim-stage:fullscreen .sim-figwrap,.sim-stage:fullscreen .sim-row,.sim-stage:fullscreen .sim-scrub{
+max-width:none;width:100%;margin-left:0;margin-right:0}
+.sim-stage:fullscreen .sim-figwrap{min-height:0;flex:1 1 auto;display:flex;flex-direction:column}
+.sim-stage:fullscreen .sim-fig{min-height:0;flex:1 1 auto}
+.sim-stage:fullscreen .sim-fig svg{width:100%;height:100%}
+.sim-stage:fullscreen .sim-when{margin:0;font-size:clamp(12px,3vh,15px)}
+.sim-stage:fullscreen .sim-row{margin-top:0}
+.sim-fsmoon{display:none}
+.sim-stage:fullscreen .sim-bar{gap:12px;flex-wrap:wrap}
+.sim-stage:fullscreen .sim-fsmoon{display:flex;align-items:center;gap:8px;margin:0}
+.sim-fsglyph{line-height:0;flex:0 0 auto;width:clamp(41px,13.2vh,77px)}
+.sim-fsglyph svg{display:block;width:100%;height:auto}
+.sim-fslab{font-size:clamp(11px,2.6vh,14px);color:var(--muted)}
+.sim-fslab b{color:var(--text)}
+.sim-stage:fullscreen #sim-fsphase{display:inline-block;min-width:15ch}
+.sim-stage:fullscreen #sim-fslit{display:inline-block;min-width:4ch;text-align:right}
+.sim-stage:fullscreen .sim-fslab{font-variant-numeric:tabular-nums;white-space:nowrap}
+.sim-stage:fullscreen .sim-when{min-width:17ch;text-align:left;white-space:nowrap}
+.sim-stage:fullscreen.sim-timed .sim-when{min-width:26ch}
+.sim-stage:fullscreen .sim-ends span{min-width:7ch}
+.sim-stage:fullscreen.sim-timed .sim-ends span{min-width:15ch}
+.sim-stage:fullscreen .sim-ends span:last-child{text-align:right}
+@media (orientation:portrait){
+.sim-stage:fullscreen .sim-inner{flex:0 0 auto;width:100vh;height:100vw;transform:rotate(90deg)}
+.sim-stage:fullscreen ~ .sim-dlg[open]{transform:rotate(90deg);
+width:min(420px,86vh);max-width:none;max-height:96vw}
+}
+.sim-ends{display:flex;justify-content:space-between;margin-top:3px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sim-read{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+@media (min-width:620px){.sim-read{grid-template-columns:150px 1fr;align-items:start}}
+.sim-moonbox{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.sim-moonbox b{font-size:15px}
+@media (max-width:619px){
+.sim-moonbox{display:grid;grid-template-columns:auto auto;gap:2px 14px;
+align-items:center;justify-content:center;justify-items:start;text-align:left}
+.sim-moonbox .sim-glyph{grid-row:1/4}
+.sim-glyph svg{width:68px;height:68px}
+}
+.sim-moonlab{font-size:11px;line-height:1.35}
+.sim-glyph{line-height:0}
+.sim-rows{display:grid;grid-template-columns:1fr;gap:6px;max-width:760px}
+@media (min-width:520px){.sim-rows{grid-template-columns:1fr 1fr}}
+@media (min-width:1080px){
+.sim-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,340px);
+gap:20px;align-items:center}
+.sim-top .sim-figwrap,.sim-top .sim-row,.sim-top .sim-scrub{max-width:none}
+.sim-top .sim-read{grid-template-columns:1fr;gap:10px;margin-top:0}
+.sim-top .sim-rows{grid-template-columns:1fr;max-width:none}
+}
+.sim-jump{margin:14px 0 0;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.sim-links{display:flex;flex-wrap:wrap;gap:8px}
+.sim-urlrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.sim-url{flex:1 1 260px;min-width:0;margin:0;padding:7px 10px;font-size:12.5px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.sim-teach h3{margin:18px 0 4px;font-size:15px}
+.sim-teach h3:first-of-type{margin-top:10px}
+.sim-form{display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0 10px}
+@media (min-width:520px){.sim-form{grid-template-columns:1fr 1fr}}
+@media (min-width:820px){.sim-form{grid-template-columns:2fr 1fr 1fr 1fr}}
+.sim-fld{display:flex;flex-direction:column;gap:3px;min-width:0}
+.sim-fld > span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sim-fld select,.sim-fld input{width:100%;margin:0;padding:7px 9px;font-size:13px}
+.sim-formrow{margin:0 0 12px}
+.sim-sum{margin:8px 0 0;padding:10px 12px;border:1px solid var(--border);border-radius:10px;
+background:rgba(255,255,255,.03);font-size:13px;line-height:1.55;color:var(--muted)}
+.sim-sum b{color:var(--text);font-variant-numeric:tabular-nums}
+.sim-params{margin-top:14px}
+.sim-params summary{cursor:pointer;font-size:13px;color:var(--muted)}
+.sim-params summary:hover{color:var(--accent)}
+.sol-stage:fullscreen{background:var(--bg,#0b0b10);padding:10px 14px;margin:0;
+align-items:stretch;gap:10px 14px;height:100%;box-sizing:border-box}
+.sol-stage:fullscreen .sol-panel{min-height:0;max-height:none;overflow-y:auto;overscroll-behavior:contain}
+.sol-stage:fullscreen .sol-rows{margin-top:8px}
+.sol-stage:fullscreen .sol-note{margin-top:8px}
+.sol-stage:fullscreen .sol-jump{display:none}
+.sol-stage:fullscreen .sol-scrub{max-width:none;width:100%}
+.sol-stage:fullscreen .sol-slider,.sol-stage:fullscreen #sol-slider{height:26px}
+.sol-stage:fullscreen .sim-when{font-size:clamp(14px,2.2vh,19px);margin:0}
+.sol-stage:fullscreen .sol-fig{min-height:0;flex:1 1 auto;display:flex;align-items:center;justify-content:center}
+@media (orientation:landscape){
+.sol-stage:fullscreen{grid-template-columns:minmax(0,1fr) minmax(230px,clamp(230px,24vw,360px));
+grid-template-rows:minmax(0,1fr) auto auto auto}
+.sol-stage:fullscreen .sol-figwrap{display:contents}
+.sol-stage:fullscreen .sol-figbox{grid-column:1;grid-row:1/-1;height:100%;width:auto;
+aspect-ratio:1;max-width:100%;justify-self:center;align-self:center;margin:0;min-height:0;
+display:flex;flex-direction:column}
+.sol-stage:fullscreen .sol-panel{grid-column:2;grid-row:1}
+.sol-stage:fullscreen .sim-when{grid-column:2;grid-row:2;text-align:left}
+.sol-stage:fullscreen .sol-scrub{grid-column:2;grid-row:3}
+.sol-stage:fullscreen .sol-destrow{grid-column:2;grid-row:4}
+.sol-stage:fullscreen .sol-fig svg{width:auto;height:100%;max-width:100%}
+}
+@media (orientation:portrait){
+.sol-stage:fullscreen{grid-template-columns:minmax(0,1fr);grid-template-rows:auto;
+align-content:start;overflow-y:auto}
+.sol-stage:fullscreen .sol-figwrap{display:flex;flex-direction:column;gap:8px;min-height:0}
+.sol-stage:fullscreen .sol-figbox{width:100%;max-width:100%;height:auto;aspect-ratio:auto;
+margin:0;flex:0 0 auto;display:block}
+.sol-stage:fullscreen .sol-fig{display:block;flex:none;min-height:0}
+.sol-stage:fullscreen .sol-fig svg{width:100%;height:auto}
+}
+.sol-stage{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:1080px){.sol-stage{grid-template-columns:minmax(0,1fr) 340px;align-items:start}}
+.sol-figwrap{min-width:0}
+.sol-fig{width:100%;max-width:min(100%,70vh);margin:4px auto 0;line-height:0}
+.sol-fig svg{display:block;width:100%;height:auto;border-radius:16px}
+.sys-figwrap{width:100%;max-width:620px;margin:4px auto 0;line-height:0}
+.sys-fig{display:block;width:100%;height:auto;border-radius:16px}
+.sys-eorbit,.sys-mo,.sys-rev{transform-box:view-box;transform-origin:var(--sys-o);animation-name:sys-spin;animation-timing-function:linear;animation-iteration-count:infinite}
+.sys-rev{animation-direction:reverse}
+@keyframes sys-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.sys-eorbit,.sys-mo,.sys-rev{animation:none}}
+.sys-tiltrow{display:flex;align-items:center;gap:10px;max-width:620px;margin:12px auto 0}
+.sys-tiltrow label{margin:0;flex:0 0 auto;font-size:11px;font-weight:700;
+text-transform:uppercase;letter-spacing:.05em;color:var(--muted);white-space:nowrap}
+.sys-tiltrow input[type=range]{flex:1 1 auto;width:auto;min-width:80px;margin:0;padding:0;
+accent-color:var(--accent);cursor:pointer}
+.sys-tiltrow input[type=range]:disabled{opacity:.5;cursor:default}
+#sys-tilt-v{flex:0 0 auto;min-width:5.5ch;text-align:right;font-size:13px;font-weight:700;
+font-variant-numeric:tabular-nums}
+.sys-tiltrow .chip{flex:0 0 auto;padding:3px 10px;font-size:11.5px}
+.sys-tiltnote{max-width:620px;margin:8px auto 0;line-height:1.5}
+.sol-scrub{max-width:none}
+.sol-panel{min-width:0}
+.sol-sel{max-width:100%}
+.sol-figbox{position:relative;width:100%;max-width:min(100%,70vh);margin:4px auto 0}
+.sol-figbox .sol-fig{max-width:none;margin:0}
+.sol-overlay{position:absolute;right:8px;bottom:8px;z-index:2;
+display:flex;gap:8px;align-items:center;padding:8px 8px 6px;border-radius:14px;
+background:radial-gradient(120% 160% at 80% 100%,rgba(5,10,22,.82) 40%,rgba(5,10,22,0))}
+.sol-overlay .chip{box-shadow:0 2px 10px rgba(0,0,0,.45)}
+[data-sol-planet]{cursor:pointer}
+[data-sol-planet].sol-hoverlit{filter:brightness(1.5)}
+.sol-ptip{position:fixed;z-index:80;pointer-events:none;transform:translate(-50%,-135%);
+padding:5px 10px;font-size:12px;line-height:1.3;white-space:nowrap;
+background:var(--menu-bg);border:1px solid var(--border);border-radius:8px;
+color:var(--text);box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.sol-fields{display:grid;grid-template-columns:1fr;gap:10px 14px;margin:2px 0 4px}
+.sol-field-wide{grid-column:1/-1}
+@media (min-width:520px){
+.sol-fields{grid-template-columns:1fr 1fr}
+}
+.sol-fields{grid-template-columns:1fr 1fr}
+@media (max-width:379px){.sol-fields{grid-template-columns:1fr}}
+.sol-sliders{display:grid;gap:10px;grid-column:1/-1;min-width:0}
+.sol-field{min-width:0}
+.sol-field .sim-flab{margin-top:0}
+.sol-field .orr-at,.sol-field .sim-span{width:100%;margin:0;padding:7px 9px;font-size:13px}
+.sol-rows{margin-top:14px;grid-template-columns:1fr;max-height:min(56vh,470px);
+overflow-y:auto;overscroll-behavior:contain}
+@media (min-width:520px){.sol-rows{grid-template-columns:1fr 1fr}}
+@media (min-width:1080px){.sol-rows{grid-template-columns:1fr}}
+.sol-mission:not(:empty){margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.sol-note{margin:12px 0 0;font-size:12px;line-height:1.45;color:var(--muted)}
+.sol-speedrow{display:flex;flex-direction:column;align-items:stretch;gap:3px;margin:0}
+.sol-speed{width:100%;min-width:80px}
+.sol-speedout{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sol-zoomline{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px 16px}
+@media (max-width:699px){
+.sol-zoomline{display:block}
+.sol-zoomline .sol-toggles{margin-top:8px}
+}
+.sol-toggles{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;
+flex:0 1 auto;font-size:12.5px}
+.sol-togbtn{width:auto;font-size:13px;padding:6px 12px}
+.sol-togbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.sol-togbtn[disabled]{opacity:.38;cursor:not-allowed}
+.sol-togbtn[disabled][aria-pressed="true"]{border-color:var(--border);color:var(--muted);
+background:transparent}
+.sol-off{opacity:.42}
+.sol-off label{cursor:default}
+.sol-torow{margin:8px 0 0}
+.sol-jump{margin-top:16px;font-size:12.5px}
+.sol-facts{margin:8px 0 0;padding-left:20px}
+.sol-facts li{margin:0 0 10px;line-height:1.55}
+.sol-open h3{margin:18px 0 4px;font-size:15px}
+.sol-open h3:first-of-type{margin-top:10px}
+.sol-table th,.sol-table td{font-variant-numeric:tabular-nums;white-space:nowrap}
+.sol-table td:last-child{white-space:normal;min-width:15rem}
+.sol-tiltrow{display:flex;flex-direction:column;align-items:stretch;gap:3px;margin:0}
+.sol-tiltslider{flex:1 1 auto;min-width:80px}
+.sol-tiltout{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sol-setrow{margin:12px 0 0}
+.sol-setrow .chip{width:auto}
+.sol-cfg-on{border-color:var(--accent);color:var(--accent)}
+.sol-settings{margin-top:10px;padding-top:12px;border-top:1px solid var(--border);
+display:grid;gap:10px}
+.sol-settings>p{margin:0}
+.sol-launchrow{margin-top:2px}
+.sol-overlay-l{left:8px;right:auto;
+background:radial-gradient(120% 160% at 20% 100%,rgba(5,10,22,.82) 40%,rgba(5,10,22,0))}
+@media (min-width:1080px){.sol-overlay-l{display:none}}
+.sol-torow{display:flex;align-items:center;gap:10px;margin:0}
+.sol-tolab{margin:0;flex:0 0 auto}
+.sol-tosel{flex:1 1 auto;min-width:0;font-size:15px;padding:7px 9px}
+.sol-toglab{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+color:var(--muted);flex:0 0 auto}
+.sol-zooms{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px;flex:1 1 auto;
+justify-content:flex-start}
+.sol-zoombtn{width:auto;font-size:13px;padding:6px 12px}
+.sol-zoombtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.sol-toglab{margin-right:2px}
+.sol-moons{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.sol-moonbtn{width:auto;font-size:13px;padding:6px 12px}
+.sol-moonbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.sol-moonbtn[hidden]{display:none}
+.sol-moonsout{margin:6px 0 0;font-size:11.5px;line-height:1.5;color:var(--muted)}
+.sol-moonsout b{color:var(--text);font-variant-numeric:tabular-nums}
+.sol-globewrap{display:grid;grid-template-columns:1fr;gap:16px;align-items:center;margin-top:6px}
+@media (min-width:620px){.sol-globewrap{grid-template-columns:minmax(0,1fr) minmax(200px,1fr)}}
+.sol-globe{line-height:0;max-width:400px;margin:0 auto;width:100%}
+.sol-globe svg{display:block;width:100%;height:auto;border-radius:16px}
+.sol-globefacts{display:grid;gap:8px;min-width:0}
+.sol-moonlead{margin-bottom:6px}
+.sol-moon{border-left:3px solid var(--accent);padding-left:18px}
+.sol-moon h2{margin-bottom:2px}
+.sol-moon .sub{margin-top:0}
+.sol-moonfacts{margin:10px 0 4px}
+.sol-moon .sol-facts{margin-top:10px}
+.sol-moon h3{margin:16px 0 4px;font-size:15px}
+.sol-moon h3+p{margin-top:0}
+.sol-scrub{position:relative}
+.sol-flight{position:absolute;left:0;right:0;top:0;height:26px;pointer-events:none;z-index:0}
+.sol-flight-bar{position:absolute;top:50%;transform:translateY(-50%);height:10px;border-radius:5px;
+background:linear-gradient(90deg,#38bdf8,#a78bfa);opacity:.85;
+box-shadow:0 0 0 1px rgba(10,16,32,.6)}
+.sol-flight-cutl{border-top-left-radius:0;border-bottom-left-radius:0}
+.sol-flight-cutr{border-top-right-radius:0;border-bottom-right-radius:0}
+.sol-scrub .orr-slider{position:relative;z-index:1;background:transparent}
+.sol-destbtn{width:auto;font-size:14px;padding:8px 16px}
+.sol-destbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.sol-destlink{margin:8px 0 0;font-size:13.5px;color:var(--muted)}
+.sol-destlink b{color:var(--text)}
+.sol-destrow{margin-top:14px;display:grid;gap:10px}
+@media (min-width:640px){
+.sol-destrow{grid-template-columns:minmax(0,1fr) minmax(200px,260px);align-items:start}
+.sol-destrow .sol-destlink{grid-column:1/-1;margin-top:0}
+}
+.sol-crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:-6px 0 12px;font-size:13.5px}
+.sol-crumb{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent}
+.sol-crumb:hover{color:var(--text);border-bottom-color:var(--border)}
+.sol-crumb-sep{color:var(--muted);opacity:.5}
+.sol-crumb-here{color:var(--text)}
+.sol-plan{scroll-margin-top:12px}
+.sol-planrow{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
+@media (min-width:760px){
+.sol-planrow{grid-template-columns:minmax(0,290px) minmax(0,1fr);gap:26px}
+}
+.sol-planart{line-height:0;max-width:340px;width:100%;margin:0 auto}
+.sol-planart a{display:block;border-radius:16px}
+.sol-planart svg{display:block;width:100%;height:auto;border-radius:16px}
+.sol-planbelt{display:block;line-height:0}
+.sol-planbelt svg{display:block;width:100%;height:auto;border-radius:16px}
+.sol-plankind{margin:0 0 2px;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.sol-planbody h2{margin:0 0 4px}
+.sol-planbody h2 a{color:inherit;text-decoration:none}
+.sol-planbody h2 a:hover{color:var(--accent)}
+.sol-planbody>p{margin:0 0 10px}
+.sol-planfacts{margin:14px 0 0}
+.sol-planmore{margin:14px 0 0}
+.sol-planjump{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.dn-card{padding-top:14px}
+.dn-figwrap{position:relative;line-height:0;border-radius:12px;overflow:hidden;
+border:1px solid var(--border);background:#12304f}
+.dn-svg{display:block;width:100%;height:auto}
+.dn-overlay{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;
+align-items:flex-end;gap:8px;padding:10px 12px;pointer-events:none;
+background:linear-gradient(to top,rgba(2,6,23,.55),rgba(2,6,23,0))}
+.dn-oleft{display:flex;align-items:center;gap:8px}
+.dn-overlay .dn-obtn{pointer-events:auto;background:rgba(2,6,23,.72);border-color:rgba(255,255,255,.28);
+backdrop-filter:blur(2px);font-weight:700;min-height:40px;padding:10px 18px;font-size:14px;line-height:1}
+.dn-overlay .dn-obtn:hover{background:rgba(2,6,23,.9)}
+.dn-oicon{display:inline-flex;align-items:center;gap:7px}
+.dn-oicon .dn-pin{flex:0 0 auto}
+@media(max-width:520px){.dn-oicon{padding:10px 13px}.dn-oicon-t{display:none}}
+.dn-play[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.dn-par{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:5 6}
+.dn-parlab{fill:rgba(226,232,240,.55);font-size:10px;font-weight:600}
+.dn-slider-row{margin:14px 0 4px}
+.dn-slider-row .orr-slider{width:100%}
+.dn-span{color:var(--muted);font-weight:600}
+.dn-when{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:6px 0 12px}
+.dn-when b{font-size:17px}
+.dn-when span{color:var(--muted);font-size:13px}
+.dn-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 12px}
+@media(min-width:560px){.dn-strip{grid-template-columns:repeat(4,1fr)}}
+.dn-city{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
+border:1px solid var(--border);background:rgba(0,0,0,.18);text-decoration:none;color:var(--text)}
+.dn-city:hover{border-color:var(--accent);text-decoration:none}
+.dn-city-n{font-size:12px;color:var(--muted);font-weight:600}
+.dn-city b{font-size:16px;font-variant-numeric:tabular-nums}
+.dn-city-s{font-size:11.5px;color:var(--muted)}
+.dn-city.is-day{background:rgba(253,224,71,.10);border-color:rgba(253,224,71,.35)}
+.dn-city.is-night{background:rgba(15,23,42,.55)}
+.dn-city.is-civil,.dn-city.is-twi{background:rgba(129,140,248,.12);border-color:rgba(129,140,248,.3)}
+.dn-readout{display:grid;grid-template-columns:1fr;gap:8px;margin:0 0 12px}
+@media(min-width:560px){.dn-readout{grid-template-columns:repeat(2,1fr)}}
+.dn-ro{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
+border:1px solid var(--border);background:rgba(0,0,0,.18)}
+.dn-ro span{font-size:12px;color:var(--muted);font-weight:600}
+.dn-ro b{font-size:15px;font-variant-numeric:tabular-nums}
+.dn-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
+.dn-me-line{margin:4px 0 10px;font-size:14.5px}
+.dns-wrap{margin:14px 0 4px;border:1px solid var(--border);border-radius:12px;
+background:#0a1428;padding:4px 4px 0;line-height:0;overflow:hidden}
+.dns-svg{display:block;width:100%;height:auto}
+.dns-glow{fill:#fde68a;fill-opacity:.13}
+.dns-sun{fill:#fde68a;stroke:#b45309;stroke-width:2}
+.dns-ray{stroke:#fde68a;stroke-opacity:.4;stroke-width:2;stroke-dasharray:2 7;stroke-linecap:round}
+.dns-earth{fill:#2f5d3a;stroke:rgba(226,232,240,.35);stroke-width:1}
+.dns-night{fill:#050a16;fill-opacity:.62}
+.dns-term{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:4 5}
+.dns-axis{stroke:rgba(226,232,240,.72);stroke-width:2;stroke-dasharray:7 5}
+.dns-par{stroke-width:1.5}
+.dns-eq{stroke:rgba(255,255,255,.85)}
+.dns-trop{stroke:var(--accent);stroke-opacity:.95;stroke-dasharray:6 5}
+.dns-ctr{stroke:#fde68a;stroke-width:2.5}
+.dns-hit{fill:#fde68a;stroke:#b45309;stroke-width:2}
+.dns-lab{fill:#e2e8f0;font-size:12px;font-weight:600;paint-order:stroke;stroke:#050a16;stroke-width:3.5}
+.dns-lab-d{fill:#fcd34d;font-weight:700}
+.dns-lab-t{fill:var(--accent)}
+.dns-cap{margin:10px 0 12px;font-size:14.5px;line-height:1.55}
+@media(max-width:620px){
+.dns-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.dns-svg{min-width:520px}
+.dns-lab{font-size:13px}
+}
+* contexts — same fix as the tides admin card) */
+.card:has(#sun-mypanel:not([hidden])),.card:has(#sun-results:not([hidden])){position:relative;z-index:40}
+.hs-results{list-style:none;margin:6px 0 0;padding:6px;position:absolute;left:0;right:0;z-index:30;background:var(--menu-bg);border:1px solid var(--border);border-radius:12px;max-height:340px;overflow:auto;box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.hs-results li{margin:0}
+.hs-results a{display:block;padding:10px 12px;border-radius:8px;color:var(--menu-text);text-decoration:none;font-weight:600}
+.hs-results a:hover,.hs-results a.active{background:var(--card);color:var(--accent)}
+.hs-results li.is-sel>a{background:var(--card);color:var(--accent)}
+.hs-results a b{color:var(--accent);font-weight:800}
+.hs-results li.is-sel>a b,.hs-results a:hover b{color:inherit}
+.hs-empty{padding:10px 12px;color:var(--muted);font-size:13px}
+.rail-head{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:6px 0 10px}
+.soon-rail{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 12px;margin:0 0 18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.soon-card{flex:0 0 auto;width:150px;scroll-snap-align:start;display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--border);border-radius:14px;background:var(--card);text-decoration:none;color:var(--text)}
+.soon-card:hover{border-color:var(--accent)}
+.soon-days{font-size:12px;font-weight:700;color:var(--accent)}
+.soon-label{font-weight:600;line-height:1.25}
+.soon-date{font-size:12px;color:var(--muted)}
+.cal-filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.chip{cursor:pointer;font:inherit;font-size:13px;font-weight:600;padding:7px 13px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text)}
+.chip.active{background:var(--accent);color:var(--accent-text);border-color:transparent}
+.cal-day{display:inline-block;min-width:1.6em;margin-right:8px;font-weight:700;color:var(--accent)}
+.cal-badge{text-transform:none}
+.cal-md{display:inline-block;min-width:3.6em;margin-right:10px;font-weight:700;color:var(--accent);white-space:nowrap}
+.rank-list li{gap:8px}
+.rank-list .rank{min-width:1.6em;font-weight:700;color:var(--accent);text-align:right}
+.rank-list .rank:empty{display:none}
+.rank-list .views{font-size:12px;color:var(--muted);white-space:nowrap}
+.ico.copy{cursor:pointer;font:inherit;background:rgba(255,255,255,.12);color:var(--text);border-color:var(--border)}
+.ico.copy.ok{background:var(--accent);color:var(--accent-text);border-color:transparent}
+.give-line{margin:6px 0 0;font-size:15px;line-height:1.5}
+.give-line a{font-weight:700}
+.tool-faq .faq-item{border-bottom:1px solid var(--border);padding:4px 0}
+.tool-faq .faq-item:last-child{border-bottom:none}
+.tool-faq summary{cursor:pointer;font-weight:700;padding:8px 2px;list-style:none}
+.tool-faq summary::-webkit-details-marker{display:none}
+.tool-faq summary::after{content:" +";color:var(--muted);float:right}
+.tool-faq .faq-item[open] summary::after{content:" –"}
+.tool-faq .faq-item p{margin:2px 2px 10px;color:var(--muted);line-height:1.5}
+@media (max-width:420px){
+.unit{min-width:62px;padding:12px 4px}
+.unit .num{font-size:32px}
+.presets{grid-template-columns:repeat(3,1fr)}
+}
+@media (min-width:560px){ h1{font-size:32px} }
+.pl-facts .wc-frow>span{flex:0 0 42%}
+@media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}
+.mn-hero{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.mn-hero-art{flex:0 0 auto;line-height:0;filter:drop-shadow(0 6px 20px rgba(0,0,0,.5))}
+.mn-hero-art svg{width:136px;height:136px}
+.mn-hero-facts{flex:1 1 220px;min-width:0}
+.mn-phase{margin:0;font-size:clamp(24px,6vw,34px);font-weight:800;line-height:1.15;letter-spacing:-.01em}
+.mn-illum{margin:6px 0 0;font-size:16px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mn-illum b{color:var(--accent);font-size:20px}
+.mn-stats{display:flex;flex-wrap:wrap;gap:10px 22px;margin:16px 0 0}
+.mn-stats>div{min-width:88px}
+.mn-stats dt{margin:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.mn-stats dd{margin:2px 0 0;font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+.mn-stats-wide>div{min-width:110px}
+.mn-nextgrid{display:flex;flex-wrap:wrap;gap:10px}
+.mn-next{flex:1 1 150px;display:flex;flex-direction:column;gap:2px;padding:12px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.04)}
+.mn-next-ico{line-height:0;margin-bottom:4px}
+.mn-next-l{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.mn-next-d{font-size:16px;font-weight:700}
+.mn-next-t{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mn-next-c{margin-top:4px;font-size:13px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.mn-lead{margin:0 0 16px;font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mn-lead b{color:var(--text)}
+.mn-rise{display:flex;flex-wrap:wrap;gap:10px}
+.mn-rise-row{flex:1 1 140px;display:flex;flex-direction:column;gap:3px;padding:11px 13px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.04)}
+.mn-rise-row span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.mn-rise-row b{font-size:18px;font-variant-numeric:tabular-nums}
+.mn-strip{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;-webkit-overflow-scrolling:touch}
+@media (max-width:700px){ .duo-m .mn-strip{flex-wrap:wrap;overflow-x:visible} }
+.mn-day{flex:0 0 auto;width:62px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.03);text-align:center}
+.mn-day.is-primary{border-color:var(--accent);background:rgba(252,211,77,.10)}
+.mn-day-g{line-height:0}
+.mn-day-d{font-size:11px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.mn-day-p{font-size:10px;line-height:1.25;color:var(--muted);font-variant-numeric:tabular-nums}
+.mn-day.is-primary .mn-day-p{color:var(--accent);font-weight:700}
+.mn-tablewrap{overflow-x:auto;margin-top:6px}
+.mn-table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.mn-table th,.mn-table td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+.mn-table thead th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);white-space:nowrap}
+.mn-table .mn-mrow th{padding-top:16px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);border-bottom-color:var(--accent)}
+.mn-table .mn-t-g{width:1%;line-height:0;padding-right:0}
+.mn-table .mn-t-km{white-space:nowrap;color:var(--muted)}
+.mn-table b{display:block;font-weight:700}
+.mn-t-time{display:block;font-size:12px;color:var(--muted)}
+.mn-table tr.is-next{background:rgba(252,211,77,.10)}
+.mn-table tr.is-next b{color:var(--accent)}
+.mn-badge{display:inline-block;padding:1px 7px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;vertical-align:1px}
+.mn-blue{background:rgba(96,165,250,.18);color:#93c5fd;border:1px solid rgba(96,165,250,.45)}
+.mn-super{background:rgba(252,211,77,.16);color:var(--accent);border:1px solid rgba(252,211,77,.45)}
+@media(max-width:480px){
+.mn-hero{gap:14px}
+.mn-hero-art svg{width:104px;height:104px}
+.mn-next{flex-basis:calc(50% - 5px)}
+.mn-table th,.mn-table td{padding:8px 7px;font-size:13px}
+}
+.mn-dir{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.mn-states{margin-top:10px}
+.mn-states summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--accent)}
+.mn-states .timer-presets{margin-top:10px}
+.card:has(#mn-results:not([hidden])){position:relative;z-index:40}
+.mn-hero-top{display:flex;gap:12px;align-items:flex-start;flex:1 1 100%}
+.mn-heroctl{margin-left:auto;align-items:flex-end}
+.mn-datebox,.mn-nearbox{display:flex;flex-direction:column;gap:5px;align-items:flex-end;margin-left:auto}
+.mn-dateinput,.mn-nearsel{text-align:right}
+.mn-dateinput{width:auto;min-width:9.5rem;padding:9px 11px;font:inherit;font-size:14px;font-variant-numeric:tabular-nums;
+color:var(--text);background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px}
+.mn-dateinput:focus{outline:2px solid var(--accent);outline-offset:1px}
+.mn-dateinput::-webkit-calendar-picker-indicator{filter:invert(.85);cursor:pointer}
+.mn-datereset{padding:4px 10px;font:inherit;font-size:12px;font-weight:700;color:var(--accent);cursor:pointer;
+background:rgba(252,211,77,.12);border:1px solid rgba(252,211,77,.45);border-radius:999px}
+.mn-cardhead{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.mn-cardhead h2{margin:0}
+@media(max-width:480px){
+.mn-dateinput{min-width:0;width:100%}
+.mn-datebox{flex:1 1 auto;min-width:0}
+}
+.mn-heroctl{display:flex;flex-direction:column;gap:10px;min-width:0}
+@media (min-width:900px){
+.mn-hero{display:grid;grid-template-columns:auto minmax(0,1fr) auto;
+gap:16px 28px;align-items:center}
+.mn-hero-top{display:contents}
+.mn-hero-art{grid-column:1;grid-row:1}
+.mn-hero-facts{grid-column:2;grid-row:1;min-width:0}
+.mn-heroctl{grid-column:3;grid-row:1;align-self:start}
+.mn-hero-art svg{width:190px;height:190px}
+.duo .mn-hero{display:flex}
+.duo .mn-hero-top{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.duo .mn-hero-art svg{width:136px;height:136px}
+}
+.mn-nearsel{width:auto;min-width:9.5rem;max-width:14rem;padding:8px 10px;font:inherit;font-size:13px;
+color:var(--text);background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;cursor:pointer}
+.mn-nearsel:focus{outline:2px solid var(--accent);outline-offset:1px}
+.mn-county+.mn-county{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+.mn-county-h{margin:0 0 8px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+.mn-county .timer-presets{margin:0}
+@media(max-width:480px){ .mn-nearsel{min-width:0;max-width:none;width:100%} }
+.mn-cal-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.mn-cal-title{font-size:16px;font-weight:800}
+.mn-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.mn-cal-dow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:center;padding-bottom:2px}
+.mn-cal-day{display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px 6px;min-width:0;
+border:1px solid var(--border);border-radius:10px;color:var(--text);text-decoration:none}
+.mn-cal-day:hover{border-color:var(--accent)}
+.mn-cal-day.is-out{opacity:.38}
+.mn-cal-day.is-primary{border-color:rgba(252,211,77,.55);background:rgba(252,211,77,.06)}
+.mn-cal-day.is-today{outline:2px solid var(--accent);outline-offset:-2px}
+.mn-cal-n{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--muted)}
+.mn-cal-g{line-height:0}
+.mn-cal-p{font-size:9.5px;font-weight:700;text-align:center;line-height:1.15;color:var(--muted);
+font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.mn-cal-day.is-primary .mn-cal-p{color:var(--accent)}
+@media (max-width:520px){
+.mn-cal{gap:3px}
+.mn-cal-day{padding:5px 1px}
+.mn-cal-p{font-size:8.5px}
+}
+.mn-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.mn-jump .chip{margin:0}
+.mn-cities{justify-content:flex-start;margin-top:12px}
+.mn-cities+.mn-states{margin-top:16px;display:block}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Rocket Launch to Jupiter — Next Launch Window, Flight Time & Burn","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/rocket-launch-simulator/jupiter/","description":"When the next launch window to Jupiter opens (around Oct 27, 2026), how long the crossing takes, what it costs in speed, and how the real missions compare — all solved from the real orbits, with the flight path drawn.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Planets","item":"https://timeandspace.science/planets/"},{"@type":"ListItem","position":3,"name":"Rocket launch simulator","item":"https://timeandspace.science/rocket-launch-simulator/"},{"@type":"ListItem","position":4,"name":"To Jupiter","item":"https://timeandspace.science/rocket-launch-simulator/jupiter/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"When is the next launch window to Jupiter?","acceptedAnswer":{"@type":"Answer","text":"The next minimum-energy window opens around Oct 27, 2026, with arrival about Sep 14, 2029 — a flight of roughly 1,053 days. That date is not written into this page: it is solved from the real orbits when the page is built and again in your browser when it loads."}},{"@type":"Question","name":"How often does a window to Jupiter come round?","acceptedAnswer":{"@type":"Answer","text":"About every 13 months. That is the synodic period — how long Earth takes to lap Jupiter — and only at that point are the two planets positioned for the cheapest transfer again."}},{"@type":"Question","name":"How much speed does it take to reach Jupiter?","acceptedAnswer":{"@type":"Answer","text":"About 8.88 km/s of change to leave Earth's orbit around the sun, or about 6.35 km/s as a burn from a 300 km parking orbit — less, because up there you are already moving fast."}},{"@type":"Question","name":"Why can't a rocket just fly straight at Mars?","acceptedAnswer":{"@type":"Answer","text":"Because it is already moving at about 30 km/s sideways, along with the Earth. A spacecraft does not leave the solar system's rules when it leaves the launch pad: it stays in orbit around the sun, and the only thing an engine can do is change the shape of that orbit. Getting to Mars means enlarging the orbit until its far side reaches Mars's — and then arranging to be there when Mars is."}},{"@type":"Question","name":"Doesn't the curved path cost more fuel than a straight one?","acceptedAnswer":{"@type":"Answer","text":"It costs far less — the curve is the free part. A rocket only spends fuel when it changes its speed or direction, and on this route the engine fires twice: once to leave, once to arrive. In between it is switched off for months, and the sun's gravity does all of the turning. A straight line is what an object does when NO force acts on it, and the sun is pulling the whole time, so holding a straight line to Mars would mean thrusting continuously for the entire trip just to cancel that pull — and cancelling the 30 km/s sideways motion the spacecraft inherited from Earth before it even started. The curve is not a detour. It is the shape of falling."}}]}</script>
 
+<!-- build 36c60ce3d05a · generated 2026-08-26T20:24:10.871Z -->
+<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon/rocket.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:site_name" content="Time and Space Science">
+
+<meta property="og:image" content="https://timeandspace.science/api/og?name=Rocket%20Launch%20to%20Jupiter&amp;theme=generic">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Rocket%20Launch%20to%20Jupiter&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
 </head>
 <body>
-<div class="wrap wrap-wide">
-  <div class="brand"><span class="crumbs"><a class="brand-name" href="/">Time and Space Science</a><a class="brand-cat" href="/rocket-launch-simulator/">/rocket-launches</a></span></div>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="wrap wrap-wide" id="main" role="main">
+  <div class="brand"><span class="crumbs"><!--bd--><details class="nav-dd brand-dd"><summary aria-label="Site sections"><svg class="logo" viewBox="0 0 200 200" width="48" height="48" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#2A3B4C" stroke-width="6" stroke-linecap="round"/><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#D6AF5C" stroke-width="2" stroke-linecap="round"/><path d="M 97 40 V 30 H 90 C 88 30, 88 22, 90 22 H 110 C 112 22, 112 30, 110 30 H 103 V 40 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 60 160 L 50 185 L 60 185 L 75 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 140 160 L 150 185 L 140 185 L 125 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><circle cx="100" cy="105" r="65" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/><circle cx="100" cy="105" r="57" fill="#F4EED1" stroke="#2A3B4C" stroke-width="2.5"/><g transform="translate(54.5, 54.5) rotate(-42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g transform="translate(145.5, 54.5) rotate(42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g fill="#2A3B4C"><circle cx="100" cy="63" r="3.4"/><circle cx="121" cy="69" r="3"/><circle cx="136.4" cy="84" r="3"/><circle cx="142" cy="105" r="3"/><circle cx="136.4" cy="126" r="3"/><circle cx="121" cy="141" r="3"/><circle cx="100" cy="147" r="3"/><circle cx="79" cy="141" r="3"/><circle cx="63.6" cy="126" r="3"/><circle cx="58" cy="105" r="3"/><circle cx="63.6" cy="84" r="3"/><circle cx="79" cy="69" r="3"/></g><line x1="100" y1="105" x2="130" y2="75" stroke="#C04A41" stroke-width="4" stroke-linecap="round"/><line x1="100" y1="105" x2="73" y2="90" stroke="#C04A41" stroke-width="5" stroke-linecap="round"/><circle cx="100" cy="105" r="5" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/></svg><span class="visually-hidden">Time and Space Science — sections</span></summary><ul class="menu brand-menu"><li><a href="/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M3.4 11.2 12 3.6l8.6 7.6-1.2 1.4-1.4-1.2V20a1 1 0 0 1-1 1h-4v-5.4h-2V21H7a1 1 0 0 1-1-1v-8.6l-1.4 1.2z" fill="#fcd34d"/><path d="M6 11.4V20h4v-5.4h4V20h4v-8.6L12 6.2z" fill="#b45309"/><rect x="10" y="14.6" width="4" height="6.4" fill="#7c2d12"/><path d="M12 6.2l6 5.2V20h-2v-6.4h-8V20H6v-8.6z" fill="#f59e0b"/></g></svg> Home</a></li><li><a href="/time/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="6" y="2" width="12" height="2.4" rx="1.2" fill="#92400e"/><rect x="6" y="19.6" width="12" height="2.4" rx="1.2" fill="#92400e"/><path d="M7.4 4.4h9.2c0 3.2-2 4.6-3.4 5.8-.5.4-.5 1.2 0 1.6 1.4 1.2 3.4 2.6 3.4 5.8H7.4c0-3.2 2-4.6 3.4-5.8.5-.4.5-1.2 0-1.6C9.4 9 7.4 7.6 7.4 4.4z" fill="#bae6fd" opacity=".5"/><path d="M9.2 6h5.6c-.5 1.6-1.6 2.4-2.8 3.4C10.8 8.4 9.7 7.6 9.2 6z" fill="#f59e0b"/><path d="M12 13.4c1.6 1.2 3 2.2 3.4 4.2H8.6c.4-2 1.8-3 3.4-4.2z" fill="#f59e0b"/></g></svg> Time</a></li><li><a href="/earth/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> Earth</a></li><li><a href="/space/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Space</a></li><li><a href="/classroom/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> Classroom</a></li></ul></details><a class="brand-word" href="/" aria-label="Time and Space Science home"><span class="wm-w">Time</span><span class="wm-j">And</span><span class="wm-w">Space</span><span class="wm-j wm-dot">.</span><span class="wm-w wm-tld">Science</span></a><!--/bd--></span><nav class="topnav"><script>document.addEventListener("click",function(e){document.querySelectorAll(".nav-dd[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})})</script></nav><details class="nav-dd menu-dd"><summary class="hamburger" aria-label="Menu">☰</summary><ul class="menu"><li><a href="/alarm-clock/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M4.5 3.2 2.4 5.6a3 3 0 0 1 4-4z" fill="#fbbf24"/><path d="M19.5 3.2l2.1 2.4a3 3 0 0 0-4-4z" fill="#fbbf24"/><circle cx="12" cy="13" r="8.6" fill="#dc2626"/><circle cx="12" cy="13" r="6.6" fill="#fff7ed"/><path d="M12 8.9v4.1l3 1.8" stroke="#1e293b" stroke-width="1.7" stroke-linecap="round" fill="none"/><circle cx="12" cy="13" r="0.9" fill="#1e293b"/><path d="M6.2 20.2 4.8 22M17.8 20.2 19.2 22" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/><ellipse cx="9.4" cy="9.6" rx="2.4" ry="1.4" fill="#ffffff" opacity=".55" transform="rotate(-25 9.4 9.6)"/></g></svg> Alarm Clock</a></li><li><a href="/world-clock/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> World Clock</a></li><li><a href="/timer/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="6" y="2" width="12" height="2.4" rx="1.2" fill="#92400e"/><rect x="6" y="19.6" width="12" height="2.4" rx="1.2" fill="#92400e"/><path d="M7.4 4.4h9.2c0 3.2-2 4.6-3.4 5.8-.5.4-.5 1.2 0 1.6 1.4 1.2 3.4 2.6 3.4 5.8H7.4c0-3.2 2-4.6 3.4-5.8.5-.4.5-1.2 0-1.6C9.4 9 7.4 7.6 7.4 4.4z" fill="#bae6fd" opacity=".5"/><path d="M9.2 6h5.6c-.5 1.6-1.6 2.4-2.8 3.4C10.8 8.4 9.7 7.6 9.2 6z" fill="#f59e0b"/><path d="M12 13.4c1.6 1.2 3 2.2 3.4 4.2H8.6c.4-2 1.8-3 3.4-4.2z" fill="#f59e0b"/></g></svg> Timer</a></li><li><a href="/stopwatch/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="10.6" y="1.6" width="2.8" height="2.6" rx="0.8" fill="#64748b"/><path d="M17.6 4.8l1.8 1.8-1.4 1.4-1.8-1.8z" fill="#64748b"/><circle cx="12" cy="13.4" r="8.4" fill="#475569"/><circle cx="12" cy="13.4" r="6.6" fill="#0f172a"/><path d="M12 13.4 15 9.6" stroke="#fcd34d" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="13.4" r="1" fill="#fcd34d"/><path d="M12 7.4v1.4M18 13.4h-1.4M12 19.4V18M6 13.4h1.4" stroke="#94a3b8" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="9.4" cy="9.9" rx="2.2" ry="1.3" fill="#ffffff" opacity=".25" transform="rotate(-30 9.4 9.9)"/></g></svg> Stopwatch</a></li><li><a href="/countdown/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M3 21 8.2 9.6l6.2 6.2z" fill="#f59e0b"/><path d="M3 21l7.6-4.6-3.4-3.4z" fill="#fbbf24"/><circle cx="13.6" cy="4.4" r="1.3" fill="#f472b6"/><circle cx="19.6" cy="8.2" r="1.3" fill="#38bdf8"/><circle cx="17" cy="14.8" r="1.2" fill="#a78bfa"/><path d="M15.4 8.8c1.6-1.6 3.2-1.6 4.8-3.2" stroke="#34d399" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="15.8" y="1.8" width="2" height="2" rx="0.4" fill="#fde047" transform="rotate(25 16.8 2.8)"/></g></svg> Countdowns</a></li><li><a href="/sun/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="2" y="17.4" width="20" height="1.8" rx="0.9" fill="#94a3b8"/><path d="M5.4 17.4a6.6 6.6 0 0 1 13.2 0z" fill="#fbbf24"/><path d="M8 17.4a4 4 0 0 1 8 0z" fill="#fde047"/><g stroke="#fbbf24" stroke-width="1.9" stroke-linecap="round"><path d="M12 2.6v3M4.9 5.9l2.1 2.1M19.1 5.9 17 8M2.6 12.4h3M18.4 12.4h3"/></g></g></svg> Sunrise &amp; Sunset</a></li><li><a href="/moon/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#1e293b"/><path d="M12 2.6a9.4 9.4 0 0 0 0 18.8 9.4 9.4 0 0 1 0-18.8z" fill="#334155"/><path d="M12 2.6a9.4 9.4 0 0 1 0 18.8c-3.2-3.4-3.2-15.4 0-18.8z" fill="#e2e8f0"/><circle cx="15.4" cy="7.6" r="1.5" fill="#cbd5e1"/><circle cx="17.2" cy="13.4" r="2.1" fill="#cbd5e1"/><circle cx="14.2" cy="17.2" r="1.1" fill="#cbd5e1"/><ellipse cx="13.6" cy="6.2" rx="1.6" ry="1" fill="#ffffff" opacity=".6" transform="rotate(-30 13.6 6.2)"/></g></svg> Moon</a></li><li><a href="/tides/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M2 20c0-7 3.4-13.6 9.6-15.4 4.6-1.3 8.8.8 10 4.2-2.2-1.4-5-1.2-6.6.4 2.8.2 4.4 2 4.6 4-1.6-1.2-3.8-1.2-5 0-1.6 1.6-.4 4.4 1.6 4.6-1.2 1.4-3.4 1.8-5.2 1L2 20z" fill="#0ea5e9"/><path d="M2 20c0-7 3.4-13.6 9.6-15.4-3.8 2.6-5.8 6.6-5.4 10.6.3 2.4 1.8 4 4.2 4.6L2 20z" fill="#7dd3fc"/><circle cx="18.9" cy="7.2" r="1.1" fill="#e0f2fe"/><circle cx="16.4" cy="12.4" r="0.9" fill="#e0f2fe"/></g></svg> Tides</a></li><li><a href="/questions/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#7c3aed"/><path d="M8.8 9.2c.2-1.9 1.6-3 3.3-3 1.8 0 3.2 1.2 3.2 2.9 0 1.3-.7 2-1.7 2.7-.9.6-1.4 1.1-1.4 2.2v.4" fill="none" stroke="#fdf4ff" stroke-width="1.9" stroke-linecap="round"/><circle cx="12.1" cy="17.6" r="1.25" fill="#fdf4ff"/><ellipse cx="8.9" cy="7.6" rx="2.4" ry="1.4" fill="#ffffff" opacity=".25" transform="rotate(-28 8.9 7.6)"/></g></svg> Big Questions</a></li><li><a href="/glossary/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M5.2 3.4h9.2A2.2 2.2 0 0 1 16.6 5.6v13.2c0 .9-.8 1.4-1.6.9l-2.2-1.4-2.2 1.4c-.5.3-1.1.3-1.6 0l-2.2-1.4-2.2 1.4c-.8.5-1.6 0-1.6-.9V5.6A2.2 2.2 0 0 1 5.2 3.4z" fill="#f8fafc"/><path d="M5.2 3.4h9.2A2.2 2.2 0 0 1 16.6 5.6v2.2H3V5.6A2.2 2.2 0 0 1 5.2 3.4z" fill="#dc2626"/><path d="M6.4 9.6h6.8M6.4 12.2h6.8M6.4 14.8h4.6" stroke="#64748b" stroke-width="1.4" stroke-linecap="round"/><rect x="17.2" y="4.8" width="3.6" height="15.2" rx="0.8" fill="#fbbf24"/><path d="M17.2 7.2h3.6" stroke="#b45309" stroke-width="1"/></g></svg> Glossary</a></li><li><a href="/sun-moon-earth-movement-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="9.4" cy="13.6" r="7.2" fill="#2563eb"/><path d="M5.2 8.2c1.8.6 1.4 2.4 0 2.9-1.5.5-1.6 1.9-.6 2.9 1.1 1.1.2 2.6-1.2 2.2-.8-1.9-.7-5.3 1.8-8z" fill="#34d399"/><path d="M11.6 7.1c2 .4 3.7 1.7 4.7 3.4-.8 1.2-2.2 1.1-2.8.2-.5-.8-1.7-.6-2.2-1.5-.4-.8-.6-1.8.3-2.1z" fill="#34d399"/><path d="M9 14.6c1.4-.3 2.8.6 2.6 2-.1 1.2.9 1.7.6 2.9-.3 1.1-1.9 1.5-2.9 1.1-1.2-.5-.8-1.8-1.5-2.6-.8-.8-.3-3.1 1.2-3.4z" fill="#34d399"/><ellipse cx="6.8" cy="9.2" rx="2.3" ry="1.3" fill="#ffffff" opacity=".3" transform="rotate(-28 6.8 9.2)"/><circle cx="19" cy="5.6" r="3.3" fill="#475569"/><path d="M19 2.3a3.3 3.3 0 0 1 0 6.6z" fill="#e2e8f0"/><circle cx="20.1" cy="4.6" r=".6" fill="#cbd5e1"/></g></svg> Sun, Earth &amp; Moon</a></li><li><a href="/planets/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> The Planets</a></li><li><a href="/solar-system-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Solar System</a></li><li><a href="/orbital-velocity-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Orbits &amp; Gravity</a></li><li><a href="/rocket-launch-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g transform="rotate(45 12 12)"><path d="M12 1.6c3 2.6 4.6 6.4 4.6 10.6 0 1.6-.3 3.1-.8 4.5H8.2a13.6 13.6 0 0 1-.8-4.5C7.4 8 9 4.2 12 1.6z" fill="#e2e8f0"/><path d="M12 1.6c3 2.6 4.6 6.4 4.6 10.6 0 1.6-.3 3.1-.8 4.5H12z" fill="#cbd5e1"/><path d="M12 1.6c1.5 1.3 2.6 2.9 3.4 4.7H8.6c.8-1.8 1.9-3.4 3.4-4.7z" fill="#dc2626"/><circle cx="12" cy="10.2" r="2.3" fill="#0ea5e9"/><circle cx="12" cy="10.2" r="1.3" fill="#bae6fd"/><path d="M8.2 12.4c-1.8 1.2-2.8 3-3 5.2l3.6-1.6zM15.8 12.4c1.8 1.2 2.8 3 3 5.2l-3.6-1.6z" fill="#dc2626"/><path d="M10.2 17.6h3.6c-.3 2.2-1.1 3.9-1.8 4.8-.7-.9-1.5-2.6-1.8-4.8z" fill="#f97316"/><path d="M11.2 17.6h1.6c-.1 1.6-.4 2.9-.8 3.7-.4-.8-.7-2.1-.8-3.7z" fill="#fde047"/><ellipse cx="10.4" cy="8.4" rx="1" ry="2.4" fill="#ffffff" opacity=".5" transform="rotate(-12 10.4 8.4)"/></g></svg> Rocket Launches</a></li><li><a href="/classroom/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> For Teachers</a></li><li><a href="/classroom/submit-a-lesson/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.6" fill="#16a34a"/><circle cx="12" cy="12" r="9.6" fill="none" stroke="#15803d" stroke-width="1"/><path d="M12 7.2v9.6M7.2 12h9.6" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="8.8" cy="7.6" rx="2.6" ry="1.5" fill="#ffffff" opacity=".28" transform="rotate(-30 8.8 7.6)"/></g></svg> Submit a Lesson Plan</a></li><li class="menu-units"><span class="menu-ulab"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="1.6" y="13.4" width="13.6" height="5" rx="1.2" fill="#d4a373" transform="rotate(-14 8.4 15.9)"/><rect x="9.4" y="8.2" width="13.6" height="5" rx="1.2" fill="#e8c39e" transform="rotate(22 16.2 10.7)"/><g stroke="#8a5a33" stroke-width="1" stroke-linecap="round" opacity=".8"><path d="M4.2 14.6v1.8M6.9 13.9v2.6M9.6 13.2v1.8M12.3 12.6v2.6"/><path d="M12.6 10.9l.6 1.7M15.2 9.8l.9 2.4M17.8 8.7l.6 1.7M20.4 7.6l.9 2.4"/></g><circle cx="10.6" cy="12.6" r="1.15" fill="#8a5a33"/></g></svg> <span>Units</span></span><span class="menu-useg" role="group" aria-label="Measurement units"><button type="button" class="menu-ubtn" data-uset="metric" aria-pressed="false">Metric</button><button type="button" class="menu-ubtn" data-uset="imperial" aria-pressed="false">Imperial</button></span></li><li><button type="button" class="menu-pj" id="ac-pj" aria-pressed="false"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="2.4" y="7.6" width="15.4" height="10.2" rx="2" fill="#475569"/><rect x="2.4" y="7.6" width="15.4" height="3.4" rx="2" fill="#64748b"/><circle cx="7.4" cy="13.4" r="3.1" fill="#0f172a"/><circle cx="7.4" cy="13.4" r="1.7" fill="#93c5fd"/><circle cx="14.4" cy="10.4" r="1" fill="#fbbf24"/><path d="M17.8 10.4 22.6 6.6v12.4l-4.8-3.8z" fill="#fde68a" opacity=".75"/><path d="M4.6 17.8v2.2M15.4 17.8v2.2" stroke="#334155" stroke-width="1.8" stroke-linecap="round"/></g></svg> <span>Projector mode</span></button></li></ul></details><script>(function(){var b=document.getElementById("ac-pj");if(!b)return;
+function sync(){var on=document.documentElement.classList.contains("pj");b.setAttribute("aria-pressed",on?"true":"false");}
+sync();b.addEventListener("click",function(){var on=document.documentElement.classList.toggle("pj");
+try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(e){}sync();});})();</script><script>(function(){
+  var KEY='ac_units';
+  var IMP=["US","LR","MM"];
+  /* WHAT THE READER HAS CHOSEN, or what their locale implies. A stored value
+     always wins: it is an explicit answer to the question the guess is making. */
+  function guess(){
+    try{
+      var ls=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'']);
+      for(var i=0;i<ls.length;i++){
+        var m=/-([A-Za-z]{2})\b/.exec(ls[i]||'');
+        if(m){ var r=m[1].toUpperCase();
+          /* the first tag that names a country decides it — a reader with
+             en-US then en-GB is being told they are in the US */
+          for(var j=0;j<IMP.length;j++) if(IMP[j]===r) return 'imperial';
+          return 'metric';
+        }
+      }
+      /* no region anywhere in the list: fall back to the time zone, which is
+         the other thing every browser knows about where it is */
+      var tz=(Intl.DateTimeFormat().resolvedOptions()||{}).timeZone||'';
+      if(/^America\/(New_York|Chicago|Denver|Phoenix|Los_Angeles|Anchorage|Detroit|Indiana|Kentucky|Boise|Juneau|Nome|Adak|Menominee|North_Dakota|Sitka|Yakutat)/.test(tz)
+         || tz==='Pacific/Honolulu' || tz==='America/Monrovia' || tz==='Asia/Yangon') return 'imperial';
+    }catch(e){}
+    return 'metric';
+  }
+  function get(){
+    var v=null; try{ v=localStorage.getItem(KEY); }catch(e){}
+    return (v==='imperial'||v==='metric')?v:guess();
+  }
+  function set(v){
+    try{ localStorage.setItem(KEY,v); }catch(e){}
+    apply(v); mark(v);
+    /* pages that draw their own figures listen for this — the simulators, the
+       tide chart, the nearby-city dropdown. Fired AFTER the spans are done, so
+       a listener sees a consistent page. */
+    try{ document.dispatchEvent(new Event('ac:units')); }catch(e){}
+  }
+  window.acUnits=get;
+
+  /* ---- the conversions -------------------------------------------------
+     Each entry: the imperial unit's name, how many of it there are in one
+     metric unit, and how to write it. Nothing here is approximate — these are
+     the defining ratios, so a converted figure is exact before it is rounded. */
+  var C={
+    km:   { u:'miles', f:0.621371192237334, one:'mile' },
+    m:    { u:'ft',    f:3.280839895013123 },
+    cm:   { u:'in',    f:0.393700787401575 },
+    mm:   { u:'in',    f:0.0393700787401575 },
+    'km/h':{ u:'mph',  f:0.621371192237334 },
+    'km/s':{ u:'mi/s', f:0.621371192237334 },
+    kg:   { u:'lb',    f:2.204622621848776 },
+    C:    { u:'\u00b0F', f:1.8, off:32, pre:'' }
+  };
+  /* Round the converted value to the same PRECISION the source was written
+     with: sig is the number of significant figures the page chose, or a
+     negative number meaning "this many decimal places". */
+  function round(v,sig){
+    if(sig==null) return v;
+    if(sig<0){ var d=-sig; return +v.toFixed(d); }
+    if(v===0) return 0;
+    var mag=Math.floor(Math.log(Math.abs(v))/Math.LN10)+1;
+    var p=Math.max(0,sig-mag);
+    return +v.toFixed(p);
+  }
+  function fmt(v){
+    var d=0, a=Math.abs(v);
+    if(a<10) d=(a<1?3:2); else if(a<100) d=1;
+    var s=v.toFixed(d);
+    if(d) s=s.replace(/\.?0+$/,'');
+    return (+s).toLocaleString('en-US',{maximumFractionDigits:d});
+  }
+  function apply(sys){
+    var ns=document.querySelectorAll('[data-u]'), i;
+    for(i=0;i<ns.length;i++){
+      var el=ns[i], u=el.getAttribute('data-u'), c=C[u];
+      var raw=parseFloat(el.getAttribute('data-v'));
+      if(!c||isNaN(raw)) continue;
+      /* the metric text is what the page shipped with — kept verbatim, so
+         switching back is exact rather than re-formatted */
+      if(el.getAttribute('data-m')==null) el.setAttribute('data-m',el.textContent);
+      if(sys!=='imperial'){ el.textContent=el.getAttribute('data-m'); continue; }
+      var sig=el.getAttribute('data-s'); sig=(sig==null||sig==='')?null:+sig;
+      var v=round(raw*c.f+(c.off||0),sig);
+      var unit=(c.one&&Math.abs(v)===1)?c.one:c.u;
+      el.textContent=fmt(v)+(u==='C'?'':' ')+unit;
+    }
+  }
+  /* the control in the menu */
+  function mark(sys){
+    var bs=document.querySelectorAll('[data-uset]'), i;
+    for(i=0;i<bs.length;i++)
+      bs[i].setAttribute('aria-pressed', bs[i].getAttribute('data-uset')===sys?'true':'false');
+  }
+  var bs=document.querySelectorAll('[data-uset]');
+  for(var i=0;i<bs.length;i++) bs[i].addEventListener('click',function(){ set(this.getAttribute('data-uset')); });
+  /* ---- FOR FIGURES THE PAGE DRAWS ITSELF ---------------------------------
+     A span works for anything baked into the HTML. It cannot work for a number
+     a script writes every frame — the orbital simulator's speed read-out, a
+     tide height fetched from NOAA, an <option> in a dropdown (which can hold
+     no markup at all). Those call this instead: give it a metric value, its
+     unit and the precision, and it returns the string in the reader's system.
+     One conversion table, one rounding rule, both halves of the site. */
+  /* written to the SAME number of decimals the caller asked for, in either
+     system: a tide height is quoted to a tenth whether it is feet or metres,
+     and fmt()'s own rules would print 0.85 m against 2.8 ft. */
+  function fmtAs(v,sig){
+    if(sig!=null&&sig<0) return (+v).toLocaleString('en-US',{minimumFractionDigits:-sig,maximumFractionDigits:-sig});
+    return fmt(v);
+  }
+  window.acFmt=function(v,unit,sig){
+    var c=C[unit];
+    if(!c||v==null||isNaN(v)) return '';
+    if(get()!=='imperial') return fmtAs(round(v,sig),sig)+(unit==='C'?' °C':' '+unit);
+    var iv=round(v*c.f+(c.off||0),sig);
+    return fmtAs(iv,sig)+(unit==='C'?'':' ')+((c.one&&Math.abs(iv)===1)?c.one:c.u);
+  };
+  /* the inverse, for data that arrives IMPERIAL: NOAA publishes tide heights in
+     feet, so the page holds feet and asks for the reader's version of them. */
+  window.acFromFt=function(ft,sig){ return window.acFmt(ft/3.280839895013123,'m',sig==null?-1:sig); };
+  window.acUnitFt=function(){ return get()==='imperial'?'ft':'m'; };
+  window.acFtVal=function(ft){ return get()==='imperial'?ft:ft/3.280839895013123; };
+  var now=get(); mark(now); if(now==='imperial') apply(now);
+  /* pages that draw figures after load (the sun and moon cards repaint every
+     minute, the simulators every frame) tell us to run again */
+  document.addEventListener('ac:units',function(){ apply(get()); });
+})();</script></div>
   <h1>Rocket Launch to Jupiter</h1>
   <nav class="sol-crumbs" aria-label="Breadcrumb"><a class="sol-crumb" href="/">Home</a><span class="sol-crumb-sep" aria-hidden="true">/</span><a class="sol-crumb" href="/planets/">Planets</a><span class="sol-crumb-sep" aria-hidden="true">/</span><a class="sol-crumb" href="/rocket-launch-simulator/">Rocket launch simulator</a><span class="sol-crumb-sep" aria-hidden="true">/</span><span class="sol-crumb-here" aria-current="page">To Jupiter</span></nav>
   <p class="sub">The next window opens around <strong>Oct 27, 2026</strong>, and the crossing takes about <strong>1,053 days</strong>. Both are solved from the real orbits when the page loads — and the path is drawn above, framed on the flight.</p>
@@ -168,1069 +1604,85 @@
     <p><strong>Why can&#39;t a rocket just fly straight at Mars?</strong> Because it is already moving at about 30 km/s sideways, along with the Earth. A spacecraft does not leave the solar system&#39;s rules when it leaves the launch pad: it stays in orbit around the sun, and the only thing an engine can do is change the shape of that orbit. Getting to Mars means enlarging the orbit until its far side reaches Mars&#39;s — and then arranging to be there when Mars is.</p>
     <p><strong>Doesn&#39;t the curved path cost more fuel than a straight one?</strong> It costs far less — the curve is the free part. A rocket only spends fuel when it changes its speed or direction, and on this route the engine fires twice: once to leave, once to arrive. In between it is switched off for months, and the sun&#39;s gravity does all of the turning. A straight line is what an object does when NO force acts on it, and the sun is pulling the whole time, so holding a straight line to Mars would mean thrusting continuously for the entire trip just to cancel that pull — and cancelling the 30 km/s sideways motion the spacecraft inherited from Earth before it even started. The curve is not a detour. It is the shape of falling.</p>
   </div>
-  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
+  <details class="suggest-box" data-ac="suggest">
+    <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
+    <form class="suggest-form" autocomplete="off">
+      <p class="hint" style="margin:0 0 14px">Ask us anything about the tools, tell us what's broken or confusing, or suggest something we're missing. Every message is read by a person.</p>
+      <p class="notice">If you are under 13, do not send us your name, email, or any other personal information. If you are under 18, please get a parent or guardian's permission before using this form.</p>
+      <label class="cr-check" for="sg-age"><input id="sg-age" name="age_ok" type="checkbox" required> <span>I am 13 or older, and if I am under 18 I have a parent or guardian's permission to send this.</span></label>
+      <label for="sg-email">Email <span class="hint" style="display:inline;font-weight:400">(so we can reply — leave blank if you'd rather not)</span></label>
+      <input id="sg-email" type="email" placeholder="Your email address">
+      <label for="sg-idea">Your question or idea</label>
+      <textarea id="sg-idea" maxlength="1000" required placeholder="How do I…? · Something isn't working · A countdown or feature we're missing…"></textarea>
+      <input id="sg-hp" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn" id="sg-send" type="submit">Send message</button>
+      <p id="sg-note" class="hint suggest-note" role="status"></p>
+      <p class="hint" style="margin-top:12px">If you leave an email we'll reply to questions. We can't promise to build every suggestion, but they directly shape what we work on next.</p>
+    </form>
+  </details>
+  <script data-ac="suggest">(function(){var b=document.querySelector('.suggest-box[data-ac="suggest"]');if(!b)return;var f=b.querySelector('.suggest-form'),note=b.querySelector('#sg-note'),btn=b.querySelector('#sg-send');f.addEventListener('submit',function(e){e.preventDefault();if(b.querySelector('#sg-hp').value)return;var idea=b.querySelector('#sg-idea').value.trim();if(!idea){note.textContent='Please add a quick note first.';return;}var age=b.querySelector('#sg-age');if(age&&!age.checked){note.textContent='Please confirm the age notice.';return;}var em=b.querySelector('#sg-email').value.trim();btn.disabled=true;note.textContent='Sending…';fetch('/api/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:location.href,reason:'Site idea',details:idea,email:em,website:''})}).then(function(r){return r.json().catch(function(){return{};});}).then(function(d){if(d&&!d.error){f.reset();note.textContent=em?'Thanks — got it. A reply will go to '+em+'. 🙌':'Thanks — got it. 🙌 (No email given, so this one cannot be answered.)';}else{note.textContent='Sorry, that did not send. Please try again.';btn.disabled=false;}}).catch(function(){note.textContent='Network hiccup — please try again.';btn.disabled=false;});});})();</script>
+  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/suggest-event/">Suggest an event</a> · <a class="report-link" href="/report/?url=https%3A%2F%2Ftimeandspace.science%2Frocket-launch-simulator%2Fjupiter%2F">Report abuse</a></p>
+  <p class="footer copyright">© 2026 Time and Space Science. All rights reserved.</p>
+  <p class="footer sitelinks">Gravity, motion, time and space — one set of rules, seen from different sides: <a href="/questions/">the big questions</a> · <a href="/glossary/">the glossary</a> · <a href="/sun-moon-earth-movement-simulator/">the Sun, Earth &amp; Moon</a> · <a href="/day-night-map/">day &amp; night on Earth</a> · <a href="/solar-system-simulator/">the solar system</a> · <a href="/planets/">the planets</a> · <a href="/orbital-velocity-simulator/">gravity &amp; orbits</a> · <a href="/sun/">sunrise &amp; sunset</a> · <a href="/moon/">moon phases</a> · <a href="/world-clock/">time zones</a></p>
+  <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. Teachers: <a href="/classroom/submit-a-lesson/">send us the lesson you already run</a> and we will build it into a page here, with your name on it — or <a href="/classroom/#ask">ask us to build a simulator</a> your class has thought of. <a href="/classroom/">Classroom</a> · <a href="/about/">About this site</a>.</p>
 </div>
-<script data-ac="shared" data-name="sol-launch-jupiter">
-/* The globe's drawing code sits at the TOP of this file, outside the IIFE below
-   — the Earth-and-Moon view inside it calls glSvg, and so does the planet-page
-   globe at the bottom. Declared once, seen by both. */
-/* globe: not drawn on this page */
-(function(){
-/* moon: not drawn on this page */
-
-var PL_RAD=Math.PI/180, PL_DAY=86400000, PL_J2000=2451545, PL_J1970=2440588;
-/* [name, a, e, I, L, longPeri, longNode] at J2000, then the same six per
-   Julian century. a in AU, angles in degrees. */
-var PL_EL=[
- ['Mercury',0.38709927,0.20563593,7.00497902,252.25032350,77.45779628,48.33076593,
-            0.00000037,0.00001906,-0.00594749,149472.67411175,0.16047689,-0.12534081],
- ['Venus',  0.72333566,0.00677672,3.39467605,181.97909950,131.60246718,76.67984255,
-            0.00000390,-0.00004107,-0.00078890,58517.81538729,0.00268329,-0.27769418],
- ['Earth',  1.00000261,0.01671123,-0.00001531,100.46457166,102.93768193,0.0,
-            0.00000562,-0.00004392,-0.01294668,35999.37244981,0.32327364,0.0],
- ['Mars',   1.52371034,0.09339410,1.84969142,-4.55343205,-23.94362959,49.55953891,
-            0.00001847,0.00007882,-0.00813131,19140.30268499,0.44441088,-0.29257343],
- ['Jupiter',5.20288700,0.04838624,1.30439695,34.39644051,14.72847983,100.47390909,
-            -0.00011607,-0.00013253,-0.00183714,3034.74612775,0.21252668,0.20469106],
- ['Saturn', 9.53667594,0.05386179,2.48599187,49.95424423,92.59887831,113.66242448,
-            -0.00125060,-0.00050991,0.00193609,1222.49362201,-0.41897216,-0.28867794],
- ['Uranus', 19.18916464,0.04725744,0.77263783,313.23810451,170.95427630,74.01692503,
-            -0.00196176,-0.00004397,-0.00242939,428.48202785,0.40805281,0.04240589],
- ['Neptune',30.06992276,0.00859048,1.77004347,-55.12002969,44.96476227,131.78422574,
-            0.00026291,0.00005105,0.00035372,218.45945325,-0.32241464,-0.00508664],
- /* PLUTO IS A DWARF PLANET and the page says so wherever it appears. It is here
-    because it is the one body whose orbit makes two things visible that nothing
-    else on this page can: a 17-degree inclination, against the 0.8-to-7 of
-    everything else, and an eccentricity that carries it inside Neptune's orbit
-    for twenty years of every 248. Same JPL approximate-elements table and the
-    same rates as the eight above, so check-planets proves it the same way. */
- ['Pluto',  39.48211675,0.24882730,17.14001206,238.92903833,224.06891629,110.30393684,
-            -0.00031596,0.00005170,0.00004818,145.20780515,-0.04062942,-0.01183482]
-];
-/* mean diameters in km, for the size disclaimer and the to-scale rungs */
-var PL_DIA={ Sun:1391400, Mercury:4879, Venus:12104, Earth:12742, Mars:6779,
-             Jupiter:139820, Saturn:116460, Uranus:50724, Neptune:49244, Pluto:2377, Moon:3474 };
-var PL_AU=149597870;
-
-function plCent(ms){ return (ms/PL_DAY - 0.5 + PL_J1970 - PL_J2000)/36525; }
-function plWrap(d){ return ((d%360)+360)%360; }
-
-/* Kepler's equation, Newton–Raphson. The eccentricities here top out at Mercury's
-   0.206, where six iterations are already past double precision. */
-function plKepler(M,e){
-  var E=M+e*Math.sin(M), i, dE;
-  for(i=0;i<8;i++){
-    dE=(E-e*Math.sin(E)-M)/(1-e*Math.cos(E));
-    E-=dE; if(Math.abs(dE)<1e-12) break;
+<script defer src="/assets/js/sol-launch-jupiter.9e2fc7d207.js"></script>
+<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+<script data-ac="privacy">(function(){
+  try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
+  var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];
+  /* "dismissed" stores the choice-not-to-choose: the strip stops nagging, no
+   * consent is recorded (so under GDPR analytics consent stays not-granted). */
+  function setConsent(v){
+    try{localStorage.setItem("ac_consent",v);}catch(_){}
+    try{if(v!=="dismissed"&&window.zaraz&&zaraz.consent){zaraz.consent.set({analytics:v==="granted"});zaraz.consent.sendQueuedEvents&&zaraz.consent.sendQueuedEvents();}}catch(_){}
+    var el=document.getElementById("ac-privacy");if(el)el.hidden=true;
   }
-  return E;
-}
-
-/* Heliocentric ecliptic position of one planet, in AU: {x,y,z,lon,lat,r}.
-   x points at the March equinox, z at the north ecliptic pole. */
-function plPos(idx,ms){
-  var p=PL_EL[idx], T=plCent(ms);
-  var a=p[1]+p[7]*T, e=p[2]+p[8]*T, I=(p[3]+p[9]*T)*PL_RAD;
-  var L=p[4]+p[10]*T, w=p[5]+p[11]*T, O=(p[6]+p[12]*T)*PL_RAD;
-  var argPeri=(w-p[6]-p[12]*T)*PL_RAD;               /* omega = long.peri - node */
-  var M=plWrap(L-w); if(M>180) M-=360; M*=PL_RAD;
-  var E=plKepler(M,e);
-  /* position in the orbital plane, perifocal coordinates */
-  var xo=a*(Math.cos(E)-e), yo=a*Math.sqrt(1-e*e)*Math.sin(E);
-  var cw=Math.cos(argPeri), sw=Math.sin(argPeri), cO=Math.cos(O), sO=Math.sin(O),
-      cI=Math.cos(I), sI=Math.sin(I);
-  var x=(cw*cO-sw*sO*cI)*xo+(-sw*cO-cw*sO*cI)*yo;
-  var y=(cw*sO+sw*cO*cI)*xo+(-sw*sO+cw*cO*cI)*yo;
-  var z=(sw*sI)*xo+(cw*sI)*yo;
-  var r=Math.sqrt(x*x+y*y+z*z);
-  return { x:x, y:y, z:z, r:r, a:a, e:e,
-           lon:plWrap(Math.atan2(y,x)/PL_RAD), lat:Math.asin(z/r)/PL_RAD };
-}
-function plName(idx){ return PL_EL[idx][0]; }
-/* Kepler's third law: the period falls out of the axis, so the "how far does it
-   get in a decade" copy cannot disagree with the drawing. */
-function plPeriodDays(idx){ var a=PL_EL[idx][1]; return 365.256898*Math.pow(a,1.5); }
-
-/* sat: not drawn on this page */
-/* small: not drawn on this page */
-
-var TR_GM_SUN=1.32712440018e11;      /* km^3/s^2 */
-var TR_GM_EARTH=398600.44;
-var TR_LEO=6678;                     /* km: a 300 km parking orbit, Earth radius + 300 */
-var TR_DAY=86400000;
-
-/* the targets a transfer is offered for: index, and the label used in the UI */
-var TR_TARGETS=[[3,'Mars'],[4,'Jupiter'],[5,'Saturn']];
-
-function trAU(){ return PL_AU; }
-function trR(idx,ms){ var p=plPos(idx,ms); return Math.sqrt(p.x*p.x+p.y*p.y)*PL_AU; }   /* km, in the ecliptic plane */
-function trLon(idx,ms){ var p=plPos(idx,ms); return Math.atan2(p.y,p.x); }
-function trWrapPi(a){ while(a>Math.PI) a-=2*Math.PI; while(a<-Math.PI) a+=2*Math.PI; return a; }
-
-/* the half-ellipse from Earth's radius at t0 to the target's radius on arrival.
-   Iterated because the arrival radius depends on the flight time it sets. */
-function trSolve(idx,t0){
-  var r1=trR(2,t0), a=(r1+trR(idx,t0))/2, tf=0, i;
-  for(i=0;i<8;i++){
-    tf=Math.PI*Math.sqrt(a*a*a/TR_GM_SUN)*1000;         /* ms */
-    var r2=trR(idx,t0+tf), na=(r1+r2)/2;
-    if(Math.abs(na-a)<1) { a=na; break; }
-    a=na;
-  }
-  tf=Math.PI*Math.sqrt(a*a*a/TR_GM_SUN)*1000;
-  var r2=trR(idx,t0+tf);
-  /* how far the target misses the far end of the ellipse, in radians */
-  var miss=trWrapPi(trLon(idx,t0+tf)-(trLon(2,t0)+Math.PI));
-  return { t0:t0, tf:tf, a:a, r1:r1, r2:r2, e:(r2-r1)/(r2+r1), miss:miss, lon1:trLon(2,t0) };
-}
-
-/* The next departure at or after ms. Earth laps every target, so as the
-   departure date slides forward the miss angle falls steadily — about half a
-   degree a day for Mars, a degree for Saturn — and the window is where it
-   crosses zero. Scan for that crossing, then bisect. The 6-day step is a small
-   fraction of a synodic period, so no window can be stepped over, and the
-   guard rejects the jump where the angle wraps from -180 to +180 rather than
-   crossing. */
-function trWindow(idx,ms){
-  var step=6*TR_DAY, prev=trSolve(idx,ms), t=ms, i, cur;
-  for(i=0;i<760;i++){                                   /* up to ~12.5 years */
-    t+=step; cur=trSolve(idx,t);
-    if(prev.miss>0&&cur.miss<=0&&(prev.miss-cur.miss)<Math.PI){
-      var lo=t-step, hi=t, j;
-      for(j=0;j<44;j++){
-        var mid=(lo+hi)/2;
-        if(trSolve(idx,mid).miss>0) lo=mid; else hi=mid;
-      }
-      return trSolve(idx,(lo+hi)/2);
+  function show(g){
+    if(!g||!g.country)return;
+    var isGdpr=GDPR.indexOf(g.country)>-1, isCcpa=g.country==="US"&&g.region==="CA";
+    if(!isGdpr&&!isCcpa)return;
+    var el=document.getElementById("ac-privacy"),txt=document.getElementById("ac-privacy-text"),act=document.getElementById("ac-privacy-actions");
+    if(!el)return;
+    if(isGdpr){
+      txt.textContent="Allow Google Analytics? EU/UK law requires consent for analytics.";
+      act.innerHTML='<button type="button" id="ac-priv-a">Accept</button><button type="button" class="plain" id="ac-priv-r">Reject</button><a href="/privacy">Privacy</a>';
+      document.getElementById("ac-priv-a").onclick=function(){setConsent("granted");};
+      document.getElementById("ac-priv-r").onclick=function(){setConsent("denied");};
+    }else{
+      txt.textContent="This site uses Google Analytics.";
+      act.innerHTML='<a href="#" id="ac-priv-o">Do Not Sell or Share My Personal Information</a><a href="/privacy">Privacy</a>';
+      document.getElementById("ac-priv-o").onclick=function(ev){ev.preventDefault();setConsent("denied");};
     }
-    prev=cur;
+    document.getElementById("ac-privacy-x").onclick=function(){setConsent("dismissed");};
+    el.hidden=false;
   }
-  return null;
-}
-
-/* The next n windows, not just the next one. Each search restarts a fortnight
-   past the last departure found, which is far enough to clear the window it just
-   solved and far short of the synodic period, so none can be skipped. */
-function trWindows(idx,ms,n){
-  var out=[], t=ms, i, w;
-  for(i=0;i<n;i++){
-    w=trWindow(idx,t); if(!w) break;
-    out.push(w); t=w.t0+14*TR_DAY;
+  /* ONE lookup per visitor, not one per page view. This notice is site-wide, so
+     the fetch was firing on every page — including /timer/ and /stopwatch/,
+     which have nothing regional about them. The visitor's country does not
+     change between two page views, so it is cached and reused; only a visitor
+     who has neither answered the notice nor been looked up yet costs a request.
+     Deferred to idle as well, so even that one never sits in the load timeline
+     (it decides whether to show a banner, nothing above the fold waits on it).
+     The cache carries a 7-day expiry rather than living forever: this signal
+     decides whether a consent gate is legally required, and someone who first
+     visited from outside the EEA and has since travelled into it must not be
+     held to a stale answer. Seven days keeps it one request per visitor per
+     week, which is already ~zero. */
+  var cached=null;
+  try{
+    var raw=JSON.parse(localStorage.getItem("ac_geo")||"null");
+    if(raw&&raw.t&&(Date.now()-raw.t)<6048e5) cached=raw;
+  }catch(_){}
+  function go(){
+    if(cached&&cached.country){show(cached);return;}
+    fetch("/api/geo").then(function(r){return r.ok?r.json():null;}).then(function(g){
+      if(!g||!g.country)return;
+      try{localStorage.setItem("ac_geo",JSON.stringify({country:g.country,region:g.region,t:Date.now()}));}catch(_){}
+      show(g);
+    })["catch"](function(){});
   }
-  return out;
-}
-
-/* speeds, and therefore the cost of the trip */
-function trBurns(s){
-  var vDep=Math.sqrt(TR_GM_SUN*(2/s.r1-1/s.a));         /* on the transfer ellipse at departure */
-  var vE=Math.sqrt(TR_GM_SUN*(2/s.r1-1/(PL_EL[2][1]*PL_AU)));
-  var vArr=Math.sqrt(TR_GM_SUN*(2/s.r2-1/s.a));
-  return { vDep:vDep, vE:vE, dv1:vDep-vE, vArr:vArr };
-}
-/* the full accounting for one target: heliocentric burns, plus what it costs to
-   leave a low Earth orbit at all (which is most of a rocket) */
-function trCost(idx,s){
-  var b=trBurns(s);
-  var vT=Math.sqrt(TR_GM_SUN*(2/s.r2-1/(PL_EL[idx][1]*PL_AU)));
-  var dv2=vT-b.vArr;
-  var vinf=b.dv1;
-  var vLeo=Math.sqrt(TR_GM_EARTH/TR_LEO);
-  var vEsc=Math.sqrt(vinf*vinf+2*TR_GM_EARTH/TR_LEO);
-  return { dv1:b.dv1, dv2:dv2, total:b.dv1+Math.abs(dv2), vinf:vinf,
-           injection:vEsc-vLeo, vDep:b.vDep, vE:b.vE, vArr:b.vArr, vT:vT };
-}
-
-/* where the craft is at time ms, or null if it is not flying yet / already
-   arrived. Kepler on the transfer ellipse, same solver the planets use. */
-function trCraft(s,ms){
-  if(ms<s.t0||ms>s.t0+s.tf) return null;
-  var n=Math.PI/s.tf;                                    /* half a revolution over tf */
-  var M=n*(ms-s.t0), E=plKepler(M,s.e);
-  var aAU=s.a/PL_AU;
-  var xo=aAU*(Math.cos(E)-s.e), yo=aAU*Math.sqrt(1-s.e*s.e)*Math.sin(E);
-  var c=Math.cos(s.lon1), sn=Math.sin(s.lon1);           /* perihelion at the departure longitude */
-  return { x:c*xo-sn*yo, y:sn*xo+c*yo, r:Math.sqrt(xo*xo+yo*yo) };
-}
-
-/* the closest the two planets get: local minima of the real separation. Not the
-   same instant as opposition, and not the same distance every time, which is
-   the whole point of showing it. */
-function trClosest(idx,ms,count){
-  var out=[], step=TR_DAY, sep=function(t){
-    var a=plPos(2,t), b=plPos(idx,t);
-    return Math.sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y)+(a.z-b.z)*(a.z-b.z));
-  };
-  var p0=sep(ms-step), p1=sep(ms), t=ms, i;
-  for(i=0;i<7000&&out.length<count;i++){
-    t+=step; var p2=sep(t);
-    if(p1<p0&&p1<=p2){
-      /* refine to the hour */
-      var lo=t-2*step, hi=t, j;
-      for(j=0;j<30;j++){
-        var m1=lo+(hi-lo)/3, m2=hi-(hi-lo)/3;
-        if(sep(m1)<sep(m2)) hi=m2; else lo=m1;
-      }
-      var tm=(lo+hi)/2;
-      out.push({ t:tm, au:sep(tm) });
-    }
-    p0=p1; p1=p2;
-  }
-  return out;
-}
-
-/* ---- drawing ------------------------------------------------------------- */
-/* the flight path: the half ellipse, where the planets are when it leaves and
-   when it lands, and the craft itself if the clock is inside the flight. */
-function trLayer(ms,idx,outer,k,s){
-  if(!s) return '';
-  var out='', i, pts=[];
-  var aAU=s.a/PL_AU, c=Math.cos(s.lon1), sn=Math.sin(s.lon1);
-  for(i=0;i<=120;i++){
-    var E=i/120*Math.PI;
-    var xo=aAU*(Math.cos(E)-s.e), yo=aAU*Math.sqrt(1-s.e*s.e)*Math.sin(E);
-    pts.push(solF(SOL_CX+k*(c*xo-sn*yo))+','+solF(SOL_CY-k*(sn*xo+c*yo)));
-  }
-  out+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#facc15" stroke-opacity=".85" stroke-width="2"/>';
-  /* departure and arrival, as hollow markers on the two orbits */
-  var e0=plPos(2,s.t0), p1=plPos(idx,s.t0+s.tf);
-  out+='<circle cx="'+solF(SOL_CX+k*e0.x)+'" cy="'+solF(SOL_CY-k*e0.y)+'" r="7" fill="none" stroke="#facc15" stroke-width="1.5"/>';
-  out+='<circle cx="'+solF(SOL_CX+k*p1.x)+'" cy="'+solF(SOL_CY-k*p1.y)+'" r="9" fill="none" stroke="#facc15" stroke-width="1.5" stroke-dasharray="3 3"/>';
-  out+='<text x="'+solF(SOL_CX+k*e0.x)+'" y="'+solF(SOL_CY-k*e0.y+22)+'" text-anchor="middle" font-size="11" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">launch</text>';
-  out+='<text x="'+solF(SOL_CX+k*p1.x)+'" y="'+solF(SOL_CY-k*p1.y+24)+'" text-anchor="middle" font-size="11" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">arrive</text>';
-  var cr=trCraft(s,ms);
-  if(cr){
-    var cx=SOL_CX+k*cr.x, cy=SOL_CY-k*cr.y;
-    out+='<circle cx="'+solF(cx)+'" cy="'+solF(cy)+'" r="4" fill="#fef9c3"/>';
-    out+='<circle cx="'+solF(cx)+'" cy="'+solF(cy)+'" r="9" fill="none" stroke="#facc15" stroke-opacity=".7"/>';
-  }
-  return out;
-}
-
-
-var SOL_RUNGS=[["moon","Earth & the Moon",0,0,"em",2],["inner","The inner planets",1.62,4,"sys",-1],["mars","Out to Mars",1.72,4,"sys",-1],["belt","Out to the asteroid belt",3.75,4,"sys",-1],["jupiter","Out to Jupiter",5.75,5,"sys",-1],["saturn","Out to Saturn",10.3,6,"sys",-1],["neptune","Out to Neptune",31.5,8,"sys",-1],["pluto","Out to Pluto (a dwarf planet)",50,9,"sys",-1],["mars-moons","Mars: Phobos & Deimos",0,0,"moons",3],["jupiter-moons","Jupiter: the Galilean moons",0,0,"moons",4],["saturn-moons","Saturn: the rings & Titan",0,0,"moons",5],["uranus-moons","Uranus: Titania & Miranda",0,0,"moons",6],["neptune-moons","Neptune: Triton",0,0,"moons",7],["pluto-moons","Pluto: Charon & the small four",0,0,"moons",8]];
-var SOL_SPANS=[['month','Month',30],['year','Year',365.25],['decade','Decade',3652.5],['century','Century',36525]];
-/* drawn radius per body, in px. Nothing here is to scale with anything else on
-   the planetary rungs — Jupiter is a fraction of a pixel across at Saturn's
-   zoom — so these are legibility sizes, and the page says so. */
-var SOL_R={Sun:15,Mercury:3.5,Venus:5,Earth:5,Mars:4,Jupiter:10,Saturn:9,Uranus:7,Neptune:7,Pluto:3};
-var SOL_COL={Sun:'#fcd34d',Mercury:'#b8b3ab',Venus:'#e6c98a',Earth:'#4a90c8',Mars:'#c86a4a',
-             Jupiter:'#d9a878',Saturn:'#e3cd9a',Uranus:'#8fd0da',Neptune:'#6b8fd8',Pluto:'#c9b7a8',Moon:'#d8dee9'};
-/* where a click on this planet's dot or orbit ring goes, and whether the
-   tooltip should say "and its moons" — SOL_HASMOON is exactly the set of
-   planets with a moons rung in SOL_RUNGS (mars/jupiter/saturn/uranus/
-   neptune/pluto); Earth's own moon lives on the "moon" rung instead, which
-   is why Earth is not in this table. */
-var SOL_SLUG={Mercury:'mercury',Venus:'venus',Earth:'earth',Mars:'mars',Jupiter:'jupiter',
-              Saturn:'saturn',Uranus:'uranus',Neptune:'neptune',Pluto:'pluto'};
-var SOL_HASMOON={Mars:1,Jupiter:1,Saturn:1,Uranus:1,Neptune:1,Pluto:1};
-var SOL_ZINC=12;      /* degrees: how tilted a small orbit is drawn once lifted */
-var SOL_W=900, SOL_H=900, SOL_CX=450, SOL_CY=450, SOL_PAD=26;
-/* THE CAPTIONS SIT AT THE TOP OF THESE TWO FRAMES, not the foot, because Now /
-   Full screen / Play now ride on the bottom-right of the picture. Reserving a
-   band at the bottom cannot work: the overlay is sized in CSS pixels and the
-   drawing is scaled, so on a 390px phone those buttons cover 129 SVG units and
-   on a desktop 41 — no fixed offset clears both. The top of both views is empty
-   sky at every size, and nothing is ever drawn over it. */
-
-function solF(n){ return Math.round(n*10)/10; }
-function solEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function solRung(id){ for(var i=0;i<SOL_RUNGS.length;i++) if(SOL_RUNGS[i][0]===id) return SOL_RUNGS[i]; return SOL_RUNGS[1]; }
-/* lighten (pct>0) or darken (pct<0) a hex colour, so a flat dot can carry a
-   highlight and a rim shadow instead of reading as a punched-out circle —
-   the cheapest way to say "sphere" without a real light model. */
-function solShade(hex,pct){
-  var n=parseInt(hex.slice(1),16), r=(n>>16)&255, g=(n>>8)&255, b=n&255;
-  var t=pct<0?0:255, p=Math.abs(pct);
-  r=Math.round((t-r)*p)+r; g=Math.round((t-g)*p)+g; b=Math.round((t-b)*p)+b;
-  return '#'+('000000'+(((r<<16)|(g<<8)|b)>>>0).toString(16)).slice(-6);
-}
-
-/* one planet's orbit as a path, sampled from the same solver that places it, so
-   the ring and the dot can never disagree */
-/* THE PROJECTION, and the only place the view tilt is applied.
-   tl=0 is straight down on the plane — every orbit a true circle-ish ellipse,
-   every drawn angle equal to the longitude in the read-out. Tilting rotates the
-   scene about the screen's horizontal axis: what was depth (z, the height above
-   Earth's orbital plane) turns into screen height, which is the ONLY way an
-   inclination can be seen at all. The third value returned is depth away from
-   the eye, larger = further, and it is what lets the far half of an orbit be
-   drawn dimmer than the near half. */
-function solPrj(x,y,z,k,ct,st){
-  return [ SOL_CX+k*x, SOL_CY-k*(y*ct+z*st), y*st-z*ct ];
-}
-/* THE EXAGGERATION HAS A CEILING, per orbit rather than one factor for all.
-   Multiplying every inclination by the same number was fine while they ran 0.8
-   to 7 degrees; Pluto's is 17, and x8 of that is a wheel standing on its edge.
-   Each orbit is instead lifted only as far as a common visible tilt, so the
-   small ones become legible and the ones that are already legible are drawn
-   true. Pluto is therefore the one orbit on the picture that is never
-   exaggerated at all, which is worth knowing about it. */
-function solZCap(idx,zk){
-  var inc=Math.abs(PL_EL[idx][3]);
-  if(inc<0.01) return 1;
-  return Math.max(1,Math.min(zk,SOL_ZINC/inc));
-}
-function solOrbitZ(idx,ms,k,ct,st,zk){
-  zk=solZCap(idx,zk||1);
-  var p=PL_EL[idx], T=plCent(ms), pts=[], i;
-  var a=p[1]+p[7]*T, e=p[2]+p[8]*T, I=(p[3]+p[9]*T)*PL_RAD;
-  var w=p[5]+p[11]*T, O=(p[6]+p[12]*T)*PL_RAD, argPeri=(w-p[6]-p[12]*T)*PL_RAD;
-  var cw=Math.cos(argPeri), sw=Math.sin(argPeri), cO=Math.cos(O), sO=Math.sin(O),
-      cI=Math.cos(I), sI=Math.sin(I);
-  for(i=0;i<=120;i++){
-    var E=i/120*2*Math.PI;
-    var xo=a*(Math.cos(E)-e), yo=a*Math.sqrt(1-e*e)*Math.sin(E);
-    var x=(cw*cO-sw*sO*cI)*xo+(-sw*cO-cw*sO*cI)*yo;
-    var y=(cw*sO+sw*cO*cI)*xo+(-sw*sO+cw*cO*cI)*yo;
-    /* z was computed and thrown away here for as long as this function has
-       existed; it is the whole of the inclination and it costs one line */
-    var z=(sw*sI)*xo+(cw*sI)*yo;
-    pts.push(solPrj(x,y,z*zk,k,ct,st));
-  }
-  return pts;
-}
-/* An orbit as one polyline, faded from far to near rather than switched.
-   THE FADE IS A GRADIENT, NOT TWO OPACITIES. Splitting each orbit into a bright
-   near half and a dim far half put a visible seam at the two points where the
-   ring crosses the horizon, and made a smooth ellipse look like two arcs of
-   different colours. A vertical gradient does the same job continuously, and it
-   is not an approximation: for anything lying IN the plane, depth works out as
-   y.sin(tilt) while screen height works out as -y.cos(tilt), so depth is exactly
-   proportional to how far up the frame a point sits. One gradient per colour,
-   spanning the frame, therefore encodes depth correctly for every orbit at once
-   — and shallower for the inner ones, which is also right, because they have
-   less depth to span. */
-function solOrbitSvg(pts,col,tilted,gid,nm){
-  var i, run=[];
-  for(i=0;i<pts.length;i++) run.push(solF(pts[i][0])+','+solF(pts[i][1]));
-  /* clickable/hoverable only when drawn for a real planet (nm set) — the
-     ring and its own dot share data-sol-planet so hovering either one can
-     light up both, and the click target for both is the same planet page */
-  var attrs=nm?' class="sol-oring" data-sol-planet="'+nm+'"':'';
-  if(!tilted) return '<polyline points="'+run.join(' ')+'" fill="none" stroke="'+col+'" stroke-opacity=".38" stroke-width="1"'+attrs+'/>';
-  return '<polyline points="'+run.join(' ')+'" fill="none" stroke="url(#'+gid+')" stroke-width="1.15"'+attrs+'/>';
-}
-
-/* THE EARTH-AND-MOON RUNG. The only view on the site that is to scale in both
-   size and distance at once: the moon sits 30 Earth-diameters away, which fits
-   a frame this wide with room to spare. Everything else has to cheat, and the
-   contrast is the point. */
-function solMoonView(ms,tl){
-  var d=mnDays(ms), m=mnMoonPos(d), sp=mnSunPos(d);
-  function eclLon(ra,dec){ return Math.atan2(Math.sin(ra)*Math.cos(MN_OBL)+Math.tan(dec)*Math.sin(MN_OBL),Math.cos(ra)); }
-  var mlon=eclLon(m.ra,m.dec), slon=eclLon(sp.ra,sp.dec);
-  var rho=3*Math.PI/4-slon;                    /* sun pinned up-left, as elsewhere */
-  var ORR_SUNA=3*Math.PI/4;                    /* ...so up-left is where the light is */
-  /* THE SCALE IS FIXED BY THE MEAN ORBIT, NOT BY WHAT LOOKS GOOD. Put the moon's
-     average distance at the frame's usable radius and everything else follows:
-     the Earth comes out about 14 units across and the
-     moon under 4. That is not
-     a drawing choice — it is what 30 Earth-diameters of empty space does to a
-     picture, and it is the reason this rung exists. The locator rings are the
-     concession: without them the moon is genuinely hard to find, which is
-     itself the point. */
-  var perDia=13.524287200832466;                     /* see EM_EARTH_PX above */
-  var R=perDia/2, mr=perDia*3474/12742/2;
-  var dist=m.dist/12742*perDia;                /* the REAL distance right now    */
-  /* the moon's orbit, seen at the page's own view tilt: the circle becomes an
-     ellipse and the moon rides it, so at full tilt you are looking along the
-     plane the two of them share rather than straight down onto it */
-  var vct=Math.cos(tl||0);
-  var mang=mlon+rho;
-  var mx=SOL_CX+dist*Math.cos(mang), my=SOL_CY-dist*Math.sin(mang)*vct;
-  var K=Math.SQRT1_2, out='';
-  out+='<ellipse cx="'+SOL_CX+'" cy="'+SOL_CY+'" rx="'+solF(dist)+'" ry="'+solF(dist*vct)+'" fill="none" stroke="#94a3b8" stroke-opacity=".3" stroke-width="1" stroke-dasharray="3 5"/>';
-  /* NO LOCATOR RING ON THE EARTH. It used to have one at r=20 against the moon's
-     at r=14, and those two rings — not the discs inside them — were what the eye
-     compared, which made the moon look very nearly Earth-sized on a picture
-     whose entire claim is that it is to scale. The discs are exact (13.5 units
-     against 3.7, a ratio of 0.2726 against the real 0.2726); the rings were
-     lying about them. The Earth needs no locating anyway: it is in the middle,
-     it is labelled, and it is the biggest thing here. */
-  /* THE EARTH IS THE GLOBE, not a flat blue disc with a bite out of it. Same
-     drawing the planet pages use — real rotation rate, real 23.44-degree tilt,
-     schematic continents — so at this zoom you can watch it turn underneath the
-     moon going round, which is the one relationship this view exists for. */
-  out+=(typeof glSvg==='function'
-    ? glSvg('Earth',ms,SOL_CX,SOL_CY,R,23.9345,ORR_SUNA)
-    : '<circle cx="'+SOL_CX+'" cy="'+SOL_CY+'" r="'+solF(R)+'" fill="#2f74ad"/>'
-      + '<path d="M'+solF(SOL_CX+R*K)+' '+solF(SOL_CY-R*K)+'A'+solF(R)+' '+solF(R)+' 0 0 1 '+solF(SOL_CX-R*K)+' '+solF(SOL_CY+R*K)+'Z" fill="#050a16" fill-opacity=".84"/>');
-  /* the moon keeps one, because at 3.7 units across it is genuinely hard to
-     find — but dashed and tight, so it reads as a pointer rather than as a body */
-  out+='<circle cx="'+solF(mx)+'" cy="'+solF(my)+'" r="9" fill="none" stroke="#cbd5e1" stroke-opacity=".38" stroke-dasharray="2 3"/>'
-     + '<circle cx="'+solF(mx)+'" cy="'+solF(my)+'" r="'+solF(mr)+'" fill="#4b5563"/>'
-     + '<path d="M'+solF(mx+mr*K)+' '+solF(my-mr*K)+'A'+solF(mr)+' '+solF(mr)+' 0 0 0 '+solF(mx-mr*K)+' '+solF(my+mr*K)+'Z" fill="#e8eef7"/>';
-  out+='<text x="'+SOL_CX+'" y="'+(SOL_CY+38)+'" text-anchor="middle" font-size="13" fill="#e2e8f0">Earth</text>';
-  out+='<text x="'+solF(mx)+'" y="'+solF(my-22)+'" text-anchor="middle" font-size="13" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text>';
-  out+='<text x="'+SOL_PAD+'" y="'+(SOL_PAD+4)+'" font-size="13" fill="#fcd34d">Sunlight arrives from here</text>';
-  out+='<text x="'+SOL_PAD+'" y="'+(SOL_PAD+24)+'" font-size="12" fill="#94a3b8">Both bodies AND the gap between them are to scale here \u2014 the only view on this page that is.</text>';
-  out+='<text x="'+SOL_PAD+'" y="'+(SOL_PAD+40)+'" font-size="12" fill="#94a3b8">That is why they are so small: the moon sits about 30 Earth-diameters away. The dashed ring is only a pointer to the moon, not its size.</text>';
-  return out;
-}
-
-/* THE PLANETARY RUNGS. Orbits to scale, bodies not. opt turns the extra layers
-   on: the belt, the comets, and a flight path to one of the planets. */
-function solSystemView(ms,rung,opt){
-  opt=opt||{};
-  var outer=rung[2], n=rung[3], k=(SOL_W/2-SOL_PAD)/outer, i, out='';
-  /* THE VIEW TILT. 0 = straight down on the plane, which is the default and the
-     only angle at which a drawn angle equals the longitude printed beside it.
-     Every other value trades that for the one thing the flat view can never
-     show: that the orbits do not all lie in the same plane. */
-  var tl=(+opt.tilt||0)*PL_RAD, ct=Math.cos(tl), st=Math.sin(tl), tilted=tl>0.01;
-  /* the exaggeration, when asked for. Real inclinations are 0.8-7 degrees, so
-     at any tilt gentle enough to keep the picture readable they are a couple of
-     pixels; this multiplies the HEIGHT off the plane and nothing else, and the
-     page says so in words next to the control. */
-  var zk=+opt.tiltExag||1;
-  /* The belt, the comets and the flight path are all drawn IN the plane, so one
-     vertical squash about the centre tilts them exactly — no per-layer maths,
-     and they cannot fall out of step with the orbits. */
-  var flat0='<g transform="translate(0 '+solF(SOL_CY*(1-ct))+') scale(1 '+solF(ct)+')">', flat1='</g>';
-  if(opt.belt) out+=(tilted?flat0:'')+smBeltLayer(ms,outer,k)+(tilted?flat1:'');
-  /* the plane itself, faintly: a set of tilted rings needs something to be
-     tilted AGAINST or it reads as a pile of ellipses */
-  if(tilted) for(i=1;i<=4;i++)
-    out+='<ellipse cx="'+SOL_CX+'" cy="'+SOL_CY+'" rx="'+solF(k*outer*i/4)+'" ry="'+solF(k*outer*i/4*ct)+'" fill="none" stroke="#e2e8f0" stroke-opacity=".07"/>';
-  out+='<circle cx="'+SOL_CX+'" cy="'+SOL_CY+'" r="'+(SOL_R.Sun+11)+'" fill="#fcd34d" fill-opacity=".18"/>';
-  out+='<circle cx="'+SOL_CX+'" cy="'+SOL_CY+'" r="'+SOL_R.Sun+'" fill="'+SOL_COL.Sun+'"/>';
-  out+='<text x="'+SOL_CX+'" y="'+(SOL_CY+SOL_R.Sun+18)+'" text-anchor="middle" font-size="12" fill="#fcd34d">Sun</text>';
-  var marks=[];
-  /* one radial gradient per planet, always — a highlight near the upper-left
-     and a darker rim, so the body reads as a lit sphere instead of a flat
-     punched-out dot. objectBoundingBox keys it to each circle's own box, so
-     the same three stops work whatever the drawn radius. Tilted rungs ALSO
-     get the far-to-near linear fade on the ORBIT (unchanged); the two are
-     independent and both live in one <defs> block. */
-  out+='<defs>';
-  for(i=0;i<n;i++){
-    var gn=plName(i);
-    out+='<radialGradient id="pg'+i+'" gradientUnits="objectBoundingBox" cx=".35" cy=".32" r=".75">'
-      +'<stop offset="0" stop-color="'+solShade(SOL_COL[gn],.55)+'"/>'
-      +'<stop offset=".55" stop-color="'+SOL_COL[gn]+'"/>'
-      +'<stop offset="1" stop-color="'+solShade(SOL_COL[gn],-.35)+'"/></radialGradient>';
-    if(tilted)
-      out+='<linearGradient id="og'+i+'" gradientUnits="userSpaceOnUse" x1="0" y1="'+SOL_PAD+'" x2="0" y2="'+(SOL_H-SOL_PAD)+'">'
-        +'<stop offset="0" stop-color="'+SOL_COL[gn]+'" stop-opacity=".13"/>'
-        +'<stop offset="1" stop-color="'+SOL_COL[gn]+'" stop-opacity=".62"/></linearGradient>';
-  }
-  out+='</defs>';
-  for(i=0;i<n;i++){
-    var nm=plName(i), pp=plPos(i,ms);
-    var pr=solPrj(pp.x,pp.y,pp.z*solZCap(i,zk),k,ct,st);
-    out+=solOrbitSvg(solOrbitZ(i,ms,k,ct,st,zk),SOL_COL[nm],tilted,'og'+i,nm);
-    marks.push([pr[2],pr[0],pr[1],nm,i]);
-  }
-  /* far planets first, so a near one passing in front actually looks like it */
-  marks.sort(function(a,b){ return b[0]-a[0]; });
-  for(i=0;i<marks.length;i++){
-    var m=marks[i], px=m[1], py=m[2], nm2=m[3];
-    var slug2=SOL_SLUG[nm2]||'', moons2=SOL_HASMOON[nm2]?'1':'0';
-    out+='<circle cx="'+solF(px)+'" cy="'+solF(py)+'" r="'+SOL_R[nm2]+'" fill="url(#pg'+m[4]+')" class="sol-pdot" data-sol-planet="'+nm2+'" data-sol-slug="'+slug2+'" data-sol-moons="'+moons2+'"/>';
-    /* labels only where they will not pile up: on the crowded rungs the inner
-       four share one label rather than four overlapping ones */
-    if(n<=5||m[4]>=4)
-      out+='<text x="'+solF(px)+'" y="'+solF(py-SOL_R[nm2]-8)+'" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">'+nm2+'</text>';
-  }
-  if(n>5){
-    var inr=k*1.55;
-    out+='<ellipse cx="'+SOL_CX+'" cy="'+SOL_CY+'" rx="'+solF(inr)+'" ry="'+solF(inr*ct)+'" fill="none" stroke="#e2e8f0" stroke-opacity=".25" stroke-dasharray="2 3"/>';
-    /* clear of the sun even when the ring is squashed almost flat: at a steep
-       view inr*ct goes to nearly nothing and this line landed on the planets */
-    out+='<text x="'+SOL_CX+'" y="'+solF(SOL_CY+Math.max(inr*ct,44)+14)+'" text-anchor="middle" font-size="11" fill="#94a3b8" paint-order="stroke" stroke="#080d1a" stroke-width="3">Mercury, Venus, Earth and Mars are all inside this ring</text>';
-  }
-  if(opt.comets) out+=(tilted?flat0:'')+smCometLayer(ms,outer,k)+(tilted?flat1:'');
-  if(opt.transfer) out+=(tilted?flat0:'')+trLayer(ms,opt.transfer,outer,k,opt.transferSolution)+(tilted?flat1:'');
-  return out;
-}
-
-function solSvg(ms,rungId,opt){
-  var rung=solRung(rungId), body='';
-  if(rung[4]==='em') body=solMoonView(ms,(+opt.tilt||0)*PL_RAD);
-  else if(rung[4]==='moons') body=satView(ms,rung[5],opt);
-  else body=solSystemView(ms,rung,opt);
-  return '<svg viewBox="0 0 '+SOL_W+' '+SOL_H+'" width="100%" aria-hidden="true">'
-    + '<rect width="'+SOL_W+'" height="'+SOL_H+'" rx="16" fill="#080d1a"/>'
-    + body + '</svg>';
-}
-
-  /* WHAT THIS PAGE CAN DRAW. Every optional module's entry points are behind
-     one of these, so a URL parameter or a stray button cannot ask for a layer
-     whose code was left out of this file. */
-  var SOL_HAS={"core":1,"globe":0,"moon":0,"sat":0,"small":0,"transfer":1};
-  /* The page's own configuration, baked in rather than read from a
-     window.AC_SOL the surrounding page had to set: this file is unique to this
-     page now, so its config belongs in it. */
-  var CFG={"rung":"jupiter","path":"/rocket-launch-simulator/jupiter/","to":4};
-  var RUNG=CFG.rung||'inner', START=null, OFF=0, SPAN='year', PLAY=0, SPEED=15;
-  /* THE VIEW OPENS TILTED. Straight down is the exact view and stays one drag
-   away, but the page's job is to make people look, and a disc seen at an angle
-   reads as a system where a set of concentric rings reads as a dartboard.
-   TILT_DEF (up in the generator) is the only place the default is decided —
-   the slider's baked value comes from the same constant, so the control and
-   the drawing cannot open disagreeing. */
-  var SOL_TILT0=(CFG&&CFG.tilt!=null)?CFG.tilt:50;
-  /* A PAGE THAT IS ABOUT THE BELT OPENS WITH THE BELT ON. /asteroid-belt/ used
-     to load its simulator with the belt layer OFF, so the one thing the page is
-     named after was the one thing not in the picture. Same for /comets/. The
-     URL parameters below can still override either way. */
-  var LAYER={belt:(CFG&&CFG.belt)?1:0,comets:(CFG&&CFG.comets)?1:0};
-  /* A DESTINATION PAGE OPENS WITH ITS OWN FLIGHT DRAWN. /rocket-launch-
-     simulator/mars/ is about that crossing, so arriving to a picture with no
-     path on it and a "Nowhere yet" button lit would be the belt page opening
-     with the belt off, again. ?to= can still override. */
-  var TARGET=(CFG&&CFG.to)?CFG.to:0, SOLN=null, TILT=SOL_TILT0, WINS=[], WIN=0;
-  /* HOW MUCH OF A MOON SYSTEM IS DRAWN. 1 is what the picture has always shown
-     and stays the default, so nobody's existing link changes what it opens. */
-  var MOONLVL=(CFG&&CFG.moons)?CFG.moons:1;
-  /* THE DESTINATION MAPS LIVE UP HERE, above the boot block, because a
-     destination page now opens with TARGET already set — so markDest() reads
-     DEST_SLUG during boot. Declared further down (where the buttons are bound)
-     they were var-hoisted but still unassigned at that moment, and the first
-     load of /rocket-launch-simulator/mars/ threw on DEST_SLUG[3]. */
-  /* the planets' own pages, from the registry rather than built out of a slug
-     — they are flat URLs now (/mars-and-moons-simulator/), not children of the
-     solar hub, and a second copy of that rule here would rot the first time
-     one moved */
-  var DEST_SLUG={"3":"/mars-and-moons-simulator/","4":"/jupiter-and-moons-simulator/","5":"/saturn-and-moons-simulator/"};
-  /* THE FRAME FOLLOWS THE FLIGHT. A trip to Mars was drawn on the belt view,
-     3.75 AU wide, which put Mars's orbit in the middle third of the picture
-     and spent the rest of it on empty sky. Each destination now gets the rung
-     whose frame its own orbit fills. */
-  var DEST_RUNG={3:'mars',4:'jupiter',5:'saturn'};
-
-  /* HOW MUCH THE ORBIT TILTS ARE EXAGGERATED depends on how tilted the VIEW is,
-     because that is what decides whether they are visible at all. A real
-     inclination of 0.8-7 degrees shows as z.sin(view), so at a shallow view it
-     needs multiplying and at a steep one it does not — and multiplying it there
-     anyway turns a readable picture into a tangle. Reported in the read-out
-     either way, so the number on screen is always the number being drawn. */
-  function tiltExag(){ return solTiltExag(TILT); }
-  function solTiltExag(t){ return t<8 ? 1 : Math.max(1,Math.min(10,Math.round(360/t))); }
-  var SHARE='', URLT=0;
-  var SPAN_MIN={month:43200,year:525960,decade:5259600,century:52596000};
-  /* The elements are JPL's 1800-2050 table with linear rates. Outside that the
-     rates keep extrapolating and the picture keeps looking plausible, so the
-     date field stops at 2050 and the note below says so whenever a long span
-     carries the drawn instant past it. */
-  var VALID0=Date.parse('1800-01-01T00:00:00Z'), VALID1=Date.parse('2050-12-31T23:59:00Z');
-  var SPAN_STEP={month:15,year:180,decade:1800,century:18000};
-  var SPAN_WORD={month:'a month',year:'a year',decade:'ten years',century:'a hundred years'};
-  function $(id){ return document.getElementById(id); }
-  function when(){ return START+OFF*60000; }
-  function fmt(o){ try{ return new Intl.DateTimeFormat('en-US',o).format(new Date(when())); }catch(e){ return '\u2014'; } }
-  function dfmt(ms){ try{ return new Intl.DateTimeFormat('en-US',{year:'numeric',month:'short',day:'numeric'}).format(new Date(ms)); }catch(e){ return '\u2014'; } }
-  function localValue(ms){
-    try{ var ps=new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(ms));
-      function g(t){ for(var i=0;i<ps.length;i++) if(ps[i].type===t) return ps[i].value; return '00'; }
-      /* DATE ONLY. The hour never earned its place here: the fastest thing on
-         this page is Mercury, which moves about four degrees in a day, so a
-         picture set to 09:15 and one set to 21:15 are the same picture. The
-         instant is still carried to the minute underneath — only the FIELD is
-         a date, and setting it keeps whatever time of day was already there. */
-      return g('year')+'-'+g('month')+'-'+g('day');
-    }catch(e){ return ''; }
-  }
-  function opts(){ return { belt:LAYER.belt, comets:LAYER.comets, transfer:TARGET, transferSolution:SOLN, tilt:TILT, tiltExag:tiltExag(), moonLevel:MOONLVL }; }
-
-  function paint(){
-    var t=when(), rung=solRung(RUNG);
-    $('sol-fig').innerHTML=solSvg(t,RUNG,opts());
-    /* no weekday. It changes on every frame while this plays, which makes it the
-       most restless thing on the line and the least informative: nothing on this
-       page happens on a Tuesday. */
-    $('sol-when').textContent=fmt({year:'numeric',month:'long',day:'numeric'})
-      +(SPAN==='month'?', '+fmt({hour:'numeric',minute:'2-digit'}):'');
-    var sl=$('sol-slider');
-    sl.max=SPAN_MIN[SPAN]; sl.step=SPAN_STEP[SPAN];
-    if(document.activeElement!==sl) sl.value=OFF;
-    var f=$('sol-start'); if(f&&document.activeElement!==f) f.value=localValue(START);
-    $('sol-from').textContent=dfmt(START);
-    $('sol-to').textContent=dfmt(START+SPAN_MIN[SPAN]*60000);
-    rows(t,rung); note(rung); enable(rung); share();
-  }
-  /* the belt, the comets and the flight path are all drawn around the SUN, so
-     on a moon system they have nothing to draw. Turn them off rather than leave
-     three controls that silently do nothing. */
-  function enable(rung){
-    var on=rung[4]==='sys';
-    /* A LAYER SWITCH IS ONLY LIVE IF ITS LAYER WOULD BE IN THE FRAME. The belt
-       starts at the 4:1 resonance with Jupiter, 2.06 AU, which is outside the
-       inner-planets rung entirely — so on that rung the button was pressable
-       and did nothing. smBeltIn/smCometsIn answer from the same numbers the
-       drawing itself uses, so the switch and the picture cannot disagree. */
-    if($('sol-belt')) $('sol-belt').disabled=!(on&&SOL_HAS.small&&smBeltIn(rung[2]));
-    if($('sol-comets')) $('sol-comets').disabled=!(on&&SOL_HAS.small&&smCometsIn(rung[2]));
-    /* the destination buttons live on a page whose rungs are all heliocentric,
-       so there is nothing left here to dim */
-  }
-
-  /* the read-out. What it says depends on what is being drawn, because "2.4 AU
-     at 137 degrees" is the wrong answer for a picture of Jupiter's moons. */
-  function rows(t,rung){
-    var box=$('sol-rows'); if(!box) return;
-    var out='', i;
-    if(rung[4]==='em'){
-      var il=mnIllum(t);
-      out+=row('Moon phase',mnName(il.phase),1)
-        +row('Lit',Math.round(il.fraction*100)+'%')
-        +row('Distance',Math.round(il.dist).toLocaleString('en-US')+' km')
-        +row('In Earth diameters',(il.dist/12742).toFixed(1));
-    } else if(rung[4]==='moons'){
-      var sys=SAT_SYS[rung[5]];
-      for(i=0;i<sys.moons.length;i++){
-        var m=sys.moons[i], per=Math.abs(m[2]);
-        out+=row(m[0],(m[1]>=1e6?(m[1]/1e6).toFixed(2)+'M':Math.round(m[1]/1000)+'k')+' km \u00b7 '
-          +(per<1?(per*24).toFixed(1)+' h':per.toFixed(per<10?2:1)+' d')+(m[2]<0?' \u21ba':''));
-      }
-    } else {
-      for(i=0;i<rung[3];i++){
-        var p=plPos(i,t);
-        out+=row(plName(i),p.r.toFixed(2)+' AU \u00b7 '+Math.round(p.lon)+'\u00b0',i===2);
-      }
-      if(TARGET&&SOLN){
-        var e=plPos(2,t), q=plPos(TARGET,t);
-        var sep=Math.sqrt((e.x-q.x)*(e.x-q.x)+(e.y-q.y)*(e.y-q.y)+(e.z-q.z)*(e.z-q.z));
-        out+=row('Earth to '+plName(TARGET),sep.toFixed(3)+' AU',1);
-      }
-    }
-    box.innerHTML=out;
-  }
-  function row(k,v,main){ return '<div class="sun-srow'+(main?' sun-main':'')+'"><span>'+solEsc(k)+'</span><b>'+v+'</b></div>'; }
-
-  /* one line under the picture saying what this rung is and is not */
-  function note(rung){
-    var el=$('sol-note'); if(!el) return;
-    var s='';
-    if(rung[4]==='em') s='Earth and the Moon, to scale in size <b>and</b> distance \u2014 the only view here that is both.';
-    else if(rung[4]==='moons') s='The orbits and the planet\u2019s disc are to scale against each other. Where each moon sits on its orbit is <b>not</b> solved for \u2014 watch the motion, not the position.';
-    else s='Orbits to scale; the planets themselves are drawn big enough to see. Positions are good to about ten arcminutes \u2014 well under a pixel here.';
-    var t=when();
-    if(t<VALID0||t>VALID1) s+=' <b>Beyond 1800\u20132050</b> the orbital elements are being extrapolated, so this is the right shape of the system but no longer the right positions.';
-    /* WHAT THE FLIGHT PATH IS, AND IS NOT. It is the minimum-energy transfer:
-       the cheapest route there is, and the one launch windows are defined
-       against. It is not what anybody flies to the outer planets, and drawing
-       it without saying so let the page imply that it is. The burn figure
-       beside it is the tell — 7.3 km/s out of low Earth orbit is more than any
-       launcher has ever given a real spacecraft, which is exactly why Galileo,
-       Cassini and Juno all went the long way round instead. */
-    if(TARGET) s+=' The path drawn is the <b>minimum-energy</b> transfer \u2014 the cheapest, and the slowest. Real missions to Jupiter and Saturn do not fly it: the burn it needs is bigger than any launcher provides, so Galileo, Cassini and Juno all borrowed speed from other planets on the way \u2014 longer in time, far cheaper in fuel. Cassini took 6 years 8 months and four flybys to reach Saturn.';
-    el.innerHTML=s;
-  }
-
-  /* the flight path. Solved in the browser from the date on screen, so it is
-     never a date baked into a page months ago. */
-  /* THE SPAN HAS TO COVER THE CROSSING. A Hohmann transfer to Saturn takes about
-     six years and to Jupiter nearly three, so a slider covering one year cannot
-     reach the arrival at all — you would drag to the end and the ship would
-     still be somewhere past Mars. Mars fits inside a year; anything longer takes
-     the decade, and anything longer than the decade takes the century. Picked
-     from the flight time the solver returns, so it cannot be wrong for a target
-     added later. */
-  function fitSpan(w){
-    if(!w) return;
-    var days=w.tf/86400000;
-    SPAN = days<330 ? 'year' : days<3300 ? 'decade' : 'century';
-    if($('sol-span')) $('sol-span').value=SPAN;
-    if(OFF>SPAN_MIN[SPAN]) OFF=SPAN_MIN[SPAN];
-  }
-  /* the figures for whichever window is selected — split out from retarget so
-     picking a different launch date rewrites them without re-solving the list */
-  /* where the flight sits inside the span the slider covers, as a percentage
-     of it. Clamped rather than hidden when it runs past the end: a crossing to
-     Saturn is longer than a year, and cutting the bar off at the edge says
-     exactly that. */
-  function flightBar(){
-    var w=$('sol-flight'), bar=$('sol-flight-bar');
-    if(!w||!bar) return;
-    if(!TARGET||!SOLN){ w.hidden=true; return; }
-    var total=SPAN_MIN[SPAN]*60000, t0=SOLN.t0-START, t1=SOLN.t0+SOLN.tf-START;
-    if(t1<=0||t0>=total){ w.hidden=true; return; }
-    var a=Math.max(0,t0)/total*100, b=Math.min(total,t1)/total*100;
-    w.hidden=false;
-    /* sit the band exactly on the track by MEASURING it rather than guessing a
-       pixel offset — the slider is a different height in full screen */
-    var sl=$('sol-slider');
-    if(sl){ w.style.top=sl.offsetTop+'px'; w.style.height=sl.offsetHeight+'px'; }
-    bar.style.left=a.toFixed(2)+'%';
-    bar.style.width=Math.max(0.6,b-a).toFixed(2)+'%';
-    bar.className='sol-flight-bar'+(t0<0?' sol-flight-cutl':'')+(t1>total?' sol-flight-cutr':'');
-  }
-  function missionRows(){
-    var box=$('sol-mission'); if(!box) return;
-    if(!TARGET||!SOLN){ box.innerHTML=''; return; }
-    var c=trCost(TARGET,SOLN), nm=plName(TARGET);
-    box.innerHTML=row('Launch',dfmt(SOLN.t0),1)
-      +row('Arrives at '+nm,dfmt(SOLN.t0+SOLN.tf))
-      +row('Flight time',Math.round(SOLN.tf/86400000).toLocaleString('en-US')+' days')
-      +row('Burn to leave Earth orbit',c.injection.toFixed(2)+' km/s');
-  }
-  function retarget(){
-    if(!TARGET){ SOLN=null; WIN=0; fillWindows(); missionRows(); flightBar(); return; }
-    WIN=0; fillWindows();
-    markDest();
-    SOLN=WINS.length?WINS[0]:trWindow(TARGET,Date.now());
-    fitSpan(SOLN); missionRows(); flightBar();
-  }
-
-  function share(){
-    var q='date='+localValue(when()).slice(0,10)+'&zoom='+RUNG+'&span='+SPAN;
-    if(SPEED!==1) q+='&speed='+SPEED;
-    /* the view angle travels with the link, so a shared picture arrives at the
-       angle it was shared at rather than snapping back to the page default */
-    if(Math.round(TILT)!==Math.round(SOL_TILT0)) q+='&tilt='+Math.round(TILT);
-    if(MOONLVL>1) q+='&moons='+MOONLVL;
-    if(LAYER.belt) q+='&belt=1';
-    if(LAYER.comets) q+='&comets=1';
-    if(TARGET) q+='&to='+TARGET;
-    var url=location.origin+(CFG.path||'/solar-system-simulator/')+'?'+q;
-    SHARE=url;
-    var o=$('sol-url'); if(o) o.value=url;
-    var s=$('sol-sum');
-    if(s){ var rung=solRung(RUNG);
-      s.innerHTML='Opens on <b>'+fmt({weekday:'long',year:'numeric',month:'long',day:'numeric'})
-        +'</b>, showing <b>'+solEsc(rung[1])+'</b>, with the slider covering <b>'+SPAN_WORD[SPAN]+'</b>'
-        +(TARGET?' and the flight path to <b>'+plName(TARGET)+'</b>':'')+'.'; }
-    pushUrl();
-  }
-  /* The share BOX is rewritten on every repaint (it is one property write). The
-     ADDRESS BAR is not: Safari rate-limits history.replaceState to 100 calls
-     per 30 seconds and throws past that, which a 40ms Play loop exhausted in
-     about four seconds — after which the catch swallowed the error and the URL
-     silently stopped tracking the view. So it is debounced, and skipped
-     entirely while Play runs; stop() writes the final one. */
-  function pushUrl(){
-    if(PLAY) return;
-    if(URLT) clearTimeout(URLT);
-    URLT=setTimeout(function(){ URLT=0; try{ history.replaceState(null,'',SHARE); }catch(e){} },500);
-  }
-  function stop(){ if(PLAY){ clearInterval(PLAY); PLAY=0; var b=$('sol-play'); b.textContent='Play'; b.setAttribute('aria-pressed','false'); pushUrl(); } }
-  /* the speed read-out is the honest version of a 1x-16x dial: it says how much
-     TIME goes by per second of watching, which is the thing that changes. */
-  /* SPEED IS ABSOLUTE, NOT A FRACTION OF THE SPAN. It used to be a multiplier on
-     "sweep the whole span in 24 seconds", which meant the same slider position
-     ran the planets at 1.25 days a second over a month and 125 over a decade —
-     the one control whose whole job is how fast the planets move was the one
-     control that changed meaning every time you touched a different one.
-     SOL_DPS is that rate at speed 1, DERIVED from the setting it is meant to
-     match — the year span, which is what the slider was calibrated against — so
-     the familiar speeds land exactly where they always did and every other span
-     now agrees with them. The span is left doing only what its name says: how
-     much time the slider covers. */
-  /* THE RANGE DEPENDS ON WHAT IS ON SCREEN, because the thing being watched is
-     four orders of magnitude different between the two kinds of view. Io goes
-     round Jupiter in 42 hours and Neptune round the sun in 165 years; one slider
-     range cannot serve both, and the one range there was made every moon system
-     a blur before it had moved a pixel of Neptune. So a moon view runs from 3
-     hours to 4 days of sky per second, and a heliocentric one from 3 days to 90.
-     SPEED is that figure directly — days of sky per real second — not a
-     multiplier on anything, so the number beside the slider IS the setting. */
-  var SOL_RATE={ sys:[3,90,1], moons:[0.125,4,0.125] };
-  function rateFor(){ var r=solRung(RUNG); return SOL_RATE[r[4]==='sys'?'sys':'moons']; }
-  function syncSpeed(){
-    var r=rateFor(), el=$('sol-speed');
-    if(SPEED<r[0]||SPEED>r[1]) SPEED=r[0];
-    if(el){ el.min=String(r[0]); el.max=String(r[1]); el.step=String(r[2]); el.value=String(SPEED); }
-    speedLabel();
-  }
-  function speedLabel(){
-    var perSec=SPEED;                                 /* days of sky per second */
-    var el=$('sol-speedout'); if(!el) return;
-    var s;
-    if(perSec<1) s=(perSec*24).toFixed(1)+' hours';
-    else if(perSec<400) s=perSec.toFixed(perSec<10?1:0)+' days';
-    else s=(perSec/365.25).toFixed(perSec/365.25<10?1:0)+' years';
-    el.textContent=s+' per second';
-  }
-
-  /* CAN THIS PAGE DRAW THAT RUNG? A moon rung needs the satellite module and
-     the Earth-and-Moon rung needs the lunar one, and a page that does not draw
-     them no longer carries the code. So a ?zoom= naming a rung this file cannot
-     draw is ignored rather than obeyed into a ReferenceError — the link still
-     resolves, it just opens the page at its own view. Every rung has a page of
-     its own now, so the honest destination for that link exists. */
-  function rungOk(id){
-    var r=solRung(id); if(r[0]!==id) return 0;
-    if(r[4]==='moons') return !!SOL_HAS.sat;
-    if(r[4]==='em') return !!SOL_HAS.moon;
-    return 1;
-  }
-
-  /* boot */
-  var q0=null; try{ q0=new URLSearchParams(location.search); }catch(e){}
-  if(q0){ if(rungOk(q0.get('zoom'))) RUNG=q0.get('zoom');
-    if(SPAN_MIN[q0.get('span')]) SPAN=q0.get('span');
-    /* the layers and the flight path are only offered where their module is */
-    if(SOL_HAS.small&&q0.get('belt')) LAYER.belt=1;
-    if(SOL_HAS.small&&q0.get('comets')) LAYER.comets=1;
-    var sp=parseFloat(q0.get('speed')); if(sp>0&&sp<=90) SPEED=sp;
-    /* TILT IS A URL VARIABLE TOO. It was config-only, so the one control that
-       changes the picture most could not be linked to or shared — the share
-       box below now writes it, and this reads it back. 0 is straight down
-       (the exact view) and 90 is edge-on. */
-    var tl=parseFloat(q0.get('tilt')); if(tl>=0&&tl<=90) TILT=SOL_TILT0=tl;
-    /* how much of the moon system to draw. Clamped inside satView too, so a
-       level this planet does not have degrades to the most it does. */
-    var ml=parseInt(q0.get('moons'),10); if(SOL_HAS.sat&&ml>=1&&ml<=3) MOONLVL=ml;
-    if(SOL_HAS.transfer){ var to=parseInt(q0.get('to'),10); if(to>=3&&to<=5) TARGET=to; }
-    var d=q0.get('date'); if(d&&/^\d{4}-\d{2}-\d{2}$/.test(d)){ var dt=Date.parse(d+'T12:00:00Z');
-      if(!isNaN(dt)) START=Math.max(VALID0,Math.min(VALID1,dt)); } }
-  if(!START) START=Date.now()-(Date.now()%60000);
-  markZoom(); $('sol-span').value=SPAN;
-  if($('sol-belt')) $('sol-belt').setAttribute('aria-pressed',LAYER.belt?'true':'false');
-  if($('sol-comets')) $('sol-comets').setAttribute('aria-pressed',LAYER.comets?'true':'false');
-  if($('sol-dests')) markDest();
-
-  if($('sol-tilt')) $('sol-tilt').value=String(TILT);
-  /* the controls shipped disabled (and Now hidden) because without this script
-     not one of them could do anything. This is the moment they become real. */
-  /* ---- full screen -------------------------------------------------------
-     The stage is the figure and the read-out side by side, which is already
-     the right shape for a landscape screen, so unlike the Sun-Earth-Moon view
-     there is nothing to rotate: this drawing is square and reads the same way
-     whichever way a phone is held. */
-  var solStage=document.querySelector('.sol-stage'), solFsBtn=$('sol-fs');
-  function solFsOn(){ return document.fullscreenElement===solStage||document.webkitFullscreenElement===solStage; }
-  function solFsSync(){
-    if(!solFsBtn) return;
-    var on=solFsOn();
-    solFsBtn.setAttribute('aria-pressed',on?'true':'false');
-    var l=solFsBtn.querySelector('.sol-fslab'); if(l) l.textContent=on?'Exit full screen':'Full screen';
-  }
-  function solToggleFs(){
-    if(!solStage) return;
-    if(solFsOn()){ (document.exitFullscreen||document.webkitExitFullscreen||function(){}).call(document); return; }
-    var req=solStage.requestFullscreen||solStage.webkitRequestFullscreen;
-    if(req) req.call(solStage);
-  }
-  if(solFsBtn&&solStage&&(solStage.requestFullscreen||solStage.webkitRequestFullscreen)) solFsBtn.addEventListener('click',solToggleFs);
-  else if(solFsBtn) solFsBtn.hidden=true;
-  document.addEventListener('fullscreenchange',solFsSync);
-  document.addEventListener('webkitfullscreenchange',solFsSync);
-  /* ?fs=1 means "opened from a Full screen link". Full screen NEEDS a user
-     gesture and a navigation is not one, so this arms the next tap or key
-     press instead of trying (and being refused) on load. Once only. */
-  if(q0&&q0.get('fs')&&solStage){
-    var armS=function(){ document.removeEventListener('pointerdown',armS); document.removeEventListener('keydown',armS); solToggleFs(); };
-    document.addEventListener('pointerdown',armS); document.addEventListener('keydown',armS);
-  }
-
-  var inert=document.querySelectorAll('[data-sol-inert]');
-  for(var ii=0;ii<inert.length;ii++){ inert[ii].disabled=false; inert[ii].removeAttribute('hidden'); inert[ii].removeAttribute('data-sol-inert'); }
-  retarget(); syncSpeed(); tiltLabel(); markMoons(); paint();
-
-  $('sol-slider').addEventListener('input',function(){ OFF=+this.value||0; stop(); paint(); });
-  $('sol-span').addEventListener('change',function(){ SPAN=this.value; if(OFF>SPAN_MIN[SPAN]) OFF=SPAN_MIN[SPAN]; flightBar(); paint(); });
-  /* THE LADDER, as buttons. One handler on the group rather than one per
-     button, and markZoom is the single place that says which is current — the
-     select it replaces was being set from four different places. */
-  function markZoom(){
-    var bs=document.querySelectorAll('[data-sol-zoombtn]'), i;
-    for(i=0;i<bs.length;i++) bs[i].setAttribute('aria-pressed',bs[i].getAttribute('data-sol-zoombtn')===RUNG?'true':'false');
-  }
-  /* A CONTROL THAT SAYS "ASTEROID BELT" HAS TO SHOW THE ASTEROID BELT. The
-     belt rung is named after the belt, and choosing it while the belt layer was
-     off left you looking at the gap where the belt would be. It only ever turns
-     a layer ON — if you switch it off by hand it stays off until you ask for
-     that view again. */
-  function layerFor(r){
-    /* ...on a page that carries the belt's elements. Without SOL_HAS.small this
-       would switch on a layer whose drawing code was left out of this file. */
-    if(SOL_HAS.small&&r==='belt'&&!LAYER.belt){ LAYER.belt=1;
-      if($('sol-belt')) $('sol-belt').setAttribute('aria-pressed','true'); }
-  }
-  var zoomBox=$('sol-zooms');
-  if(zoomBox) zoomBox.addEventListener('click',function(e){
-    var b=e.target.closest('[data-sol-zoombtn]'); if(!b) return;
-    RUNG=b.getAttribute('data-sol-zoombtn'); layerFor(RUNG); markZoom(); syncSpeed(); markMoons(); paint(); share();
-  });
-  $('sol-start').addEventListener('change',function(){
-    /* keep the time of day that is already set and move only the date, so
-       stepping a day forward does not silently jump the clock to midnight */
-    var d=new Date(START), t=Date.parse(this.value+'T00:00:00');
-    if(!isNaN(t)){ var n=new Date(t); n.setHours(d.getHours(),d.getMinutes(),0,0);
-      START=Math.max(VALID0,Math.min(VALID1,+n)); paint(); } });
-  $('sol-now').addEventListener('click',function(){ START=Date.now()-(Date.now()%60000); OFF=0; stop(); paint(); });
-  $('sol-play').addEventListener('click',function(){
-    if(PLAY){ stop(); return; }
-    this.textContent='Pause'; this.setAttribute('aria-pressed','true');
-    /* minutes of sky per 40ms tick = days-per-second x 1440 / 25 */
-    PLAY=setInterval(function(){ OFF+=SPEED*57.6; if(OFF>SPAN_MIN[SPAN]) OFF=0; paint(); },40);
-  });
-  if($('sol-speed')) $('sol-speed').addEventListener('input',function(){ SPEED=+this.value||1; speedLabel(); share(); });
-  /* the tilt repaints and nothing else — it changes the VIEW, not the instant,
-     so the date, the span and the slider position all stay exactly where they
-     were and you can tilt while it is playing */
-  /* THE MOON-DETAIL CONTROL. Only shown where there is more to show: a moons
-     rung whose planet has a level 2 at all. Mars and Pluto have every moon
-     they own already in the picture, so on those the field stays hidden rather
-     than offering a button that changes nothing. */
-  function markMoons(){
-    var f=$('sol-moonfield'); if(!f) return;
-    var r=solRung(RUNG), idx=r[5], on=SOL_HAS.sat&&r[4]==='moons'&&satMaxLevel(idx)>1;
-    f.hidden=!on;
-    if(!on) return;
-    var mx=satMaxLevel(idx), bs=f.querySelectorAll('[data-sol-moons]'), i, lv;
-    for(i=0;i<bs.length;i++){
-      lv=+bs[i].getAttribute('data-sol-moons');
-      /* a level this planet does not have is removed, not disabled — there is
-         nothing behind it to explain */
-      bs[i].hidden=lv>mx;
-      bs[i].setAttribute('aria-pressed',lv===MOONLVL?'true':'false');
-      bs[i].title=satDrawn(idx,lv)+' moons drawn';
-    }
-    var out=$('sol-moonsout');
-    if(out){
-      var drawn=satDrawn(idx,MOONLVL), total=satCount(idx);
-      out.innerHTML='Drawing <b>'+drawn+'</b> of '+plName(idx)+"'s <b>"+total+'</b> confirmed moon'+(total===1?'':'s')
-        +(drawn<total ? '. The rest are a few km of captured rubble on distant tilted orbits — real, but a dot for each would say something false about what a moon system looks like.' : '.');
-    }
-  }
-  var moonBox=$('sol-moons');
-  if(moonBox) moonBox.addEventListener('click',function(e){
-    var b=e.target.closest('[data-sol-moons]'); if(!b) return;
-    MOONLVL=+b.getAttribute('data-sol-moons')||1;
-    markMoons(); paint(); share();
-  });
-  function tiltLabel(){ var el=$('sol-tiltout'); if(!el) return;
-    /* THE EXAGGERATION IS A HELIOCENTRIC FACT AND IS ONLY CLAIMED THERE.
-       It multiplies each planet's height off the ecliptic, which is a thing
-       only solSystemView draws. A moon view models no per-moon inclination at
-       all — the orbits are drawn in the planet's equatorial plane — so the
-       read-out saying "orbit tilts x7" on Jupiter's moons was reporting a
-       correction that nothing was applying. */
-    var ex=solRung(RUNG)[4]==='sys' ? tiltExag() : 1;
-    el.textContent = TILT<1 ? 'flat — straight down on the plane'
-      : TILT+'°' + (ex>1 ? ' · orbit tilts ×'+ex : '');
-    var st=$('sol-stage'); if(st) st.classList.toggle('sol-tilted',TILT>=1); }
-  if($('sol-tilt')) $('sol-tilt').addEventListener('input',function(){ TILT=+this.value||0; tiltLabel(); paint(); share(); });
-  /* the launch windows for the chosen target, listed rather than assumed */
-  function fillWindows(){
-    var sel=$('sol-launch'), row=$('sol-launchrow');
-    if(!sel||!row) return;
-    if(!TARGET){ row.hidden=true; sel.innerHTML=''; WINS=[]; return; }
-    WINS=trWindows(TARGET,Date.now(),6)||[];
-    row.hidden=!WINS.length;
-    sel.innerHTML=WINS.map(function(w,i){
-      return '<option value="'+i+'">'+dfmt(w.t0)+' — '+Math.round(w.tf/86400000)+' day flight</option>';
-    }).join('');
-    if(WIN>=WINS.length) WIN=0;
-    sel.value=String(WIN);
-  }
-  if($('sol-launch')) $('sol-launch').addEventListener('change',function(){
-    WIN=parseInt(this.value,10)||0;
-    var w=WINS[WIN]; if(!w) return;
-    SOLN=w;
-    /* go to the launch day, and make the slider cover the crossing: a 265-day
-       flight scrubbed over a month shows nothing, and over a century it is one
-       pixel of the track */
-    START=w.t0; OFF=0;
-    fitSpan(w); stop(); missionRows(); flightBar(); paint(); share();
-  });
-  /* pressed state lives in aria-pressed, which is what a screen reader reads
-     and what the stylesheet lights up — one source, not a class beside it */
-  function layerBtn(id,key){
-    var b=$(id); if(!b) return;
-    b.addEventListener('click',function(){
-      LAYER[key]=LAYER[key]?0:1;
-      b.setAttribute('aria-pressed',LAYER[key]?'true':'false');
-      paint();
-    });
-  }
-  layerBtn('sol-belt','belt'); layerBtn('sol-comets','comets');
-  /* THE DESTINATION BUTTONS. Choosing one picks the next launch window, moves
-     the starting date to that day and sizes the span to cover the crossing —
-     so the picture jumps, and the read-out under the buttons says where to and
-     offers the page about the place. */
-  function markDest(){
-    var bs=document.querySelectorAll('[data-sol-dest]'), i;
-    for(i=0;i<bs.length;i++)
-      bs[i].setAttribute('aria-pressed',(+bs[i].getAttribute('data-sol-dest'))===TARGET?'true':'false');
-    var L=$('sol-destlink');
-    if(L){
-      if(!TARGET){ L.hidden=true; L.innerHTML=''; }
-      else { L.hidden=false;
-        L.innerHTML='Flying to <b>'+plName(TARGET)+'</b>. '
-          +'<a href="'+DEST_SLUG[TARGET]+'">More about '+plName(TARGET)+' →</a>'; }
-    }
-  }
-  var db=$('sol-dests');
-  if(db) db.addEventListener('click',function(e){
-    var b=e.target.closest('[data-sol-dest]'); if(!b) return;
-    TARGET=parseInt(b.getAttribute('data-sol-dest'),10)||0;
-    if(TARGET) RUNG=DEST_RUNG[TARGET]||'belt';
-    markDest(); retarget(); paint(); share(); });
-  var zs=document.querySelectorAll('[data-sol-zoom]');
-  for(var zi=0;zi<zs.length;zi++) zs[zi].addEventListener('click',function(){
-    RUNG=this.getAttribute('data-sol-zoom'); layerFor(RUNG); markZoom(); syncSpeed(); paint(); share(); });
-  /* "take me to that date" — the launch windows and closest approaches on the
-     page are links into the picture, not just numbers in a table */
-  var js=document.querySelectorAll('[data-sol-date]');
-  for(var ji=0;ji<js.length;ji++) js[ji].addEventListener('click',function(e){
-    e.preventDefault();
-    var t=Date.parse(this.getAttribute('data-sol-date')+'T12:00:00Z');
-    if(isNaN(t)) return;
-    START=t; OFF=0; stop();
-    var z=this.getAttribute('data-sol-zoom2'); if(z){ RUNG=z; markZoom(); }
-    var to=this.getAttribute('data-sol-target');
-    if(to){ TARGET=parseInt(to,10); markDest(); retarget(); }
-    paint();
-    var fig=$('sol-fig'); if(fig&&fig.scrollIntoView) fig.scrollIntoView({behavior:'smooth',block:'center'});
-  });
-  /* HOVER + CLICK ON THE PLANETS THEMSELVES. Bound to #sol-fig ONCE, here,
-     rather than to each circle/polyline: paint() replaces #sol-fig's
-     CONTENTS every repaint (up to 25 times a second while playing) but never
-     the element itself, so one delegated listener survives every repaint —
-     rebinding per shape, per frame would be the expensive way to do this.
-     Only "sys" rungs draw data-sol-planet at all (see solSystemView in
-     planets.mjs), so on every other rung this listener simply never matches
-     anything. */
-  var solFig=$('sol-fig'), solTip=$('sol-ptip'), solHoverKey=null;
-  function solPlanetEls(key){ return solFig.querySelectorAll('[data-sol-planet="'+key+'"]'); }
-  function solClearHover(){
-    if(solHoverKey){ var els=solPlanetEls(solHoverKey),hi; for(hi=0;hi<els.length;hi++) els[hi].classList.remove('sol-hoverlit'); }
-    solHoverKey=null; if(solTip) solTip.hidden=true;
-  }
-  function solSetHover(el,x,y){
-    var key=el.getAttribute('data-sol-planet');
-    if(key!==solHoverKey){
-      solClearHover(); solHoverKey=key;
-      var els=solPlanetEls(key),hi; for(hi=0;hi<els.length;hi++) els[hi].classList.add('sol-hoverlit');
-      if(solTip){
-        var moons=el.getAttribute('data-sol-moons')==='1';
-        solTip.textContent='Click to see '+key+(key==='Earth'?' & the Moon':moons?' and its moons':'')+' →';
-        solTip.hidden=false;
-      }
-    }
-    if(solTip){ solTip.style.left=x+'px'; solTip.style.top=y+'px'; }
-  }
-  if(solFig){
-    solFig.addEventListener('pointermove',function(e){
-      var el=e.target.closest&&e.target.closest('[data-sol-planet]');
-      if(el) solSetHover(el,e.clientX,e.clientY); else solClearHover();
-    });
-    solFig.addEventListener('pointerleave',solClearHover);
-    /* click navigates straight to that planet's own page — the same
-       destination the tooltip just named */
-    solFig.addEventListener('click',function(e){
-      var el=e.target.closest&&e.target.closest('[data-sol-planet]');
-      if(!el) return;
-      var slug=el.getAttribute('data-sol-slug');
-      if(slug) location.href='/solar-system-simulator/'+slug+'/';
-    });
-  }
-  var cp=$('sol-copy');
-  if(cp) cp.addEventListener('click',function(){ var el=$('sol-url'); el.select();
-    try{ navigator.clipboard.writeText(el.value); cp.textContent='Copied'; setTimeout(function(){ cp.textContent='Copy link'; },1600); }catch(e){} });
-})();
-
-/* THE PLANET'S OWN GLOBE, on the pages that draw one. Its own IIFE. It used to
-   ride along in the one shared file and fall out at the first line on pages
-   with no globe; now the globe module is only in the file when the page draws
-   one, so this block is only emitted then too — and still checks for its box,
-   because a planet page can carry the module for its Earth-and-Moon view
-   without carrying a #pl-globe. */
-/* globe: not drawn on this page */
-</script>
+  if(window.requestIdleCallback)requestIdleCallback(go,{timeout:2500});else setTimeout(go,700);
+})();</script>
 </body>
 </html>

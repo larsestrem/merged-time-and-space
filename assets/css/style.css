@@ -2023,13 +2023,9 @@ body.mt-fs-open{overflow:hidden}
 .sec-switch{margin:2px 0 14px}
 .sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 
-/* questions sit under a picture, not in a second essay */
-.hub-qs{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px}
-.hub-qs p,.hub-qs li{margin:0;color:var(--muted);max-width:70ch}
-.hub-qs a{font-weight:600;color:var(--accent);text-decoration:none}
-.hub-qs a:hover{text-decoration:underline}
-.hub-kicker{margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
-.hub-blurb{margin:0 0 14px;color:var(--muted);max-width:70ch}
+/* questions sit under a picture, not in a second essay.
+   Base .hub-qs / .hub-kicker / .hub-blurb live in 23-concept.css so simulator
+   pages don't get pulled into the home section. Home-only layout stays here. */
 .home-hero .hub-qs{margin-top:16px}
 .home-hero > h2{margin:0 0 10px;font-size:1.35rem}
 .hub-sim{margin:22px 0 0}
@@ -3957,6 +3953,134 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .cv-ans{margin:0 0 4px;font-size:clamp(26px,7vw,40px);font-weight:800;line-height:1.15;font-variant-numeric:tabular-nums}
 .cv-ans b{color:var(--accent)}
 
+/* concept + glossary + hub teasers. Original tokens only. */
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+.answer {
+  font-size: 1.125rem;
+  max-width: 62ch;
+  line-height: 1.55;
+}
+.concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
+.band-deeper h2::after {
+  content: " Further down";
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-left: 8px;
+  font-weight: 600;
+}
+.hub-teaser, .related p, .see-live p {
+  margin: 0 0 16px;
+  color: var(--muted);
+  max-width: 66ch;
+}
+.hub-teaser a, .related p a, .glossary-item a {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+.hub-teaser a:hover, .related p a:hover, .glossary-item a:hover { text-decoration: underline; }
+.hub-teaser a.hub-more, .related p a.hub-more, .glossary-item a.hub-more {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+  margin-left: 0.35em;
+}
+.see-live ul, .related ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.graphic-block {
+  margin: 24px 0;
+}
+.graphic-block figcaption, figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  max-width: 70ch;
+}
+.more-info {
+  margin: 24px 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  padding: 4px 16px 16px;
+}
+.more-info > summary {
+  cursor: pointer;
+  font-weight: 650;
+  padding: 14px 0;
+  list-style: none;
+  color: var(--text);
+}
+.more-info > summary::-webkit-details-marker { display: none; }
+.more-info > summary::after {
+  content: " +";
+  color: var(--accent);
+  font-weight: 700;
+}
+.more-info[open] > summary::after { content: " −"; }
+.search {
+  width: 100%;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  padding: 0 14px;
+  font-size: 1rem;
+  margin: 16px 0 28px;
+  font-variant-numeric: tabular-nums;
+}
+.search:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.glossary-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.glossary-item {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.glossary-item h2 {
+  font-size: 1.05rem;
+  margin: 0 0 6px;
+  letter-spacing: 0;
+  font-weight: 650;
+}
+.glossary-item p { max-width: 66ch; margin: 0; color: var(--muted); }
+.letter {
+  font-size: 1.5rem;
+  margin: 28px 0 0;
+  color: var(--muted);
+}
+.glossary-item[hidden], .letter[hidden] { display: none; }
+.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
+.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
+.hub-qs a:hover { text-decoration: underline; }
+.hub-kicker {
+  margin: 0 0 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+}
+.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }
+
 /*TOOLCSS-START*/
 /* ---- /tides/ tool (stripped from non-tide pages by build-inline) ---- */
 /* a card with an open dropdown (search results / saved) must paint above
@@ -4368,131 +4492,3 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
    presets under a display, and that is a different thing. */
 .mn-cities{justify-content:flex-start;margin-top:12px}
 .mn-cities+.mn-states{margin-top:16px;display:block}
-
-/* concept + glossary + hub teasers. Original tokens only. */
-.kicker {
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.72rem;
-  color: var(--muted);
-  margin: 0 0 8px;
-  font-weight: 600;
-}
-.answer {
-  font-size: 1.125rem;
-  max-width: 62ch;
-  line-height: 1.55;
-}
-.concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
-.band-deeper h2::after {
-  content: " Further down";
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-left: 8px;
-  font-weight: 600;
-}
-.hub-teaser, .related p, .see-live p {
-  margin: 0 0 16px;
-  color: var(--muted);
-  max-width: 66ch;
-}
-.hub-teaser a, .related p a, .glossary-item a {
-  font-weight: 600;
-  color: var(--accent);
-  text-decoration: none;
-}
-.hub-teaser a:hover, .related p a:hover, .glossary-item a:hover { text-decoration: underline; }
-.hub-teaser a.hub-more, .related p a.hub-more, .glossary-item a.hub-more {
-  font-weight: 600;
-  color: var(--accent);
-  text-decoration: none;
-  white-space: nowrap;
-  margin-left: 0.35em;
-}
-.see-live ul, .related ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 12px;
-}
-.graphic-block {
-  margin: 24px 0;
-}
-.graphic-block figcaption, figcaption {
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 0.9rem;
-  max-width: 70ch;
-}
-.more-info {
-  margin: 24px 0;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--card);
-  padding: 4px 16px 16px;
-}
-.more-info > summary {
-  cursor: pointer;
-  font-weight: 650;
-  padding: 14px 0;
-  list-style: none;
-  color: var(--text);
-}
-.more-info > summary::-webkit-details-marker { display: none; }
-.more-info > summary::after {
-  content: " +";
-  color: var(--accent);
-  font-weight: 700;
-}
-.more-info[open] > summary::after { content: " −"; }
-.search {
-  width: 100%;
-  height: 48px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--text);
-  padding: 0 14px;
-  font-size: 1rem;
-  margin: 16px 0 28px;
-  font-variant-numeric: tabular-nums;
-}
-.search:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
-.glossary-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.glossary-item {
-  padding: 16px 0;
-  border-bottom: 1px solid var(--border);
-}
-.glossary-item h2 {
-  font-size: 1.05rem;
-  margin: 0 0 6px;
-  letter-spacing: 0;
-  font-weight: 650;
-}
-.glossary-item p { max-width: 66ch; margin: 0; color: var(--muted); }
-.letter {
-  font-size: 1.5rem;
-  margin: 28px 0 0;
-  color: var(--muted);
-}
-.glossary-item[hidden], .letter[hidden] { display: none; }
-.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
-.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
-.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
-.hub-qs a:hover { text-decoration: underline; }
-.hub-kicker {
-  margin: 0 0 4px;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  font-weight: 700;
-}
-.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }
