@@ -1,0 +1,89 @@
+/*TOOLCSS-START*/
+/* world clock: compact cards, 1 col on mobile -> 2 -> 3 on desktop */
+.wc-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
+/* Two columns, not three. The wrap is 820px wide, so a third column left each
+   card about 254px — with the zone name, the date/offset line, the sun line and
+   now the Sun/Moon/Tides chips, that width wrapped every city name onto two
+   lines and truncated the meta line mid-word. Two columns give ~385px, which
+   fits all of it on one line each. */
+.wc-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:560px){.wc-grid{grid-template-columns:1fr 1fr}}
+.wc-card{display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:14px;padding:11px 14px;background:var(--card);min-width:0;position:relative}
+.wc-toolbar .btn{width:auto}
+.wc-icon{font-size:17px;flex:0 0 auto}
+.wc-info{flex:1 1 auto;min-width:0}
+.wc-city{font-weight:700;font-size:15px}
+.wc-tzname{display:block;font-weight:500;font-size:12px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wc-meta{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wc-time{font-variant-numeric:tabular-nums;font-weight:700;font-size:19px;white-space:nowrap;flex:0 0 auto}
+.wc-card.wc-night{background:rgba(40,55,82,.32)}
+.wc-card.wc-you{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.wc-sun{font-size:11px;color:var(--muted);margin-top:1px;font-variant-numeric:tabular-nums}
+.wc-sun-i{font-size:15px;font-weight:700;line-height:1}
+/* the hub's city name links to that city's own page; the card is not itself a
+   link, so this is the only anchor in it */
+.wc-city a{color:inherit;text-decoration:none}
+.wc-city a:hover{text-decoration:underline}
+/* ---- /world-clock/<city>/ ---- */
+.wc-nowcard{text-align:center}
+.wc-bigtime{font-size:clamp(40px,13vw,72px);font-weight:800;font-variant-numeric:tabular-nums;line-height:1.05;letter-spacing:-.01em}
+.wc-bigdate{font-size:15px;color:var(--muted);margin-top:4px}
+.wc-diff{font-size:14px;margin:12px 0 10px}
+.wc-nowcard .btn{width:auto}
+/* A LABEL AND ITS VALUE ARE A ROW, NOT A PAGE WIDTH. These put the label hard
+   left and the number hard right, which at 1400px puts a metre of empty space
+   between a thing and its own answer. Capped, and left-aligned so a column of
+   them lines up. Prose is not capped — see .wrap. */
+.wc-facts{display:grid;grid-template-columns:1fr;gap:2px;max-width:760px}
+.wc-frow{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--border)}
+.wc-frow:last-child{border-bottom:0}
+.wc-frow span{color:var(--muted);font-size:14px}
+.wc-frow b{font-variant-numeric:tabular-nums;text-align:right}
+/* The lesson-plan timeline (/classroom/lessons/) borrows these rows for its
+   minute-by-minute steps, but a step is a PARAGRAPH, not a figure: right-
+   aligned running text is hard to read, and the label column needs a fixed
+   width so seven steps' text starts on one line. Same markup, prose variant. */
+.lp-steps .wc-frow{align-items:baseline}
+.lp-steps .wc-frow>span{flex:0 0 118px}
+.lp-steps .wc-frow b{text-align:left;font-weight:400}
+.lp-steps .wc-frow b strong{font-weight:700}
+/* the teacher/student split inside a step row, and the exemplar furniture */
+.lp-you{display:block;margin-top:6px;padding-top:6px;border-top:1px dashed var(--border);color:var(--muted);font-size:13.5px}
+.lp-you em{color:var(--accent);font-style:normal;font-weight:700}
+.lp-h3{margin:14px 0 6px;font-size:15px}
+.lp-key summary{cursor:pointer;font-weight:700;color:var(--accent);margin:8px 0}
+.lp-actions{margin-top:14px}
+/* the student sheet's write-on lines */
+.lp-blank{display:inline-block;min-width:180px;border-bottom:1px solid var(--muted);height:1em;vertical-align:bottom}
+.lp-blank-wide{display:block;min-width:0;margin:10px 0 14px;height:3.2em;border-bottom:none;
+  background:repeating-linear-gradient(to bottom,transparent,transparent 1.5em,var(--muted) 1.55em)}
+.lp-exit li{margin-bottom:10px}
+.wc-ptable{width:100%;border-collapse:collapse;font-size:14px}
+.wc-ptable th,.wc-ptable td{text-align:left;padding:7px 10px 7px 0;border-bottom:1px solid var(--border)}
+.wc-ptable th{color:var(--muted);font-weight:600}
+.wc-ptable td:nth-child(2){font-variant-numeric:tabular-nums;white-space:nowrap}
+/* hub search: find the time in any city we have a page for */
+.wc-search{position:relative;margin:0 0 14px}
+.wc-search-lab{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.wc-search-row{display:flex;gap:8px}
+.wc-search-row input{flex:1;min-width:0;padding:10px 13px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:16px}
+.wc-search-row input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.wc-search-row .btn{width:auto;flex:0 0 auto}
+.wc-results{position:absolute;left:0;right:0;top:100%;z-index:30;margin:4px 0 0;padding:4px;list-style:none;
+  background:var(--menu-bg);border:1px solid var(--border);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.45);max-height:320px;overflow:auto}
+.wc-results li{margin:0}
+.wc-results a{display:flex;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:8px;color:var(--menu-text);text-decoration:none;font-weight:600}
+.wc-results a:hover,.wc-results a.active{background:rgba(255,255,255,.12)}
+.wc-res-area{color:var(--muted);font-weight:500}
+.wc-res-empty{padding:9px 11px;color:var(--muted);font-size:14px}
+/* the whole card opens the city page; the sun/moon/tide chips sit above the
+   overlay so they stay independently clickable */
+.wc-stretch{color:inherit;text-decoration:none}
+.wc-stretch::after{content:"";position:absolute;inset:0;z-index:0}
+.wc-card:hover{border-color:rgba(255,255,255,.34)}
+.wc-card:focus-within{border-color:var(--accent)}
+.wc-astro{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+.wc-astro a{font-size:11px;font-weight:600;line-height:1;padding:4px 8px;border-radius:999px;
+  border:1px solid var(--border);color:var(--muted);text-decoration:none;background:rgba(0,0,0,.18)}
+.wc-astro a:hover{color:var(--text);border-color:var(--accent)}
+/*TOOLCSS-END*/

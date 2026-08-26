@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Concept pages",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "slug",
+      "question",
+      "term",
+      "shortAnswer",
+      "title",
+      "description",
+      "cluster",
+      "hubUrls",
+      "relatedSlugs",
+      "graphicId",
+      "graphicCaption",
+      "graphicAlt",
+      "sections",
+      "seeItLive"
+    ],
+    "properties": {
+      "slug": {
+        "type": "string",
+        "pattern": "^(what-is|what-are|why-|how-does|how-are).+"
+      },
+      "question": { "type": "string" },
+      "term": { "type": "string" },
+      "shortAnswer": { "type": "string", "maxLength": 520 },
+      "title": { "type": "string" },
+      "description": { "type": "string", "maxLength": 170 },
+      "cluster": { "enum": ["day-night", "questions", "simulator", "solar"] },
+      "hubUrls": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["href", "label"],
+          "properties": {
+            "href": { "type": "string" },
+            "label": { "type": "string" }
+          }
+        }
+      },
+      "relatedSlugs": { "type": "array", "items": { "type": "string" } },
+      "graphicId": {
+        "enum": [
+          "sun-earth-line",
+          "day-night-map",
+          "orbit",
+          "moon-phase",
+          "tides",
+          "jupiter",
+          "olbers",
+          "none"
+        ]
+      },
+      "graphicCaption": { "type": "string" },
+      "graphicAlt": { "type": "string" },
+      "sections": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["heading", "band", "body"],
+          "properties": {
+            "heading": { "type": "string" },
+            "band": { "enum": ["5-12", "deeper"] },
+            "body": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      },
+      "seeItLive": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["href", "label"],
+          "properties": {
+            "href": { "type": "string" },
+            "label": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

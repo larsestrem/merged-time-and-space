@@ -1,0 +1,8 @@
+/*TOOLCSS-START*/
+/* ===== time tools: stopwatch + timer ===== */
+/* position+z-index so the alarm-sound dropdown (which overflows the card)
+ * paints ABOVE the following card — both cards form backdrop-filter stacking
+ * contexts, so without this the next card covers the open menu. */
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px 18px;margin:0 0 18px;text-align:center;backdrop-filter:blur(8px);position:relative;z-index:5}
+.tool-time{font-size:clamp(48px,17vw,108px);font-weight:800;font-variant-numeric:tabular-nums;line-height:1;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.55);margin:4px 0}
+.tool-time .cs{font-size:.45em;color:var(--muted)}

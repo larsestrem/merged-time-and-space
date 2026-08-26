@@ -1,0 +1,27 @@
+# ============================================================================
+#  alarm-clock-countdown — moderation ALLOWLIST (exact-match safe phrases)
+#
+#  EXACT, full-value match (case-insensitive, spaces/hyphens normalized) — NOT
+#  substring. An entry only rescues an event whose ENTIRE name or message
+#  equals it, so it can never open a loophole: "killer party" is allowed, but
+#  "jew killer party" still has extra words → not an exact match → blocked.
+#
+#  Use this sparingly, only for a clean phrase the substring blocklist catches
+#  by accident. Adding more words to a real event name means it won't match
+#  here — that's intentional. Regenerate with: npm run waf
+# ============================================================================
+
+killer party
+killer queen
+killer instinct
+cocktail party
+murder mystery party
+murder mystery night
+murder mystery dinner
+murder she wrote
+murder on the dance floor
+kill bill
+killing eve
+to kill a mockingbird
+shot at love
+last day of school

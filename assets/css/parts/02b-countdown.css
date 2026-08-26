@@ -1,0 +1,155 @@
+/* ===== countdown page ===== */
+.cd-hero{text-align:center;padding:8px 0 4px;min-height:132px;line-height:0}
+.cd-hero svg{width:120px;height:120px;filter:drop-shadow(0 6px 20px rgba(0,0,0,.4))}
+/* celebrity birthdays show two illustrations (a star and a cake) side by side */
+.cd-hero-pair{display:flex;justify-content:center;align-items:center;gap:8px}
+.cd-hero-pair svg{width:100px;height:100px}
+/* LinkedIn-style "profile" header for celebrities: a card holding the
+   birthday illustration plus the name, intro and at-a-glance details. Image
+   stacks above the text on mobile; image + text sit in two columns on desktop.
+   The big countdown below stays the page's primary, bold focal point. */
+/* the title spans the full page width, sitting above both columns */
+.cd-profile-h1{text-align:left;margin:2px 0 12px}
+.cd-profile{display:flex;flex-direction:column;align-items:stretch;gap:16px;
+  background:var(--card);border:1px solid var(--border);border-radius:20px;
+  padding:16px;margin:8px 0 20px;text-align:left}
+.cd-profile-img{flex:0 0 auto;line-height:0;width:100%;display:flex;align-items:center;justify-content:center}
+/* the hero ships inside a <picture> when an AVIF variant exists (see
+   heroImg() in build-events.mjs). A <picture> is inline by default, so as a
+   flex item its width would come from the image's intrinsic 700px and the
+   img's width:100% would resolve against that — the image would ignore the
+   340px cap. Blockifying it hands the sizing back to the flex container. */
+.cd-profile-img picture{display:block;width:100%;line-height:0}
+.cd-profile-img img{display:block;width:100%;height:auto;border-radius:14px;
+  box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.cd-profile-img svg{width:168px;height:auto;filter:drop-shadow(0 6px 20px rgba(0,0,0,.4))}
+.cd-profile-body{min-width:0;display:flex;flex-direction:column;justify-content:center}
+.cd-profile-body .sub{margin:0 0 12px}
+/* at-a-glance detail rows */
+.cd-meta{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;
+  font-size:14px;color:var(--text)}
+.cd-meta li{display:flex;gap:8px;justify-content:flex-start;flex-wrap:wrap}
+.cd-meta .k{color:var(--muted);min-width:96px;text-align:left;font-weight:600}
+@media (min-width:640px){
+  /* image + text columns stretched to equal height */
+  .cd-profile{flex-direction:row;align-items:stretch;gap:24px;padding:18px}
+  .cd-profile-img{width:42%;max-width:340px}
+  .cd-profile-img svg{width:190px}
+  .cd-profile-body{flex:1}
+}
+.cd-name{font-size:30px;font-weight:800;text-align:center;margin:8px 0 2px;color:#fff}
+.cd-when{color:var(--muted);text-align:center;margin:0 0 22px;font-size:14px;min-height:21px}
+.clock{display:flex;justify-content:center;gap:10px;margin:18px 0}
+/* Dark scrim behind every unit (same idea as the embed widget) so the white
+ * digits stay legible on any page colour or themed gradient. */
+.unit{background:rgba(0,0,0,.32);border:1px solid rgba(0,0,0,.25);border-radius:16px;padding:14px 6px;min-width:74px;text-align:center}
+.unit .num{font-size:40px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1;
+  color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 18px rgba(255,255,255,.22)}
+.unit .lab{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-top:6px}
+.cd-localtime{text-align:center;color:var(--muted);font-size:13px;margin:2px 0 0}
+/* small view count: under the countdown on mobile, to its right on desktop */
+.cd-views{text-align:center;color:var(--muted);font-size:12px;margin:2px 0 0;min-height:1em;opacity:.85}
+.cd-clockrow{display:flex;flex-direction:column;align-items:center;margin-bottom:8px}
+.cd-clockrow .clock{margin-bottom:0}
+@media (min-width:560px){
+  .cd-clockrow{flex-direction:row;justify-content:center;align-items:center;gap:16px}
+  .cd-clockrow .cd-views{margin:0;white-space:nowrap}
+}
+.cd-answer{text-align:center}
+.cd-answer h2{font-size:17px;margin:0 0 6px}
+.cd-answer p{margin:0;color:var(--muted)}
+.cd-msg{text-align:center;font-size:22px;font-weight:700;margin:8px 0;min-height:1px}
+.zero .clock{display:none}
+/* 420 novelty pages: cannabis-leaf SVG flanking the title + a green-tinted
+ * countdown to tie the whole (entirely innocent) thing together. */
+.h420{display:flex;align-items:center;justify-content:center;gap:clamp(6px,2vw,16px);flex-wrap:nowrap;text-align:center}
+.h420 span{flex:0 1 auto}
+.leaf420{flex:0 0 auto;width:clamp(46px,12vw,78px);height:auto;filter:drop-shadow(0 1px 6px rgba(0,0,0,.35))}
+.cd420-stage{text-align:center;position:relative}
+/* zero-state smoke: a soft green haze rises over the display when the countdown
+ * hits 4:20, then fades. Clipped to the stage; skipped for reduced-motion. */
+.cd420-smoke{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none;z-index:6;opacity:0}
+.cd420-smoke::before{content:"";position:absolute;left:-15%;right:-15%;bottom:-30%;height:150%;background:radial-gradient(40% 36% at 27% 76%,rgba(205,252,218,.8),transparent 66%),radial-gradient(42% 38% at 72% 82%,rgba(224,255,232,.72),transparent 66%),radial-gradient(52% 48% at 50% 92%,rgba(165,238,186,.66),transparent 68%);filter:blur(16px);transform:translateY(38%)}
+.cd420-stage.cd420-zero .cd420-smoke{animation:cd420Fade 6s ease-out forwards}
+.cd420-stage.cd420-zero .cd420-smoke::before{animation:cd420Rise 6s ease-out forwards}
+@keyframes cd420Fade{0%{opacity:0}14%{opacity:.95}55%{opacity:.85}100%{opacity:0}}
+@keyframes cd420Rise{0%{transform:translateY(38%) scale(1)}100%{transform:translateY(-58%) scale(1.45)}}
+@media (prefers-reduced-motion:reduce){.cd420-stage.cd420-zero .cd420-smoke,.cd420-stage.cd420-zero .cd420-smoke::before{animation:none}}
+.cd420-label{text-align:center;font-size:14px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:18px 0 2px}
+/* digit colour/glow keyed off --g420, set on the stage by the shade picker
+ * (defaults to mint) — so the chosen green follows the stage into full screen
+ * and the pop-out window. */
+.cd420-stage .unit .num{color:var(--g420,#7bd88f);text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 18px var(--g420-glow,rgba(76,175,80,.45))}
+.cd420-ctrl{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:16px 0 18px}
+/* small icon buttons, same size/feel as the alarm page's .ac-icon (44x44) */
+.cd420-ib{width:44px;height:44px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.1);color:var(--text);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:.12s}
+.cd420-ib:hover{border-color:var(--accent);color:var(--accent)}
+.cd420-ib svg{display:block}
+/* the "Boss!" panic button rides in the same row but is text, not an icon —
+ * auto width, 44px tall to line up with the icon buttons */
+.cd420-boss{width:auto;padding:0 14px;font-size:14px;font-weight:700}
+.mc-pip .cd420-boss{padding:0 10px;font-size:12px}
+/* Colour + Share are <details> dropdowns; the menu floats over the content
+ * below. Colour trigger = a square swatch of the current green; Share
+ * trigger = the share icon, its menu a single horizontal row of options. */
+.cd420-dd{position:relative}
+.cd420-dd summary{list-style:none;cursor:pointer}
+.cd420-dd summary::-webkit-details-marker{display:none}
+.cd420-dd[open]>summary{border-color:var(--accent)}
+.cd420-sq{width:24px;height:24px;border-radius:6px;background:var(--g420,#2ecc71);box-shadow:0 0 8px var(--g420-glow,rgba(46,204,113,.5))}
+/* solid (opaque) background — the theme's --card is semi-transparent, which
+ * let the text below show through where the menu overlaps it. */
+.cd420-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);z-index:60;min-width:200px;max-width:calc(100vw - 24px);max-height:min(64vh,440px);overflow:auto;background:#171a26;border:1px solid var(--border);border-radius:12px;padding:8px;box-shadow:0 12px 34px rgba(0,0,0,.55)}
+.cd420-menu-h{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding:4px 8px 8px}
+.cd420-opt{display:flex;align-items:center;gap:10px;width:100%;padding:7px 8px;background:none;border:0;border-radius:8px;cursor:pointer;color:var(--text);text-align:left}
+.cd420-opt:hover{background:rgba(255,255,255,.08)}
+.cd420-opt.on{background:rgba(255,255,255,.07)}
+.cd420-splotch{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:1px solid rgba(255,255,255,.25)}
+.cd420-strain{font-size:14px;font-weight:600;white-space:nowrap}
+.cd420-share-menu{min-width:0}
+.cd420-share-icons{display:flex;gap:8px;padding:2px}
+.cd420-share-icons .ico{width:44px;height:44px}
+.ico.ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285aeb 90%);color:#fff;border-color:transparent}
+/* cart dropdown: popular-search links + small-print affiliate disclosure */
+.cd420-cart-menu{min-width:220px}
+.cd420-cart-item{display:block;padding:8px;border-radius:8px;color:var(--text);text-decoration:none;font-size:14px;font-weight:600;white-space:nowrap}
+.cd420-cart-item:hover{background:rgba(255,255,255,.08)}
+.cd420-cart-note{font-size:10px;line-height:1.4;color:var(--muted);padding:8px 8px 2px;margin-top:4px;border-top:1px solid var(--border);white-space:normal}
+/* full screen: black, centred, huge digits (readable across the room) */
+.cd420-stage:fullscreen{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;width:100vw;height:100vh;gap:min(3vh,26px)}
+.cd420-stage:fullscreen .cd420-label{font-size:min(3.6vw,30px);margin:0}
+.cd420-stage:fullscreen .clock{gap:min(3vw,3vh)}
+.cd420-stage:fullscreen .unit{min-width:min(20vw,160px);padding:min(3vw,24px) min(1.5vw,10px)}
+.cd420-stage:fullscreen .unit .num{font-size:min(14vw,150px)}
+.cd420-stage:fullscreen .unit .lab{font-size:min(2vw,18px)}
+.cd420-stage:fullscreen .cd-msg{font-size:min(4vw,34px)}
+/* the control row now lives inside the stage, so colour/share/cart follow it
+ * into full screen; hide the (now-redundant) full-screen + pop-out buttons.
+ * The menus open upward so they don't run off the bottom of the screen. */
+.cd420-stage:fullscreen .cd420-ctrl{margin:min(2vh,18px) 0 0}
+.cd420-stage:fullscreen #cd-fs,.cd420-stage:fullscreen #cd-pop{display:none}
+.cd420-stage:fullscreen .cd420-menu{top:auto;bottom:calc(100% + 8px)}
+/* pop-out (documentPictureInPicture) — compact clock in the floating window */
+.mc-pip .cd420-stage{padding:6px}
+.mc-pip .cd420-label{font-size:11px;margin:0 0 6px}
+.mc-pip .cd420-stage .unit{min-width:0;padding:6px 3px}
+.mc-pip .cd420-stage .unit .num{font-size:22px}
+.mc-pip .cd420-stage .unit .lab{font-size:8px}
+/* pop-out keeps colour/share/cart too, at a compact size; no fs/pop there */
+.mc-pip .cd420-ctrl{margin:8px 0 0;gap:6px}
+.mc-pip .cd420-ib{width:34px;height:34px;border-radius:9px}
+.mc-pip .cd420-ib svg{width:17px;height:17px}
+.mc-pip .cd420-sq{width:18px;height:18px}
+.mc-pip .cd420-ctrl #cd-fs,.mc-pip .cd420-ctrl #cd-pop{display:none}
+.mc-pip .cd420-menu{min-width:150px;max-width:calc(100vw - 12px)}
+.mc-pip .cd420-cart-menu{min-width:160px}
+/* launch-video facade (rocket pages): a 16:9 click-to-play box. The facade
+ * is a styled placeholder — no YouTube request until tapped — then its own
+ * script swaps in the iframe, which fills the same box. aspect-ratio holds
+ * the space so there's no layout shift when the player loads. */
+.cd-video{position:relative;width:100%;max-width:640px;margin:16px auto 4px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--border)}
+.cd-video iframe{display:block;width:100%;height:100%;border:0}
+.cd-video-facade{position:absolute;inset:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0;border:0;cursor:pointer;color:#fff;background:radial-gradient(circle at 50% 42%,#1c2647,#0a0e1c)}
+.cd-video-play{display:flex;align-items:center;justify-content:center;width:64px;height:64px;padding-left:5px;font-size:24px;border-radius:50%;background:rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.85);transition:.15s}
+.cd-video-facade:hover .cd-video-play{background:var(--accent);color:#000;border-color:var(--accent);transform:scale(1.06)}
+.cd-video-label{font-weight:700;font-size:15px;letter-spacing:.01em}

@@ -1,0 +1,12 @@
+/*TOOLCSS-START*/
+.egg{width:230px;height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  background:radial-gradient(circle at 50% 36%,#fffefa,#fdeccd 68%,#f3d6a4);
+  border-radius:50% 50% 50% 50% / 62% 62% 38% 38%;
+  box-shadow:inset -14px -24px 44px rgba(176,134,64,.28),inset 10px 12px 26px rgba(255,255,255,.6),0 14px 30px rgba(0,0,0,.18)}
+.egg .tool-time{font-size:46px;color:#5b4327;text-shadow:0 1px 0 rgba(255,255,255,.55);margin:0}
+.egg .tool-controls{margin:0;display:flex;flex-direction:column;align-items:center;gap:6px}
+.egg .tool-controls .btn.secondary{background:rgba(91,67,39,.1);color:#5b4327;border-color:rgba(91,67,39,.4)}
+.egg-card.tool-done .egg{animation:egg-shake .5s ease-in-out infinite}
+@keyframes egg-shake{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@media (max-width:600px){.egg{width:196px;height:255px}.egg .tool-time{font-size:40px}}
+/*TOOLCSS-END*/

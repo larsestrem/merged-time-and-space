@@ -1,0 +1,415 @@
+{
+  "comment": "Per-country event pages at /countries/<code>/. Same link rules as popular-countdowns (path[/slug]/year + query). Dates = next occurrence; lunar/movable dates are approximate — edit and rebuild.",
+  "countries": [
+    {
+      "code": "united-states",
+      "flag": "🇺🇸",
+      "name": "United States",
+      "desc": "Live countdowns to America's biggest days, July 4th, Thanksgiving, and more.",
+      "theme": "generic",
+      "art": "generic",
+      "effect": "fireworks",
+      "sound": "partyhorn",
+      "events": [
+        {
+          "label": "Independence Day",
+          "slug": "",
+          "name": "Independence Day 2026",
+          "date": "2026-07-04",
+          "path": "july-4th-countdown"
+        },
+        {
+          "label": "Labor Day",
+          "slug": "",
+          "name": "Labor Day 2026",
+          "date": "2026-09-07",
+          "path": "labor-day-countdown"
+        },
+        {
+          "label": "Halloween",
+          "slug": "",
+          "name": "Halloween 2026",
+          "date": "2026-10-31",
+          "path": "halloween-countdown",
+          "effect": "stars"
+        },
+        {
+          "label": "Thanksgiving",
+          "slug": "",
+          "name": "Thanksgiving 2026",
+          "date": "2026-11-26",
+          "path": "thanksgiving-countdown",
+          "effect": "confetti",
+          "sound": "fanfare"
+        },
+        {
+          "label": "Christmas",
+          "slug": "",
+          "name": "Christmas 2026",
+          "date": "2026-12-25",
+          "path": "christmas-countdown",
+          "theme": "christmas",
+          "art": "christmas",
+          "effect": "snow",
+          "sound": "bells"
+        },
+        {
+          "label": "Memorial Day",
+          "slug": "",
+          "name": "Memorial Day 2027",
+          "date": "2027-05-31",
+          "path": "memorial-day-countdown"
+        }
+      ]
+    },
+    {
+      "code": "united-kingdom",
+      "flag": "🇬🇧",
+      "name": "United Kingdom",
+      "desc": "Live countdowns to the UK's big dates, Bonfire Night, Boxing Day and the bank holidays.",
+      "theme": "generic",
+      "art": "generic",
+      "effect": "fireworks",
+      "sound": "cheer",
+      "events": [
+        {
+          "label": "Summer Bank Holiday",
+          "slug": "",
+          "name": "Summer Bank Holiday 2026",
+          "date": "2026-08-31",
+          "path": "bank-holiday-countdown"
+        },
+        {
+          "label": "Bonfire Night (Guy Fawkes)",
+          "slug": "",
+          "name": "Bonfire Night 2026",
+          "date": "2026-11-05",
+          "time": "19:00",
+          "path": "bonfire-night-countdown",
+          "recur": true
+        },
+        {
+          "label": "Christmas",
+          "slug": "",
+          "name": "Christmas 2026",
+          "date": "2026-12-25",
+          "path": "christmas-countdown",
+          "theme": "christmas",
+          "art": "christmas",
+          "effect": "snow",
+          "sound": "bells"
+        },
+        {
+          "label": "Boxing Day",
+          "slug": "",
+          "name": "Boxing Day 2026",
+          "date": "2026-12-26",
+          "path": "boxing-day-countdown",
+          "recur": true
+        },
+        {
+          "label": "King Charles III's Birthday",
+          "slug": "king-charles",
+          "name": "King Charles III's Birthday",
+          "date": "2026-11-14",
+          "path": "birthday-countdown",
+          "theme": "birthday",
+          "art": "birthday",
+          "effect": "confetti",
+          "sound": "fanfare",
+          "recur": true
+        }
+      ]
+    },
+    {
+      "code": "canada",
+      "flag": "🇨🇦",
+      "name": "Canada",
+      "desc": "Live countdowns to Canada Day, Canadian Thanksgiving and more.",
+      "theme": "generic",
+      "art": "generic",
+      "effect": "fireworks",
+      "sound": "cheer",
+      "events": [
+        {
+          "label": "Canada Day",
+          "slug": "",
+          "name": "Canada Day 2026",
+          "date": "2027-07-01",
+          "path": "canada-day-countdown",
+          "recur": true
+        },
+        {
+          "label": "Canadian Thanksgiving",
+          "slug": "",
+          "name": "Canadian Thanksgiving 2026",
+          "date": "2026-10-12",
+          "path": "canadian-thanksgiving-countdown",
+          "effect": "confetti",
+          "sound": "fanfare"
+        },
+        {
+          "label": "Christmas",
+          "slug": "",
+          "name": "Christmas 2026",
+          "date": "2026-12-25",
+          "path": "christmas-countdown",
+          "theme": "christmas",
+          "art": "christmas",
+          "effect": "snow",
+          "sound": "bells"
+        },
+        {
+          "label": "Victoria Day",
+          "slug": "",
+          "name": "Victoria Day 2027",
+          "date": "2027-05-24",
+          "path": "victoria-day-countdown"
+        }
+      ]
+    },
+    {
+      "code": "mexico",
+      "flag": "🇲🇽",
+      "name": "Mexico",
+      "desc": "Live countdowns to el Grito, Día de Muertos and Mexico's biggest celebrations.",
+      "theme": "generic",
+      "art": "generic",
+      "effect": "confetti",
+      "sound": "partyhorn",
+      "events": [
+        {
+          "label": "Día de la Independencia",
+          "slug": "",
+          "name": "Independencia de México 2026",
+          "date": "2026-09-16",
+          "path": "mexico-independence-countdown",
+          "effect": "fireworks",
+          "recur": true
+        },
+        {
+          "label": "Día de Muertos",
+          "slug": "",
+          "name": "Día de Muertos 2026",
+          "date": "2026-11-02",
+          "path": "dia-de-muertos-countdown",
+          "effect": "stars",
+          "recur": true
+        },
+        {
+          "label": "Navidad",
+          "slug": "",
+          "name": "Navidad 2026",
+          "date": "2026-12-25",
+          "path": "christmas-countdown",
+          "theme": "christmas",
+          "art": "christmas",
+          "effect": "snow",
+          "sound": "bells"
+        },
+        {
+          "label": "Cinco de Mayo",
+          "slug": "",
+          "name": "Cinco de Mayo 2027",
+          "date": "2027-05-05",
+          "path": "cinco-de-mayo-countdown",
+          "recur": true
+        }
+      ]
+    },
+    {
+      "code": "india",
+      "flag": "🇮🇳",
+      "name": "India",
+      "desc": "Live countdowns to Diwali, Holi, Independence Day and India's festival calendar.",
+      "theme": "fireworks",
+      "art": "fireworks",
+      "effect": "fireworks",
+      "sound": "bells",
+      "events": [
+        {
+          "label": "Independence Day",
+          "slug": "",
+          "name": "India Independence Day 2026",
+          "date": "2027-08-15",
+          "path": "india-independence-countdown",
+          "recur": true
+        },
+        {
+          "label": "Diwali",
+          "slug": "",
+          "name": "Diwali 2026",
+          "date": "2026-11-08",
+          "path": "diwali-countdown"
+        },
+        {
+          "label": "Republic Day",
+          "slug": "",
+          "name": "Republic Day 2027",
+          "date": "2027-01-26",
+          "path": "republic-day-countdown",
+          "recur": true
+        },
+        {
+          "label": "Holi",
+          "slug": "",
+          "name": "Holi 2027",
+          "date": "2027-03-22",
+          "path": "holi-countdown",
+          "effect": "confetti",
+          "sound": "cheer"
+        }
+      ]
+    },
+    {
+      "code": "france",
+      "flag": "🇫🇷",
+      "name": "France",
+      "desc": "Live countdowns to Bastille Day, the Fête de la Musique and more.",
+      "theme": "generic",
+      "art": "generic",
+      "effect": "fireworks",
+      "sound": "partyhorn",
+      "events": [
+        {
+          "label": "Fête de la Musique",
+          "slug": "",
+          "name": "Fête de la Musique 2026",
+          "date": "2027-06-21",
+          "path": "fete-de-la-musique-countdown",
+          "sound": "cheer",
+          "effect": "stars",
+          "recur": true
+        },
+        {
+          "label": "Bastille Day",
+          "slug": "",
+          "name": "Bastille Day 2026",
+          "date": "2027-07-14",
+          "path": "bastille-day-countdown",
+          "recur": true
+        },
+        {
+          "label": "Noël",
+          "slug": "",
+          "name": "Noël 2026",
+          "date": "2026-12-25",
+          "path": "christmas-countdown",
+          "theme": "christmas",
+          "art": "christmas",
+          "effect": "snow",
+          "sound": "bells"
+        }
+      ]
+    },
+    {
+      "code": "japan",
+      "flag": "🇯🇵",
+      "name": "Japan",
+      "desc": "Live countdowns to Shōgatsu, White Day, Golden Week and Japan's biggest days.",
+      "theme": "love",
+      "art": "love",
+      "effect": "hearts",
+      "sound": "bells",
+      "events": [
+        {
+          "label": "Shōgatsu (New Year)",
+          "slug": "",
+          "name": "Shōgatsu 2027",
+          "date": "2027-01-01",
+          "time": "00:00",
+          "path": "new-year-countdown",
+          "theme": "fireworks",
+          "art": "fireworks",
+          "effect": "fireworks",
+          "sound": "partyhorn"
+        },
+        {
+          "label": "White Day",
+          "slug": "",
+          "name": "White Day 2027",
+          "date": "2027-03-14",
+          "path": "white-day-countdown",
+          "theme": "love",
+          "art": "love",
+          "effect": "hearts",
+          "sound": "bells",
+          "recur": true
+        },
+        {
+          "label": "Golden Week begins",
+          "slug": "",
+          "name": "Golden Week 2027",
+          "date": "2027-04-29",
+          "path": "golden-week-countdown",
+          "effect": "balloons",
+          "sound": "cheer",
+          "recur": true
+        },
+        {
+          "label": "Children's Day",
+          "slug": "",
+          "name": "Children's Day 2027",
+          "date": "2027-05-05",
+          "path": "childrens-day-countdown",
+          "effect": "balloons",
+          "sound": "cheer",
+          "recur": true
+        }
+      ]
+    },
+    {
+      "code": "australia",
+      "flag": "🇦🇺",
+      "name": "Australia",
+      "desc": "Live countdowns to Australia Day, ANZAC Day and the Melbourne Cup.",
+      "theme": "vacation",
+      "art": "vacation",
+      "effect": "balloons",
+      "sound": "cheer",
+      "events": [
+        {
+          "label": "Melbourne Cup",
+          "slug": "",
+          "name": "Melbourne Cup 2026",
+          "date": "2026-11-03",
+          "time": "15:00",
+          "path": "melbourne-cup-countdown",
+          "effect": "confetti"
+        },
+        {
+          "label": "Christmas (summer!)",
+          "slug": "",
+          "name": "Christmas 2026",
+          "date": "2026-12-25",
+          "path": "christmas-countdown",
+          "theme": "christmas",
+          "art": "christmas",
+          "effect": "snow",
+          "sound": "bells"
+        },
+        {
+          "label": "Australia Day",
+          "slug": "",
+          "name": "Australia Day 2027",
+          "date": "2027-01-26",
+          "path": "australia-day-countdown",
+          "effect": "fireworks",
+          "sound": "partyhorn",
+          "recur": true
+        },
+        {
+          "label": "ANZAC Day",
+          "slug": "",
+          "name": "ANZAC Day 2027",
+          "date": "2027-04-25",
+          "time": "06:00",
+          "path": "anzac-day-countdown",
+          "effect": "stars",
+          "sound": "none",
+          "recur": true
+        }
+      ]
+    }
+  ]
+}

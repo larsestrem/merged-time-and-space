@@ -1,0 +1,9 @@
+# Files in the Pages output dir (the repo root) that should NOT be uploaded as
+# static assets by `wrangler pages deploy`. The functions/ directory is handled
+# separately by Pages and is not affected by this list.
+node_modules
+.git
+.wrangler
+.dev.vars
+*.log
+.DS_Store

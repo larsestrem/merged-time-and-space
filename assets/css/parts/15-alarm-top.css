@@ -1,0 +1,20 @@
+/*TOOLCSS-START*/
+/* alarm clock: red-on-black LED display */
+#ac-stage{position:relative;max-width:560px;margin:0 auto}
+.ac-clock{background:#0b0b0c;border:1px solid #2a2a2a;border-radius:18px;padding:20px 24px;display:flex;align-items:center;justify-content:center;gap:8px;max-width:560px;margin:6px auto 16px;box-shadow:inset 0 3px 16px rgba(0,0,0,.9),0 10px 30px rgba(0,0,0,.3)}
+/* battery level + charging badge (Battery Status API — Android Chrome/Edge
+ * only; stays hidden everywhere else). Pinned to the corner so it never
+ * disturbs the digit/date layout underneath it. */
+.ac-batt{position:absolute;top:10px;right:14px;display:flex;align-items:center;gap:3px;font-size:12px;font-weight:700;color:var(--seg-on,#ff2b2b);font-family:ui-monospace,Menlo,Consolas,monospace}
+/* second exit-fullscreen button, top-left (mirrors the battery badge's
+ * top-right placement) — a visible, guaranteed way out, since the
+ * browser/OS's own "swipe to exit fullscreen" hint can't be controlled or
+ * removed from the page. Full screen only. */
+.ac-close-tl{display:none}
+.ac-batt-bolt{display:none;flex:0 0 auto}
+.ac-batt.charging .ac-batt-bolt{display:block}
+/* font-size on .ac-left scales the whole digital readout (digits use em units);
+ * AM/PM sits just to the right of the digits, top-aligned, with a tight gap */
+.ac-left{flex:1 1 auto;display:flex;align-items:flex-start;justify-content:center;gap:.08em;min-width:0;font-size:clamp(46px,16vw,112px)}
+.ac-ampm{color:var(--seg-on,#ff2b2b);font-weight:800;font-size:.2em;margin-top:.22em;letter-spacing:1px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.ac-time{display:flex;align-items:center;gap:.1em}

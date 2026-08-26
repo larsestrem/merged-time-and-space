@@ -1,0 +1,143 @@
+/* ---- /work/ countdown widgets. Each is independently full-screenable via
+ * element.requestFullscreen() (not the whole document) — the browser shows
+ * only that element filling the screen, so the rest of the page (and, on
+ * the hub, the other widgets) is naturally out of view with no manual
+ * chrome-hiding CSS needed. Reuses the alarm clock's wake-lock + hourly
+ * anti-burn-in pattern (--burn-x/--burn-y) since these are meant to be left
+ * open unattended for hours too. */
+.mc-hub-grid{display:grid;grid-template-columns:1fr;gap:16px;margin:18px 0}
+@media(min-width:760px){.mc-hub-grid{grid-template-columns:repeat(3,1fr)}}
+.mc-widget{position:relative;container-type:inline-size;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px 16px;text-align:center}
+/* sized off the widget's own width (container query) so it's big and bold
+ * whether the widget is alone on its own page or one of three in the hub
+ * grid, without needing separate breakpoints for each context */
+.mc-label{font-size:clamp(15px,5.4cqw,21px);font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:10px;line-height:1.25}
+/* also container-scaled: a hub grid column is much narrower than a
+ * single-widget page, so the 4 units need to shrink to fit without
+ * overlapping (flex-wrap is a safety net if they still don't). */
+.mc-widget .clock{gap:min(2.2cqw,10px);flex-wrap:wrap}
+.mc-widget .unit{min-width:min(17cqw,74px);padding:min(2.6cqw,14px) min(1.2cqw,6px)}
+.mc-widget .unit .num{font-size:min(8cqw,40px)}
+.mc-widget .unit .lab{font-size:min(2.2cqw,11px)}
+/* Display color: same red/purple/blue/green/yellow/orange palette and
+ * "ac_color" localStorage key as the alarm clock's swatch (cycled in
+ * MC_JS), so a color picked on either page shows up on both. The hex pairs
+ * are duplicated from the #ac-panel[data-c=...] rules rather than reusing
+ * --seg-on/--seg-glow directly: those variables live in the TOOLCSS-marked
+ * block build-inline.mjs strips from /work/ pages, so relying on them here
+ * would resolve to nothing. Default (no data-c, i.e. red) needs no rule —
+ * it's the same red the base .unit .num already ships. */
+.mc-widget .unit .num{color:#ff2b2b;text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 18px rgba(255,43,43,.6)}
+body[data-c="purple"] .mc-widget .unit .num{color:#b855f7;text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 18px rgba(184,85,247,.5)}
+body[data-c="blue"] .mc-widget .unit .num{color:#38bdf8;text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 18px rgba(56,189,248,.5)}
+body[data-c="green"] .mc-widget .unit .num{color:#35e06a;text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 18px rgba(53,224,106,.5)}
+body[data-c="yellow"] .mc-widget .unit .num{color:#facc15;text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 18px rgba(250,204,21,.5)}
+body[data-c="orange"] .mc-widget .unit .num{color:#fb923c;text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 18px rgba(251,146,60,.5)}
+/* Controls are a centered row of small 44x44 icon buttons (same size/feel as
+ * the alarm page's .ac-icon), below the countdown. Full screen, colour,
+ * share and pop-out all share the .mc-icon size; the swatch keeps its rainbow
+ * gradient. Its own small rules (not a reuse of .ac-icon) for the same
+ * TOOLCSS-stripping reason. */
+.btn.mc-icon{flex:0 0 auto;width:44px;height:44px;min-width:0;padding:0;display:inline-flex;align-items:center;justify-content:center}
+.btn.mc-icon svg{margin:0}
+.btn.mc-swatch{background:linear-gradient(rgba(5,5,8,.42),rgba(5,5,8,.42)),linear-gradient(135deg,#d5342e,#d58a2e,#c9c92e,#2eb45f,#2e6ed5,#8a2ed5);border-color:#4a4f5e}
+/* Day/Time/Time zone settings, a sibling of .mc-widget (not a descendant)
+ * so it's automatically excluded when a single widget goes fullscreen; on
+ * the hub, where it IS a descendant of the fullscreened grid, an explicit
+ * rule below hides it there too. */
+.mc-settings{max-width:340px;margin:10px auto 0;text-align:left}
+.mc-set-row{display:flex;align-items:center;gap:10px;margin:8px 0}
+.mc-set-row label{flex:0 0 84px;width:84px;margin:0;font-size:13px;font-weight:600}
+.mc-set-row select{flex:1 1 auto;margin:0}
+.mc-set-hint{font-size:11px;color:var(--muted);margin:10px 0 0;text-align:center}
+.mc-open-link{display:block;text-align:center;font-size:13px;margin-top:12px}
+.mc-hub-actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:16px 0}
+.mc-ctrl{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0}
+/* the "Boss!" button lives in the control row (right of the icon buttons):
+ * matched to their 44px height with tight side padding so the whole row fits
+ * on one line. Full screen / pop-out override the sizing below. */
+.mc-ctrl-boss{display:inline-flex;align-items:center;width:auto;height:44px;padding:0 12px;font-size:14px;font-weight:700}
+/* "Shop ideas" cart dropdown in the control row — rides into full screen and
+ * the pop-out with the rest of the row (same idea as the 420 pages). */
+.mc-cart-dd{position:relative;display:inline-flex}
+.mc-cart-dd summary{list-style:none;cursor:pointer}
+.mc-cart-dd summary::-webkit-details-marker{display:none}
+.mc-cart-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);z-index:60;min-width:210px;max-width:calc(100vw - 24px);max-height:min(60vh,420px);overflow:auto;background:#171a26;border:1px solid var(--border);border-radius:12px;padding:8px;box-shadow:0 12px 34px rgba(0,0,0,.55);text-align:left}
+.mc-cart-menu-h{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding:4px 8px 8px}
+.mc-cart-item{display:block;padding:8px;border-radius:8px;color:var(--text);text-decoration:none;font-size:14px;font-weight:600;white-space:nowrap}
+.mc-cart-item:hover{background:rgba(255,255,255,.08)}
+.mc-cart-note{font-size:10px;line-height:1.4;color:var(--muted);padding:8px 8px 2px;margin-top:4px;border-top:1px solid var(--border);white-space:normal}
+.mc-close-tl{position:fixed;top:16px;left:16px;width:32px;height:32px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:rgba(0,0,0,.78);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:8px;cursor:pointer;z-index:10001}
+.mc-widget:fullscreen{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;border:0;border-radius:0;padding:0;width:100vw;height:100vh;transform:translate(var(--burn-x,0px),var(--burn-y,0px))}
+.mc-widget:fullscreen .mc-label{font-size:min(3.2vw,28px);margin-bottom:min(3vh,24px)}
+.mc-widget:fullscreen .clock{gap:min(3vw,3vh);flex-wrap:nowrap}
+.mc-widget:fullscreen .unit{min-width:min(20vw,160px);padding:min(3vw,24px) min(1.5vw,10px)}
+.mc-widget:fullscreen .unit .num{font-size:min(14vw,140px)}
+.mc-widget:fullscreen .unit .lab{font-size:min(2vw,18px)}
+.mc-widget:fullscreen .mc-msg{font-size:min(4vw,36px);margin-top:min(2vh,16px)}
+/* full screen: keep color, share and the boss key reachable; drop the now-
+ * redundant full-screen + pop-out buttons. Buttons enlarged and lightened so
+ * they read on the black background. */
+.mc-widget:fullscreen .mc-ctrl{display:flex;margin-top:min(4vh,32px)}
+.mc-widget:fullscreen .mc-fs-btn,.mc-widget:fullscreen .mc-pop-btn{display:none}
+/* colour + share are square icon buttons; the boss key is a small "Boss" text
+ * button sized to match their height, on the same row */
+.mc-widget:fullscreen .mc-ctrl .btn:not(.mc-ctrl-boss){width:min(9vw,56px);height:min(9vw,56px)}
+.mc-widget:fullscreen .mc-ctrl-boss{display:inline-flex;width:auto;height:min(9vw,56px);padding:0 min(3.4vw,22px);font-size:min(3.2vw,17px);font-weight:700}
+/* keep the rainbow swatch's colour; only lighten the plain buttons */
+.mc-widget:fullscreen .mc-ctrl .btn:not(.mc-swatch){background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);color:#fff}
+/* the cart rides along too; its menu opens upward so it stays on-screen */
+.mc-widget:fullscreen .mc-cart-menu{top:auto;bottom:calc(100% + 12px)}
+/* hub full screen: all three widgets stacked one above another, filling the
+ * screen, each still clearly labeled — the single Full screen button target
+ * is the grid itself (not an individual widget). Stacked (not side by side)
+ * so each one gets the full width to work with, which is what actually
+ * lets the digits go bigger; sizing combines vw *and* vh caps (each widget
+ * only gets ~1/3 of the viewport's height here) so they can't outgrow their
+ * row vertically even though they're full width. */
+.mc-hub-grid:fullscreen{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:min(2vh,20px);background:#000;width:100vw;height:100vh;padding:min(2vh,20px) min(3vw,28px);transform:translate(var(--burn-x,0px),var(--burn-y,0px))}
+.mc-hub-grid:fullscreen .mc-hub-item{flex:1 1 0;min-height:0;width:100%;max-width:900px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.mc-hub-grid:fullscreen .mc-widget{background:transparent;border:0;padding:0;width:100%}
+.mc-hub-grid:fullscreen .mc-label{font-size:min(4vw,4.5vh,28px);margin-bottom:min(1.4vh,14px);color:#fff}
+.mc-hub-grid:fullscreen .clock{gap:min(2vw,2vh,14px);flex-wrap:nowrap}
+.mc-hub-grid:fullscreen .unit{min-width:0;flex:1 1 0;max-width:190px;padding:min(2vh,16px) min(1.4vw,10px)}
+.mc-hub-grid:fullscreen .unit .num{font-size:min(11vw,13vh,110px)}
+.mc-hub-grid:fullscreen .unit .lab{font-size:min(1.6vw,1.8vh,14px)}
+.mc-hub-grid:fullscreen .mc-msg{font-size:min(3vw,3.4vh,26px);margin-top:min(1vh,10px)}
+.mc-hub-grid:fullscreen .mc-open-link,.mc-hub-grid:fullscreen .mc-settings{display:none}
+/* solo /work/ page action row: Copy-for-Slack + Boss key */
+.mc-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:6px 0 20px}
+/* "Boss key" overlay — a boring, convincing spreadsheet that covers the page */
+.boss-screen{position:fixed;inset:0;z-index:2147483000;background:#f5f6f8;color:#1f2328;font-family:Calibri,"Segoe UI",Arial,sans-serif;overflow:auto;cursor:pointer}
+.boss-app{min-height:100%;display:flex;flex-direction:column}
+.boss-titlebar{background:#217346;color:#fff;font-size:13px;padding:7px 12px}
+.boss-fname{font-weight:700}
+.boss-menubar{background:#fff;border-bottom:1px solid #d5d7db;font-size:13px;color:#444;padding:7px 12px;white-space:nowrap;overflow:hidden}
+.boss-sheet{border-collapse:collapse;font-size:13px;width:100%;background:#fff;table-layout:auto}
+.boss-sheet th,.boss-sheet td{border:1px solid #d9dbde;padding:3px 10px;text-align:right;white-space:nowrap}
+.boss-sheet thead tr:first-child th{background:#eef0f2;color:#666;text-align:center;font-weight:600}
+.boss-sheet td:first-child,.boss-sheet th:first-child{background:#eef0f2;color:#666;text-align:center;width:36px;font-weight:600}
+.boss-sheet td:nth-child(2){text-align:left}
+.boss-hdr td{font-weight:700;background:#fafbfc}
+.boss-sheet tbody tr:last-child td{font-weight:700;background:#f3f7f4}
+.boss-tabs{background:#fff;border-top:1px solid #d5d7db;padding:5px 12px;font-size:12px;color:#555;display:flex;gap:16px;margin-top:auto}
+.boss-tab.active{color:#217346;font-weight:700;border-bottom:2px solid #217346}
+.boss-hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,.82);color:#fff;font-size:12px;padding:6px 14px;border-radius:20px;font-family:system-ui,sans-serif}
+/* top-right close button on the boss screen — big enough to tap on mobile */
+.boss-close{position:fixed;top:12px;right:12px;z-index:10;width:42px;height:42px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:rgba(15,23,42,.85);color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:10px;cursor:pointer}
+.boss-close:hover{background:rgba(15,23,42,.95)}
+/* pop-out window (documentPictureInPicture), mirrors .ac-pip */
+.mc-pip{background:#0b0b0c;margin:0;padding:10px}
+.mc-pip .mc-hub-grid{grid-template-columns:repeat(3,1fr);gap:6px;margin:0}
+.mc-pip .mc-widget{padding:8px 4px;border-radius:10px}
+.mc-pip .mc-label{font-size:9px;margin-bottom:4px}
+.mc-pip .unit{padding:6px 2px;min-width:0}
+.mc-pip .unit .num{font-size:16px}
+.mc-pip .unit .lab{font-size:8px}
+/* pop-out window: hide every control except a small "Boss!" button */
+.mc-pip .mc-ctrl{display:flex;justify-content:center;gap:6px;margin:5px 0 0}
+.mc-pip .mc-ctrl .btn:not(.mc-ctrl-boss){display:none}
+.mc-pip .mc-widget:not(:fullscreen) .mc-ctrl-boss{display:inline-flex;width:auto;height:auto;padding:2px 12px;font-size:11px;font-weight:700}
+/* keep the shopping cart visible in the pop-out (the other icons hide); compact */
+.mc-pip .mc-ctrl .mc-cart-dd .btn.mc-cart-btn{display:inline-flex;width:auto;height:auto;padding:2px 6px}
+.mc-pip .mc-cart-menu{min-width:150px}

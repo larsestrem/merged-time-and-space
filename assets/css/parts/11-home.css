@@ -1,0 +1,582 @@
+/*TOOLCSS-START*/
+/* home dashboard of tool cards */
+.tool-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 26px}
+@media(min-width:560px){.tool-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.tool-grid{grid-template-columns:repeat(4,1fr)}}
+/* top row: on wide screens the alarm clock (wider left column) and the Work
+ * Countdowns card sit side by side in a single row. On narrow screens both
+ * stack in DOM order — Alarm, Work — so Work stays prominent right under the
+ * alarm. The tide chart and world clock cards live further down the page
+ * (their own row, below the Sunrise & Sunset card) — both depend on async
+ * data (geolocation/NOAA, a ticking clock) and sit better off the initial
+ * mobile viewport than up here next to the always-static alarm display. */
+.tc-top-row{display:grid;grid-template-columns:1fr;gap:14px;margin:18px 0 14px}
+@media(min-width:900px){
+  /* single row: alarm gets the wider column, Work takes the rest.
+   * align-items:start keeps each card its own content height instead of
+   * stretching the shorter mini to match the alarm (no dead vertical space). */
+  .tc-top-row{grid-template-columns:1.7fr 1fr;align-items:start}
+}
+.tc{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:16px;background:var(--card);padding:16px;text-decoration:none;color:var(--text);transition:.15s;min-height:148px}
+/* timer/stopwatch cards: the Open button sits in a row with the LED mockup so
+ * it lines up vertically with it; content stacks from the top of the card */
+.tc-foot{margin-top:auto;padding-top:12px;display:flex;justify-content:center}
+.tc-open-btn{flex:0 0 auto;width:auto;padding:8px 30px;font-size:14px;white-space:nowrap}
+.tc-presets{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:12px}
+.tc-presets .chip{padding:5px 11px;font-size:13px}
+.tc:hover{border-color:var(--accent);transform:translateY(-2px)}
+.tc-head{font-weight:800;font-size:15px;margin-bottom:8px}
+.tc-big{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;font-size:44px;color:var(--accent);line-height:1.1}
+.tc-big small{font-size:22px;opacity:.8}
+.tc-tide-big{text-align:center;margin:6px auto 0}
+.tc-tide-big svg{width:100%;max-width:300px;height:auto;border-radius:10px}
+/* tide card: two side-by-side buttons (Nearest + Search) */
+.tc-foot-2{gap:8px}
+.tc-foot-2 .tc-open-btn{flex:1 1 0;padding:8px 12px;text-align:center;justify-content:center}
+/* ---- the five section buttons --------------------------------------------
+   The same control as every other choose-one row on the site — the solar zoom
+   rungs, the launch destinations, the timer presets — so it uses .chip and the
+   accent for the pressed state and introduces no colour of its own. They ship
+   hidden and the script un-hides them, so a control that cannot work is never
+   shown. */
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.home-tab{width:auto;flex:0 0 auto;padding:9px 20px;font-size:15px;font-weight:700;
+  line-height:1.2;cursor:pointer}
+.home-tab[aria-selected="true"]{border-color:var(--accent);color:var(--accent);
+  background:rgba(252,211,77,.14)}
+@media (max-width:559px){.home-tab{padding:8px 14px;font-size:13.5px}.home-tabs{gap:6px}}
+/* the two short lines under the tabs: what the site is, then what each tab
+   holds. They replaced three long paragraphs that stood between a phone reader
+   and the first tool. */
+.home-lede{margin:14px 0 6px;font-size:17px;line-height:1.5;color:var(--muted)}
+.home-lede strong{color:var(--text)}
+/* ---- the page's closing lines --------------------------------------------
+   Their own block with a rule above, because which card comes last now depends
+   on the tab and they must not read as part of it. */
+.home-foot{margin-top:30px;padding-top:18px;border-top:1px solid var(--border)}
+/* homepage tools row: alarm 50% + timer & stopwatch 25% each on desktop */
+.home-tools-row{display:grid;grid-template-columns:1fr;gap:14px;margin:18px 0 14px}
+@media(min-width:560px){.home-tools-row{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.home-tools-row{align-items:start}}
+/* THE WIDER CONTAINER BUYS A THIRD COLUMN. At 1400px a two-up row of cards is
+   two 680px cards, which is wider than any of them needs and leaves the page
+   looking half used. Three fits without any of them going narrow. */
+@media(min-width:1120px){.home-tools-row.home-tools-two{grid-template-columns:repeat(3,1fr)}}
+/* THE THREE CLOCK TOOLS, PACKED INTO ONE BLOCK. Alarm over timer in column
+   one, stopwatch spanning both rows in column two — the stopwatch is the tall
+   card (it carries a lap table; the other two do not), so it is the one that
+   gets the full-height column. This replaces two separate rows whose first held
+   a single half-width card, which left the top right of the first screen empty.
+
+   Placement is by grid line rather than DOM order, so the source stays alarm,
+   timer, stopwatch and so do reading and tab order. Below 640px the whole thing
+   is one column and none of this applies. */
+.home-clock-row{grid-template-columns:1fr}
+@media(min-width:640px){
+  .home-clock-row{grid-template-columns:1fr 1fr;align-items:start}
+  .home-clock-row>:nth-child(1){grid-column:1;grid-row:1}
+  .home-clock-row>:nth-child(2){grid-column:1;grid-row:2}
+  .home-clock-row>:nth-child(3){grid-column:2;grid-row:1/span 2}
+}
+/* and at the full width the three clock tools sit side by side rather than
+   stacking two of them — they are three peers, and only the stopwatch was
+   ever tall enough to need the two-row trick */
+@media(min-width:1120px){
+  .home-clock-row{grid-template-columns:repeat(3,1fr)}
+  .home-clock-row>:nth-child(1),
+  .home-clock-row>:nth-child(2),
+  .home-clock-row>:nth-child(3){grid-column:auto;grid-row:auto}
+}
+/* full-width home tide card: LA + Boston typical-pattern charts side by side */
+.home-tides-card .tc-head{margin-bottom:12px}
+.home-tides-charts{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:600px){.home-tides-charts{grid-template-columns:repeat(3,1fr)}}
+.home-tides-chart{display:block;text-decoration:none;color:var(--text);text-align:center;border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,.02);transition:border-color .15s ease}
+.home-tides-chart:hover{border-color:var(--accent)}
+.home-tides-chart svg{width:100%;max-width:460px;height:auto;margin:8px auto 0}
+.home-tidesvg{border-radius:10px}
+.home-tides-city{font-weight:700;font-size:15px}
+.home-tides-note{font-size:11px;color:var(--muted);margin-top:6px}
+.home-tides-foot,.home-sun-foot,.home-moon-foot{display:flex;gap:8px;margin-top:14px;flex-wrap:nowrap}
+/* trim the roomy 30px side padding so both buttons sit on one line on mobile */
+.home-tides-foot .tc-open-btn,.home-sun-foot .tc-open-btn,.home-moon-foot .tc-open-btn{flex:0 1 auto;min-width:0;padding:8px 14px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:360px){.home-tides-foot .tc-open-btn,.home-sun-foot .tc-open-btn,.home-moon-foot .tc-open-btn{padding:8px 10px;font-size:12px}}
+@media(max-width:340px){.home-tides-foot,.home-sun-foot,.home-moon-foot{gap:6px}.home-tides-foot .tc-open-btn,.home-sun-foot .tc-open-btn,.home-moon-foot .tc-open-btn{padding:8px 7px;font-size:11px}}
+/* compact work + 420 row below the countdown grid (not full width) */
+.home-mini-row{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 26px}
+/* A LONE CARD FILLS THE ROW. These were capped at 420px, so a single card sat
+   in the left half of the page with the right half empty — about 400px of
+   nothing on a desktop, three times over. Every top-level card is now either
+   half the row (a two-up row) or all of it. */
+/* ...except the moon card, which now carries a 30-night strip. Capped at 420px
+   it showed about five nights and read as a stub beside the full-width tide and
+   sun cards above it, so it takes the full column like they do. */
+@media(min-width:560px){.home-moon-row{max-width:none}}
+/* 420 home card */
+/* timer/stopwatch home-card mockups: a bigger LED screen sized to the card
+ * width (so it scales right at every column count) with equal padding on all
+ * four sides between the digits and the black screen edge */
+.tc-mini{container-type:inline-size}
+/* the LED panel spans the full card width (like the alarm clock's display),
+   capped so it never gets oversized on wide phones; digits stay centered */
+.tc-big.seg-screen{display:flex;width:100%;max-width:380px;font-size:min(19cqw,104px);padding:.3em .28em;border-radius:12px;margin:8px auto 0;gap:.05em}
+/* home-card "Work Countdowns" — one row per countdown: an explicit label
+ * with its live value stacked beneath it on the left, and a small "Go"
+ * button on the right that opens that countdown's own page. A "See all"
+ * link at the bottom (and the whole card, via .tc[data-href]) goes to
+ * /work/. The label+value stack keeps each row narrow enough for the
+ * explicit labels + button to fit in the card's tight top-row column. */
+.tc-work .tc-head{margin-bottom:10px}
+/* four cities in a COLUMN left the card as four short rows with a wide empty
+   gutter down the middle of a full-width card — the city on the left, its Open
+   button hard right, and nothing between them. Two columns at tablet width and
+   four on a desktop puts the button back beside the time it belongs to and
+   costs the page a card's worth of height. */
+.wk-mini{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:520px){.wk-mini{grid-template-columns:1fr 1fr;gap:10px 22px}}
+@media(min-width:860px){.wk-mini{grid-template-columns:repeat(4,1fr);gap:10px 18px}}
+.wk-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.wk-info{display:flex;flex-direction:column;min-width:0}
+.wk-row span{font-size:13px;font-weight:700;color:var(--text);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wk-row b{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px;line-height:1.2;white-space:nowrap}
+.btn.tiny{flex:0 0 auto;width:auto;padding:5px 13px;font-size:12px}
+.wk-all{display:block;text-align:center;font-size:13px;font-weight:600;color:var(--accent);margin-top:14px}
+.wk-all:hover{text-decoration:underline}
+.tc-foot{font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
+.tc-alarm{cursor:pointer;container-type:inline-size;margin:0}
+.tc-alarm .ac-clock{max-width:none;margin:8px auto 0}
+.tc-alarm .ac-left{flex:0 1 auto;font-size:min(13cqw,84px)}
+.tc-alarm .ac-right{font-size:min(3.4cqw,20px)}
+/* hide only the widget's own (dialog-driven) control row inside #ac-panel;
+ * the home card's real, working button row lives outside #ac-panel as a
+ * sibling and stays visible, picking up the same .ac-controls/.ac-icon
+ * styling for pixel parity with the real alarm page */
+.tc-alarm #ac-panel .ac-controls,.tc-alarm .ac-ring,.tc-alarm .ac-brand{display:none}
+/* the home card has only one main button (Add), so it shares a single row
+ * with the icon buttons instead of stacking (there's room); wraps to its
+ * own line only if the card gets too narrow to fit both */
+.tc-alarm .ac-controls{max-width:none;margin:12px 0 0;flex-direction:row;flex-wrap:wrap;align-items:center}
+.tc-alarm .ac-ctrl-row{width:auto}
+.tc-alarm .ac-ctrl-main{flex:1 1 140px}
+.tc-alarm .ac-ctrl-icons{flex:0 0 auto}
+/* Without container-query support, `cqw` is an invalid unit and the whole
+ * declaration it's in is dropped — NOT replaced with a sane default, so the
+ * cascade falls all the way through to plain .seg-screen's own font-size
+ * (16-seg.css: clamp(44px,15vw,108px)), sized for a near-full-width tool
+ * page. On this board the Timer/Stopwatch cards are half- or third-width
+ * (.sp-4/.sp-6), so 15vw of the FULL viewport badly overshoots the actual
+ * card and the digits overlap into an unreadable mess. 44px matches plain
+ * .tc-big's own default two lines up — safe at every measured column width
+ * on this board (never below 325px) with room to spare. */
+@supports not (container-type:inline-size){.tc-alarm .ac-left{font-size:min(11vw,64px)}.tc-alarm .ac-right{font-size:14px}.tc-big.seg-screen{font-size:44px}}
+.cd-mini{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.cd-mini>div{display:flex;justify-content:space-between;gap:10px}
+.cd-mini span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cd-mini b{color:var(--accent);white-space:nowrap}
+/*TOOLCSS-END*/
+/* homepage moon card: the phase glyph beside the reading */
+/* phase on the left, the two buttons hard right, wrapping to two lines when the
+   card is too narrow to hold both (a phone, and the card in a two-up row) */
+.home-moon-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px}
+.home-moon-top .home-moon-foot{margin-top:0}
+.home-moon{display:flex;align-items:center;gap:13px;margin:4px 0 10px}
+.home-moon-g{flex:0 0 auto;line-height:0}
+.home-moon-t{display:flex;flex-direction:column;gap:1px;min-width:0}
+.home-moon-t b{font-size:16px;font-weight:800}
+.home-moon-t span{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* The moon card's 30-day strip. The /moon/ section's .mn-strip/.mn-day rules
+   are not shipped to the homepage (it renders no other moon markup), so the
+   handful this card needs live here, in the section the homepage already gets. */
+.home-moon-strip{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;margin-top:10px;-webkit-overflow-scrolling:touch}
+.home-moon-strip .mn-day{flex:0 0 auto;width:62px;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:9px 4px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.03);
+  text-align:center;text-decoration:none;color:inherit;
+  /* The strip is a horizontal scroller: at 412px about five of the thirty-one
+     cards are on screen and the rest are off to the right. content-visibility
+     lets the browser skip style, layout and paint for those until they scroll
+     in. contain-intrinsic-size is the placeholder box so the scroll length and
+     the scrollbar stay correct while they are skipped. */
+  content-visibility:auto;contain-intrinsic-size:62px 78px}
+.home-moon-strip .mn-day:hover{border-color:var(--accent);background:rgba(252,211,77,.10)}
+.home-moon-strip .mn-day-g{line-height:0}
+.home-moon-strip .mn-day-d{font-size:11px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.home-moon-strip .mn-day-p{font-size:10px;line-height:1.25;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* homepage: the eight-hub link row under the hero */
+.home-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.home-nav a{font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;border:1px solid var(--border);
+  background:rgba(0,0,0,.18);color:var(--text);text-decoration:none;white-space:nowrap}
+.home-nav a:hover{border-color:var(--accent)}
+/* one compact countdown block instead of four competing cards */
+.home-cd-block .home-search{margin:10px 0 12px}
+.home-cd-links{justify-content:flex-start;margin:10px 0 4px}
+.home-tools-two{grid-template-columns:1fr}
+@media(min-width:640px){.home-tools-two{grid-template-columns:1fr 1fr}}
+
+/* The two simulator cards and the teachers card. Still a baked SVG and a link —
+   none of either simulator's machinery belongs on the home page — but the two
+   pictures now MOVE, because a still thumbnail of a simulator is indistinguish-
+   able from a still thumbnail of a diagram, and the one thing these cards have
+   to convey is that the pages behind them have moving parts.
+   It costs nothing to ship: no script, no request, no markup beyond four <g>
+   wrappers. Transforms only, so nothing reflows; and both stop dead under
+   prefers-reduced-motion, which is not optional for anything that loops
+   forever on a page people land on. */
+/* The class is on the <svg> itself. It used to carry `flex:0 0 96px` for the
+   old thumbnail-beside-text layout, and that flex-basis quietly won inside the
+   square wrapper below — the solar picture rendered at 96px however wide the
+   card was. The wrappers own the sizing now; this owns nothing but the leading. */
+.home-simsvg{line-height:0}
+/* the Sun-Earth-Moon card gives the picture the full width at the simulator's
+   own proportions — it is the thing being advertised, and at 96px square the
+   moon was four pixels across and the phase disc was not worth drawing */
+.home-simwide{width:100%;line-height:0;margin:8px 0 10px}
+.home-simwide svg{display:block;width:100%;height:auto;border-radius:10px}
+/* The solar card's picture is SQUARE, because the page behind it is — its
+   frame is square precisely so concentric circles are not limited by a short
+   side. So the two cards match on layout and HEIGHT rather than on shape:
+   --sq is the orrery frame's height/width, which is the fraction of the card
+   width a square has to be to render at the same height as its 16:9 neighbour.
+   Set from the geometry in build-home.mjs, so the two stay level by
+   construction rather than by a number typed twice. */
+.home-simsq{width:100%;display:flex;justify-content:center;line-height:0;margin:8px 0 10px}
+.home-simsq svg{display:block;flex:0 0 auto;width:var(--sq,56.25%);height:auto;border-radius:10px}
+/* ---- the "what if a moon slowed down?" card -------------------------------
+   The picture is 320x200 and the buttons sit under it, because they are the
+   card: a reader presses one, the ellipse changes, and the sentence under it
+   says what just happened. Same chip row as everywhere else, kept small so all
+   three fit one line on a phone. */
+.home-orb{margin:6px 0 10px}
+.home-orb svg{display:block;width:100%;height:auto;border-radius:10px}
+.home-orbtxt{margin:8px 0 0;font-size:12.5px;line-height:1.45;color:var(--muted);min-height:2.6em}
+.home-orbbtns{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:8px 0 0}
+.home-orbbtns .chip{padding:5px 11px;font-size:12.5px}
+.home-simtxt{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
+.home-simtxt-solo{margin:6px 0 10px}
+/* the teachers' card: quick ways in, above the link to the guide itself */
+.tc-teach .home-simtxt{margin:4px 0 10px}
+.tc-teach .tc-presets{margin:0 0 12px}
+/* the two ways into a simulator, side by side on the card's bottom line */
+.home-simlinks{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center;margin-top:auto}
+.home-simlinks .wk-all{margin:0}
+
+
+/* THE MOON GOING ROUND THE EARTH. Two rotations of equal size and opposite
+   sign: .hm-orbit carries the moon round the Earth's centre, .hm-face turns it
+   back about its own, so the moon keeps its lit half toward the sun instead of
+   rolling. From straight above, a moon is half lit at every phase — that is the
+   fact the full-size drawing is built on, and a spinning crescent here would
+   quietly contradict it. transform-box:view-box is what lets transform-origin
+   be given in the SVG's own coordinates. */
+.hm-orbit,.hm-face{transform-box:view-box;transform-origin:var(--hm-o)}
+.hm-orbit{animation:hm-orbit 18s linear infinite}
+.hm-face{animation:hm-face 18s linear infinite}
+@keyframes hm-orbit{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes hm-face{from{transform:rotate(0)}to{transform:rotate(-360deg)}}
+
+/* THE PLANETS GOING ROUND THE SUN. One rotation each about the centre, and the
+   periods are ordered the way the real ones are — inner fast, outer slow. That
+   ordering is the only dynamical claim a four-ring schematic is entitled to
+   make, and it happens to be the thing the page behind it is about. */
+/* the origin is the frame's centre, which moved when the thumbnail stopped
+   being a 120x120 square — set from the SVG's own viewBox by build-home */
+.hs-p1,.hs-p2,.hs-p3,.hs-p4{transform-box:view-box;transform-origin:var(--hs-o,60px 60px);
+  animation-name:hm-orbit;animation-timing-function:linear;animation-iteration-count:infinite}
+.hs-p1{animation-duration:9s}
+.hs-p2{animation-duration:15s}
+.hs-p3{animation-duration:23s}
+.hs-p4{animation-duration:34s}
+
+/* THE PHASE, cycling with the orbit beside it. Three animations on one disc,
+   which is what it takes to draw a real phase rather than a fading dot:
+   .hm-term is the TERMINATOR — an ellipse across the disc whose width goes
+   full -> nothing -> full twice per cycle, which is the shape the day/night
+   line actually projects to; its FILL flips dark/light at the quarters, so the
+   ellipse subtracts from the lit half before first quarter and adds to it
+   after; and the whole disc mirrors at full moon, because a waxing moon is lit
+   on one side and a waning one on the other.
+   --hm-d is set per-element by build-home.mjs: it offsets the cycle so full
+   moon here lands at the moment the moon beside it reaches the far side of its
+   orbit. The shape and the position agree. */
+.hm-phase{transform-box:view-box;transform-origin:var(--hm-o);
+  animation:hm-flip var(--hm-p,18s) steps(1,end) infinite;animation-delay:var(--hm-d,0s)}
+.hm-term{transform-box:view-box;transform-origin:var(--hm-o);
+  animation:hm-term var(--hm-p,18s) linear infinite,hm-termfill var(--hm-p,18s) steps(1,end) infinite;
+  animation-delay:var(--hm-d,0s),var(--hm-d,0s)}
+@keyframes hm-term{0%{transform:scaleX(1)}25%{transform:scaleX(0)}50%{transform:scaleX(1)}
+  75%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+@keyframes hm-termfill{0%{fill:#222c3d}25%{fill:#e8eef7}75%{fill:#222c3d}100%{fill:#222c3d}}
+@keyframes hm-flip{0%{transform:scaleX(1)}50%{transform:scaleX(-1)}100%{transform:scaleX(1)}}
+
+/* THE EARTH, MOON AND SUN TOGETHER — the /system/ card's picture. Same three
+   nested rotations the real figure on that page uses, under home-local names:
+   .hy-orbit carries the Earth (and the whole moon system with it) round the
+   sun, .hy-mo carries the moon round the Earth, and .hy-rev counter-rotates at
+   its parent's own duration so the moon's lit half keeps facing the sun
+   instead of rolling with the orbit. Watching that lit half sweep round IS
+   the phase cycle. Durations are set per element by build-home, because the
+   ratio between them — the moon lapping the Earth about thirteen times — is
+   the one thing this picture keeps real and it comes from the sidereal month,
+   not from a number typed in a stylesheet.
+   Home-local rather than the .sys-* rules on the simulator page itself: those
+   live in the orrery section, and pulling that whole stylesheet onto the home
+   page to get three rotations would cost far more than restating them. */
+.hy-orbit,.hy-mo,.hy-rev,.hy-sat{transform-box:view-box;transform-origin:var(--hy-o);
+  animation-name:hm-orbit;animation-timing-function:linear;animation-iteration-count:infinite}
+.hy-rev{animation-direction:reverse}
+/* the moons that go round backwards really do — Triton and Phoebe — and the
+   drawing says so by running them the other way, which is the whole point of
+   having the sign in the period column */
+.hy-retro{animation-direction:reverse}
+
+/* the per-planet moon cards: a square picture, since a moon system is
+   concentric rings and a wide frame is limited by its short side (the same
+   reason the solar simulator's own frame is square) */
+.home-moonwrap{width:100%;display:flex;justify-content:center;line-height:0;margin:8px 0 10px}
+.home-moonsvg{display:block;flex:0 0 auto;width:min(100%,300px);height:auto;border-radius:10px}
+.home-moonline{margin:8px 0 10px;font-size:12px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+.tc-moons .wk-all{margin-top:auto}
+
+/* the time-difference card: the widget is styled by 23-timediff.css (shared
+   with the full calculator page), so this only sizes it down for a card —
+   a 56px read-out is right on a page whose whole job is that number, and too
+   loud on a board where it is one card of twelve */
+.tc-tdiff .tdiff-result{font-size:clamp(28px,6vw,38px);margin:14px 0 4px}
+.tc-tdiff .tdiff-sum,.tc-tdiff .tdiff-cross{font-size:12px;line-height:1.5}
+.tc-tdiff .wk-all{margin-top:auto}
+/* the 12/24-hour converter card, sized the same way as the one above it: the
+   widget's own part decides the layout, the board decides the type scale */
+.tc-conv .cv-read{font-size:clamp(26px,6vw,34px)}
+.tc-conv .cv-say{font-size:12px;line-height:1.5;margin-top:10px}
+.tc-conv .wk-all{margin-top:auto}
+
+/* A looping animation nobody asked for is exactly what this setting is for. */
+@media (prefers-reduced-motion:reduce){
+  .hm-orbit,.hm-face,.hm-phase,.hm-term,.hs-p1,.hs-p2,.hs-p3,.hs-p4,
+  .hy-orbit,.hy-mo,.hy-rev,.hy-sat{animation:none}
+  /* left mid-cycle the terminator would sit at whatever width it stopped at,
+     so pin it to first quarter — a shape that is unambiguously a moon */
+  .hm-term{transform:scaleX(0)}
+}
+
+/* THE MOON'S OWN CYCLE, captioned under the picture rather than drawn into it
+   — a caption can carry a number and a label; a fifth thing moving inside an
+   already-busy 480x270 frame would only compete with the moon it is timing.
+   Dim throughout (opacity on the wrapper, --muted colour, 10px numerals) so
+   it reads as a caption, not a second animation to watch. The puck runs the
+   SAME 18s linear infinite duration as .hm-orbit above, so it never drifts
+   out of step with the moon actually going round, and "linear infinite"
+   snapping back to 0% the instant it reaches 100% is exactly "0 to 27 and
+   starts over" — no JS needed to loop it. */
+.home-moonprog{display:flex;align-items:center;gap:6px;margin-top:8px;opacity:.5}
+.home-moonprog-n{font-size:10px;font-variant-numeric:tabular-nums;color:var(--muted);flex:0 0 auto}
+.home-moonprog-track{position:relative;flex:1 1 auto;height:2px;border-radius:2px;background:var(--border)}
+.home-moonprog-puck{position:absolute;top:50%;left:0;width:6px;height:6px;margin:-3px 0 0 -3px;
+  border-radius:50%;background:var(--muted);animation:home-moonslide 18s linear infinite}
+@keyframes home-moonslide{from{left:0}to{left:100%}}
+.home-moonprog-lab{margin:2px 0 0;font-size:10px;text-align:center;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.home-moonprog-puck{animation:none;left:0}}
+
+/* ---- the day-and-night world map ------------------------------------------
+   The world clock card used to be four rows of city, time and a button. What a
+   world clock is ABOUT is that half the planet is lit, so the card is that. */
+/* THE MAP IS CAPPED, because its labels are drawn in viewBox units and
+   therefore scale with it: in a 1330px card the city names came out at 26px,
+   shouting over the terminator the picture is actually of. A fixed unit size
+   cannot serve both ends — shrink it to suit 1330px and it is illegible on a
+   phone — so the RENDERED width is what gets limited, and the card keeps the
+   full width for the clocks underneath. */
+.wk-map{line-height:0;border-radius:12px;overflow:hidden;margin:4px auto 10px;
+  border:1px solid var(--border);width:100%;max-width:1000px}
+.wk-map svg{display:block;width:100%;height:auto}
+.wk-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:520px){.wk-strip{grid-template-columns:repeat(4,1fr)}}
+.wk-city{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
+  background:var(--card);border:1px solid var(--border);text-decoration:none;color:var(--text);
+  transition:.15s}
+.wk-city:hover{border-color:var(--accent)}
+.wk-city span{font-size:12px;color:var(--muted)}
+.wk-city b{font-size:16px;font-variant-numeric:tabular-nums}
+
+/* ---- the classroom tab ----------------------------------------------------
+   Nine lesson ideas, each with the tool's own glyph, and each ending with what
+   the site got right and where it took a liberty. That last line is the point
+   of the section as much as the idea above it. */
+.home-classlead h2{display:flex;align-items:center;gap:10px}
+.home-classcard{padding-top:14px}
+.home-classhead{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.home-classhead h3{margin:0;font-size:19px}
+.home-classhead h3 a{text-decoration:none;color:var(--text)}
+.home-classhead h3 a:hover{color:var(--accent)}
+.home-classhead .nav-ico{flex:0 0 auto}
+.home-classhonest{margin:12px 0 0;padding:10px 14px;border-radius:10px;
+  background:rgba(255,255,255,.05);border-left:3px solid var(--accent);
+  font-size:14px;line-height:1.55;color:var(--muted)}
+.home-classhonest span{display:block;font-size:11px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+.home-classask{border:1.5px solid var(--accent)}
+.home-classask .btn{width:auto;display:inline-block;padding:11px 22px;margin-top:4px}
+
+/* The nine classroom ideas used to be inline-blocks at width:50%, which is how
+   you fake two columns without a grid. They are grid items now, so the track
+   IS the column and a width of its own would only shrink the card inside it. */
+
+/* ---- THE HOME BOARD: one 12-column grid, a span per card ---------------------
+   The page was a stack of separate full-width rows, which was right when the
+   wrap was 820px. At 1400 a card that is three tide charts wide, stretched to
+   1400, is not a bigger card — it is the same card with air either side. So
+   every card says what it is worth and they tile: three thirds, two halves,
+   two-thirds plus a third.
+   Three breakpoints, and no more: one column on a phone, halves on a tablet,
+   the declared span on a desktop. The middle step deliberately rounds a third
+   UP to a half rather than down — two cards on a 800px tablet are readable,
+   three are not, and readable is the whole reason the spans exist. */
+.home-board{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 26px;align-items:start}
+.home-board>*{margin:0;min-width:0}
+@media(min-width:700px){
+  .home-board{grid-template-columns:repeat(12,1fr)}
+  .home-board>*{grid-column:span 12}
+  .home-board>.sp-4,.home-board>.sp-6{grid-column:span 6}
+  .home-board>.sp-8{grid-column:span 12}
+}
+@media(min-width:1080px){
+  .home-board>.sp-4{grid-column:span 4}
+  .home-board>.sp-6{grid-column:span 6}
+  .home-board>.sp-8{grid-column:span 8}
+}
+/* MASONRY PACKING (hb-mas, added by HOME_MASONRY_JS in build-home.mjs).
+   A grid row is as tall as its tallest card, so a short card next to a tall
+   one left a hole of page background under it. In masonry mode the rows are
+   7px slivers with no row-gap, and the script gives each card `grid-row:
+   span N` sized to its own height — auto-placement then packs each column
+   independently, Pinterest-fashion, while placement stays strictly DOM
+   order, so the time -> earth -> space sequence holds. The visual gap
+   between stacked cards comes from the span math (the script adds one
+   column-gap's worth to each card's height), which is why row-gap can be 0
+   here. The script reads BOTH numbers from this rule via getComputedStyle,
+   so these values are the only copy. Scoped inside the 700px media query
+   because a one-column phone board has nothing to pack; without JS the
+   class never appears and the board above is exactly what renders. */
+@media(min-width:700px){
+  .home-board.hb-mas{grid-auto-rows:7px;row-gap:0}
+}
+/* The cards below are sized against the CARD, not the viewport: at a third of
+   1400 a card is ~450px wide while the window is still "desktop", so a
+   viewport media query would give it a four-column inner grid in 450px. The
+   card is the container the content actually has. */
+.home-board>*{container-type:inline-size}
+/* BELOW THE FIRST SCREEN, THE BROWSER CAN SKIP THE WORK, NOT THE MARKUP.
+   content-visibility:auto tells it to skip layout/style/paint for a card
+   until scroll brings it near — the SVGs (sun dials, tide charts, the moon
+   and simulator thumbnails) inside an off-screen card cost nothing until
+   then. Nothing is removed from the DOM or the accessibility tree: a
+   crawler, a screen reader and Ctrl+F still see the full card, same as
+   every card HOME_TABS_JS already hides on a filtered tab — this just adds
+   the same "not rendered right now" treatment to cards that stay in view on
+   the default "All" tab but start off-screen. contain-intrinsic-size gives a
+   skipped card a placeholder height so the page doesn't jump when it first
+   paints; the "auto" keyword makes the browser remember each card's REAL
+   height after its first real layout, so later skips reserve the true size
+   rather than this guess. Card heights vary a lot (a three-city tide chart
+   is much taller than a chip row), so this guess only has to hold until that
+   first real layout, not be exact. */
+.home-board>*{content-visibility:auto;contain-intrinsic-size:auto 520px}
+.home-classcard,.home-classlead,.home-classask{content-visibility:auto;contain-intrinsic-size:auto 420px}
+/* Six sun cities, so the column count has to DIVIDE six or the last row is a
+   single dial with five dials' worth of space beside it. Three at half width,
+   two below that — never four or five. */
+@container (max-width:780px){
+  .wk-mini{grid-template-columns:1fr 1fr}
+}
+@container (max-width:520px){
+  .home-tides-charts{grid-template-columns:1fr}
+}
+@container (max-width:340px){
+  .wk-mini{grid-template-columns:1fr}
+}
+/* the classroom grid is a board in its own right, so it needs the board's own
+   margins rather than the stack's */
+.home-classgrid{margin:14px 0}
+/* the map answers two questions and links to two places: what time is it there
+   (the world clock) and why is the line that shape (the map's own page). Both
+   on one line where they fit — two short labels, and a card this wide has room
+   for them side by side; they stack on a narrow phone. */
+.wk-links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;margin-top:14px}
+.wk-links .wk-all{margin-top:0}
+
+/* ---- the landing page (the tabs became pages; this is the front door) ---- */
+/* THE HERO IS TWO COLUMNS ON A DESKTOP. Full width, the 2.5:1 map alone was
+   ~560px tall at the 1400px wrap and pushed everything below the fold
+   (owner's call). Map at 7/12, pitch + clocks + links beside it: the whole
+   hero now sits around 340px tall and the section blocks start on screen.
+   Below 880px it stacks back to map-first. */
+.home-hero{padding:14px 16px 16px}
+.home-hero .wk-map{margin:0}
+.home-hero-line{margin:0 0 12px;font-size:15.5px;line-height:1.55}
+.home-hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(280px,5fr);gap:18px;align-items:center}
+/* inside the narrow side column the clock strip is 2x2, not the 4-across the
+   global 520px media query would pick from the viewport's width */
+.home-hero-side .wk-strip{grid-template-columns:repeat(2,1fr) !important;margin-bottom:12px}
+.home-hero-side .wk-links{justify-content:flex-start}
+@media(max-width:880px){
+  .home-hero-grid{display:block}
+  .home-hero-map{margin-bottom:12px}
+}
+/* the question strip: a labelled row of chips */
+.home-q{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:18px 2px 6px}
+.home-q-lab{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:var(--muted);margin-right:2px}
+/* a section block: heading row, one line of narrative, three portal cards */
+.home-sec{margin:26px 0 0}
+.home-sechead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.home-sechead h2{margin:0;font-size:22px}
+.home-sechead h2 a{color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.home-sechead h2 a:hover{color:var(--accent)}
+.home-secall{margin:0}
+.home-secline{margin:6px 2px 12px;color:var(--muted);font-size:14.5px}
+.pc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+/* a section with a live tile runs four across on a wide screen, two-by-two in
+   the middle, one column narrow — the spinning globe is a card like the rest */
+.pc-grid-4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1020px){.pc-grid-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.pc-grid,.pc-grid-4{grid-template-columns:1fr}}
+.pc-anim{display:block;margin:0 0 8px;line-height:0;border-radius:12px;overflow:hidden}
+.pc-anim svg{display:block;width:100%;height:auto}
+/* the orrery is wide (16:9-ish) and takes the card's full width; the solar
+   view is square and would tower at full width, so it is capped */
+.pc-anim-sol{max-width:236px;margin:0 auto 8px}
+.pc-live b{display:block;text-align:center}
+.pc-card{display:flex;flex-direction:column;gap:6px;padding:16px;border:1px solid var(--border);border-radius:14px;
+  background:var(--card);color:var(--text);text-decoration:none;transition:border-color .12s}
+.pc-card:hover{border-color:var(--accent);text-decoration:none}
+.pc-card b{font-size:16.5px}
+.pc-card:hover b{color:var(--accent)}
+.pc-line{font-size:13.5px;color:var(--muted);line-height:1.5}
+.pc-ico{line-height:0}
+.home-how{margin-top:26px}
+/* the hero's own controls: the share button rides the map's top-right corner
+   (the map wrapper is the positioning context), the slider sits under it */
+.home-hero-map{position:relative}
+.wk-share{position:absolute;top:10px;right:10px;z-index:3;display:inline-flex;align-items:center;gap:6px;
+  padding:8px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.3);cursor:pointer;
+  background:rgba(2,6,23,.72);color:var(--text);font-size:12.5px;font-weight:700;backdrop-filter:blur(2px)}
+.wk-share:hover{background:rgba(2,6,23,.9);border-color:var(--accent)}
+/* the graticule: the equator solid-ish, the tropics dashed — the band the sun
+   can never leave. Quiet enough not to compete with the terminator. */
+.wk-grat line{stroke:rgba(255,255,255,.32);stroke-width:1}
+.wk-grat .wk-trop{stroke:rgba(252,211,77,.34);stroke-dasharray:7 6}
+.wk-grat text{fill:rgba(255,255,255,.42);font-size:10.5px;font-weight:600}
+.wk-sunline{margin:0 0 12px;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.wk-sunline b{color:var(--accent);font-variant-numeric:tabular-nums}
+.wk-seasons{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.wk-seasons .chip{margin:0;padding:6px 12px;font-size:12.5px}
+
+.wk-scrub{display:flex;align-items:center;gap:12px;margin-top:10px}
+.wk-scrub input{flex:1;min-width:0}
+.wk-scrub-lab{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;white-space:nowrap;color:var(--muted)}
+.wk-scrub-lab b{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+.wk-nowbtn{margin:0;padding:5px 12px}
+
+/* the section pages' switcher — the old tab row as real links */
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}

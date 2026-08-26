@@ -1,0 +1,25 @@
+{
+  "name": "alarm-clock-countdown",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Free, shareable countdown timers — static site on Cloudflare Pages.",
+  "type": "module",
+  "scripts": {
+    "waf": "node seo/tools/build-waf.mjs",
+    "block": "node seo/tools/block-countdown.mjs",
+    "build": "node seo/tools/roll-dates.mjs && node seo/tools/check-dates.mjs --gate && node seo/tools/build-waf.mjs && node seo/tools/build-themes.mjs && node seo/tools/build-css.mjs && node seo/tools/build-events.mjs && node seo/tools/build-category-pages.mjs && node seo/tools/build-countries.mjs && node seo/tools/build-home.mjs && node seo/tools/build-calendar.mjs && node seo/tools/build-popular.mjs && node seo/tools/build-trending.mjs && node seo/tools/build-timers.mjs && node seo/tools/build-classroom.mjs && node seo/tools/build-stopwatch-multi.mjs && node seo/tools/build-methodology.mjs && node seo/tools/build-world-clock.mjs && node seo/tools/build-time-difference.mjs && node seo/tools/build-clock-convert.mjs && node seo/tools/build-alarm.mjs && node seo/tools/build-alarm-times.mjs && node seo/tools/build-tides.mjs && node seo/tools/build-sun.mjs && node seo/tools/build-moon.mjs && node seo/tools/build-eclipses.mjs && node seo/tools/build-moon-events.mjs && node seo/tools/build-simulator.mjs && node seo/tools/build-solar.mjs && node seo/tools/build-planets.mjs && node seo/tools/build-orbital.mjs && node seo/tools/build-daynight.mjs && node seo/tools/build-questions.mjs && node seo/tools/build-concepts.mjs && node seo/tools/build-glossary.mjs && node seo/tools/build-sitemap.mjs && node seo/tools/build-inline.mjs && node seo/tools/check-crosslinks.mjs && node seo/tools/check-pages.mjs",
+    "build:concepts": "node seo/tools/build-css.mjs && node seo/tools/build-concepts.mjs && node seo/tools/build-glossary.mjs",
+    "check": "node seo/tools/check-dates.mjs && node seo/tools/check-volatile.mjs && node seo/tools/check-links.mjs && node seo/tools/check-daynight.mjs && npm run check:solar",
+    "check:solar": "node seo/tools/check-planets.mjs && node seo/tools/check-solar-data.mjs",
+    "indexnow": "node seo/tools/indexnow.mjs",
+    "predev": "npm run build",
+    "dev": "wrangler pages dev . --compatibility-flags=nodejs_compat",
+    "deploy": "npm run build && wrangler pages deploy"
+  },
+  "dependencies": {
+    "workers-og": "^0.0.27"
+  },
+  "devDependencies": {
+    "wrangler": "^4.98.0"
+  }
+}

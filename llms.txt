@@ -1,0 +1,42 @@
+# Time and Space Science
+
+> Free, no-sign-up clock tools and countdowns that run entirely in the browser.
+> Static pages on Cloudflare Pages; no accounts, no tracking beyond analytics,
+> nothing to install. 4198 pages in all.
+
+Everything below is a real, permanent URL. Figures on time-and-sky pages are
+computed, not scraped: the methodology pages state the method and its limits.
+
+## Sections
+
+- [Alarm clock](https://timeandspace.science/alarm-clock/) — 51 pages: Set an alarm for any time, in the browser. Includes a page per half-hour ('set an alarm for 6:30 AM').
+- [Countdown timer](https://timeandspace.science/timer/) — 70 pages: A timer with a page per common duration and per use case (eggs, study, meditation).
+- [Stopwatch](https://timeandspace.science/stopwatch/) — 2 pages: Stopwatch with laps, CSV/image export, and a four-way version for classrooms.
+- [World clock](https://timeandspace.science/world-clock/) — 110 pages: Current time, UTC offset and DST state for a city, one page per city.
+- [Time difference calculator](https://timeandspace.science/time-difference-calculator/): Hours and minutes between two clock times, in any time zone, daylight-saving aware.
+- [12/24-hour clock converter](https://timeandspace.science/24-hour-clock-converter/) — 49 pages: Convert between the 12-hour clock and the 24-hour clock (military time), with a page per half hour.
+- [Sunrise & sunset](https://timeandspace.science/sun/) — 1157 pages: Sunrise, sunset, day length and twilight for a city and any date. Includes an any-location page.
+- [Moon](https://timeandspace.science/moon/) — 1237 pages: Moonrise, moonset, phase and illumination per city, plus phase calendars, eclipses, supermoons and blue moons.
+- [Tide predictions](https://timeandspace.science/tides/) — 166 pages: Predicted tide times and heights for US NOAA stations, grouped by state and county.
+- [Sun, Earth & Moon simulator](https://timeandspace.science/sun-moon-earth-movement-simulator/) — 1105 pages: Where the sun and moon are from a given place at a given instant, scrubbable over a day, week or month.
+- [The planets](https://timeandspace.science/planets/): Every planet in orbital order with a picture and a couple of paragraphs each, the asteroid belt in its place, and a page for every one.
+- [Solar system simulator](https://timeandspace.science/solar-system-simulator/) — 5 pages: The planets on their real orbits, with moon systems, the asteroid belt and comets.
+- [Rocket launch simulator](https://timeandspace.science/rocket-launch-simulator/) — 4 pages: When the next launch window to Mars, Jupiter and Saturn opens, what it costs, and how the real missions compare.
+- [Countdowns](https://timeandspace.science/countdown/): Countdown pages for holidays, celebrity birthdays, sports and anniversaries.
+- [Events calendar](https://timeandspace.science/calendar/): Every countdown by month. Also published as a subscribable feed at /calendar/events.ics.
+- [Methodology](https://timeandspace.science/methodology/) — 6 pages: How each figure on the site is worked out, and where it stops being reliable.
+- [Classroom](https://timeandspace.science/classroom/) — 25 pages: Free projector-ready science simulators and timed lesson plans, in three doors: astronomy, Earth science and time. Teachers can send a lesson they already run.
+
+## Notes
+
+- Tide predictions are NOAA CO-OPS astronomical predictions. They exclude
+  weather, storm surge and atmospheric pressure, and are not for navigation.
+- Sun and moon figures are computed in the browser, so they are never stale.
+  Accuracy bounds are published at https://timeandspace.science/methodology/.
+- The planetary positions are approximate Keplerian elements valid 1800-2050.
+  They are not an ephemeris.
+- Timers and alarms only ring while the page is open.
+
+## Full index
+
+- [Sitemap](https://timeandspace.science/sitemap.xml)

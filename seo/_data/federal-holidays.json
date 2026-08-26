@@ -1,0 +1,16 @@
+{
+  "comment": "The 11 official US federal holidays, in nextOccurrence()-compatible shape ({month,day} fixed date, or {month,nth,weekday} nth-weekday, nth:-1 = last). `observed:true` marks fixed-date holidays subject to the standard federal Sat->Fri / Sun->Mon observed-date shift; nth-weekday holidays are always Monday already and Thanksgiving is always Thursday, so neither needs it. Used by seo/tools/build-microevents.mjs for /next-federal-holiday/ and /next-long-weekend/ — kept separate from events.json (which carries full SEO/page content per holiday) since this is pure date data.",
+  "holidays": [
+    { "name": "New Year's Day", "month": 1, "day": 1, "observed": true },
+    { "name": "Martin Luther King Jr. Day", "month": 1, "nth": 3, "weekday": 1 },
+    { "name": "Washington's Birthday (Presidents Day)", "month": 2, "nth": 3, "weekday": 1 },
+    { "name": "Memorial Day", "month": 5, "nth": -1, "weekday": 1 },
+    { "name": "Juneteenth", "month": 6, "day": 19, "observed": true },
+    { "name": "Independence Day", "month": 7, "day": 4, "observed": true },
+    { "name": "Labor Day", "month": 9, "nth": 1, "weekday": 1 },
+    { "name": "Columbus Day", "month": 10, "nth": 2, "weekday": 1 },
+    { "name": "Veterans Day", "month": 11, "day": 11, "observed": true },
+    { "name": "Thanksgiving Day", "month": 11, "nth": 4, "weekday": 4 },
+    { "name": "Christmas Day", "month": 12, "day": 25, "observed": true }
+  ]
+}

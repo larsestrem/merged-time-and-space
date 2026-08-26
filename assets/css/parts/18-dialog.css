@@ -1,0 +1,32 @@
+.ac-dialog{border:1px solid var(--border);border-radius:16px;background:var(--menu-bg,#15151b);color:var(--text);padding:0;max-width:380px;width:92%;max-height:92vh;max-height:92dvh;overflow-y:auto}
+.ac-dialog::backdrop{background:rgba(0,0,0,.55)}
+/* the "Add a timer" dialog opens near the top (not vertically centered) so the
+   phone keyboard/number pad can't cover its inputs or Add/Cancel buttons */
+#mt-dlg{margin-top:14px;margin-bottom:auto}
+.ac-form{padding:18px}
+/* short viewports (e.g. full-screen landscape): compress the form so it fits
+ * without the top/bottom running off-screen; the dialog also scrolls. */
+@media (max-height:560px){
+  .ac-form{padding:12px 14px}
+  .ac-form h2{margin:0 0 6px}
+  .ac-form label{margin:8px 0 3px}
+  .ac-form input,.ac-form select,.ac-form textarea{padding:7px 10px;font-size:15px}
+  .ac-vol-hint{margin:8px 0 2px}
+  .ac-form-btns{margin-top:8px}
+}
+.ac-form h2{margin:0 0 14px}
+.ac-form label{display:block;font-size:14px;font-weight:600;margin:0 0 12px}
+.ac-form input[type=time],.ac-form input[type=text],.ac-form input[type=number],.ac-form select{width:100%;margin-top:5px;padding:9px 10px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:15px}
+.ac-form input[readonly]{color:var(--muted);cursor:default}
+.ac-f-days{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.ac-f-days label{margin:0}
+.ac-f-days input{position:absolute;opacity:0;pointer-events:none}
+.ac-f-days span{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border);border-radius:9px;cursor:pointer;font-size:13px;font-weight:600}
+.ac-f-days input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
+.ac-f-mw{display:flex;gap:8px}
+.ac-form-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
+/* three equal-width buttons (Cancel · Test · Save) */
+.ac-btns-3 .btn{flex:1 1 0;min-width:0;white-space:nowrap;padding:11px 8px}
+.ac-vol-hint{font-size:12px;color:var(--muted);line-height:1.5;margin:14px 0 4px}
+.ac-label-hint{font-size:12px;color:var(--muted);line-height:1.5;margin:-8px 0 4px}
+/*TOOLCSS-END*/

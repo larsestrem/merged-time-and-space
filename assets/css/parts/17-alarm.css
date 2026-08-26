@@ -1,0 +1,168 @@
+.ac-right{flex:0 0 auto;color:var(--seg-on,#ff2b2b);min-width:96px;border-left:1px solid #3a1010;padding-left:14px;margin-left:2px;align-self:stretch;display:flex;flex-direction:column;justify-content:center;font-family:ui-monospace,Menlo,Consolas,monospace}
+.ac-date{font-size:19px;font-weight:800;letter-spacing:1px}
+.ac-alarms{font-size:14px;line-height:1.5;font-weight:700;border-top:1px solid #3a1010;margin-top:7px;padding-top:7px}
+.ac-alarm-row{white-space:nowrap}
+.ac-dim{color:var(--seg-on,#ff2b2b);font-weight:400;font-style:italic}
+.ac-ring{max-width:560px;margin:0 auto 14px;background:var(--accent);color:#fff;border-radius:12px;padding:12px 16px;text-align:center;font-weight:800;font-size:18px}
+/* Two states the clock must never keep to itself: an alarm whose moment came
+   and went while the tab was throttled or the machine asleep, and a browser
+   that is refusing to play sound until the page is tapped. Both are the alarm
+   silently not doing its job, so both get a visible bar rather than nothing. */
+.ac-alert{max-width:560px;margin:0 auto 14px;border-radius:12px;padding:11px 15px;text-align:center;font-weight:700;font-size:15px;line-height:1.4;background:#3b2a05;color:#ffd889;border:1px solid #6b4d0c}
+.ac-alert button{margin-left:10px;font:inherit;font-size:13px;padding:3px 10px;border-radius:8px;border:1px solid currentColor;background:none;color:inherit;cursor:pointer}
+body.ac-fs .ac-alert{display:none}
+.ac-wake-note{max-width:560px;margin:-8px auto 18px;text-align:center;font-size:13px;color:var(--muted)}
+.ac-wake-note svg{width:1.05em;height:1.05em;vertical-align:-.16em;margin:0 1px}
+body.ac-fs .ac-controls{transition:opacity .45s ease,visibility .45s ease}
+body.ac-fs.ac-idle .ac-controls{opacity:0;visibility:hidden;pointer-events:none}
+body.ac-alarming .ac-controls{opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+/* one compact row: buttons sized to their labels (not stretched full-width),
+ * centered. Small text buttons (Set/Edit) get tight padding so all fit; if the
+ * row runs out of room they shrink and "Stop alarm" wraps to two lines before
+ * the row itself breaks. Only an extremely narrow screen wraps to a new line. */
+/* Control bar: two rows — Add/Edit + Stop alarm (50/50), then a row of small
+ * icon buttons (full screen, share, colour, show-on-top, help). */
+.ac-controls{display:flex;flex-direction:column;gap:8px;max-width:560px;width:100%;margin:0 auto 18px}
+/* Phone in portrait, normal page (not the full-screen bedside view): give the
+   clock room to breathe. The battery read-out is pinned to the top of the panel,
+   so the digits get pushed clear of it, and the five-button row below gets the
+   same amount of air underneath — which also pushes the alarm-times card below
+   the fold, leaving the clock as the whole first screen. */
+@media (max-width:600px) and (orientation:portrait){
+  /* Scaled to the screen, not fixed pixels: a 667px iPhone SE gets proportionally
+     less air than a 932px Pro Max, so the clock, its controls and its note still
+     land on the first screen everywhere. clamp() keeps it sane at both extremes.
+     The px line is the fallback for browsers without svh; svh (the SMALL viewport
+     height) is used where available so the spacing doesn't jump as mobile
+     browser chrome hides and shows. */
+  body:not(.ac-fs) .ac-clock{padding-top:42px;padding-bottom:30px;margin-bottom:26px}
+  body:not(.ac-fs) .ac-clock{padding-top:clamp(26px,5svh,54px);padding-bottom:clamp(18px,3.6svh,38px);margin-bottom:clamp(16px,3.1svh,34px)}
+  body:not(.ac-fs) .ac-controls{margin-bottom:14px}
+  body:not(.ac-fs) .ac-controls{margin-bottom:clamp(10px,1.7svh,20px)}
+  /* the big gap goes AFTER the clock's own note, not between the buttons and it
+     — otherwise the note reads as orphaned in the middle of empty space */
+  body:not(.ac-fs) .ac-list{margin-bottom:46px}
+  body:not(.ac-fs) .ac-list{margin-bottom:clamp(28px,5.5svh,60px)}
+  /* the homepage's mini alarm card shares these classes but is a preview, not
+     the tool — it keeps its own compact spacing */
+  body:not(.ac-fs) .tc-alarm .ac-clock{padding:16px 18px;margin:8px auto 0}
+  body:not(.ac-fs) .tc-alarm .ac-controls{margin:12px 0 0}
+}
+.ac-ctrl-row{display:flex;justify-content:center;gap:8px;width:100%}
+.ac-ctrl-main .btn{flex:1 1 0}
+.ac-controls .btn{min-width:0;padding:10px 12px;line-height:1.15;font-size:15px;font-weight:700;background:#0b0b0c;color:var(--seg-on,#ff2b2b);border:1px solid var(--ac-line,#a02828);box-shadow:none;border-radius:10px}
+.ac-controls .btn:hover{border-color:var(--seg-on,#ff2b2b)}
+#ac-close{display:none}
+body.ac-fs #ac-close{display:inline-flex;align-items:center;justify-content:center}
+/* colour-cycle button: a muted red→purple rainbow filling the box (a dark
+ * tint layered on top keeps it from glowing next to the LED display) */
+/* .ac-controls .btn.ac-swatch (3 selectors) intentionally outweighs the
+ * .ac-controls .btn base rule (2 selectors) regardless of source order */
+.ac-controls .btn.ac-swatch{background:linear-gradient(rgba(5,5,8,.42),rgba(5,5,8,.42)),linear-gradient(135deg,#d5342e,#d58a2e,#c9c92e,#2eb45f,#2e6ed5,#8a2ed5);border-color:#4a4f5e}
+.ac-controls .btn.ac-swatch:hover{background:linear-gradient(rgba(5,5,8,.28),rgba(5,5,8,.28)),linear-gradient(135deg,#d5342e,#d58a2e,#c9c92e,#2eb45f,#2e6ed5,#8a2ed5);border-color:#7a8098}
+body.ac-alarming #ac-stop{background:var(--seg-on,#ff2b2b);color:#000;border-color:var(--seg-on,#ff2b2b);font-weight:800}
+/* selectable LED colour (persisted); the swatch button cycles red -> purple ->
+ * blue -> green -> yellow -> orange -> red (rainbow order, no white).
+ * Defined on both #ac-panel (so a cloned panel keeps its colour when popped
+ * into a Picture-in-Picture window) and body (so the colour also reaches
+ * sibling sections outside #ac-panel, like the alarm list and dialogs).
+ * (A brighter red was tried to help PageSpeed Insights' contrast check, but
+ * it didn't move the score and looked worse, so it's back to the original.) */
+#ac-panel,body{--seg-on:#ff2b2b;--seg-off:#180505;--seg-glow:rgba(255,43,43,.6);--ac-line:#a02828}
+#ac-panel[data-c="purple"],body[data-c="purple"]{--seg-on:#b855f7;--seg-off:#13061b;--seg-glow:rgba(184,85,247,.5);--ac-line:#7c3aed}
+#ac-panel[data-c="blue"],body[data-c="blue"]{--seg-on:#38bdf8;--seg-off:#05131a;--seg-glow:rgba(56,189,248,.5);--ac-line:#1e6f9e}
+#ac-panel[data-c="green"],body[data-c="green"]{--seg-on:#35e06a;--seg-off:#051a0d;--seg-glow:rgba(53,224,106,.5);--ac-line:#1f7a40}
+#ac-panel[data-c="yellow"],body[data-c="yellow"]{--seg-on:#facc15;--seg-off:#1a1703;--seg-glow:rgba(250,204,21,.5);--ac-line:#a16207}
+#ac-panel[data-c="orange"],body[data-c="orange"]{--seg-on:#fb923c;--seg-off:#1a0e03;--seg-glow:rgba(251,146,60,.5);--ac-line:#c2410c}
+/* Mobile portrait: stack the readout. The digits fill the full width (so they
+ * can be much bigger) with AM/PM at their top-right; below a divider sits the
+ * date on the left and the alarms on the right. The homepage mini-card clock
+ * keeps its compact side-by-side row (overrides below). */
+@media(max-width:560px){
+  .ac-clock{flex-direction:column;align-items:stretch;gap:9px;padding:18px 16px}
+  .ac-left{font-size:clamp(66px,24vw,160px)}
+  /* date and alarms sit together, centered under the digits, split by a
+     vertical divider (date on the left, alarms on the right) */
+  .ac-right{flex-direction:row;justify-content:center;align-items:flex-start;gap:14px;min-width:0;align-self:auto;border-left:0;border-top:1px solid #3a1010;padding-left:0;padding-top:9px;margin-left:0}
+  .ac-date{font-size:16px;align-self:center}
+  .ac-alarms{font-size:13px;border-top:0;margin-top:0;padding-top:0;border-left:1px solid #3a1010;padding-left:14px;text-align:left}
+  .tc-alarm .ac-clock{flex-direction:row;align-items:center;padding:15px 14px;gap:6px}
+  .tc-alarm .ac-right{flex-direction:column;justify-content:center;min-width:78px;border-top:0;border-left:1px solid #3a1010;padding-top:0;padding-left:7px}
+  .tc-alarm .ac-alarms{border-top:1px solid #3a1010;margin-top:5px;padding-top:5px;text-align:left;font-size:12px}
+  .tc-alarm .ac-date{font-size:15px}
+}
+/* full-screen / view controls */
+.ac-controls .ac-icon{flex:0 0 auto;width:44px;height:44px;padding:0}
+.ac-icon svg{display:block;margin:0 auto}
+#ac-close{display:none}
+.ac-editbtn{background:none;border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;font-weight:600;padding:5px 9px;cursor:pointer;flex:0 0 auto}
+.ac-editbtn:hover{border-color:var(--accent)}
+/* in any view (full screen or compact): swap the icons for a Close button */
+body.ac-view #ac-fs,body.ac-view #ac-ontop{display:none}
+body.ac-view #ac-close{display:inline-flex}
+/* full-screen bedside view (real fullscreen, big, page hidden) */
+body.ac-fs .brand,body.ac-fs h1,body.ac-fs .sub,body.ac-fs .ac-ring,body.ac-fs .ac-list,body.ac-fs .tool-about,body.ac-fs .footer{display:none}
+body.ac-fs .wrap{max-width:none;margin:0;padding:0}
+body.ac-fs #ac-stage{position:fixed;inset:0;max-width:none;margin:0;display:flex;align-items:center;justify-content:center;background:#000;z-index:9998;padding:64px 16px 84px}
+body.ac-fs .ac-clock{border:0;box-shadow:none;background:transparent;max-width:none;padding:0;gap:min(4vw,4vh);aspect-ratio:auto;transform:translate(var(--burn-x,0px),var(--burn-y,0px))}
+/* full-screen sizing is width-driven (vw) so the clock fills the screen,
+ * with a vh cap so it can't outgrow short/landscape screens */
+body.ac-fs .ac-left{font-size:min(23.5vw,36vh)}
+body.ac-fs .ac-right{min-width:0;padding-left:min(3.5vw,3.5vh);font-size:min(5.4vw,7.4vh)}
+body.ac-fs .ac-date{font-size:1em}
+body.ac-fs .ac-alarms{font-size:.8em;margin-top:.45em;padding-top:.45em}
+/* Pinned to the actual screen corner, always visible (does not fade with
+ * controls when idle). #ac-stage's own top padding keeps the clock content
+ * out of this corner regardless of aspect ratio; the backing chip is just
+ * for contrast against the digits' glow. */
+body.ac-fs .ac-batt{position:fixed;top:16px;right:16px;font-size:clamp(17px,2.4vw,24px);background:rgba(0,0,0,.78);padding:5px 11px;border-radius:10px;border:1px solid rgba(255,255,255,.14);z-index:10001}
+body.ac-fs .ac-close-tl{display:inline-flex;align-items:center;justify-content:center;position:fixed;top:12px;left:12px;width:46px;height:46px;padding:0;background:rgba(0,0,0,.78);color:var(--seg-on,#ff2b2b);border:1px solid var(--ac-line,#a02828);border-radius:8px;cursor:pointer;z-index:2147483647}
+body.ac-fs .ac-controls{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);width:min(92vw,760px);max-width:none;margin:0;z-index:9999;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:center}
+body.ac-fs .ac-ctrl-row{width:auto}
+body.ac-fs .ac-ctrl-main{flex:1 1 220px}
+body.ac-fs .ac-ctrl-icons{flex:0 0 auto}
+/* full-screen bedside mode: a small, permanent (not idle-faded) legal-link
+ * row at the very bottom, so it's still there once .ac-controls fades away
+ * and it's "just the clock" — unlike .ac-controls this never hides. */
+.ac-fs-legal{display:none}
+body.ac-fs .ac-fs-legal{display:block;position:fixed;left:50%;bottom:5px;transform:translateX(-50%);z-index:9999;margin:0;font-size:11px;letter-spacing:.2px;color:rgba(255,255,255,.35);text-align:center;white-space:nowrap}
+body.ac-fs .ac-fs-legal a{color:rgba(255,255,255,.45);text-decoration:none}
+body.ac-fs .ac-fs-legal a:hover{color:rgba(255,255,255,.75);text-decoration:underline}
+/* while the clock is popped out, the page keeps a live display-only clone */
+.ac-clone{display:block}
+.ac-clone .ac-controls,.ac-clone .ac-brand,.ac-clone .ac-fs-legal{display:none}
+/* always-on-top Picture-in-Picture window */
+.ac-pip{margin:0;background:#0b0b0c;display:flex;align-items:center;justify-content:center;min-height:100vh}
+.ac-pip #ac-panel{position:static;left:auto;top:auto;right:auto;bottom:auto;width:100%;height:auto;border:0;box-shadow:none;resize:none;padding:10px;container-type:inline-size}
+.ac-pip #ac-fs,.ac-pip #ac-close,.ac-pip #ac-ontop{display:none}
+.ac-pip .ac-left{font-size:15cqw}
+.ac-pip .ac-batt{font-size:2.8cqw;top:2cqw;right:2cqw}
+.ac-pip .ac-right{display:flex;min-width:0;border-left:1px solid #3a1010;padding-left:4cqw;font-size:4cqw}
+.ac-pip .ac-date{font-size:1em}
+.ac-pip .ac-alarms{font-size:.78em;margin-top:3px;padding-top:3px}
+.ac-pip .ac-brand{display:flex}
+.ac-pip .ac-controls{position:static;width:100%;max-width:none;margin:8px 0 0;gap:5px}
+.ac-pip .ac-controls .btn{font-size:13px;padding:7px 3px}
+/* popup-clock branding + disclaimer link (compact + pip only) */
+.ac-brand{display:none;justify-content:center;gap:12px;margin-top:9px;font-size:11px;letter-spacing:.3px}
+.ac-brand a{color:#a05a5a;text-decoration:none}
+.ac-brand a:hover{color:#ff2b2b;text-decoration:underline}
+/* ?popout=1 tap prompt (PiP needs a user gesture) */
+.ac-pohint{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;background:rgba(0,0,0,.86);color:#fff;font-size:20px;font-weight:700;line-height:1.5;z-index:99999;cursor:pointer;padding:24px}
+.ac-pohint-box{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:340px}
+.ac-pohint .ac-bedside-go{width:auto;padding:14px 28px;font-size:18px;background:#0b0b0c;color:#ff2b2b;border:2px solid #ff2b2b;border-radius:10px}
+.ac-pohint .ac-bedside-skip{width:auto;padding:10px 20px;font-size:14px;font-weight:600;background:none;color:#cfd2da;border:1px solid rgba(255,255,255,.3);border-radius:10px}
+.ac-pohint .ac-bedside-skip:hover{color:#fff;border-color:#fff}
+.ac-pohint-box p{font-size:14px;font-weight:400;color:#cfd2da;line-height:1.55;margin:0}
+.tc-alarm-note{font-size:11px;color:var(--muted);text-align:center;margin:8px 0 0}
+.tc-alarm-note svg{width:1.05em;height:1.05em;vertical-align:-.16em;margin:0 1px}
+/* edit-dialog list scrolls if long */
+#ac-editlist{max-height:50vh;overflow:auto;margin-bottom:12px}
+.ac-list{max-width:560px;margin:0 auto}
+.ac-li{display:flex;align-items:center;gap:12px;border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:var(--card)}
+.ac-li-on{flex:0 0 auto;display:flex}
+.ac-tog{accent-color:var(--seg-on,#ff2b2b)}
+.ac-li-main{flex:1 1 auto;min-width:0;font-size:15px}
+.ac-li-rep{display:block;font-size:12px;color:var(--muted)}
+.ac-del{background:none;border:0;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;padding:0 4px}
+.ac-del:hover{color:var(--accent)}

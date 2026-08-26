@@ -1,0 +1,369 @@
+# ============================================================================
+#  alarm-clock-countdown — content moderation BLOCKLIST
+#
+#  SUBSTRING / wildcard match, case-insensitive, against the URL-decoded event
+#  name, message and URL slug. "murder" blocks "Murder Party", "premeditated
+#  murder", "murderer", etc. Over-blocking is accepted by design (a stray
+#  "killer party" getting caught is fine) — rescue specific phrases by adding
+#  the EXACT full name to cloudflare/allowlist.txt.
+#
+#  Regenerate the three enforcement layers after editing:  npm run waf
+#   1. functions/moderation.js     (Pages middleware — always on)
+#   2. assets/js/moderation.js     (create form)
+#   3. cloudflare/rule-expression.txt (optional Cloudflare edge rule)
+#
+#  One term per line; '#' lines are comments. Phrases may contain spaces.
+#  NOTE: very short embedding-prone fragments (ass, hell, sex, cock, dick,
+#  fag as a fragment) are intentionally given as fuller forms to avoid absurd
+#  collateral like blocking "class", "hello", "Sussex" or "cocktail party".
+# ============================================================================
+
+# --- racial / ethnic / religious slurs ---
+nigger
+nigga
+niggas
+chink
+chinaman
+gook
+spic
+wetback
+beaner
+kike
+heeb
+raghead
+towelhead
+sandnigger
+coon
+darkie
+darky
+negro
+jigaboo
+porchmonkey
+spook nigger
+wop
+dago
+paki
+gypsy slur
+zipperhead
+redskin slur
+
+# --- homophobic / transphobic / ableist slurs ---
+faggot
+faggy
+fagget
+dyke
+tranny
+shemale
+ladyboy
+retard
+retarded
+spaz
+mongoloid
+cripple slur
+
+# --- hate groups / extremism ---
+kkk
+ku klux
+klansman
+nazi
+neonazi
+neo-nazi
+heil hitler
+sieg heil
+white power
+white supremacy
+white supremacist
+black supremacy
+aryan
+aryan nation
+ethnic cleansing
+genocide
+holocaust denial
+lynch
+lynching
+hate
+hate crime
+hate group
+gas the
+death to all
+14 88
+
+# --- violence / threats / weapons ---
+kill
+killer
+killing
+murder
+murderer
+homicide
+manslaughter
+assassinate
+assassination
+massacre
+slaughter
+mass shooting
+school shooting
+school shooter
+mass shooter
+active shooter
+shooting spree
+shoot
+shooting
+shoot up
+shoot em
+gun down
+gunman
+behead
+beheading
+decapitate
+dismember
+stabbing
+strangle
+torture
+maim
+terrorist
+terror attack
+suicide bomber
+bomb threat
+pipe bomb
+car bomb
+detonate
+explosive device
+hostage
+kidnap
+abduct
+
+# --- self-harm ---
+suicide
+kill myself
+kill yourself
+kys
+self harm
+cut myself
+hang myself
+overdose on
+
+# --- sexual / explicit ---
+porn
+porno
+pornhub
+hardcore porn
+child porn
+childporn
+cp child
+pedophile
+pedo
+underage
+rape
+rapist
+raping
+molest
+molester
+incest
+bestiality
+naked
+nude
+nudes
+nudity
+xxx
+nsfw
+blowjob
+handjob
+rimjob
+deepthroat
+creampie
+gangbang
+bukkake
+cumshot
+cumming
+jizz
+ejaculat
+masturbat
+fingering
+orgasm
+boner
+erection
+pussy
+vagina
+penis
+testicle
+ballsack
+scrotum
+clitoris
+labia
+butthole
+anal sex
+oral sex
+sexual
+sexually
+horny
+slut
+slutty
+whore
+hooker
+prostitute
+escort service
+stripper
+hentai
+milf
+gilf
+camgirl
+onlyfans
+fleshlight
+dildo
+buttplug
+strapon
+cocksucker
+motherfucker
+twat
+wanker
+jackoff
+jerk off
+dick
+golden shower
+hump
+humping
+dry hump
+three way
+threeway
+threesome
+foursome
+menage a trois
+menage
+mangina
+fisting
+felching
+scat play
+
+# --- profanity / vulgarity ---
+fuck
+fucking
+fucked
+fucker
+fuckface
+fuckhead
+clusterfuck
+shit
+shitty
+shithead
+bullshit
+batshit
+dipshit
+horseshit
+bitch
+bitches
+bastard
+cunt
+asshole
+asshat
+dumbass
+jackass
+dickhead
+dickwad
+prick
+douche
+douchebag
+piss off
+pissed
+goddamn
+damn it
+bollocks
+bugger off
+arsehole
+
+# --- crude / bodily (over-blocks scrapbook/crappie etc.; that's accepted) ---
+poop
+pooping
+poophead
+urine
+urinate
+peeing
+crap
+crappy
+stink
+stinky
+stinks
+fart
+farting
+turd
+boobs
+boob
+breasts
+titties
+butthole
+buttcrack
+buttcheek
+snot
+booger
+queef
+smegma
+diarrhea
+dingleberry
+skidmark
+
+# --- drugs ---
+drugs
+marijuana
+cannabis
+weed
+cocaine
+heroin
+meth lab
+sell drugs
+crack cocaine
+crack pipe
+
+# --- scams / harassment ---
+doxx
+swatting
+revenge porn
+upskirt
+creepshot
+
+# --- foreign profanity / slurs (distinctive forms; extend via the blocked
+#     log + allowlist. Short words that collide with English are omitted.) ---
+# Spanish
+pendejo
+gilipollas
+cabron
+maricon
+mierda
+pinche
+chingada
+verga
+culero
+# French
+putain
+salope
+connard
+encule
+batard
+# German
+scheisse
+arschloch
+hurensohn
+wichser
+schwanz
+fotze
+# Italian
+vaffanculo
+stronzo
+puttana
+coglione
+cazzo
+# Portuguese
+caralho
+buceta
+# Hindi / South Asian (transliterated)
+chutiya
+madarchod
+behenchod
+bhosdike
+gaandu
+# Russian (transliterated)
+blyat
+pizda
+# Tagalog
+putangina
+tangina
+# Arabic (transliterated)
+sharmuta

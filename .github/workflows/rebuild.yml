@@ -1,0 +1,45 @@
+# Hourly Cloudflare Pages rebuild — freshness only.
+#
+# Rebuilds the whole site every hour so the baked "today" values (sun times,
+# tide charts/tables, "days until" countdowns) are near-real-time native HTML
+# for every crawl and visit. _headers serves s-maxage=300, so an edge copy is at
+# most 5 minutes behind the origin and the rebuild cadence sets how fresh the
+# origin itself is: served pages are at most ~1h behind real time.
+# Rebuild-only: no audit, no report email (maintenance.yml still runs the daily
+# audit + its own rebuild).
+#
+# Uses the same CF_DEPLOY_HOOK secret as maintenance.yml (Cloudflare Pages ->
+# Settings -> Builds & deployments -> Deploy hooks). If the secret is missing
+# the run emits a warning instead of silently doing nothing.
+#
+# Build budget: ~24 rebuilds/day ~= 720/month. This EXCEEDS Cloudflare Pages'
+# free 500/month, so it requires the Workers Paid plan ($5/month, 5,000 builds/
+# month). NOTE: GitHub's scheduler can delay or skip a run under load, so an
+# occasional hour may be missed — acceptable for freshness. A failure of the
+# Cloudflare BUILD itself is reported by Cloudflare Pages deployment
+# notifications (dashboard -> Notifications).
+
+name: Hourly rebuild
+on:
+  schedule:
+    # Every hour at :20 (off-the-hour minute dodges GitHub's top-of-hour
+    # scheduling backlog). maintenance.yml also rebuilds once at 11:20.
+    - cron: "20 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    env:
+      HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
+    steps:
+      - name: Trigger Cloudflare Pages rebuild
+        if: ${{ env.HOOK != '' }}
+        run: curl -fsS -X POST "$HOOK" >/dev/null && echo "rebuild triggered"
+
+      - name: Warn if no deploy hook is configured
+        if: ${{ env.HOOK == '' }}
+        run: echo "::warning::CF_DEPLOY_HOOK not set — the second daily rebuild did nothing"

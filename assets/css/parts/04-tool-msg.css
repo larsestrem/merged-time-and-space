@@ -1,0 +1,12 @@
+.tool-msg{color:var(--accent);font-weight:700;min-height:20px;margin:4px 0 0}
+/* The 24-hour refusal. Red rather than the accent colour, because .tool-msg is
+   normally where "Time's up!" lands and a refusal must not read like progress.
+   .set-err is the same message inside the Set-timer / Add-a-timer dialogs,
+   where it sits under the inputs and the dialog stays open. */
+.tool-msg-warn{color:#fca5a5;font-weight:600}
+.tool-msg-warn a,.set-err a{color:inherit;text-decoration:underline}
+.set-err{margin:12px 0 0;color:#fca5a5;font-size:14px;font-weight:600;line-height:1.5;text-align:center}
+/* Footer of a full-screen timer view: whether the screen is being kept awake.
+   Pinned to the bottom of the viewport (the full-screen layer is itself fixed
+   and sets no containing block), clear of the iPhone home indicator. */
+.t-fs-note{position:fixed;left:0;right:0;bottom:0;z-index:2;margin:0;padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom));background:rgba(0,0,0,.55);color:#cbd5e1;font-size:13px;font-weight:500;line-height:1.45;text-align:center}

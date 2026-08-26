@@ -1,0 +1,36 @@
+
+/* ---- Pop-out control (Document Picture-in-Picture) ----
+   Sits inline with the other tool buttons rather than on a row of its own. It
+   had its own row plus a size dropdown; the dropdown went because the read-out
+   is sized in container units, so dragging the window IS the size control and
+   the select was a second way to do the same thing. Hidden below 560px and
+   wherever the API is missing (the script hides it), because Document
+   Picture-in-Picture is desktop Chrome and Edge only. */
+.ac-popbtn{width:auto;flex:0 0 auto;white-space:nowrap}
+/* THE POP-OUT HOST MUST NOT EXIST AS A BOX ON THE PAGE. It only needs to be a
+   real element inside the floating window, where it becomes the container the
+   read-out is sized against. On the page it wraps the display and the controls
+   purely so they can be moved together — and wrapping them turned two flex
+   children of the full-screen stopwatch into one, which swallowed the 22px
+   gap between them and left the digits overlapping the Start button by
+   exactly that much. display:contents generates no box at all, so both stay
+   direct children of whatever lays them out and every existing rule keeps
+   working; POPOUT_JS re-declares display:block inside the pop-out. */
+.sw-pop-host,.t-pop-host{display:contents}
+@media(max-width:560px){.ac-popbtn{display:none}}
+/* the greyed placeholder left in the page while the tool is in its own window */
+.ac-clone{opacity:.35;pointer-events:none;filter:grayscale(.4)}
+
+/* .ico-inline — an interface icon used inside a sentence, at text size.
+   The button versions are a fixed 20px; dropped into a paragraph they tower
+   over the words around them. Sized in em and nudged onto the baseline so
+   "Choose an alarm sound (<speaker>)" reads as prose that points at a real
+   control, which is the whole reason it is there. */
+.ico-inline{width:1.05em;height:1.05em;vertical-align:-0.18em;display:inline-block}
+
+/* .desk-only — prose about a control that only exists on the desktop layout.
+   Carries the same 560px breakpoint as .ac-popbtn, so the sentence describing
+   the pop-out button disappears exactly where the button does. Telling a phone
+   user to press something that is not on their screen is the same failure as
+   not telling a desktop user where a button is. */
+@media(max-width:560px){.desk-only{display:none}}

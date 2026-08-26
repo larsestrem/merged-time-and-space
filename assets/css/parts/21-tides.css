@@ -1,0 +1,214 @@
+/*TOOLCSS-START*/
+/* ---- /tides/ tool (stripped from non-tide pages by build-inline) ---- */
+/* a card with an open dropdown (search results / saved) must paint above
+ * the following cards — cards are stacking contexts, so lift the card */
+.card:has(#td-results:not([hidden])),.card:has(#nm-results:not([hidden])),.card:has(#td-mypanel:not([hidden])){position:relative;z-index:40}
+.td-search{position:relative;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#td-mypanel{min-width:280px}
+.td-savedok{color:#4ade80;font-weight:700;font-size:13px}
+.td-cur .chip{margin-left:2px}
+.td-datenav{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+/* On phones the 5 chart-nav buttons (« Week ‹ Day Today Day › Week ») wrap to a
+ * second line; keep them on ONE row by shrinking them to share the width. */
+@media(max-width:480px){
+  .td-datenav{flex-wrap:nowrap;gap:6px}
+  .td-datenav .chip{flex:1 1 0;min-width:0;padding:7px 4px;font-size:12px;text-align:center;overflow:hidden;text-overflow:ellipsis}
+}
+@media(max-width:360px){
+  .td-datenav{gap:4px}
+  .td-datenav .chip{font-size:11px;padding:7px 2px}
+}
+.td-chartset{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-top:10px}
+.td-chartset .td-cs-l{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.td-chartset label{display:flex;align-items:center;gap:6px;margin:0;font-size:13px;font-weight:600;color:var(--muted)}
+.td-chartset select{width:auto;margin:0;padding:6px 10px;font-size:14px}
+.td-chartset input[type=checkbox]{width:auto;margin:0}
+.td-savedgo{flex:1;text-align:left;padding:7px 8px;background:none;border:0;border-radius:8px;color:var(--text);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.td-savedgo:hover{background:rgba(255,255,255,.08)}
+.td-savedx{flex:0 0 auto;width:26px;height:26px;padding:0;border-radius:50%;background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.4);cursor:pointer;font-size:13px;line-height:1}
+.td-panel .td-none{padding:4px 2px;color:var(--muted);font-size:13px;margin:0}
+.td-results{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:60;list-style:none;margin:0;padding:6px;background:#171a26;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 34px rgba(0,0,0,.55);max-height:300px;overflow:auto}
+.td-results button{display:block;width:100%;text-align:left;padding:9px 10px;background:none;border:0;border-radius:8px;color:var(--text);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.td-results button:hover{background:rgba(255,255,255,.08)}
+.td-results .td-none{padding:8px 10px;color:var(--muted);font-size:13px}
+.td-cur{margin:12px 0 0;font-size:14px;color:var(--muted)}
+.td-curid{margin:1px 0 4px;font-size:12px;color:var(--muted)}
+.td-beta{margin:14px 0;font-size:13px;line-height:1.55}
+.td-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}
+.td-next{background:rgba(0,0,0,.22);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center}
+.td-next span{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.td-next b{display:block;font-size:24px;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.td-next em{display:block;font-style:normal;font-size:13px;color:var(--muted)}
+.td-chart-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-top:8px}
+.td-sellab{font-size:14px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+.td-selr{text-align:right}
+.td-movebtn{position:absolute;top:50%;transform:translate(-50%,-50%);width:38px;height:38px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--accent);color:#0b1026;border:3px solid #0b1026;box-shadow:0 0 0 1px var(--border),0 2px 8px rgba(0,0,0,.4);cursor:grab;touch-action:none;z-index:4;user-select:none;-webkit-user-select:none}
+.td-movebtn svg{pointer-events:none}
+.td-movebtn.on{cursor:grabbing;background:#fff;box-shadow:0 0 0 2px var(--accent),0 2px 10px rgba(0,0,0,.5)}
+.td-grid2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.td-grid2:empty{display:none}
+.td-morerow{margin:10px 0 0;text-align:center}
+.td-morerow .btn{width:auto;display:inline-flex;padding:10px 18px}
+.td-quick{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:12px}
+.td-quick:empty{display:none}
+.td-quick-h{grid-column:1/-1;margin:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.td-quick-row{display:flex;justify-content:space-between;align-items:center}
+.td-viewall{background:none;border:0;padding:0;color:var(--accent);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;text-transform:none;letter-spacing:0}
+.td-qcard{display:flex;flex-direction:column;gap:2px;align-items:flex-start;text-align:left;padding:10px 12px;background:rgba(0,0,0,.22);border:1px solid var(--border);border-radius:12px;color:var(--text);cursor:pointer;font-family:inherit}
+.td-qcard:hover{border-color:var(--accent)}
+.td-qcard strong{font-size:14px}
+.td-qcard em{font-style:normal;font-size:12px;color:var(--muted)}
+.td-qbadge{font-size:11px;color:var(--accent);font-weight:700}
+.td-mini{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;background:var(--accent);color:#0b1026;font-weight:700;font-size:12px;line-height:1;vertical-align:-3px;margin:0 1px}
+.td-mini-edge{background:#0b1026;color:var(--accent);border:1px solid var(--accent);font-size:11px}
+.td-edge-flip svg{transform:scaleX(-1)}
+.td-edge{position:absolute;top:50%;transform:translate(-50%,-50%);width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#0b1026;color:var(--accent);border:2px solid var(--accent);box-shadow:0 1px 6px rgba(0,0,0,.4);pointer-events:none;z-index:3}
+/* THE CHART IS DRAWN AT A FIXED 700×600 — already twice the home page's mini
+   chart's height, for a curve worth reading up close. `width:100%` used to
+   stretch that to whatever the card happened to be, and on the wide page that
+   meant a chart over 1,100px tall — taller than a laptop screen in landscape,
+   for a picture that was already detailed enough at its own native size.
+   Capping the chart at 700px (and the date-range labels above it and the day
+   controls below, so all three still line up as one block) fixes that at
+   every width from a phone up: below 700px it keeps shrinking to fit, same as
+   before; above 700px it simply stops growing. See .td-hero below for where
+   the width a wide page frees up beside it actually goes. */
+.td-chart-head,.td-chartwrap,.td-chartset{max-width:700px;margin-left:auto;margin-right:auto}
+.td-chartwrap{position:relative;margin-top:10px}
+/* The chart is an SVG on a fixed 700x300 viewBox, drawn by tide-chart.js. The
+   build bakes the same drawing into this element, so what a visitor sees on
+   load is what the live chart redraws — no swap, and crawlers get a real
+   chart rather than an empty box. */
+.td-chartsvg{display:block;width:100%;height:auto;touch-action:pan-y}
+#td-chart{border-radius:12px}
+/* ---- the chart card + today's numbers, side by side when there's room ----
+   Below 900px this is one column in the order it always was: chart, safety
+   warning, today's summary. Above it, the summary card (next high/low,
+   today's other tides, sun & moon) rides beside the chart instead of a full
+   scroll below it — the width a 1400px page frees up spent on information
+   instead of card background. The warning stays BETWEEN the two in reading
+   order, so it's still the first thing read about the data, just beside the
+   chart now rather than under it. Card margins are zeroed inside — the grid
+   gap does that job so the two columns' tops line up. */
+.td-hero{display:grid;grid-template-columns:1fr;gap:18px}
+.td-hero>.card,.td-hero>.td-beta{margin:0}
+/* the chart is the only cell given an explicit ROW (spanning both) — the
+   warning and the summary card are left to auto-place into column 2 in
+   document order, so this works whether or not the warning is present (the
+   hub's chart-preview has no warning card here; the summary card alone slots
+   straight into the top of column 2 instead of leaving a gap above it). */
+@media (min-width:900px){
+  /* a 2:1 split — the chart card takes two thirds of the row, the warning +
+     summary column the remaining third (was a fixed 260–320px sidebar, which
+     left the summary cramped on a 1400px page while the chart card, whose
+     drawing caps at 700px anyway, held width it wasn't using) */
+  .td-hero{grid-template-columns:minmax(0,2fr) minmax(280px,1fr);align-items:start}
+  .td-hero>.td-chart-card{grid-column:1;grid-row:1/3}
+  .td-hero>.td-beta,.td-hero>.td-summary-card{grid-column:2}
+}
+/* ---- the tool cards after the hero, two abreast when there's room ----------
+   Today's-tides table, the astro strip, search/saved stations, king tides and
+   sun & moon are all short cards that read fine at half the row — full width
+   each one was a 1400px band of mostly background. Cards simply FLOW two per
+   row (not hand-paired), so a missing table (no baked data yet), the absent
+   astro strip on destination pages, or the king-tide card while it's [hidden]
+   just close the gap instead of leaving a hole. Below 980px (same threshold as
+   .duo) it dissolves to the stacked order the DOM already has. The finder card
+   stays OUTSIDE this wrapper, full width: its table earns the room, and the
+   print rule (.wrap>*:has(#td-table)) needs it as a direct child of .wrap. */
+.td-pair{margin:16px 0;display:grid;grid-template-columns:1fr;gap:16px}
+.td-pair>.card{margin:0;min-width:0}
+@media (min-width:980px){.td-pair{grid-template-columns:1fr 1fr}}
+/* the labels are sized for the 700-wide space; on a phone the SVG scales to
+   about half that, so scale them back up (same approach as the sun arc) */
+@media (max-width:600px){#td-chart .tc-ax{font-size:15px}#td-chart .tc-lb{font-size:16px}}
+@media (max-width:420px){#td-chart .tc-ax{font-size:18px}#td-chart .tc-lb{font-size:19px}}
+.td-tip{position:absolute;top:8px;pointer-events:none;background:#171a26;border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:12px;white-space:nowrap}
+.td-controls{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:end;margin:10px 0 4px}
+.td-controls label{display:flex;flex-direction:column;gap:4px;margin:0;font-size:12px;font-weight:600;color:var(--muted)}
+.td-controls input[type=date]{margin:0;width:auto}
+.td-controls input[type=number]{margin:0;width:90px}
+.td-controls .td-chk{flex-direction:row;align-items:center;font-size:14px;color:var(--text)}
+.td-controls .td-chk input{width:auto;margin:0 6px 0 0}
+.td-controls .btn{width:auto;padding:10px 18px}
+.td-upd{width:42px;height:42px}
+@media (max-width:480px){.td-controls{gap:8px}.td-controls label{font-size:11px}.td-controls input[type=date]{padding:8px 5px;font-size:13px;max-width:122px}.td-upd{width:38px;height:38px}}
+.td-tablewrap{overflow-x:auto;margin-top:8px}
+.td-table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.td-table th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:6px 10px;border-bottom:1px solid var(--border)}
+.td-table td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.td-table .td-lo td{color:var(--muted)}
+.td-big-h{font-size:16px;margin:16px 0 4px;color:var(--accent)}
+.td-statelink{margin:12px 0 0;font-size:14px;font-weight:600}
+.td-statelink a{text-decoration:underline}
+.td-county{font-size:16px;margin:18px 0 6px;color:var(--text)}
+.td-countylist .chip{margin:2px 4px 2px 0}
+/* one-column station rows on the state pages: City — station name/number,
+ * tracking-station icon pinned right */
+.td-strows{display:flex;flex-direction:column;gap:4px;max-width:560px}
+.td-strow{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);background:rgba(255,255,255,.03)}
+.td-strow:hover{background:rgba(255,255,255,.08)}
+.td-strow b{font-size:14px;font-weight:700;white-space:nowrap}
+.td-strow .td-stname{font-size:12px;color:var(--muted);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.td-strow .td-staico{flex:0 0 auto}
+.td-staico-note .td-staico{vertical-align:-2px}
+/* one card per county on a state hub, two abreast on a wide screen. Same
+   980px threshold as .duo — below it the cards stack in the order the DOM
+   already has, which is the alphabetical county order the jump-to control
+   lists. align-items:start so a county with three stations doesn't stretch to
+   match one with thirty; the grid gap carries the site's 16px card rhythm, so
+   the cards' own margins are zeroed inside. */
+.td-counties{margin:16px 0;display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
+.td-counties>.card{margin:0;min-width:0}
+@media (min-width:980px){.td-counties{grid-template-columns:1fr 1fr}}
+/* the rows already cap at 560px; inside a half-width card let them fill it */
+.td-county-card .td-strows{max-width:none}
+/* first heading in its own card — no space to push away from */
+.td-county-card .td-county{margin-top:0}
+.td-jump{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 6px;font-size:13px;font-weight:600;color:var(--muted)}
+.td-jump select{width:auto;margin:0;padding:8px 10px;font-size:14px}
+.td-states{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.td-states .chip{justify-content:flex-start}
+.td-today{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center}
+.td-today-l{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.td-tchip{cursor:default}
+.td-past{opacity:.45}
+
+/* Print view (station pages): only the tide table, black on white — for the
+ * fridge, the boat, the tackle box. */
+.td-print-note{display:none}
+@media print{
+  body:has(#td-table){background:#fff;color:#000}
+  body:has(#td-table) .wrap>*:not(:has(#td-table)){display:none!important}
+  body:has(#td-table) #td-tool>*:not(.td-finder-card){display:none!important}
+  body:has(#td-table) .td-finder-card{border:none;background:#fff;color:#000;box-shadow:none;padding:0}
+  body:has(#td-table) .td-finder-card>p,
+  body:has(#td-table) .td-finder-card .td-controls,
+  body:has(#td-table) .td-finder-card .hint,
+  body:has(#td-table) .td-finder-card .td-morerow,
+  body:has(#td-table) #td-tbl-note{display:none!important}
+  body:has(#td-table) .td-finder-card h2{color:#000}
+  body:has(#td-table) .td-tablewrap{overflow:visible}
+  body:has(#td-table) .td-table,body:has(#td-table) .td-table th,body:has(#td-table) .td-table td{color:#000!important;border-color:#aaa!important;background:#fff!important}
+  .td-print-note{display:block!important;font-size:11px;color:#000!important;margin-top:10px;border-top:1px solid #aaa;padding-top:8px}
+}
+/* the moon phase row: the shared SVG glyph replaced an emoji, so it needs to
+   sit on the text baseline the way the emoji did */
+.td-moon{display:inline-flex;align-items:center;gap:7px}
+.td-moon svg{flex:0 0 auto}
+/*TOOLCSS-END*/
+
+/* Collapsed "how to read this chart" instructions under the tide chart. Same
+   disclosure pattern as the stopwatch's .sw-help: the instructions were four
+   lines of small grey text that everyone scrolled past, and the two facts
+   people actually come back for (the safety line and the NOAA attribution)
+   were competing with them. Those two stay visible below; only the how-to
+   collapses. */
+.td-help{margin:10px 0 2px}
+.td-help>summary{cursor:pointer;list-style:none;font-size:13.5px;font-weight:700;
+  color:var(--muted);padding:7px 2px;border-top:1px solid var(--border)}
+.td-help>summary::-webkit-details-marker{display:none}
+.td-help>summary::after{content:" ▾";font-size:.85em}
+.td-help[open]>summary::after{content:" ▴"}
+.td-help>summary:hover{color:var(--accent)}
+.td-help .hint{margin:8px 0 0;line-height:1.6}

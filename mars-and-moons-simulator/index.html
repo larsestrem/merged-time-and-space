@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mars &amp; Its Moons Simulator — Orbit, Facts &amp; What We Still Don’t Know</title>
+<meta name="description" content="Watch Mars on its real orbit, zoom in on its 2 largest moons, and see its size, mass, day, year and temperature worked out rather than copied — plus the questions about Mars that science has not answered.">
+<link rel="canonical" href="https://timeandspace.science/mars-and-moons-simulator/">
+<meta property="og:title" content="Mars &amp; Its Moons Simulator — Orbit, Facts &amp; What We Still Don’t Know">
+<meta property="og:description" content="Watch Mars on its real orbit, zoom in on its 2 largest moons, and see its size, mass, day, year and temperature worked out rather than copied — plus the questions about Mars that science has not answered.">
+<meta property="og:type" content="website">
+<style data-ac="css">:root{
+--bg:linear-gradient(#0b0e1c,#0b0e1c);
+--bg-solid:#0b0e1c;
+--accent:#fcd34d; --text:#f8fafc;
+--card: rgba(255,255,255,.08); --border: rgba(255,255,255,.16);
+--muted: rgba(255,255,255,.65);
+--accent-text:#1e1b4b;
+--menu-bg:#141a3a; --menu-text:#f8fafc;
+}
+html.pj{
+--bg:linear-gradient(#000308,#000308);
+--bg-solid:#000308;
+--text:#ffffff;
+--muted:rgba(255,255,255,.92);
+--card:rgba(255,255,255,.16);
+--border:rgba(255,255,255,.55);
+--accent:#ffd83d;
+}
+html.pj .card{border-width:1.5px}
+html.pj .hint,html.pj .sub{color:rgba(255,255,255,.88)}
+html.pj body{font-size:107%}
+html.pj a{text-decoration-thickness:2px}
+.skip-link{position:fixed;top:-48px;left:12px;z-index:200;padding:10px 16px;border-radius:0 0 10px 10px;
+background:var(--accent);color:var(--accent-text);font-weight:700;text-decoration:none;transition:top .15s}
+.skip-link:focus{top:0;outline:2px solid var(--text);outline-offset:2px}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{margin:0;padding:0}
+body{
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+background-image:var(--motif,none),var(--bg);
+background-size:var(--motif-size,200px),cover;
+background-repeat:repeat,no-repeat; background-attachment:fixed;
+color:var(--text); min-height:100vh; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent)}
+.wrap{max-width:1400px;margin:0 auto;padding:12px 18px 64px}
+.wrap-wide{max-width:1400px}
+.site-notice{display:flex;align-items:center;gap:10px;
+padding:7px 0 8px;margin:0 0 4px;border-bottom:1px solid var(--border);
+font-size:13px;line-height:1.35;color:var(--muted)}
+.site-notice p{margin:0;flex:1;min-width:0}
+.site-notice b{color:var(--text);font-weight:600}
+.site-notice-x{flex:none;display:inline-flex;align-items:center;justify-content:center;
+width:26px;height:26px;padding:0;border:0;border-radius:6px;
+background:none;color:var(--muted);cursor:pointer}
+.site-notice-x:hover{background:rgba(255,255,255,.07);color:var(--text)}
+.site-notice-x:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+html.nb-off .site-notice{display:none}
+@media (max-width:560px){.site-notice-sub{display:none}}
+.brand{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:2px 0 8px}
+.brand-titled{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;flex-wrap:nowrap}
+.brand-titled .crumbs{justify-self:start}
+.brand-titled .menu-dd{justify-self:end;margin-left:0}
+.brand-h1{justify-self:center;margin:0;text-align:center;line-height:1.1;
+font-size:clamp(19px,4.6vw,32px)}
+.brand-titled{min-height:45px}
+.brand-titled .crumbs,.brand-titled .brand-h1,.brand-titled .menu-dd{align-self:center}
+.brand-h1{min-width:0}
+@media (max-width:429px){
+.brand-h1{font-size:clamp(17px,5.1vw,22px)}
+.brand-titled{gap:4px}
+}
+.topnav{display:none}
+.menu-dd{margin-left:auto}
+.nav-dd{position:relative}
+.nav-dd summary{list-style:none;cursor:pointer;user-select:none;font-size:14px;font-weight:600;
+padding:8px 10px;border-radius:10px;color:var(--text);display:flex;align-items:center;gap:5px}
+.nav-dd summary::-webkit-details-marker{display:none}
+.nav-dd summary::after{content:"▾";font-size:10px;opacity:.7}
+.nav-dd summary:hover,.nav-dd[open] summary{background:var(--card)}
+.menu-dd summary{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;padding:0;font-size:30px;line-height:1;border-radius:10px;gap:0}
+.menu-dd summary::after{content:none}
+.nav-dd .menu{position:absolute;right:0;top:calc(100% + 6px);min-width:215px;z-index:60;
+background:var(--menu-bg);border:1px solid var(--border);border-radius:14px;padding:6px;
+box-shadow:0 12px 32px rgba(0,0,0,.35);list-style:none;margin:0}
+.nav-dd .menu a{display:block;padding:7px 13px;border-radius:9px;font-size:15px;font-weight:600;
+color:var(--menu-text);text-decoration:none;white-space:nowrap}
+.nav-dd .menu a:hover{background:rgba(125,125,125,.16)}
+.nav-dd .menu .sep{height:1px;background:var(--border);margin:5px 8px}
+.nav-dd .menu .nav-leaf{width:24px;height:24px;vertical-align:-7px;margin-right:-1px}
+.flag{display:inline-block;width:20px;height:14px;border-radius:2px;vertical-align:-2px;
+margin-right:6px;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.h1-flag .flag{width:30px;height:20px;vertical-align:-3px;margin-right:4px}
+.crumbs{display:inline-flex;align-items:center;gap:1px;flex-wrap:wrap;min-width:0}
+.brand-name{font-weight:800;font-size:18px;color:var(--text);text-decoration:none;display:inline-flex;align-items:center}
+.brand-name .logo{display:block;height:45px;width:auto}
+.brand-name:hover{color:var(--accent)}
+.brand-dd .menu{left:0;right:auto}
+.brand-dd summary{padding:2px 4px;gap:3px}
+.brand-dd .logo{display:block;height:45px;width:auto}
+.brand-menu a{display:flex;align-items:center;gap:9px}
+.brand-menu .nav-ico{flex:0 0 auto;opacity:.85}
+.brand{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.crumbs{display:contents}
+.brand-dd{justify-self:start}
+.brand-word{justify-self:center}
+.menu-dd{justify-self:end;margin-left:0}
+.brand-dd summary::after{content:none}
+.brand-word{display:inline-flex;align-items:baseline;margin:0;text-decoration:none;
+font-weight:800;letter-spacing:-.005em;line-height:1.1;white-space:nowrap;
+font-size:clamp(19px,4.2vw,30px)}
+.brand-word>*+*{margin-left:.1em}
+.wm-w{color:var(--text)}
+.wm-j{color:var(--muted)}
+.wm-tld{margin-left:0}
+a.brand-word:hover .wm-w{color:var(--accent)}
+a.brand-word:hover .wm-j{color:var(--accent);opacity:.55}
+@media (max-width:380px){.brand-word{font-size:17px}}
+.brand-cat{font-weight:600;font-size:18px;color:var(--muted);text-decoration:none;word-break:break-all}
+.brand-cat:hover{color:var(--text)}
+.copy-dd summary{padding:6px;color:var(--muted)}
+.copy-dd summary::after{content:none}
+.copy-dd summary svg{display:block}
+.copy-dd[open] summary,.copy-dd summary:hover{color:var(--text)}
+.copy-dd .menu{left:0;right:auto;min-width:200px}
+.copy-menu .menu-h{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);
+padding:4px 12px 6px;font-weight:700}
+.copy-item{display:block;width:100%;text-align:left;background:none;border:0;cursor:pointer;
+padding:9px 12px;border-radius:9px;font-size:14px;font-weight:600;color:var(--menu-text);
+white-space:nowrap;font-family:inherit}
+.copy-item:hover{background:rgba(125,125,125,.16)}
+.copy-item.copied{color:var(--accent)}
+@media (max-width:600px){
+.brand{position:relative}
+.nav-dd{position:static}
+.nav-dd .menu,.copy-dd .menu{left:12px;right:12px;top:calc(100% + 4px);min-width:0;
+max-height:72vh;overflow-y:auto}
+.copy-item,.nav-dd .menu a{white-space:normal}
+}
+@media (min-width:680px){
+.menu-dd summary{width:38px;height:38px;font-size:27px}
+}
+h1{font-size:26px;line-height:1.2;margin:2px 0 4px}
+.sub{color:var(--muted);margin:0 0 22px}
+.home-tagline{margin:0 0 14px;font-size:14px;color:var(--muted)}
+.home-tagline a{color:var(--accent);text-decoration:none;font-weight:600}
+.home-tagline a:hover{text-decoration:underline}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;margin:16px 0;backdrop-filter:blur(8px)}
+.duo{margin:16px 0;display:grid;grid-template-columns:1fr;gap:16px}
+.duo>.card{margin:0;min-width:0}
+@media (min-width:980px){
+.duo{grid-template-columns:1fr 1fr}
+.duo-23{grid-template-columns:2fr 1fr}
+}
+.duo-m{grid-template-columns:1fr 1fr}
+@media (max-width:560px){.duo-m{gap:10px}}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+input,select,textarea{
+width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
+background:rgba(0,0,0,.25);color:var(--text);font-size:16px;font-family:inherit
+}
+select option{background-color:#171327;color:#f8fafc}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.4)}
+textarea{resize:vertical;min-height:64px}
+.row{display:flex;gap:12px}
+.row>*{flex:1}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+.tool-warn{text-align:center;margin:10px auto 0}
+.tool-warn a{color:var(--muted)}
+.duration-equivalent{margin:14px auto 0;width:max-content;max-width:100%;padding:7px 15px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.03);text-align:center;font-size:14px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+.timer-illus{float:right;width:160px;height:160px;margin:0 0 10px 16px;border-radius:14px}
+@media (max-width:480px){.timer-illus{float:none;display:block;margin:0 auto 12px}}
+.clock-illus{float:right;width:150px;height:150px;margin:0 0 8px 16px}
+@media (max-width:480px){.clock-illus{float:none;display:block;margin:0 auto 10px}}
+.more-times{margin-top:12px}
+.more-times>summary{list-style:none;cursor:pointer;display:inline-block;font-size:13px;font-weight:700;color:var(--accent)}
+.more-times>summary::-webkit-details-marker{display:none}
+.more-times>summary::after{content:" ▾"}
+.more-times[open]>summary::after{content:" ▴"}
+.more-times>summary:hover{text-decoration:underline}
+.tide-figure{margin:12px 0 0;text-align:center}
+.tide-curve{display:block;width:100%;max-width:340px;height:auto;margin:0 auto}
+.tide-figure figcaption{font-size:11px;color:var(--muted);margin-top:4px}
+.td-nearme{border:1.5px solid var(--accent);box-shadow:0 0 0 4px rgba(125,211,252,.06)}
+.td-nearme .btn{margin-top:4px}
+.nm-status{margin:0 0 10px;color:var(--muted)}
+.nm-statusrow{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.nm-statusrow .nm-status{margin:0}
+.nm-spinner{flex:0 0 18px;width:18px;height:18px;border-radius:50%;border:2px solid var(--border);border-top-color:var(--accent);animation:nm-spin .7s linear infinite}
+.nm-spinner[hidden]{display:none}
+@keyframes nm-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.nm-spinner{animation-duration:2.4s}}
+.nm-list:not(:empty){margin-bottom:12px}
+.nm-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.nm-item{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;padding:10px 14px;border:1px solid var(--border);border-radius:12px;background:var(--card2,#171a26);text-decoration:none;color:inherit}
+.nm-item:hover{border-color:var(--accent);background:rgba(125,211,252,.08)}
+.nm-city{font-weight:600}
+.nm-mi{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.td-sunline{font-size:16px;margin:2px 0 8px;font-variant-numeric:tabular-nums}
+.td-sunline b{color:var(--accent);font-weight:700}
+.tide-today{width:100%;border-collapse:collapse;margin-top:4px}
+.tide-today th,.tide-today td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+.tide-today th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.tide-today td{font-variant-numeric:tabular-nums}
+.tide-today tr:last-child td{border-bottom:none}
+.theme-preview{margin:12px 0 4px;height:128px;border:1px solid var(--border);border-radius:14px;
+background-image:var(--motif,none),var(--bg);background-size:var(--motif-size,auto),cover;
+background-position:center;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.theme-preview svg{width:88px;height:88px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.45))}
+.art-row{align-items:stretch}
+.art-row .theme-preview{margin:14px 0 0;height:auto;min-height:74px}
+.art-row .theme-preview svg{width:60px;height:60px}
+.msg-suggest{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.msg-suggest button{cursor:pointer;border:1px solid var(--border);border-radius:999px;padding:5px 11px;
+font-size:12px;font-weight:600;color:var(--text);background:rgba(0,0,0,.18);font-family:inherit;width:auto}
+.msg-suggest button:hover{border-color:var(--accent)}
+.presets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.preset{
+display:block;cursor:pointer;border:1px solid var(--border);border-radius:14px;padding:12px 6px;text-align:center;
+background:rgba(0,0,0,.18);transition:.15s;font-size:13px;color:var(--text);text-decoration:none
+}
+.preset:hover{transform:translateY(-2px)}
+.preset.active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset;background:rgba(56,189,248,.12)}
+.preset .em{font-size:26px;display:block;margin-bottom:4px}
+.more-cta{display:block;text-align:center;margin-top:12px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none}
+.more-cta:hover{text-decoration:underline}
+.card h2{font-size:17px;margin:0 0 10px}
+.cat-link{color:var(--text);text-decoration:none}
+.cat-link:hover{text-decoration:underline}
+.facts{margin:0;padding-left:20px}
+.facts li{margin:7px 0}
+.tl-list{display:flex;flex-direction:column;gap:2px}
+.tl-row{display:flex;gap:14px;padding:9px 2px;border-bottom:1px solid var(--border)}
+.tl-row:last-child{border-bottom:none}
+.tl-year{flex:0 0 auto;min-width:64px;max-width:42%;font-weight:800;color:var(--accent);overflow-wrap:break-word}
+.tl-text{flex:1;min-width:0;line-height:1.4}
+.champ-note{color:var(--muted);font-weight:400}
+.rec-list{display:flex;flex-direction:column;gap:2px}
+.rec-row{display:flex;gap:14px;padding:9px 2px;border-bottom:1px solid var(--border)}
+.rec-row:last-child{border-bottom:none}
+.rec-label{flex:0 0 auto;min-width:160px;max-width:42%;font-weight:700;color:var(--muted);overflow-wrap:break-word}
+.rec-value{flex:1;min-width:0;line-height:1.4;font-weight:600}
+@media (max-width:560px){
+.tl-row,.rec-row{flex-direction:column;gap:3px}
+.tl-year,.rec-label{max-width:100%}
+}
+.list-head{display:flex;justify-content:space-between;gap:10px;padding:0 0 8px;margin-bottom:4px;border-bottom:1px solid var(--border)}
+.sortbtn{background:none;border:0;cursor:pointer;font:inherit;font-size:12px;font-weight:700;
+text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:2px}
+.sortbtn:hover{color:var(--text)}
+.sortbtn[data-dir]{color:var(--accent)}
+.sortbtn[data-dir="asc"]::after{content:" ▲";font-size:9px}
+.sortbtn[data-dir="desc"]::after{content:" ▼";font-size:9px}
+.toplist{list-style:none;margin:0;padding:0}
+.toplist li{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+padding:9px 2px;border-bottom:1px solid var(--border)}
+.toplist li:last-child{border-bottom:none}
+.toplist a{font-weight:600;text-decoration:none}
+.toplist a:hover{text-decoration:underline}
+.toplist .when{font-size:12px;color:var(--muted);white-space:nowrap}
+.btn{
+display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;
+border:none;border-radius:12px;padding:13px 18px;font-size:16px;font-weight:700;
+background:var(--accent);color:var(--accent-text);width:100%;font-family:inherit;text-decoration:none
+}
+.btn.secondary{background:rgba(255,255,255,.12);color:var(--text);border:1px solid var(--border)}
+.btn:active{transform:scale(.99)}
+.btn:disabled,.btn[disabled]{opacity:.45;cursor:default}
+.btn:disabled:active,.btn[disabled]:active{transform:none}
+.btn.small{padding:9px 12px;font-size:14px;width:auto}
+.share{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.share .btn{flex:1;min-width:120px}
+.share-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:16px}
+.cal-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:12px 0 22px}
+.share-label{font-weight:700;font-size:14px;color:var(--text)}
+.share-row .share-label{flex-basis:100%;font-weight:800;margin-bottom:2px}
+.ico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;
+border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;transition:.15s}
+.ico svg{width:20px;height:20px;fill:currentColor}
+.ico:hover{transform:translateY(-2px)}
+.ico.wa{background:#25d366;color:#fff;border-color:transparent}
+.ico.fb{background:#1877f2;color:#fff;border-color:transparent}
+.ico.x{background:#000;color:#fff;border-color:transparent}
+.ico.tg{background:#229ed9;color:#fff;border-color:transparent}
+.ico.sms{background:#34c759;color:#fff;border-color:transparent}
+.ico.em{background:#5b6472;color:#fff;border-color:transparent}
+.linkbox{display:flex;gap:8px;margin-top:8px}
+.linkbox input{font-size:13px}
+.notice{font-size:12px;color:var(--muted);border-left:3px solid var(--accent);padding:8px 12px;margin-top:14px;background:rgba(0,0,0,.18);border-radius:0 10px 10px 0}
+.notice-warn{margin-top:0;border-left-color:#f87171;background:rgba(248,113,113,.14);font-size:13px;color:var(--text)}
+.steps{margin:0 0 18px;padding:0;list-style:none;display:grid;gap:6px;font-size:14px;color:var(--muted)}
+.steps strong{color:var(--text)}
+.menu-sep{border-top:1px solid var(--border);margin-top:6px;padding-top:6px}
+.menu-units{border-top:1px solid var(--border);margin-top:6px;padding:6px 10px 2px;
+display:flex;align-items:center;justify-content:space-between;gap:10px}
+.menu-ulab{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px;white-space:nowrap}
+.menu-useg{display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden}
+.menu-ubtn{appearance:none;background:none;border:0;color:var(--muted);cursor:pointer;
+padding:4px 10px;font:inherit;font-size:12.5px;line-height:1.6}
+.menu-ubtn+.menu-ubtn{border-left:1px solid var(--border)}
+.menu-ubtn:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.menu-ubtn[aria-pressed="true"]{background:rgba(252,211,77,.16);color:var(--accent)}
+.menu-pj{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;
+padding:9px 12px;font:inherit;font-size:14px;color:var(--menu-text);cursor:pointer;
+text-align:left;border-radius:8px}
+.menu-pj:hover{background:rgba(255,255,255,.1)}
+.menu-pj[aria-pressed="true"]{color:var(--accent)}
+.menu-pj[aria-pressed="true"] span::after{content:" · on";opacity:.8}
+@media print{
+:root{--bg:#fff;--bg-solid:#fff;--text:#111;--muted:#444;--card:#fff;--border:#bbb;--accent:#111;--accent-text:#fff}
+body{background:#fff;color:#111}
+.topnav,.brand-dd,.menu-dd,.skip-link,.site-notice,.suggest-box,.cr-ask,.lp-actions,
+.privacy-notice,.footer.sitelinks,.report-link,button{display:none !important}
+.card{border:1px solid #bbb;box-shadow:none;break-inside:avoid}
+a{color:#111;text-decoration:underline}
+.lp-blank,.lp-blank-wide{border-color:#111}
+.lp-blank-wide{background:repeating-linear-gradient(to bottom,transparent,transparent 1.5em,#777 1.55em)}
+}
+.celebrate-list li{margin:7px 0}
+.faq-card summary{cursor:pointer;font-weight:700;padding:12px 0;list-style:none;position:relative;padding-right:26px}
+.faq-card summary::-webkit-details-marker{display:none}
+.faq-card summary::after{content:"+";position:absolute;right:4px;top:9px;font-size:22px;line-height:1;color:var(--muted)}
+.faq-card details[open] summary::after{content:"\2013"}
+.faq-card details{border-top:1px solid var(--border)}
+.faq-card details:first-of-type{border-top:0}
+.faq-card .faq-a{padding:0 0 12px;margin:0;color:var(--muted)}
+.tool-msg{color:var(--accent);font-weight:700;min-height:20px;margin:4px 0 0}
+.tool-msg-warn{color:#fca5a5;font-weight:600}
+.tool-msg-warn a,.set-err a{color:inherit;text-decoration:underline}
+.set-err{margin:12px 0 0;color:#fca5a5;font-size:14px;font-weight:600;line-height:1.5;text-align:center}
+.t-fs-note{position:fixed;left:0;right:0;bottom:0;z-index:2;margin:0;padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom));background:rgba(0,0,0,.55);color:#cbd5e1;font-size:13px;font-weight:500;line-height:1.45;text-align:center}
+.tool-uses{color:var(--muted);margin:-12px 0 22px}
+.tool-about{margin-top:10px}
+.timer-presets{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 0}
+.chip{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--text);text-decoration:none;background:rgba(0,0,0,.18);cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--accent)}
+.chip.chip-alt{border-color:var(--accent);color:var(--accent)}
+.chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.wc-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
+.wc-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:560px){.wc-grid{grid-template-columns:1fr 1fr}}
+.wc-card{display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:14px;padding:11px 14px;background:var(--card);min-width:0;position:relative}
+.wc-toolbar .btn{width:auto}
+.wc-icon{font-size:17px;flex:0 0 auto}
+.wc-info{flex:1 1 auto;min-width:0}
+.wc-city{font-weight:700;font-size:15px}
+.wc-tzname{display:block;font-weight:500;font-size:12px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wc-meta{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wc-time{font-variant-numeric:tabular-nums;font-weight:700;font-size:19px;white-space:nowrap;flex:0 0 auto}
+.wc-card.wc-night{background:rgba(40,55,82,.32)}
+.wc-card.wc-you{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.wc-sun{font-size:11px;color:var(--muted);margin-top:1px;font-variant-numeric:tabular-nums}
+.wc-sun-i{font-size:15px;font-weight:700;line-height:1}
+.wc-city a{color:inherit;text-decoration:none}
+.wc-city a:hover{text-decoration:underline}
+.wc-nowcard{text-align:center}
+.wc-bigtime{font-size:clamp(40px,13vw,72px);font-weight:800;font-variant-numeric:tabular-nums;line-height:1.05;letter-spacing:-.01em}
+.wc-bigdate{font-size:15px;color:var(--muted);margin-top:4px}
+.wc-diff{font-size:14px;margin:12px 0 10px}
+.wc-nowcard .btn{width:auto}
+.wc-facts{display:grid;grid-template-columns:1fr;gap:2px;max-width:760px}
+.wc-frow{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--border)}
+.wc-frow:last-child{border-bottom:0}
+.wc-frow span{color:var(--muted);font-size:14px}
+.wc-frow b{font-variant-numeric:tabular-nums;text-align:right}
+.lp-steps .wc-frow{align-items:baseline}
+.lp-steps .wc-frow>span{flex:0 0 118px}
+.lp-steps .wc-frow b{text-align:left;font-weight:400}
+.lp-steps .wc-frow b strong{font-weight:700}
+.lp-you{display:block;margin-top:6px;padding-top:6px;border-top:1px dashed var(--border);color:var(--muted);font-size:13.5px}
+.lp-you em{color:var(--accent);font-style:normal;font-weight:700}
+.lp-h3{margin:14px 0 6px;font-size:15px}
+.lp-key summary{cursor:pointer;font-weight:700;color:var(--accent);margin:8px 0}
+.lp-actions{margin-top:14px}
+.lp-blank{display:inline-block;min-width:180px;border-bottom:1px solid var(--muted);height:1em;vertical-align:bottom}
+.lp-blank-wide{display:block;min-width:0;margin:10px 0 14px;height:3.2em;border-bottom:none;
+background:repeating-linear-gradient(to bottom,transparent,transparent 1.5em,var(--muted) 1.55em)}
+.lp-exit li{margin-bottom:10px}
+.wc-ptable{width:100%;border-collapse:collapse;font-size:14px}
+.wc-ptable th,.wc-ptable td{text-align:left;padding:7px 10px 7px 0;border-bottom:1px solid var(--border)}
+.wc-ptable th{color:var(--muted);font-weight:600}
+.wc-ptable td:nth-child(2){font-variant-numeric:tabular-nums;white-space:nowrap}
+.wc-search{position:relative;margin:0 0 14px}
+.wc-search-lab{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.wc-search-row{display:flex;gap:8px}
+.wc-search-row input{flex:1;min-width:0;padding:10px 13px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:16px}
+.wc-search-row input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.wc-search-row .btn{width:auto;flex:0 0 auto}
+.wc-results{position:absolute;left:0;right:0;top:100%;z-index:30;margin:4px 0 0;padding:4px;list-style:none;
+background:var(--menu-bg);border:1px solid var(--border);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.45);max-height:320px;overflow:auto}
+.wc-results li{margin:0}
+.wc-results a{display:flex;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:8px;color:var(--menu-text);text-decoration:none;font-weight:600}
+.wc-results a:hover,.wc-results a.active{background:rgba(255,255,255,.12)}
+.wc-res-area{color:var(--muted);font-weight:500}
+.wc-res-empty{padding:9px 11px;color:var(--muted);font-size:14px}
+.wc-stretch{color:inherit;text-decoration:none}
+.wc-stretch::after{content:"";position:absolute;inset:0;z-index:0}
+.wc-card:hover{border-color:rgba(255,255,255,.34)}
+.wc-card:focus-within{border-color:var(--accent)}
+.wc-astro{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+.wc-astro a{font-size:11px;font-weight:600;line-height:1;padding:4px 8px;border-radius:999px;
+border:1px solid var(--border);color:var(--muted);text-decoration:none;background:rgba(0,0,0,.18)}
+.wc-astro a:hover{color:var(--text);border-color:var(--accent)}
+.ac-dialog{border:1px solid var(--border);border-radius:16px;background:var(--menu-bg,#15151b);color:var(--text);padding:0;max-width:380px;width:92%;max-height:92vh;max-height:92dvh;overflow-y:auto}
+.ac-dialog::backdrop{background:rgba(0,0,0,.55)}
+#mt-dlg{margin-top:14px;margin-bottom:auto}
+.ac-form{padding:18px}
+@media (max-height:560px){
+.ac-form{padding:12px 14px}
+.ac-form h2{margin:0 0 6px}
+.ac-form label{margin:8px 0 3px}
+.ac-form input,.ac-form select,.ac-form textarea{padding:7px 10px;font-size:15px}
+.ac-vol-hint{margin:8px 0 2px}
+.ac-form-btns{margin-top:8px}
+}
+.ac-form h2{margin:0 0 14px}
+.ac-form label{display:block;font-size:14px;font-weight:600;margin:0 0 12px}
+.ac-form input[type=time],.ac-form input[type=text],.ac-form input[type=number],.ac-form select{width:100%;margin-top:5px;padding:9px 10px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:15px}
+.ac-form input[readonly]{color:var(--muted);cursor:default}
+.ac-f-days{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.ac-f-days label{margin:0}
+.ac-f-days input{position:absolute;opacity:0;pointer-events:none}
+.ac-f-days span{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border);border-radius:9px;cursor:pointer;font-size:13px;font-weight:600}
+.ac-f-days input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
+.ac-f-mw{display:flex;gap:8px}
+.ac-form-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
+.ac-btns-3 .btn{flex:1 1 0;min-width:0;white-space:nowrap;padding:11px 8px}
+.ac-vol-hint{font-size:12px;color:var(--muted);line-height:1.5;margin:14px 0 4px}
+.ac-label-hint{font-size:12px;color:var(--muted);line-height:1.5;margin:-8px 0 4px}
+.views{text-align:center;color:var(--muted);font-size:13px;margin:10px 0;min-height:19px}
+.cta{text-align:center;margin:26px 0 10px}
+.more{margin:18px auto 4px;max-width:520px;text-align:center}
+.more-label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
+.more-links{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.more-links a{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:7px 14px;
+font-size:13px;font-weight:600;color:var(--text);text-decoration:none;background:rgba(0,0,0,.18)}
+.card .works-links{justify-content:flex-start;margin-top:4px}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+.footer a{color:var(--muted)}
+.footer.copyright{margin-top:6px}
+.footer.sitelinks,.footer.trademark{margin-top:6px}
+.suggest-box{max-width:560px;margin:40px auto 0;border:1px solid var(--border);border-radius:16px;background:var(--card);overflow:hidden}
+.suggest-box>summary{list-style:none;cursor:pointer;padding:14px 18px;font-size:14px;font-weight:600;color:var(--text);text-align:center;line-height:1.5}
+.suggest-box>summary::-webkit-details-marker{display:none}
+.suggest-box>summary:hover{background:rgba(255,255,255,.05)}
+.suggest-box .arrow{color:var(--accent);white-space:nowrap}
+.suggest-form{padding:0 18px 18px;text-align:left}
+.suggest-form .btn{margin-top:16px}
+.suggest-form .hp{position:absolute!important;left:-9999px;width:1px;height:1px}
+.suggest-note{margin-top:10px;min-height:14px}
+.privacy-notice{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;flex-wrap:wrap;
+align-items:center;justify-content:center;gap:6px 12px;padding:8px 36px 8px 12px;
+background:#11141f;border-top:1px solid var(--border);font-size:12px}
+.privacy-notice[hidden]{display:none}
+.privacy-text{flex:0 1 auto;margin:0;line-height:1.4;color:var(--muted)}
+.privacy-actions{flex:0 0 auto;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.privacy-actions a{color:var(--accent);font-size:12px}
+.privacy-actions button{font:inherit;font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px;
+border:1px solid var(--border);background:var(--accent);color:#111;cursor:pointer}
+.privacy-actions button.plain{background:transparent;color:var(--text)}
+.privacy-close{position:absolute;right:2px;top:50%;transform:translateY(-50%);background:none;border:0;
+color:var(--muted);font-size:17px;line-height:1;cursor:pointer;padding:8px 10px}
+.privacy-close:hover{color:var(--text)}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.card ul.bullets{margin:8px 0 0;padding:0 0 0 20px;list-style:disc}
+.card ul.bullets li{margin:0 0 7px;padding:0}
+.card ul.bullets li::marker{color:var(--muted)}
+.lt-line{font-size:14px;color:var(--muted);margin:6px 0 12px}
+.lt-line .lt-now{color:var(--text);font-variant-numeric:tabular-nums}
+.home-search{position:relative;max-width:640px;margin:6px 0 26px;padding:14px 16px 16px;background:var(--card);border:1.5px solid var(--accent);border-radius:14px;box-shadow:0 0 0 4px rgba(252,211,77,.08)}
+.hs-label{display:block;font-weight:800;font-size:15px;margin:0 0 9px}
+.hs-row{display:flex;gap:8px}
+.hs-row input{flex:1;min-width:0}
+.hs-btn{flex:0 0 auto;width:auto;font-weight:700}
+.pullquote{margin:14px 0;padding:12px 16px;border-left:3px solid var(--accent);
+background:rgba(252,211,77,.07);border-radius:0 12px 12px 0;font-size:15.5px;line-height:1.55;font-weight:600}
+.byline{margin:16px 0 0;font-size:15px;font-weight:700;color:var(--muted)}
+.home-suggest{margin:0 0 12px;font-size:14px;color:var(--muted)}
+.home-suggest:last-child{margin-bottom:22px}
+.tc-ico{vertical-align:-4px}
+.nav-ico{vertical-align:-4px;margin-right:2px;color:var(--accent)}
+h1,h2,.tc-head,.hs-label{font-family:ui-rounded,"SF Pro Rounded","Hiragino Maru Gothic ProN",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{letter-spacing:-.015em}
+.tc{transition:border-color .15s ease,transform .15s ease}
+.tc[data-href]:hover,a.tc:hover{border-color:rgba(252,211,77,.45);transform:translateY(-1px)}
+.updated{font-size:12px;color:var(--muted);text-align:center;margin:14px 0 0;font-style:italic}
+.nav-dd .menu .nav-ico{color:var(--accent)}
+.trend-sub{font-size:13px;color:var(--muted);margin:-4px 0 10px}
+.cr-door{transition:border-color .15s ease,transform .15s ease}
+.cr-door:hover{border-color:rgba(252,211,77,.45);transform:translateY(-1px)}
+.cr-door h2{margin-top:0}
+.cr-door h2 a{text-decoration:none}
+.cr-door h2 a:hover{text-decoration:underline}
+.cr-door-min{background:transparent}
+.cr-door-min h2{font-size:19px}
+.cr-more{font-weight:600;white-space:nowrap}
+.cr-cta{display:inline-block;width:auto;padding:11px 24px}
+.cr-ctarow{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:18px}
+.cr-plaque{margin:16px 0;padding:12px 14px;border-left:3px solid var(--accent);
+background:rgba(252,211,77,.07);border-radius:0 8px 8px 0;font-size:15px}
+.cr-lead{border-color:rgba(252,211,77,.4)}
+.cr-fs{margin:16px 0 0;padding:12px 14px;border:1px solid var(--border);border-radius:10px}
+.cr-fs legend{padding:0 6px;font-weight:600;font-size:14px}
+.cr-fs .cr-check{margin-top:6px}
+.cr-check span{font-weight:400}
+.cr-ok{color:#4ade80;font-weight:600}
+.cr-err{color:#fca5a5;font-weight:600}
+.cr-safety{margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
+.lg-fgroups{display:flex;flex-direction:column;gap:10px}
+.lg-fgroup{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.lg-flab{flex:0 0 52px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.lg-fgroup .chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+box-shadow:0 0 0 1px var(--accent) inset}
+.lg-count{min-height:18px;margin:10px 0 0}
+.cr-ask h3{margin:20px 0 4px;font-size:16px}
+.cr-ask h3+p{margin-top:0}
+.cr-ask form{margin-top:18px}
+.cr-ask label{display:block;margin-top:14px;font-weight:600;font-size:14px}
+.cr-opt{font-weight:400;color:var(--muted)}
+.cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
+.cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
+.cr-ask .btn{width:auto;padding:11px 24px}
+.sun-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.sun-tile{border:1px solid var(--border);border-radius:12px;padding:12px 10px;text-align:center;background:rgba(255,255,255,.03)}
+.sun-tile .sun-lab{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
+.sun-tile b{font-size:20px;font-variant-numeric:tabular-nums}
+.sun-main{border-color:rgba(252,211,77,.5)}
+.sun-main b{color:var(--accent)}
+.sun-table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.sun-table th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sun-table th,.sun-table td{padding:7px 10px;border-bottom:1px solid var(--border)}
+.sun-dial-card{display:flex;flex-direction:column;align-items:center}
+.sun-dial-card svg{width:100%;max-width:380px;height:auto}
+.sun-world summary{cursor:pointer;list-style:none}
+.sun-world summary h2{display:inline;margin:0}
+.sun-world summary::after{content:" ▾";color:var(--muted)}
+.sun-world[open] summary::after{content:" ▴"}
+.sun-world .timer-presets{margin-top:12px}
+.sun-ok{color:#4ade80;font-weight:700}
+.sun-mini{padding:3px 9px;font-size:12px;margin-left:8px}
+.sun-myhead{display:flex;align-items:center;justify-content:space-between;margin:14px 0 6px;font-weight:800;font-size:14px}
+.sun-myhead .chip{width:auto}
+.sun-myitem{display:flex;align-items:center;gap:10px;padding:7px 10px;border:1px solid var(--border);border-radius:10px;margin-bottom:5px}
+.sun-myitem a{font-weight:700;color:var(--text);text-decoration:none;flex:1;min-width:0}
+.sun-def{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.sun-def input{width:auto;margin:0;accent-color:var(--accent);cursor:pointer}
+#sun-results li{display:flex;align-items:center}
+#sun-results a{flex:1}
+#sun-year{width:100%;max-width:660px;height:auto;display:block}
+.sun-tmwday{margin:-4px 0 12px;color:var(--muted);font-size:14px}
+.sun-tmwcard .sun-grid{margin-bottom:4px}
+.sun-wd{color:var(--muted);font-weight:400;font-size:12.5px;white-space:nowrap}
+.sun-table tr.sun-tmw-row td{background:rgba(252,211,77,.05)}
+.xl-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:4px}
+.xl-tile{display:flex;flex-direction:column;gap:2px;padding:12px 13px;border:1px solid var(--border);
+border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
+.xl-tile:hover{border-color:var(--accent)}
+.xl-lab{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.xl-val{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.25}
+.xl-sub{font-size:13px;color:var(--muted)}
+.xl-cta{margin-top:6px;font-size:12.5px;font-weight:700;color:var(--accent)}
+.sun-year-wrap{position:relative;display:block;width:100%;max-width:660px;border-radius:12px}
+.sun-year-wrap:focus{outline:2px solid var(--accent);outline-offset:3px}
+.sun-year-wrap:focus:not(:focus-visible){outline:none}
+.sun-yt{position:absolute;top:8px;transform:translateX(10px);z-index:2;pointer-events:none;
+display:flex;flex-direction:column;gap:1px;padding:8px 11px;min-width:132px;
+background:var(--menu-bg);border:1px solid var(--border);border-radius:10px;
+box-shadow:0 10px 26px rgba(0,0,0,.5);font-size:12px;line-height:1.35;font-variant-numeric:tabular-nums}
+.sun-yt.is-left{transform:translateX(calc(-100% - 10px))}
+.sun-yt b{font-size:13px}
+.sun-yt span{display:flex;gap:8px;justify-content:space-between;white-space:nowrap;color:var(--text)}
+.sun-yt i{font-style:normal;color:var(--muted)}
+@media (max-width:560px){
+.sun-yt{left:0!important;right:0;transform:none!important;top:0;width:100%;min-width:0;
+flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:1px 10px;padding:6px 8px;font-size:11px}
+.sun-yt span{gap:5px}
+}
+.sun-yt em{font-style:normal;color:var(--muted)}
+.sun-dial-card{flex-direction:row;flex-wrap:wrap;gap:20px;justify-content:center;align-items:center}
+.sun-dial-wrap{flex:0 1 300px;max-width:300px;text-align:center}
+.sun-dial-wrap svg{width:100%;height:auto}
+.sun-side{flex:1 1 230px;min-width:220px;display:flex;flex-direction:column;gap:6px}
+.sun-srow{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border);border-radius:10px;padding:6px 11px;font-size:13px}
+.sun-srow span{color:var(--muted);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.sun-srow b{font-size:16px;font-variant-numeric:tabular-nums}
+.sun-srow.sun-main{border-color:rgba(252,211,77,.5)}
+.sun-srow.sun-main b{color:var(--accent)}
+.ml-place{margin:-4px 0 16px;text-align:center}
+body:has(#sun-arc) h1{font-size:21px}
+@media (min-width:560px){body:has(#sun-arc) h1{font-size:27px}}
+.sun-arccard h2{margin-bottom:6px}
+h2:has(> .sun-hdate){display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sun-hdate{width:auto;margin:0 0 0 auto;padding:3px 7px;font-size:13px;font-weight:400;color:var(--muted);vertical-align:middle}
+.sun-hdate:hover{color:var(--text);border-color:var(--accent)}
+.sun-arcbar{margin:0;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sun-arcbar #sun-arc-len{color:var(--accent);font-size:15px}
+.sun-arctimes{margin:1px 0 10px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sun-arctimes b{color:var(--text);font-size:15px}
+.sun-arcsep{opacity:.5;padding:0 2px}
+.sun-arccard .sun-next{display:block;margin:1px 0 0;padding:0;border:0;background:none;border-radius:0;font-size:14px;font-weight:400;color:var(--text)}
+.sun-dial-card h2{flex:1 0 100%;margin:0 0 6px;align-self:flex-start}
+#sun-arc{width:100%;height:auto;display:block}
+#sun-arc .sun-aS{display:none}
+@media (max-width:560px){
+#sun-arc text{font-size:19px}
+#sun-arc .sun-pk{font-size:17px}
+#sun-arc .sun-ax{font-size:16px}
+#sun-arc .sun-aL{display:none}
+#sun-arc .sun-aS{display:inline}
+}
+.sun-nowstats{display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px}
+@media (min-width:560px){.sun-nowstats{grid-template-columns:1fr 1fr}}
+.sun-nowgrid{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:center;margin-top:16px}
+.sun-nowgrid .orr{flex:0 1 440px;max-width:440px;margin-top:0}
+.sun-nowgrid .sun-nowstats{flex:1 1 230px;min-width:220px;grid-template-columns:1fr;margin-top:0}
+.sun-gb{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+.sun-gbcol{display:flex;flex-direction:column;gap:6px}
+.sun-gb .sun-srow b{font-size:13.5px}
+@media (max-width:560px){.sun-gb .sun-srow{flex-direction:column;align-items:flex-start;gap:1px}}
+.sun-gbh{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sun-tmwlink{text-align:center;margin:12px 0 0;font-size:13px}
+.sun-tmwlink a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border)}
+.sun-tmwlink a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.sun-tmwlink b{color:var(--text);font-variant-numeric:tabular-nums}
+.sun-nowmoon{margin:10px 0 0;padding-top:10px;border-top:1px solid var(--border);font-size:13.5px;color:var(--muted);line-height:1.5}
+.sun-nowmoon b{color:var(--text);font-variant-numeric:tabular-nums}
+.sun-nowmoon:empty{display:none}
+.sun-moon{display:flex;align-items:center;gap:10px;margin:10px 0 0;padding-top:10px;border-top:1px solid var(--border)}
+.sun-moon-ico{flex:0 0 auto;line-height:0}
+.sun-moon-txt{font-size:13px;color:var(--muted)}
+.sun-moon-txt b{color:var(--text)}
+@media (max-width:380px){.sun-gb{grid-template-columns:1fr}}
+.sun-facts{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.sun-facts li{font-size:14px;line-height:1.5}
+.sun-next{display:inline-block;margin:2px 0 10px;padding:6px 14px;border-radius:999px;background:rgba(252,211,77,.12);border:1px solid rgba(252,211,77,.35);color:var(--text);font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+@media (max-width:600px){
+.sun-dial-card{gap:10px}
+.sun-dial-wrap{flex-basis:230px;max-width:230px}
+}
+.sun-minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.sun-mini-card{border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center;background:rgba(255,255,255,.02)}
+.sun-mini-card svg{width:100%;max-width:120px;height:auto}
+.sun-mini-name{display:block;font-weight:700;color:var(--text);text-decoration:none;font-size:13px;margin-top:6px}
+.sun-mini-name:hover{color:var(--accent)}
+.sun-mini-times{font-size:12px;color:var(--text);margin-top:2px;font-variant-numeric:tabular-nums}
+.sun-mini-link{display:block;text-decoration:none}
+.sun-mini-link:hover .sun-mini-name{color:var(--accent)}
+.sun-mini-link .sun-mini-name{display:block;font-weight:700;color:var(--text);font-size:13px;margin-top:6px}
+.sun-home-note{font-size:13px;line-height:1.5;color:var(--muted);margin:-2px 0 12px}
+#home-sun-grid{grid-template-columns:repeat(6,1fr);gap:8px}
+@container (max-width:800px){#home-sun-grid{grid-template-columns:repeat(3,1fr)}}
+@container (max-width:430px){#home-sun-grid{grid-template-columns:repeat(2,1fr)}}
+#home-sun-grid .sun-mini-card{padding:6px}
+#home-sun-grid .sun-mini-card svg{max-width:72px}
+#home-sun-grid .sun-mini-name,#home-sun-grid .sun-mini-link .sun-mini-name{font-size:11px;margin-top:4px}
+#home-sun-grid .sun-mini-times{font-size:10.5px;margin-top:1px}
+.td-none{padding:4px 2px;color:var(--muted);font-size:13px;margin:0}
+.orr{margin:16px 0 0}
+.orr-fig{max-width:440px;margin:0 auto;line-height:0}
+.orr-fig svg{display:block;width:100%;height:auto}
+.orr-spin .orr-cityname,.orr-spin .orr-citytick{display:none}
+.orr-note{margin-top:12px;font-variant-numeric:tabular-nums}
+.orr-stamp{max-width:440px;margin:8px auto 0;display:flex;align-items:center;justify-content:center;
+flex-wrap:wrap;gap:6px 8px;font-size:12px;color:var(--muted)}
+.orr-at{flex:0 1 auto;min-width:0;width:auto;margin:0;padding:3px 6px;font-size:11.5px;
+font-variant-numeric:tabular-nums;color:var(--text);background:rgba(0,0,0,.18);
+border:1px solid var(--border);border-radius:8px}
+.orr-at:hover:enabled{border-color:var(--accent)}
+.orr-at:disabled{opacity:.75}
+.orr-now{flex:0 0 auto;padding:3px 10px;font-size:11.5px}
+.orr-play{min-width:6ch;justify-content:center}
+.orr-play[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.orr-tide{margin-top:10px}
+.orr-scrub{max-width:440px;margin:8px auto 0;text-align:center}
+.orr-slider{display:block;width:100%;margin:0;padding:0;accent-color:var(--accent);cursor:pointer}
+.orr-slider:disabled{opacity:.5;cursor:default}
+.orr-scrub-lab{display:block;margin-top:3px;font-size:11px;color:var(--muted)}
+.ov-stage{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:1000px){.ov-stage{grid-template-columns:minmax(0,1fr) minmax(300px,380px);align-items:start}}
+.ov-figwrap{min-width:0}
+.ov-fig{display:block;width:100%;max-width:min(100%,68vh);margin:0 auto;height:auto;border-radius:16px}
+.ov-panel{min-width:0}
+.ov-status{margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em}
+.ov-status.is-good{color:#4ade80}
+.ov-status.is-warn{color:#fbbf24}
+.ov-status.is-bad{color:#f87171}
+.ov-shape{margin:4px 0 14px;font-size:13px;line-height:1.5;color:var(--muted);min-height:2.6em}
+.ov-ctl{display:grid;gap:2px}
+.ov-ctl .sim-flab{margin:10px 0 2px}
+.ov-ctl .sim-flab:first-child{margin-top:0}
+.ov-row{display:flex;align-items:center;gap:10px;margin:0}
+.ov-row input[type=range]{flex:1 1 auto;min-width:70px;margin:0}
+.ov-row output{flex:0 0 auto;min-width:8.5ch;text-align:right;font-size:13px;font-weight:700;
+font-variant-numeric:tabular-nums;color:var(--text)}
+.ov-sub{margin:2px 0 0;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.ov-btns{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.ov-btns .chip{width:auto}
+#ov-play{min-width:7ch;justify-content:center}
+.ov-facts{display:grid;gap:6px;margin:14px 0 0}
+.ov-jump{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:14px 0 0;font-size:12.5px;color:var(--muted)}
+.ov-preset{width:auto;font-size:12.5px;padding:5px 11px}
+.ov-key{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;margin:8px 0 0;font-size:12px}
+.ov-k{display:inline-flex;align-items:center;gap:6px;color:var(--muted)}
+.ov-k::before{content:"";width:14px;height:3px;border-radius:2px;flex:0 0 auto}
+.ov-k-v::before{background:#4ade80}
+.ov-k-g::before{background:#fbbf24}
+.ov-ink-v{color:#4ade80}
+.ov-ink-g{color:#fbbf24}
+.ov-tablewrap{overflow-x:auto;margin-top:10px}
+.ov-table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+.ov-table th{text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+color:var(--muted);padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
+.ov-table th:first-child{text-align:left}
+.ov-table td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.06);text-align:right;white-space:nowrap}
+.ov-table td:first-child{text-align:left;font-weight:700}
+.ov-table .ov-hi{background:rgba(252,211,77,.09)}
+.ov-table .ov-hi td:first-child{color:var(--accent)}
+.ov-pull{margin:14px 0 0;padding:12px 16px;border-left:3px solid var(--accent);
+background:rgba(252,211,77,.07);border-radius:0 12px 12px 0;font-size:15.5px;line-height:1.55;font-weight:600}
+.ov-eq{margin:12px 0;text-align:center;font-size:22px;font-weight:700;color:var(--accent);
+font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.sys-vlad{margin:14px 0}
+.sys-vlad-lead{margin:0 0 8px;font-size:14px;font-weight:800;color:var(--text);
+letter-spacing:.01em;line-height:1.4}
+.sys-vlad-row{display:grid;grid-template-columns:1fr;gap:8px}
+@media (min-width:760px){.sys-vlad-row{grid-template-columns:1fr 1fr 1fr}}
+.sys-vlad-tile{position:relative;display:flex;flex-direction:column;gap:3px;min-width:0;
+padding:10px 12px;border:1px solid var(--border);border-radius:12px;
+background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
+a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
+.sys-vlad-k{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+.sys-vlad-tile b{font-size:14.5px;line-height:1.3}
+.sys-vlad-what{font-size:12px;color:var(--muted);line-height:1.45}
+.sys-vlad-tile.is-here{border-color:rgba(252,211,77,.55);background:rgba(252,211,77,.07)}
+.sys-vlad-here{position:absolute;top:8px;right:10px;font-size:10px;font-weight:700;
+text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+@media (max-width:759px){
+.sys-vlad-row{gap:6px}
+.sys-vlad-tile{flex-direction:row;align-items:center;flex-wrap:nowrap;gap:9px;padding:8px 11px}
+.sys-vlad-what,.sys-vlad-k{display:none}
+.sys-vlad-n{display:flex}
+.sys-vlad-tile b{font-size:13.5px;line-height:1.25;min-width:0}
+.sys-vlad-here{position:static;margin-left:auto;flex:0 0 auto}
+}
+@media (min-width:760px){.sys-vlad-note{display:none}}
+.sys-vlad-n{display:none;flex:0 0 auto;width:20px;height:20px;border-radius:50%;
+align-items:center;justify-content:center;font-size:11px;font-weight:800;
+background:rgba(252,211,77,.16);color:var(--accent)}
+.sim-title{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px}
+.sim-geo{font-size:13px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums;
+text-decoration:none;border-bottom:1px dotted currentColor}
+.sim-geo:hover,.sim-geo:focus-visible{color:var(--accent)}
+.sim-stage{margin-top:14px}
+.sim-figwrap{max-width:640px;margin:0 auto}
+.sim-fig{max-width:none;margin:0}
+.sim-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;
+max-width:640px;margin:10px auto 0}
+.sim-bar{display:flex;align-items:center;gap:12px;min-width:0}
+.sim-row .sim-ctl{margin:0 0 0 auto;max-width:none}
+.sim-when{margin:0;text-align:center;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.sim-ctl{display:flex;flex-wrap:nowrap;gap:8px;align-items:center;justify-content:center;
+margin:10px auto 0;max-width:640px}
+.sim-icobtn{display:inline-flex;align-items:center;gap:6px}
+@media (max-width:599px){
+.sim-icobtn span{display:none}
+.sim-ctl{gap:6px}
+.sim-ctl .chip{padding-left:9px;padding-right:9px}
+.sim-row{gap:6px 10px}
+.sim-row .sim-when{font-size:13.5px}
+}
+@media (max-width:399px){
+.sim-ctl{gap:5px}
+.sim-ctl .chip{padding-left:7px;padding-right:7px}
+.sim-row{gap:6px 8px}
+}
+#sim-play{min-width:8ch;justify-content:center}
+@media (min-width:600px){#sim-play{min-width:10ch}}
+@media (max-height:540px){
+.sim-stage:fullscreen .sim-icobtn span{display:none}
+.sim-stage:fullscreen .sim-ctl{gap:6px}
+.sim-stage:fullscreen .sim-ctl .chip{padding-left:9px;padding-right:9px}
+}
+.sim-icobtn svg{flex:0 0 auto}
+.sim-span{width:auto;margin:0;padding:3px 6px;font-size:11.5px}
+.sim-scrub{max-width:640px;margin-left:auto;margin-right:auto}
+.sim-q{width:100%;margin:0;padding:7px 10px;font-size:13px}
+.sim-dlg form{padding:16px}
+.sim-dlg h3{margin:0 0 12px;font-size:16px}
+.sim-flab{display:block;margin:12px 0 4px;font-size:11px;font-weight:700;
+text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sim-flab:first-of-type{margin-top:0}
+.sim-dlg .orr-at,.sim-dlg .sim-span{width:100%;margin:0;padding:7px 9px;font-size:13px}
+.sim-check{display:flex;align-items:center;gap:8px;margin:12px 0 0;font-size:13px;color:var(--muted)}
+.sim-check input{width:auto;margin:0;flex:none;accent-color:var(--accent)}
+.sim-pickrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 0;font-size:13px;color:var(--muted)}
+.sim-pickrow b{color:var(--text)}
+.sim-dlgbtns{display:flex;justify-content:flex-end;gap:8px;margin:18px 0 0;padding:0}
+.sim-dlg .hs-results{position:static;margin-top:4px}
+.sim-qhint{margin:5px 0 0;font-size:11.5px;color:var(--muted)}
+.sim-fields{display:grid;grid-template-columns:1fr}
+.sim-field .sim-flab{margin-top:12px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-fields{grid-template-columns:1fr 1fr;gap:0 12px}
+.sim-stage:fullscreen~.sim-dlg[open] form{padding:12px 16px}
+.sim-stage:fullscreen~.sim-dlg[open] h3{margin-bottom:8px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-flab{margin-top:9px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-qhint{margin-top:4px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-check{margin-top:9px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-dlgbtns{margin-top:12px}
+.sim-noresult{padding:9px 11px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.sim-stage:fullscreen{display:flex;align-items:center;justify-content:center;
+background:var(--bg,#0b0b10);margin:0}
+.sim-stage:fullscreen .sim-inner{display:flex;flex-direction:column;justify-content:center;
+gap:6px;width:100%;height:100%;padding:10px 16px;box-sizing:border-box}
+.sim-stage:fullscreen .sim-figwrap,.sim-stage:fullscreen .sim-row,.sim-stage:fullscreen .sim-scrub{
+max-width:none;width:100%;margin-left:0;margin-right:0}
+.sim-stage:fullscreen .sim-figwrap{min-height:0;flex:1 1 auto;display:flex;flex-direction:column}
+.sim-stage:fullscreen .sim-fig{min-height:0;flex:1 1 auto}
+.sim-stage:fullscreen .sim-fig svg{width:100%;height:100%}
+.sim-stage:fullscreen .sim-when{margin:0;font-size:clamp(12px,3vh,15px)}
+.sim-stage:fullscreen .sim-row{margin-top:0}
+.sim-fsmoon{display:none}
+.sim-stage:fullscreen .sim-bar{gap:12px;flex-wrap:wrap}
+.sim-stage:fullscreen .sim-fsmoon{display:flex;align-items:center;gap:8px;margin:0}
+.sim-fsglyph{line-height:0;flex:0 0 auto;width:clamp(41px,13.2vh,77px)}
+.sim-fsglyph svg{display:block;width:100%;height:auto}
+.sim-fslab{font-size:clamp(11px,2.6vh,14px);color:var(--muted)}
+.sim-fslab b{color:var(--text)}
+.sim-stage:fullscreen #sim-fsphase{display:inline-block;min-width:15ch}
+.sim-stage:fullscreen #sim-fslit{display:inline-block;min-width:4ch;text-align:right}
+.sim-stage:fullscreen .sim-fslab{font-variant-numeric:tabular-nums;white-space:nowrap}
+.sim-stage:fullscreen .sim-when{min-width:17ch;text-align:left;white-space:nowrap}
+.sim-stage:fullscreen.sim-timed .sim-when{min-width:26ch}
+.sim-stage:fullscreen .sim-ends span{min-width:7ch}
+.sim-stage:fullscreen.sim-timed .sim-ends span{min-width:15ch}
+.sim-stage:fullscreen .sim-ends span:last-child{text-align:right}
+@media (orientation:portrait){
+.sim-stage:fullscreen .sim-inner{flex:0 0 auto;width:100vh;height:100vw;transform:rotate(90deg)}
+.sim-stage:fullscreen ~ .sim-dlg[open]{transform:rotate(90deg);
+width:min(420px,86vh);max-width:none;max-height:96vw}
+}
+.sim-ends{display:flex;justify-content:space-between;margin-top:3px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sim-read{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+@media (min-width:620px){.sim-read{grid-template-columns:150px 1fr;align-items:start}}
+.sim-moonbox{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.sim-moonbox b{font-size:15px}
+@media (max-width:619px){
+.sim-moonbox{display:grid;grid-template-columns:auto auto;gap:2px 14px;
+align-items:center;justify-content:center;justify-items:start;text-align:left}
+.sim-moonbox .sim-glyph{grid-row:1/4}
+.sim-glyph svg{width:68px;height:68px}
+}
+.sim-moonlab{font-size:11px;line-height:1.35}
+.sim-glyph{line-height:0}
+.sim-rows{display:grid;grid-template-columns:1fr;gap:6px;max-width:760px}
+@media (min-width:520px){.sim-rows{grid-template-columns:1fr 1fr}}
+@media (min-width:1080px){
+.sim-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,340px);
+gap:20px;align-items:center}
+.sim-top .sim-figwrap,.sim-top .sim-row,.sim-top .sim-scrub{max-width:none}
+.sim-top .sim-read{grid-template-columns:1fr;gap:10px;margin-top:0}
+.sim-top .sim-rows{grid-template-columns:1fr;max-width:none}
+}
+.sim-jump{margin:14px 0 0;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.sim-links{display:flex;flex-wrap:wrap;gap:8px}
+.sim-urlrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.sim-url{flex:1 1 260px;min-width:0;margin:0;padding:7px 10px;font-size:12.5px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.sim-teach h3{margin:18px 0 4px;font-size:15px}
+.sim-teach h3:first-of-type{margin-top:10px}
+.sim-form{display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0 10px}
+@media (min-width:520px){.sim-form{grid-template-columns:1fr 1fr}}
+@media (min-width:820px){.sim-form{grid-template-columns:2fr 1fr 1fr 1fr}}
+.sim-fld{display:flex;flex-direction:column;gap:3px;min-width:0}
+.sim-fld > span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sim-fld select,.sim-fld input{width:100%;margin:0;padding:7px 9px;font-size:13px}
+.sim-formrow{margin:0 0 12px}
+.sim-sum{margin:8px 0 0;padding:10px 12px;border:1px solid var(--border);border-radius:10px;
+background:rgba(255,255,255,.03);font-size:13px;line-height:1.55;color:var(--muted)}
+.sim-sum b{color:var(--text);font-variant-numeric:tabular-nums}
+.sim-params{margin-top:14px}
+.sim-params summary{cursor:pointer;font-size:13px;color:var(--muted)}
+.sim-params summary:hover{color:var(--accent)}
+.sol-stage:fullscreen{background:var(--bg,#0b0b10);padding:10px 14px;margin:0;
+align-items:stretch;gap:10px 14px;height:100%;box-sizing:border-box}
+.sol-stage:fullscreen .sol-panel{min-height:0;max-height:none;overflow-y:auto;overscroll-behavior:contain}
+.sol-stage:fullscreen .sol-rows{margin-top:8px}
+.sol-stage:fullscreen .sol-note{margin-top:8px}
+.sol-stage:fullscreen .sol-jump{display:none}
+.sol-stage:fullscreen .sol-scrub{max-width:none;width:100%}
+.sol-stage:fullscreen .sol-slider,.sol-stage:fullscreen #sol-slider{height:26px}
+.sol-stage:fullscreen .sim-when{font-size:clamp(14px,2.2vh,19px);margin:0}
+.sol-stage:fullscreen .sol-fig{min-height:0;flex:1 1 auto;display:flex;align-items:center;justify-content:center}
+@media (orientation:landscape){
+.sol-stage:fullscreen{grid-template-columns:minmax(0,1fr) minmax(230px,clamp(230px,24vw,360px));
+grid-template-rows:minmax(0,1fr) auto auto auto}
+.sol-stage:fullscreen .sol-figwrap{display:contents}
+.sol-stage:fullscreen .sol-figbox{grid-column:1;grid-row:1/-1;height:100%;width:auto;
+aspect-ratio:1;max-width:100%;justify-self:center;align-self:center;margin:0;min-height:0;
+display:flex;flex-direction:column}
+.sol-stage:fullscreen .sol-panel{grid-column:2;grid-row:1}
+.sol-stage:fullscreen .sim-when{grid-column:2;grid-row:2;text-align:left}
+.sol-stage:fullscreen .sol-scrub{grid-column:2;grid-row:3}
+.sol-stage:fullscreen .sol-destrow{grid-column:2;grid-row:4}
+.sol-stage:fullscreen .sol-fig svg{width:auto;height:100%;max-width:100%}
+}
+@media (orientation:portrait){
+.sol-stage:fullscreen{grid-template-columns:minmax(0,1fr);grid-template-rows:auto;
+align-content:start;overflow-y:auto}
+.sol-stage:fullscreen .sol-figwrap{display:flex;flex-direction:column;gap:8px;min-height:0}
+.sol-stage:fullscreen .sol-figbox{width:100%;max-width:100%;height:auto;aspect-ratio:auto;
+margin:0;flex:0 0 auto;display:block}
+.sol-stage:fullscreen .sol-fig{display:block;flex:none;min-height:0}
+.sol-stage:fullscreen .sol-fig svg{width:100%;height:auto}
+}
+.sol-stage{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:1080px){.sol-stage{grid-template-columns:minmax(0,1fr) 340px;align-items:start}}
+.sol-figwrap{min-width:0}
+.sol-fig{width:100%;max-width:min(100%,70vh);margin:4px auto 0;line-height:0}
+.sol-fig svg{display:block;width:100%;height:auto;border-radius:16px}
+.sys-figwrap{width:100%;max-width:620px;margin:4px auto 0;line-height:0}
+.sys-fig{display:block;width:100%;height:auto;border-radius:16px}
+.sys-eorbit,.sys-mo,.sys-rev{transform-box:view-box;transform-origin:var(--sys-o);animation-name:sys-spin;animation-timing-function:linear;animation-iteration-count:infinite}
+.sys-rev{animation-direction:reverse}
+@keyframes sys-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.sys-eorbit,.sys-mo,.sys-rev{animation:none}}
+.sys-tiltrow{display:flex;align-items:center;gap:10px;max-width:620px;margin:12px auto 0}
+.sys-tiltrow label{margin:0;flex:0 0 auto;font-size:11px;font-weight:700;
+text-transform:uppercase;letter-spacing:.05em;color:var(--muted);white-space:nowrap}
+.sys-tiltrow input[type=range]{flex:1 1 auto;width:auto;min-width:80px;margin:0;padding:0;
+accent-color:var(--accent);cursor:pointer}
+.sys-tiltrow input[type=range]:disabled{opacity:.5;cursor:default}
+#sys-tilt-v{flex:0 0 auto;min-width:5.5ch;text-align:right;font-size:13px;font-weight:700;
+font-variant-numeric:tabular-nums}
+.sys-tiltrow .chip{flex:0 0 auto;padding:3px 10px;font-size:11.5px}
+.sys-tiltnote{max-width:620px;margin:8px auto 0;line-height:1.5}
+.sol-scrub{max-width:none}
+.sol-panel{min-width:0}
+.sol-sel{max-width:100%}
+.sol-figbox{position:relative;width:100%;max-width:min(100%,70vh);margin:4px auto 0}
+.sol-figbox .sol-fig{max-width:none;margin:0}
+.sol-overlay{position:absolute;right:8px;bottom:8px;z-index:2;
+display:flex;gap:8px;align-items:center;padding:8px 8px 6px;border-radius:14px;
+background:radial-gradient(120% 160% at 80% 100%,rgba(5,10,22,.82) 40%,rgba(5,10,22,0))}
+.sol-overlay .chip{box-shadow:0 2px 10px rgba(0,0,0,.45)}
+[data-sol-planet]{cursor:pointer}
+[data-sol-planet].sol-hoverlit{filter:brightness(1.5)}
+.sol-ptip{position:fixed;z-index:80;pointer-events:none;transform:translate(-50%,-135%);
+padding:5px 10px;font-size:12px;line-height:1.3;white-space:nowrap;
+background:var(--menu-bg);border:1px solid var(--border);border-radius:8px;
+color:var(--text);box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.sol-fields{display:grid;grid-template-columns:1fr;gap:10px 14px;margin:2px 0 4px}
+.sol-field-wide{grid-column:1/-1}
+@media (min-width:520px){
+.sol-fields{grid-template-columns:1fr 1fr}
+}
+.sol-fields{grid-template-columns:1fr 1fr}
+@media (max-width:379px){.sol-fields{grid-template-columns:1fr}}
+.sol-sliders{display:grid;gap:10px;grid-column:1/-1;min-width:0}
+.sol-field{min-width:0}
+.sol-field .sim-flab{margin-top:0}
+.sol-field .orr-at,.sol-field .sim-span{width:100%;margin:0;padding:7px 9px;font-size:13px}
+.sol-rows{margin-top:14px;grid-template-columns:1fr;max-height:min(56vh,470px);
+overflow-y:auto;overscroll-behavior:contain}
+@media (min-width:520px){.sol-rows{grid-template-columns:1fr 1fr}}
+@media (min-width:1080px){.sol-rows{grid-template-columns:1fr}}
+.sol-mission:not(:empty){margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.sol-note{margin:12px 0 0;font-size:12px;line-height:1.45;color:var(--muted)}
+.sol-speedrow{display:flex;flex-direction:column;align-items:stretch;gap:3px;margin:0}
+.sol-speed{width:100%;min-width:80px}
+.sol-speedout{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sol-zoomline{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px 16px}
+@media (max-width:699px){
+.sol-zoomline{display:block}
+.sol-zoomline .sol-toggles{margin-top:8px}
+}
+.sol-toggles{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;
+flex:0 1 auto;font-size:12.5px}
+.sol-togbtn{width:auto;font-size:13px;padding:6px 12px}
+.sol-togbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.sol-togbtn[disabled]{opacity:.38;cursor:not-allowed}
+.sol-togbtn[disabled][aria-pressed="true"]{border-color:var(--border);color:var(--muted);
+background:transparent}
+.sol-off{opacity:.42}
+.sol-off label{cursor:default}
+.sol-torow{margin:8px 0 0}
+.sol-jump{margin-top:16px;font-size:12.5px}
+.sol-facts{margin:8px 0 0;padding-left:20px}
+.sol-facts li{margin:0 0 10px;line-height:1.55}
+.sol-open h3{margin:18px 0 4px;font-size:15px}
+.sol-open h3:first-of-type{margin-top:10px}
+.sol-table th,.sol-table td{font-variant-numeric:tabular-nums;white-space:nowrap}
+.sol-table td:last-child{white-space:normal;min-width:15rem}
+.sol-tiltrow{display:flex;flex-direction:column;align-items:stretch;gap:3px;margin:0}
+.sol-tiltslider{flex:1 1 auto;min-width:80px}
+.sol-tiltout{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sol-setrow{margin:12px 0 0}
+.sol-setrow .chip{width:auto}
+.sol-cfg-on{border-color:var(--accent);color:var(--accent)}
+.sol-settings{margin-top:10px;padding-top:12px;border-top:1px solid var(--border);
+display:grid;gap:10px}
+.sol-settings>p{margin:0}
+.sol-launchrow{margin-top:2px}
+.sol-overlay-l{left:8px;right:auto;
+background:radial-gradient(120% 160% at 20% 100%,rgba(5,10,22,.82) 40%,rgba(5,10,22,0))}
+@media (min-width:1080px){.sol-overlay-l{display:none}}
+.sol-torow{display:flex;align-items:center;gap:10px;margin:0}
+.sol-tolab{margin:0;flex:0 0 auto}
+.sol-tosel{flex:1 1 auto;min-width:0;font-size:15px;padding:7px 9px}
+.sol-toglab{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+color:var(--muted);flex:0 0 auto}
+.sol-zooms{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px;flex:1 1 auto;
+justify-content:flex-start}
+.sol-zoombtn{width:auto;font-size:13px;padding:6px 12px}
+.sol-zoombtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.sol-toglab{margin-right:2px}
+.sol-moons{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.sol-moonbtn{width:auto;font-size:13px;padding:6px 12px}
+.sol-moonbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.sol-moonbtn[hidden]{display:none}
+.sol-moonsout{margin:6px 0 0;font-size:11.5px;line-height:1.5;color:var(--muted)}
+.sol-moonsout b{color:var(--text);font-variant-numeric:tabular-nums}
+.sol-globewrap{display:grid;grid-template-columns:1fr;gap:16px;align-items:center;margin-top:6px}
+@media (min-width:620px){.sol-globewrap{grid-template-columns:minmax(0,1fr) minmax(200px,1fr)}}
+.sol-globe{line-height:0;max-width:400px;margin:0 auto;width:100%}
+.sol-globe svg{display:block;width:100%;height:auto;border-radius:16px}
+.sol-globefacts{display:grid;gap:8px;min-width:0}
+.sol-moonlead{margin-bottom:6px}
+.sol-moon{border-left:3px solid var(--accent);padding-left:18px}
+.sol-moon h2{margin-bottom:2px}
+.sol-moon .sub{margin-top:0}
+.sol-moonfacts{margin:10px 0 4px}
+.sol-moon .sol-facts{margin-top:10px}
+.sol-moon h3{margin:16px 0 4px;font-size:15px}
+.sol-moon h3+p{margin-top:0}
+.sol-scrub{position:relative}
+.sol-flight{position:absolute;left:0;right:0;top:0;height:26px;pointer-events:none;z-index:0}
+.sol-flight-bar{position:absolute;top:50%;transform:translateY(-50%);height:10px;border-radius:5px;
+background:linear-gradient(90deg,#38bdf8,#a78bfa);opacity:.85;
+box-shadow:0 0 0 1px rgba(10,16,32,.6)}
+.sol-flight-cutl{border-top-left-radius:0;border-bottom-left-radius:0}
+.sol-flight-cutr{border-top-right-radius:0;border-bottom-right-radius:0}
+.sol-scrub .orr-slider{position:relative;z-index:1;background:transparent}
+.sol-destbtn{width:auto;font-size:14px;padding:8px 16px}
+.sol-destbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.sol-destlink{margin:8px 0 0;font-size:13.5px;color:var(--muted)}
+.sol-destlink b{color:var(--text)}
+.sol-destrow{margin-top:14px;display:grid;gap:10px}
+@media (min-width:640px){
+.sol-destrow{grid-template-columns:minmax(0,1fr) minmax(200px,260px);align-items:start}
+.sol-destrow .sol-destlink{grid-column:1/-1;margin-top:0}
+}
+.sol-crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:-6px 0 12px;font-size:13.5px}
+.sol-crumb{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent}
+.sol-crumb:hover{color:var(--text);border-bottom-color:var(--border)}
+.sol-crumb-sep{color:var(--muted);opacity:.5}
+.sol-crumb-here{color:var(--text)}
+.sol-plan{scroll-margin-top:12px}
+.sol-planrow{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
+@media (min-width:760px){
+.sol-planrow{grid-template-columns:minmax(0,290px) minmax(0,1fr);gap:26px}
+}
+.sol-planart{line-height:0;max-width:340px;width:100%;margin:0 auto}
+.sol-planart a{display:block;border-radius:16px}
+.sol-planart svg{display:block;width:100%;height:auto;border-radius:16px}
+.sol-planbelt{display:block;line-height:0}
+.sol-planbelt svg{display:block;width:100%;height:auto;border-radius:16px}
+.sol-plankind{margin:0 0 2px;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.sol-planbody h2{margin:0 0 4px}
+.sol-planbody h2 a{color:inherit;text-decoration:none}
+.sol-planbody h2 a:hover{color:var(--accent)}
+.sol-planbody>p{margin:0 0 10px}
+.sol-planfacts{margin:14px 0 0}
+.sol-planmore{margin:14px 0 0}
+.sol-planjump{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.dn-card{padding-top:14px}
+.dn-figwrap{position:relative;line-height:0;border-radius:12px;overflow:hidden;
+border:1px solid var(--border);background:#12304f}
+.dn-svg{display:block;width:100%;height:auto}
+.dn-overlay{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;
+align-items:flex-end;gap:8px;padding:10px 12px;pointer-events:none;
+background:linear-gradient(to top,rgba(2,6,23,.55),rgba(2,6,23,0))}
+.dn-oleft{display:flex;align-items:center;gap:8px}
+.dn-overlay .dn-obtn{pointer-events:auto;background:rgba(2,6,23,.72);border-color:rgba(255,255,255,.28);
+backdrop-filter:blur(2px);font-weight:700;min-height:40px;padding:10px 18px;font-size:14px;line-height:1}
+.dn-overlay .dn-obtn:hover{background:rgba(2,6,23,.9)}
+.dn-oicon{display:inline-flex;align-items:center;gap:7px}
+.dn-oicon .dn-pin{flex:0 0 auto}
+@media(max-width:520px){.dn-oicon{padding:10px 13px}.dn-oicon-t{display:none}}
+.dn-play[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.dn-par{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:5 6}
+.dn-parlab{fill:rgba(226,232,240,.55);font-size:10px;font-weight:600}
+.dn-slider-row{margin:14px 0 4px}
+.dn-slider-row .orr-slider{width:100%}
+.dn-span{color:var(--muted);font-weight:600}
+.dn-when{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:6px 0 12px}
+.dn-when b{font-size:17px}
+.dn-when span{color:var(--muted);font-size:13px}
+.dn-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 12px}
+@media(min-width:560px){.dn-strip{grid-template-columns:repeat(4,1fr)}}
+.dn-city{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
+border:1px solid var(--border);background:rgba(0,0,0,.18);text-decoration:none;color:var(--text)}
+.dn-city:hover{border-color:var(--accent);text-decoration:none}
+.dn-city-n{font-size:12px;color:var(--muted);font-weight:600}
+.dn-city b{font-size:16px;font-variant-numeric:tabular-nums}
+.dn-city-s{font-size:11.5px;color:var(--muted)}
+.dn-city.is-day{background:rgba(253,224,71,.10);border-color:rgba(253,224,71,.35)}
+.dn-city.is-night{background:rgba(15,23,42,.55)}
+.dn-city.is-civil,.dn-city.is-twi{background:rgba(129,140,248,.12);border-color:rgba(129,140,248,.3)}
+.dn-readout{display:grid;grid-template-columns:1fr;gap:8px;margin:0 0 12px}
+@media(min-width:560px){.dn-readout{grid-template-columns:repeat(2,1fr)}}
+.dn-ro{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
+border:1px solid var(--border);background:rgba(0,0,0,.18)}
+.dn-ro span{font-size:12px;color:var(--muted);font-weight:600}
+.dn-ro b{font-size:15px;font-variant-numeric:tabular-nums}
+.dn-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
+.dn-me-line{margin:4px 0 10px;font-size:14.5px}
+.dns-wrap{margin:14px 0 4px;border:1px solid var(--border);border-radius:12px;
+background:#0a1428;padding:4px 4px 0;line-height:0;overflow:hidden}
+.dns-svg{display:block;width:100%;height:auto}
+.dns-glow{fill:#fde68a;fill-opacity:.13}
+.dns-sun{fill:#fde68a;stroke:#b45309;stroke-width:2}
+.dns-ray{stroke:#fde68a;stroke-opacity:.4;stroke-width:2;stroke-dasharray:2 7;stroke-linecap:round}
+.dns-earth{fill:#2f5d3a;stroke:rgba(226,232,240,.35);stroke-width:1}
+.dns-night{fill:#050a16;fill-opacity:.62}
+.dns-term{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:4 5}
+.dns-axis{stroke:rgba(226,232,240,.72);stroke-width:2;stroke-dasharray:7 5}
+.dns-par{stroke-width:1.5}
+.dns-eq{stroke:rgba(255,255,255,.85)}
+.dns-trop{stroke:var(--accent);stroke-opacity:.95;stroke-dasharray:6 5}
+.dns-ctr{stroke:#fde68a;stroke-width:2.5}
+.dns-hit{fill:#fde68a;stroke:#b45309;stroke-width:2}
+.dns-lab{fill:#e2e8f0;font-size:12px;font-weight:600;paint-order:stroke;stroke:#050a16;stroke-width:3.5}
+.dns-lab-d{fill:#fcd34d;font-weight:700}
+.dns-lab-t{fill:var(--accent)}
+.dns-cap{margin:10px 0 12px;font-size:14.5px;line-height:1.55}
+@media(max-width:620px){
+.dns-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.dns-svg{min-width:520px}
+.dns-lab{font-size:13px}
+}
+* contexts — same fix as the tides admin card) */
+.card:has(#sun-mypanel:not([hidden])),.card:has(#sun-results:not([hidden])){position:relative;z-index:40}
+.hs-results{list-style:none;margin:6px 0 0;padding:6px;position:absolute;left:0;right:0;z-index:30;background:var(--menu-bg);border:1px solid var(--border);border-radius:12px;max-height:340px;overflow:auto;box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.hs-results li{margin:0}
+.hs-results a{display:block;padding:10px 12px;border-radius:8px;color:var(--menu-text);text-decoration:none;font-weight:600}
+.hs-results a:hover,.hs-results a.active{background:var(--card);color:var(--accent)}
+.hs-results li.is-sel>a{background:var(--card);color:var(--accent)}
+.hs-results a b{color:var(--accent);font-weight:800}
+.hs-results li.is-sel>a b,.hs-results a:hover b{color:inherit}
+.hs-empty{padding:10px 12px;color:var(--muted);font-size:13px}
+.rail-head{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:6px 0 10px}
+.soon-rail{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 12px;margin:0 0 18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.soon-card{flex:0 0 auto;width:150px;scroll-snap-align:start;display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--border);border-radius:14px;background:var(--card);text-decoration:none;color:var(--text)}
+.soon-card:hover{border-color:var(--accent)}
+.soon-days{font-size:12px;font-weight:700;color:var(--accent)}
+.soon-label{font-weight:600;line-height:1.25}
+.soon-date{font-size:12px;color:var(--muted)}
+.cal-filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.chip{cursor:pointer;font:inherit;font-size:13px;font-weight:600;padding:7px 13px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text)}
+.chip.active{background:var(--accent);color:var(--accent-text);border-color:transparent}
+.cal-day{display:inline-block;min-width:1.6em;margin-right:8px;font-weight:700;color:var(--accent)}
+.cal-badge{text-transform:none}
+.cal-md{display:inline-block;min-width:3.6em;margin-right:10px;font-weight:700;color:var(--accent);white-space:nowrap}
+.rank-list li{gap:8px}
+.rank-list .rank{min-width:1.6em;font-weight:700;color:var(--accent);text-align:right}
+.rank-list .rank:empty{display:none}
+.rank-list .views{font-size:12px;color:var(--muted);white-space:nowrap}
+.ico.copy{cursor:pointer;font:inherit;background:rgba(255,255,255,.12);color:var(--text);border-color:var(--border)}
+.ico.copy.ok{background:var(--accent);color:var(--accent-text);border-color:transparent}
+.give-line{margin:6px 0 0;font-size:15px;line-height:1.5}
+.give-line a{font-weight:700}
+.tool-faq .faq-item{border-bottom:1px solid var(--border);padding:4px 0}
+.tool-faq .faq-item:last-child{border-bottom:none}
+.tool-faq summary{cursor:pointer;font-weight:700;padding:8px 2px;list-style:none}
+.tool-faq summary::-webkit-details-marker{display:none}
+.tool-faq summary::after{content:" +";color:var(--muted);float:right}
+.tool-faq .faq-item[open] summary::after{content:" –"}
+.tool-faq .faq-item p{margin:2px 2px 10px;color:var(--muted);line-height:1.5}
+@media (max-width:420px){
+.unit{min-width:62px;padding:12px 4px}
+.unit .num{font-size:32px}
+.presets{grid-template-columns:repeat(3,1fr)}
+}
+@media (min-width:560px){ h1{font-size:32px} }
+.pl-facts .wc-frow>span{flex:0 0 42%}
+@media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}
+.mn-hero{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.mn-hero-art{flex:0 0 auto;line-height:0;filter:drop-shadow(0 6px 20px rgba(0,0,0,.5))}
+.mn-hero-art svg{width:136px;height:136px}
+.mn-hero-facts{flex:1 1 220px;min-width:0}
+.mn-phase{margin:0;font-size:clamp(24px,6vw,34px);font-weight:800;line-height:1.15;letter-spacing:-.01em}
+.mn-illum{margin:6px 0 0;font-size:16px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mn-illum b{color:var(--accent);font-size:20px}
+.mn-stats{display:flex;flex-wrap:wrap;gap:10px 22px;margin:16px 0 0}
+.mn-stats>div{min-width:88px}
+.mn-stats dt{margin:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.mn-stats dd{margin:2px 0 0;font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+.mn-stats-wide>div{min-width:110px}
+.mn-nextgrid{display:flex;flex-wrap:wrap;gap:10px}
+.mn-next{flex:1 1 150px;display:flex;flex-direction:column;gap:2px;padding:12px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.04)}
+.mn-next-ico{line-height:0;margin-bottom:4px}
+.mn-next-l{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.mn-next-d{font-size:16px;font-weight:700}
+.mn-next-t{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mn-next-c{margin-top:4px;font-size:13px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.mn-lead{margin:0 0 16px;font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mn-lead b{color:var(--text)}
+.mn-rise{display:flex;flex-wrap:wrap;gap:10px}
+.mn-rise-row{flex:1 1 140px;display:flex;flex-direction:column;gap:3px;padding:11px 13px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.04)}
+.mn-rise-row span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.mn-rise-row b{font-size:18px;font-variant-numeric:tabular-nums}
+.mn-strip{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;-webkit-overflow-scrolling:touch}
+@media (max-width:700px){ .duo-m .mn-strip{flex-wrap:wrap;overflow-x:visible} }
+.mn-day{flex:0 0 auto;width:62px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.03);text-align:center}
+.mn-day.is-primary{border-color:var(--accent);background:rgba(252,211,77,.10)}
+.mn-day-g{line-height:0}
+.mn-day-d{font-size:11px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.mn-day-p{font-size:10px;line-height:1.25;color:var(--muted);font-variant-numeric:tabular-nums}
+.mn-day.is-primary .mn-day-p{color:var(--accent);font-weight:700}
+.mn-tablewrap{overflow-x:auto;margin-top:6px}
+.mn-table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.mn-table th,.mn-table td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+.mn-table thead th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);white-space:nowrap}
+.mn-table .mn-mrow th{padding-top:16px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);border-bottom-color:var(--accent)}
+.mn-table .mn-t-g{width:1%;line-height:0;padding-right:0}
+.mn-table .mn-t-km{white-space:nowrap;color:var(--muted)}
+.mn-table b{display:block;font-weight:700}
+.mn-t-time{display:block;font-size:12px;color:var(--muted)}
+.mn-table tr.is-next{background:rgba(252,211,77,.10)}
+.mn-table tr.is-next b{color:var(--accent)}
+.mn-badge{display:inline-block;padding:1px 7px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;vertical-align:1px}
+.mn-blue{background:rgba(96,165,250,.18);color:#93c5fd;border:1px solid rgba(96,165,250,.45)}
+.mn-super{background:rgba(252,211,77,.16);color:var(--accent);border:1px solid rgba(252,211,77,.45)}
+@media(max-width:480px){
+.mn-hero{gap:14px}
+.mn-hero-art svg{width:104px;height:104px}
+.mn-next{flex-basis:calc(50% - 5px)}
+.mn-table th,.mn-table td{padding:8px 7px;font-size:13px}
+}
+.mn-dir{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.mn-states{margin-top:10px}
+.mn-states summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--accent)}
+.mn-states .timer-presets{margin-top:10px}
+.card:has(#mn-results:not([hidden])){position:relative;z-index:40}
+.mn-hero-top{display:flex;gap:12px;align-items:flex-start;flex:1 1 100%}
+.mn-heroctl{margin-left:auto;align-items:flex-end}
+.mn-datebox,.mn-nearbox{display:flex;flex-direction:column;gap:5px;align-items:flex-end;margin-left:auto}
+.mn-dateinput,.mn-nearsel{text-align:right}
+.mn-dateinput{width:auto;min-width:9.5rem;padding:9px 11px;font:inherit;font-size:14px;font-variant-numeric:tabular-nums;
+color:var(--text);background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px}
+.mn-dateinput:focus{outline:2px solid var(--accent);outline-offset:1px}
+.mn-dateinput::-webkit-calendar-picker-indicator{filter:invert(.85);cursor:pointer}
+.mn-datereset{padding:4px 10px;font:inherit;font-size:12px;font-weight:700;color:var(--accent);cursor:pointer;
+background:rgba(252,211,77,.12);border:1px solid rgba(252,211,77,.45);border-radius:999px}
+.mn-cardhead{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.mn-cardhead h2{margin:0}
+@media(max-width:480px){
+.mn-dateinput{min-width:0;width:100%}
+.mn-datebox{flex:1 1 auto;min-width:0}
+}
+.mn-heroctl{display:flex;flex-direction:column;gap:10px;min-width:0}
+@media (min-width:900px){
+.mn-hero{display:grid;grid-template-columns:auto minmax(0,1fr) auto;
+gap:16px 28px;align-items:center}
+.mn-hero-top{display:contents}
+.mn-hero-art{grid-column:1;grid-row:1}
+.mn-hero-facts{grid-column:2;grid-row:1;min-width:0}
+.mn-heroctl{grid-column:3;grid-row:1;align-self:start}
+.mn-hero-art svg{width:190px;height:190px}
+.duo .mn-hero{display:flex}
+.duo .mn-hero-top{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.duo .mn-hero-art svg{width:136px;height:136px}
+}
+.mn-nearsel{width:auto;min-width:9.5rem;max-width:14rem;padding:8px 10px;font:inherit;font-size:13px;
+color:var(--text);background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;cursor:pointer}
+.mn-nearsel:focus{outline:2px solid var(--accent);outline-offset:1px}
+.mn-county+.mn-county{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+.mn-county-h{margin:0 0 8px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+.mn-county .timer-presets{margin:0}
+@media(max-width:480px){ .mn-nearsel{min-width:0;max-width:none;width:100%} }
+.mn-cal-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.mn-cal-title{font-size:16px;font-weight:800}
+.mn-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.mn-cal-dow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:center;padding-bottom:2px}
+.mn-cal-day{display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px 6px;min-width:0;
+border:1px solid var(--border);border-radius:10px;color:var(--text);text-decoration:none}
+.mn-cal-day:hover{border-color:var(--accent)}
+.mn-cal-day.is-out{opacity:.38}
+.mn-cal-day.is-primary{border-color:rgba(252,211,77,.55);background:rgba(252,211,77,.06)}
+.mn-cal-day.is-today{outline:2px solid var(--accent);outline-offset:-2px}
+.mn-cal-n{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--muted)}
+.mn-cal-g{line-height:0}
+.mn-cal-p{font-size:9.5px;font-weight:700;text-align:center;line-height:1.15;color:var(--muted);
+font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.mn-cal-day.is-primary .mn-cal-p{color:var(--accent)}
+@media (max-width:520px){
+.mn-cal{gap:3px}
+.mn-cal-day{padding:5px 1px}
+.mn-cal-p{font-size:8.5px}
+}
+.mn-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.mn-jump .chip{margin:0}
+.mn-cities{justify-content:flex-start;margin-top:12px}
+.mn-cities+.mn-states{margin-top:16px;display:block}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Mars & Its Moons Simulator — Orbit, Facts & What We Still Don’t Know","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/mars-and-moons-simulator/","description":"Watch Mars on its real orbit, zoom in on its 2 largest moons, and see its size, mass, day, year and temperature worked out rather than copied — plus the questions about Mars that science has not answered.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Planets","item":"https://timeandspace.science/planets/"},{"@type":"ListItem","position":3,"name":"Mars","item":"https://timeandspace.science/mars-and-moons-simulator/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Did life ever start there?","acceptedAnswer":{"@type":"Answer","text":"Mars had standing water, a thicker atmosphere and a magnetic field at the same time that life was getting going on Earth. Perseverance has found organic molecules and mineral textures in Jezero Crater that could be biological or could be ordinary chemistry — a 2025 paper describing 'leopard spot' features in the Cheyava Falls rock set out the case for both. Nothing yet is a confirmed biosignature, and settling it probably requires the samples to come back to a laboratory."}},{"@type":"Question","name":"Where did the atmosphere go?","acceptedAnswer":{"@type":"Answer","text":"Some was stripped away by the solar wind, which MAVEN has watched happening. Some is thought to be locked in carbonate rock and in the polar caps. The books do not balance yet — and how much is still stored in the crust decides whether the loss was inevitable or reversible."}},{"@type":"Question","name":"Why are the two hemispheres so different?","acceptedAnswer":{"@type":"Answer","text":"The northern third is low, smooth and thin-crusted; the south is high, ancient and cratered. One enormous impact, several large ones, or convection inside the young planet — the Martian dichotomy is one of the oldest unexplained features in the solar system."}},{"@type":"Question","name":"Where did Phobos and Deimos come from?","acceptedAnswer":{"@type":"Answer","text":"They look like captured asteroids and are made of similar stuff. But both sit on nearly circular orbits right over the equator, which is very hard to achieve by capture and very natural for moons that formed from a debris disc after an impact. Japan's MMX mission is designed to bring a piece of Phobos back and end the argument."}}]}</script>
+
+<!-- build d8d021300df5 · generated 2026-08-26T18:21:41.313Z -->
+<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon/solar.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:site_name" content="Time and Space Science">
+
+<meta property="og:image" content="https://timeandspace.science/api/og?name=Mars%20%26%20Its%20Moons%20Simulator&amp;theme=generic">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Mars%20%26%20Its%20Moons%20Simulator&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="wrap wrap-wide" id="main" role="main">
+  <div class="brand"><span class="crumbs"><!--bd--><details class="nav-dd brand-dd"><summary aria-label="Site sections"><svg class="logo" viewBox="0 0 200 200" width="48" height="48" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#2A3B4C" stroke-width="6" stroke-linecap="round"/><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#D6AF5C" stroke-width="2" stroke-linecap="round"/><path d="M 97 40 V 30 H 90 C 88 30, 88 22, 90 22 H 110 C 112 22, 112 30, 110 30 H 103 V 40 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 60 160 L 50 185 L 60 185 L 75 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 140 160 L 150 185 L 140 185 L 125 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><circle cx="100" cy="105" r="65" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/><circle cx="100" cy="105" r="57" fill="#F4EED1" stroke="#2A3B4C" stroke-width="2.5"/><g transform="translate(54.5, 54.5) rotate(-42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g transform="translate(145.5, 54.5) rotate(42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g fill="#2A3B4C"><circle cx="100" cy="63" r="3.4"/><circle cx="121" cy="69" r="3"/><circle cx="136.4" cy="84" r="3"/><circle cx="142" cy="105" r="3"/><circle cx="136.4" cy="126" r="3"/><circle cx="121" cy="141" r="3"/><circle cx="100" cy="147" r="3"/><circle cx="79" cy="141" r="3"/><circle cx="63.6" cy="126" r="3"/><circle cx="58" cy="105" r="3"/><circle cx="63.6" cy="84" r="3"/><circle cx="79" cy="69" r="3"/></g><line x1="100" y1="105" x2="130" y2="75" stroke="#C04A41" stroke-width="4" stroke-linecap="round"/><line x1="100" y1="105" x2="73" y2="90" stroke="#C04A41" stroke-width="5" stroke-linecap="round"/><circle cx="100" cy="105" r="5" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/></svg><span class="visually-hidden">Time and Space Science — sections</span></summary><ul class="menu brand-menu"><li><a href="/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M3.4 11.2 12 3.6l8.6 7.6-1.2 1.4-1.4-1.2V20a1 1 0 0 1-1 1h-4v-5.4h-2V21H7a1 1 0 0 1-1-1v-8.6l-1.4 1.2z" fill="#fcd34d"/><path d="M6 11.4V20h4v-5.4h4V20h4v-8.6L12 6.2z" fill="#b45309"/><rect x="10" y="14.6" width="4" height="6.4" fill="#7c2d12"/><path d="M12 6.2l6 5.2V20h-2v-6.4h-8V20H6v-8.6z" fill="#f59e0b"/></g></svg> Home</a></li><li><a href="/time/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="6" y="2" width="12" height="2.4" rx="1.2" fill="#92400e"/><rect x="6" y="19.6" width="12" height="2.4" rx="1.2" fill="#92400e"/><path d="M7.4 4.4h9.2c0 3.2-2 4.6-3.4 5.8-.5.4-.5 1.2 0 1.6 1.4 1.2 3.4 2.6 3.4 5.8H7.4c0-3.2 2-4.6 3.4-5.8.5-.4.5-1.2 0-1.6C9.4 9 7.4 7.6 7.4 4.4z" fill="#bae6fd" opacity=".5"/><path d="M9.2 6h5.6c-.5 1.6-1.6 2.4-2.8 3.4C10.8 8.4 9.7 7.6 9.2 6z" fill="#f59e0b"/><path d="M12 13.4c1.6 1.2 3 2.2 3.4 4.2H8.6c.4-2 1.8-3 3.4-4.2z" fill="#f59e0b"/></g></svg> Time</a></li><li><a href="/earth/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> Earth</a></li><li><a href="/space/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Space</a></li><li><a href="/classroom/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> Classroom</a></li></ul></details><a class="brand-word" href="/" aria-label="Time and Space Science home"><span class="wm-w">Time</span><span class="wm-j">And</span><span class="wm-w">Space</span><span class="wm-j wm-dot">.</span><span class="wm-w wm-tld">Science</span></a><!--/bd--></span><nav class="topnav"><script>document.addEventListener("click",function(e){document.querySelectorAll(".nav-dd[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})})</script></nav><details class="nav-dd menu-dd"><summary class="hamburger" aria-label="Menu">☰</summary><ul class="menu"><li><a href="/alarm-clock/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M4.5 3.2 2.4 5.6a3 3 0 0 1 4-4z" fill="#fbbf24"/><path d="M19.5 3.2l2.1 2.4a3 3 0 0 0-4-4z" fill="#fbbf24"/><circle cx="12" cy="13" r="8.6" fill="#dc2626"/><circle cx="12" cy="13" r="6.6" fill="#fff7ed"/><path d="M12 8.9v4.1l3 1.8" stroke="#1e293b" stroke-width="1.7" stroke-linecap="round" fill="none"/><circle cx="12" cy="13" r="0.9" fill="#1e293b"/><path d="M6.2 20.2 4.8 22M17.8 20.2 19.2 22" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/><ellipse cx="9.4" cy="9.6" rx="2.4" ry="1.4" fill="#ffffff" opacity=".55" transform="rotate(-25 9.4 9.6)"/></g></svg> Alarm Clock</a></li><li><a href="/world-clock/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> World Clock</a></li><li><a href="/timer/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="6" y="2" width="12" height="2.4" rx="1.2" fill="#92400e"/><rect x="6" y="19.6" width="12" height="2.4" rx="1.2" fill="#92400e"/><path d="M7.4 4.4h9.2c0 3.2-2 4.6-3.4 5.8-.5.4-.5 1.2 0 1.6 1.4 1.2 3.4 2.6 3.4 5.8H7.4c0-3.2 2-4.6 3.4-5.8.5-.4.5-1.2 0-1.6C9.4 9 7.4 7.6 7.4 4.4z" fill="#bae6fd" opacity=".5"/><path d="M9.2 6h5.6c-.5 1.6-1.6 2.4-2.8 3.4C10.8 8.4 9.7 7.6 9.2 6z" fill="#f59e0b"/><path d="M12 13.4c1.6 1.2 3 2.2 3.4 4.2H8.6c.4-2 1.8-3 3.4-4.2z" fill="#f59e0b"/></g></svg> Timer</a></li><li><a href="/stopwatch/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="10.6" y="1.6" width="2.8" height="2.6" rx="0.8" fill="#64748b"/><path d="M17.6 4.8l1.8 1.8-1.4 1.4-1.8-1.8z" fill="#64748b"/><circle cx="12" cy="13.4" r="8.4" fill="#475569"/><circle cx="12" cy="13.4" r="6.6" fill="#0f172a"/><path d="M12 13.4 15 9.6" stroke="#fcd34d" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="13.4" r="1" fill="#fcd34d"/><path d="M12 7.4v1.4M18 13.4h-1.4M12 19.4V18M6 13.4h1.4" stroke="#94a3b8" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="9.4" cy="9.9" rx="2.2" ry="1.3" fill="#ffffff" opacity=".25" transform="rotate(-30 9.4 9.9)"/></g></svg> Stopwatch</a></li><li><a href="/countdown/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M3 21 8.2 9.6l6.2 6.2z" fill="#f59e0b"/><path d="M3 21l7.6-4.6-3.4-3.4z" fill="#fbbf24"/><circle cx="13.6" cy="4.4" r="1.3" fill="#f472b6"/><circle cx="19.6" cy="8.2" r="1.3" fill="#38bdf8"/><circle cx="17" cy="14.8" r="1.2" fill="#a78bfa"/><path d="M15.4 8.8c1.6-1.6 3.2-1.6 4.8-3.2" stroke="#34d399" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="15.8" y="1.8" width="2" height="2" rx="0.4" fill="#fde047" transform="rotate(25 16.8 2.8)"/></g></svg> Countdowns</a></li><li><a href="/sun/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="2" y="17.4" width="20" height="1.8" rx="0.9" fill="#94a3b8"/><path d="M5.4 17.4a6.6 6.6 0 0 1 13.2 0z" fill="#fbbf24"/><path d="M8 17.4a4 4 0 0 1 8 0z" fill="#fde047"/><g stroke="#fbbf24" stroke-width="1.9" stroke-linecap="round"><path d="M12 2.6v3M4.9 5.9l2.1 2.1M19.1 5.9 17 8M2.6 12.4h3M18.4 12.4h3"/></g></g></svg> Sunrise &amp; Sunset</a></li><li><a href="/moon/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#1e293b"/><path d="M12 2.6a9.4 9.4 0 0 0 0 18.8 9.4 9.4 0 0 1 0-18.8z" fill="#334155"/><path d="M12 2.6a9.4 9.4 0 0 1 0 18.8c-3.2-3.4-3.2-15.4 0-18.8z" fill="#e2e8f0"/><circle cx="15.4" cy="7.6" r="1.5" fill="#cbd5e1"/><circle cx="17.2" cy="13.4" r="2.1" fill="#cbd5e1"/><circle cx="14.2" cy="17.2" r="1.1" fill="#cbd5e1"/><ellipse cx="13.6" cy="6.2" rx="1.6" ry="1" fill="#ffffff" opacity=".6" transform="rotate(-30 13.6 6.2)"/></g></svg> Moon</a></li><li><a href="/tides/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M2 20c0-7 3.4-13.6 9.6-15.4 4.6-1.3 8.8.8 10 4.2-2.2-1.4-5-1.2-6.6.4 2.8.2 4.4 2 4.6 4-1.6-1.2-3.8-1.2-5 0-1.6 1.6-.4 4.4 1.6 4.6-1.2 1.4-3.4 1.8-5.2 1L2 20z" fill="#0ea5e9"/><path d="M2 20c0-7 3.4-13.6 9.6-15.4-3.8 2.6-5.8 6.6-5.4 10.6.3 2.4 1.8 4 4.2 4.6L2 20z" fill="#7dd3fc"/><circle cx="18.9" cy="7.2" r="1.1" fill="#e0f2fe"/><circle cx="16.4" cy="12.4" r="0.9" fill="#e0f2fe"/></g></svg> Tides</a></li><li><a href="/questions/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#7c3aed"/><path d="M8.8 9.2c.2-1.9 1.6-3 3.3-3 1.8 0 3.2 1.2 3.2 2.9 0 1.3-.7 2-1.7 2.7-.9.6-1.4 1.1-1.4 2.2v.4" fill="none" stroke="#fdf4ff" stroke-width="1.9" stroke-linecap="round"/><circle cx="12.1" cy="17.6" r="1.25" fill="#fdf4ff"/><ellipse cx="8.9" cy="7.6" rx="2.4" ry="1.4" fill="#ffffff" opacity=".25" transform="rotate(-28 8.9 7.6)"/></g></svg> Big Questions</a></li><li><a href="/glossary/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M5.2 3.4h9.2A2.2 2.2 0 0 1 16.6 5.6v13.2c0 .9-.8 1.4-1.6.9l-2.2-1.4-2.2 1.4c-.5.3-1.1.3-1.6 0l-2.2-1.4-2.2 1.4c-.8.5-1.6 0-1.6-.9V5.6A2.2 2.2 0 0 1 5.2 3.4z" fill="#f8fafc"/><path d="M5.2 3.4h9.2A2.2 2.2 0 0 1 16.6 5.6v2.2H3V5.6A2.2 2.2 0 0 1 5.2 3.4z" fill="#dc2626"/><path d="M6.4 9.6h6.8M6.4 12.2h6.8M6.4 14.8h4.6" stroke="#64748b" stroke-width="1.4" stroke-linecap="round"/><rect x="17.2" y="4.8" width="3.6" height="15.2" rx="0.8" fill="#fbbf24"/><path d="M17.2 7.2h3.6" stroke="#b45309" stroke-width="1"/></g></svg> Glossary</a></li><li><a href="/sun-moon-earth-movement-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="9.4" cy="13.6" r="7.2" fill="#2563eb"/><path d="M5.2 8.2c1.8.6 1.4 2.4 0 2.9-1.5.5-1.6 1.9-.6 2.9 1.1 1.1.2 2.6-1.2 2.2-.8-1.9-.7-5.3 1.8-8z" fill="#34d399"/><path d="M11.6 7.1c2 .4 3.7 1.7 4.7 3.4-.8 1.2-2.2 1.1-2.8.2-.5-.8-1.7-.6-2.2-1.5-.4-.8-.6-1.8.3-2.1z" fill="#34d399"/><path d="M9 14.6c1.4-.3 2.8.6 2.6 2-.1 1.2.9 1.7.6 2.9-.3 1.1-1.9 1.5-2.9 1.1-1.2-.5-.8-1.8-1.5-2.6-.8-.8-.3-3.1 1.2-3.4z" fill="#34d399"/><ellipse cx="6.8" cy="9.2" rx="2.3" ry="1.3" fill="#ffffff" opacity=".3" transform="rotate(-28 6.8 9.2)"/><circle cx="19" cy="5.6" r="3.3" fill="#475569"/><path d="M19 2.3a3.3 3.3 0 0 1 0 6.6z" fill="#e2e8f0"/><circle cx="20.1" cy="4.6" r=".6" fill="#cbd5e1"/></g></svg> Sun, Earth &amp; Moon</a></li><li><a href="/planets/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> The Planets</a></li><li><a href="/solar-system-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Solar System</a></li><li><a href="/orbital-velocity-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Orbits &amp; Gravity</a></li><li><a href="/rocket-launch-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g transform="rotate(45 12 12)"><path d="M12 1.6c3 2.6 4.6 6.4 4.6 10.6 0 1.6-.3 3.1-.8 4.5H8.2a13.6 13.6 0 0 1-.8-4.5C7.4 8 9 4.2 12 1.6z" fill="#e2e8f0"/><path d="M12 1.6c3 2.6 4.6 6.4 4.6 10.6 0 1.6-.3 3.1-.8 4.5H12z" fill="#cbd5e1"/><path d="M12 1.6c1.5 1.3 2.6 2.9 3.4 4.7H8.6c.8-1.8 1.9-3.4 3.4-4.7z" fill="#dc2626"/><circle cx="12" cy="10.2" r="2.3" fill="#0ea5e9"/><circle cx="12" cy="10.2" r="1.3" fill="#bae6fd"/><path d="M8.2 12.4c-1.8 1.2-2.8 3-3 5.2l3.6-1.6zM15.8 12.4c1.8 1.2 2.8 3 3 5.2l-3.6-1.6z" fill="#dc2626"/><path d="M10.2 17.6h3.6c-.3 2.2-1.1 3.9-1.8 4.8-.7-.9-1.5-2.6-1.8-4.8z" fill="#f97316"/><path d="M11.2 17.6h1.6c-.1 1.6-.4 2.9-.8 3.7-.4-.8-.7-2.1-.8-3.7z" fill="#fde047"/><ellipse cx="10.4" cy="8.4" rx="1" ry="2.4" fill="#ffffff" opacity=".5" transform="rotate(-12 10.4 8.4)"/></g></svg> Rocket Launches</a></li><li><a href="/classroom/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> For Teachers</a></li><li><a href="/classroom/submit-a-lesson/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.6" fill="#16a34a"/><circle cx="12" cy="12" r="9.6" fill="none" stroke="#15803d" stroke-width="1"/><path d="M12 7.2v9.6M7.2 12h9.6" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="8.8" cy="7.6" rx="2.6" ry="1.5" fill="#ffffff" opacity=".28" transform="rotate(-30 8.8 7.6)"/></g></svg> Submit a Lesson Plan</a></li><li class="menu-units"><span class="menu-ulab"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="1.6" y="13.4" width="13.6" height="5" rx="1.2" fill="#d4a373" transform="rotate(-14 8.4 15.9)"/><rect x="9.4" y="8.2" width="13.6" height="5" rx="1.2" fill="#e8c39e" transform="rotate(22 16.2 10.7)"/><g stroke="#8a5a33" stroke-width="1" stroke-linecap="round" opacity=".8"><path d="M4.2 14.6v1.8M6.9 13.9v2.6M9.6 13.2v1.8M12.3 12.6v2.6"/><path d="M12.6 10.9l.6 1.7M15.2 9.8l.9 2.4M17.8 8.7l.6 1.7M20.4 7.6l.9 2.4"/></g><circle cx="10.6" cy="12.6" r="1.15" fill="#8a5a33"/></g></svg> <span>Units</span></span><span class="menu-useg" role="group" aria-label="Measurement units"><button type="button" class="menu-ubtn" data-uset="metric" aria-pressed="false">Metric</button><button type="button" class="menu-ubtn" data-uset="imperial" aria-pressed="false">Imperial</button></span></li><li><button type="button" class="menu-pj" id="ac-pj" aria-pressed="false"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="2.4" y="7.6" width="15.4" height="10.2" rx="2" fill="#475569"/><rect x="2.4" y="7.6" width="15.4" height="3.4" rx="2" fill="#64748b"/><circle cx="7.4" cy="13.4" r="3.1" fill="#0f172a"/><circle cx="7.4" cy="13.4" r="1.7" fill="#93c5fd"/><circle cx="14.4" cy="10.4" r="1" fill="#fbbf24"/><path d="M17.8 10.4 22.6 6.6v12.4l-4.8-3.8z" fill="#fde68a" opacity=".75"/><path d="M4.6 17.8v2.2M15.4 17.8v2.2" stroke="#334155" stroke-width="1.8" stroke-linecap="round"/></g></svg> <span>Projector mode</span></button></li></ul></details><script>(function(){var b=document.getElementById("ac-pj");if(!b)return;
+function sync(){var on=document.documentElement.classList.contains("pj");b.setAttribute("aria-pressed",on?"true":"false");}
+sync();b.addEventListener("click",function(){var on=document.documentElement.classList.toggle("pj");
+try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(e){}sync();});})();</script><script>(function(){
+  var KEY='ac_units';
+  var IMP=["US","LR","MM"];
+  /* WHAT THE READER HAS CHOSEN, or what their locale implies. A stored value
+     always wins: it is an explicit answer to the question the guess is making. */
+  function guess(){
+    try{
+      var ls=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'']);
+      for(var i=0;i<ls.length;i++){
+        var m=/-([A-Za-z]{2})\b/.exec(ls[i]||'');
+        if(m){ var r=m[1].toUpperCase();
+          /* the first tag that names a country decides it — a reader with
+             en-US then en-GB is being told they are in the US */
+          for(var j=0;j<IMP.length;j++) if(IMP[j]===r) return 'imperial';
+          return 'metric';
+        }
+      }
+      /* no region anywhere in the list: fall back to the time zone, which is
+         the other thing every browser knows about where it is */
+      var tz=(Intl.DateTimeFormat().resolvedOptions()||{}).timeZone||'';
+      if(/^America\/(New_York|Chicago|Denver|Phoenix|Los_Angeles|Anchorage|Detroit|Indiana|Kentucky|Boise|Juneau|Nome|Adak|Menominee|North_Dakota|Sitka|Yakutat)/.test(tz)
+         || tz==='Pacific/Honolulu' || tz==='America/Monrovia' || tz==='Asia/Yangon') return 'imperial';
+    }catch(e){}
+    return 'metric';
+  }
+  function get(){
+    var v=null; try{ v=localStorage.getItem(KEY); }catch(e){}
+    return (v==='imperial'||v==='metric')?v:guess();
+  }
+  function set(v){
+    try{ localStorage.setItem(KEY,v); }catch(e){}
+    apply(v); mark(v);
+    /* pages that draw their own figures listen for this — the simulators, the
+       tide chart, the nearby-city dropdown. Fired AFTER the spans are done, so
+       a listener sees a consistent page. */
+    try{ document.dispatchEvent(new Event('ac:units')); }catch(e){}
+  }
+  window.acUnits=get;
+
+  /* ---- the conversions -------------------------------------------------
+     Each entry: the imperial unit's name, how many of it there are in one
+     metric unit, and how to write it. Nothing here is approximate — these are
+     the defining ratios, so a converted figure is exact before it is rounded. */
+  var C={
+    km:   { u:'miles', f:0.621371192237334, one:'mile' },
+    m:    { u:'ft',    f:3.280839895013123 },
+    cm:   { u:'in',    f:0.393700787401575 },
+    mm:   { u:'in',    f:0.0393700787401575 },
+    'km/h':{ u:'mph',  f:0.621371192237334 },
+    'km/s':{ u:'mi/s', f:0.621371192237334 },
+    kg:   { u:'lb',    f:2.204622621848776 },
+    C:    { u:'\u00b0F', f:1.8, off:32, pre:'' }
+  };
+  /* Round the converted value to the same PRECISION the source was written
+     with: sig is the number of significant figures the page chose, or a
+     negative number meaning "this many decimal places". */
+  function round(v,sig){
+    if(sig==null) return v;
+    if(sig<0){ var d=-sig; return +v.toFixed(d); }
+    if(v===0) return 0;
+    var mag=Math.floor(Math.log(Math.abs(v))/Math.LN10)+1;
+    var p=Math.max(0,sig-mag);
+    return +v.toFixed(p);
+  }
+  function fmt(v){
+    var d=0, a=Math.abs(v);
+    if(a<10) d=(a<1?3:2); else if(a<100) d=1;
+    var s=v.toFixed(d);
+    if(d) s=s.replace(/\.?0+$/,'');
+    return (+s).toLocaleString('en-US',{maximumFractionDigits:d});
+  }
+  function apply(sys){
+    var ns=document.querySelectorAll('[data-u]'), i;
+    for(i=0;i<ns.length;i++){
+      var el=ns[i], u=el.getAttribute('data-u'), c=C[u];
+      var raw=parseFloat(el.getAttribute('data-v'));
+      if(!c||isNaN(raw)) continue;
+      /* the metric text is what the page shipped with — kept verbatim, so
+         switching back is exact rather than re-formatted */
+      if(el.getAttribute('data-m')==null) el.setAttribute('data-m',el.textContent);
+      if(sys!=='imperial'){ el.textContent=el.getAttribute('data-m'); continue; }
+      var sig=el.getAttribute('data-s'); sig=(sig==null||sig==='')?null:+sig;
+      var v=round(raw*c.f+(c.off||0),sig);
+      var unit=(c.one&&Math.abs(v)===1)?c.one:c.u;
+      el.textContent=fmt(v)+(u==='C'?'':' ')+unit;
+    }
+  }
+  /* the control in the menu */
+  function mark(sys){
+    var bs=document.querySelectorAll('[data-uset]'), i;
+    for(i=0;i<bs.length;i++)
+      bs[i].setAttribute('aria-pressed', bs[i].getAttribute('data-uset')===sys?'true':'false');
+  }
+  var bs=document.querySelectorAll('[data-uset]');
+  for(var i=0;i<bs.length;i++) bs[i].addEventListener('click',function(){ set(this.getAttribute('data-uset')); });
+  /* ---- FOR FIGURES THE PAGE DRAWS ITSELF ---------------------------------
+     A span works for anything baked into the HTML. It cannot work for a number
+     a script writes every frame — the orbital simulator's speed read-out, a
+     tide height fetched from NOAA, an <option> in a dropdown (which can hold
+     no markup at all). Those call this instead: give it a metric value, its
+     unit and the precision, and it returns the string in the reader's system.
+     One conversion table, one rounding rule, both halves of the site. */
+  /* written to the SAME number of decimals the caller asked for, in either
+     system: a tide height is quoted to a tenth whether it is feet or metres,
+     and fmt()'s own rules would print 0.85 m against 2.8 ft. */
+  function fmtAs(v,sig){
+    if(sig!=null&&sig<0) return (+v).toLocaleString('en-US',{minimumFractionDigits:-sig,maximumFractionDigits:-sig});
+    return fmt(v);
+  }
+  window.acFmt=function(v,unit,sig){
+    var c=C[unit];
+    if(!c||v==null||isNaN(v)) return '';
+    if(get()!=='imperial') return fmtAs(round(v,sig),sig)+(unit==='C'?' °C':' '+unit);
+    var iv=round(v*c.f+(c.off||0),sig);
+    return fmtAs(iv,sig)+(unit==='C'?'':' ')+((c.one&&Math.abs(iv)===1)?c.one:c.u);
+  };
+  /* the inverse, for data that arrives IMPERIAL: NOAA publishes tide heights in
+     feet, so the page holds feet and asks for the reader's version of them. */
+  window.acFromFt=function(ft,sig){ return window.acFmt(ft/3.280839895013123,'m',sig==null?-1:sig); };
+  window.acUnitFt=function(){ return get()==='imperial'?'ft':'m'; };
+  window.acFtVal=function(ft){ return get()==='imperial'?ft:ft/3.280839895013123; };
+  var now=get(); mark(now); if(now==='imperial') apply(now);
+  /* pages that draw figures after load (the sun and moon cards repaint every
+     minute, the simulators every frame) tell us to run again */
+  document.addEventListener('ac:units',function(){ apply(get()); });
+})();</script></div>
+  <h1>Mars</h1>
+  <nav class="sol-crumbs" aria-label="Breadcrumb"><a class="sol-crumb" href="/">Home</a><span class="sol-crumb-sep" aria-hidden="true">/</span><a class="sol-crumb" href="/planets/">Planets</a><span class="sol-crumb-sep" aria-hidden="true">/</span><span class="sol-crumb-here" aria-current="page">Mars</span></nav>
+  <p class="sub">The planet we have looked at hardest, and still cannot answer the main question about. Where it is right now, how big and how heavy, what goes round it, and what is still unexplained.</p>
+
+  <div class="card sol-globecard">
+    <h2>Mars on its axis</h2>
+    <div class="sol-globewrap">
+      <div class="sol-globe" id="pl-globe" data-hours="24.6229" data-retro="0" data-name="Mars" data-sec="12">
+        <svg viewBox="0 0 400 400" width="100%" aria-hidden="true"><rect width="400" height="400" rx="16" fill="#080d1a"/><defs><radialGradient id="gMarsf0"><stop offset="0" stop-color="#7d5a45" stop-opacity="1"/><stop offset=".55" stop-color="#7d5a45" stop-opacity=".85"/><stop offset="1" stop-color="#7d5a45" stop-opacity="0"/></radialGradient><radialGradient id="gMarsf1"><stop offset="0" stop-color="#6d4c3a" stop-opacity="1"/><stop offset=".55" stop-color="#6d4c3a" stop-opacity=".85"/><stop offset="1" stop-color="#6d4c3a" stop-opacity="0"/></radialGradient><radialGradient id="gMarsf2"><stop offset="0" stop-color="#e0a878" stop-opacity="1"/><stop offset=".55" stop-color="#e0a878" stop-opacity=".85"/><stop offset="1" stop-color="#e0a878" stop-opacity="0"/></radialGradient><radialGradient id="gMarsf3"><stop offset="0" stop-color="#f4efe8" stop-opacity="1"/><stop offset=".55" stop-color="#f4efe8" stop-opacity=".85"/><stop offset="1" stop-color="#f4efe8" stop-opacity="0"/></radialGradient><radialGradient id="gMarsf4"><stop offset="0" stop-color="#a86a44" stop-opacity="1"/><stop offset=".55" stop-color="#a86a44" stop-opacity=".85"/><stop offset="1" stop-color="#a86a44" stop-opacity="0"/></radialGradient><radialGradient id="gMarsl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#bc7746"/><stop offset=".62" stop-color="#bc7746"/><stop offset=".88" stop-color="#87502f"/><stop offset="1" stop-color="#87502f"/></radialGradient><linearGradient id="gMarsn" gradientUnits="objectBoundingBox" x1="0.19" y1="0.89" x2="0.81" y2="0.11"><stop offset=".3" stop-color="#000000" stop-opacity="0"/><stop offset=".72" stop-color="#04060e" stop-opacity=".2"/><stop offset="1" stop-color="#04060e" stop-opacity=".5"/></linearGradient><radialGradient id="gMarss" cx="0.34" cy="0.7" r=".7"><stop offset="0" stop-color="#ffffff" stop-opacity="0.07"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient><clipPath id="gMarsc"><ellipse cx="0" cy="0" rx="157.38" ry="157.38"/></clipPath></defs><g transform="translate(200 200) rotate(-25.19)"><ellipse cx="0" cy="0" rx="157.38" ry="157.38" fill="url(#gMarsl)"/><g clip-path="url(#gMarsc)"><path d="M-0.39 -157.38L-0.47 -157.38L-0.36 -157.38L0.04 -157.38L0.6 -157.38L1.05 -157.37L1.2 -157.37L0.99 -157.37L0.6 -157.38L0.23 -157.38L0.06 -157.38L0.05 -157.38L0.09 -157.38L0.04 -157.38L-0.12 -157.38L-0.3 -157.38L-0.38 -157.37L-0.32 -157.37L-0.18 -157.37L-0.05 -157.38L0 -157.38L-0.02 -157.38L-0.04 -157.38L-0.04 -157.38L-0.06 -157.38L-0.16 -157.38L-0.38 -157.37L-0.63 -157.37L-0.76 -157.37L-0.65 -157.37L-0.31 -157.38L0.11 -157.38L0.41 -157.38L0.49 -157.38L0.41 -157.38L0.36 -157.38L0.49 -157.38L0.8 -157.37L1.1 -157.37L1.14 -157.37L0.81 -157.37L2.75 -157.35L5.49 -157.28L8.24 -157.16L10.98 -156.99L13.72 -156.78L16.45 -156.51L19.18 -156.2L21.9 -155.85L24.62 -155.44L26.5 -155.13L26.09 -155.19L25.79 -155.2L25.69 -155.14L25.67 -155.04L25.49 -154.94L24.92 -154.87L23.9 -154.86L22.57 -154.89L21.12 -154.91L19.69 -154.89L18.25 -154.85L16.66 -154.8L14.82 -154.8L12.72 -154.86L10.49 -154.97L8.28 -155.08L6.17 -155.14L4.13 -155.15L2.08 -155.12L0 -155.08L-2.11 -155.07L-4.18 -155.1L-6.19 -155.12L-8.21 -155.12L-10.29 -155.06L-12.48 -154.96L-14.68 -154.85L-16.73 -154.78L-18.49 -154.78L-19.94 -154.83L-21.19 -154.89L-22.41 -154.92L-23.64 -154.91L-24.81 -154.89L-25.69 -154.9L-26.15 -154.96L-26.2 -155.05L-26.06 -155.15L-25.97 -155.21L-26.09 -155.2L-24.62 -155.44L-21.9 -155.85L-19.18 -156.2L-16.45 -156.51L-13.72 -156.78L-10.98 -156.99L-8.24 -157.16L-5.49 -157.28L-2.75 -157.35Z" fill="#f6f2ec" fill-opacity="0.82"/><path d="M0.55 157.38L0.66 157.38L0.5 157.38L-0.06 157.38L-0.83 157.37L-1.47 157.37L-1.68 157.37L-1.39 157.37L-0.83 157.37L-0.33 157.38L-0.08 157.38L-0.07 157.38L-0.12 157.38L-0.05 157.38L0.17 157.38L0.41 157.37L0.53 157.37L0.45 157.37L0.25 157.37L0.07 157.37L0 157.38L0.02 157.38L0.05 157.38L0.06 157.38L0.08 157.38L0.23 157.38L0.54 157.37L0.89 157.37L1.07 157.37L0.92 157.37L0.44 157.38L-0.15 157.38L-0.57 157.38L-0.68 157.38L-0.57 157.38L-0.5 157.38L-0.69 157.38L-1.12 157.37L-1.53 157.37L-1.6 157.37L-1.14 157.37L4.39 157.32L8.79 157.13L13.17 156.83L17.54 156.4L21.9 155.85L26.25 155.17L30.57 154.38L34.87 153.47L39.14 152.43L44.52 150.95L44.82 150.82L44.49 150.79L43.39 150.92L41.69 151.15L39.75 151.38L37.88 151.53L36.17 151.55L34.47 151.5L32.52 151.46L30.17 151.48L27.49 151.58L24.68 151.67L21.93 151.68L19.26 151.55L16.55 151.32L13.63 151.07L10.42 150.92L6.99 150.9L3.48 150.98L0 151.07L-3.46 151.09L-6.92 151.03L-10.38 150.97L-13.73 150.97L-16.83 151.11L-19.6 151.34L-22.12 151.57L-24.59 151.71L-27.16 151.72L-29.84 151.61L-32.42 151.49L-34.69 151.42L-36.52 151.44L-38.03 151.48L-39.47 151.47L-41.03 151.35L-42.68 151.13L-44.12 150.9L-44.98 150.77L-45.06 150.79L-39.14 152.43L-34.87 153.47L-30.57 154.38L-26.25 155.17L-21.9 155.85L-17.54 156.4L-13.17 156.83L-8.79 157.13L-4.39 157.32Z" fill="#f2ece2" fill-opacity="0.75"/><ellipse cx="0" cy="0" rx="34.47" ry="46.42" fill="url(#gMarsf0)" opacity="0.64" transform="translate(90.65 53.83) rotate(30.7)"/><ellipse cx="0" cy="0" rx="16.41" ry="32.5" fill="url(#gMarsf0)" opacity="0.55" transform="translate(117 68.99) rotate(30.53)"/><ellipse cx="0" cy="0" rx="35.36" ry="44.1" fill="url(#gMarsf0)" opacity="0.62" transform="translate(-51.48 78.69) rotate(123.2)"/><ellipse cx="0" cy="0" rx="27.49" ry="30.18" fill="url(#gMarsf0)" opacity="0.52" transform="translate(-10.51 64.01) rotate(99.33)"/><ellipse cx="0" cy="0" rx="5.38" ry="25.53" fill="url(#gMarsf0)" opacity="0.3" transform="translate(-145.95 48.63) rotate(161.57)"/><ellipse cx="0" cy="0" rx="14.65" ry="69.64" fill="url(#gMarsf2)" opacity="0.18" transform="translate(153.24 -13.72) rotate(-5.11)"/><ellipse cx="0" cy="0" rx="7.82" ry="13.93" fill="url(#gMarsf4)" opacity="0.5" transform="translate(120.79 -48.63) rotate(-21.93)"/><ellipse cx="0" cy="0" rx="2.38" ry="9.28" fill="url(#gMarsf4)" opacity="0.28" transform="translate(148.56 -32.72) rotate(-12.42)"/><ellipse cx="0" cy="0" rx="2.43" ry="9.28" fill="url(#gMarsf4)" opacity="0.27" transform="translate(151.67 -8.24) rotate(-3.11)"/><ellipse cx="0" cy="0" rx="2.25" ry="9.28" fill="url(#gMarsf4)" opacity="0.24" transform="translate(150.69 24.62) rotate(9.28)"/><ellipse cx="0" cy="0" rx="2.02" ry="16.15" fill="url(#gMarsf0)" opacity="0.05" transform="translate(-14.07 -155.5) rotate(-95.17)"/><ellipse cx="0" cy="0" rx="4.42" ry="5.22" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-65.76 -51.69) rotate(-141.83)"/><ellipse cx="0" cy="0" rx="1.83" ry="5.22" fill="url(#gMarsf0)" opacity="0.13" transform="translate(-25.49 -145.13) rotate(-99.96)"/><ellipse cx="0" cy="0" rx="3.79" ry="7.09" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-114.03 68.55) rotate(148.99)"/><ellipse cx="0" cy="0" rx="7.8" ry="14.75" fill="url(#gMarsf0)" opacity="0.14" transform="translate(122.6 52.91) rotate(23.34)"/><ellipse cx="0" cy="0" rx="3.9" ry="6.57" fill="url(#gMarsf0)" opacity="0.14" transform="translate(5.37 -126.42) rotate(-87.57)"/><ellipse cx="0" cy="0" rx="13.04" ry="14.53" fill="url(#gMarsf0)" opacity="0.14" transform="translate(66.16 20.57) rotate(17.27)"/><ellipse cx="0" cy="0" rx="2.47" ry="14.28" fill="url(#gMarsf0)" opacity="0.06" transform="translate(-32.52 -151.56) rotate(-102.11)"/><ellipse cx="0" cy="0" rx="2.58" ry="7.73" fill="url(#gMarsf0)" opacity="0.12" transform="translate(-100.24 -109.4) rotate(-132.5)"/><ellipse cx="0" cy="0" rx="0.3" ry="7.3" fill="url(#gMarsf0)" opacity="0.01" transform="translate(-4.22 157.21) rotate(91.54)"/><ellipse cx="0" cy="0" rx="1.65" ry="6.24" fill="url(#gMarsf0)" opacity="0.1" transform="translate(-53.41 -142.09) rotate(-110.6)"/><ellipse cx="0" cy="0" rx="2.74" ry="5.7" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-115.81 -75.18) rotate(-147.01)"/><ellipse cx="0" cy="0" rx="1.81" ry="7.05" fill="url(#gMarsf0)" opacity="0.09" transform="translate(85.08 126.09) rotate(55.99)"/><ellipse cx="0" cy="0" rx="0.3" ry="4.9" fill="url(#gMarsf0)" opacity="0.01" transform="translate(-77.56 -136.9) rotate(-119.53)"/><ellipse cx="0" cy="0" rx="2.19" ry="12.56" fill="url(#gMarsf0)" opacity="0.06" transform="translate(135.88 -74.49) rotate(-28.73)"/><ellipse cx="0" cy="0" rx="1.11" ry="4.67" fill="url(#gMarsf0)" opacity="0.09" transform="translate(67.33 -137.28) rotate(-63.88)"/><ellipse cx="0" cy="0" rx="1.71" ry="6.01" fill="url(#gMarsf0)" opacity="0.1" transform="translate(77.94 129.17) rotate(58.89)"/><ellipse cx="0" cy="0" rx="6.65" ry="11.44" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-114.63 -57.19) rotate(-153.48)"/><ellipse cx="0" cy="0" rx="3.56" ry="5.08" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-41.92 104.32) rotate(111.89)"/><ellipse cx="0" cy="0" rx="11.94" ry="13.48" fill="url(#gMarsf0)" opacity="0.14" transform="translate(73.18 -0.18) rotate(-0.14)"/><ellipse cx="0" cy="0" rx="7.11" ry="15.9" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-107.46 90.98) rotate(139.75)"/><ellipse cx="0" cy="0" rx="0.3" ry="5.94" fill="url(#gMarsf0)" opacity="0.01" transform="translate(137.47 -76.47) rotate(-29.09)"/><ellipse cx="0" cy="0" rx="6.92" ry="11.09" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-81.98 -91.67) rotate(-131.81)"/><ellipse cx="0" cy="0" rx="1.11" ry="12.29" fill="url(#gMarsf0)" opacity="0.03" transform="translate(-67.04 141.67) rotate(115.32)"/><ellipse cx="0" cy="0" rx="4.42" ry="8.95" fill="url(#gMarsf0)" opacity="0.14" transform="translate(100.26 -93.15) rotate(-42.89)"/><ellipse cx="0" cy="0" rx="7.92" ry="9.44" fill="url(#gMarsf0)" opacity="0.14" transform="translate(67.76 -52.41) rotate(-37.72)"/><ellipse cx="0" cy="0" rx="2.06" ry="13.43" fill="url(#gMarsf0)" opacity="0.06" transform="translate(138.13 -71.46) rotate(-27.35)"/><ellipse cx="0" cy="0" rx="4.46" ry="4.87" fill="url(#gMarsf0)" opacity="0.14" transform="translate(6.73 -62.58) rotate(-83.86)"/><ellipse cx="0" cy="0" rx="8.96" ry="13.84" fill="url(#gMarsf0)" opacity="0.14" transform="translate(7.49 -119.71) rotate(-86.42)"/><ellipse cx="0" cy="0" rx="5.3" ry="15.05" fill="url(#gMarsf0)" opacity="0.13" transform="translate(144.15 -30.2) rotate(-11.83)"/><ellipse cx="0" cy="0" rx="2.1" ry="4.84" fill="url(#gMarsf0)" opacity="0.14" transform="translate(106.66 -93.35) rotate(-41.19)"/><ellipse cx="0" cy="0" rx="1.57" ry="4.65" fill="url(#gMarsf0)" opacity="0.12" transform="translate(-98.74 -110.37) rotate(-131.82)"/><ellipse cx="0" cy="0" rx="1.96" ry="8.94" fill="url(#gMarsf0)" opacity="0.08" transform="translate(-120.74 -94.88) rotate(-141.84)"/><ellipse cx="0" cy="0" rx="5.44" ry="10.32" fill="url(#gMarsf0)" opacity="0.14" transform="translate(125.78 45.38) rotate(19.84)"/><ellipse cx="0" cy="0" rx="6.25" ry="11.34" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-64.25 114.49) rotate(119.3)"/><ellipse cx="0" cy="0" rx="0.96" ry="5.06" fill="url(#gMarsf0)" opacity="0.07" transform="translate(149.32 -39.62) rotate(-14.86)"/><ellipse cx="0" cy="0" rx="12.73" ry="13.47" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-11.18 50.51) rotate(102.48)"/><ellipse cx="0" cy="0" rx="0.42" ry="5.36" fill="url(#gMarsf0)" opacity="0.03" transform="translate(-1.98 156.87) rotate(90.72)"/><ellipse cx="0" cy="0" rx="2.09" ry="7.5" fill="url(#gMarsf0)" opacity="0.1" transform="translate(23.53 -149.28) rotate(-81.04)"/><ellipse cx="0" cy="0" rx="2.73" ry="5.14" fill="url(#gMarsf0)" opacity="0.14" transform="translate(109.29 76.27) rotate(34.91)"/><ellipse cx="0" cy="0" rx="6.05" ry="7.94" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-22.61 -99.37) rotate(-102.82)"/><ellipse cx="0" cy="0" rx="2.75" ry="12.03" fill="url(#gMarsf0)" opacity="0.08" transform="translate(67.73 -137.42) rotate(-63.76)"/><ellipse cx="0" cy="0" rx="10.88" ry="13.85" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-71.27 -66.32) rotate(-137.06)"/><ellipse cx="0" cy="0" rx="1.52" ry="5.76" fill="url(#gMarsf0)" opacity="0.1" transform="translate(97.56 116.25) rotate(50)"/><ellipse cx="0" cy="0" rx="3.68" ry="8.37" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-118.41 -77.17) rotate(-146.91)"/><ellipse cx="0" cy="0" rx="8.98" ry="13.39" fill="url(#gMarsf0)" opacity="0.14" transform="translate(20.17 114.99) rotate(80.05)"/><ellipse cx="0" cy="0" rx="5.23" ry="6.72" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-35.62 -92.28) rotate(-111.11)"/><ellipse cx="0" cy="0" rx="3.55" ry="5.31" fill="url(#gMarsf0)" opacity="0.14" transform="translate(34.42 -111.96) rotate(-72.91)"/><ellipse cx="0" cy="0" rx="1.19" ry="4.65" fill="url(#gMarsf0)" opacity="0.09" transform="translate(152.16 -1.96) rotate(-0.74)"/><ellipse cx="0" cy="0" rx="3.54" ry="5.85" fill="url(#gMarsf0)" opacity="0.14" transform="translate(117.82 42.66) rotate(19.9)"/><ellipse cx="0" cy="0" rx="4" ry="5.18" fill="url(#gMarsf0)" opacity="0.14" transform="translate(94.02 33.52) rotate(19.62)"/><ellipse cx="0" cy="0" rx="1.5" ry="4.81" fill="url(#gMarsf0)" opacity="0.11" transform="translate(23.84 -147.58) rotate(-80.82)"/><ellipse cx="0" cy="0" rx="1.96" ry="10.41" fill="url(#gMarsf0)" opacity="0.07" transform="translate(-109.96 108.62) rotate(135.35)"/><ellipse cx="0" cy="0" rx="3.38" ry="10.89" fill="url(#gMarsf0)" opacity="0.11" transform="translate(-19.73 -148.3) rotate(-97.58)"/><ellipse cx="0" cy="0" rx="5.7" ry="6.69" fill="url(#gMarsf0)" opacity="0.14" transform="translate(31.58 76.45) rotate(67.56)"/><ellipse cx="0" cy="0" rx="1.43" ry="6.22" fill="url(#gMarsf0)" opacity="0.08" transform="translate(-12.99 -152.62) rotate(-94.86)"/><ellipse cx="0" cy="0" rx="1.44" ry="15.36" fill="url(#gMarsf0)" opacity="0.03" transform="translate(74.1 138.05) rotate(61.78)"/><ellipse cx="0" cy="0" rx="4.67" ry="5.61" fill="url(#gMarsf0)" opacity="0.14" transform="translate(55.94 66.82) rotate(50.07)"/><ellipse cx="0" cy="0" rx="10.12" ry="15.84" fill="url(#gMarsf0)" opacity="0.14" transform="translate(2.31 121.06) rotate(88.9)"/><ellipse cx="0" cy="0" rx="3.04" ry="4.66" fill="url(#gMarsf0)" opacity="0.14" transform="translate(72.51 94.82) rotate(52.6)"/><ellipse cx="0" cy="0" rx="3.07" ry="4.9" fill="url(#gMarsf0)" opacity="0.14" transform="translate(-51.19 111.43) rotate(114.67)"/><ellipse cx="0" cy="0" rx="6.5" ry="12.79" fill="url(#gMarsf0)" opacity="0.14" transform="translate(128.79 -42.26) rotate(-18.17)"/></g><ellipse cx="0" cy="0" rx="157.38" ry="157.38" fill="url(#gMarss)"/><ellipse cx="0" cy="0" rx="157.38" ry="157.38" fill="url(#gMarsn)"/><g stroke="#e2e8f0" stroke-opacity=".33" stroke-dasharray="4 5"><line x1="0" y1="-188.85" x2="0" y2="188.85"/></g><ellipse cx="0" cy="0" rx="157.38" ry="157.38" fill="none" stroke="#0a1020" stroke-opacity=".4"/></g></svg>
+      </div>
+      <div class="sol-globefacts">
+        <div class="sun-srow sun-main"><span>One turn takes</span><b>24.6 hours</b></div>
+        <div class="sun-srow"><span>Axis tilted</span><b>25.19°</b></div>
+        <div class="sun-srow"><span>Its year</span><b>687 days</b></div>
+        <div class="sun-srow"><span>Turns per year</span><b>669.6</b></div>
+      </div>
+    </div>
+    <p class="hint">Turning here at one rotation every 12 seconds, which is 7,387 times real speed. What is not sped up: which way it turns, how far the axis leans, and how its day compares with every other planet's. Every dark patch is a named albedo feature at its real place and size: Syrtis Major the dark wedge, Acidalia in the north, Mare Cimmerium and Mare Sirenum along the south. Hellas is the bright circle — it is a 2,300 km basin full of dust, not a dark plain. Olympus Mons and the three Tharsis Montes are in their real diagonal line.</p>
+  </div>
+  <div class="card sol-card">
+    <div class="sol-stage">
+      <div class="sol-figwrap">
+        <div class="sol-figbox">
+        <div class="sol-fig" id="sol-fig"><svg viewBox="0 0 900 900" width="100%" aria-hidden="true"><rect width="900" height="900" rx="16" fill="#080d1a"/><circle cx="450" cy="450" r="54.3" fill="#c86a4a"/><text x="450" y="522.3" text-anchor="middle" font-size="13" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Mars</text><ellipse cx="450" cy="450" rx="150" ry="96.4" fill="none" stroke="#8fb3d9" stroke-opacity=".32" stroke-width="1"/><circle cx="471.4" cy="545.5" r="4.5" fill="#e8eef7"/><text x="471.4" y="534" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Phobos</text><ellipse cx="450" cy="450" rx="375.5" ry="241.3" fill="none" stroke="#8fb3d9" stroke-opacity=".32" stroke-width="1"/><circle cx="258.5" cy="657.6" r="2.5" fill="#e8eef7"/><text x="258.5" y="648.1" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Deimos</text><text x="26" y="60" font-size="12" fill="#94a3b8">Orbit sizes, orbit speeds and the planet’s own disc are to scale; the moons are drawn 25x oversize to be visible at all.</text><text x="26" y="76" font-size="12" fill="#94a3b8">Where each moon sits on its orbit is not solved for here — watch the motion, not the position.</text></svg></div>
+        <div class="sol-ptip" id="sol-ptip" role="status" hidden></div>
+
+        <div class="sol-overlay">
+          <button type="button" class="chip" id="sol-now" data-sol-inert disabled hidden>Now</button>
+          <button type="button" class="chip sim-icobtn" id="sol-fs" data-sol-inert disabled hidden aria-pressed="false" aria-label="Full screen"><svg class="nav-ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><g><path d="M4 9.4V4h5.4" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 14.6V20h-5.4" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14.6 4H20v5.4" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.4 20H4v-5.4" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g></svg><span class="sol-fslab">Full screen</span></button>
+          <button type="button" class="chip chip-alt" id="sol-play" aria-pressed="false" data-sol-inert disabled>Play</button>
+        </div>
+        </div>
+        <p class="sim-when" id="sol-when">Wed, August 26, 2026</p>
+        <p class="orr-scrub sol-scrub">
+          
+          <input type="range" class="orr-slider" id="sol-slider" min="0" max="525960" step="180" value="0" aria-label="Move through the span" data-sol-inert disabled>
+          <span class="sim-ends"><span id="sol-from">—</span><span id="sol-to">—</span></span>
+        </p>
+        
+      </div>
+      <div class="sol-panel">
+        <div class="sol-fields">
+          <div class="sol-sliders">
+          <div class="sol-field sol-field-wide sol-tiltfield">
+            <label class="sim-flab" for="sol-tilt">View tilt</label>
+            <p class="sol-tiltrow">
+              <input type="range" class="orr-slider sol-tiltslider" id="sol-tilt" min="0" max="80" step="1" value="50" aria-label="Tilt the view away from straight down" data-sol-inert disabled>
+              <span class="sol-tiltout" id="sol-tiltout">flat</span>
+            </p>
+          </div>
+          <div class="sol-field sol-field-wide sol-speedfield">
+            <label class="sim-flab" for="sol-speed">Speed</label>
+            <p class="sol-speedrow">
+              <input type="range" class="orr-slider sol-speed" id="sol-speed" min="3" max="90" step="1" value="15" aria-label="How fast the planets move while playing" data-sol-inert disabled>
+              <span class="sol-speedout" id="sol-speedout">—</span>
+            </p>
+          </div>
+          </div>
+          <div class="sol-field sol-field-wide sol-moonfield" id="sol-moonfield" hidden>
+            <span class="sim-flab" id="sol-moonlab">Moons shown</span>
+            <div class="sol-moons" role="group" aria-labelledby="sol-moonlab" id="sol-moons">
+              <button type="button" class="chip sol-moonbtn" data-sol-moons="1" aria-pressed="true" data-sol-inert disabled>Major</button>
+              <button type="button" class="chip sol-moonbtn" data-sol-moons="2" aria-pressed="false" data-sol-inert disabled>Regular system</button>
+              <button type="button" class="chip sol-moonbtn" data-sol-moons="3" aria-pressed="false" data-sol-inert disabled>Captured too</button>
+            </div>
+            <p class="sol-moonsout" id="sol-moonsout"></p>
+          </div>
+          
+          <div class="sol-field sol-timefield">
+            <label class="sim-flab" for="sol-start">Starting date</label>
+            <input type="date" class="orr-at" id="sol-start" min="1800-01-01" max="2050-12-31" aria-label="Date the span starts" data-sol-inert disabled>
+          </div>
+          <div class="sol-field sol-timefield">
+            <label class="sim-flab" for="sol-span">The slider covers</label>
+            <select class="sim-span" id="sol-span" aria-label="How much time the slider covers" data-sol-inert disabled><option value="month">Month</option><option value="year" selected>Year</option><option value="decade">Decade</option><option value="century">Century</option></select>
+          </div>
+        </div>
+        <div class="sim-rows sol-rows" id="sol-rows"></div>
+        
+        <p class="sol-note" id="sol-note"></p>
+        <p class="sim-jump sol-jump"><a class="chip" href="/solar-system-simulator/">The whole solar system &rarr;</a></p>
+      </div>
+    </div>
+    <p class="hint">Distances from the sun are in <strong>AU</strong> — one AU is the Earth’s average distance, <span data-u="km" data-v="149597870" data-s="6">149,597,870 km</span> — and the angle is where the body sits around its orbit, measured from the March equinox direction.</p>
+  </div>
+  <div class="card">
+    <h2>Mars by the numbers</h2>
+    <div class="wc-facts">
+      <div class="wc-frow"><span>Width</span><b><span data-u="km" data-v="6779" data-s="5">6,779 km</span> — 0.53× Earth</b></div>
+      <div class="wc-frow"><span>Mass</span><b>6.417 × 10^23 kg — 0.107× Earth</b></div>
+      <div class="wc-frow"><span>Surface gravity</span><b>3.71 m/s² — 0.38× Earth</b></div>
+      <div class="wc-frow"><span>Day</span><b>24.62 hours</b></div>
+      <div class="wc-frow"><span>Year</span><b>687.0 Earth days</b></div>
+      <div class="wc-frow"><span>Distance from the sun</span><b>1.524 AU on average — 1.38 to 1.67 AU</b></div>
+      <div class="wc-frow"><span>Sunlight takes</span><b>12.7 minutes</b></div>
+      <div class="wc-frow"><span>Axial tilt</span><b>25.19°</b></div>
+      <div class="wc-frow"><span>Temperature</span><b><span data-u="C" data-v="-65" data-s="0">−65 °C</span> average, from <span data-u="C" data-v="-140" data-s="0">−140 °C</span> to about <span data-u="C" data-v="20" data-s="0">20 °C</span></b></div>
+      <div class="wc-frow"><span>Moons</span><b>2</b></div>
+      <div class="wc-frow"><span>Atmosphere</span><b>95% carbon dioxide at 0.6% of Earth's pressure — thin enough that liquid water boils and freezes at once</b></div>
+    </div>
+    <p class="hint">The mass is worked out from Mars’s gravitational parameter and the gravity from that and its radius; the year comes from Kepler’s third law and the width is the same figure the simulator draws with. None of them is typed in beside the picture, so none of them can disagree with it.</p>
+  </div>
+  <div class="card">
+    <h2>The moons of Mars</h2>
+    <p>Mars has <strong>2 confirmed moons</strong>. Every distance and period here is real, and they are not independent: each pair has to satisfy Kepler’s third law against Mars’s mass, which is how this table is checked rather than trusted.</p>
+    <div class="mn-tablewrap">
+      <table class="mn-table sol-table">
+        <thead><tr><th>Moon</th><th>Distance</th><th>Orbit</th><th>Width</th><th></th></tr></thead>
+        <tbody>
+        <tr><th>Phobos</th><td><span data-u="km" data-v="9376" data-s="5">9,376 km</span></td><td>7.7 h</td><td><span data-u="km" data-v="22.4" data-s="-1">22.4 km</span></td><td>Closer to its planet than any other moon in the solar system, and falling</td></tr>
+        <tr><th>Deimos</th><td><span data-u="km" data-v="23463" data-s="5">23,463 km</span></td><td>1.26 d</td><td><span data-u="km" data-v="12.4" data-s="-1">12.4 km</span></td><td>So small and so far out that from Mars it is barely more than a bright star</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint">↺ marks a moon going round backwards. This system is the picture at the top of this page — press Play and watch these periods run.</p>
+  </div>
+  <div class="card sol-moonlead">
+    <h2>The moons of Mars, one at a time</h2>
+    <p>The table above has every figure — how far out, how long a lap takes, how wide. What follows is what those figures cannot tell you: what each one is actually like, who found it and when, and what is still argued about it.</p>
+  </div>
+  <div class="card sol-moon" id="moon-phobos">
+    <h2>Phobos</h2>
+    <p class="sub">The doomed one. It orbits below the height at which a Martian day and an orbit take the same time, so tides are dragging it DOWN rather than pushing it out.</p>
+    <div class="wc-facts sol-moonfacts">
+      <div class="wc-frow"><span>Across</span><b><span data-u="km" data-v="22.4" data-s="-1">22.4 km</span></b></div>
+      <div class="wc-frow"><span>Distance from Mars</span><b><span data-u="km" data-v="9376" data-s="5">9,376 km</span></b></div>
+      <div class="wc-frow"><span>One orbit</span><b>7.7 hours</b></div>
+      <div class="wc-frow"><span>Found</span><b>Asaph Hall, 1877, after his wife talked him out of giving up the search</b></div>
+    </div>
+    <ul class="sol-facts">
+      <li>It rises in the west and sets in the east, twice every Martian day — it laps Mars faster than Mars turns.</li>
+      <li>Stickney, its largest crater, is 9 km across on a moon 22 km wide. Whatever made it very nearly broke the moon apart, and the grooves radiating from it may be the cracks.</li>
+      <li>It is too light to be solid rock: a quarter to a third of it is empty space, so it is a rubble pile held together by very little.</li>
+    </ul>
+    <h3>Still unsettled</h3>
+    <p>Is it a captured asteroid or debris from a giant impact on Mars that re-accreted? Its spectrum says asteroid; its near-circular equatorial orbit says debris. Both cannot be right.</p>
+    <p>It is spiralling in about 1.8 cm a year. Whether it hits Mars in roughly 50 million years or is torn into a ring first depends on how strong that rubble pile is — which nobody has measured.</p>
+  </div>
+  <div class="card sol-moon" id="moon-deimos">
+    <h2>Deimos</h2>
+    <p class="sub">The quiet one, and the opposite case: it orbits outside the synchronous height, so it is drifting slowly away, as our own moon is.</p>
+    <div class="wc-facts sol-moonfacts">
+      <div class="wc-frow"><span>Across</span><b><span data-u="km" data-v="12.4" data-s="-1">12.4 km</span></b></div>
+      <div class="wc-frow"><span>Distance from Mars</span><b><span data-u="km" data-v="23463" data-s="5">23,463 km</span></b></div>
+      <div class="wc-frow"><span>One orbit</span><b>1.26 days</b></div>
+      <div class="wc-frow"><span>Found</span><b>Asaph Hall, 1877, six days before Phobos</b></div>
+    </div>
+    <ul class="sol-facts">
+      <li>Its craters are half-buried in its own dust, which makes it look smoother than Phobos at the same resolution.</li>
+      <li>From the Martian surface it takes about 2.7 days to cross the sky, because it is barely outrunning the planet’s own rotation.</li>
+      <li>It is 12 km across. Standing on it, escape velocity is about 5.6 m/s — a hard throw would leave.</li>
+    </ul>
+
+  </div>
+  <div class="card">
+    <h2>When Earth and Mars are next closest</h2>
+    <p>Both planets are moving, so the gap between them swings enormously — and the closest approaches are not all equal, because the orbits are ellipses rather than circles. These are the next four, solved from the orbits rather than looked up, and the widest is 1.6× the distance of the closest.</p>
+    <div class="wc-facts">
+      <div class="wc-frow"><span><a href="/solar-system-simulator/?date=2027-02-20" data-sol-date="2027-02-20">February 20, 2027</a></span><b>0.678 AU — light takes 5.6 minutes</b></div>
+      <div class="wc-frow"><span><a href="/solar-system-simulator/?date=2029-03-29" data-sol-date="2029-03-29">March 29, 2029</a></span><b>0.647 AU — light takes 5.4 minutes</b></div>
+      <div class="wc-frow"><span><a href="/solar-system-simulator/?date=2031-05-12" data-sol-date="2031-05-12">May 12, 2031</a></span><b>0.553 AU — light takes 4.6 minutes</b></div>
+      <div class="wc-frow"><span><a href="/solar-system-simulator/?date=2033-07-05" data-sol-date="2033-07-05">July 5, 2033</a></span><b>0.423 AU — light takes 3.5 minutes</b></div>
+    </div>
+    <p class="hint">Click a date to take the simulator there. These are minimum-distance moments, which fall near — but not exactly on — opposition.</p>
+  </div>
+  <div class="card sol-mission-card">
+    <h2>Flying to Mars: when to leave</h2>
+    <p>A rocket cannot point at Mars and fire. It has to leave Earth on an orbit around the <em>sun</em> whose far side touches Mars’s orbit — half an ellipse — and it has to leave at the moment when Mars will have arrived at that far side by the time the ship gets there. That is what a launch window is, and it is why they come round only every 25.0 months.</p>
+    <div class="wc-facts">
+      <div class="wc-frow"><span>Next window opens</span><b><a href="/rocket-launch-simulator/?date=2026-11-04&to=3" data-sol-date="2026-11-04" data-sol-target="3">November 4, 2026</a></b></div>
+      <div class="wc-frow"><span>Arrives</span><b>July 27, 2027</b></div>
+      <div class="wc-frow"><span>Flight time</span><b>265 days — 0.7 years</b></div>
+      <div class="wc-frow"><span>Speed change to leave Earth’s orbit round the sun</span><b><span data-u="km/s" data-v="3.0831897263229564" data-s="-2">3.08 km/s</span></b></div>
+      <div class="wc-frow"><span>The burn itself, from a low Earth orbit</span><b><span data-u="km/s" data-v="3.6268364195344116" data-s="-2">3.63 km/s</span></b></div>
+      <div class="wc-frow"><span>Slowing down to stay at Mars</span><b><span data-u="km/s" data-v="2.4875118353759724" data-s="-2">2.49 km/s</span></b></div>
+      <div class="wc-frow"><span>The window after that</span><b>December 6, 2028</b></div>
+    </div>
+    <p class="hint">Set <strong>Launch to: Mars</strong> on <a href="/rocket-launch-simulator/">the rocket launches page</a> to see the ellipse, where Mars is on launch day, and where it will be on arrival. Click the date to fly it.</p>
+  </div>
+  <div class="card">
+    <h2>What the flight path is, and is not</h2>
+    <p>It is a <strong>minimum-energy transfer</strong>: the cheapest possible path, half an ellipse with Earth’s orbit at one end and the target’s at the other, solved against where the planets really are — so the arrival lands on the planet’s real distance from the sun and its real position on the day it gets there, not on a circle standing in for its orbit.</p>
+    <p>It is <strong>not</strong> a mission plan, and three things are left out on purpose. The orbits are treated as flat, so the real inclinations — Mars is tilted 1.85°, Jupiter 1.3° — cost a plane change this ignores. Real missions trade fuel for a faster arrival, so they leave within days or weeks of these dates rather than exactly on them. And anything going past Jupiter usually steals speed from a planet on the way instead of buying it with fuel, which changes both the date and the path.</p>
+    <p>What it gets right is the thing worth teaching: <em>why</em> the window exists, why it comes round on the cadence it does, and why the cost of the trip is set by where two planets happen to be rather than by how far apart they are.</p>
+  </div>
+  <div class="card">
+    <h2>Mars: things worth knowing</h2>
+    <ul class="sol-facts">
+      <li>Olympus Mons is about 22 km high and roughly the size of Arizona. It got that big because Mars has no plate tectonics: the crust never moved off the hot spot, so one volcano kept growing for billions of years.</li>
+      <li>Valles Marineris runs 4,000 km, about the width of the United States, and up to 7 km deep.</li>
+      <li>Phobos orbits faster than Mars turns, so from the surface it rises in the west and sets in the east, twice a Martian day. It is also spiralling in, and will break up or hit the planet in the next few tens of millions of years.</li>
+      <li>Mars lost its global magnetic field about 4 billion years ago, and the solar wind has been stripping the atmosphere ever since. The magnetised patches left in the southern crust are the fossil of the field that was.</li>
+      <li>A Martian day is 24 h 37 m. It is the only planet in the solar system where the natural working day is nearly ours.</li>
+    </ul>
+  </div>
+  <div class="card sol-open">
+    <h2>What we still don’t know about Mars</h2>
+    <p class="sub">Every one of these is genuinely unsettled — not simplified for the page, not waiting on a textbook update.</p>
+    <h3>Did life ever start there?</h3>
+    <p>Mars had standing water, a thicker atmosphere and a magnetic field at the same time that life was getting going on Earth. Perseverance has found organic molecules and mineral textures in Jezero Crater that could be biological or could be ordinary chemistry — a 2025 paper describing 'leopard spot' features in the Cheyava Falls rock set out the case for both. Nothing yet is a confirmed biosignature, and settling it probably requires the samples to come back to a laboratory.</p>
+    <h3>Where did the atmosphere go?</h3>
+    <p>Some was stripped away by the solar wind, which MAVEN has watched happening. Some is thought to be locked in carbonate rock and in the polar caps. The books do not balance yet — and how much is still stored in the crust decides whether the loss was inevitable or reversible.</p>
+    <h3>Why are the two hemispheres so different?</h3>
+    <p>The northern third is low, smooth and thin-crusted; the south is high, ancient and cratered. One enormous impact, several large ones, or convection inside the young planet — the Martian dichotomy is one of the oldest unexplained features in the solar system.</p>
+    <h3>Where did Phobos and Deimos come from?</h3>
+    <p>They look like captured asteroids and are made of similar stuff. But both sit on nearly circular orbits right over the equator, which is very hard to achieve by capture and very natural for moons that formed from a debris disc after an impact. Japan's MMX mission is designed to bring a piece of Phobos back and end the argument.</p>
+  </div>
+  <div class="card">
+    <h2>Recently learned about Mars</h2>
+    <div class="wc-facts">
+      <div class="wc-frow"><span>2024</span><b>Seismic data from InSight was interpreted as evidence for liquid water in fractured rock in the middle crust, kilometres down — not accessible, but a reservoir large enough in principle to account for a good deal of the water that has gone missing from the surface.</b></div>
+      <div class="wc-frow"><span>2025</span><b>Curiosity reported long-chain organic molecules — decane, undecane and dodecane — in mudstone, the largest organic molecules yet found on Mars, and separately identified carbonate minerals consistent with a carbon cycle that shut down as the atmosphere thinned.</b></div>
+      <div class="wc-frow"><span>September 2025</span><b>A paper in Nature described the Sapphire Canyon sample from Cheyava Falls as a potential biosignature: mineral pairings that on Earth are usually produced by microbes, in a rock that Perseverance sampled but cannot analyse further. The sample is sitting on Mars waiting for a return mission that has not been funded.</b></div>
+    </div>
+    <p class="hint">Findings reviewed August 2026. Space science moves; a date on a finding is part of the finding.</p>
+  </div>
+  <div class="card">
+    <h2>The rest of the system</h2>
+    <p>Inward: <a href="/earth-and-moon-simulator/">Earth</a>. Outward: <a href="/jupiter-and-moons-simulator/">Jupiter</a>. Or step out: <a href="/planets/">all the planets</a>, a picture and a paragraph each, and the <a href="/solar-system-simulator/">solar system simulator</a>, where every orbit runs at once.</p>
+    <div class="chips">
+      <a class="chip" href="/mercury-simulator/">Mercury</a>
+      <a class="chip" href="/venus-simulator/">Venus</a>
+      <a class="chip" href="/earth-and-moon-simulator/">Earth</a>
+      <a class="chip" href="/jupiter-and-moons-simulator/">Jupiter</a>
+      <a class="chip" href="/saturn-and-moons-simulator/">Saturn</a>
+      <a class="chip" href="/uranus-and-moons-simulator/">Uranus</a>
+      <a class="chip" href="/neptune-and-moons-simulator/">Neptune</a>
+      <a class="chip" href="/pluto-and-moons-simulator/">Pluto</a>
+      <a class="chip" href="/solar-system-simulator/asteroid-belt/">The asteroid belt</a>
+      <a class="chip" href="/solar-system-simulator/comets/">Comets</a>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Make a link to a particular view</h2>
+    <p>The date, the zoom, the span, the speed, the layers and any flight path are all in the address bar, so copying the URL shares exactly what is on screen. Set it up above, then take the link — it is the quickest way to hand a class one specific thing to look at.</p>
+    <p class="sim-urlrow">
+      <input type="text" id="sol-url" class="sim-url" readonly aria-label="Link to this view" value="https://timeandspace.science/mars-and-moons-simulator/">
+      <button type="button" class="chip chip-alt" id="sol-copy" data-sol-inert disabled>Copy link</button>
+    </p>
+    <p class="sim-sum" id="sol-sum"></p>
+  </div>
+  <div class="card">
+    <h2>The other simulator</h2>
+    <p>This one is about the whole system. If the question is where the sun and the moon are <em>from where you are standing</em> — what time the sun comes up, why tonight's moon is the shape it is — that is the <a href="/sun-moon-earth-movement-simulator/">Sun, Earth &amp; Moon movement simulator</a>, which has a page for every city and a slider over a day, a week or a month. Between the two is <a href="/sun-moon-earth-movement-simulator/system/">the three bodies moving together</a> — Earth going round the sun, the moon going round the Earth, on one screen and openly not to scale, keeping only the real ratio between the two periods.</p>
+    <p>And for <em>why</em> any of it stays up: the <a href="/orbital-velocity-simulator/">orbital velocity simulator</a> takes one planet and lets you set its distance and its sideways speed by hand, so you can watch the balance that holds every orbit here — and break it, into an ellipse, an escape, or a fall into the sun.</p>
+    <p class="hint">Also: <a href="/classroom/">the classroom guide</a> · <a href="/sun/">sunrise &amp; sunset by city</a> · <a href="/moon/">moon phase &amp; moonrise</a> · <a href="/moon/eclipses/">lunar eclipses</a> · <a href="/methodology/moon-phase/">how the positions are worked out</a></p>
+  </div>
+  <div class="card tool-about">
+    <h2>Mars: questions without settled answers</h2>
+    <p><strong>Did life ever start there?</strong> Mars had standing water, a thicker atmosphere and a magnetic field at the same time that life was getting going on Earth. Perseverance has found organic molecules and mineral textures in Jezero Crater that could be biological or could be ordinary chemistry — a 2025 paper describing &#39;leopard spot&#39; features in the Cheyava Falls rock set out the case for both. Nothing yet is a confirmed biosignature, and settling it probably requires the samples to come back to a laboratory.</p>
+    <p><strong>Where did the atmosphere go?</strong> Some was stripped away by the solar wind, which MAVEN has watched happening. Some is thought to be locked in carbonate rock and in the polar caps. The books do not balance yet — and how much is still stored in the crust decides whether the loss was inevitable or reversible.</p>
+    <p><strong>Why are the two hemispheres so different?</strong> The northern third is low, smooth and thin-crusted; the south is high, ancient and cratered. One enormous impact, several large ones, or convection inside the young planet — the Martian dichotomy is one of the oldest unexplained features in the solar system.</p>
+    <p><strong>Where did Phobos and Deimos come from?</strong> They look like captured asteroids and are made of similar stuff. But both sit on nearly circular orbits right over the equator, which is very hard to achieve by capture and very natural for moons that formed from a debris disc after an impact. Japan&#39;s MMX mission is designed to bring a piece of Phobos back and end the argument.</p>
+  </div>
+  <details class="suggest-box" data-ac="suggest">
+    <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
+    <form class="suggest-form" autocomplete="off">
+      <p class="hint" style="margin:0 0 14px">Ask us anything about the tools, tell us what's broken or confusing, or suggest something we're missing. Every message is read by a person.</p>
+      <p class="notice">If you are under 13, do not send us your name, email, or any other personal information. If you are under 18, please get a parent or guardian's permission before using this form.</p>
+      <label class="cr-check" for="sg-age"><input id="sg-age" name="age_ok" type="checkbox" required> <span>I am 13 or older, and if I am under 18 I have a parent or guardian's permission to send this.</span></label>
+      <label for="sg-email">Email <span class="hint" style="display:inline;font-weight:400">(so we can reply — leave blank if you'd rather not)</span></label>
+      <input id="sg-email" type="email" placeholder="Your email address">
+      <label for="sg-idea">Your question or idea</label>
+      <textarea id="sg-idea" maxlength="1000" required placeholder="How do I…? · Something isn't working · A countdown or feature we're missing…"></textarea>
+      <input id="sg-hp" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn" id="sg-send" type="submit">Send message</button>
+      <p id="sg-note" class="hint suggest-note" role="status"></p>
+      <p class="hint" style="margin-top:12px">If you leave an email we'll reply to questions. We can't promise to build every suggestion, but they directly shape what we work on next.</p>
+    </form>
+  </details>
+  <script data-ac="suggest">(function(){var b=document.querySelector('.suggest-box[data-ac="suggest"]');if(!b)return;var f=b.querySelector('.suggest-form'),note=b.querySelector('#sg-note'),btn=b.querySelector('#sg-send');f.addEventListener('submit',function(e){e.preventDefault();if(b.querySelector('#sg-hp').value)return;var idea=b.querySelector('#sg-idea').value.trim();if(!idea){note.textContent='Please add a quick note first.';return;}var age=b.querySelector('#sg-age');if(age&&!age.checked){note.textContent='Please confirm the age notice.';return;}var em=b.querySelector('#sg-email').value.trim();btn.disabled=true;note.textContent='Sending…';fetch('/api/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:location.href,reason:'Site idea',details:idea,email:em,website:''})}).then(function(r){return r.json().catch(function(){return{};});}).then(function(d){if(d&&!d.error){f.reset();note.textContent=em?'Thanks — got it. A reply will go to '+em+'. 🙌':'Thanks — got it. 🙌 (No email given, so this one cannot be answered.)';}else{note.textContent='Sorry, that did not send. Please try again.';btn.disabled=false;}}).catch(function(){note.textContent='Network hiccup — please try again.';btn.disabled=false;});});})();</script>
+  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/suggest-event/">Suggest an event</a> · <a class="report-link" href="/report/?url=https%3A%2F%2Ftimeandspace.science%2Fmars-and-moons-simulator%2F">Report abuse</a></p>
+  <p class="footer copyright">© 2026 Time and Space Science. All rights reserved.</p>
+  <p class="footer sitelinks">Gravity, motion, time and space — one set of rules, seen from different sides: <a href="/questions/">the big questions</a> · <a href="/glossary/">the glossary</a> · <a href="/sun-moon-earth-movement-simulator/">the Sun, Earth &amp; Moon</a> · <a href="/day-night-map/">day &amp; night on Earth</a> · <a href="/solar-system-simulator/">the solar system</a> · <a href="/planets/">the planets</a> · <a href="/orbital-velocity-simulator/">gravity &amp; orbits</a> · <a href="/sun/">sunrise &amp; sunset</a> · <a href="/moon/">moon phases</a> · <a href="/world-clock/">time zones</a></p>
+  <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. Teachers: <a href="/classroom/submit-a-lesson/">send us the lesson you already run</a> and we will build it into a page here, with your name on it — or <a href="/classroom/#ask">ask us to build a simulator</a> your class has thought of. <a href="/classroom/">Classroom</a> · <a href="/about/">About this site</a>.</p>
+</div>
+<script defer src="/assets/js/sol-mars.8da131392e.js"></script>
+<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+<script data-ac="privacy">(function(){
+  try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
+  var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];
+  /* "dismissed" stores the choice-not-to-choose: the strip stops nagging, no
+   * consent is recorded (so under GDPR analytics consent stays not-granted). */
+  function setConsent(v){
+    try{localStorage.setItem("ac_consent",v);}catch(_){}
+    try{if(v!=="dismissed"&&window.zaraz&&zaraz.consent){zaraz.consent.set({analytics:v==="granted"});zaraz.consent.sendQueuedEvents&&zaraz.consent.sendQueuedEvents();}}catch(_){}
+    var el=document.getElementById("ac-privacy");if(el)el.hidden=true;
+  }
+  function show(g){
+    if(!g||!g.country)return;
+    var isGdpr=GDPR.indexOf(g.country)>-1, isCcpa=g.country==="US"&&g.region==="CA";
+    if(!isGdpr&&!isCcpa)return;
+    var el=document.getElementById("ac-privacy"),txt=document.getElementById("ac-privacy-text"),act=document.getElementById("ac-privacy-actions");
+    if(!el)return;
+    if(isGdpr){
+      txt.textContent="Allow Google Analytics? EU/UK law requires consent for analytics.";
+      act.innerHTML='<button type="button" id="ac-priv-a">Accept</button><button type="button" class="plain" id="ac-priv-r">Reject</button><a href="/privacy">Privacy</a>';
+      document.getElementById("ac-priv-a").onclick=function(){setConsent("granted");};
+      document.getElementById("ac-priv-r").onclick=function(){setConsent("denied");};
+    }else{
+      txt.textContent="This site uses Google Analytics.";
+      act.innerHTML='<a href="#" id="ac-priv-o">Do Not Sell or Share My Personal Information</a><a href="/privacy">Privacy</a>';
+      document.getElementById("ac-priv-o").onclick=function(ev){ev.preventDefault();setConsent("denied");};
+    }
+    document.getElementById("ac-privacy-x").onclick=function(){setConsent("dismissed");};
+    el.hidden=false;
+  }
+  /* ONE lookup per visitor, not one per page view. This notice is site-wide, so
+     the fetch was firing on every page — including /timer/ and /stopwatch/,
+     which have nothing regional about them. The visitor's country does not
+     change between two page views, so it is cached and reused; only a visitor
+     who has neither answered the notice nor been looked up yet costs a request.
+     Deferred to idle as well, so even that one never sits in the load timeline
+     (it decides whether to show a banner, nothing above the fold waits on it).
+     The cache carries a 7-day expiry rather than living forever: this signal
+     decides whether a consent gate is legally required, and someone who first
+     visited from outside the EEA and has since travelled into it must not be
+     held to a stale answer. Seven days keeps it one request per visitor per
+     week, which is already ~zero. */
+  var cached=null;
+  try{
+    var raw=JSON.parse(localStorage.getItem("ac_geo")||"null");
+    if(raw&&raw.t&&(Date.now()-raw.t)<6048e5) cached=raw;
+  }catch(_){}
+  function go(){
+    if(cached&&cached.country){show(cached);return;}
+    fetch("/api/geo").then(function(r){return r.ok?r.json():null;}).then(function(g){
+      if(!g||!g.country)return;
+      try{localStorage.setItem("ac_geo",JSON.stringify({country:g.country,region:g.region,t:Date.now()}));}catch(_){}
+      show(g);
+    })["catch"](function(){});
+  }
+  if(window.requestIdleCallback)requestIdleCallback(go,{timeout:2500});else setTimeout(go,700);
+})();</script>
+</body>
+</html>

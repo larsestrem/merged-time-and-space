@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multiple Stopwatches — Run Up to 6 at Once</title>
+<meta name="description" content="Run up to six independent stopwatches at the same time, each with its own name, colour and laps. Free, no sign-up, and every session exports to one CSV.">
+<link rel="canonical" href="https://timeandspace.science/stopwatch/multiple/">
+<meta property="og:title" content="Multiple Stopwatches — Run Up to 6 at Once">
+<meta property="og:description" content="Six independent stopwatches on one screen, each with its own name, colour and lap list — for lanes, groups, stations or heats.">
+<meta property="og:type" content="website">
+<style data-ac="css">:root{
+--bg:linear-gradient(#0b0e1c,#0b0e1c);
+--bg-solid:#0b0e1c;
+--accent:#fcd34d; --text:#f8fafc;
+--card: rgba(255,255,255,.08); --border: rgba(255,255,255,.16);
+--muted: rgba(255,255,255,.65);
+--accent-text:#1e1b4b;
+--menu-bg:#141a3a; --menu-text:#f8fafc;
+}
+html.pj{
+--bg:linear-gradient(#000308,#000308);
+--bg-solid:#000308;
+--text:#ffffff;
+--muted:rgba(255,255,255,.92);
+--card:rgba(255,255,255,.16);
+--border:rgba(255,255,255,.55);
+--accent:#ffd83d;
+}
+html.pj .card{border-width:1.5px}
+html.pj .hint,html.pj .sub{color:rgba(255,255,255,.88)}
+html.pj body{font-size:107%}
+html.pj a{text-decoration-thickness:2px}
+.skip-link{position:fixed;top:-48px;left:12px;z-index:200;padding:10px 16px;border-radius:0 0 10px 10px;
+background:var(--accent);color:var(--accent-text);font-weight:700;text-decoration:none;transition:top .15s}
+.skip-link:focus{top:0;outline:2px solid var(--text);outline-offset:2px}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{margin:0;padding:0}
+body{
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+background-image:var(--motif,none),var(--bg);
+background-size:var(--motif-size,200px),cover;
+background-repeat:repeat,no-repeat; background-attachment:fixed;
+color:var(--text); min-height:100vh; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent)}
+.wrap{max-width:1400px;margin:0 auto;padding:12px 18px 64px}
+.wrap-wide{max-width:1400px}
+.site-notice{display:flex;align-items:center;gap:10px;
+padding:7px 0 8px;margin:0 0 4px;border-bottom:1px solid var(--border);
+font-size:13px;line-height:1.35;color:var(--muted)}
+.site-notice p{margin:0;flex:1;min-width:0}
+.site-notice b{color:var(--text);font-weight:600}
+.site-notice-x{flex:none;display:inline-flex;align-items:center;justify-content:center;
+width:26px;height:26px;padding:0;border:0;border-radius:6px;
+background:none;color:var(--muted);cursor:pointer}
+.site-notice-x:hover{background:rgba(255,255,255,.07);color:var(--text)}
+.site-notice-x:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+html.nb-off .site-notice{display:none}
+@media (max-width:560px){.site-notice-sub{display:none}}
+.brand{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:2px 0 8px}
+.brand-titled{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;flex-wrap:nowrap}
+.brand-titled .crumbs{justify-self:start}
+.brand-titled .menu-dd{justify-self:end;margin-left:0}
+.brand-h1{justify-self:center;margin:0;text-align:center;line-height:1.1;
+font-size:clamp(19px,4.6vw,32px)}
+.brand-titled{min-height:45px}
+.brand-titled .crumbs,.brand-titled .brand-h1,.brand-titled .menu-dd{align-self:center}
+.brand-h1{min-width:0}
+@media (max-width:429px){
+.brand-h1{font-size:clamp(17px,5.1vw,22px)}
+.brand-titled{gap:4px}
+}
+.topnav{display:none}
+.menu-dd{margin-left:auto}
+.nav-dd{position:relative}
+.nav-dd summary{list-style:none;cursor:pointer;user-select:none;font-size:14px;font-weight:600;
+padding:8px 10px;border-radius:10px;color:var(--text);display:flex;align-items:center;gap:5px}
+.nav-dd summary::-webkit-details-marker{display:none}
+.nav-dd summary::after{content:"▾";font-size:10px;opacity:.7}
+.nav-dd summary:hover,.nav-dd[open] summary{background:var(--card)}
+.menu-dd summary{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;padding:0;font-size:30px;line-height:1;border-radius:10px;gap:0}
+.menu-dd summary::after{content:none}
+.nav-dd .menu{position:absolute;right:0;top:calc(100% + 6px);min-width:215px;z-index:60;
+background:var(--menu-bg);border:1px solid var(--border);border-radius:14px;padding:6px;
+box-shadow:0 12px 32px rgba(0,0,0,.35);list-style:none;margin:0}
+.nav-dd .menu a{display:block;padding:7px 13px;border-radius:9px;font-size:15px;font-weight:600;
+color:var(--menu-text);text-decoration:none;white-space:nowrap}
+.nav-dd .menu a:hover{background:rgba(125,125,125,.16)}
+.nav-dd .menu .sep{height:1px;background:var(--border);margin:5px 8px}
+.nav-dd .menu .nav-leaf{width:24px;height:24px;vertical-align:-7px;margin-right:-1px}
+.flag{display:inline-block;width:20px;height:14px;border-radius:2px;vertical-align:-2px;
+margin-right:6px;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.h1-flag .flag{width:30px;height:20px;vertical-align:-3px;margin-right:4px}
+.crumbs{display:inline-flex;align-items:center;gap:1px;flex-wrap:wrap;min-width:0}
+.brand-name{font-weight:800;font-size:18px;color:var(--text);text-decoration:none;display:inline-flex;align-items:center}
+.brand-name .logo{display:block;height:45px;width:auto}
+.brand-name:hover{color:var(--accent)}
+.brand-dd .menu{left:0;right:auto}
+.brand-dd summary{padding:2px 4px;gap:3px}
+.brand-dd .logo{display:block;height:45px;width:auto}
+.brand-menu a{display:flex;align-items:center;gap:9px}
+.brand-menu .nav-ico{flex:0 0 auto;opacity:.85}
+.brand{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.crumbs{display:contents}
+.brand-dd{justify-self:start}
+.brand-word{justify-self:center}
+.menu-dd{justify-self:end;margin-left:0}
+.brand-dd summary::after{content:none}
+.brand-word{display:inline-flex;align-items:baseline;margin:0;text-decoration:none;
+font-weight:800;letter-spacing:-.005em;line-height:1.1;white-space:nowrap;
+font-size:clamp(19px,4.2vw,30px)}
+.brand-word>*+*{margin-left:.1em}
+.wm-w{color:var(--text)}
+.wm-j{color:var(--muted)}
+.wm-tld{margin-left:0}
+a.brand-word:hover .wm-w{color:var(--accent)}
+a.brand-word:hover .wm-j{color:var(--accent);opacity:.55}
+@media (max-width:380px){.brand-word{font-size:17px}}
+.brand-cat{font-weight:600;font-size:18px;color:var(--muted);text-decoration:none;word-break:break-all}
+.brand-cat:hover{color:var(--text)}
+.copy-dd summary{padding:6px;color:var(--muted)}
+.copy-dd summary::after{content:none}
+.copy-dd summary svg{display:block}
+.copy-dd[open] summary,.copy-dd summary:hover{color:var(--text)}
+.copy-dd .menu{left:0;right:auto;min-width:200px}
+.copy-menu .menu-h{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);
+padding:4px 12px 6px;font-weight:700}
+.copy-item{display:block;width:100%;text-align:left;background:none;border:0;cursor:pointer;
+padding:9px 12px;border-radius:9px;font-size:14px;font-weight:600;color:var(--menu-text);
+white-space:nowrap;font-family:inherit}
+.copy-item:hover{background:rgba(125,125,125,.16)}
+.copy-item.copied{color:var(--accent)}
+@media (max-width:600px){
+.brand{position:relative}
+.nav-dd{position:static}
+.nav-dd .menu,.copy-dd .menu{left:12px;right:12px;top:calc(100% + 4px);min-width:0;
+max-height:72vh;overflow-y:auto}
+.copy-item,.nav-dd .menu a{white-space:normal}
+}
+@media (min-width:680px){
+.menu-dd summary{width:38px;height:38px;font-size:27px}
+}
+h1{font-size:26px;line-height:1.2;margin:2px 0 4px}
+.sub{color:var(--muted);margin:0 0 22px}
+.home-tagline{margin:0 0 14px;font-size:14px;color:var(--muted)}
+.home-tagline a{color:var(--accent);text-decoration:none;font-weight:600}
+.home-tagline a:hover{text-decoration:underline}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;margin:16px 0;backdrop-filter:blur(8px)}
+.duo{margin:16px 0;display:grid;grid-template-columns:1fr;gap:16px}
+.duo>.card{margin:0;min-width:0}
+@media (min-width:980px){
+.duo{grid-template-columns:1fr 1fr}
+.duo-23{grid-template-columns:2fr 1fr}
+}
+.duo-m{grid-template-columns:1fr 1fr}
+@media (max-width:560px){.duo-m{gap:10px}}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+input,select,textarea{
+width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
+background:rgba(0,0,0,.25);color:var(--text);font-size:16px;font-family:inherit
+}
+select option{background-color:#171327;color:#f8fafc}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.4)}
+textarea{resize:vertical;min-height:64px}
+.row{display:flex;gap:12px}
+.row>*{flex:1}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+.tool-warn{text-align:center;margin:10px auto 0}
+.tool-warn a{color:var(--muted)}
+.duration-equivalent{margin:14px auto 0;width:max-content;max-width:100%;padding:7px 15px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.03);text-align:center;font-size:14px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+.timer-illus{float:right;width:160px;height:160px;margin:0 0 10px 16px;border-radius:14px}
+@media (max-width:480px){.timer-illus{float:none;display:block;margin:0 auto 12px}}
+.clock-illus{float:right;width:150px;height:150px;margin:0 0 8px 16px}
+@media (max-width:480px){.clock-illus{float:none;display:block;margin:0 auto 10px}}
+.more-times{margin-top:12px}
+.more-times>summary{list-style:none;cursor:pointer;display:inline-block;font-size:13px;font-weight:700;color:var(--accent)}
+.more-times>summary::-webkit-details-marker{display:none}
+.more-times>summary::after{content:" ▾"}
+.more-times[open]>summary::after{content:" ▴"}
+.more-times>summary:hover{text-decoration:underline}
+.tide-figure{margin:12px 0 0;text-align:center}
+.tide-curve{display:block;width:100%;max-width:340px;height:auto;margin:0 auto}
+.tide-figure figcaption{font-size:11px;color:var(--muted);margin-top:4px}
+.td-nearme{border:1.5px solid var(--accent);box-shadow:0 0 0 4px rgba(125,211,252,.06)}
+.td-nearme .btn{margin-top:4px}
+.nm-status{margin:0 0 10px;color:var(--muted)}
+.nm-statusrow{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.nm-statusrow .nm-status{margin:0}
+.nm-spinner{flex:0 0 18px;width:18px;height:18px;border-radius:50%;border:2px solid var(--border);border-top-color:var(--accent);animation:nm-spin .7s linear infinite}
+.nm-spinner[hidden]{display:none}
+@keyframes nm-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.nm-spinner{animation-duration:2.4s}}
+.nm-list:not(:empty){margin-bottom:12px}
+.nm-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.nm-item{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;padding:10px 14px;border:1px solid var(--border);border-radius:12px;background:var(--card2,#171a26);text-decoration:none;color:inherit}
+.nm-item:hover{border-color:var(--accent);background:rgba(125,211,252,.08)}
+.nm-city{font-weight:600}
+.nm-mi{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.td-sunline{font-size:16px;margin:2px 0 8px;font-variant-numeric:tabular-nums}
+.td-sunline b{color:var(--accent);font-weight:700}
+.tide-today{width:100%;border-collapse:collapse;margin-top:4px}
+.tide-today th,.tide-today td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+.tide-today th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.tide-today td{font-variant-numeric:tabular-nums}
+.tide-today tr:last-child td{border-bottom:none}
+.theme-preview{margin:12px 0 4px;height:128px;border:1px solid var(--border);border-radius:14px;
+background-image:var(--motif,none),var(--bg);background-size:var(--motif-size,auto),cover;
+background-position:center;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.theme-preview svg{width:88px;height:88px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.45))}
+.art-row{align-items:stretch}
+.art-row .theme-preview{margin:14px 0 0;height:auto;min-height:74px}
+.art-row .theme-preview svg{width:60px;height:60px}
+.msg-suggest{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.msg-suggest button{cursor:pointer;border:1px solid var(--border);border-radius:999px;padding:5px 11px;
+font-size:12px;font-weight:600;color:var(--text);background:rgba(0,0,0,.18);font-family:inherit;width:auto}
+.msg-suggest button:hover{border-color:var(--accent)}
+.presets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.preset{
+display:block;cursor:pointer;border:1px solid var(--border);border-radius:14px;padding:12px 6px;text-align:center;
+background:rgba(0,0,0,.18);transition:.15s;font-size:13px;color:var(--text);text-decoration:none
+}
+.preset:hover{transform:translateY(-2px)}
+.preset.active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset;background:rgba(56,189,248,.12)}
+.preset .em{font-size:26px;display:block;margin-bottom:4px}
+.more-cta{display:block;text-align:center;margin-top:12px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none}
+.more-cta:hover{text-decoration:underline}
+.card h2{font-size:17px;margin:0 0 10px}
+.cat-link{color:var(--text);text-decoration:none}
+.cat-link:hover{text-decoration:underline}
+.facts{margin:0;padding-left:20px}
+.facts li{margin:7px 0}
+.tl-list{display:flex;flex-direction:column;gap:2px}
+.tl-row{display:flex;gap:14px;padding:9px 2px;border-bottom:1px solid var(--border)}
+.tl-row:last-child{border-bottom:none}
+.tl-year{flex:0 0 auto;min-width:64px;max-width:42%;font-weight:800;color:var(--accent);overflow-wrap:break-word}
+.tl-text{flex:1;min-width:0;line-height:1.4}
+.champ-note{color:var(--muted);font-weight:400}
+.rec-list{display:flex;flex-direction:column;gap:2px}
+.rec-row{display:flex;gap:14px;padding:9px 2px;border-bottom:1px solid var(--border)}
+.rec-row:last-child{border-bottom:none}
+.rec-label{flex:0 0 auto;min-width:160px;max-width:42%;font-weight:700;color:var(--muted);overflow-wrap:break-word}
+.rec-value{flex:1;min-width:0;line-height:1.4;font-weight:600}
+@media (max-width:560px){
+.tl-row,.rec-row{flex-direction:column;gap:3px}
+.tl-year,.rec-label{max-width:100%}
+}
+.list-head{display:flex;justify-content:space-between;gap:10px;padding:0 0 8px;margin-bottom:4px;border-bottom:1px solid var(--border)}
+.sortbtn{background:none;border:0;cursor:pointer;font:inherit;font-size:12px;font-weight:700;
+text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:2px}
+.sortbtn:hover{color:var(--text)}
+.sortbtn[data-dir]{color:var(--accent)}
+.sortbtn[data-dir="asc"]::after{content:" ▲";font-size:9px}
+.sortbtn[data-dir="desc"]::after{content:" ▼";font-size:9px}
+.toplist{list-style:none;margin:0;padding:0}
+.toplist li{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+padding:9px 2px;border-bottom:1px solid var(--border)}
+.toplist li:last-child{border-bottom:none}
+.toplist a{font-weight:600;text-decoration:none}
+.toplist a:hover{text-decoration:underline}
+.toplist .when{font-size:12px;color:var(--muted);white-space:nowrap}
+.btn{
+display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;
+border:none;border-radius:12px;padding:13px 18px;font-size:16px;font-weight:700;
+background:var(--accent);color:var(--accent-text);width:100%;font-family:inherit;text-decoration:none
+}
+.btn.secondary{background:rgba(255,255,255,.12);color:var(--text);border:1px solid var(--border)}
+.btn:active{transform:scale(.99)}
+.btn:disabled,.btn[disabled]{opacity:.45;cursor:default}
+.btn:disabled:active,.btn[disabled]:active{transform:none}
+.btn.small{padding:9px 12px;font-size:14px;width:auto}
+.share{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.share .btn{flex:1;min-width:120px}
+.share-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:16px}
+.cal-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:12px 0 22px}
+.share-label{font-weight:700;font-size:14px;color:var(--text)}
+.share-row .share-label{flex-basis:100%;font-weight:800;margin-bottom:2px}
+.ico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;
+border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;transition:.15s}
+.ico svg{width:20px;height:20px;fill:currentColor}
+.ico:hover{transform:translateY(-2px)}
+.ico.wa{background:#25d366;color:#fff;border-color:transparent}
+.ico.fb{background:#1877f2;color:#fff;border-color:transparent}
+.ico.x{background:#000;color:#fff;border-color:transparent}
+.ico.tg{background:#229ed9;color:#fff;border-color:transparent}
+.ico.sms{background:#34c759;color:#fff;border-color:transparent}
+.ico.em{background:#5b6472;color:#fff;border-color:transparent}
+.linkbox{display:flex;gap:8px;margin-top:8px}
+.linkbox input{font-size:13px}
+.notice{font-size:12px;color:var(--muted);border-left:3px solid var(--accent);padding:8px 12px;margin-top:14px;background:rgba(0,0,0,.18);border-radius:0 10px 10px 0}
+.notice-warn{margin-top:0;border-left-color:#f87171;background:rgba(248,113,113,.14);font-size:13px;color:var(--text)}
+.steps{margin:0 0 18px;padding:0;list-style:none;display:grid;gap:6px;font-size:14px;color:var(--muted)}
+.steps strong{color:var(--text)}
+.menu-sep{border-top:1px solid var(--border);margin-top:6px;padding-top:6px}
+.menu-units{border-top:1px solid var(--border);margin-top:6px;padding:6px 10px 2px;
+display:flex;align-items:center;justify-content:space-between;gap:10px}
+.menu-ulab{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px;white-space:nowrap}
+.menu-useg{display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden}
+.menu-ubtn{appearance:none;background:none;border:0;color:var(--muted);cursor:pointer;
+padding:4px 10px;font:inherit;font-size:12.5px;line-height:1.6}
+.menu-ubtn+.menu-ubtn{border-left:1px solid var(--border)}
+.menu-ubtn:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.menu-ubtn[aria-pressed="true"]{background:rgba(252,211,77,.16);color:var(--accent)}
+.menu-pj{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;
+padding:9px 12px;font:inherit;font-size:14px;color:var(--menu-text);cursor:pointer;
+text-align:left;border-radius:8px}
+.menu-pj:hover{background:rgba(255,255,255,.1)}
+.menu-pj[aria-pressed="true"]{color:var(--accent)}
+.menu-pj[aria-pressed="true"] span::after{content:" · on";opacity:.8}
+@media print{
+:root{--bg:#fff;--bg-solid:#fff;--text:#111;--muted:#444;--card:#fff;--border:#bbb;--accent:#111;--accent-text:#fff}
+body{background:#fff;color:#111}
+.topnav,.brand-dd,.menu-dd,.skip-link,.site-notice,.suggest-box,.cr-ask,.lp-actions,
+.privacy-notice,.footer.sitelinks,.report-link,button{display:none !important}
+.card{border:1px solid #bbb;box-shadow:none;break-inside:avoid}
+a{color:#111;text-decoration:underline}
+.lp-blank,.lp-blank-wide{border-color:#111}
+.lp-blank-wide{background:repeating-linear-gradient(to bottom,transparent,transparent 1.5em,#777 1.55em)}
+}
+.celebrate-list li{margin:7px 0}
+.faq-card summary{cursor:pointer;font-weight:700;padding:12px 0;list-style:none;position:relative;padding-right:26px}
+.faq-card summary::-webkit-details-marker{display:none}
+.faq-card summary::after{content:"+";position:absolute;right:4px;top:9px;font-size:22px;line-height:1;color:var(--muted)}
+.faq-card details[open] summary::after{content:"\2013"}
+.faq-card details{border-top:1px solid var(--border)}
+.faq-card details:first-of-type{border-top:0}
+.faq-card .faq-a{padding:0 0 12px;margin:0;color:var(--muted)}
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px 18px;margin:0 0 18px;text-align:center;backdrop-filter:blur(8px);position:relative;z-index:5}
+.tool-time{font-size:clamp(48px,17vw,108px);font-weight:800;font-variant-numeric:tabular-nums;line-height:1;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.55);margin:4px 0}
+.tool-time .cs{font-size:.45em;color:var(--muted)}
+.tool-msg{color:var(--accent);font-weight:700;min-height:20px;margin:4px 0 0}
+.tool-msg-warn{color:#fca5a5;font-weight:600}
+.tool-msg-warn a,.set-err a{color:inherit;text-decoration:underline}
+.set-err{margin:12px 0 0;color:#fca5a5;font-size:14px;font-weight:600;line-height:1.5;text-align:center}
+.t-fs-note{position:fixed;left:0;right:0;bottom:0;z-index:2;margin:0;padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom));background:rgba(0,0,0,.55);color:#cbd5e1;font-size:13px;font-weight:500;line-height:1.45;text-align:center}
+.tool-uses{color:var(--muted);margin:-12px 0 22px}
+.tool-controls{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
+.tool-controls .btn{width:auto;min-width:0}
+@media (max-width:480px){
+.tool-controls{gap:7px}
+.tool-controls .btn{padding:12px 11px;font-size:15px}
+.tool-controls .btn.t-sound-btn{width:40px;min-width:40px;padding:12px 0}
+}
+@media (max-width:365px){
+.tool-controls{gap:5px}
+.tool-controls .btn{padding:11px 7px;font-size:13.5px}
+.tool-controls .btn.t-sound-btn{width:36px;min-width:36px;padding:11px 0}
+}
+.timer-set{display:flex;gap:10px;justify-content:center;align-items:flex-end;margin:8px 0 2px}
+.timer-set div{width:84px}
+.timer-set input{width:100%;text-align:center;font-size:26px;font-variant-numeric:tabular-nums;padding:10px 4px}
+.timer-set .u{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:5px}
+.ac-form .timer-set{margin:4px 0 2px}
+.ac-form .timer-set input{font-size:26px;text-align:center;padding:10px 4px;margin-top:0}
+.t-sound-dd{position:relative;display:inline-flex}
+.t-sound-dd summary{list-style:none;cursor:pointer}
+.t-sound-dd summary::-webkit-details-marker{display:none}
+.tool-controls .btn.t-sound-btn{width:46px;min-width:46px;padding:13px 0}
+.t-controls{width:100%;max-width:calc(4.63*clamp(44px,15vw,108px));margin-left:auto;margin-right:auto;margin-top:6px;gap:8px}
+.tool-msg:has(+ .t-controls){min-height:9px;margin:0}
+.t-controls + .tool-warn{margin-bottom:62px}
+.t-controls .btn{flex:1 1 0;min-width:0;font-size:clamp(15px,4.3vw,22px);padding:clamp(12px,3.3vw,17px) 4px}
+.t-controls .t-sound-dd{flex:0 0 auto}
+.t-controls .btn.t-sound-btn{width:clamp(44px,11.5vw,58px);min-width:0;padding:0;display:inline-flex;align-items:center;justify-content:center}
+.t-controls .btn.t-sound-btn svg{width:clamp(20px,5vw,26px);height:auto}
+.t-sound-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);z-index:60;min-width:158px;max-width:calc(100vw - 24px);background:#171a26;border:1px solid var(--border);border-radius:12px;padding:6px;box-shadow:0 12px 34px rgba(0,0,0,.55);text-align:left}
+.t-sound-menu-h{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding:4px 8px 6px}
+.t-sound-opt{display:block;width:100%;text-align:left;padding:8px 10px;border:0;background:none;border-radius:8px;color:var(--text);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.t-sound-opt:hover{background:rgba(255,255,255,.08)}
+.t-sound-opt.on{background:rgba(255,255,255,.1);color:var(--accent)}
+.t-sound-row{display:flex;justify-content:center;margin:12px 0 0}
+.t-notify-hint{display:block;width:100%;margin:14px 0 0;padding:0;background:none;border:0;color:var(--muted);font-size:13px;font-weight:600;font-family:inherit;text-align:center;cursor:pointer;line-height:1.4}
+.t-notify-hint:hover:not(:disabled){color:var(--accent);text-decoration:underline}
+.t-notify-hint:disabled{cursor:default}
+.laps{list-style:none;padding:0;margin:6px auto 0;max-width:420px;text-align:left;max-height:260px;overflow:auto}
+.laps li{display:flex;justify-content:space-between;gap:10px;padding:7px 4px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums;font-size:14px}
+.laps li .lap-n{color:var(--muted)}
+.laps li>span{flex:1 1 0}.laps li>span:first-child{flex:0 0 64px}.laps li .lap-tot{text-align:right;color:var(--muted)}
+.lap-fast{color:#4ade80}.lap-fast .lap-n,.lap-slow .lap-n{color:inherit;opacity:.85}
+.lap-slow{color:#f87171}
+.lap-row.lap-pending{color:var(--muted);opacity:.5}.lap-row.lap-pending .lap-tot{color:var(--muted)}
+.lap-head{display:flex;justify-content:space-between;gap:10px;max-width:420px;margin:16px auto 0;padding:0 4px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.lap-head span{flex:1 1 0}.lap-head span:first-child{flex:0 0 64px}.lap-head span:last-child{text-align:right}
+.laps li .lap-d,.lap-head .lap-d{flex:0 0 76px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.laps li .lap-d-up{color:#4ade80}
+.laps li .lap-d-down{color:#f87171}
+.laps li .lap-d{font-size:.94em}
+.lap-fast .lap-d,.lap-slow .lap-d{opacity:.85}
+@media (max-width:400px){.laps li .lap-d,.lap-head .lap-d{display:none}}
+.lap-stats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:420px;margin:16px auto 0}
+.lap-stat{flex:1 1 90px;display:flex;flex-direction:column;gap:2px;padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.02);font-size:12px;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+.lap-stat b{font-size:15px;color:var(--text)}
+.lap-stat.lap-fast b{color:#4ade80}.lap-stat.lap-slow b{color:#f87171}
+.sw-main-controls .btn{flex:1 1 0;max-width:220px;padding:18px 18px;font-size:19px;border-radius:14px}
+.sw-display-row{display:flex;align-items:center;justify-content:center;gap:14px}
+.sw-gear{width:auto;padding:8px 11px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+.sw-gear svg{display:block}
+.sw-gear[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.sw-opts{display:none;flex-wrap:wrap;gap:8px 18px;justify-content:center;align-items:center;max-width:700px;margin:14px auto 0}
+#sw.sw-opts-open .sw-opts{display:flex}
+.sw-opt{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--muted)}
+.sw-opt select{width:auto;margin:0;padding:6px 8px;font-size:14px;border-radius:8px;background:#0b0b0c;color:var(--text);border:1px solid var(--border);font-family:inherit;cursor:pointer}
+.lap-actions{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;align-items:center;max-width:760px;margin:16px auto 0}
+.lap-actions .btn{width:auto;padding:8px 11px;font-size:14px}
+.sw-help{max-width:520px;margin:14px auto 0}
+.sw-help>summary{cursor:pointer;list-style:none;text-align:center;font-size:14px;font-weight:700;
+color:var(--muted);padding:8px 2px;border-top:1px solid var(--border)}
+.sw-help>summary::-webkit-details-marker{display:none}
+.sw-help>summary::after{content:" ▾";font-size:.85em}
+.sw-help[open]>summary::after{content:" ▴"}
+.sw-help>summary:hover{color:var(--accent)}
+.sw-cap{max-width:440px;margin:10px auto 0;line-height:1.6;text-align:left}
+.sw-cap+.sw-cap{margin-top:8px}
+.sw-cap kbd{font-size:.92em}
+.sw-fs .sw-help{display:none}
+.sw-multi{margin:12px 0 6px;text-align:center;font-size:15px;font-weight:600}
+.sw-fsbtn{width:auto;padding:8px 11px;display:inline-flex;align-items:center;justify-content:center}
+.sw-fsbtn svg{display:block}
+.sw-fs{position:fixed;inset:0;z-index:9999;margin:0;border:0;border-radius:0;background:#0b1020;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px 24px 28px;overflow:auto}
+.sw-fs #sw-time{transform-origin:center}
+@media(min-width:1000px){.sw-fs #sw-time{font-size:min(162px,15vw)}}
+@media(min-width:1500px){.sw-fs #sw-time{font-size:min(205px,14vw)}}
+.sw-fs .sw-display-row{gap:0}
+.sw-fs .sw-gear{position:fixed;top:16px;left:16px;z-index:1}
+.sw-fs .lap-stats{width:min(420px,86vw);max-width:none}
+.sw-counting #sw-time .seg.on{background:var(--accent);box-shadow:0 0 .12em var(--accent)}
+.sw-fs .lap-head,.sw-fs .laps{margin-top:0;width:min(420px,86vw);max-width:none}
+.sw-fs .laps{max-height:28vh}
+.sw-fs .lap-actions{margin-top:0}
+.sw-fs .tool-controls{margin-top:10px}
+body.sw-fs-open{overflow:hidden}
+.tc-sw .sw-in{width:100%;max-width:380px;margin:0 auto}
+.tc-sw .lap-stats,.tc-sw .lap-head,.tc-sw .laps{max-width:none}
+.tc-sw .sw-main-controls{margin-top:12px;gap:8px}
+.tc-sw .sw-main-controls .btn{padding:11px 14px;font-size:16px;cursor:pointer}
+.tc-sw .lap-stats{gap:6px;margin-top:14px}
+.tc-sw .lap-stat{flex:1 1 0;min-width:0;padding:8px 3px;font-size:clamp(8.5px,3.4cqw,13px);white-space:nowrap}
+.tc-sw .lap-stat b{font-size:clamp(9.5px,4cqw,15px)}
+.tc-sw .lap-head{margin-top:12px;font-size:10px;letter-spacing:.02em}
+.tc-sw .lap-head span:nth-child(2){text-align:center}
+.tc-sw .lap-head span:first-child,.tc-sw .laps li>span:first-child{flex:0 0 40px}
+.tc-sw .laps{max-height:none}
+.tc-sw .laps li{font-size:12px;padding:6px 2px;gap:6px}
+.tc-sw .tc-foot{flex-direction:column;gap:8px}
+.tc-sw .tc-foot .btn{width:100%;flex:none;padding:10px 12px}
+.tool-done .tool-time{color:var(--accent);animation:toolflash 1s steps(2,start) infinite}
+@keyframes toolflash{50%{opacity:.4}}
+.t-fsbtn{width:auto;padding:8px 11px;display:inline-flex;align-items:center;justify-content:center}
+.t-fsbtn svg{display:block}
+@media(min-width:561px){html.pip-ok .t-fsbtn{display:none}}
+.t-controls .btn.t-fsbtn{flex:0 0 auto;width:clamp(44px,11.5vw,58px);min-width:0;padding:0}
+.t-controls .btn.ac-popbtn{flex:0 0 auto;width:auto;padding-left:10px;padding-right:10px}
+.t-controls .btn.t-fsbtn svg{width:clamp(20px,5vw,26px);height:auto}
+.t-fs{position:fixed;inset:0;z-index:9999;margin:0;border:0;border-radius:0;background:#0b1020;
+display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px 16px 64px;overflow:auto}
+.t-fs .tool-warn,.t-fs .timer-presets,.t-fs .t-notify-hint,.t-fs .tool-uses{display:none}
+.t-fs .seg-screen{font-size:clamp(56px,19vw,190px);margin:0}
+.t-fs .t-controls{max-width:min(560px,92vw);margin-top:8px}
+@media(orientation:portrait){.t-fs .seg-screen{font-size:min(19vw,13.5vh)}}
+@media(max-height:560px){
+.t-fs{padding:12px 16px 52px;gap:4px}
+.t-fs .seg-screen{font-size:min(13vw,20vh)}
+.t-fs .seg-label{display:none}
+.t-fs .t-controls{margin-top:2px}
+}
+body.t-fs-open{overflow:hidden}
+.tool-about{margin-top:10px}
+.sw-illus{display:block;width:240px;max-width:44%;height:auto;float:right;margin:0 0 12px 18px;border-radius:16px;border:1px solid var(--border)}
+@media(max-width:520px){.sw-illus{float:none;margin:2px auto 16px;max-width:260px;width:100%}}
+.timer-presets{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 0}
+.chip{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--text);text-decoration:none;background:rgba(0,0,0,.18);cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--accent)}
+.chip.chip-alt{border-color:var(--accent);color:var(--accent)}
+.chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.mt-board{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 12px}
+@media(min-width:680px){.mt-board{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}}
+.mt-timer{--link:#7ab8ff;--link-hi:#b6d8ff;
+position:relative;border:1px solid var(--border);border-radius:16px;background:var(--card);padding:12px 14px 14px;text-align:center;min-width:0;container-type:inline-size}
+.mt-timer[data-state="running"]{border-color:var(--accent)}
+.mt-timer[data-state="paused"]{border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.mt-timer.mt-done{border-color:#f87171}
+.mt-timer.mt-done .mt-disp{animation:toolflash 1s steps(2,start) infinite}
+.mt-x{position:absolute;top:6px;right:8px;background:none;border:0;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:2px 8px;border-radius:8px;z-index:1}
+.mt-x:hover{color:var(--text);background:rgba(255,255,255,.08)}
+.mt-head{display:flex;align-items:baseline;justify-content:center;gap:26px;margin:0 22px 12px;min-width:0}
+.mt-sep{display:none}
+.mt-name{font-weight:800;font-size:17px;color:var(--text);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mt-timer:not(.ms-watch) .mt-name{font-size:clamp(17px,5cqw,26px);font-weight:600;line-height:1.2}
+.mt-reset-link{flex:0 0 auto;background:none;border:0;color:var(--link);font-size:13px;font-weight:600;
+cursor:pointer;padding:0;font-family:inherit;text-decoration:underline;text-underline-offset:2px}
+.mt-reset-link:hover,.mt-reset-link:focus-visible{color:var(--link-hi)}
+.mt-timer:not(.ms-watch) .mt-reset-link{font-size:15px}
+.mt-row{display:flex;align-items:center;gap:10px}
+.mt-disp.seg-screen{flex:1 1 auto;min-width:0;font-size:clamp(34px,16cqw,60px);margin:0;overflow:hidden}
+@supports not (container-type:inline-size){.mt-disp.seg-screen{font-size:34px}}
+.mt-toggle{flex:0 0 auto;width:auto;padding:11px 18px}
+.mt-bar{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin:4px 0 8px}
+.mt-bar .btn{width:auto}
+.mt-bar .btn:disabled{opacity:.45;cursor:default;background:rgba(255,255,255,.12);color:var(--text)}
+.mt-quick{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:12px 0 2px}
+.mt-name-in{display:block;width:100%;margin-top:12px;padding:11px 12px;border-radius:10px;border:1px solid var(--border);background:rgba(0,0,0,.2);color:var(--text);font-size:15px;font-family:inherit}
+body.mt-focus .wrap>*{display:none}
+body.mt-focus .wrap>h1{display:block;margin-bottom:10px}
+body.mt-focus .wrap>#mt{display:block}
+body.mt-focus #mt>*{display:none}
+body.mt-focus #mt>.mt-board{display:grid}
+body.mt-focus #mt>.mt-bar{display:flex;margin-top:14px}
+body.mt-focus .mt-bar>*{display:none}
+body.mt-focus .mt-bar>#mt-hide{display:inline-flex}
+body.mt-focus .mt-hide{opacity:.5}
+body.mt-focus .mt-hide:hover,body.mt-focus .mt-hide:focus-visible{opacity:1}
+.mt-fs{position:fixed;inset:0;z-index:9999;margin:0;background:#0b1020;overflow:auto;padding:24px;display:flex;flex-direction:column;justify-content:center}
+.mt-fs .mt-board{max-width:1100px;width:100%;margin:0 auto;gap:20px}
+.mt-fs .mt-board{grid-template-columns:1fr}
+@media (min-width:900px){.mt-fs .mt-board{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}}
+.mt-fs .mt-timer{padding:22px 18px 20px}
+.mt-fs .mt-disp.seg-screen{font-size:min(15cqw,17svh)}
+.mt-fs .mt-board[data-count="2"] .mt-disp.seg-screen{font-size:min(17cqw,25svh)}
+.mt-fs .mt-toggle{padding:14px 22px;font-size:18px}
+.mt-fs .mt-board[data-count="1"] .mt-row{flex-direction:column;gap:12px}
+.mt-fs .mt-board[data-count="1"] .mt-disp.seg-screen{width:100%;font-size:min(25cqw,40svh)}
+.mt-fs .mt-board[data-count="1"] .mt-toggle{width:100%;max-width:320px}
+.mt-fs .mt-board[data-count="1"] .mt-timer:not(.ms-watch) .mt-name{font-size:clamp(19px,6cqw,32px);
+white-space:normal;overflow:visible;text-overflow:clip}
+body.mt-fs-open{overflow:hidden}
+.ms-meta{margin:8px 0 6px;min-height:1.2em;text-align:center}
+.ms-meta .ms-best{color:#4ade80}
+.ms-watch .ms-lap{width:100%;padding:9px 12px}
+.ms-watch .ms-lap:disabled{opacity:.45;cursor:default}
+.ms-name{background:none;border:0;padding:0;cursor:pointer;font-family:inherit;text-align:left}
+.ms-name:hover{color:var(--accent)}
+.ms-name-in{border:1px solid var(--accent);border-radius:8px;padding:1px 6px;background:rgba(0,0,0,.25);color:var(--text);font-family:inherit;font-weight:800;font-size:17px;max-width:100%}
+.ms-cap{max-width:560px;margin:10px auto 0;text-align:center;line-height:1.55}
+.mt-fs .ms-cap{display:none}
+.ms-watch .mt-head{justify-content:flex-start;align-items:center;gap:8px;margin:0 26px 12px 0}
+.ms-watch .ms-name{flex:1 1 auto}
+.ms-tintbtn{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
+width:30px;height:30px;padding:0;border:1px solid var(--border);border-radius:9px;
+background:rgba(255,255,255,.06);color:var(--text);cursor:pointer}
+.ms-tintbtn:hover,.ms-tintbtn:focus-visible{background:rgba(255,255,255,.14)}
+.ms-tintbtn svg{display:block}
+.ms-tinted .ms-tintbtn{border-color:var(--ms-tint);box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--ms-tint) 55%,transparent)}
+.ms-panel{position:absolute;left:10px;right:10px;top:44px;z-index:6;text-align:left;
+background:var(--menu-bg);border:1px solid var(--border);border-radius:12px;padding:12px;
+box-shadow:0 14px 34px rgba(0,0,0,.5)}
+.ms-field{display:flex;align-items:center;justify-content:space-between;gap:10px;
+font-size:13px;font-weight:600;color:var(--muted)}
+.ms-field input[type="text"]{flex:1 1 auto;min-width:0;padding:8px 10px;border-radius:9px;
+border:1px solid var(--border);background:rgba(0,0,0,.28);color:var(--text);
+font-family:inherit;font-size:15px;font-weight:600}
+.ms-field input[type="color"]{flex:0 0 auto;width:44px;height:30px;padding:0;cursor:pointer;
+border:1px solid var(--border);border-radius:8px;background:transparent}
+.ms-field-lab{margin:12px 0 6px;font-size:13px;font-weight:600;color:var(--muted)}
+.ms-swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
+.ms-sw{height:30px;border-radius:9px;border:1px solid var(--border);background:var(--sw);cursor:pointer;padding:0}
+.ms-sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--bg-solid),0 0 0 4px var(--text)}
+.ms-sw-none{background:
+linear-gradient(to top right,transparent calc(50% - 1px),var(--muted) calc(50% - 1px),var(--muted) calc(50% + 1px),transparent calc(50% + 1px)),
+rgba(255,255,255,.06)}
+.ms-panel-done{width:100%;padding:9px 12px}
+.ms-watch.ms-tinted{background:color-mix(in srgb,var(--ms-tint) 26%,var(--bg-solid))}
+.ms-watch.ms-tinted[data-state="idle"]{border-color:color-mix(in srgb,var(--ms-tint) 55%,transparent)}
+.ms-watch .ms-lap{background:color-mix(in srgb,#fff 12%,var(--bg-solid));color:var(--text);border:1px solid var(--border)}
+.ms-board,.mt-fs .ms-board{grid-template-columns:1fr}
+.mt-fs .ms-board{max-width:1400px}
+#ms[data-view="mob"] .ms-board{max-width:460px;margin-left:auto;margin-right:auto}
+#ms[data-view="desk"] .ms-board[data-count="2"],
+#ms[data-view="desk"] .ms-board[data-count="4"]{grid-template-columns:repeat(2,1fr)}
+#ms[data-view="desk"] .ms-board[data-count="3"],
+#ms[data-view="desk"] .ms-board[data-count="5"],
+#ms[data-view="desk"] .ms-board[data-count="6"]{grid-template-columns:repeat(3,1fr)}
+.ms-over{max-width:620px;margin:0 auto 10px}
+.dig{position:relative;display:inline-block;width:.58em;height:1em}
+.seg{position:absolute;background:var(--seg-off,#180505)}
+.seg-a,.seg-g,.seg-d{clip-path:polygon(13% 0,87% 0,100% 50%,87% 100%,13% 100%,0 50%)}
+.seg-b,.seg-c,.seg-e,.seg-f{clip-path:polygon(0 14%,50% 0,100% 14%,100% 86%,50% 100%,0 86%)}
+.seg.on{background:var(--seg-on,#ff2b2b);box-shadow:0 0 .12em var(--seg-glow,rgba(255,43,43,.65))}
+.dig[data-d="h1"] .seg-a,.dig[data-d="h1"] .seg-d,.dig[data-d="h1"] .seg-e,.dig[data-d="h1"] .seg-f,.dig[data-d="h1"] .seg-g{display:none}
+.seg-a{top:0;left:.1em;width:.38em;height:.1em}
+.seg-g{top:.45em;left:.1em;width:.38em;height:.1em}
+.seg-d{top:.9em;left:.1em;width:.38em;height:.1em}
+.seg-f{top:.1em;left:0;width:.1em;height:.35em}
+.seg-b{top:.1em;right:0;width:.1em;height:.35em}
+.seg-e{top:.55em;left:0;width:.1em;height:.35em}
+.seg-c{top:.55em;right:0;width:.1em;height:.35em}
+.ac-colon{display:inline-flex;flex-direction:column;justify-content:center;gap:.24em;height:1em;margin:0 .03em}
+.ac-colon i{width:.1em;height:.1em;border-radius:50%;background:var(--seg-on,#ff2b2b);box-shadow:0 0 .1em var(--seg-glow,rgba(255,43,43,.6))}
+.seg-dot{align-self:flex-end;width:.12em;height:.12em;border-radius:50%;margin:0 .04em .06em;background:var(--seg-on,#ff2b2b);box-shadow:0 0 .1em var(--seg-glow,rgba(255,43,43,.6))}
+.seg-screen{--seg-on:#3df2c0;--seg-off:#0e3a33;--seg-glow:rgba(61,242,192,.55);
+display:inline-flex;align-items:center;justify-content:center;gap:.04em;
+background:#0b0b0c;border:1px solid #2a2a2a;border-radius:16px;padding:.16em .26em;
+box-shadow:inset 0 3px 16px rgba(0,0,0,.9),0 10px 30px rgba(0,0,0,.3);
+font-size:clamp(44px,15vw,108px);line-height:1;margin:4px auto;max-width:100%}
+.seg-label{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.ac-dialog{border:1px solid var(--border);border-radius:16px;background:var(--menu-bg,#15151b);color:var(--text);padding:0;max-width:380px;width:92%;max-height:92vh;max-height:92dvh;overflow-y:auto}
+.ac-dialog::backdrop{background:rgba(0,0,0,.55)}
+#mt-dlg{margin-top:14px;margin-bottom:auto}
+.ac-form{padding:18px}
+@media (max-height:560px){
+.ac-form{padding:12px 14px}
+.ac-form h2{margin:0 0 6px}
+.ac-form label{margin:8px 0 3px}
+.ac-form input,.ac-form select,.ac-form textarea{padding:7px 10px;font-size:15px}
+.ac-vol-hint{margin:8px 0 2px}
+.ac-form-btns{margin-top:8px}
+}
+.ac-form h2{margin:0 0 14px}
+.ac-form label{display:block;font-size:14px;font-weight:600;margin:0 0 12px}
+.ac-form input[type=time],.ac-form input[type=text],.ac-form input[type=number],.ac-form select{width:100%;margin-top:5px;padding:9px 10px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:15px}
+.ac-form input[readonly]{color:var(--muted);cursor:default}
+.ac-f-days{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.ac-f-days label{margin:0}
+.ac-f-days input{position:absolute;opacity:0;pointer-events:none}
+.ac-f-days span{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border);border-radius:9px;cursor:pointer;font-size:13px;font-weight:600}
+.ac-f-days input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
+.ac-f-mw{display:flex;gap:8px}
+.ac-form-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
+.ac-btns-3 .btn{flex:1 1 0;min-width:0;white-space:nowrap;padding:11px 8px}
+.ac-vol-hint{font-size:12px;color:var(--muted);line-height:1.5;margin:14px 0 4px}
+.ac-label-hint{font-size:12px;color:var(--muted);line-height:1.5;margin:-8px 0 4px}
+.views{text-align:center;color:var(--muted);font-size:13px;margin:10px 0;min-height:19px}
+.cta{text-align:center;margin:26px 0 10px}
+.more{margin:18px auto 4px;max-width:520px;text-align:center}
+.more-label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
+.more-links{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.more-links a{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:7px 14px;
+font-size:13px;font-weight:600;color:var(--text);text-decoration:none;background:rgba(0,0,0,.18)}
+.card .works-links{justify-content:flex-start;margin-top:4px}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+.footer a{color:var(--muted)}
+.footer.copyright{margin-top:6px}
+.footer.sitelinks,.footer.trademark{margin-top:6px}
+.suggest-box{max-width:560px;margin:40px auto 0;border:1px solid var(--border);border-radius:16px;background:var(--card);overflow:hidden}
+.suggest-box>summary{list-style:none;cursor:pointer;padding:14px 18px;font-size:14px;font-weight:600;color:var(--text);text-align:center;line-height:1.5}
+.suggest-box>summary::-webkit-details-marker{display:none}
+.suggest-box>summary:hover{background:rgba(255,255,255,.05)}
+.suggest-box .arrow{color:var(--accent);white-space:nowrap}
+.suggest-form{padding:0 18px 18px;text-align:left}
+.suggest-form .btn{margin-top:16px}
+.suggest-form .hp{position:absolute!important;left:-9999px;width:1px;height:1px}
+.suggest-note{margin-top:10px;min-height:14px}
+.privacy-notice{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;flex-wrap:wrap;
+align-items:center;justify-content:center;gap:6px 12px;padding:8px 36px 8px 12px;
+background:#11141f;border-top:1px solid var(--border);font-size:12px}
+.privacy-notice[hidden]{display:none}
+.privacy-text{flex:0 1 auto;margin:0;line-height:1.4;color:var(--muted)}
+.privacy-actions{flex:0 0 auto;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.privacy-actions a{color:var(--accent);font-size:12px}
+.privacy-actions button{font:inherit;font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px;
+border:1px solid var(--border);background:var(--accent);color:#111;cursor:pointer}
+.privacy-actions button.plain{background:transparent;color:var(--text)}
+.privacy-close{position:absolute;right:2px;top:50%;transform:translateY(-50%);background:none;border:0;
+color:var(--muted);font-size:17px;line-height:1;cursor:pointer;padding:8px 10px}
+.privacy-close:hover{color:var(--text)}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.card ul.bullets{margin:8px 0 0;padding:0 0 0 20px;list-style:disc}
+.card ul.bullets li{margin:0 0 7px;padding:0}
+.card ul.bullets li::marker{color:var(--muted)}
+.lt-line{font-size:14px;color:var(--muted);margin:6px 0 12px}
+.lt-line .lt-now{color:var(--text);font-variant-numeric:tabular-nums}
+.home-search{position:relative;max-width:640px;margin:6px 0 26px;padding:14px 16px 16px;background:var(--card);border:1.5px solid var(--accent);border-radius:14px;box-shadow:0 0 0 4px rgba(252,211,77,.08)}
+.hs-label{display:block;font-weight:800;font-size:15px;margin:0 0 9px}
+.hs-row{display:flex;gap:8px}
+.hs-row input{flex:1;min-width:0}
+.hs-btn{flex:0 0 auto;width:auto;font-weight:700}
+.pullquote{margin:14px 0;padding:12px 16px;border-left:3px solid var(--accent);
+background:rgba(252,211,77,.07);border-radius:0 12px 12px 0;font-size:15.5px;line-height:1.55;font-weight:600}
+.byline{margin:16px 0 0;font-size:15px;font-weight:700;color:var(--muted)}
+.home-suggest{margin:0 0 12px;font-size:14px;color:var(--muted)}
+.home-suggest:last-child{margin-bottom:22px}
+.tc-ico{vertical-align:-4px}
+.nav-ico{vertical-align:-4px;margin-right:2px;color:var(--accent)}
+h1,h2,.tc-head,.hs-label{font-family:ui-rounded,"SF Pro Rounded","Hiragino Maru Gothic ProN",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{letter-spacing:-.015em}
+.tc{transition:border-color .15s ease,transform .15s ease}
+.tc[data-href]:hover,a.tc:hover{border-color:rgba(252,211,77,.45);transform:translateY(-1px)}
+.updated{font-size:12px;color:var(--muted);text-align:center;margin:14px 0 0;font-style:italic}
+.nav-dd .menu .nav-ico{color:var(--accent)}
+.trend-sub{font-size:13px;color:var(--muted);margin:-4px 0 10px}
+.cr-door{transition:border-color .15s ease,transform .15s ease}
+.cr-door:hover{border-color:rgba(252,211,77,.45);transform:translateY(-1px)}
+.cr-door h2{margin-top:0}
+.cr-door h2 a{text-decoration:none}
+.cr-door h2 a:hover{text-decoration:underline}
+.cr-door-min{background:transparent}
+.cr-door-min h2{font-size:19px}
+.cr-more{font-weight:600;white-space:nowrap}
+.cr-cta{display:inline-block;width:auto;padding:11px 24px}
+.cr-ctarow{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:18px}
+.cr-plaque{margin:16px 0;padding:12px 14px;border-left:3px solid var(--accent);
+background:rgba(252,211,77,.07);border-radius:0 8px 8px 0;font-size:15px}
+.cr-lead{border-color:rgba(252,211,77,.4)}
+.cr-fs{margin:16px 0 0;padding:12px 14px;border:1px solid var(--border);border-radius:10px}
+.cr-fs legend{padding:0 6px;font-weight:600;font-size:14px}
+.cr-fs .cr-check{margin-top:6px}
+.cr-check span{font-weight:400}
+.cr-ok{color:#4ade80;font-weight:600}
+.cr-err{color:#fca5a5;font-weight:600}
+.cr-safety{margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
+.lg-fgroups{display:flex;flex-direction:column;gap:10px}
+.lg-fgroup{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.lg-flab{flex:0 0 52px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.lg-fgroup .chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+box-shadow:0 0 0 1px var(--accent) inset}
+.lg-count{min-height:18px;margin:10px 0 0}
+.cr-ask h3{margin:20px 0 4px;font-size:16px}
+.cr-ask h3+p{margin-top:0}
+.cr-ask form{margin-top:18px}
+.cr-ask label{display:block;margin-top:14px;font-weight:600;font-size:14px}
+.cr-opt{font-weight:400;color:var(--muted)}
+.cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
+.cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
+.cr-ask .btn{width:auto;padding:11px 24px}
+.xl-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:4px}
+.xl-tile{display:flex;flex-direction:column;gap:2px;padding:12px 13px;border:1px solid var(--border);
+border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
+.xl-tile:hover{border-color:var(--accent)}
+.xl-lab{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.xl-val{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.25}
+.xl-sub{font-size:13px;color:var(--muted)}
+.xl-cta{margin-top:6px;font-size:12.5px;font-weight:700;color:var(--accent)}
+* contexts — same fix as the tides admin card) */
+.card:has(#sun-mypanel:not([hidden])),.card:has(#sun-results:not([hidden])){position:relative;z-index:40}
+.hs-results{list-style:none;margin:6px 0 0;padding:6px;position:absolute;left:0;right:0;z-index:30;background:var(--menu-bg);border:1px solid var(--border);border-radius:12px;max-height:340px;overflow:auto;box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.hs-results li{margin:0}
+.hs-results a{display:block;padding:10px 12px;border-radius:8px;color:var(--menu-text);text-decoration:none;font-weight:600}
+.hs-results a:hover,.hs-results a.active{background:var(--card);color:var(--accent)}
+.hs-results li.is-sel>a{background:var(--card);color:var(--accent)}
+.hs-results a b{color:var(--accent);font-weight:800}
+.hs-results li.is-sel>a b,.hs-results a:hover b{color:inherit}
+.hs-empty{padding:10px 12px;color:var(--muted);font-size:13px}
+.rail-head{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:6px 0 10px}
+.soon-rail{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 12px;margin:0 0 18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.soon-card{flex:0 0 auto;width:150px;scroll-snap-align:start;display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--border);border-radius:14px;background:var(--card);text-decoration:none;color:var(--text)}
+.soon-card:hover{border-color:var(--accent)}
+.soon-days{font-size:12px;font-weight:700;color:var(--accent)}
+.soon-label{font-weight:600;line-height:1.25}
+.soon-date{font-size:12px;color:var(--muted)}
+.cal-filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.chip{cursor:pointer;font:inherit;font-size:13px;font-weight:600;padding:7px 13px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text)}
+.chip.active{background:var(--accent);color:var(--accent-text);border-color:transparent}
+.cal-day{display:inline-block;min-width:1.6em;margin-right:8px;font-weight:700;color:var(--accent)}
+.cal-badge{text-transform:none}
+.cal-md{display:inline-block;min-width:3.6em;margin-right:10px;font-weight:700;color:var(--accent);white-space:nowrap}
+.rank-list li{gap:8px}
+.rank-list .rank{min-width:1.6em;font-weight:700;color:var(--accent);text-align:right}
+.rank-list .rank:empty{display:none}
+.rank-list .views{font-size:12px;color:var(--muted);white-space:nowrap}
+.ico.copy{cursor:pointer;font:inherit;background:rgba(255,255,255,.12);color:var(--text);border-color:var(--border)}
+.ico.copy.ok{background:var(--accent);color:var(--accent-text);border-color:transparent}
+.give-line{margin:6px 0 0;font-size:15px;line-height:1.5}
+.give-line a{font-weight:700}
+.tool-faq .faq-item{border-bottom:1px solid var(--border);padding:4px 0}
+.tool-faq .faq-item:last-child{border-bottom:none}
+.tool-faq summary{cursor:pointer;font-weight:700;padding:8px 2px;list-style:none}
+.tool-faq summary::-webkit-details-marker{display:none}
+.tool-faq summary::after{content:" +";color:var(--muted);float:right}
+.tool-faq .faq-item[open] summary::after{content:" –"}
+.tool-faq .faq-item p{margin:2px 2px 10px;color:var(--muted);line-height:1.5}
+@media (max-width:420px){
+.unit{min-width:62px;padding:12px 4px}
+.unit .num{font-size:32px}
+.presets{grid-template-columns:repeat(3,1fr)}
+}
+@media (min-width:560px){ h1{font-size:32px} }
+.pl-facts .wc-frow>span{flex:0 0 42%}
+@media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Stopwatch","item":"https://timeandspace.science/stopwatch/"},{"@type":"ListItem","position":3,"name":"Multiple","item":"https://timeandspace.science/stopwatch/multiple/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Multiple Stopwatches","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/stopwatch/multiple/","description":"Run up to six independent stopwatches at once, each with its own name, colour and laps.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many stopwatches can I run at once?","acceptedAnswer":{"@type":"Answer","text":"6 on a computer and 3 on a phone. Each one keeps its own name, its own colour, its own elapsed time and its own laps, and they run completely independently — starting one does not touch the others. If you only need one, the single stopwatch has more per-session tools."}},{"@type":"Question","name":"Why only three on a phone?","acceptedAnswer":{"@type":"Answer","text":"Because a phone showing 6 cards shows 6 read-outs too small to glance at, and glancing is the whole job. If you want them anyway — a phone held sideways, or a tablet the page has guessed wrong about — the layout button switches between the wide and narrow views and stays where you put it. Switching to the narrow view never stops or deletes a watch; it tells you how many fit and leaves your clocks running."}},{"@type":"Question","name":"Do they all have to start together?","acceptedAnswer":{"@type":"Answer","text":"No, and that is the point — each card has its own Start. There is also a Start all button for a race where everyone goes on the same gun, and pressing it starts every stopped watch at the same instant rather than one after another."}},{"@type":"Question","name":"Can I name them?","acceptedAnswer":{"@type":"Answer","text":"Yes — open the palette button to the left of the name and type, or just tap the name itself. Lane 3, Kettle, Group B, whatever you are actually timing. The names are saved with the session and appear in the exported file."}},{"@type":"Question","name":"Can I give each stopwatch its own colour?","acceptedAnswer":{"@type":"Answer","text":"Yes. The palette button on each card sets its background colour: eight presets, or a custom picker for any colour at all, so a card can match a team kit, a lane rope or the paint on a wall. Colours are saved with the session, and there is a No colour option to put a card back to plain."}},{"@type":"Question","name":"Are my times saved if I close the tab?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every watch, its name, its colour and its laps are stored on your device. A watch that was running when you closed the tab is still running when you come back, and it will read the full wall-clock time since you pressed Start — the gap is counted, not skipped. Stop a watch before closing if you do not want that. Reset all clears the times; the names and colours stay."}},{"@type":"Question","name":"Can I export them all at once?","acceptedAnswer":{"@type":"Answer","text":"Yes — CSV writes one file with a row per stopwatch: its name, then a column for each lap, then its total time. Six watches are six rows you can read down, and if nobody took a lap the file is simply each name and its time. Share does the same thing as a picture — one column per watch, in that watch's colour."}},{"@type":"Question","name":"What are the exported files called?","acceptedAnswer":{"@type":"Answer","text":"The date and time you saved them, then the names of the cards you renamed: 2026-08-08-1615-lane-3-lane-4.csv. A board you did not rename falls back to stopwatch-times. That way a folder of exports sorts itself into the order you took them and no two ever overwrite each other."}},{"@type":"Question","name":"Is it accurate enough for a race?","acceptedAnswer":{"@type":"Answer","text":"For training, a classroom or a kitchen, comfortably. It is not calibrated timing equipment and is not suitable for official results — displayed precision varies by device, and a background tab updates less often. The measured behaviour is on the browser timing page."}}]}</script>
+
+<meta property="og:image" content="https://timeandspace.science/api/og?name=Multiple%20Stopwatches&amp;theme=generic">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Multiple%20Stopwatches&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
+<!-- build d8d021300df5 · generated 2026-08-26T18:21:41.313Z -->
+<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon/stopwatch.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:site_name" content="Time and Space Science">
+
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="wrap" id="main" role="main">
+  <div class="brand"><span class="crumbs"><!--bd--><details class="nav-dd brand-dd"><summary aria-label="Site sections"><svg class="logo" viewBox="0 0 200 200" width="48" height="48" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#2A3B4C" stroke-width="6" stroke-linecap="round"/><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#D6AF5C" stroke-width="2" stroke-linecap="round"/><path d="M 97 40 V 30 H 90 C 88 30, 88 22, 90 22 H 110 C 112 22, 112 30, 110 30 H 103 V 40 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 60 160 L 50 185 L 60 185 L 75 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 140 160 L 150 185 L 140 185 L 125 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><circle cx="100" cy="105" r="65" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/><circle cx="100" cy="105" r="57" fill="#F4EED1" stroke="#2A3B4C" stroke-width="2.5"/><g transform="translate(54.5, 54.5) rotate(-42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g transform="translate(145.5, 54.5) rotate(42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g fill="#2A3B4C"><circle cx="100" cy="63" r="3.4"/><circle cx="121" cy="69" r="3"/><circle cx="136.4" cy="84" r="3"/><circle cx="142" cy="105" r="3"/><circle cx="136.4" cy="126" r="3"/><circle cx="121" cy="141" r="3"/><circle cx="100" cy="147" r="3"/><circle cx="79" cy="141" r="3"/><circle cx="63.6" cy="126" r="3"/><circle cx="58" cy="105" r="3"/><circle cx="63.6" cy="84" r="3"/><circle cx="79" cy="69" r="3"/></g><line x1="100" y1="105" x2="130" y2="75" stroke="#C04A41" stroke-width="4" stroke-linecap="round"/><line x1="100" y1="105" x2="73" y2="90" stroke="#C04A41" stroke-width="5" stroke-linecap="round"/><circle cx="100" cy="105" r="5" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/></svg><span class="visually-hidden">Time and Space Science — sections</span></summary><ul class="menu brand-menu"><li><a href="/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M3.4 11.2 12 3.6l8.6 7.6-1.2 1.4-1.4-1.2V20a1 1 0 0 1-1 1h-4v-5.4h-2V21H7a1 1 0 0 1-1-1v-8.6l-1.4 1.2z" fill="#fcd34d"/><path d="M6 11.4V20h4v-5.4h4V20h4v-8.6L12 6.2z" fill="#b45309"/><rect x="10" y="14.6" width="4" height="6.4" fill="#7c2d12"/><path d="M12 6.2l6 5.2V20h-2v-6.4h-8V20H6v-8.6z" fill="#f59e0b"/></g></svg> Home</a></li><li><a href="/time/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="6" y="2" width="12" height="2.4" rx="1.2" fill="#92400e"/><rect x="6" y="19.6" width="12" height="2.4" rx="1.2" fill="#92400e"/><path d="M7.4 4.4h9.2c0 3.2-2 4.6-3.4 5.8-.5.4-.5 1.2 0 1.6 1.4 1.2 3.4 2.6 3.4 5.8H7.4c0-3.2 2-4.6 3.4-5.8.5-.4.5-1.2 0-1.6C9.4 9 7.4 7.6 7.4 4.4z" fill="#bae6fd" opacity=".5"/><path d="M9.2 6h5.6c-.5 1.6-1.6 2.4-2.8 3.4C10.8 8.4 9.7 7.6 9.2 6z" fill="#f59e0b"/><path d="M12 13.4c1.6 1.2 3 2.2 3.4 4.2H8.6c.4-2 1.8-3 3.4-4.2z" fill="#f59e0b"/></g></svg> Time</a></li><li><a href="/earth/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> Earth</a></li><li><a href="/space/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Space</a></li><li><a href="/classroom/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> Classroom</a></li></ul></details><a class="brand-word" href="/" aria-label="Time and Space Science home"><span class="wm-w">Time</span><span class="wm-j">And</span><span class="wm-w">Space</span><span class="wm-j wm-dot">.</span><span class="wm-w wm-tld">Science</span></a><!--/bd--></span><nav class="topnav"><script>document.addEventListener("click",function(e){document.querySelectorAll(".nav-dd[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})})</script></nav><details class="nav-dd menu-dd"><summary class="hamburger" aria-label="Menu">☰</summary><ul class="menu"><li><a href="/alarm-clock/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M4.5 3.2 2.4 5.6a3 3 0 0 1 4-4z" fill="#fbbf24"/><path d="M19.5 3.2l2.1 2.4a3 3 0 0 0-4-4z" fill="#fbbf24"/><circle cx="12" cy="13" r="8.6" fill="#dc2626"/><circle cx="12" cy="13" r="6.6" fill="#fff7ed"/><path d="M12 8.9v4.1l3 1.8" stroke="#1e293b" stroke-width="1.7" stroke-linecap="round" fill="none"/><circle cx="12" cy="13" r="0.9" fill="#1e293b"/><path d="M6.2 20.2 4.8 22M17.8 20.2 19.2 22" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/><ellipse cx="9.4" cy="9.6" rx="2.4" ry="1.4" fill="#ffffff" opacity=".55" transform="rotate(-25 9.4 9.6)"/></g></svg> Alarm Clock</a></li><li><a href="/world-clock/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> World Clock</a></li><li><a href="/timer/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="6" y="2" width="12" height="2.4" rx="1.2" fill="#92400e"/><rect x="6" y="19.6" width="12" height="2.4" rx="1.2" fill="#92400e"/><path d="M7.4 4.4h9.2c0 3.2-2 4.6-3.4 5.8-.5.4-.5 1.2 0 1.6 1.4 1.2 3.4 2.6 3.4 5.8H7.4c0-3.2 2-4.6 3.4-5.8.5-.4.5-1.2 0-1.6C9.4 9 7.4 7.6 7.4 4.4z" fill="#bae6fd" opacity=".5"/><path d="M9.2 6h5.6c-.5 1.6-1.6 2.4-2.8 3.4C10.8 8.4 9.7 7.6 9.2 6z" fill="#f59e0b"/><path d="M12 13.4c1.6 1.2 3 2.2 3.4 4.2H8.6c.4-2 1.8-3 3.4-4.2z" fill="#f59e0b"/></g></svg> Timer</a></li><li><a href="/stopwatch/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="10.6" y="1.6" width="2.8" height="2.6" rx="0.8" fill="#64748b"/><path d="M17.6 4.8l1.8 1.8-1.4 1.4-1.8-1.8z" fill="#64748b"/><circle cx="12" cy="13.4" r="8.4" fill="#475569"/><circle cx="12" cy="13.4" r="6.6" fill="#0f172a"/><path d="M12 13.4 15 9.6" stroke="#fcd34d" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="13.4" r="1" fill="#fcd34d"/><path d="M12 7.4v1.4M18 13.4h-1.4M12 19.4V18M6 13.4h1.4" stroke="#94a3b8" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="9.4" cy="9.9" rx="2.2" ry="1.3" fill="#ffffff" opacity=".25" transform="rotate(-30 9.4 9.9)"/></g></svg> Stopwatch</a></li><li><a href="/countdown/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M3 21 8.2 9.6l6.2 6.2z" fill="#f59e0b"/><path d="M3 21l7.6-4.6-3.4-3.4z" fill="#fbbf24"/><circle cx="13.6" cy="4.4" r="1.3" fill="#f472b6"/><circle cx="19.6" cy="8.2" r="1.3" fill="#38bdf8"/><circle cx="17" cy="14.8" r="1.2" fill="#a78bfa"/><path d="M15.4 8.8c1.6-1.6 3.2-1.6 4.8-3.2" stroke="#34d399" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="15.8" y="1.8" width="2" height="2" rx="0.4" fill="#fde047" transform="rotate(25 16.8 2.8)"/></g></svg> Countdowns</a></li><li><a href="/sun/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="2" y="17.4" width="20" height="1.8" rx="0.9" fill="#94a3b8"/><path d="M5.4 17.4a6.6 6.6 0 0 1 13.2 0z" fill="#fbbf24"/><path d="M8 17.4a4 4 0 0 1 8 0z" fill="#fde047"/><g stroke="#fbbf24" stroke-width="1.9" stroke-linecap="round"><path d="M12 2.6v3M4.9 5.9l2.1 2.1M19.1 5.9 17 8M2.6 12.4h3M18.4 12.4h3"/></g></g></svg> Sunrise &amp; Sunset</a></li><li><a href="/moon/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#1e293b"/><path d="M12 2.6a9.4 9.4 0 0 0 0 18.8 9.4 9.4 0 0 1 0-18.8z" fill="#334155"/><path d="M12 2.6a9.4 9.4 0 0 1 0 18.8c-3.2-3.4-3.2-15.4 0-18.8z" fill="#e2e8f0"/><circle cx="15.4" cy="7.6" r="1.5" fill="#cbd5e1"/><circle cx="17.2" cy="13.4" r="2.1" fill="#cbd5e1"/><circle cx="14.2" cy="17.2" r="1.1" fill="#cbd5e1"/><ellipse cx="13.6" cy="6.2" rx="1.6" ry="1" fill="#ffffff" opacity=".6" transform="rotate(-30 13.6 6.2)"/></g></svg> Moon</a></li><li><a href="/tides/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M2 20c0-7 3.4-13.6 9.6-15.4 4.6-1.3 8.8.8 10 4.2-2.2-1.4-5-1.2-6.6.4 2.8.2 4.4 2 4.6 4-1.6-1.2-3.8-1.2-5 0-1.6 1.6-.4 4.4 1.6 4.6-1.2 1.4-3.4 1.8-5.2 1L2 20z" fill="#0ea5e9"/><path d="M2 20c0-7 3.4-13.6 9.6-15.4-3.8 2.6-5.8 6.6-5.4 10.6.3 2.4 1.8 4 4.2 4.6L2 20z" fill="#7dd3fc"/><circle cx="18.9" cy="7.2" r="1.1" fill="#e0f2fe"/><circle cx="16.4" cy="12.4" r="0.9" fill="#e0f2fe"/></g></svg> Tides</a></li><li><a href="/questions/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#7c3aed"/><path d="M8.8 9.2c.2-1.9 1.6-3 3.3-3 1.8 0 3.2 1.2 3.2 2.9 0 1.3-.7 2-1.7 2.7-.9.6-1.4 1.1-1.4 2.2v.4" fill="none" stroke="#fdf4ff" stroke-width="1.9" stroke-linecap="round"/><circle cx="12.1" cy="17.6" r="1.25" fill="#fdf4ff"/><ellipse cx="8.9" cy="7.6" rx="2.4" ry="1.4" fill="#ffffff" opacity=".25" transform="rotate(-28 8.9 7.6)"/></g></svg> Big Questions</a></li><li><a href="/glossary/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M5.2 3.4h9.2A2.2 2.2 0 0 1 16.6 5.6v13.2c0 .9-.8 1.4-1.6.9l-2.2-1.4-2.2 1.4c-.5.3-1.1.3-1.6 0l-2.2-1.4-2.2 1.4c-.8.5-1.6 0-1.6-.9V5.6A2.2 2.2 0 0 1 5.2 3.4z" fill="#f8fafc"/><path d="M5.2 3.4h9.2A2.2 2.2 0 0 1 16.6 5.6v2.2H3V5.6A2.2 2.2 0 0 1 5.2 3.4z" fill="#dc2626"/><path d="M6.4 9.6h6.8M6.4 12.2h6.8M6.4 14.8h4.6" stroke="#64748b" stroke-width="1.4" stroke-linecap="round"/><rect x="17.2" y="4.8" width="3.6" height="15.2" rx="0.8" fill="#fbbf24"/><path d="M17.2 7.2h3.6" stroke="#b45309" stroke-width="1"/></g></svg> Glossary</a></li><li><a href="/sun-moon-earth-movement-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="9.4" cy="13.6" r="7.2" fill="#2563eb"/><path d="M5.2 8.2c1.8.6 1.4 2.4 0 2.9-1.5.5-1.6 1.9-.6 2.9 1.1 1.1.2 2.6-1.2 2.2-.8-1.9-.7-5.3 1.8-8z" fill="#34d399"/><path d="M11.6 7.1c2 .4 3.7 1.7 4.7 3.4-.8 1.2-2.2 1.1-2.8.2-.5-.8-1.7-.6-2.2-1.5-.4-.8-.6-1.8.3-2.1z" fill="#34d399"/><path d="M9 14.6c1.4-.3 2.8.6 2.6 2-.1 1.2.9 1.7.6 2.9-.3 1.1-1.9 1.5-2.9 1.1-1.2-.5-.8-1.8-1.5-2.6-.8-.8-.3-3.1 1.2-3.4z" fill="#34d399"/><ellipse cx="6.8" cy="9.2" rx="2.3" ry="1.3" fill="#ffffff" opacity=".3" transform="rotate(-28 6.8 9.2)"/><circle cx="19" cy="5.6" r="3.3" fill="#475569"/><path d="M19 2.3a3.3 3.3 0 0 1 0 6.6z" fill="#e2e8f0"/><circle cx="20.1" cy="4.6" r=".6" fill="#cbd5e1"/></g></svg> Sun, Earth &amp; Moon</a></li><li><a href="/planets/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> The Planets</a></li><li><a href="/solar-system-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Solar System</a></li><li><a href="/orbital-velocity-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Orbits &amp; Gravity</a></li><li><a href="/rocket-launch-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g transform="rotate(45 12 12)"><path d="M12 1.6c3 2.6 4.6 6.4 4.6 10.6 0 1.6-.3 3.1-.8 4.5H8.2a13.6 13.6 0 0 1-.8-4.5C7.4 8 9 4.2 12 1.6z" fill="#e2e8f0"/><path d="M12 1.6c3 2.6 4.6 6.4 4.6 10.6 0 1.6-.3 3.1-.8 4.5H12z" fill="#cbd5e1"/><path d="M12 1.6c1.5 1.3 2.6 2.9 3.4 4.7H8.6c.8-1.8 1.9-3.4 3.4-4.7z" fill="#dc2626"/><circle cx="12" cy="10.2" r="2.3" fill="#0ea5e9"/><circle cx="12" cy="10.2" r="1.3" fill="#bae6fd"/><path d="M8.2 12.4c-1.8 1.2-2.8 3-3 5.2l3.6-1.6zM15.8 12.4c1.8 1.2 2.8 3 3 5.2l-3.6-1.6z" fill="#dc2626"/><path d="M10.2 17.6h3.6c-.3 2.2-1.1 3.9-1.8 4.8-.7-.9-1.5-2.6-1.8-4.8z" fill="#f97316"/><path d="M11.2 17.6h1.6c-.1 1.6-.4 2.9-.8 3.7-.4-.8-.7-2.1-.8-3.7z" fill="#fde047"/><ellipse cx="10.4" cy="8.4" rx="1" ry="2.4" fill="#ffffff" opacity=".5" transform="rotate(-12 10.4 8.4)"/></g></svg> Rocket Launches</a></li><li><a href="/classroom/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> For Teachers</a></li><li><a href="/classroom/submit-a-lesson/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.6" fill="#16a34a"/><circle cx="12" cy="12" r="9.6" fill="none" stroke="#15803d" stroke-width="1"/><path d="M12 7.2v9.6M7.2 12h9.6" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="8.8" cy="7.6" rx="2.6" ry="1.5" fill="#ffffff" opacity=".28" transform="rotate(-30 8.8 7.6)"/></g></svg> Submit a Lesson Plan</a></li><li class="menu-units"><span class="menu-ulab"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="1.6" y="13.4" width="13.6" height="5" rx="1.2" fill="#d4a373" transform="rotate(-14 8.4 15.9)"/><rect x="9.4" y="8.2" width="13.6" height="5" rx="1.2" fill="#e8c39e" transform="rotate(22 16.2 10.7)"/><g stroke="#8a5a33" stroke-width="1" stroke-linecap="round" opacity=".8"><path d="M4.2 14.6v1.8M6.9 13.9v2.6M9.6 13.2v1.8M12.3 12.6v2.6"/><path d="M12.6 10.9l.6 1.7M15.2 9.8l.9 2.4M17.8 8.7l.6 1.7M20.4 7.6l.9 2.4"/></g><circle cx="10.6" cy="12.6" r="1.15" fill="#8a5a33"/></g></svg> <span>Units</span></span><span class="menu-useg" role="group" aria-label="Measurement units"><button type="button" class="menu-ubtn" data-uset="metric" aria-pressed="false">Metric</button><button type="button" class="menu-ubtn" data-uset="imperial" aria-pressed="false">Imperial</button></span></li><li><button type="button" class="menu-pj" id="ac-pj" aria-pressed="false"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="2.4" y="7.6" width="15.4" height="10.2" rx="2" fill="#475569"/><rect x="2.4" y="7.6" width="15.4" height="3.4" rx="2" fill="#64748b"/><circle cx="7.4" cy="13.4" r="3.1" fill="#0f172a"/><circle cx="7.4" cy="13.4" r="1.7" fill="#93c5fd"/><circle cx="14.4" cy="10.4" r="1" fill="#fbbf24"/><path d="M17.8 10.4 22.6 6.6v12.4l-4.8-3.8z" fill="#fde68a" opacity=".75"/><path d="M4.6 17.8v2.2M15.4 17.8v2.2" stroke="#334155" stroke-width="1.8" stroke-linecap="round"/></g></svg> <span>Projector mode</span></button></li></ul></details><script>(function(){var b=document.getElementById("ac-pj");if(!b)return;
+function sync(){var on=document.documentElement.classList.contains("pj");b.setAttribute("aria-pressed",on?"true":"false");}
+sync();b.addEventListener("click",function(){var on=document.documentElement.classList.toggle("pj");
+try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(e){}sync();});})();</script><script>(function(){
+  var KEY='ac_units';
+  var IMP=["US","LR","MM"];
+  /* WHAT THE READER HAS CHOSEN, or what their locale implies. A stored value
+     always wins: it is an explicit answer to the question the guess is making. */
+  function guess(){
+    try{
+      var ls=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'']);
+      for(var i=0;i<ls.length;i++){
+        var m=/-([A-Za-z]{2})\b/.exec(ls[i]||'');
+        if(m){ var r=m[1].toUpperCase();
+          /* the first tag that names a country decides it — a reader with
+             en-US then en-GB is being told they are in the US */
+          for(var j=0;j<IMP.length;j++) if(IMP[j]===r) return 'imperial';
+          return 'metric';
+        }
+      }
+      /* no region anywhere in the list: fall back to the time zone, which is
+         the other thing every browser knows about where it is */
+      var tz=(Intl.DateTimeFormat().resolvedOptions()||{}).timeZone||'';
+      if(/^America\/(New_York|Chicago|Denver|Phoenix|Los_Angeles|Anchorage|Detroit|Indiana|Kentucky|Boise|Juneau|Nome|Adak|Menominee|North_Dakota|Sitka|Yakutat)/.test(tz)
+         || tz==='Pacific/Honolulu' || tz==='America/Monrovia' || tz==='Asia/Yangon') return 'imperial';
+    }catch(e){}
+    return 'metric';
+  }
+  function get(){
+    var v=null; try{ v=localStorage.getItem(KEY); }catch(e){}
+    return (v==='imperial'||v==='metric')?v:guess();
+  }
+  function set(v){
+    try{ localStorage.setItem(KEY,v); }catch(e){}
+    apply(v); mark(v);
+    /* pages that draw their own figures listen for this — the simulators, the
+       tide chart, the nearby-city dropdown. Fired AFTER the spans are done, so
+       a listener sees a consistent page. */
+    try{ document.dispatchEvent(new Event('ac:units')); }catch(e){}
+  }
+  window.acUnits=get;
+
+  /* ---- the conversions -------------------------------------------------
+     Each entry: the imperial unit's name, how many of it there are in one
+     metric unit, and how to write it. Nothing here is approximate — these are
+     the defining ratios, so a converted figure is exact before it is rounded. */
+  var C={
+    km:   { u:'miles', f:0.621371192237334, one:'mile' },
+    m:    { u:'ft',    f:3.280839895013123 },
+    cm:   { u:'in',    f:0.393700787401575 },
+    mm:   { u:'in',    f:0.0393700787401575 },
+    'km/h':{ u:'mph',  f:0.621371192237334 },
+    'km/s':{ u:'mi/s', f:0.621371192237334 },
+    kg:   { u:'lb',    f:2.204622621848776 },
+    C:    { u:'\u00b0F', f:1.8, off:32, pre:'' }
+  };
+  /* Round the converted value to the same PRECISION the source was written
+     with: sig is the number of significant figures the page chose, or a
+     negative number meaning "this many decimal places". */
+  function round(v,sig){
+    if(sig==null) return v;
+    if(sig<0){ var d=-sig; return +v.toFixed(d); }
+    if(v===0) return 0;
+    var mag=Math.floor(Math.log(Math.abs(v))/Math.LN10)+1;
+    var p=Math.max(0,sig-mag);
+    return +v.toFixed(p);
+  }
+  function fmt(v){
+    var d=0, a=Math.abs(v);
+    if(a<10) d=(a<1?3:2); else if(a<100) d=1;
+    var s=v.toFixed(d);
+    if(d) s=s.replace(/\.?0+$/,'');
+    return (+s).toLocaleString('en-US',{maximumFractionDigits:d});
+  }
+  function apply(sys){
+    var ns=document.querySelectorAll('[data-u]'), i;
+    for(i=0;i<ns.length;i++){
+      var el=ns[i], u=el.getAttribute('data-u'), c=C[u];
+      var raw=parseFloat(el.getAttribute('data-v'));
+      if(!c||isNaN(raw)) continue;
+      /* the metric text is what the page shipped with — kept verbatim, so
+         switching back is exact rather than re-formatted */
+      if(el.getAttribute('data-m')==null) el.setAttribute('data-m',el.textContent);
+      if(sys!=='imperial'){ el.textContent=el.getAttribute('data-m'); continue; }
+      var sig=el.getAttribute('data-s'); sig=(sig==null||sig==='')?null:+sig;
+      var v=round(raw*c.f+(c.off||0),sig);
+      var unit=(c.one&&Math.abs(v)===1)?c.one:c.u;
+      el.textContent=fmt(v)+(u==='C'?'':' ')+unit;
+    }
+  }
+  /* the control in the menu */
+  function mark(sys){
+    var bs=document.querySelectorAll('[data-uset]'), i;
+    for(i=0;i<bs.length;i++)
+      bs[i].setAttribute('aria-pressed', bs[i].getAttribute('data-uset')===sys?'true':'false');
+  }
+  var bs=document.querySelectorAll('[data-uset]');
+  for(var i=0;i<bs.length;i++) bs[i].addEventListener('click',function(){ set(this.getAttribute('data-uset')); });
+  /* ---- FOR FIGURES THE PAGE DRAWS ITSELF ---------------------------------
+     A span works for anything baked into the HTML. It cannot work for a number
+     a script writes every frame — the orbital simulator's speed read-out, a
+     tide height fetched from NOAA, an <option> in a dropdown (which can hold
+     no markup at all). Those call this instead: give it a metric value, its
+     unit and the precision, and it returns the string in the reader's system.
+     One conversion table, one rounding rule, both halves of the site. */
+  /* written to the SAME number of decimals the caller asked for, in either
+     system: a tide height is quoted to a tenth whether it is feet or metres,
+     and fmt()'s own rules would print 0.85 m against 2.8 ft. */
+  function fmtAs(v,sig){
+    if(sig!=null&&sig<0) return (+v).toLocaleString('en-US',{minimumFractionDigits:-sig,maximumFractionDigits:-sig});
+    return fmt(v);
+  }
+  window.acFmt=function(v,unit,sig){
+    var c=C[unit];
+    if(!c||v==null||isNaN(v)) return '';
+    if(get()!=='imperial') return fmtAs(round(v,sig),sig)+(unit==='C'?' °C':' '+unit);
+    var iv=round(v*c.f+(c.off||0),sig);
+    return fmtAs(iv,sig)+(unit==='C'?'':' ')+((c.one&&Math.abs(iv)===1)?c.one:c.u);
+  };
+  /* the inverse, for data that arrives IMPERIAL: NOAA publishes tide heights in
+     feet, so the page holds feet and asks for the reader's version of them. */
+  window.acFromFt=function(ft,sig){ return window.acFmt(ft/3.280839895013123,'m',sig==null?-1:sig); };
+  window.acUnitFt=function(){ return get()==='imperial'?'ft':'m'; };
+  window.acFtVal=function(ft){ return get()==='imperial'?ft:ft/3.280839895013123; };
+  var now=get(); mark(now); if(now==='imperial') apply(now);
+  /* pages that draw figures after load (the sun and moon cards repaint every
+     minute, the simulators every frame) tell us to run again */
+  document.addEventListener('ac:units',function(){ apply(get()); });
+})();</script></div>
+  <h1>Multiple Stopwatches</h1>
+  <p class="sub">Up to 6 independent stopwatches on one screen — each with its own name, its own colour, its own laps and its own Start. For lanes, heats, groups, stations or six things on the stove.</p>
+
+  <div class="mt-wrap" id="ms" data-view="desk">
+    <div class="mt-board ms-board" id="ms-board" data-count="0"></div>
+    <p class="tool-msg ms-over" id="ms-over" role="status" hidden></p>
+    <div class="mt-bar">
+      <button class="btn secondary" id="ms-share" type="button" disabled title="Start a stopwatch first — Share saves the board as an image">Share</button>
+      <button class="btn secondary" id="ms-dl" type="button" disabled title="Start a stopwatch first — CSV saves every watch as a spreadsheet file">CSV</button>
+      <button class="btn" id="ms-add" type="button" title="Add a stopwatch">Add</button>
+      <button class="btn secondary" id="ms-all" type="button">Start all</button>
+      <button class="btn secondary" id="ms-reset" type="button">Reset all</button>
+      <button class="btn secondary" id="ms-view" type="button" title="Switch between the wide and narrow layouts">Mobile view</button>
+      <button class="btn secondary sw-fsbtn" id="ms-fs" type="button" aria-label="Full screen" title="Full screen"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5"/><path d="M4 4l6 6"/><path d="M20 9V4h-5"/><path d="M20 4l-6 6"/><path d="M4 15v5h5"/><path d="M4 20l6-6"/><path d="M20 15v5h-5"/><path d="M20 20l-6-6"/></svg></button>
+    </div>
+    <p class="hint ms-cap">Each stopwatch runs on its own — <strong>Start all</strong> is for a common gun. The palette button on each card sets that card's <strong>name and colour</strong>, so you can tell six cards apart at a glance. 6 fit the wide layout and 3 the narrow one; the layout button switches between them. Everything is saved on this device. <strong>CSV</strong> writes one row per stopwatch — name, a column per lap, then the total — and <strong>Share</strong> saves the same board as an image; both files are named for the date, the time and the cards you renamed. Keyboard: <kbd>Space</kbd> start/stop all · <kbd>R</kbd> reset all · <kbd>F</kbd> full screen.</p>
+  </div>
+
+  <div class="card tool-about">
+    <h2>When six beat one</h2>
+    <p>A single stopwatch answers "how long did that take". Six answer "which of these was quicker", and that is a different question with a different shape: the times only mean something next to each other. Each card here keeps its own laps, so you can take a split on lane 2 without touching lane 3, and the export puts them in one file — a row per stopwatch, a column per lap — so the comparison survives the trip into a spreadsheet.</p>
+    <p class="bullets">
+      <em>Swimming and track.</em> One watch per lane or per athlete, named and coloured, with splits taken independently.<br>
+      <em>Classroom stations.</em> One per group, so you can see which station is running long without stopping the others.<br>
+      <em>Cooking.</em> Several things that went in at different times and come out at different times.<br>
+      <em>Interviews and debates.</em> One watch per speaker, so total speaking time is a number rather than a guess.<br>
+      <em>Lab work.</em> Parallel reactions started a minute apart, each with its own elapsed clock.
+    </p>
+    <p>Timing one thing? The <a href="/stopwatch/">single stopwatch</a> does more per session — fastest and slowest lap highlighting, a +/- column against the previous lap, a start delay, and a choice of display precision.</p>
+  </div>
+
+  <div class="card tool-about">
+    <h2>Naming and colouring the cards</h2>
+    <p>Six dark cards in a grid are six identical dark cards, and "which one is lane 3?" is a question you should never have to ask in the middle of timing something. The <strong>palette button</strong> to the left of each name opens that card's settings: a <strong>name</strong> and a <strong>colour</strong>.</p>
+    <p>Eight preset colours cover most of what people actually match to — a team kit, a lane rope, the coloured card on a group's table — and the custom picker beside them takes any colour at all, so a card can be the exact shade of a shirt or a paint tin. Pick <strong>No colour</strong> to put a card back to plain. Names and colours are saved on your device with the rest of the session, and <strong>Reset all</strong> clears the times without clearing them.</p>
+    <p class="hint">The colour tints the card behind the display rather than flooding it: the read-out is a lit LED panel on a dark screen, and a pastel card would take the digits down with it. Colour is a label, not a status — a running card is still the one with the bright border.</p>
+  </div>
+
+  <div class="card tool-about">
+    <h2>What it can't do</h2>
+    <p>These are browser stopwatches, and the limits are the browser's. A running stopwatch measures <strong>wall-clock time</strong>: it is the difference between the moment you pressed Start and the moment you are looking at it, so it keeps counting in a background tab and it keeps counting through a closed tab or a sleeping laptop. Come back the next morning and a watch you left running will read the whole night, because the whole night is what elapsed. Stop it before you close the tab if that is not what you want. Displayed precision varies by device.</p>
+    <p>Good enough for training, a classroom or a kitchen. Not calibrated equipment, and not suitable for official results. What a browser timer actually does, measured rather than described: <a href="/methodology/browser-timing/">how accurate is a browser timer?</a></p>
+  </div>
+
+  <div class="card tool-faq">
+    <details class="faq-item"><summary>How many stopwatches can I run at once?</summary><p>6 on a computer and 3 on a phone. Each one keeps its own name, its own colour, its own elapsed time and its own laps, and they run completely independently — starting one does not touch the others. If you only need one, the single stopwatch has more per-session tools.</p></details>
+    <details class="faq-item"><summary>Why only three on a phone?</summary><p>Because a phone showing 6 cards shows 6 read-outs too small to glance at, and glancing is the whole job. If you want them anyway — a phone held sideways, or a tablet the page has guessed wrong about — the layout button switches between the wide and narrow views and stays where you put it. Switching to the narrow view never stops or deletes a watch; it tells you how many fit and leaves your clocks running.</p></details>
+    <details class="faq-item"><summary>Do they all have to start together?</summary><p>No, and that is the point — each card has its own Start. There is also a Start all button for a race where everyone goes on the same gun, and pressing it starts every stopped watch at the same instant rather than one after another.</p></details>
+    <details class="faq-item"><summary>Can I name them?</summary><p>Yes — open the palette button to the left of the name and type, or just tap the name itself. Lane 3, Kettle, Group B, whatever you are actually timing. The names are saved with the session and appear in the exported file.</p></details>
+    <details class="faq-item"><summary>Can I give each stopwatch its own colour?</summary><p>Yes. The palette button on each card sets its background colour: eight presets, or a custom picker for any colour at all, so a card can match a team kit, a lane rope or the paint on a wall. Colours are saved with the session, and there is a No colour option to put a card back to plain.</p></details>
+    <details class="faq-item"><summary>Are my times saved if I close the tab?</summary><p>Yes. Every watch, its name, its colour and its laps are stored on your device. A watch that was running when you closed the tab is still running when you come back, and it will read the full wall-clock time since you pressed Start — the gap is counted, not skipped. Stop a watch before closing if you do not want that. Reset all clears the times; the names and colours stay.</p></details>
+    <details class="faq-item"><summary>Can I export them all at once?</summary><p>Yes — CSV writes one file with a row per stopwatch: its name, then a column for each lap, then its total time. Six watches are six rows you can read down, and if nobody took a lap the file is simply each name and its time. Share does the same thing as a picture — one column per watch, in that watch&#39;s colour.</p></details>
+    <details class="faq-item"><summary>What are the exported files called?</summary><p>The date and time you saved them, then the names of the cards you renamed: 2026-08-08-1615-lane-3-lane-4.csv. A board you did not rename falls back to stopwatch-times. That way a folder of exports sorts itself into the order you took them and no two ever overwrite each other.</p></details>
+    <details class="faq-item"><summary>Is it accurate enough for a race?</summary><p>For training, a classroom or a kitchen, comfortably. It is not calibrated timing equipment and is not suitable for official results — displayed precision varies by device, and a background tab updates less often. The measured behaviour is on the browser timing page.</p></details>
+  </div>
+
+  <div class="card tool-about">
+    <h2>More timing tools</h2>
+    <p><a href="/stopwatch/">Single stopwatch</a> · <a href="/timer/">Timer</a> (three countdowns at once) · <a href="/alarm-clock/">Alarm clock</a> · <a href="/classroom/">Using these in a classroom</a></p>
+  </div>
+  <details class="suggest-box" data-ac="suggest">
+    <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
+    <form class="suggest-form" autocomplete="off">
+      <p class="hint" style="margin:0 0 14px">Ask us anything about the tools, tell us what's broken or confusing, or suggest something we're missing. Every message is read by a person.</p>
+      <p class="notice">If you are under 13, do not send us your name, email, or any other personal information. If you are under 18, please get a parent or guardian's permission before using this form.</p>
+      <label class="cr-check" for="sg-age"><input id="sg-age" name="age_ok" type="checkbox" required> <span>I am 13 or older, and if I am under 18 I have a parent or guardian's permission to send this.</span></label>
+      <label for="sg-email">Email <span class="hint" style="display:inline;font-weight:400">(so we can reply — leave blank if you'd rather not)</span></label>
+      <input id="sg-email" type="email" placeholder="Your email address">
+      <label for="sg-idea">Your question or idea</label>
+      <textarea id="sg-idea" maxlength="1000" required placeholder="How do I…? · Something isn't working · A countdown or feature we're missing…"></textarea>
+      <input id="sg-hp" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn" id="sg-send" type="submit">Send message</button>
+      <p id="sg-note" class="hint suggest-note" role="status"></p>
+      <p class="hint" style="margin-top:12px">If you leave an email we'll reply to questions. We can't promise to build every suggestion, but they directly shape what we work on next.</p>
+    </form>
+  </details>
+  <script data-ac="suggest">(function(){var b=document.querySelector('.suggest-box[data-ac="suggest"]');if(!b)return;var f=b.querySelector('.suggest-form'),note=b.querySelector('#sg-note'),btn=b.querySelector('#sg-send');f.addEventListener('submit',function(e){e.preventDefault();if(b.querySelector('#sg-hp').value)return;var idea=b.querySelector('#sg-idea').value.trim();if(!idea){note.textContent='Please add a quick note first.';return;}var age=b.querySelector('#sg-age');if(age&&!age.checked){note.textContent='Please confirm the age notice.';return;}var em=b.querySelector('#sg-email').value.trim();btn.disabled=true;note.textContent='Sending…';fetch('/api/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:location.href,reason:'Site idea',details:idea,email:em,website:''})}).then(function(r){return r.json().catch(function(){return{};});}).then(function(d){if(d&&!d.error){f.reset();note.textContent=em?'Thanks — got it. A reply will go to '+em+'. 🙌':'Thanks — got it. 🙌 (No email given, so this one cannot be answered.)';}else{note.textContent='Sorry, that did not send. Please try again.';btn.disabled=false;}}).catch(function(){note.textContent='Network hiccup — please try again.';btn.disabled=false;});});})();</script>
+  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/suggest-event/">Suggest an event</a> · <a class="report-link" href="/report/?url=https%3A%2F%2Ftimeandspace.science%2Fstopwatch%2Fmultiple%2F">Report abuse</a></p>
+  <p class="footer copyright">© 2026 Time and Space Science. All rights reserved.</p>
+  <p class="footer sitelinks">Gravity, motion, time and space — one set of rules, seen from different sides: <a href="/questions/">the big questions</a> · <a href="/glossary/">the glossary</a> · <a href="/sun-moon-earth-movement-simulator/">the Sun, Earth &amp; Moon</a> · <a href="/day-night-map/">day &amp; night on Earth</a> · <a href="/solar-system-simulator/">the solar system</a> · <a href="/planets/">the planets</a> · <a href="/orbital-velocity-simulator/">gravity &amp; orbits</a> · <a href="/sun/">sunrise &amp; sunset</a> · <a href="/moon/">moon phases</a> · <a href="/world-clock/">time zones</a></p>
+  <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. Teachers: <a href="/classroom/submit-a-lesson/">send us the lesson you already run</a> and we will build it into a page here, with your name on it — or <a href="/classroom/#ask">ask us to build a simulator</a> your class has thought of. <a href="/classroom/">Classroom</a> · <a href="/about/">About this site</a>.</p>
+</div>
+<script>
+
+window.acSegDisplay=function(el){
+  var SEG={'0':'abcdef','1':'bc','2':'abdeg','3':'abcdg','4':'bcfg','5':'acdfg','6':'acdefg','7':'abc','8':'abcdefg','9':'abcdfg'},SEGL='abcdefg',cells=[],shape='';
+  function build(str){ var sh=str.replace(/[0-9]/g,'#'); if(sh===shape)return; shape=sh; el.innerHTML=''; cells=[];
+    for(var i=0;i<str.length;i++){ var ch=str.charAt(i);
+      if(ch===':'){ var c=document.createElement('span'); c.className='ac-colon'; c.innerHTML='<i></i><i></i>'; el.appendChild(c); cells.push(null); }
+      else if(ch==='.'){ var d=document.createElement('span'); d.className='seg-dot'; el.appendChild(d); cells.push(null); }
+      else { var g=document.createElement('span'); g.className='dig'; for(var s=0;s<7;s++){ var sg=document.createElement('i'); sg.className='seg seg-'+SEGL.charAt(s); g.appendChild(sg);} el.appendChild(g); cells.push({el:g,last:''}); } } }
+  return function(str){ str=''+str; build(str); el.setAttribute('aria-label',str); for(var i=0;i<str.length;i++){ var cell=cells[i]; if(!cell)continue; var ch=str.charAt(i); if(cell.last===ch)continue; cell.last=ch; var on=SEG[ch]||''; for(var s=0;s<7;s++) cell.el.children[s].classList.toggle('on', on.indexOf(SEGL.charAt(s))>-1); } };
+};
+(function(){
+  var board=document.getElementById("ms-board"), addBtn=document.getElementById("ms-add"),
+      allBtn=document.getElementById("ms-all"), resetBtn=document.getElementById("ms-reset"),
+      dlBtn=document.getElementById("ms-dl"), shareBtn=document.getElementById("ms-share"),
+      fsBtn=document.getElementById("ms-fs"), wrap=document.getElementById("ms"),
+      viewBtn=document.getElementById("ms-view"), overEl=document.getElementById("ms-over");
+  if(!board) return;
+  var MAXD=6, MAXM=3, KEY="ac_multi_stopwatch", VKEY="ac_ms_view",
+      watches=[], seq=0, raf=0, openW=null;
+
+  /* ---- WHICH VIEW, AND WHO DECIDED ------------------------------------------
+     "auto" is only the state before anybody has chosen: the layout follows the
+     window. The moment the layout button is pressed, that choice IS the answer
+     and the window stops being consulted. The cap applies to ADDING a watch; it
+     never removes one that is already on screen, because that would stop a
+     clock somebody is timing with. */
+  var view="auto"; try{ view=localStorage.getItem(VKEY)||"auto"; }catch(e){}
+  var MQ=window.matchMedia("(min-width:680px)");
+  function mode(){ return view==="auto" ? (MQ.matches?"desk":"mob") : view; }
+  function cap(){ return mode()==="desk" ? MAXD : MAXM; }
+
+  function pad(n){ return n<10?"0"+n:""+n; }
+  function clk(ms){ ms=Math.max(0,ms); var cs=Math.floor(ms/10)%100, s=Math.floor(ms/1000),
+    h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=s%60;
+    return (h>0?pad(h)+":":"")+pad(m)+":"+pad(sec)+"."+pad(cs); }
+  /* elapsed for one watch, whether or not it is running */
+  function now(w){ return w.running ? w.elapsed+(Date.now()-w.startedAt) : w.elapsed; }
+
+  function save(){ try{
+    if(!watches.length){ localStorage.removeItem(KEY); return; }
+    localStorage.setItem(KEY, JSON.stringify(watches.map(function(w){
+      return {n:w.name,r:w.running,e:w.elapsed,s:w.startedAt,l:w.laps,ll:w.lastLap,c:w.color}; })));
+  }catch(e){} }
+
+  function anyRunning(){ for(var i=0;i<watches.length;i++) if(watches[i].running) return true; return false; }
+  /* The all-button keys off ALL running, not ANY. With one of three going,
+     "any" made the button read Stop all and made it stop that one watch —
+     the opposite of what someone with two idle cards is reaching for.
+     Start all fills the board; only once everything is running does it
+     become Stop all. */
+  function allRunning(){ return watches.length>0 && watches.every(function(w){ return w.running; }); }
+  function anyLaps(){ for(var i=0;i<watches.length;i++) if(watches[i].laps.length) return true; return false; }
+  /* Exportable from the first tick, not the first lap: the CSV has a no-laps
+     shape (name and one time), so a plain timing is a real export. "running"
+     counts on its own — at the instant Start is pressed the elapsed time is
+     still zero, and a button that greys out until you stop reads as broken. */
+  function anyTime(){ for(var i=0;i<watches.length;i++) if(watches[i].laps.length||watches[i].running||now(watches[i])>0) return true; return false; }
+  function maxLaps(){ var m=0; for(var i=0;i<watches.length;i++) m=Math.max(m,watches[i].laps.length); return m; }
+
+  function paintOne(w){
+    if(w.setDisp) w.setDisp(clk(now(w)));
+    w.card.setAttribute("data-state", w.running?"running":"idle");
+    w.toggle.textContent = w.running?"Stop":"Start";
+    w.lapBtn.disabled = !w.running;
+    var n=w.laps.length;
+    if(!n){ w.meta.textContent = w.running?"running — no laps yet":"ready"; return; }
+    var best=w.laps[0].split, last=w.laps[n-1].split;
+    for(var i=1;i<n;i++) if(w.laps[i].split<best) best=w.laps[i].split;
+    w.meta.innerHTML = n+" lap"+(n===1?"":"s")+" · last <b>"+clk(last)+"</b> · best <b class=\"ms-best\">"+clk(best)+"</b>";
+  }
+  function paint(){ for(var i=0;i<watches.length;i++) paintOne(watches[i]); }
+  function loop(){ paint(); raf = anyRunning() ? requestAnimationFrame(loop) : 0; }
+  function kick(){ if(!raf && anyRunning()) raf=requestAnimationFrame(loop); }
+
+  function syncBar(){
+    var m=mode(), lim=cap(), n=watches.length;
+    wrap.setAttribute("data-view",m);
+    board.setAttribute("data-count",String(n));
+    /* One word each. This button sits in a row of one-word buttons, and
+       "Max 3 stopwatches" was three times the width of anything beside it to
+       say what a disabled button already says. */
+    addBtn.disabled = n>=lim;
+    addBtn.textContent = n>=lim ? "Max" : "Add";
+    addBtn.title = n>=lim ? "This layout fits "+lim+" stopwatches" : "Add a stopwatch";
+    viewBtn.textContent = m==="desk" ? "Mobile view" : "Desktop view";
+    viewBtn.setAttribute("aria-label", m==="desk" ? "Switch to the narrow, mobile layout" : "Switch to the wide, desktop layout");
+    /* Over the limit is only reachable by switching TO the narrow view with
+       more watches than it fits, or by arriving on a phone with a wide-layout
+       session saved. Nothing is stopped and nothing is thrown away — the page
+       says what happened and what the two ways out are. */
+    var over = n - lim;
+    overEl.hidden = over<=0;
+    if(over>0) overEl.textContent = (m==="mob"?"Mobile":"This")+" view fits "+lim+
+      " stopwatches and you have "+n+". Close "+over+" with the \u00D7 on "+
+      (over===1?"its card":"their cards")+", or switch back to the desktop view. Nothing has been stopped.";
+    allBtn.textContent = allRunning() ? "Stop all" : "Start all";
+    allBtn.disabled = !watches.length;
+    resetBtn.disabled = !watches.length;
+    /* greyed, not gone — the same rule the single stopwatch uses, so the row
+       does not jump the moment the first watch starts */
+    dlBtn.disabled = !anyTime();
+    shareBtn.disabled = !anyTime();
+    document.title = anyRunning() ? "\u25B6 Multiple stopwatches" : "Multiple Stopwatches";
+  }
+
+  function startW(w){ if(w.running) return; w.running=true; w.startedAt=Date.now(); paintOne(w); syncBar(); save(); kick(); }
+  function stopW(w){ if(!w.running) return; w.elapsed=now(w); w.running=false; paintOne(w); syncBar(); save(); }
+  function lapW(w){ var t=now(w); w.laps.push({split:t-w.lastLap,total:t}); w.lastLap=t; paintOne(w); syncBar(); save(); }
+  /* Reset clears the TIMES. The name and the colour are how you know which card
+     this is, and they survive it — clearing them would make Reset all a rename
+     of every lane as well as a restart of it. */
+  function resetW(w){ w.running=false; w.elapsed=0; w.startedAt=0; w.laps=[]; w.lastLap=0; paintOne(w); syncBar(); save(); }
+
+  /* The colour is a CSS custom property on the card, so the stylesheet decides
+     how strongly it is mixed into the background and the border, and one rule
+     covers presets and custom picks alike. */
+  function tint(w){
+    if(w.color){ w.card.style.setProperty("--ms-tint",w.color); w.card.classList.add("ms-tinted"); }
+    else { w.card.style.removeProperty("--ms-tint"); w.card.classList.remove("ms-tinted"); }
+    var sw=w.panel.querySelectorAll(".ms-sw");
+    for(var i=0;i<sw.length;i++) sw[i].setAttribute("aria-pressed", sw[i].getAttribute("data-c")===w.color?"true":"false");
+    if(w.color) w.custom.value=w.color;
+  }
+  function setName(w,v){
+    w.name=(String(v).trim()||w.name).slice(0,24);
+    w.nameBtn.textContent=w.name;
+    if(w.panelName.value!==w.name) w.panelName.value=w.name;
+  }
+  function closePanel(){ if(!openW) return;
+    openW.panel.hidden=true; openW.tintBtn.setAttribute("aria-expanded","false"); openW=null; }
+  function openPanel(w){
+    if(openW===w){ closePanel(); return; }
+    closePanel();
+    w.panelName.value=w.name; tint(w);
+    w.panel.hidden=false; w.tintBtn.setAttribute("aria-expanded","true"); openW=w;
+    w.panelName.focus(); w.panelName.select();
+  }
+
+  function make(st,force){
+    if(!force && watches.length>=cap()) return null;
+    if(watches.length>=MAXD) return null;
+    var id=++seq;
+    var w={ id:id, name:(st&&st.n)||("Stopwatch "+(watches.length+1)),
+            running:!!(st&&st.r), elapsed:(st&&st.e)||0, startedAt:(st&&st.s)||Date.now(),
+            laps:(st&&st.l)||[], lastLap:(st&&st.ll)||0, color:(st&&st.c)||"" };
+    var el=document.createElement("div");
+    el.className="mt-timer ms-watch"; el.setAttribute("data-state","idle");
+    el.innerHTML=
+      '<button class="mt-x" type="button" aria-label="Remove this stopwatch">&times;</button>'+
+      '<div class="mt-head">'+
+        '<button class="ms-tintbtn" type="button" aria-expanded="false" aria-label="Name and colour" title="Name and colour"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 2.6c5.4 0 9.4 3.6 9.4 8.2 0 2.8-2.2 4-4.2 4h-1.8c-1.3 0-2.2.9-2.2 2 0 .7.3 1.1.6 1.6.3.5.6 1 .6 1.7 0 1.2-1 2.3-2.4 2.3-5.2 0-9.4-4.3-9.4-9.9 0-5.6 4-10 9.4-9.9z" fill="#cbd5e1"/><path d="M12 2.6c-5.4-.1-9.4 4.3-9.4 9.9 0 3.1 1.3 5.9 3.4 7.7-1-1.7-1.6-3.8-1.6-6 0-5.3 3.4-9.6 7.6-11.6z" fill="#e2e8f0"/><circle cx="7.4" cy="8.4" r="1.5" fill="#ef4444"/><circle cx="11.6" cy="6.4" r="1.5" fill="#f59e0b"/><circle cx="16" cy="8.2" r="1.5" fill="#22c55e"/><circle cx="6.6" cy="13.6" r="1.5" fill="#3b82f6"/><circle cx="9.6" cy="17.4" r="1.5" fill="#a855f7"/></g></svg></button>'+
+        '<button class="mt-name ms-name" type="button" title="Rename"></button>'+
+        '<span class="mt-sep">\u2013</span><button class="mt-reset-link" type="button">Reset</button></div>'+
+      '<div class="ms-panel" hidden>'+
+        '<label class="ms-field"><span>Name</span><input type="text" class="ms-panel-name" maxlength="24" placeholder="Lane 3"></label>'+
+        '<p class="ms-field-lab">Card colour</p>'+
+        '<div class="ms-swatches">'+
+          '<button type="button" class="ms-sw ms-sw-none" data-c="" title="No colour" aria-label="No colour" aria-pressed="false"></button>'+
+          '<button type="button" class="ms-sw" data-c="#ef4444" style="--sw:#ef4444" title="Red" aria-label="Red" aria-pressed="false"></button><button type="button" class="ms-sw" data-c="#f97316" style="--sw:#f97316" title="Orange" aria-label="Orange" aria-pressed="false"></button><button type="button" class="ms-sw" data-c="#f59e0b" style="--sw:#f59e0b" title="Amber" aria-label="Amber" aria-pressed="false"></button><button type="button" class="ms-sw" data-c="#22c55e" style="--sw:#22c55e" title="Green" aria-label="Green" aria-pressed="false"></button><button type="button" class="ms-sw" data-c="#14b8a6" style="--sw:#14b8a6" title="Teal" aria-label="Teal" aria-pressed="false"></button><button type="button" class="ms-sw" data-c="#3b82f6" style="--sw:#3b82f6" title="Blue" aria-label="Blue" aria-pressed="false"></button><button type="button" class="ms-sw" data-c="#a855f7" style="--sw:#a855f7" title="Purple" aria-label="Purple" aria-pressed="false"></button><button type="button" class="ms-sw" data-c="#ec4899" style="--sw:#ec4899" title="Pink" aria-label="Pink" aria-pressed="false"></button>'+
+        '</div>'+
+        '<label class="ms-field ms-custom"><span>Any other colour</span><input type="color" class="ms-panel-col" value="#3b82f6"></label>'+
+        '<button class="btn secondary ms-panel-done" type="button">Done</button>'+
+      '</div>'+
+      '<div class="mt-row"><div class="mt-disp seg-screen" role="timer" aria-live="off"></div>'+
+        '<button class="btn mt-toggle" type="button">Start</button></div>'+
+      '<p class="ms-meta hint"></p>'+
+      '<button class="btn secondary ms-lap" type="button" disabled>Lap</button>';
+    board.appendChild(el);
+    w.card=el;
+    w.disp=el.querySelector(".mt-disp");
+    w.setDisp=window.acSegDisplay(w.disp);
+    w.toggle=el.querySelector(".mt-toggle");
+    w.lapBtn=el.querySelector(".ms-lap");
+    w.meta=el.querySelector(".ms-meta");
+    w.nameBtn=el.querySelector(".ms-name");
+    w.tintBtn=el.querySelector(".ms-tintbtn");
+    w.panel=el.querySelector(".ms-panel");
+    w.panelName=w.panel.querySelector(".ms-panel-name");
+    w.custom=w.panel.querySelector(".ms-panel-col");
+    w.nameBtn.textContent=w.name;
+    w.panelName.value=w.name;
+    tint(w);
+
+    w.toggle.addEventListener("click",function(){ w.running?stopW(w):startW(w); });
+    w.lapBtn.addEventListener("click",function(){ if(w.running) lapW(w); });
+    el.querySelector(".mt-reset-link").addEventListener("click",function(){ resetW(w); });
+    el.querySelector(".mt-x").addEventListener("click",function(){
+      if(openW===w) closePanel();
+      var i=watches.indexOf(w); if(i>-1) watches.splice(i,1);
+      el.remove(); syncBar(); save(); });
+
+    /* the palette button IS the settings button: name and colour are the two
+       things that say which card this is, so they open together */
+    w.tintBtn.addEventListener("click",function(e){ e.stopPropagation(); openPanel(w); });
+    w.panel.addEventListener("click",function(e){ e.stopPropagation(); });
+    /* live: the card renames as you type. An empty field is not a rename — the
+       label keeps the last real name until there is something to replace it. */
+    w.panelName.addEventListener("input",function(){
+      var v=w.panelName.value.trim().slice(0,24);
+      if(v) w.name=v;
+      w.nameBtn.textContent=w.name; save(); });
+    w.panelName.addEventListener("blur",function(){ setName(w,w.panelName.value); save(); });
+    w.panelName.addEventListener("keydown",function(e){
+      if(e.key==="Enter"){ e.preventDefault(); setName(w,w.panelName.value); save(); closePanel(); } });
+    w.panel.addEventListener("click",function(e){
+      var b=e.target.closest?e.target.closest(".ms-sw"):null;
+      if(!b) return;
+      w.color=b.getAttribute("data-c")||""; tint(w); save(); });
+    /* "input" rather than "change": dragging through a native colour picker
+       repaints the card as you go, which is the whole point of matching one. */
+    w.custom.addEventListener("input",function(){ w.color=w.custom.value; tint(w); save(); });
+    w.panel.querySelector(".ms-panel-done").addEventListener("click",function(){
+      setName(w,w.panelName.value); save(); closePanel(); w.tintBtn.focus(); });
+
+    /* rename in place: the label IS the input, so there is no edit mode to
+       discover and nothing to confirm — blur commits, Enter blurs. */
+    w.nameBtn.addEventListener("click",function(){
+      var inp=document.createElement("input");
+      inp.type="text"; inp.className="mt-name ms-name-in"; inp.value=w.name; inp.maxLength=24;
+      w.nameBtn.replaceWith(inp); inp.focus(); inp.select();
+      function commit(){ setName(w,inp.value); inp.replaceWith(w.nameBtn); save(); }
+      inp.addEventListener("blur",commit);
+      inp.addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); inp.blur(); }
+        else if(e.key==="Escape"){ inp.value=w.name; inp.blur(); } });
+    });
+
+    watches.push(w); paintOne(w); syncBar(); kick();
+    return w;
+  }
+
+  addBtn.addEventListener("click",function(){ var w=make(null); if(w) save(); });
+  /* pressing it IS the choice — from here on the window is not consulted */
+  viewBtn.addEventListener("click",function(){
+    view = mode()==="desk" ? "mob" : "desk";
+    try{ localStorage.setItem(VKEY,view); }catch(e){}
+    syncBar();
+  });
+  function onMq(){ if(view==="auto") syncBar(); }
+  if(MQ.addEventListener) MQ.addEventListener("change",onMq);
+  else if(MQ.addListener) MQ.addListener(onMq);
+  allBtn.addEventListener("click",function(){
+    /* one Date.now() for the whole sweep, so "Start all" really is one instant
+       rather than three a few milliseconds apart */
+    var t=Date.now(), go=!allRunning();
+    for(var i=0;i<watches.length;i++){ var w=watches[i];
+      if(go){ if(!w.running){ w.running=true; w.startedAt=t; } }
+      else if(w.running){ w.elapsed=w.elapsed+(t-w.startedAt); w.running=false; } }
+    paint(); syncBar(); save(); kick(); });
+  resetBtn.addEventListener("click",function(){ for(var i=0;i<watches.length;i++) resetW(watches[i]); });
+  document.addEventListener("click",function(){ closePanel(); });
+
+  /* ---- the exported file ------------------------------------------------
+     ONE ROW PER STOPWATCH, laps across. The old file was one row per lap with a
+     pair of columns per watch, which put the thing being compared — the watches
+     — at right angles to the thing a spreadsheet compares easily, and needed a
+     "Final" row underneath because the totals had nowhere else to go. Name
+     first, then a column per lap, then the total; three watches are three rows
+     you can read down. /stopwatch/ writes the same shape for its one watch, so
+     a file from either page opens the same way and two of them stack.
+     No laps anywhere is its own header — "Name,Time" — because a row of empty
+     lap columns above a total is a worse answer than the one column. */
+  function q(s){ return '"'+String(s).replace(/"/g,'""')+'"'; }
+  function csv(){
+    var n=maxLaps(), lines, i, j;
+    if(!n){ lines=["Name,Time"];
+      for(i=0;i<watches.length;i++) lines.push(q(watches[i].name)+","+clk(now(watches[i])));
+      return lines.join("\r\n"); }
+    var head=["Name"]; for(i=1;i<=n;i++) head.push("Lap "+i); head.push("Total time");
+    lines=[head.join(",")];
+    for(i=0;i<watches.length;i++){ var w=watches[i], row=[q(w.name)];
+      for(j=0;j<n;j++) row.push(w.laps[j]?clk(w.laps[j].split):"");
+      row.push(clk(now(w))); lines.push(row.join(",")); }
+    return lines.join("\r\n");
+  }
+
+  /* ---- what the file is CALLED -------------------------------------------
+     Date and time first, so a folder of exports sorts itself and two sessions
+     never overwrite each other. Then the cards' own names — but only the ones
+     that were actually named: "stopwatch-1-stopwatch-2" is noise, so a board
+     nobody renamed falls back to "stopwatch-times". */
+  function isNamed(w){ return !/^Stopwatch \d+$/.test(w.name); }
+  function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,24); }
+  function stamp(){ var d=new Date(), p=function(x){ return x<10?"0"+x:""+x; };
+    return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"-"+p(d.getHours())+p(d.getMinutes()); }
+  function fileBase(){
+    var named=[]; for(var i=0;i<watches.length;i++) if(isNamed(watches[i])){ var s=slug(watches[i].name); if(s) named.push(s); }
+    return stamp()+"-"+(named.length?named.join("-"):"stopwatch-times");
+  }
+  function saveFile(blob,name){ try{ var url=URL.createObjectURL(blob), a=document.createElement("a");
+    a.href=url; a.download=name; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},1500); }catch(e){} }
+  dlBtn.addEventListener("click",function(){
+    saveFile(new Blob([csv()],{type:"text/csv;charset=utf-8"}), fileBase()+".csv"); });
+
+  /* ---- the shareable image ------------------------------------------------
+     A COLUMN PER WATCH, not a row: on screen the watches sit side by side and
+     that is how the comparison was read, so the picture keeps it. Each column
+     wears its card's own colour, mixed against the same near-black the page
+     uses — the tint has to be computed here because a canvas has no color-mix.
+     Best lap per column in green, the same green the card marks it with. */
+  function hex2rgb(h){ h=String(h).replace("#",""); if(h.length===3) h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+    var v=parseInt(h,16); return [(v>>16)&255,(v>>8)&255,v&255]; }
+  function mix(h,amt){ var c=hex2rgb(h), b=[11,14,28], o=[0,0,0];
+    for(var i=0;i<3;i++) o[i]=Math.round(c[i]*amt+b[i]*(1-amt));
+    return "rgb("+o[0]+","+o[1]+","+o[2]+")"; }
+  function rr(g,x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
+  function fit(g,s,maxW){ if(g.measureText(s).width<=maxW) return s;
+    while(s.length>1 && g.measureText(s+"\u2026").width>maxW) s=s.slice(0,-1);
+    return s+"\u2026"; }
+  function buildImageFile(){
+    var n=watches.length, ml=maxLaps(), W=1080, m=24, side=40, gap=16;
+    var colW=(W-2*m-2*side-(n-1)*gap)/n, colTop=196, headH=150, rowH=52;
+    var colH=headH+Math.max(ml,1)*rowH+18, H=colTop+colH+92;
+    var c=document.createElement("canvas"); c.width=W; c.height=H; var g=c.getContext("2d");
+    g.fillStyle="#0b0e1c"; g.fillRect(0,0,W,H);
+    rr(g,m,m,W-2*m,H-2*m,40); g.fillStyle="#141a33"; g.fill();
+    g.lineWidth=2; g.strokeStyle="rgba(255,255,255,.12)"; g.stroke();
+    g.textAlign="center"; g.textBaseline="alphabetic";
+    g.fillStyle="#e2e8f0"; g.font="800 46px system-ui,-apple-system,Arial,sans-serif";
+    g.fillText(n===1?"Stopwatch":n+" Stopwatches",W/2,108);
+    var st=stamp(); g.fillStyle="#8ea0b6"; g.font="500 28px system-ui,Arial,sans-serif";
+    g.fillText(st.slice(0,10)+" \u00b7 "+st.slice(11,13)+":"+st.slice(13),W/2,152);
+    for(var i=0;i<n;i++){
+      var w=watches[i], x=m+side+i*(colW+gap), best=-1;
+      if(w.laps.length){ var bmin=Infinity; for(var k=0;k<w.laps.length;k++) if(w.laps[k].split<bmin){ bmin=w.laps[k].split; best=k; } }
+      rr(g,x,colTop,colW,colH,20);
+      g.fillStyle = w.color ? mix(w.color,.26) : "rgba(255,255,255,.03)"; g.fill();
+      g.lineWidth=2; g.strokeStyle = w.color ? mix(w.color,.55) : "rgba(255,255,255,.12)"; g.stroke();
+      g.textAlign="center";
+      g.fillStyle="#e2e8f0"; g.font="700 32px system-ui,Arial,sans-serif";
+      g.fillText(fit(g,w.name,colW-32),x+colW/2,colTop+52);
+      g.fillStyle="#3df2c0"; g.font="800 "+(n>2?46:58)+"px ui-monospace,Menlo,Consolas,monospace";
+      g.fillText(clk(now(w)),x+colW/2,colTop+120);
+      if(!w.laps.length){ g.fillStyle="#8ea0b6"; g.font="500 28px system-ui,Arial,sans-serif";
+        g.fillText("no laps",x+colW/2,colTop+headH+34); }
+      for(var j=0;j<w.laps.length;j++){ var ry=colTop+headH+34+j*rowH;
+        g.strokeStyle="rgba(255,255,255,.10)"; g.lineWidth=1;
+        g.beginPath(); g.moveTo(x+20,ry-36); g.lineTo(x+colW-20,ry-36); g.stroke();
+        g.textAlign="left"; g.fillStyle="#94a3b8"; g.font="500 28px system-ui,Arial,sans-serif";
+        g.fillText("Lap "+(j+1),x+20,ry);
+        g.textAlign="right"; g.fillStyle=j===best&&w.laps.length>1?"#4ade80":"#f8fafc";
+        g.font="700 30px ui-monospace,Menlo,Consolas,monospace"; g.fillText(clk(w.laps[j].split),x+colW-20,ry); }
+    }
+    g.textAlign="center"; g.fillStyle="#8ea0b6"; g.font="600 34px system-ui,Arial,sans-serif";
+    g.fillText("timeandspace.science/stopwatch/multiple",W/2,H-44);
+    /* synchronous dataURL -> File keeps us inside the click gesture (Safari share) */
+    var du=c.toDataURL("image/png"), bin=atob(du.split(",")[1]), arr=new Uint8Array(bin.length);
+    for(var b=0;b<bin.length;b++) arr[b]=bin.charCodeAt(b);
+    return new File([new Blob([arr],{type:"image/png"})],fileBase()+".png",{type:"image/png"});
+  }
+  function canShareImg(){ try{ return !!(navigator.canShare && navigator.canShare({files:[new File([new Blob([""],{type:"image/png"})],"a.png",{type:"image/png"})]})); }catch(e){ return false; } }
+  shareBtn.textContent = canShareImg() ? "Share" : "Save image";
+  shareBtn.addEventListener("click",function(){
+    if(!anyTime()) return;
+    var file; try{ file=buildImageFile(); }catch(e){ return; }
+    if(canShareImg()) navigator.share({files:[file],title:"My stopwatch times",text:"My times from Time and Space Science"})["catch"](function(){});
+    else saveFile(file,file.name); });
+
+  document.addEventListener("keydown",function(e){
+    if(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA") return;
+    /* a shortcut fired from inside the settings panel would start every watch
+       while you were choosing a colour for one of them */
+    if(e.target.closest&&e.target.closest(".ms-panel")) return;
+    if(e.code==="Space"){ e.preventDefault(); allBtn.click(); }
+    else if(e.key==="r"||e.key==="R"){ resetBtn.click(); }
+    else if(e.key==="f"||e.key==="F"){ fsBtn.click(); } });
+  document.addEventListener("visibilitychange",function(){ if(!document.hidden){ paint(); kick(); } });
+
+  /* The class on the wrap is the layout; real fullscreen is the browser's. They
+     have to be torn down together, because a system gesture (an Android back
+     swipe, Esc handled by the browser) clears document.fullscreenElement
+     without telling the click handler — which left the board stuck in the
+     fixed full-viewport layout with the button still reading "Exit full
+     screen". Same teardown the single stopwatch and both timers already have. */
+  function applyFs(on){
+    wrap.classList.toggle("mt-fs",on); document.body.classList.toggle("sw-fs-open",on);
+    fsBtn.setAttribute("aria-label",on?"Exit full screen":"Full screen");
+  }
+  fsBtn.addEventListener("click",function(){
+    var on=!wrap.classList.contains("mt-fs");
+    applyFs(on);
+    if(on){ var rq=wrap.requestFullscreen||wrap.webkitRequestFullscreen;
+      if(rq){ try{ var p=rq.call(wrap); if(p&&p["catch"]) p["catch"](function(){}); }catch(_){} } }
+    else if(document.fullscreenElement){ try{ document.exitFullscreen(); }catch(_){} } });
+  function onFsChange(){
+    var real=document.fullscreenElement||document.webkitFullscreenElement;
+    if(!real&&wrap.classList.contains("mt-fs")) applyFs(false);
+  }
+  document.addEventListener("fullscreenchange",onFsChange);
+  document.addEventListener("webkitfullscreenchange",onFsChange);
+  /* Escape closes the settings panel FIRST and full screen only if no panel is
+     open — one key, the innermost thing it can dismiss. */
+  document.addEventListener("keydown",function(e){ if(e.key!=="Escape") return;
+    if(openW){ var t=openW.tintBtn; closePanel(); t.focus(); return; }
+    if(wrap.classList.contains("mt-fs")) fsBtn.click(); });
+
+  /* restore, or open with two — one stopwatch on a page called "multiple" is a
+     worse first impression than an empty board would be */
+  var saved=null; try{ saved=JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){}
+  /* RESTORE PAST THE CAP ON PURPOSE (force). Six saved watches opened on a
+     phone are six watches that were running when the tab closed; silently
+     dropping three would lose times somebody recorded. They all come back, the
+     notice says how many the narrow view fits, and closing one is a decision
+     the person makes rather than one the layout makes for them. */
+  if(saved&&saved.length){ for(var i=0;i<saved.length&&i<MAXD;i++) make(saved[i],true); }
+  else { make(null); make(null); }
+  paint(); syncBar(); kick();
+})();
+</script><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+<script data-ac="privacy">(function(){
+  try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
+  var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];
+  /* "dismissed" stores the choice-not-to-choose: the strip stops nagging, no
+   * consent is recorded (so under GDPR analytics consent stays not-granted). */
+  function setConsent(v){
+    try{localStorage.setItem("ac_consent",v);}catch(_){}
+    try{if(v!=="dismissed"&&window.zaraz&&zaraz.consent){zaraz.consent.set({analytics:v==="granted"});zaraz.consent.sendQueuedEvents&&zaraz.consent.sendQueuedEvents();}}catch(_){}
+    var el=document.getElementById("ac-privacy");if(el)el.hidden=true;
+  }
+  function show(g){
+    if(!g||!g.country)return;
+    var isGdpr=GDPR.indexOf(g.country)>-1, isCcpa=g.country==="US"&&g.region==="CA";
+    if(!isGdpr&&!isCcpa)return;
+    var el=document.getElementById("ac-privacy"),txt=document.getElementById("ac-privacy-text"),act=document.getElementById("ac-privacy-actions");
+    if(!el)return;
+    if(isGdpr){
+      txt.textContent="Allow Google Analytics? EU/UK law requires consent for analytics.";
+      act.innerHTML='<button type="button" id="ac-priv-a">Accept</button><button type="button" class="plain" id="ac-priv-r">Reject</button><a href="/privacy">Privacy</a>';
+      document.getElementById("ac-priv-a").onclick=function(){setConsent("granted");};
+      document.getElementById("ac-priv-r").onclick=function(){setConsent("denied");};
+    }else{
+      txt.textContent="This site uses Google Analytics.";
+      act.innerHTML='<a href="#" id="ac-priv-o">Do Not Sell or Share My Personal Information</a><a href="/privacy">Privacy</a>';
+      document.getElementById("ac-priv-o").onclick=function(ev){ev.preventDefault();setConsent("denied");};
+    }
+    document.getElementById("ac-privacy-x").onclick=function(){setConsent("dismissed");};
+    el.hidden=false;
+  }
+  /* ONE lookup per visitor, not one per page view. This notice is site-wide, so
+     the fetch was firing on every page — including /timer/ and /stopwatch/,
+     which have nothing regional about them. The visitor's country does not
+     change between two page views, so it is cached and reused; only a visitor
+     who has neither answered the notice nor been looked up yet costs a request.
+     Deferred to idle as well, so even that one never sits in the load timeline
+     (it decides whether to show a banner, nothing above the fold waits on it).
+     The cache carries a 7-day expiry rather than living forever: this signal
+     decides whether a consent gate is legally required, and someone who first
+     visited from outside the EEA and has since travelled into it must not be
+     held to a stale answer. Seven days keeps it one request per visitor per
+     week, which is already ~zero. */
+  var cached=null;
+  try{
+    var raw=JSON.parse(localStorage.getItem("ac_geo")||"null");
+    if(raw&&raw.t&&(Date.now()-raw.t)<6048e5) cached=raw;
+  }catch(_){}
+  function go(){
+    if(cached&&cached.country){show(cached);return;}
+    fetch("/api/geo").then(function(r){return r.ok?r.json():null;}).then(function(g){
+      if(!g||!g.country)return;
+      try{localStorage.setItem("ac_geo",JSON.stringify({country:g.country,region:g.region,t:Date.now()}));}catch(_){}
+      show(g);
+    })["catch"](function(){});
+  }
+  if(window.requestIdleCallback)requestIdleCallback(go,{timeout:2500});else setTimeout(go,700);
+})();</script>
+</body>
+</html>

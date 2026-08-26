@@ -1,0 +1,34 @@
+/* /sun/ pages: stat tiles + 7-day table */
+.sun-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.sun-tile{border:1px solid var(--border);border-radius:12px;padding:12px 10px;text-align:center;background:rgba(255,255,255,.03)}
+.sun-tile .sun-lab{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
+.sun-tile b{font-size:20px;font-variant-numeric:tabular-nums}
+.sun-main{border-color:rgba(252,211,77,.5)}
+.sun-main b{color:var(--accent)}
+.sun-table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.sun-table th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sun-table th,.sun-table td{padding:7px 10px;border-bottom:1px solid var(--border)}
+.sun-dial-card{display:flex;flex-direction:column;align-items:center}
+.sun-dial-card svg{width:100%;max-width:380px;height:auto}
+.sun-world summary{cursor:pointer;list-style:none}
+.sun-world summary h2{display:inline;margin:0}
+.sun-world summary::after{content:" ▾";color:var(--muted)}
+.sun-world[open] summary::after{content:" ▴"}
+.sun-world .timer-presets{margin-top:12px}
+/* /sun/ saved-cities list + search extras; year chart sizing */
+.sun-ok{color:#4ade80;font-weight:700}
+.sun-mini{padding:3px 9px;font-size:12px;margin-left:8px}
+.sun-myhead{display:flex;align-items:center;justify-content:space-between;margin:14px 0 6px;font-weight:800;font-size:14px}
+.sun-myhead .chip{width:auto}
+.sun-myitem{display:flex;align-items:center;gap:10px;padding:7px 10px;border:1px solid var(--border);border-radius:10px;margin-bottom:5px}
+.sun-myitem a{font-weight:700;color:var(--text);text-decoration:none;flex:1;min-width:0}
+.sun-def{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.sun-def input{width:auto;margin:0;accent-color:var(--accent);cursor:pointer}
+#sun-results li{display:flex;align-items:center}
+#sun-results a{flex:1}
+#sun-year{width:100%;max-width:660px;height:auto;display:block}
+/* the "tomorrow" card and the Today/Tomorrow row labels in the 7-day table */
+.sun-tmwday{margin:-4px 0 12px;color:var(--muted);font-size:14px}
+.sun-tmwcard .sun-grid{margin-bottom:4px}
+.sun-wd{color:var(--muted);font-weight:400;font-size:12.5px;white-space:nowrap}
+.sun-table tr.sun-tmw-row td{background:rgba(252,211,77,.05)}

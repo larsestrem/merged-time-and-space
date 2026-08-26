@@ -1,0 +1,40 @@
+# Cloudflare Pages config (infrastructure-as-code).
+#
+# The site is static (output dir = repo root). The only reason this file exists
+# is the per-event social-preview Function (functions/api/og.js), which uses
+# workers-og (satori + resvg-wasm) and therefore needs the Node.js compat flag
+# and a modern compatibility date. Capturing it here means a Git-connected Pages
+# build picks it up automatically — no dashboard flags to set by hand — and
+# `npx wrangler pages dev .` runs the Functions locally with the same settings.
+name = "time-and-space"
+pages_build_output_dir = "."
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# ---- KV + env for the report/wrong-date/suggest forms and the moderation log ----
+# The report form (functions/api/report.js) stores submissions in KV under the
+# "report:" prefix and rate-limits by IP; /api/reports and /api/blocked read them
+# back for the /admin/reports and /admin/blocked pages. Without this binding the
+# forms still return "thank you" but nothing is saved — so wire it up:
+#
+#   1. Create a namespace:  npx wrangler kv namespace create RATE
+#   2. Paste the printed id below and uncomment, OR add the binding in the
+#      dashboard: Pages -> Settings -> Functions -> KV namespace bindings,
+#      Variable name = RATE.
+#   3. Recommended delivery (email + Google Sheet, all in your Google account):
+#        deploy cloudflare/report-sink.gs as an Apps Script web app and set the
+#        env var  REPORT_WEBHOOK = <its /exec URL>.  (Full steps in that file.)
+#        Alternatively, for Resend email instead: RESEND_API_KEY, FROM_EMAIL,
+#        and optionally REPORT_EMAIL (recipient).
+#   4. To view stored reports, set MOD_LOG_KEY (a long secret) and open
+#        /admin/reports  (enter that key). This page is private/noindex.
+#
+# RATE: report submissions + per-IP rate limiting (functions/api/report.js).
+[[kv_namespaces]]
+binding = "RATE"
+id = "71fbd6b7ee0244829193c430961300c1"
+
+# VIEWS: per-countdown view counter (functions/api/views.js).
+[[kv_namespaces]]
+binding = "VIEWS"
+id = "9aea6ebc20344820954b89a25e68081f"

@@ -1,0 +1,1026 @@
+{
+  "comment": "Curated popular countdowns. Home shows the first `homeCount` links per category; the hub page (at `hub`) shows links + more. Each entry becomes /<path>[/<slug>]/<year>?<query> (slug '' for holidays where the type IS the event) — or links to a rich landing page when one exists in events.json. Dates must be the NEXT occurrence; edit here and rebuild. The president entry is hand-maintained: switch to 'President-elect <name>' after an election, swap on inauguration day. Some dates (commencements, awards shows, Super Bowl) are typical/approximate until officially announced.",
+  "homeCount": 10,
+  "categories": [
+    {
+      "id": "birthdays",
+      "title": "Popular birthday countdowns",
+      "nav": "Birthdays",
+      "hub": "birthday-countdowns",
+      "hubTitle": "Popular Celebrity Birthday Countdowns",
+      "hubDesc": "Live countdowns to the birthdays people search for most, musicians, athletes, presidents, creators and historical figures.",
+      "path": "birthday-countdown",
+      "theme": "birthday",
+      "art": "birthday",
+      "effect": "confetti",
+      "sound": "fanfare",
+      "links": [
+        {
+          "label": "Zach King",
+          "slug": "zach-king",
+          "name": "Zach King's Birthday",
+          "date": "2027-02-04"
+        },
+        {
+          "label": "Dude Perfect",
+          "slug": "dude-perfect",
+          "name": "Dude Perfect's Birthday",
+          "date": "2027-04-09"
+        },
+        {
+          "label": "Mark Rober",
+          "slug": "mark-rober",
+          "name": "Mark Rober's Birthday",
+          "date": "2027-03-11"
+        },
+        {
+          "label": "Gordon Ramsay",
+          "slug": "gordon-ramsay",
+          "name": "Gordon Ramsay's Birthday",
+          "date": "2026-11-08"
+        },
+        {
+          "label": "Ryan Trahan",
+          "slug": "ryan-trahan",
+          "name": "Ryan Trahan's Birthday",
+          "date": "2026-11-07"
+        },
+        {
+          "label": "Taylor Swift",
+          "slug": "taylor-swift",
+          "name": "Taylor Swift's Birthday",
+          "date": "2026-12-13"
+        },
+        {
+          "label": "Beyoncé",
+          "slug": "beyonce",
+          "name": "Beyoncé's Birthday",
+          "date": "2026-09-04"
+        },
+        {
+          "label": "The Pope",
+          "slug": "the-pope",
+          "name": "Pope Leo XIV's Birthday",
+          "date": "2026-09-14"
+        },
+        {
+          "label": "LeBron James",
+          "slug": "lebron-james",
+          "name": "LeBron James' Birthday",
+          "date": "2026-12-30"
+        },
+        {
+          "label": "Cristiano Ronaldo",
+          "slug": "cristiano-ronaldo",
+          "name": "Cristiano Ronaldo's Birthday",
+          "date": "2027-02-05"
+        },
+        {
+          "label": "MrBeast",
+          "slug": "mrbeast",
+          "name": "MrBeast's Birthday",
+          "date": "2027-05-07"
+        },
+        {
+          "label": "Nick DiGiovanni",
+          "slug": "nick-digiovanni",
+          "name": "Nick DiGiovanni's Birthday",
+          "date": "2027-05-19"
+        },
+        {
+          "label": "Ariana Grande",
+          "slug": "ariana-grande",
+          "name": "Ariana Grande's Birthday",
+          "date": "2027-06-26"
+        },
+        {
+          "label": "George Washington",
+          "slug": "george-washington",
+          "name": "George Washington's Birthday",
+          "date": "2027-02-22"
+        }
+      ],
+      "more": [
+        {
+          "label": "Lionel Messi",
+          "slug": "lionel-messi",
+          "name": "Lionel Messi's Birthday",
+          "date": "2027-06-24"
+        },
+        {
+          "label": "Tom Cruise",
+          "slug": "tom-cruise",
+          "name": "Tom Cruise's Birthday",
+          "date": "2027-07-02"
+        },
+        {
+          "label": "Shohei Ohtani",
+          "slug": "shohei-ohtani",
+          "name": "Shohei Ohtani's Birthday",
+          "date": "2027-07-05"
+        },
+        {
+          "label": "Selena Gomez",
+          "slug": "selena-gomez",
+          "name": "Selena Gomez's Birthday",
+          "date": "2027-07-22"
+        },
+        {
+          "label": "Zendaya",
+          "slug": "zendaya",
+          "name": "Zendaya's Birthday",
+          "date": "2026-09-01"
+        },
+        {
+          "label": "Keanu Reeves",
+          "slug": "keanu-reeves",
+          "name": "Keanu Reeves' Birthday",
+          "date": "2026-09-02"
+        },
+        {
+          "label": "Patrick Mahomes",
+          "slug": "patrick-mahomes",
+          "name": "Patrick Mahomes' Birthday",
+          "date": "2026-09-17"
+        },
+        {
+          "label": "Serena Williams",
+          "slug": "serena-williams",
+          "name": "Serena Williams' Birthday",
+          "date": "2026-09-26"
+        },
+        {
+          "label": "Bill Gates",
+          "slug": "bill-gates",
+          "name": "Bill Gates' Birthday",
+          "date": "2026-10-28"
+        },
+        {
+          "label": "King Charles III",
+          "slug": "king-charles",
+          "name": "King Charles III's Birthday",
+          "date": "2026-11-14"
+        },
+        {
+          "label": "Billie Eilish",
+          "slug": "billie-eilish",
+          "name": "Billie Eilish's Birthday",
+          "date": "2026-12-18"
+        },
+        {
+          "label": "Timothée Chalamet",
+          "slug": "timothee-chalamet",
+          "name": "Timothée Chalamet's Birthday",
+          "date": "2026-12-27"
+        },
+        {
+          "label": "Martin Luther King Jr.",
+          "slug": "martin-luther-king-jr",
+          "name": "Martin Luther King Jr.'s Birthday",
+          "date": "2027-01-15"
+        },
+        {
+          "label": "Dolly Parton",
+          "slug": "dolly-parton",
+          "name": "Dolly Parton's Birthday",
+          "date": "2027-01-19"
+        },
+        {
+          "label": "Oprah Winfrey",
+          "slug": "oprah-winfrey",
+          "name": "Oprah Winfrey's Birthday",
+          "date": "2027-01-29"
+        },
+        {
+          "label": "Harry Styles",
+          "slug": "harry-styles",
+          "name": "Harry Styles' Birthday",
+          "date": "2027-02-01"
+        },
+        {
+          "label": "Shakira",
+          "slug": "shakira",
+          "name": "Shakira's Birthday",
+          "date": "2027-02-02"
+        },
+        {
+          "label": "Abraham Lincoln",
+          "slug": "abraham-lincoln",
+          "name": "Abraham Lincoln's Birthday",
+          "date": "2027-02-12"
+        },
+        {
+          "label": "Michael Jordan",
+          "slug": "michael-jordan",
+          "name": "Michael Jordan's Birthday",
+          "date": "2027-02-17"
+        },
+        {
+          "label": "Ed Sheeran",
+          "slug": "ed-sheeran",
+          "name": "Ed Sheeran's Birthday",
+          "date": "2027-02-17"
+        },
+        {
+          "label": "Dr. Seuss",
+          "slug": "dr-seuss",
+          "name": "Dr. Seuss's Birthday",
+          "date": "2027-03-02"
+        },
+        {
+          "label": "Stephen Curry",
+          "slug": "stephen-curry",
+          "name": "Stephen Curry's Birthday",
+          "date": "2027-03-14"
+        },
+        {
+          "label": "Lady Gaga",
+          "slug": "lady-gaga",
+          "name": "Lady Gaga's Birthday",
+          "date": "2027-03-28"
+        },
+        {
+          "label": "Emma Watson",
+          "slug": "emma-watson",
+          "name": "Emma Watson's Birthday",
+          "date": "2027-04-15"
+        },
+        {
+          "label": "Dwayne Johnson",
+          "slug": "dwayne-johnson",
+          "name": "Dwayne Johnson's Birthday",
+          "date": "2027-05-02"
+        },
+        {
+          "label": "Adele",
+          "slug": "adele",
+          "name": "Adele's Birthday",
+          "date": "2027-05-05"
+        },
+        {
+          "label": "Travis Kelce",
+          "slug": "travis-kelce",
+          "name": "Travis Kelce's Birthday",
+          "date": "2026-10-05"
+        },
+        {
+          "label": "Tom Brady",
+          "slug": "tom-brady",
+          "name": "Tom Brady's Birthday",
+          "date": "2027-08-03"
+        },
+        {
+          "label": "Leonardo DiCaprio",
+          "slug": "leonardo-dicaprio",
+          "name": "Leonardo DiCaprio's Birthday",
+          "date": "2026-11-11"
+        },
+        {
+          "label": "Ryan Reynolds",
+          "slug": "ryan-reynolds",
+          "name": "Ryan Reynolds' Birthday",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "Jennifer Lawrence",
+          "slug": "jennifer-lawrence",
+          "name": "Jennifer Lawrence's Birthday",
+          "date": "2027-08-15"
+        },
+        {
+          "label": "Dua Lipa",
+          "slug": "dua-lipa",
+          "name": "Dua Lipa's Birthday",
+          "date": "2027-08-22"
+        },
+        {
+          "label": "Olivia Rodrigo",
+          "slug": "olivia-rodrigo",
+          "name": "Olivia Rodrigo's Birthday",
+          "date": "2027-02-20"
+        },
+        {
+          "label": "Simone Biles",
+          "slug": "simone-biles",
+          "name": "Simone Biles' Birthday",
+          "date": "2027-03-14"
+        },
+        {
+          "label": "Bruno Mars",
+          "slug": "bruno-mars",
+          "name": "Bruno Mars' Birthday",
+          "date": "2026-10-08"
+        },
+        {
+          "label": "Scarlett Johansson",
+          "slug": "scarlett-johansson",
+          "name": "Scarlett Johansson's Birthday",
+          "date": "2026-11-22"
+        },
+        {
+          "label": "Usain Bolt",
+          "slug": "usain-bolt",
+          "name": "Usain Bolt's Birthday",
+          "date": "2027-08-21"
+        },
+        {
+          "label": "Roger Federer",
+          "slug": "roger-federer",
+          "name": "Roger Federer's Birthday",
+          "date": "2027-08-08"
+        }
+      ],
+      "recur": true
+    },
+    {
+      "id": "holidays",
+      "title": "Holiday countdowns",
+      "nav": "Holidays",
+      "hub": "holiday-countdowns",
+      "hubTitle": "Holiday Countdowns",
+      "hubDesc": "Live countdowns to every major holiday, Christmas, New Year, Valentine's Day, Thanksgiving, Halloween and many more.",
+      "path": "countdown",
+      "theme": "generic",
+      "art": "generic",
+      "effect": "confetti",
+      "sound": "cheer",
+      "links": [
+        {
+          "label": "Star Wars Day 2027",
+          "slug": "",
+          "name": "Star Wars Day 2027",
+          "date": "2027-05-04",
+          "path": "star-wars-day-countdown"
+        },
+        {
+          "label": "White Day 2027",
+          "slug": "",
+          "name": "White Day 2027",
+          "date": "2027-03-14",
+          "path": "white-day-countdown"
+        },
+        {
+          "label": "Christmas 2026",
+          "slug": "",
+          "name": "Christmas 2026",
+          "date": "2026-12-25",
+          "path": "christmas-countdown",
+          "theme": "christmas",
+          "art": "christmas",
+          "effect": "snow",
+          "sound": "bells"
+        },
+        {
+          "label": "New Year's Eve 2027 (midnight)",
+          "slug": "",
+          "name": "New Year's Eve 2027",
+          "date": "2027-01-01",
+          "time": "00:00",
+          "path": "new-year-countdown",
+          "theme": "fireworks",
+          "art": "fireworks",
+          "effect": "fireworks",
+          "sound": "partyhorn"
+        },
+        {
+          "label": "Valentine's Day 2027",
+          "slug": "",
+          "name": "Valentine's Day 2027",
+          "date": "2027-02-14",
+          "path": "valentines-day-countdown",
+          "theme": "love",
+          "art": "love",
+          "effect": "hearts",
+          "sound": "bells"
+        },
+        {
+          "label": "July 4th 2026",
+          "slug": "",
+          "name": "Independence Day 2026",
+          "date": "2026-07-04",
+          "path": "july-4th-countdown",
+          "effect": "fireworks",
+          "sound": "partyhorn"
+        },
+        {
+          "label": "Halloween 2026",
+          "slug": "",
+          "name": "Halloween 2026",
+          "date": "2026-10-31",
+          "path": "halloween-countdown",
+          "effect": "bats"
+        },
+        {
+          "label": "Summer Solstice 2026",
+          "slug": "",
+          "name": "Summer Solstice 2026",
+          "date": "2026-06-20",
+          "path": "summer-solstice-countdown",
+          "theme": "vacation",
+          "art": "vacation",
+          "effect": "balloons",
+          "sound": "cheer"
+        },
+        {
+          "label": "Thanksgiving 2026",
+          "slug": "",
+          "name": "Thanksgiving 2026",
+          "date": "2026-11-26",
+          "path": "thanksgiving-countdown",
+          "effect": "leaves",
+          "sound": "fanfare"
+        }
+      ],
+      "more": [
+        {
+          "label": "Father's Day 2026",
+          "slug": "",
+          "name": "Father's Day 2026",
+          "date": "2026-06-21",
+          "path": "fathers-day-countdown"
+        },
+        {
+          "label": "Labor Day 2026",
+          "slug": "",
+          "name": "Labor Day 2026",
+          "date": "2026-09-07",
+          "path": "labor-day-countdown"
+        },
+        {
+          "label": "Diwali 2026",
+          "slug": "",
+          "name": "Diwali 2026",
+          "date": "2026-11-08",
+          "path": "diwali-countdown",
+          "theme": "fireworks",
+          "art": "fireworks",
+          "effect": "fireworks",
+          "sound": "bells"
+        },
+        {
+          "label": "Hanukkah 2026 (first night)",
+          "slug": "",
+          "name": "Hanukkah 2026",
+          "date": "2026-12-04",
+          "path": "hanukkah-countdown",
+          "time": "17:00"
+        },
+        {
+          "label": "MLK Day 2027",
+          "slug": "",
+          "name": "Martin Luther King Jr. Day 2027",
+          "date": "2027-01-18",
+          "path": "mlk-day-countdown"
+        },
+        {
+          "label": "Lunar New Year 2027",
+          "slug": "",
+          "name": "Lunar New Year 2027",
+          "date": "2027-02-06",
+          "path": "lunar-new-year-countdown",
+          "theme": "fireworks",
+          "art": "fireworks",
+          "effect": "fireworks",
+          "sound": "partyhorn"
+        },
+        {
+          "label": "Presidents' Day 2027",
+          "slug": "",
+          "name": "Presidents' Day 2027",
+          "date": "2027-02-15",
+          "path": "presidents-day-countdown"
+        },
+        {
+          "label": "St. Patrick's Day 2027",
+          "slug": "",
+          "name": "St. Patrick's Day 2027",
+          "date": "2027-03-17",
+          "path": "st-patricks-day-countdown",
+          "theme": "school",
+          "art": "generic",
+          "effect": "confetti",
+          "sound": "cheer",
+          "recur": true
+        },
+        {
+          "label": "Easter 2027",
+          "slug": "",
+          "name": "Easter 2027",
+          "date": "2027-03-28",
+          "path": "easter-countdown"
+        },
+        {
+          "label": "Cinco de Mayo 2027",
+          "slug": "",
+          "name": "Cinco de Mayo 2027",
+          "date": "2027-05-05",
+          "path": "cinco-de-mayo-countdown",
+          "recur": true
+        },
+        {
+          "label": "Mother's Day 2027",
+          "slug": "",
+          "name": "Mother's Day 2027",
+          "date": "2027-05-09",
+          "path": "mothers-day-countdown",
+          "theme": "love",
+          "art": "love",
+          "effect": "hearts",
+          "sound": "bells"
+        },
+        {
+          "label": "Memorial Day 2027",
+          "slug": "",
+          "name": "Memorial Day 2027",
+          "date": "2027-05-31",
+          "path": "memorial-day-countdown"
+        },
+        {
+          "label": "Macy's Thanksgiving Parade 2026",
+          "slug": "",
+          "name": "Macy's Thanksgiving Day Parade",
+          "date": "2026-11-26",
+          "time": "09:00",
+          "path": "macys-parade-countdown"
+        },
+        {
+          "label": "Rose Parade 2027",
+          "slug": "",
+          "name": "Rose Parade",
+          "date": "2027-01-01",
+          "time": "08:00",
+          "path": "rose-parade-countdown"
+        },
+        {
+          "label": "Juneteenth 2027",
+          "slug": "",
+          "name": "Juneteenth 2027",
+          "date": "2027-06-19",
+          "path": "juneteenth-countdown"
+        },
+        {
+          "label": "Columbus Day 2026",
+          "slug": "",
+          "name": "Columbus Day 2026",
+          "date": "2026-10-12",
+          "path": "columbus-day-countdown"
+        },
+        {
+          "label": "Veterans Day 2026",
+          "slug": "",
+          "name": "Veterans Day 2026",
+          "date": "2026-11-11",
+          "path": "veterans-day-countdown"
+        },
+        {
+          "label": "Clocks Fall Back 2026",
+          "slug": "",
+          "name": "Clocks Fall Back 2026",
+          "date": "2026-11-01",
+          "path": "dst-ends-countdown"
+        },
+        {
+          "label": "Clocks Spring Forward 2027",
+          "slug": "",
+          "name": "Clocks Spring Forward 2027",
+          "date": "2027-03-14",
+          "path": "dst-begins-countdown"
+        },
+        {
+          "label": "Tax Day 2027",
+          "slug": "",
+          "name": "Tax Day 2027",
+          "date": "2027-04-15",
+          "path": "tax-day-countdown"
+        },
+        {
+          "label": "First Day of Fall 2026",
+          "slug": "",
+          "name": "First Day of Fall 2026",
+          "date": "2026-09-23",
+          "path": "fall-equinox-countdown"
+        },
+        {
+          "label": "Winter Solstice 2026",
+          "slug": "",
+          "name": "Winter Solstice 2026",
+          "date": "2026-12-21",
+          "path": "winter-solstice-countdown"
+        },
+        {
+          "label": "First Day of Spring 2027",
+          "slug": "",
+          "name": "First Day of Spring 2027",
+          "date": "2027-03-20",
+          "path": "spring-equinox-countdown"
+        }
+      ]
+    },
+    {
+      "id": "politics",
+      "title": "Political event countdowns",
+      "nav": "Politics",
+      "hub": "political-countdowns",
+      "hubTitle": "Political Event Countdowns",
+      "hubDesc": "Live countdowns to election day, inaugurations and the political calendar.",
+      "path": "countdown",
+      "theme": "generic",
+      "art": "generic",
+      "effect": "confetti",
+      "sound": "cheer",
+      "links": [
+        {
+          "label": "Midterm Elections 2026",
+          "slug": "",
+          "name": "Election Day 2026",
+          "date": "2026-11-03",
+          "path": "election-day-countdown"
+        },
+        {
+          "label": "Presidential Election 2028",
+          "slug": "presidential-election",
+          "name": "Presidential Election 2028",
+          "date": "2028-11-07",
+          "path": "election-day-countdown"
+        },
+        {
+          "label": "Inauguration Day 2029",
+          "slug": "",
+          "name": "Inauguration Day 2029",
+          "date": "2029-01-20",
+          "time": "12:00",
+          "path": "inauguration-countdown"
+        }
+      ]
+    },
+    {
+      "id": "sports",
+      "title": "Sports countdowns",
+      "nav": "Sports",
+      "hub": "sports-countdowns",
+      "hubTitle": "Sports Event Countdowns",
+      "hubDesc": "Live countdowns to kickoff, the World Cup, Super Bowl, the Olympics and more.",
+      "path": "countdown",
+      "theme": "graduation",
+      "art": "generic",
+      "effect": "confetti",
+      "sound": "cheer",
+      "links": [
+        {
+          "label": "FIFA World Cup 2030",
+          "slug": "",
+          "name": "World Cup 2030",
+          "date": "2030-06-08",
+          "time": "",
+          "path": "world-cup-countdown"
+        },
+        {
+          "label": "Super Bowl LXI (Feb 2027)",
+          "slug": "",
+          "name": "Super Bowl LXI",
+          "date": "2027-02-14",
+          "time": "18:30",
+          "path": "super-bowl-countdown"
+        },
+        {
+          "label": "March Madness Final 2027",
+          "slug": "",
+          "name": "March Madness Championship 2027",
+          "date": "2027-04-05",
+          "time": "21:00",
+          "path": "march-madness-countdown"
+        },
+        {
+          "label": "LA 2028 Olympics Opening",
+          "slug": "",
+          "name": "LA 2028 Olympics Opening Ceremony",
+          "date": "2028-07-14",
+          "time": "20:00",
+          "path": "olympics-countdown"
+        },
+        {
+          "label": "World Series 2026",
+          "slug": "",
+          "name": "MLB World Series",
+          "date": "2026-10-20",
+          "time": "20:00",
+          "path": "world-series-countdown"
+        },
+        {
+          "label": "Daytona 500 2027",
+          "slug": "",
+          "name": "Daytona 500",
+          "date": "2027-02-14",
+          "time": "14:30",
+          "path": "daytona-500-countdown"
+        },
+        {
+          "label": "The Masters 2027",
+          "slug": "",
+          "name": "The Masters Final Round",
+          "date": "2027-04-11",
+          "time": "14:00",
+          "path": "masters-countdown"
+        },
+        {
+          "label": "Indy 500 2027",
+          "slug": "",
+          "name": "Indianapolis 500",
+          "date": "2027-05-30",
+          "time": "12:45",
+          "path": "indy-500-countdown"
+        },
+        {
+          "label": "Kentucky Derby 2027",
+          "slug": "",
+          "name": "Kentucky Derby 2027",
+          "date": "2027-05-01",
+          "path": "kentucky-derby-countdown"
+        },
+        {
+          "label": "Boston Marathon 2027",
+          "slug": "",
+          "name": "Boston Marathon 2027",
+          "date": "2027-04-19",
+          "path": "boston-marathon-countdown"
+        },
+        {
+          "label": "NFL Kickoff 2026",
+          "slug": "",
+          "name": "NFL Kickoff 2026",
+          "date": "2026-09-09",
+          "path": "nfl-kickoff-countdown"
+        },
+        {
+          "label": "NFL Draft 2027",
+          "slug": "",
+          "name": "NFL Draft 2027",
+          "date": "2027-04-29",
+          "path": "nfl-draft-countdown"
+        },
+        {
+          "label": "MLB Opening Day 2027",
+          "slug": "",
+          "name": "MLB Opening Day 2027",
+          "date": "2027-04-01",
+          "path": "mlb-opening-day-countdown"
+        },
+        {
+          "label": "Selection Sunday 2027",
+          "slug": "",
+          "name": "Selection Sunday 2027",
+          "date": "2027-03-14",
+          "path": "selection-sunday-countdown"
+        },
+        {
+          "label": "WrestleMania 43 (2027)",
+          "slug": "",
+          "name": "WrestleMania 43 (2027)",
+          "date": "2027-04-10",
+          "path": "wrestlemania-countdown"
+        },
+        {
+          "label": "Tour de France 2027",
+          "slug": "",
+          "name": "Tour de France 2027",
+          "date": "2027-07-02",
+          "path": "tour-de-france-countdown"
+        },
+        {
+          "label": "Wimbledon 2027",
+          "slug": "",
+          "name": "Wimbledon 2027",
+          "date": "2027-06-28",
+          "path": "wimbledon-countdown"
+        },
+        {
+          "label": "Monaco Grand Prix 2027",
+          "slug": "",
+          "name": "Monaco Grand Prix 2027",
+          "date": "2027-06-06",
+          "path": "monaco-grand-prix-countdown"
+        }
+      ],
+      "more": []
+    },
+    {
+      "id": "astronomy",
+      "title": "Sky & space countdowns",
+      "nav": "Astronomy",
+      "hub": "astronomy-countdowns",
+      "hubTitle": "Astronomy Event Countdowns",
+      "hubDesc": "Live countdowns to eclipses, meteor showers and the events you have to look up for.",
+      "path": "countdown",
+      "theme": "fireworks",
+      "art": "fireworks",
+      "effect": "stars",
+      "sound": "none",
+      "links": [
+        {
+          "label": "Total Solar Eclipse (Spain/Egypt)",
+          "slug": "",
+          "name": "Total Solar Eclipse 2027",
+          "date": "2027-08-02",
+          "time": "12:30",
+          "path": "solar-eclipse-countdown"
+        },
+        {
+          "label": "Perseid Meteor Shower peak",
+          "slug": "",
+          "name": "Perseid Meteor Shower 2027",
+          "date": "2027-08-12",
+          "time": "22:00",
+          "path": "perseids-countdown"
+        },
+        {
+          "label": "Geminid Meteor Shower peak",
+          "slug": "",
+          "name": "Geminid Meteor Shower 2026",
+          "date": "2026-12-14",
+          "time": "22:00",
+          "path": "geminids-countdown"
+        }
+      ],
+      "more": []
+    },
+    {
+      "id": "graduations",
+      "title": "College graduation countdowns",
+      "nav": "Graduations",
+      "hub": "graduation-countdowns",
+      "hubTitle": "College Graduation Countdowns",
+      "hubDesc": "Live countdowns to commencement at major universities. Dates are typical until officially announced, make your own for your exact ceremony.",
+      "path": "graduation-countdown",
+      "theme": "graduation",
+      "art": "graduation",
+      "effect": "confetti",
+      "sound": "fanfare",
+      "links": [
+        {
+          "label": "Harvard Class of 2027",
+          "slug": "harvard",
+          "name": "Harvard Commencement 2027",
+          "date": "2027-05-27"
+        },
+        {
+          "label": "Stanford Class of 2027",
+          "slug": "stanford",
+          "name": "Stanford Commencement 2027",
+          "date": "2027-06-13"
+        },
+        {
+          "label": "UCLA Class of 2027",
+          "slug": "ucla",
+          "name": "UCLA Commencement 2027",
+          "date": "2027-06-11"
+        },
+        {
+          "label": "UT Austin Class of 2027",
+          "slug": "ut-austin",
+          "name": "UT Austin Commencement 2027",
+          "date": "2027-05-22"
+        }
+      ],
+      "more": [
+        {
+          "label": "High School Graduation",
+          "slug": "high-school",
+          "name": "High School Graduation",
+          "date": "2027-06-05"
+        },
+        {
+          "label": "University of Michigan 2027",
+          "slug": "michigan",
+          "name": "Michigan Commencement 2027",
+          "date": "2027-05-01"
+        },
+        {
+          "label": "University of Florida 2027",
+          "slug": "florida",
+          "name": "Florida Commencement 2027",
+          "date": "2027-05-01"
+        },
+        {
+          "label": "Penn State 2027",
+          "slug": "penn-state",
+          "name": "Penn State Commencement 2027",
+          "date": "2027-05-08"
+        },
+        {
+          "label": "USC 2027",
+          "slug": "usc",
+          "name": "USC Commencement 2027",
+          "date": "2027-05-14"
+        },
+        {
+          "label": "NYU 2027",
+          "slug": "nyu",
+          "name": "NYU Commencement 2027",
+          "date": "2027-05-19"
+        },
+        {
+          "label": "MIT 2027",
+          "slug": "mit",
+          "name": "MIT Commencement 2027",
+          "date": "2027-06-04"
+        },
+        {
+          "label": "Chico State Class of 2027",
+          "slug": "chico-state",
+          "name": "Chico State Commencement 2027",
+          "date": "2027-05-19"
+        },
+        {
+          "label": "Ohio State Class of 2027",
+          "slug": "ohio-state",
+          "name": "Ohio State Commencement 2027",
+          "date": "2027-05-09"
+        },
+        {
+          "label": "Alabama Class of 2027",
+          "slug": "alabama",
+          "name": "Alabama Commencement 2027",
+          "date": "2027-05-07"
+        },
+        {
+          "label": "Texas A&M Class of 2027",
+          "slug": "texas-am",
+          "name": "Texas A&M Commencement 2027",
+          "date": "2027-05-12"
+        },
+        {
+          "label": "UGA Class of 2027",
+          "slug": "georgia",
+          "name": "UGA Commencement 2027",
+          "date": "2027-05-07"
+        },
+        {
+          "label": "UC Berkeley Class of 2027",
+          "slug": "berkeley",
+          "name": "UC Berkeley Commencement 2027",
+          "date": "2027-05-15"
+        },
+        {
+          "label": "ASU Class of 2027",
+          "slug": "arizona-state",
+          "name": "ASU Commencement 2027",
+          "date": "2027-05-10"
+        },
+        {
+          "label": "UW–Madison Class of 2027",
+          "slug": "wisconsin",
+          "name": "UW–Madison Commencement 2027",
+          "date": "2027-05-08"
+        },
+        {
+          "label": "Purdue Class of 2027",
+          "slug": "purdue",
+          "name": "Purdue Commencement 2027",
+          "date": "2027-05-14"
+        },
+        {
+          "label": "Clemson Class of 2027",
+          "slug": "clemson",
+          "name": "Clemson Commencement 2027",
+          "date": "2027-05-05"
+        },
+        {
+          "label": "Auburn Class of 2027",
+          "slug": "auburn",
+          "name": "Auburn Commencement 2027",
+          "date": "2027-05-01"
+        },
+        {
+          "label": "UT Knoxville Class of 2027",
+          "slug": "tennessee",
+          "name": "UT Knoxville Commencement 2027",
+          "date": "2027-05-13"
+        },
+        {
+          "label": "UNC Class of 2027",
+          "slug": "north-carolina",
+          "name": "UNC Commencement 2027",
+          "date": "2027-05-08"
+        },
+        {
+          "label": "University of Oregon Class of 2027",
+          "slug": "oregon",
+          "name": "University of Oregon Commencement 2027",
+          "date": "2027-06-14"
+        },
+        {
+          "label": "UW Class of 2027",
+          "slug": "washington",
+          "name": "UW Commencement 2027",
+          "date": "2027-06-12"
+        },
+        {
+          "label": "Virginia Tech Class of 2027",
+          "slug": "virginia-tech",
+          "name": "Virginia Tech Commencement 2027",
+          "date": "2027-05-14"
+        }
+      ]
+    }
+  ]
+}

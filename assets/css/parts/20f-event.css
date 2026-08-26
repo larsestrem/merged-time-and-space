@@ -1,0 +1,29 @@
+/* A work is a chip; nothing beside it is for sale any more (see
+   build-events.mjs — the Amazon buttons went with the rest of the commerce). */
+.work-name{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--text);background:rgba(0,0,0,.18)}
+/* 420 music rows: title wraps inside its own block; the streaming icons
+ * stay on the same line, never wrapping below */
+.m420-list{display:flex;flex-direction:column;gap:8px;margin:14px 0 4px}
+.m420-row{display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:10px;padding:8px 12px}
+.m420-row>svg{flex:0 0 auto}
+.m420-name{flex:1;min-width:0;font-weight:700;line-height:1.3}
+.m420-artist{color:var(--muted);font-weight:400;font-size:13px}
+.m420-links{display:flex;gap:9px;flex:0 0 auto;align-items:center}
+.m420-links a{display:inline-flex;line-height:0;border-radius:50%;transition:transform .12s}
+.m420-links a:hover{transform:scale(1.15)}
+/* musician birthday-page song rows (lib.mjs songRow): same layout as the
+ * 420 music rows above, reused sitewide via a generic class name */
+.song-list{display:flex;flex-direction:column;gap:8px;margin:14px 0 4px}
+.song-row{display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:10px;padding:8px 12px}
+.song-row>svg{flex:0 0 auto}
+.song-name{flex:1;min-width:0;font-weight:700;line-height:1.3}
+.song-name a{color:var(--text)}
+.song-links{display:flex;gap:2px;flex:0 0 auto;align-items:center}
+.song-links a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;line-height:0;border-radius:50%;transition:transform .12s}
+.song-links a:hover{transform:scale(1.1)}
+/* Artist Music Module (curated songs list, discography link, optional tour
+ * line) — see seo/tools/artist-music.mjs */
+.amm-more{margin:14px 2px 0;font-weight:700}
+.amm-tour{margin:14px 2px 0}
+/* birthday-page "celebrate by giving" callout */
+.give-cta{border:1px solid rgba(252,211,77,.4);border-radius:12px;padding:12px 16px}

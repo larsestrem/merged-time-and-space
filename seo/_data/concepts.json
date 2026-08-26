@@ -1,0 +1,1127 @@
+[
+  {
+    "slug": "what-is-the-tropic-of-cancer",
+    "question": "What is the Tropic of Cancer?",
+    "term": "Tropic of Cancer",
+    "shortAnswer": "It is the circle at 23.4° north. The Sun is straight overhead there once a year, on the June solstice, and never north of it. That number is Earth’s tilt, not a climate zone someone drew.",
+    "title": "What Is the Tropic of Cancer?",
+    "description": "The Tropic of Cancer is the circle at 23.4° N — as far north as the Sun can stand straight overhead. That latitude is Earth’s axial tilt written on the surface.",
+    "cluster": "day-night",
+    "hubUrls": [
+      {
+        "href": "/day-night-map/#tropics",
+        "label": "Day and night map"
+      },
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Sun–Earth–Moon simulator"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-the-tropic-of-capricorn",
+      "what-is-the-subsolar-point",
+      "what-is-earths-axial-tilt",
+      "what-are-the-polar-circles",
+      "why-do-we-have-seasons"
+    ],
+    "graphicId": "sun-earth-line",
+    "graphicCaption": "A line from the centre of the Sun through the centre of the Earth meets the surface at one point. The Tropic of Cancer is the northern limit of that meeting point.",
+    "graphicAlt": "Side view of the Sun and Earth. Parallel sunlight from the left. A solid yellow line from the Sun’s centre through Earth’s centre hits the surface. Dashed chords mark the Tropic of Cancer and the Tropic of Capricorn at plus and minus the axial tilt.",
+    "sections": [
+      {
+        "heading": "Where the number comes from",
+        "band": "5-12",
+        "body": [
+          "Earth does not sit upright in its orbit. Its spin axis leans. The size of that lean is the obliquity of the ecliptic, which this page computes from the same solar series that draws the map: about 23.4° in our century, and slowly shrinking.",
+          "Because the axis keeps pointing the same way all year, the lean facing the Sun changes as Earth goes round. In June the north end leans into the light. The centre-to-centre line — Sun centre to Earth centre — then hits as far north as the lean itself. That hit is the Tropic of Cancer."
+        ]
+      },
+      {
+        "heading": "Why 23.4° — and why it is not a climate stripe",
+        "band": "deeper",
+        "body": [
+          "A climate map that colours a band “tropical” is a later idea. The tropic itself is a measurement: the maximum solar declination. If the tilt were 10°, the tropic would sit at 10° N. If the tilt were zero, both tropics would collapse onto the equator, and there would be no seasons.",
+          "The two circles are drawn on the map as dashed parallels at plus and minus the tilt. They do not move with the day. What moves is the yellow subsolar point, which runs a lap of longitude every 24 hours and a lap of latitude once a year, bouncing between those two dashed lines."
+        ]
+      },
+      {
+        "heading": "Why it is named Cancer",
+        "band": "deeper",
+        "body": [
+          "Two thousand years ago the Sun stood in the constellation Cancer at the June solstice. It no longer does. Earth’s axis slowly circles (precession), so the solstice Sun has drifted about a whole constellation since. The name stayed. The latitude is still exactly the tilt; only the star charts moved."
+        ]
+      },
+      {
+        "heading": "What the polar circles have to do with it",
+        "band": "deeper",
+        "body": [
+          "The Arctic and Antarctic Circles sit at 90° minus the same tilt — about 66.6° N and S. Inside them the Sun can fail to set in summer or fail to rise in winter. One number, four circles: two tropics and two polar circles. Change the tilt and all four move together."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/day-night-map/#tropics",
+        "label": "Watch the yellow dot stop at 23.4° N"
+      },
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "See the tilt hold still for a whole orbit"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-the-tropic-of-capricorn",
+    "question": "What is the Tropic of Capricorn?",
+    "term": "Tropic of Capricorn",
+    "shortAnswer": "It is the circle at 23.4° south — the southern twin of the Tropic of Cancer. The Sun stands straight overhead there once a year, on the December solstice, and never south of it.",
+    "title": "What Is the Tropic of Capricorn?",
+    "description": "The Tropic of Capricorn is the circle at 23.4° S, the farthest south the Sun can stand straight overhead. It is Earth’s tilt, not a line someone chose.",
+    "cluster": "day-night",
+    "hubUrls": [
+      {
+        "href": "/day-night-map/#tropics",
+        "label": "Day and night map"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-the-tropic-of-cancer",
+      "what-is-the-subsolar-point",
+      "what-is-earths-axial-tilt",
+      "why-do-we-have-seasons"
+    ],
+    "graphicId": "sun-earth-line",
+    "graphicCaption": "In December the north end of the axis leans away from the Sun. The centre-to-centre line then lands as far south as the tilt — on the Tropic of Capricorn.",
+    "graphicAlt": "Side view of the Sun and Earth with the subsolar point on the Tropic of Capricorn, the southern dashed chord.",
+    "sections": [
+      {
+        "heading": "The same limit, going south",
+        "band": "5-12",
+        "body": [
+          "Whatever the Tropic of Cancer is for the north, the Tropic of Capricorn is for the south. Earth’s axis leans about 23.4°. That lean never grows, so the Sun’s overhead point never crosses either tropic.",
+          "Between the two tropics, every place gets the Sun straight up on two days each year — once on the way north, once on the way back. Outside them, a vertical pole always casts some noon shadow, even on the longest day."
+        ]
+      },
+      {
+        "heading": "December, not a different Earth",
+        "band": "deeper",
+        "body": [
+          "Nothing about Earth changes between June and December except which end of the axis leans toward the light. When it is summer in Chile it is winter in Canada, on the same planet, at the same distance from the Sun. Distance is not the season.",
+          "The name Capricorn is the same kind of fossil as Cancer: the December-solstice Sun used to stand in that constellation. Precession moved the stars. The latitude stayed with the tilt."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/day-night-map/#tropics",
+        "label": "Jump the map to the December solstice"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-the-subsolar-point",
+    "question": "What is the subsolar point?",
+    "term": "Subsolar point",
+    "shortAnswer": "It is the one place on Earth where the Sun is straight overhead right now — where a flagpole casts no shadow. It is the yellow dot on the day/night map, and it is where the Sun-centre to Earth-centre line hits the surface.",
+    "title": "What Is the Subsolar Point?",
+    "description": "The subsolar point is where the Sun stands straight overhead. It races west once a day and drifts north and south once a year, never leaving the tropics.",
+    "cluster": "day-night",
+    "hubUrls": [
+      {
+        "href": "/day-night-map/#subsolar",
+        "label": "Day and night map"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-the-tropic-of-cancer",
+      "what-is-the-terminator",
+      "what-is-earths-axial-tilt"
+    ],
+    "graphicId": "sun-earth-line",
+    "graphicCaption": "Sunlight arrives in parallel lines because the Sun is so far away. One of those lines is special: centre to centre. It meets Earth at a single point.",
+    "graphicAlt": "Side view showing the yellow centre-to-centre line meeting Earth’s surface at the subsolar point.",
+    "sections": [
+      {
+        "heading": "A lap a day, a bounce a year",
+        "band": "5-12",
+        "body": [
+          "Earth turns. The overhead point therefore races west, once around the planet each day, at the speed of the ground under it — about 1,670 km/h at the equator.",
+          "It also drifts north and south with the seasons, because of the tilt. In June it reaches the Tropic of Cancer. In December it reaches the Tropic of Capricorn. It never leaves that band."
+        ]
+      },
+      {
+        "heading": "How this page finds it",
+        "band": "deeper",
+        "body": [
+          "The map does not look up a table of “where the Sun is.” It solves a low-precision solar series (the same one used for sunrise on this site): the Sun’s apparent ecliptic longitude, the obliquity, then declination and right ascension. Declination is the latitude of the subsolar point. Greenwich sidereal time turns right ascension into longitude.",
+          "That is why the yellow dot and the side-view hit are the same number. One series, two pictures."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/day-night-map/#subsolar",
+        "label": "Follow the yellow dot"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-the-terminator",
+    "question": "What is the terminator?",
+    "term": "Terminator",
+    "shortAnswer": "The terminator is the line between day and night — the circle on Earth where the Sun sits on the horizon. Sunrise is where you cross it going into the light; sunset is where you cross it going out.",
+    "title": "What Is the Terminator?",
+    "description": "The terminator is the day/night line: the circle where the Sun is on the horizon. It sweeps west as Earth turns, and it leans with the seasons.",
+    "cluster": "day-night",
+    "hubUrls": [
+      {
+        "href": "/day-night-map/#terminator",
+        "label": "Day and night map"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-the-subsolar-point",
+      "what-is-twilight",
+      "what-is-earths-axial-tilt",
+      "why-is-this-map-flat"
+    ],
+    "graphicId": "day-night-map",
+    "graphicCaption": "On the map the terminator is the edge of the dark half. It is a great circle on the globe; on this flat projection it becomes a wave that leans with the season.",
+    "graphicAlt": "Equirectangular day and night map with the night side shaded and the terminator as the boundary of that shade.",
+    "sections": [
+      {
+        "heading": "A circle, drawn as a wave",
+        "band": "5-12",
+        "body": [
+          "On a globe the terminator is a circle: everywhere the Sun is exactly on the horizon. Half the planet is in front of it, half behind. Because sunlight arrives almost in parallel, that split is always half-and-half, whatever the date.",
+          "The map at the top of this site is flat, so the circle is stretched into a curve. Near an equinox the curve runs pole to pole. Near a solstice it leans, and one polar cap stays in daylight while the other stays dark."
+        ]
+      },
+      {
+        "heading": "How fast it moves",
+        "band": "deeper",
+        "body": [
+          "The line itself is not a thing racing over the ground. Earth is turning under a Sun that, for this purpose, sits still. At the equator that turn is about 1,670 km/h — 15 degrees of longitude per hour, which is why time zones are an hour wide.",
+          "This map solves the terminator per meridian: for each longitude, where is the Sun at altitude 0°? That is one equation in latitude. The shaded night is those latitudes closed toward the dark pole. Twilight is the same solve at −18°."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/day-night-map/#terminator",
+        "label": "Press Play and watch the line walk west"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-earths-axial-tilt",
+    "question": "What is Earth’s axial tilt?",
+    "term": "Axial tilt",
+    "shortAnswer": "Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.",
+    "title": "What Is Earth’s Axial Tilt?",
+    "description": "Earth’s axial tilt is about 23.4°. The tropics sit at that latitude, the polar circles at 90° minus it, and the seasons are that lean facing toward or away from the Sun.",
+    "cluster": "day-night",
+    "hubUrls": [
+      {
+        "href": "/day-night-map/#tilt",
+        "label": "Day and night map"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-the-tropic-of-cancer",
+      "what-are-the-polar-circles",
+      "why-do-we-have-seasons"
+    ],
+    "graphicId": "sun-earth-line",
+    "graphicCaption": "The axis is drawn leaning by the Sun’s declination. That is not a sketch of the seasons. Seen from the orbital plane, that component of the tilt is what the seasons are.",
+    "graphicAlt": "Earth seen from the side of its orbit, axis leaning, tropics as dashed chords at the tilt angle.",
+    "sections": [
+      {
+        "heading": "A lean that holds still",
+        "band": "5-12",
+        "body": [
+          "Hold a tilted spinning top and walk it around a lamp without twisting the tilt to follow the lamp. For half the walk the top’s north end points toward the light. For the other half it points away. That is the year.",
+          "The size of the lean is about 23.4° right now. This page does not type that number. It takes the largest declination in a year of the solar series — the same series that places the yellow dot."
+        ]
+      },
+      {
+        "heading": "It is slowly shrinking",
+        "band": "deeper",
+        "body": [
+          "The obliquity is 23.439° minus a tiny drift of 0.00000036° per day from the J2000 epoch. Over a human life you will not notice. Over millennia the tropics creep a few tenths of a degree. The four circles on the map would all move together.",
+          "What if the tilt were zero? Both tropics on the equator. Polar circles on the poles. The terminator always pole-to-pole. Every day the same length. No seasons. The lean is the whole of them."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/day-night-map/#tilt",
+        "label": "See the terminator lean with the year"
+      },
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Watch the axis hold still for an orbit"
+      }
+    ]
+  },
+  {
+    "slug": "what-are-the-polar-circles",
+    "question": "What are the polar circles?",
+    "term": "Polar circles",
+    "shortAnswer": "The Arctic Circle and Antarctic Circle sit at 66.6° north and south — 90° minus Earth’s tilt. Inside them the Sun can stay up all day in summer, or stay down all day in winter.",
+    "title": "What Are the Polar Circles?",
+    "description": "The polar circles are at 90° minus Earth’s tilt, about 66.6° N and S. They are the other two circles written by the same 23.4° that draws the tropics.",
+    "cluster": "day-night",
+    "hubUrls": [
+      {
+        "href": "/day-night-map/#polar-circles",
+        "label": "Day and night map"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-earths-axial-tilt",
+      "what-is-the-tropic-of-cancer",
+      "what-is-twilight",
+      "why-do-we-have-seasons"
+    ],
+    "graphicId": "day-night-map",
+    "graphicCaption": "The Arctic Circle is the dashed line near the top of the map. The Antarctic Circle is cropped off this projection (the map cuts at 62° S) — the same tilt still puts it at 66.6° S on the globe.",
+    "graphicAlt": "Day and night map with the Arctic Circle drawn as a dashed parallel near the top.",
+    "sections": [
+      {
+        "heading": "The same tilt, counted the other way",
+        "band": "5-12",
+        "body": [
+          "If the Sun’s overhead point never goes farther from the equator than the tilt, then at the poles the Sun never climbs farther from the horizon than the tilt either. Walk 23.4° down from the pole and you reach the first latitude where the Sun can just graze the horizon at midwinter and just refuse to set at midsummer. That walk is the polar circle.",
+          "So 90° − 23.4° = 66.6°. One subtraction. Two circles."
+        ]
+      },
+      {
+        "heading": "Midnight sun and polar night are not total darkness",
+        "band": "deeper",
+        "body": [
+          "Even when the Sun stays below the horizon, twilight can light the sky. Astronomical night — Sun 18° down — is a stricter line than “the Sun did not rise.” Near a solstice the twilight band on the map is wide at high latitudes, which is why a northern summer night is often not fully dark."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/day-night-map/#polar-circles",
+        "label": "Find the Arctic Circle on the map"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-twilight",
+    "question": "What is twilight?",
+    "term": "Twilight",
+    "shortAnswer": "Twilight is the time when the Sun is below the horizon but still lighting the sky. This map draws it as a soft band: from the terminator down to where the Sun is 18° below — the edge of astronomical night.",
+    "title": "What Is Twilight?",
+    "description": "Twilight is sunlight scattered in the sky after sunset or before sunrise. Astronomical night begins when the Sun is 18° below the horizon.",
+    "cluster": "day-night",
+    "hubUrls": [
+      {
+        "href": "/day-night-map/#twilight",
+        "label": "Day and night map"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-the-terminator",
+      "what-are-the-polar-circles",
+      "why-is-this-map-flat"
+    ],
+    "graphicId": "day-night-map",
+    "graphicCaption": "The map shades night (Sun below the horizon) and a second, paler band out to Sun altitude −18°. The ring between them is twilight. It is widest toward the poles.",
+    "graphicAlt": "Day and night map with a hard night shade and a paler twilight band along the terminator.",
+    "sections": [
+      {
+        "heading": "Three common edges",
+        "band": "5-12",
+        "body": [
+          "Civil twilight: Sun 0° to 6° down — streetlights, a clear horizon. Nautical: 6° to 12° — the brighter stars, a usable sea horizon. Astronomical: 12° to 18° — the sky is not yet fully dark for faint objects. Past 18° down, night.",
+          "This map uses the far edge, −18°, so the band you see is the whole of twilight, not just the civil slice."
+        ]
+      },
+      {
+        "heading": "Why summer nights stay pale",
+        "band": "deeper",
+        "body": [
+          "At mid-latitudes the Sun dives steeply. Twilight is short. Near the polar circles the Sun skims the horizon, so it takes hours to fall 18°. In June, much of the north never reaches astronomical night at all. That is a geometry fact, not a weather one."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/day-night-map/#twilight",
+        "label": "See the dusk band on the map"
+      }
+    ]
+  },
+  {
+    "slug": "why-is-this-map-flat",
+    "question": "Why is this map flat?",
+    "term": "Equirectangular projection",
+    "shortAnswer": "This map gives every degree of latitude and longitude the same length on the page, so meridians are straight and the terminator is honest. The cost is size: land near the poles is stretched. The picture says so, in numbers from the drawing.",
+    "title": "Why Is This Day/Night Map Flat?",
+    "description": "The day/night map is equirectangular so meridians stay straight and the terminator can be solved per longitude. Continents near the poles are stretched on purpose.",
+    "cluster": "day-night",
+    "hubUrls": [
+      {
+        "href": "/day-night-map/#projection",
+        "label": "Day and night map"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-the-terminator",
+      "what-is-the-subsolar-point"
+    ],
+    "graphicId": "day-night-map",
+    "graphicCaption": "x = (longitude + 180) / 360 × width. y = (90 − latitude) / 180 × height. Every vertical line is a meridian. That is why this projection, and why Greenland looks huge.",
+    "graphicAlt": "Flat world map with evenly spaced meridians and parallels, night shade solved per meridian.",
+    "sections": [
+      {
+        "heading": "Straight meridians are the point",
+        "band": "5-12",
+        "body": [
+          "A globe is the true shape. A page is not. This page’s job is to show where it is light, and that is a question asked in latitude and longitude. The projection that keeps those lines straight is equirectangular.",
+          "The poles are cropped (about 82° N to 62° S) because the top and bottom of a full 2:1 map are the most stretched bands, and no city this site cares about sits in them."
+        ]
+      },
+      {
+        "heading": "What that costs",
+        "band": "deeper",
+        "body": [
+          "On this drawing, a degree of latitude is the same length everywhere, but a degree of longitude shrinks by cos(latitude) on the real Earth and does not shrink here. At 60° the map is twice as wide as the ground. The page should say that whenever it talks about area.",
+          "The terminator solve does not care. It is done in latitude per meridian, then plotted. Stretching the picture does not move the answer."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/day-night-map/#projection",
+        "label": "Read the map with the stretch in mind"
+      }
+    ]
+  },
+  {
+    "slug": "why-dont-planets-fall-into-the-sun",
+    "question": "Why don’t planets fall into the Sun?",
+    "term": "Orbit",
+    "shortAnswer": "They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up.",
+    "title": "Why Don’t Planets Fall Into the Sun?",
+    "description": "Planets fall toward the Sun and miss, forever. Sideways motion plus gravity is an orbit — not a balance with an outward push.",
+    "cluster": "questions",
+    "hubUrls": [
+      {
+        "href": "/questions/#fall-in",
+        "label": "Big questions"
+      },
+      {
+        "href": "/orbital-velocity-simulator/",
+        "label": "Orbital velocity simulator"
+      },
+      {
+        "href": "/solar-system-simulator/",
+        "label": "Solar system simulator"
+      }
+    ],
+    "relatedSlugs": [
+      "how-does-an-orbit-work",
+      "why-does-jupiter-have-so-many-moons",
+      "how-does-an-orbit-change"
+    ],
+    "graphicId": "orbit",
+    "graphicCaption": "A straight dashed path is what the planet would do with no gravity. A pull toward the Sun bends that path. The closed curve is the miss.",
+    "graphicAlt": "Diagram of a planet’s sideways motion, a gravity arrow toward the Sun, and the resulting closed orbit.",
+    "sections": [
+      {
+        "heading": "Both halves of the question are fair",
+        "band": "5-12",
+        "body": [
+          "The Sun really is pulling every planet toward itself, constantly. Nothing is holding them up, so falling in is a fair expectation. And a planet really is moving fast enough that, with no gravity, it would sail off in a straight line. Flying away is a fair expectation too.",
+          "Both are happening. They do not cancel like two people pulling a rope. Gravity only changes the direction of the motion. The planet falls, and the ground it was falling toward has moved."
+        ]
+      },
+      {
+        "heading": "There is no outward force",
+        "band": "deeper",
+        "body": [
+          "Textbooks sometimes draw a centrifugal arrow. That arrow is a description in a spinning frame, not a second force out in space. In the inertial picture there is one force, inward, and a velocity, sideways. Newton’s first law does the rest."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/orbital-velocity-simulator/",
+        "label": "Set a speed and watch the miss"
+      }
+    ]
+  },
+  {
+    "slug": "how-does-an-orbit-work",
+    "question": "How does an orbit work?",
+    "term": "Orbital motion",
+    "shortAnswer": "At every instant a planet has a velocity — where it is already going — and gravity adds a small pull straight toward the Sun. Bend a path by the same small amount at every step and it closes. That closed path is the orbit.",
+    "title": "How Does an Orbit Work?",
+    "description": "An orbit is motion endlessly redirected. Gravity never pushes a planet along its path; it only bends the direction.",
+    "cluster": "questions",
+    "hubUrls": [
+      {
+        "href": "/orbital-velocity-simulator/",
+        "label": "Orbital velocity simulator"
+      },
+      {
+        "href": "/questions/#gravity-motion",
+        "label": "Big questions"
+      },
+      {
+        "href": "/solar-system-simulator/",
+        "label": "Solar system simulator"
+      }
+    ],
+    "relatedSlugs": [
+      "why-dont-planets-fall-into-the-sun",
+      "why-does-jupiter-have-so-many-moons",
+      "how-does-an-orbit-change"
+    ],
+    "graphicId": "orbit",
+    "graphicCaption": "Two arrows, one rule: velocity tangent to the path, gravity toward the Sun. On a circle the bend exactly matches the curve.",
+    "graphicAlt": "Planet on a circle around the Sun with a tangent velocity arrow and an inward gravity arrow.",
+    "sections": [
+      {
+        "heading": "One speed at each distance",
+        "band": "5-12",
+        "body": [
+          "At any distance from the Sun there is one speed at which the bending exactly matches a circle: the square root of the pull times the distance (Kepler and Newton, the same fact). Too slow, and the path dips closer. Too fast, and it swings wide. Either way it traces an ellipse and comes back."
+        ]
+      },
+      {
+        "heading": "Change one part, change the shape",
+        "band": "deeper",
+        "body": [
+          "Slow a planet at one point and it does not spiral in. It drops onto a longer ellipse that returns to the same point. To drop something into the Sun from Earth’s distance you would have to strip away almost all of its 29.8 km/s. Nature almost never does that."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/orbital-velocity-simulator/",
+        "label": "Slow a planet and watch the ellipse"
+      }
+    ]
+  },
+  {
+    "slug": "why-do-we-have-seasons",
+    "question": "Why do we have seasons?",
+    "term": "Seasons",
+    "shortAnswer": "Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year.",
+    "title": "Why Do We Have Seasons?",
+    "description": "Seasons are the tilt, not the distance. Earth’s axis leans 23.4° and holds still, so each hemisphere takes a turn leaning into the sunlight.",
+    "cluster": "questions",
+    "hubUrls": [
+      {
+        "href": "/day-night-map/",
+        "label": "Day and night map"
+      },
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Sun–Earth–Moon simulator"
+      },
+      {
+        "href": "/questions/#seasons",
+        "label": "Big questions"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-earths-axial-tilt",
+      "what-is-the-tropic-of-cancer",
+      "what-are-the-polar-circles"
+    ],
+    "graphicId": "sun-earth-line",
+    "graphicCaption": "The northern half leaning into the light: longer days, higher Sun, summer. Half a year later the same picture upside down.",
+    "graphicAlt": "Side view of Earth with the north end of the axis leaning toward the Sun.",
+    "sections": [
+      {
+        "heading": "The test that kills the distance story",
+        "band": "5-12",
+        "body": [
+          "Earth is actually closest to the Sun in early January — northern winter. If distance ran the seasons, the whole planet would warm and cool together. It does not. One hemisphere’s summer is the other’s winter. The cause has to be a direction, not a distance."
+        ]
+      },
+      {
+        "heading": "Two effects, one lean",
+        "band": "deeper",
+        "body": [
+          "The lean does two things at once: it makes the day longer, and it raises the noon Sun. More hours, and each hour more concentrated on the ground. Neither is a change in how much light the Sun puts out."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/day-night-map/",
+        "label": "Watch the day/night line lean with the year"
+      }
+    ]
+  },
+  {
+    "slug": "why-does-the-moon-change-shape",
+    "question": "Why does the Moon change shape?",
+    "term": "Moon phases",
+    "shortAnswer": "The Moon makes no light of its own. One half is always lit by the Sun. Phases are your changing view of that lit half as the Moon goes around Earth — about 29.5 days from full moon to full moon.",
+    "title": "Why Does the Moon Change Shape?",
+    "description": "Moon phases are a changing view of a ball that is always half-lit. The Moon does not change; your angle on the lit half does.",
+    "cluster": "questions",
+    "hubUrls": [
+      {
+        "href": "/moon/",
+        "label": "Moon"
+      },
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Sun–Earth–Moon simulator"
+      },
+      {
+        "href": "/questions/#moon-phases",
+        "label": "Big questions"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-tidal-locking",
+      "what-is-a-synodic-month",
+      "why-isnt-there-an-eclipse-every-month"
+    ],
+    "graphicId": "moon-phase",
+    "graphicCaption": "The Sun is off to the left. The Moon is a ball, half bright, half dark. Walk around it and the bright part points a different way relative to you. That is a phase.",
+    "graphicAlt": "A moon disc half-lit from the left, with the viewer’s angle marked.",
+    "sections": [
+      {
+        "heading": "Nothing happens to the Moon",
+        "band": "5-12",
+        "body": [
+          "Between Earth and the Sun, the lit side faces away from you: new moon. On the opposite side of us from the Sun, the lit side faces you square on: full moon. Crescents and gibbous shapes are everything between.",
+          "The dark part is not Earth’s shadow. Earth’s shadow is a narrow cone, and the Moon misses it most months. The dark part is simply night on the Moon."
+        ]
+      },
+      {
+        "heading": "A month is this cycle",
+        "band": "deeper",
+        "body": [
+          "Full moon to full moon is a synodic month, about 29.5 days — longer than one trip around Earth relative to the stars (the sidereal month, about 27.3 days), because Earth has moved along its own orbit and the Moon has to catch up to the same Sun angle."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Scrub a month of phases"
+      }
+    ]
+  },
+  {
+    "slug": "what-causes-tides",
+    "question": "What causes tides?",
+    "term": "Tides",
+    "shortAnswer": "The Moon’s gravity pulls harder on the water nearer to it than on the Earth’s centre, and harder on the centre than on the far-side water. The ocean stretches into two bulges. Earth then turns under those bulges, so most coasts see two high tides a day.",
+    "title": "What Causes Tides?",
+    "description": "Tides are two ocean bulges raised by the Moon’s gravity, with a smaller assist from the Sun. Earth turning under the bulges makes the daily rhythm.",
+    "cluster": "questions",
+    "hubUrls": [
+      {
+        "href": "/tides/",
+        "label": "Tides"
+      },
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Sun–Earth–Moon simulator"
+      },
+      {
+        "href": "/questions/#tides",
+        "label": "Big questions"
+      }
+    ],
+    "relatedSlugs": [
+      "why-does-the-moon-change-shape",
+      "what-is-tidal-locking",
+      "what-is-libration"
+    ],
+    "graphicId": "tides",
+    "graphicCaption": "Two bulges: one toward the Moon, one away. The far bulge is not the Moon “pushing.” It is the Earth being pulled out from under the far water.",
+    "graphicAlt": "Earth with two opposite ocean bulges and the Moon to one side.",
+    "sections": [
+      {
+        "heading": "The Sun joins in",
+        "band": "5-12",
+        "body": [
+          "The Sun does the same stretch at a little under half the Moon’s strength. When Sun, Moon and Earth line up — new moon and full moon — the bulges stack: spring tides. When they pull at right angles — first and last quarter — they argue: neap tides."
+        ]
+      },
+      {
+        "heading": "Why not exactly 24 hours",
+        "band": "deeper",
+        "body": [
+          "The Moon has moved on while Earth turned, so the bulge returns in about 24 hours 50 minutes. Two high tides in that span is the common pattern. Coasts, bays and the shape of the basin then scramble the simple picture, which is why a real tide chart is a prediction, not this diagram."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/tides/",
+        "label": "Open a real tide chart"
+      }
+    ]
+  },
+  {
+    "slug": "why-does-jupiter-have-so-many-moons",
+    "question": "Why does Jupiter have so many moons?",
+    "term": "Jupiter’s moons",
+    "shortAnswer": "Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun. A wide region around it is a place where a small body stays with Jupiter instead of orbiting the Sun on its own.",
+    "title": "Why Does Jupiter Have So Many Moons?",
+    "description": "Jupiter’s mass gives it a huge gravitational reach, so dozens of small bodies stay bound to it instead of orbiting the Sun alone.",
+    "cluster": "questions",
+    "hubUrls": [
+      {
+        "href": "/solar-system-simulator/",
+        "label": "Solar system simulator"
+      },
+      {
+        "href": "/questions/#jupiter-moons",
+        "label": "Big questions"
+      }
+    ],
+    "relatedSlugs": [
+      "how-does-an-orbit-work",
+      "why-dont-planets-fall-into-the-sun"
+    ],
+    "graphicId": "jupiter",
+    "graphicCaption": "Four large inner moons — Io, Europa, Ganymede, Callisto — on nested paths. The picture is not to scale in distance; it is a family portrait.",
+    "graphicAlt": "Jupiter with four nested circular moon orbits, labelled as not to scale.",
+    "sections": [
+      {
+        "heading": "A planet that acts like a small system",
+        "band": "5-12",
+        "body": [
+          "The same falling-and-missing that keeps Earth beside the Sun keeps Io beside Jupiter. More mass, stronger pull at a given distance, a larger volume of space where “beside Jupiter” wins over “beside the Sun.”"
+        ]
+      },
+      {
+        "heading": "Captured crowds and a few giants",
+        "band": "deeper",
+        "body": [
+          "The four Galilean moons are worlds. Many of the rest are captured asteroids on long, often backward orbits. Counting “how many moons” is then a census of what telescopes can still see, not a closed number."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/solar-system-simulator/",
+        "label": "Zoom to Jupiter’s moons"
+      }
+    ]
+  },
+  {
+    "slug": "why-is-the-night-sky-dark",
+    "question": "Why is the night sky dark?",
+    "term": "Olbers’ paradox",
+    "shortAnswer": "If stars went on forever, every line of sight would hit a star and the night would be as bright as a surface of suns. It is not. The dark is a clue that the universe is not an infinite, unchanging hall of lights.",
+    "title": "Why Is the Night Sky Dark?",
+    "description": "Olbers’ paradox: an infinite, eternal star field would make night as bright as day. The dark sky means that picture is wrong.",
+    "cluster": "questions",
+    "hubUrls": [
+      {
+        "href": "/questions/#dark-sky",
+        "label": "Big questions"
+      }
+    ],
+    "relatedSlugs": [
+      "why-dont-planets-fall-into-the-sun"
+    ],
+    "graphicId": "olbers",
+    "graphicCaption": "Each shell of stars at a greater distance has more stars, but each star looks smaller. In an endless steady universe those shells would add up to a wall of light. They do not.",
+    "graphicAlt": "Concentric shells of stars around an observer, illustrating Olbers’ paradox.",
+    "sections": [
+      {
+        "heading": "The puzzle is older than the answer",
+        "band": "5-12",
+        "body": [
+          "People noticed the puzzle long before anyone had a Big Bang. Dust does not save you: dust would heat until it glowed too. The way out is that we cannot see forever in time. Light has a starting gun, and most lines of sight run out of time before they run into a star."
+        ]
+      },
+      {
+        "heading": "Expansion makes it darker still",
+        "band": "deeper",
+        "body": [
+          "Space stretching while light is in flight also drops the energy of distant starlight. The dark is then two facts together: a finite age, and an expanding space. Either one would dim the sky; we have both."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/questions/",
+        "label": "Back to the question index"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-a-synodic-month",
+    "question": "What is a synodic month?",
+    "term": "Synodic month",
+    "shortAnswer": "A synodic month is the time from one full moon to the next, about 29.5 days. It is longer than the Moon’s trip around Earth relative to the stars, because Earth has moved and the Moon must catch up to the same angle with the Sun.",
+    "title": "What Is a Synodic Month?",
+    "description": "The synodic month is full moon to full moon, about 29.5 days — longer than the 27.3-day sidereal month.",
+    "cluster": "simulator",
+    "hubUrls": [
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Sun–Earth–Moon simulator"
+      }
+    ],
+    "relatedSlugs": [
+      "why-does-the-moon-change-shape",
+      "why-does-moonrise-get-later",
+      "why-isnt-there-an-eclipse-every-month"
+    ],
+    "graphicId": "moon-phase",
+    "graphicCaption": "One lap around Earth relative to the stars is not yet the same phase. The Sun’s direction has shifted because Earth moved.",
+    "graphicAlt": "Moon orbiting Earth with the Sun’s direction shifting as Earth orbits.",
+    "sections": [
+      {
+        "heading": "Two months, one Moon",
+        "band": "5-12",
+        "body": [
+          "Sidereal month: back to the same stars, about 27.3 days. Synodic month: back to the same phase, about 29.5 days. Calendars and the word “month” follow the phases, so they follow the longer one."
+        ]
+      },
+      {
+        "heading": "Why moonrise slips",
+        "band": "deeper",
+        "body": [
+          "Earth must turn extra to catch the Moon, which has moved east. That extra is about 50 minutes a day — the same arithmetic as the synodic month spread over 24 hours."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Scrub one synodic month"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-tidal-locking",
+    "question": "What is tidal locking?",
+    "term": "Tidal locking",
+    "shortAnswer": "The Moon keeps the same face toward Earth because it turns once in the same time it goes around us. That match is tidal locking — not a dark side that never sees the Sun.",
+    "title": "What Is Tidal Locking?",
+    "description": "Tidal locking is a spin matching an orbit, so one face stays toward the planet. The Moon’s far side still has day and night.",
+    "cluster": "simulator",
+    "hubUrls": [
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Sun–Earth–Moon simulator"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-libration",
+      "why-does-the-moon-change-shape",
+      "what-causes-tides"
+    ],
+    "graphicId": "moon-phase",
+    "graphicCaption": "A mark on the Moon stays aimed at Earth all the way around. The Sun still lights the left half of the ball. The far side has plenty of daytime.",
+    "graphicAlt": "Moon with a marked near side facing Earth as it orbits, while the Sun lights one half.",
+    "sections": [
+      {
+        "heading": "Far side is not dark side",
+        "band": "5-12",
+        "body": [
+          "The far side is the hemisphere we do not see from Earth. The dark side is whatever hemisphere is in night right now. They coincide only at full moon, when we are looking at the lit face."
+        ]
+      },
+      {
+        "heading": "How the match was forced",
+        "band": "deeper",
+        "body": [
+          "Earth’s tides in the Moon’s solid body lagged the bulge, torqued the spin, and bled rotational energy until the periods matched. The same kind of torque is slowly pushing the Moon outward and lengthening our day."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Watch one face stay aimed at Earth"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-libration",
+    "question": "What is libration?",
+    "term": "Libration",
+    "shortAnswer": "Libration is a small wobble in the Moon’s facing. We still have one near side, but over time we see about 59% of the surface, not 50%. The extra is a peek around the edges.",
+    "title": "What Is Libration?",
+    "description": "Libration is the Moon’s apparent wobble, letting us see about 59% of its surface over time even though it is tidally locked.",
+    "cluster": "simulator",
+    "hubUrls": [
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Sun–Earth–Moon simulator"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-tidal-locking",
+      "what-is-a-synodic-month"
+    ],
+    "graphicId": "moon-phase",
+    "graphicCaption": "A locked Moon on an ellipse seems to nod: the spin is steady, the orbital speed is not, so we look slightly around the east or west limb.",
+    "graphicAlt": "Moon disc with a slight rotation showing a sliver of the far-side limb.",
+    "sections": [
+      {
+        "heading": "A peek, not a roll",
+        "band": "5-12",
+        "body": [
+          "If the orbit were a perfect circle and we sat at the centre, tidal locking would show us exactly half. The orbit is a little stretched, and we are a little off to the side on a turning Earth. Those geometric cheats are libration."
+        ]
+      },
+      {
+        "heading": "Three small cheats",
+        "band": "deeper",
+        "body": [
+          "Longitudinal: the Moon speeds up near perigee while its spin stays even. Latitudinal: the Moon’s equator is tipped a few degrees, so we see a little past the poles. Diurnal: we watch from the sides of a spinning Earth, not from its centre."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Look for the Moon’s small nod"
+      }
+    ]
+  },
+  {
+    "slug": "why-does-moonrise-get-later",
+    "question": "Why does moonrise get later each night?",
+    "term": "Moonrise delay",
+    "shortAnswer": "The Moon moves east along its orbit while Earth turns. Earth has to spin extra — about 50 minutes — to bring the Moon back to the same place on your sky. That extra is why moonrise (and moonset) slip later day by day.",
+    "title": "Why Does Moonrise Get Later Each Night?",
+    "description": "Moonrise is about 50 minutes later each night because Earth must turn extra to catch a Moon that has moved east.",
+    "cluster": "simulator",
+    "hubUrls": [
+      {
+        "href": "/moon/",
+        "label": "Moon"
+      },
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Sun–Earth–Moon simulator"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-a-synodic-month",
+      "why-does-the-moon-change-shape"
+    ],
+    "graphicId": "moon-phase",
+    "graphicCaption": "After one Earth turn the Moon has advanced. The ground must turn farther to find it again.",
+    "graphicAlt": "Earth turning under a Moon that has moved east along its orbit.",
+    "sections": [
+      {
+        "heading": "The same 50 minutes as the month",
+        "band": "5-12",
+        "body": [
+          "A synodic month is about 29.5 days. Spread that extra lap around the sky over 24 hours and you get roughly 50 minutes. The delay is not a separate mystery. It is the month, counted per night."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/moon/",
+        "label": "Compare moonrise times night to night"
+      }
+    ]
+  },
+  {
+    "slug": "why-isnt-there-an-eclipse-every-month",
+    "question": "Why isn’t there an eclipse every month?",
+    "term": "Orbital tilt of the Moon",
+    "shortAnswer": "The Moon’s path around Earth is tipped about 5° to Earth’s path around the Sun. Most months the full Moon rides above or below Earth’s shadow, and the new Moon rides above or below the Sun. An eclipse needs the Moon at a crossing, not just at a phase.",
+    "title": "Why Isn’t There an Eclipse Every Month?",
+    "description": "No monthly eclipse because the Moon’s orbit is tipped about 5°. Full moon usually misses Earth’s shadow.",
+    "cluster": "simulator",
+    "hubUrls": [
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Sun–Earth–Moon simulator"
+      },
+      {
+        "href": "/moon/",
+        "label": "Moon"
+      }
+    ],
+    "relatedSlugs": [
+      "why-does-the-moon-change-shape",
+      "what-is-a-synodic-month",
+      "what-causes-tides"
+    ],
+    "graphicId": "moon-phase",
+    "graphicCaption": "Earth’s shadow is a real cone past the Moon’s orbit. A 5° tip is enough for the full Moon to miss that cone most months. The drawing of the tip is exaggerated so you can see it.",
+    "graphicAlt": "Moon orbit tipped relative to the Sun–Earth line, missing the shadow cone.",
+    "sections": [
+      {
+        "heading": "Phase is not position on the tilt",
+        "band": "5-12",
+        "body": [
+          "Full moon means the Moon is opposite the Sun as seen from Earth. It does not mean the three bodies are in a straight line in space. The extra dimension is the 5° tip. Only when a full or new moon happens near a node — a crossing of the two planes — do you get an eclipse."
+        ]
+      },
+      {
+        "heading": "Why this site’s orrery does not draw the shadow",
+        "band": "deeper",
+        "body": [
+          "A top-down Sun–Earth–Moon picture flattens the 5°. If it also drew Earth’s umbra as a geometric cone in that plane, the full Moon would sit in the shadow every month and the picture would teach the wrong eclipse. The live simulator says so, and this page is the reason."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "See why the shadow is left undrawn"
+      }
+    ]
+  },
+  {
+    "slug": "how-does-an-orbit-change",
+    "question": "What happens when you change one part of an orbit?",
+    "term": "Orbit change",
+    "shortAnswer": "The shape changes, not just the speed. Slow a planet at one point and it drops onto a longer ellipse that swings closer in and climbs back out. Speed it up and the far side lifts away. It does not spiral into the Sun unless almost all of the sideways speed is gone.",
+    "title": "What Happens When You Change an Orbit?",
+    "description": "A change in speed is a change in orbit shape. Slow down and the far side drops in; speed up and it lifts. Spiraling into the Sun takes almost all of the sideways motion.",
+    "cluster": "questions",
+    "hubUrls": [
+      {
+        "href": "/questions/#change-one-thing",
+        "label": "Big questions"
+      },
+      {
+        "href": "/orbital-velocity-simulator/#slow-down",
+        "label": "Orbital velocity simulator"
+      }
+    ],
+    "relatedSlugs": [
+      "why-dont-planets-fall-into-the-sun",
+      "how-does-an-orbit-work"
+    ],
+    "graphicId": "orbit",
+    "graphicCaption": "Take speed away at one point and the far side of the path drops toward the Sun. The planet still comes back through the point where you changed it.",
+    "graphicAlt": "An elongated ellipse around the Sun, with a planet marked at the point where its speed was changed.",
+    "sections": [
+      {
+        "heading": "A slider is a thought experiment",
+        "band": "5-12",
+        "body": [
+          "Nothing in space grabs a planet and changes its speed by hand. What space does is push very gently for a very long time: tides, another planet’s tug, a rare impact. Every one of those shows up the same way — as a different-shaped orbit, not as a faster or slower planet going the same path.",
+          "To actually hit the Sun from Earth’s distance you would have to shed almost all of the sideways speed. Anything left is enough to miss."
+        ]
+      },
+      {
+        "heading": "What can really change an orbit",
+        "band": "deeper",
+        "body": [
+          "Tides towing the Moon outward a few centimetres a year. Drag on anything low enough to touch an atmosphere. Repeated tugs at a simple period ratio — the gaps in the asteroid belt. An impact, which changes an orbit all at once but only by the momentum it delivers. On the scale of a planet, that last one is disappointing: mass for mass it is much better at changing spin than orbit."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/orbital-velocity-simulator/#slow-down",
+        "label": "Slow a planet and watch the ellipse"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-the-asteroid-belt",
+    "question": "What is the asteroid belt?",
+    "term": "Asteroid belt",
+    "shortAnswer": "A ring of leftover rock between Mars and Jupiter. It is not the wreckage of a planet. Jupiter’s gravity never let the rubble gather into one world. The dark gaps in it are resonances — the same tug, at the same point, over and over.",
+    "title": "What Is the Asteroid Belt?",
+    "description": "The asteroid belt is leftover rubble between Mars and Jupiter. Jupiter’s gravity kept it from becoming a planet, and carved the gaps inside it.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/solar-system-simulator/",
+        "label": "Solar system simulator"
+      }
+    ],
+    "relatedSlugs": [
+      "why-does-jupiter-have-so-many-moons",
+      "how-does-an-orbit-work",
+      "why-dont-planets-fall-into-the-sun"
+    ],
+    "graphicId": "orbit",
+    "graphicCaption": "The belt sits between Mars and Jupiter. Each rock orbits for the same reason a planet does: it is falling toward the Sun and missing.",
+    "graphicAlt": "Orbits around the Sun with a band of small bodies between an inner planet and a large outer planet.",
+    "sections": [
+      {
+        "heading": "Rubble that never became a world",
+        "band": "5-12",
+        "body": [
+          "The belt’s total mass is about 3% of the Moon’s. Ceres, the largest body in it, is itself a dwarf planet. Switch the belt on in the solar system simulator and you are looking at leftover building material, not a destroyed planet."
+        ]
+      },
+      {
+        "heading": "The gaps are Jupiter’s doing",
+        "band": "deeper",
+        "body": [
+          "An asteroid whose year is a simple fraction of Jupiter’s gets the same tug at the same point of its orbit, over and over, until it is pushed out. Those empty lanes are the Kirkwood gaps. The same gravity that kept the belt from becoming a planet is still editing it."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/solar-system-simulator/",
+        "label": "Switch the belt on"
+      }
+    ]
+  },
+  {
+    "slug": "why-are-the-planets-drawn-so-close",
+    "question": "Why are the planets drawn so close together?",
+    "term": "Solar system scale",
+    "shortAnswer": "Because the real solar system will not fit on a screen. Neptune is about 78 times farther from the Sun than Mercury. Drawn honestly at one scale, the inner four sit in the innermost tenth of the picture. This simulator climbs a zoom ladder so something is always legible, and it tells you what is compressed.",
+    "title": "Why Are the Planets Drawn So Close?",
+    "description": "Solar system pictures compress distance so the planets fit. Orbits are to scale within each zoom; the planet dots cannot be, or they would be smaller than a pixel.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/solar-system-simulator/",
+        "label": "Solar system simulator"
+      }
+    ],
+    "relatedSlugs": [
+      "how-does-an-orbit-work",
+      "what-is-the-asteroid-belt",
+      "why-dont-planets-fall-into-the-sun"
+    ],
+    "graphicId": "orbit",
+    "graphicCaption": "A picture that shows all eight planets at once cannot also show their true sizes. The orbits in each zoom are honest; the dots are sized to be seen.",
+    "graphicAlt": "Nested planetary orbits around the Sun, with the inner planets clustered near the centre.",
+    "sections": [
+      {
+        "heading": "What you can trust in the picture",
+        "band": "5-12",
+        "body": [
+          "The orbits are to scale within one zoom level. Mercury really does lap everyone. Neptune really does barely move in a lifetime. The planet dots are not measurements: at the Saturn view, Jupiter would be a few thousandths of a pixel across. The one exception is the Earth and Moon view, which is to scale in both size and distance at once."
+        ]
+      },
+      {
+        "heading": "Why a smooth zoom fails",
+        "band": "deeper",
+        "body": [
+          "Out to Mars the outermost orbit is only tens of times the innermost, and everything is separable. Out to Neptune the ratio is hundreds to one. A smooth zoom spends most of its travel in frames where nothing is legible. Each rung of the ladder is a view where something can be read."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/solar-system-simulator/",
+        "label": "Climb the zoom ladder"
+      }
+    ]
+  }
+]

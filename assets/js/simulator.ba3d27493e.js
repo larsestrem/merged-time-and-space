@@ -1,0 +1,1352 @@
+(function(){
+
+var MN_RAD=Math.PI/180, MN_DAY=86400000, MN_J1970=2440588, MN_J2000=2451545, MN_OBL=MN_RAD*23.4397;
+function mnDays(ms){ return ms/MN_DAY - 0.5 + MN_J1970 - MN_J2000; }
+function mnRa(l,b){ return Math.atan2(Math.sin(l)*Math.cos(MN_OBL)-Math.tan(b)*Math.sin(MN_OBL), Math.cos(l)); }
+function mnDec(l,b){ return Math.asin(Math.sin(b)*Math.cos(MN_OBL)+Math.cos(b)*Math.sin(MN_OBL)*Math.sin(l)); }
+function mnSidereal(d,lw){ return MN_RAD*(280.16+360.9856235*d)-lw; }
+function mnAlt(H,phi,dec){ return Math.asin(Math.sin(phi)*Math.sin(dec)+Math.cos(phi)*Math.cos(dec)*Math.cos(H)); }
+
+/* Sun's apparent equatorial position (same series SUN_JS uses). */
+function mnSunPos(d){
+  var M=MN_RAD*(357.5291+0.98560028*d);
+  var C=MN_RAD*(1.9148*Math.sin(M)+0.02*Math.sin(2*M)+0.0003*Math.sin(3*M));
+  var L=M+C+MN_RAD*102.9372+Math.PI;
+  return { ra:mnRa(L,0), dec:mnDec(L,0) };
+}
+
+/* Moon's geocentric position and distance — Meeus ch. 47, truncated to the
+ * leading terms. The distance series matters: the single-term version
+ * (385001 - 20905*cos M') is off by up to ~2,000 km, which is more than the
+ * margin the supermoon threshold is decided by. */
+function mnMoonPos(d){
+  var L=MN_RAD*(218.316+13.176396*d),   /* mean longitude   */
+      M=MN_RAD*(134.963+13.064993*d),   /* mean anomaly     */
+      F=MN_RAD*(93.272+13.229350*d),    /* argument of lat. */
+      D=MN_RAD*(297.850+12.190749*d),   /* mean elongation  */
+      Ms=MN_RAD*(357.529+0.98560028*d); /* sun mean anomaly */
+  var l=L+MN_RAD*(6.289*Math.sin(M)+1.274*Math.sin(2*D-M)+0.658*Math.sin(2*D)
+        +0.214*Math.sin(2*M)-0.186*Math.sin(Ms)-0.114*Math.sin(2*F));
+  var b=MN_RAD*(5.128*Math.sin(F)+0.281*Math.sin(M+F)-0.278*Math.sin(F-M)
+        -0.173*Math.sin(F-2*D));
+  var dt=385000.56+(-20905355*Math.cos(M)-3699111*Math.cos(2*D-M)-2955968*Math.cos(2*D)
+        -569925*Math.cos(2*M)+48888*Math.cos(Ms)-3149*Math.cos(2*F)
+        +246158*Math.cos(2*D-2*M)-152138*Math.cos(2*D-Ms-M)-170733*Math.cos(2*D+M)
+        -204586*Math.cos(2*D-Ms)-129620*Math.cos(Ms-M)+108743*Math.cos(D)
+        +104755*Math.cos(Ms+M)+10321*Math.cos(2*D-2*F)+79661*Math.cos(M-2*F))/1000;
+  return { ra:mnRa(l,b), dec:mnDec(l,b), dist:dt };
+}
+
+/* Illuminated fraction, cycle position and limb angle.
+ *   fraction 0..1, phase 0=new .5=full (rises 0->1 across the cycle),
+ *   waxing   true while the lit side is growing. */
+function mnIllum(ms){
+  var d=mnDays(ms), s=mnSunPos(d), m=mnMoonPos(d), SD=149598000;
+  var phi=Math.acos(Math.sin(s.dec)*Math.sin(m.dec)+Math.cos(s.dec)*Math.cos(m.dec)*Math.cos(s.ra-m.ra));
+  var inc=Math.atan2(SD*Math.sin(phi), m.dist-SD*Math.cos(phi));
+  var ang=Math.atan2(Math.cos(s.dec)*Math.sin(s.ra-m.ra),
+        Math.sin(s.dec)*Math.cos(m.dec)-Math.cos(s.dec)*Math.sin(m.dec)*Math.cos(s.ra-m.ra));
+  var ph=0.5+0.5*inc*(ang<0?-1:1)/Math.PI;
+  return { fraction:(1+Math.cos(inc))/2, phase:ph, waxing:ph<0.5, dist:m.dist, angle:ang };
+}
+
+/* ---- Meeus ch. 49: the exact instant of a primary phase ------------------
+ * kind: 0 new, 1 first quarter, 2 full, 3 last quarter.
+ * k must be an integer + kind/4. Returns epoch ms (UTC). */
+function mnPhaseJde(k,kind){
+  var T=k/1236.85, T2=T*T, T3=T2*T, T4=T3*T, R=MN_RAD;
+  var jde=2451550.09766+29.530588861*k+0.00015437*T2-0.000000150*T3+0.00000000073*T4;
+  var E=1-0.002516*T-0.0000074*T2;
+  var M =R*(2.5534+29.10535670*k-0.0000014*T2-0.00000011*T3);
+  var Mp=R*(201.5643+385.81693528*k+0.0107582*T2+0.00001238*T3-0.000000058*T4);
+  var F =R*(160.7108+390.67050284*k-0.0016118*T2-0.00000227*T3+0.000000011*T4);
+  var O =R*(124.7746-1.56375588*k+0.0020672*T2+0.00000215*T3);
+  var s=Math.sin, c=Math.cos, corr=0;
+  if(kind===0){
+    corr=-0.40720*s(Mp)+0.17241*E*s(M)+0.01608*s(2*Mp)+0.01039*s(2*F)
+      +0.00739*E*s(Mp-M)-0.00514*E*s(Mp+M)+0.00208*E*E*s(2*M)
+      -0.00111*s(Mp-2*F)-0.00057*s(Mp+2*F)+0.00056*E*s(2*Mp+M)-0.00042*s(3*Mp)
+      +0.00042*E*s(M+2*F)+0.00038*E*s(M-2*F)-0.00024*E*s(2*Mp-M)-0.00017*s(O)
+      -0.00007*s(Mp+2*M)+0.00004*s(2*Mp-2*F)+0.00004*s(3*M)+0.00003*s(Mp+M-2*F)
+      +0.00003*s(2*Mp+2*F)-0.00003*s(Mp+M+2*F)+0.00003*s(Mp-M+2*F)
+      -0.00002*s(Mp-M-2*F)-0.00002*s(3*Mp+M)+0.00002*s(4*Mp);
+  } else if(kind===2){
+    corr=-0.40614*s(Mp)+0.17302*E*s(M)+0.01614*s(2*Mp)+0.01043*s(2*F)
+      +0.00734*E*s(Mp-M)-0.00515*E*s(Mp+M)+0.00209*E*E*s(2*M)
+      -0.00111*s(Mp-2*F)-0.00057*s(Mp+2*F)+0.00056*E*s(2*Mp+M)-0.00042*s(3*Mp)
+      +0.00042*E*s(M+2*F)+0.00038*E*s(M-2*F)-0.00024*E*s(2*Mp-M)-0.00017*s(O)
+      -0.00007*s(Mp+2*M)+0.00004*s(2*Mp-2*F)+0.00004*s(3*M)+0.00003*s(Mp+M-2*F)
+      +0.00003*s(2*Mp+2*F)-0.00003*s(Mp+M+2*F)+0.00003*s(Mp-M+2*F)
+      -0.00002*s(Mp-M-2*F)-0.00002*s(3*Mp+M)+0.00002*s(4*Mp);
+  } else {
+    corr=-0.62801*s(Mp)+0.17172*E*s(M)-0.01183*E*s(Mp+M)+0.00862*s(2*Mp)
+      +0.00804*s(2*F)+0.00454*E*s(Mp-M)+0.00204*E*E*s(2*M)-0.00180*s(Mp-2*F)
+      -0.00070*s(Mp+2*F)-0.00040*s(3*Mp)-0.00034*E*s(2*Mp-M)+0.00032*E*s(M+2*F)
+      +0.00032*E*s(M-2*F)-0.00028*E*E*s(Mp+2*M)+0.00027*E*s(2*Mp+M)-0.00017*s(O)
+      -0.00005*s(Mp-M-2*F)+0.00004*s(2*Mp+2*F)-0.00004*s(Mp+M+2*F)+0.00004*s(Mp-2*M)
+      +0.00003*s(Mp+M-2*F)+0.00003*s(3*M)+0.00002*s(2*Mp-2*F)+0.00002*s(Mp-M+2*F)
+      -0.00002*s(3*Mp+M);
+    var W=0.00306-0.00038*E*c(M)+0.00026*c(Mp)-0.00002*c(Mp-M)+0.00002*c(Mp+M)+0.00002*c(2*F);
+    corr+=(kind===1?W:-W);
+  }
+  /* the 14 planetary-argument corrections, identical for all four phases */
+  var A=[299.77+0.107408*k-0.009173*T2, 251.88+0.016321*k, 251.83+26.651886*k,
+    349.42+36.412478*k, 84.66+18.206239*k, 141.74+53.303771*k, 207.14+2.453732*k,
+    154.84+7.306860*k, 34.52+27.261239*k, 207.19+0.121824*k, 291.34+1.844379*k,
+    161.72+24.198154*k, 239.56+25.513099*k, 331.55+3.592518*k];
+  var W2=[0.000325,0.000165,0.000164,0.000126,0.000110,0.000062,0.000060,
+    0.000056,0.000047,0.000042,0.000040,0.000037,0.000035,0.000023];
+  for(var i=0;i<14;i++) corr+=W2[i]*s(R*A[i]);
+  jde+=corr;
+  /* JDE is Terrestrial Time; shift to UTC (Espenak-Meeus, 2005-2050) */
+  var yr=2000+(jde-2451545)/365.25, tt=yr-2000;
+  var dT=62.92+0.32217*tt+0.005589*tt*tt;
+  return (jde-2440587.5)*MN_DAY-dT*1000;
+}
+/* the lunation number bracketing an instant, so a search can start near it */
+function mnK(ms){ return (( ms/MN_DAY+2440587.5 )-2451550.09766)/29.530588861; }
+
+/* Next occurrence of phase "kind" at or after "ms". */
+function mnNextPhase(ms,kind){
+  var k=Math.floor(mnK(ms))-1+kind/4, t;
+  for(var i=0;i<4;i++){ t=mnPhaseJde(k,kind); if(t>ms) return t; k+=1; }
+  return t;
+}
+/* Most recent occurrence of phase "kind" at or before "ms". */
+function mnPrevPhase(ms,kind){
+  var k=Math.ceil(mnK(ms))+1+kind/4, t;
+  for(var i=0;i<4;i++){ t=mnPhaseJde(k,kind); if(t<=ms) return t; k-=1; }
+  return t;
+}
+/* Days since the last new moon — the real elapsed time, not a mean cycle. */
+function mnAge(ms){ return (ms-mnPrevPhase(ms,0))/MN_DAY; }
+
+/* Every primary phase whose instant falls inside [from,to). */
+function mnPhasesBetween(from,to){
+  var out=[], k=Math.floor(mnK(from))-1;
+  while(k<mnK(to)+1){
+    for(var kind=0;kind<4;kind++){
+      var t=mnPhaseJde(k+kind/4,kind);
+      if(t>=from&&t<to) out.push({ kind:kind, t:t });
+    }
+    k+=1;
+  }
+  return out.sort(function(a,b){ return a.t-b.t; });
+}
+
+var MN_NAMES=['New moon','Waxing crescent','First quarter','Waxing gibbous',
+  'Full moon','Waning gibbous','Last quarter','Waning crescent'];
+/* Phase name from cycle position. The four primary names are reserved for a
+ * narrow window around the exact instant, so "first quarter" on the page means
+ * roughly the day of first quarter, not four days of it. */
+function mnName(p){
+  if(p<0.02||p>=0.98) return MN_NAMES[0];
+  if(p<0.23) return MN_NAMES[1];
+  if(p<0.27) return MN_NAMES[2];
+  if(p<0.48) return MN_NAMES[3];
+  if(p<0.52) return MN_NAMES[4];
+  if(p<0.73) return MN_NAMES[5];
+  if(p<0.77) return MN_NAMES[6];
+  return MN_NAMES[7];
+}
+function mnPrimaryName(kind){ return [MN_NAMES[0],MN_NAMES[2],MN_NAMES[4],MN_NAMES[6]][kind]; }
+
+/* ---- moonrise / moonset -------------------------------------------------
+ * start: epoch ms of the START of the local day being asked about (the caller
+ * owns the time zone, so a city page can ask in the city's own zone). Samples
+ * altitude hourly and interpolates the horizon crossings — the SunCalc method.
+ * hc = 0.133° allows for the moon's semidiameter plus refraction. */
+function mnTimes(start,lat,lon){
+  var hc=0.133*MN_RAD, lw=MN_RAD*-lon, phi=MN_RAD*lat;
+  function alt(hoursOn){
+    var t=start+hoursOn*3600000, d=mnDays(t), m=mnMoonPos(d);
+    return mnAlt(mnSidereal(d,lw)-m.ra, phi, m.dec)-hc;
+  }
+  var h0=alt(0), rise, set, ye=0;
+  for(var i=1;i<=24;i+=2){
+    var h1=alt(i), h2=alt(i+1);
+    var a=(h0+h2)/2-h1, b=(h2-h0)/2, xe=-b/(2*a); ye=(a*xe+b)*xe+h1;
+    var d0=b*b-4*a*h1, roots=0, x1=0, x2=0;
+    if(d0>=0){
+      var dx=Math.sqrt(d0)/(Math.abs(a)*2);
+      x1=xe-dx; x2=xe+dx;
+      if(Math.abs(x1)<=1) roots++;
+      if(Math.abs(x2)<=1) roots++;
+      if(x1<-1) x1=x2;
+    }
+    if(roots===1){ if(h0<0) rise=i+x1; else set=i+x1; }
+    else if(roots===2){ rise=i+(ye<0?x2:x1); set=i+(ye<0?x1:x2); }
+    if(rise!==undefined&&set!==undefined) break;
+    h0=h2;
+  }
+  var out={};
+  if(rise!==undefined) out.rise=start+rise*3600000;
+  if(set!==undefined) out.set=start+set*3600000;
+  if(rise===undefined&&set===undefined) out[ye>0?'alwaysUp':'alwaysDown']=true;
+  return out;
+}
+
+/* ---- where in the sky ---------------------------------------------------
+ * Altitude and compass bearing of the moon for an observer, epoch ms.
+ * Azimuth comes out of the standard formula measured from south (positive
+ * west); +180 converts it to a compass bearing (0 = N, 90 = E), which is the
+ * form a "rises in the ESE" sentence needs. */
+function mnPos(ms,lat,lon){
+  var d=mnDays(ms), m=mnMoonPos(d), lw=MN_RAD*-lon, phi=MN_RAD*lat;
+  var H=mnSidereal(d,lw)-m.ra;
+  var az=Math.atan2(Math.sin(H), Math.cos(H)*Math.sin(phi)-Math.tan(m.dec)*Math.cos(phi));
+  return { alt:mnAlt(H,phi,m.dec)/MN_RAD, az:((az/MN_RAD+180)%360+360)%360, dist:m.dist };
+}
+var MN_COMPASS=['north','NNE','NE','ENE','east','ESE','SE','SSE','south','SSW','SW','WSW','west','WNW','NW','NNW'];
+function mnCompass(bearing){ return MN_COMPASS[Math.round(((bearing%360)+360)%360/22.5)%16]; }
+
+/* ---- the moon glyph -----------------------------------------------------
+ * The real lunar near side (the sprite in moon-face.mjs, referenced once with
+ * <use>) with the UNLIT part covered by a shadow.
+ *
+ * The shadow is ONE path, not a mask or a clip: the unlit region is bounded by
+ * the dark limb on one side and the terminator on the other, so it is an arc
+ * out and an arc back. That matters — masks and clipPaths need a document-
+ * unique id, and these glyphs are generated at build time AND regenerated in
+ * the browser, on pages carrying thirty of them. No id, nothing to collide.
+ *
+ * Sweep flags do all the work:
+ *   dark limb   away from the lit side
+ *   terminator  bulges toward the LIT side when a crescent (shadow crosses the
+ *               middle) and toward the DARK side when gibbous.
+ * At f=0 the two arcs make the whole disc; at f=1 they cancel to nothing; at
+ * f=0.5 the terminator's rx is 0 and it degenerates to the straight centre
+ * line. So new, full and both quarters fall out of the same two arcs.
+ *
+ * `south` flips it: the phase is identical everywhere on Earth, but below the
+ * equator the lit limb — and the whole face with it — appears rotated 180°. */
+function mnGlyph(fraction,waxing,r,south){
+  var f=fraction<0?0:(fraction>1?1:fraction), d=2*r, cx=r, cy=r;
+  var rx=(r*Math.abs(1-2*f)).toFixed(2), litRight=(waxing!==!!south);
+  var s1=litRight?0:1, s2=litRight?(f<0.5?0:1):(f<0.5?1:0);
+  var shadow='M'+cx+' '+(cy-r)+'A'+r+' '+r+' 0 0 '+s1+' '+cx+' '+(cy+r)
+    +'A'+rx+' '+r+' 0 0 '+s2+' '+cx+' '+(cy-r)+'Z';
+  return '<svg viewBox="0 0 '+d+' '+d+'" width="'+d+'" height="'+d+'" aria-hidden="true" class="mn-moon">'
+    /* plain disc underneath: if the sprite is ever missing the glyph still
+       reads as a moon in the right phase rather than vanishing */
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="#efe3c2"/>'
+    /* The face is the same picture in every glyph — only the terminator and the
+       earthshine below change per day. At thumbnail size a <use> of the sprite
+       is a bad deal: it is 828 vector elements behind two blur filters, and
+       <use> rasterizes each reference independently, so a 31-day strip drew
+       ~25,700 shapes to fill thirty 30px circles (407ms of style+layout+paint
+       on the home page, vs ~60ms without it). Below 64px the glyph therefore
+       places a build-time raster of that same sprite instead — identical pixels,
+       one decode, shared by every thumbnail on the page. The big moon on a
+       /moon/ city page is a single instance and keeps the vector, which stays
+       crisp at any size. See make-moon-face-raster.mjs.
+       "/assets/img/moon-face.a952fb5bbe.webp" is rewritten to the hashed .webp by build-inline, the
+       same way "/assets/img/moon-face.b9e194850d.svg#ac-moon-face" is pointed at the hashed sprite. */
+    +(r<=32
+      ? '<image href="/assets/img/moon-face.a952fb5bbe.webp" x="0" y="0" width="'+d+'" height="'+d+'"'+(south?' transform="rotate(180 '+cx+' '+cy+')"':'')+'/>'
+      : '<g transform="scale('+(r/100)+')'+(south?' rotate(180 100 100)':'')+'"><use href="/assets/img/moon-face.b9e194850d.svg#ac-moon-face"/></g>')
+    /* Earthshine: the shadow is not equally opaque at every phase. Sunlight
+       bounced off the Earth genuinely lights the moon's dark side, and it is
+       most obvious on a thin crescent (a big, bright Earth in the moon's sky)
+       and invisible next to a gibbous moon's glare — so the shadow lightens
+       toward new and goes near-solid toward full. It also stops the sliver of
+       shadow on a gibbous moon from looking like a smudge. */
+    +(f>0.999?'':'<path d="'+shadow+'" fill="#0e0d08" fill-opacity="'+(0.91+0.075*f).toFixed(3)+'"/>')
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#57503a" stroke-width="1"/></svg>';
+}
+
+
+/* ---- geometry ---------------------------------------------------------- */
+/* THE FRAME IS LANDSCAPE, 16:9. It was square, on the reasoning that this is a
+   view of a plane — true, but the plane has a long axis: the sun is off one
+   side and the Earth-and-moon system is on the other, and a square frame spent
+   its height on nothing. Widening it buys the distance the picture most needs,
+   which is the one between the sun and the Earth. It is also the shape a phone
+   is held in when it is turned, which is what the full-screen view wants.
+
+   THE SUN IS CENTRED ON THE LEFT EDGE, cut off on one side only. It used to sit
+   in the top-left corner at an angle, which left the whole bottom-left of the
+   frame empty and put the sun-Earth line at a 12-degree tilt. Centring it uses
+   the left side's full height and makes that line exactly horizontal, so the
+   day/night terminator is exactly vertical — which is easier to read and no
+   less true.
+
+   EVERYTHING IS SMALLER THAN IT COULD BE, ON PURPOSE. A picture that fills its
+   frame with three big discs is the least realistic arrangement available: what
+   is most wrong here is DISTANCE, and distance is measured in Earth-diameters,
+   so shrinking the bodies while keeping the orbit wide improves every figure on
+   the scale card at once. Against the previous, larger arrangement: the moon
+   goes from 26x too close to 23x, the sun from 3,905x to 3,151x, and the clear
+   sky between the sun's disc and the moon's from 63 units to 101. It is still
+   enormously wrong — it has to be, at 11,740 Earth-diameters — but it is wrong
+   by less, and it looks it.
+
+   THE FLOOR ON THAT IS LEGIBILITY: the moon has to be big enough to show a lit
+   half and a dark half on a phone. At 11.45 units in a 480-wide frame it is
+   about 19px across on a 390px screen, which is the smallest that still reads.
+
+   ORR_MR is not a free choice at all — the moon is 0.273 Earth diameters across
+   and 11.45/42 is 0.2726, so the one ratio here that CAN be honest is, and the
+   scale card prints both numbers side by side.
+
+   THE MOON CLEARS THE SUN AT NEW MOON, its closest approach: 106 units of clear
+   sky between the two discs, and the sun is then 1.9x further from the moon
+   than the moon is from the Earth.
+
+   ORR_RM ALSO HAS TO LEAVE ROOM FOR THE MOON'S LABEL BELOW IT. The label is
+   pinned under the moon at every point on the orbit (see below), so the lowest
+   the moon ever gets — ORR_CY+ORR_RM+ORR_MR — plus the label's own height has
+   to stay inside ORR_H. At 107 the bottom of the moon is 253.5, the baseline
+   lands at 264.5 and the frame ends at 270: the word clears the moon by about
+   two units and the frame by five. This is why the orbit is not larger. */
+/* THE HEIGHT IS FIXED AND THE WIDTH IS NOT. Every size in the picture — the
+   Earth, the moon, the orbit, the sun — is set against ORR_H, which never
+   changes; ORR_W is only the DEFAULT width, the one a card uses. The Earth sits
+   a fixed distance in from the RIGHT edge and the sun a fixed distance in from
+   the LEFT, so a wider frame does exactly one thing: it puts more space between
+   them. That is the right thing for it to do, because the sun's distance is by
+   far the most wrong figure in the picture, so every extra pixel of it makes
+   the picture less wrong — and nothing about the bodies moves, so the drawing
+   looks identical at any width.
+
+   It is what lets full screen FILL the screen. A fixed-ratio picture in a box
+   of some other ratio has to letterbox; this one is handed the box's own ratio
+   and fills it exactly, at whatever height is left after the controls. On the
+   smallest phone likely to be used that height is what sets the body sizes,
+   which is the floor the sizes below were chosen against. */
+var ORR_W=480, ORR_H=270,         /* 480 is the DEFAULT width, not the only one */
+    ORR_RIGHT=135,                /* the Earth's centre, in from the right    */
+    ORR_CY=135,                   /* ...and centred vertically               */
+    ORR_R=42,                     /* the Earth's drawn radius                */
+    ORR_RM=107,                   /* the moon's schematic orbit radius       */
+    ORR_MR=11.45,                 /* the moon's drawn radius: see above      */
+    ORR_SX=32, ORR_SY=135, ORR_RS=88;  /* the sun, centred on the left edge  */
+var ORR_CX=ORR_W-ORR_RIGHT;       /* the default frame's Earth               */
+/* the widest the frame is allowed to get. Past this the sun is so far from the
+   Earth that the picture is mostly empty sky, which is realistic and useless. */
+var ORR_WMAX=1100;
+function orrFrameW(w){ return Math.max(ORR_W, Math.min(ORR_WMAX, Math.round(w||ORR_W))); }
+/* WHERE THE SUN IS PINNED, DERIVED from where it is drawn rather than typed
+   beside it. The scene is rotated so the real sun lands on this screen angle,
+   and the day/night line is drawn square-on to it — so if this and the drawn
+   position ever disagreed, the lit half of the Earth would not face the sun.
+   It cannot now: both come from ORR_SX/ORR_SY. (Screen angle is measured the
+   mathematical way, x right and y UP, hence CY-SY.) */
+var ORR_SUNANG=Math.atan2(ORR_CY-ORR_SY, -1);   /* due left: SY === CY */
+/* the day/night line is perpendicular to the sun, so its two ends are the sun
+   angle turned a quarter turn either way. These replace the fixed 45-degree
+   diagonal that only worked while the sun sat exactly on the corner diagonal. */
+var ORR_TX=Math.sin(ORR_SUNANG), ORR_TY=Math.cos(ORR_SUNANG);
+function orrF(n){ return Math.round(n*10)/10; }
+/* Label boxes, so two labels never land on top of each other and none of them
+   walks off the edge. Widths are estimated from the character count at the one
+   font size used here — near enough for keeping text apart, and it costs no
+   measuring pass (the build has no DOM at all). */
+var ORR_PAD=4;                    /* how close a label may sit to the frame  */
+function orrClampX(x,anch,w,W){
+  W=W||ORR_W;
+  if(anch==='start') return Math.min(Math.max(x,ORR_PAD),W-ORR_PAD-w);
+  if(anch==='end') return Math.max(Math.min(x,W-ORR_PAD),ORR_PAD+w);
+  return Math.min(Math.max(x,ORR_PAD+w/2),W-ORR_PAD-w/2);
+}
+function orrEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* equatorial right ascension/declination -> ecliptic longitude/latitude. The
+   positions come out of MOON_CORE in equatorial coordinates because that is
+   what rise/set and altitude need; this view is drawn in the plane the Earth
+   orbits in, so it needs the other pair. Converting is three lines and keeps
+   ONE solar/lunar series on the page. */
+function orrEcl(ra,dec){
+  var ce=Math.cos(MN_OBL), se=Math.sin(MN_OBL);
+  return { lam:Math.atan2(Math.sin(ra)*ce+Math.tan(dec)*se, Math.cos(ra)),
+           bet:Math.asin(Math.sin(dec)*ce-Math.cos(dec)*se*Math.sin(ra)) };
+}
+function orrUnit(lam,bet){ return [Math.cos(bet)*Math.cos(lam), Math.cos(bet)*Math.sin(lam), Math.sin(bet)]; }
+/* a unit vector in Earth-equator coordinates -> the same vector in the orbit
+   plane's coordinates (a single rotation by the axial tilt) */
+function orrToEcl(v){ var ce=Math.cos(MN_OBL), se=Math.sin(MN_OBL);
+  return [v[0], v[1]*ce+v[2]*se, -v[1]*se+v[2]*ce]; }
+
+/* Everything the picture and its caption need for one instant and one place. */
+function orrCalc(ms,lat,lon){
+  var d=mnDays(ms), sp=mnSunPos(d), mp=mnMoonPos(d);
+  var se=orrEcl(sp.ra,sp.dec), me=orrEcl(mp.ra,mp.dec);
+  var S=orrUnit(se.lam,se.bet), M=orrUnit(me.lam,me.bet);
+  /* the reader's own spot: their zenith direction. mnSidereal gives the right
+     ascension of their meridian, so this is the same vector whose dot product
+     with the sun is the altitude printed above the picture. */
+  var phi=MN_RAD*lat, th=mnSidereal(d,MN_RAD*-lon);
+  var O=orrToEcl([Math.cos(phi)*Math.cos(th), Math.cos(phi)*Math.sin(th), Math.sin(phi)]);
+  /* Look down from the reader's OWN hemisphere: from above the north pole of
+     the orbit for the northern half of the world, from below it for the
+     southern. Otherwise every southern city would spend its day on the far
+     side of the globe, hidden behind the Earth it is standing on. The flip
+     mirrors the scene, which is why the Earth and moon turn the other way
+     round below the equator — as they genuinely appear to from down there. */
+  var flip=lat<0?-1:1;
+  var rho=ORR_SUNANG-Math.atan2(flip*S[1],S[0]), cr=Math.cos(rho), sr=Math.sin(rho);
+  function pr(v){ var a=v[0], b=flip*v[1];
+    return { x:a*cr-b*sr, y:a*sr+b*cr, z:flip*v[2] }; }
+  function clamp(v){ return v<-1?-1:(v>1?1:v); }
+  return { pr:pr, obs:pr(O), moon:pr(M), pole:pr(orrToEcl([0,0,flip])), phi:phi,
+    /* geometric, unrefracted — used only to say which side of the line the
+       marker is on, never to print a number that would sit beside the
+       refracted altitude in the card and disagree with it */
+    sunAlt:Math.asin(clamp(S[0]*O[0]+S[1]*O[1]+S[2]*O[2]))/MN_RAD,
+    elong:Math.acos(clamp(S[0]*M[0]+S[1]*M[1]+S[2]*M[2]))/MN_RAD };
+}
+
+/* ---- the picture ------------------------------------------------------- */
+function orrSvg(ms,lat,lon,name,fw){
+  var g=orrCalc(ms,lat,lon), i, k, s;
+  var W=orrFrameW(fw), CX=W-ORR_RIGHT;
+  var CY=ORR_CY, R=ORR_R, TX=ORR_TX, TY=ORR_TY;
+  /* the ends of the day/night line, square-on to the sun and so at a fixed
+     angle. There used to be a drawn beam as well — a tinted wedge plus two
+     stroked lines running from the sun's edges to these two points. It was
+     geometrically honest and it read badly: a hard-edged band lying across the
+     picture, which looks like an object rather than like light, and which drew
+     the eye away from the three things that actually move. The lit half of the
+     Earth and the sun's own glow say the same thing without it. */
+  /* the two ends of the day/night line: the sun's screen angle, turned a
+     quarter turn each way. With the sun on the old corner diagonal these came
+     out at exactly +/-45 degrees, which is why a constant used to do. */
+  var ax=CX+R*TX, ay=CY+R*TY, bx=CX-R*TX, by=CY-R*TY;
+
+  s='<svg viewBox="0 0 '+W+' '+ORR_H+'" width="'+W+'" height="'+ORR_H+'" aria-hidden="true">'
+   + '<defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="'+ORR_SX+'" cy="'+ORR_SY+'" r="'+(ORR_RS+26)+'">'
+   + '<stop offset="'+orrF(ORR_RS/(ORR_RS+26))+'" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient>'
+   /* the sun runs off two edges, so the scene is clipped to the panel's own
+      rounded rectangle rather than letting it spill */
+   + '<clipPath id="orr-clip"><rect width="'+W+'" height="'+ORR_H+'" rx="16"/></clipPath></defs>'
+   + '<g clip-path="url(#orr-clip)">'
+   + '<rect width="'+W+'" height="'+ORR_H+'" rx="16" fill="#0a1020"/>'
+   /* the sun. Drawn running off the corner rather than as a tidy disc: it is
+      109 Earths wide and the picture cannot hold it. */
+   + '<circle cx="'+ORR_SX+'" cy="'+ORR_SY+'" r="'+(ORR_RS+26)+'" fill="url(#orr-glow)"/>'
+   + '<circle cx="'+ORR_SX+'" cy="'+ORR_SY+'" r="'+ORR_RS+'" fill="#fcd34d"/>'
+   /* the centre is inside the frame now, so the label sits on it */
+   + '<text x="'+ORR_SX+'" y="'+(ORR_SY+5)+'" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text>'
+   /* the moon's orbit, dotted because the radius is schematic */
+   + '<circle cx="'+CX+'" cy="'+CY+'" r="'+ORR_RM+'" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/>'
+   /* the Earth, lit side first */
+   + '<circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="#2f74ad"/>';
+
+  /* The reader's daily circle: where their spot goes as the Earth turns. The
+     half of it on the lit side is their daylight, which is the day length
+     printed further up the page — the same fact, drawn. The part on the far
+     side of the globe is behind the Earth, so it is drawn as barely-there
+     dots rather than as a line that would appear to be in front. */
+  var near=[], far=[], seg=null, wasVis=null;
+  for(k=0;k<=64;k++){
+    var t=k/64*2*Math.PI;
+    var p=g.pr(orrToEcl([Math.cos(g.phi)*Math.cos(t), Math.cos(g.phi)*Math.sin(t), Math.sin(g.phi)]));
+    var vis=p.z>=0;
+    if(vis!==wasVis){ seg=[]; (vis?near:far).push(seg); wasVis=vis; }
+    seg.push(orrF(CX+R*p.x)+','+orrF(CY-R*p.y));
+  }
+  /* The part of the circle on the FAR side of the globe goes under the night
+     shading — it is behind the Earth and should read that way. */
+  for(i=0;i<far.length;i++) if(far[i].length>1)
+    s+='<polyline points="'+far[i].join(' ')+'" fill="none" stroke="#e8eef7" stroke-opacity=".13" stroke-width="1" stroke-dasharray="1 3"/>';
+
+  /* night: the half turned away from the sun, laid over the globe */
+  s+='<path d="M'+orrF(ax)+' '+orrF(ay)+'A'+R+' '+R+' 0 0 1 '+orrF(bx)+' '+orrF(by)+'Z" fill="#050a16" fill-opacity=".84"/>';
+
+  /* ...and the near half of the daily circle goes OVER it, at one strength the
+     whole way round. It used to sit under the shading, which dimmed the half a
+     reader most wants to follow — the night half, where their own spot is when
+     the question is "am I in the dark yet". Same colour on both sides now: the
+     day/night line it crosses already says which part is which. */
+  for(i=0;i<near.length;i++) if(near[i].length>1)
+    s+='<polyline points="'+near[i].join(' ')+'" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/>';
+  s+='<circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/>';
+
+  /* The pole, which is the axial tilt made visible: it leans toward the sun in
+     the reader's summer and away from it in their winter, and that lean is the
+     whole reason the daily circle above sits where it does. */
+  var pl=g.pole, plx=CX+R*pl.x, ply=CY-R*pl.y, pd=Math.sqrt(pl.x*pl.x+pl.y*pl.y)||1;
+  s+='<path d="M'+CX+' '+CY+'L'+orrF(plx)+' '+orrF(ply)+'" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/>'
+   + '<circle cx="'+orrF(plx)+'" cy="'+orrF(ply)+'" r="1.8" fill="#e8eef7" fill-opacity=".65"/>'
+   + '<text x="'+orrF(plx+pl.x/pd*8)+'" y="'+orrF(ply-pl.y/pd*8+3.5)+'" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">'+(lat<0?'S':'N')+'</text>';
+
+  /* The reader. The tick runs straight up out of their spot — that is the
+     direction they call "overhead", and how close it is to the day/night line
+     is how low the sun is for them. A spot on the far side of the globe is
+     drawn hollow rather than moved or dropped. */
+  var o=g.obs, od=Math.sqrt(o.x*o.x+o.y*o.y), ux=od>0.02?o.x/od:0, uy=od>0.02?o.y/od:1;
+  var oX=CX+R*o.x, oY=CY-R*o.y, vis2=o.z>=0;
+  /* the label is the place name without its state or country suffix — the page
+     it sits on has already said which one, and the picture has 320px total */
+  var lab=String(name||'You').split(',')[0], lw=lab.length*6.4;
+  var lx=orrClampX(CX+(R+13)*ux, (ux>0.25?'start':(ux<-0.25?'end':'middle')), lw, W);
+  var anch=ux>0.25?'start':(ux<-0.25?'end':'middle');
+  var ly=CY-(R+13)*uy+(uy<-0.5?9:(uy>0.5?-3:4));
+  /* The tick and the name carry a class because they are the two things that
+     have to GO while the picture is being played through a month. The name is
+     anchored to a spot on a turning Earth, so at speed it swings round the
+     globe dragging its leader line behind it, and that movement is louder than
+     everything it is there to help you watch. The marker itself and its daily
+     circle stay — they are the point. See ORR_SPIN below. */
+  s+='<path class="orr-citytick" d="M'+orrF(oX)+' '+orrF(oY)+'L'+orrF(CX+(R+9)*ux)+' '+orrF(CY-(R+9)*uy)+'" stroke="#fcd34d" stroke-opacity="'+(vis2?'.75':'.35')+'" stroke-width="1.2"'+(vis2?'':' stroke-dasharray="2 2"')+'/>'
+   + '<circle cx="'+orrF(oX)+'" cy="'+orrF(oY)+'" r="3.4" fill="'+(vis2?'#fcd34d':'none')+'" stroke="#fcd34d" stroke-opacity="'+(vis2?'.9':'.5')+'" stroke-width="1.2"/>'
+   + '<text class="orr-cityname" x="'+orrF(lx)+'" y="'+orrF(ly)+'" text-anchor="'+anch+'" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">'+orrEsc(lab)+'</text>';
+
+  /* The moon, at its true direction from the Earth. Its lit half faces the sun
+     like everything else here — from this vantage every moon looks half lit,
+     and that is the point: the phase people see is not how much of the moon is
+     lit but how much of the lit half faces them, which is the ANGLE in this
+     picture. */
+  var m=g.moon, md=Math.sqrt(m.x*m.x+m.y*m.y)||1, mx=CX+ORR_RM*m.x/md, my=CY-ORR_RM*m.y/md;
+  var mr=ORR_MR;
+  s+='<circle cx="'+orrF(mx)+'" cy="'+orrF(my)+'" r="'+mr+'" fill="#4b5563"/>'
+   + '<path d="M'+orrF(mx+mr*TX)+' '+orrF(my+mr*TY)+'A'+mr+' '+mr+' 0 0 0 '+orrF(mx-mr*TX)+' '+orrF(my-mr*TY)+'Z" fill="#e8eef7"/>'
+   + '<circle cx="'+orrF(mx)+'" cy="'+orrF(my)+'" r="'+mr+'" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/>';
+  /* THE LABEL IS ALWAYS DIRECTLY BELOW THE MOON. It used to pick from three
+     offsets — beside, below, above — taking the first that cleared the city's
+     name and the frame, which meant it hopped from one side of the moon to the
+     other as the moon went round. That is fine on a still picture and awful on
+     a moving one: with Play running, the one word on screen that is not moving
+     smoothly jumps. One fixed offset costs a little clearance and buys a label
+     the eye can stop tracking.
+
+     It cannot collide with the city's name, and that is geometry rather than
+     luck: the city label is anchored on the Earth's disc and cannot reach
+     further than R + its own width from the Earth's centre, while the moon's
+     label sits ORR_RM out plus its own drop. Nor can it leave the frame — see
+     the note on ORR_RM above for the bottom, and orrClampX still holds the
+     sides for the rare wide-frame case. */
+  var mw=30, lby=my+mr+11;
+  s+='<text x="'+orrF(orrClampX(mx,'middle',mw,W))+'" y="'+orrF(lby)+'" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text>';
+
+  return s+'</g></svg>';
+}
+
+/* ---- the caption -------------------------------------------------------
+ * The picture is decorative markup (the SVG is aria-hidden); this sentence is
+ * the part that has to carry it in words, so it says what the marker is doing
+ * and what the moon's angle means rather than describing shapes. */
+function orrNote(ms,lat,lon,name,live){
+  var g=orrCalc(ms,lat,lon), il=mnIllum(ms), nm=mnName(il.phase);
+  /* Every claim in here is about ONE instant, and that instant is only "now"
+     while the control below the picture says so — otherwise this would tell a
+     reader looking at next October what the sky is doing today. */
+  var when=live===false?'at the time shown':'right now';
+  /* the sentence opens with it, and /sun/anywhere/ hands over "your location" */
+  var place=orrEsc(name||'Your location');
+  place=place.charAt(0).toUpperCase()+place.slice(1);
+  var lit=g.sunAlt>0;
+  var edge=Math.abs(g.sunAlt)<8 ? ', close to the line where day meets night' : '';
+  return '<b>'+place+'</b> is the marker on the globe \u2014 on the '+(lit?'daylit':'night')+' half '+when+edge
+   + ', riding the dotted circle its spot traces as the Earth turns. '
+   + 'The moon is <b>'+Math.round(g.elong)+'\u00b0</b> from the sun in the sky '+(live===false?'then':'now')+', and that angle is the phase: '
+   + nm.charAt(0).toLowerCase()+nm.slice(1)+'. '
+   + 'You are looking down on the Earth from far above its orbit, from the '+(lat<0?'south':'north')+' \u2014 the side you are on \u2014 '
+   + 'with sunlight arriving from the top left, so the half of the Earth facing that way is the half having its day. '
+   + 'Sizes and distances are not to scale; the directions are.';
+}
+
+/* ---- the instant being drawn -------------------------------------------
+ * The picture started out as a read-out of NOW. It is worth more than that:
+ * the geometry solves for an arbitrary instant, so letting the reader move the
+ * instant turns the same picture into "where will the sun and moon be when I
+ * get there" — the question a photographer actually has.
+ *
+ * ORR_AT is the whole of that state: null means live (the page's own tick keeps
+ * the picture on the current minute), anything else freezes it on a chosen
+ * instant. TWO controls write it, and the difference between them is what the
+ * rest of the page does about it:
+ *
+ *   - the date+time field changes the DAY, and the host page follows: sunrise,
+ *     the dial, the twilight bands, the 7-day table, the moon's rise and set.
+ *     Those are all per-day facts and a page showing two different days at once
+ *     would be worse than no control at all.
+ *   - the slider scrubs the time WITHIN that day, and nothing else moves. The
+ *     day's facts have not changed — only where the two bodies are in it — so
+ *     it repaints this card and no more, which is what makes it cheap enough to
+ *     drag.
+ *
+ * The field is a native datetime-local on purpose: its own date and time
+ * pickers on every platform, one line wide, no library — and its value is a
+ * naive wall-clock reading with no zone of its own, which is exactly right
+ * here, because the clock this page must show is the PLACE's, never the
+ * visitor's. */
+var ORR_AT=null, ORR_LAST=null, ORR_ONCHANGE=null;
+function orrLive(){ return ORR_AT==null; }
+function orrAt(){ return ORR_AT; }                 /* null, or the chosen instant */
+function orrWhen(){ return ORR_AT==null?Date.now():ORR_AT; }
+function orrOnChange(fn){ ORR_ONCHANGE=fn; }       /* host repaints its own numbers */
+
+/* epoch -> "YYYY-MM-DDTHH:mm" as the clock reads in tz (what the input wants) */
+function orrLocalValue(ms,tz){
+  try{
+    var o={ year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hourCycle:'h23' };
+    if(tz) o.timeZone=tz;
+    var ps=new Intl.DateTimeFormat('en-CA',o).formatToParts(new Date(ms));
+    function g(t){ for(var i=0;i<ps.length;i++) if(ps[i].type===t) return ps[i].value; return '00'; }
+    return g('year')+'-'+g('month')+'-'+g('day')+'T'+g('hour')+':'+g('minute');
+  }catch(e){ return ''; }
+}
+function orrDayOf(ms,tz){ return orrLocalValue(ms,tz).slice(0,10); }
+function orrMinOf(ms,tz){ var v=orrLocalValue(ms,tz); return (+v.slice(11,13))*60+(+v.slice(14,16)); }
+function orrPad(n){ return (n<10?'0':'')+n; }
+/* how far tz is from UTC at a given instant, in ms */
+function orrOffset(ms,tz){
+  try{
+    var o={ year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit', hourCycle:'h23' };
+    if(tz) o.timeZone=tz;
+    var ps=new Intl.DateTimeFormat('en-GB',o).formatToParts(new Date(ms));
+    function g(t){ for(var i=0;i<ps.length;i++) if(ps[i].type===t) return +ps[i].value; return 0; }
+    return Date.UTC(g('year'),g('month')-1,g('day'),g('hour'),g('minute'),g('second'))-ms;
+  }catch(e){ return 0; }
+}
+/* "YYYY-MM-DDTHH:mm" read in tz -> epoch. Two passes, because the offset has to
+   be measured somewhere and the first guess can land on the far side of a
+   daylight-saving change from the answer (the technique lib.mjs uses for event
+   dates). An hour that does not exist locally — the spring-forward gap — comes
+   back as a real instant an hour to one side of it, because there is no such
+   local time and so no sky to draw for it. */
+function orrParse(v,tz){
+  var m=/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(v||''); if(!m) return null;
+  var guess=Date.UTC(+m[1],+m[2]-1,+m[3],+m[4],+m[5]);
+  var o1=orrOffset(guess,tz), t=guess-o1, o2=orrOffset(t,tz);
+  if(o2!==o1) t=guess-o2;
+  return t;
+}
+
+/* ---- THE SLIDER'S SPAN: ONE LAP OF THE MOON -------------------------------
+ * The bar used to cover a DAY, which is the wrong unit for this picture. What
+ * it draws is the moon's angle from the sun — the phase — and that angle takes
+ * a synodic month to come round. Across a day it moves 13 degrees, so the whole
+ * length of the control bought a thirtieth of the one cycle it exists to show.
+ * End to end is now exactly one revolution: drag from the left edge to the
+ * right and the moon goes round the Earth once and comes back to the phase it
+ * started in.
+ *
+ * The span is anchored at MIDNIGHT of the day the card is on, so the left edge
+ * lines up with the day the rest of the page is about and the thumb starts
+ * wherever in that day the reader is. Choosing another day — the field, Now,
+ * the page's own date pickers — re-anchors it (orrSpanFix). */
+var ORR_SYN=29.530588853;                          /* days, sun to sun */
+var ORR_SPAN_MIN=Math.round(ORR_SYN*1440);         /* the slider's max, in minutes */
+var ORR_SPAN0=null;                                /* epoch of the left edge */
+function orrSpanStart(tz,ms){
+  var t=orrParse(orrDayOf(ms,tz)+'T00:00',tz);
+  return t==null?ms:t;
+}
+function orrSpanFix(ms,tz,force){
+  if(force||ORR_SPAN0==null||ms<ORR_SPAN0||ms>=ORR_SPAN0+ORR_SPAN_MIN*60000)
+    ORR_SPAN0=orrSpanStart(tz,ms);
+  return ORR_SPAN0;
+}
+/* where the thumb sits for an instant, and what instant a thumb position is */
+function orrSpanPos(ms,tz){ return Math.round((ms-orrSpanFix(ms,tz))/60000); }
+function orrSpanAt(min,tz){ return orrSpanFix(orrWhen(),tz)+min*60000; }
+
+/* ---- PLAY ----------------------------------------------------------------
+ * The slider moves the instant WITHIN a day, and across a day the moon travels
+ * 13 degrees — real, and too little to read as an orbit. So the picture drew a
+ * city spinning on an Earth the moon appeared to be pinned to, which is the
+ * opposite of what the card is for. Play runs the clock forward across days
+ * instead, at a rate chosen so the LUNAR CYCLE is the thing you see.
+ *
+ * One drawn day every 1.4 seconds: a full cycle of the moon's phase takes about
+ * 41 seconds, and the city marker comes round once every 1.4 — fast enough to
+ * read as spin, slow enough to follow.
+ *
+ * WHILE IT RUNS, ONLY THIS CARD MOVES. Every frame calls orrSet with
+ * dayChanged FALSE, so the host page repaints the picture and its live rows and
+ * not the day's own facts — sunrise, the dial, the tables — which would be a
+ * full re-render sixteen times a second. The page catches up in ONE re-render
+ * when the picture stops, which is also the moment a reader looks at it. */
+var ORR_PLAY=0, ORR_IV=0, ORR_ANCH=0, ORR_T0=0;
+var ORR_SPEED=86400000/1400;
+function orrPlaying(){ return !!ORR_PLAY; }
+function orrPlayBtn(){ return document.getElementById('orr-play'); }
+function orrPlayStop(sync){
+  if(!ORR_PLAY) return;
+  ORR_PLAY=0;
+  if(ORR_IV){ clearInterval(ORR_IV); ORR_IV=0; }
+  var b=orrPlayBtn();
+  if(b){ b.setAttribute('aria-pressed','false'); b.textContent='Play'; }
+  /* the city's name and leader line come back the moment the picture stops */
+  var f=document.getElementById('orr-fig'); if(f) f.classList.remove('orr-spin');
+  var re=document.getElementById('orr-scrub-lab'); if(re) re.textContent=orrScrubLab();
+  /* sync=false when the caller is about to move the instant itself (Now, the
+     field, the slider): re-rendering the old day first would be a wasted pass */
+  if(sync!==false) orrSet(orrWhen(), true);
+}
+function orrPlayStart(){
+  if(ORR_PLAY) return;
+  ORR_PLAY=1; ORR_ANCH=orrWhen(); ORR_T0=Date.now();
+  var b=orrPlayBtn();
+  if(b){ b.setAttribute('aria-pressed','true'); b.textContent='Pause'; }
+  /* see .orr-spin in 20d2-orrery.css: the name is pinned to a spot on a turning
+     Earth and swings round the globe dragging its line, which is louder than
+     the thing the animation exists to show */
+  var f=document.getElementById('orr-fig'); if(f) f.classList.add('orr-spin');
+  var re=document.getElementById('orr-scrub-lab'); if(re) re.textContent=orrScrubLab();
+  ORR_IV=setInterval(function(){
+    if(!ORR_PLAY) return;
+    var tz=(ORR_LAST||{}).tz;
+    /* WRAPPED INSIDE THE SPAN, so Play and the slider are the same journey:
+       one press takes the moon round the Earth once, the thumb crosses the bar
+       once, and then it starts again rather than wandering off into next year. */
+    var span=ORR_SPAN_MIN*60000, t0=orrSpanFix(ORR_ANCH,tz);
+    var off=(ORR_ANCH-t0)+(Date.now()-ORR_T0)*ORR_SPEED;
+    orrSet(t0+(off%span), false);
+  },66);
+}
+function orrPlayToggle(){ if(ORR_PLAY) orrPlayStop(true); else orrPlayStart(); }
+
+/* Move the instant and tell the host. dayChanged says whether the rest of the
+   page has to follow, which is the whole difference between the field and the
+   slider. */
+function orrSet(t,dayChanged){
+  ORR_AT=t;
+  if(ORR_ONCHANGE) ORR_ONCHANGE(!!dayChanged);
+  else { var L=ORR_LAST||{}; orrShow(L.lat,L.lon,L.name,L.tz); }
+}
+
+/* Paint for one instant. The DOM wiring lives here rather than in each
+   generator so /sun/ and /moon/ fill the same markup the same way, and it does
+   nothing at all on a page that does not render the figure. */
+function orrPaint(ms,lat,lon,name,tz){
+  var f=document.getElementById('orr-fig'); if(!f) return;
+  ORR_LAST={ lat:lat, lon:lon, name:name, tz:tz };
+  f.innerHTML=orrSvg(ms,lat,lon,name);
+  var n=document.getElementById('orr-note'); if(n) n.innerHTML=orrNote(ms,lat,lon,name,orrLive());
+  var inp=document.getElementById('orr-at');
+  if(inp){
+    /* never yank the value out from under someone mid-edit: the page's own
+       30-second tick calls straight through here */
+    if(document.activeElement!==inp){ var v=orrLocalValue(ms,tz); if(inp.value!==v) inp.value=v; }
+    inp.disabled=false;                         /* it can only work with JS */
+  }
+  var sl=document.getElementById('orr-slider');
+  if(sl){ if(document.activeElement!==sl){ var mn=orrSpanPos(ms,tz); if(+sl.value!==mn) sl.value=mn; }
+    sl.disabled=false; }
+  var re=document.getElementById('orr-scrub-lab');
+  if(re) re.textContent=orrScrubLab();
+  orrWire();
+}
+
+/* the line under the slider doubles as the card's state read-out */
+function orrScrubLab(){
+  return orrPlaying() ? 'Playing — a day every 1.4 seconds, and the whole bar is one lap of the moon'
+    : 'Press Play, or drag: end to end is one full turn of the moon round the Earth — 29 days and 13 hours';
+}
+
+/* Everything the host page calls: paint for whatever instant is current. */
+function orrShow(lat,lon,name,tz){ orrPaint(orrWhen(),lat,lon,name,tz); }
+
+/* One-time listeners. The field moves the day (host follows), the slider moves
+   the time inside it (host does not), Now hands the picture back to the clock. */
+function orrWire(){
+  var inp=document.getElementById('orr-at'), sl=document.getElementById('orr-slider'),
+      nw=document.getElementById('orr-now'), L=function(){ return ORR_LAST||{}; };
+  var pl=document.getElementById('orr-play');
+  if(pl&&!pl.getAttribute('data-orr-wired')){
+    pl.setAttribute('data-orr-wired','1');
+    pl.hidden=false;                            /* useless without JS, ships hidden */
+    pl.addEventListener('click',orrPlayToggle);
+    /* a tab in the background gets no frames anyway, and coming back to a
+       picture that has silently run three months on is not a feature */
+    document.addEventListener('visibilitychange',function(){ if(document.hidden) orrPlayStop(true); });
+  }
+  if(inp&&!inp.getAttribute('data-orr-wired')){
+    inp.setAttribute('data-orr-wired','1');
+    inp.addEventListener('change',function(){
+      orrPlayStop(false);
+      var tz=L().tz, t=orrParse(inp.value,tz);
+      /* a cleared field means "no particular time", which is the live clock */
+      if(t==null){ orrSpanFix(Date.now(),tz,1); orrSet(null, orrDayOf(Date.now(),tz)!==orrDayOf(orrWhen(),tz)); return; }
+      orrSpanFix(t,tz,1);                       /* the bar starts at the chosen day */
+      orrSet(t, orrDayOf(t,tz)!==orrDayOf(orrWhen(),tz));
+    });
+  }
+  if(sl&&!sl.getAttribute('data-orr-wired')){
+    sl.setAttribute('data-orr-wired','1');
+    /* 'input', not 'change': the picture follows the thumb as it is dragged.
+       Each repaint is one solar and one lunar position and a string of SVG —
+       cheap enough to run per frame, which is why the slider can be scoped to
+       this card and skip the page's per-day work entirely. */
+    /* DRAGGING CROSSES DAYS NOW, and that is the point — but the host page's
+       per-day work (sunrise, the dial, the twilight bands, the 7-day table) is
+       far too heavy to redo per frame. So 'input' moves the picture alone and
+       'change' — which fires once, when the thumb is let go — hands the page
+       the day it landed on. Smooth while dragging, correct when it stops. */
+    sl.addEventListener('input',function(){
+      orrPlayStop(false);
+      var t=orrSpanAt(+sl.value||0, L().tz);
+      if(t!=null) orrSet(t,false);
+    });
+    sl.addEventListener('change',function(){
+      var tz=L().tz, t=orrSpanAt(+sl.value||0, tz);
+      if(t!=null) orrSet(t, orrDayOf(t,tz)!==orrDayOf(orrWhen(),tz));
+    });
+  }
+  if(nw&&!nw.getAttribute('data-orr-wired')){
+    nw.setAttribute('data-orr-wired','1');
+    nw.hidden=false;                            /* useless without JS, ships hidden */
+    nw.addEventListener('click',function(){
+      var tz=L().tz, changed=orrDayOf(Date.now(),tz)!==orrDayOf(orrWhen(),tz);
+      orrPlayStop(false);
+      orrSpanFix(Date.now(),tz,1);              /* back to today, and the bar with it */
+      orrSet(null, changed);
+    });
+  }
+}
+
+  var SEED=[["amsterdam","Amsterdam","Europe/Amsterdam",52.37,4.9],["athens","Athens","Europe/Athens",37.98,23.73],["atlanta","Atlanta","America/New_York",33.75,-84.39],["auckland","Auckland","Pacific/Auckland",-36.85,174.76],["austin","Austin","America/Chicago",30.27,-97.74],["baghdad","Baghdad","Asia/Baghdad",33.31,44.36],["bangkok","Bangkok","Asia/Bangkok",13.76,100.5],["barcelona","Barcelona","Europe/Madrid",41.39,2.17],["beijing","Beijing","Asia/Shanghai",39.9,116.41],["berlin","Berlin","Europe/Berlin",52.52,13.4],["bogota","Bogotá","America/Bogota",4.71,-74.07],["boston","Boston","America/New_York",42.36,-71.06],["brisbane","Brisbane","Australia/Brisbane",-27.47,153.03],["brussels","Brussels","Europe/Brussels",50.85,4.35],["buenos-aires","Buenos Aires","America/Argentina/Buenos_Aires",-34.6,-58.38],["cairo","Cairo","Africa/Cairo",30.04,31.24],["calgary","Calgary","America/Edmonton",51.05,-114.07],["cape-town","Cape Town","Africa/Johannesburg",-33.92,18.42],["caracas","Caracas","America/Caracas",10.48,-66.9],["casablanca","Casablanca","Africa/Casablanca",33.57,-7.59],["chicago","Chicago","America/Chicago",41.88,-87.63],["copenhagen","Copenhagen","Europe/Copenhagen",55.68,12.57],["dallas","Dallas","America/Chicago",32.78,-96.8],["delhi","Delhi","Asia/Kolkata",28.61,77.21],["denver","Denver","America/Denver",39.74,-104.99],["detroit","Detroit","America/Detroit",42.33,-83.05],["dubai","Dubai","Asia/Dubai",25.2,55.27],["dublin","Dublin","Europe/Dublin",53.35,-6.26],["edinburgh","Edinburgh","Europe/London",55.95,-3.19],["frankfurt","Frankfurt","Europe/Berlin",50.11,8.68],["geneva","Geneva","Europe/Zurich",46.2,6.14],["hanoi","Hanoi","Asia/Bangkok",21.03,105.85],["havana","Havana","America/Havana",23.11,-82.37],["helsinki","Helsinki","Europe/Helsinki",60.17,24.94],["ho-chi-minh-city","Ho Chi Minh City","Asia/Ho_Chi_Minh",10.82,106.63],["hong-kong","Hong Kong","Asia/Hong_Kong",22.32,114.17],["honolulu","Honolulu","Pacific/Honolulu",21.31,-157.86],["houston","Houston","America/Chicago",29.76,-95.37],["istanbul","Istanbul","Europe/Istanbul",41.01,28.98],["jakarta","Jakarta","Asia/Jakarta",-6.21,106.85],["jerusalem","Jerusalem","Asia/Jerusalem",31.77,35.21],["johannesburg","Johannesburg","Africa/Johannesburg",-26.2,28.05],["karachi","Karachi","Asia/Karachi",24.86,67.01],["kathmandu","Kathmandu","Asia/Kathmandu",27.7,85.32],["kyiv","Kyiv","Europe/Kyiv",50.45,30.52],["kuala-lumpur","Kuala Lumpur","Asia/Kuala_Lumpur",3.14,101.69],["lagos","Lagos","Africa/Lagos",6.52,3.38],["las-vegas","Las Vegas","America/Los_Angeles",36.17,-115.14],["lima","Lima","America/Lima",-12.05,-77.04],["lisbon","Lisbon","Europe/Lisbon",38.72,-9.14],["london","London","Europe/London",51.51,-0.13],["los-angeles","Los Angeles","America/Los_Angeles",34.05,-118.24],["madrid","Madrid","Europe/Madrid",40.42,-3.7],["manila","Manila","Asia/Manila",14.6,120.98],["melbourne","Melbourne","Australia/Melbourne",-37.81,144.96],["mexico-city","Mexico City","America/Mexico_City",19.43,-99.13],["miami","Miami","America/New_York",25.76,-80.19],["milan","Milan","Europe/Rome",45.46,9.19],["minneapolis","Minneapolis","America/Chicago",44.98,-93.27],["montreal","Montreal","America/Toronto",45.5,-73.57],["moscow","Moscow","Europe/Moscow",55.76,37.62],["mumbai","Mumbai","Asia/Kolkata",19.08,72.88],["nairobi","Nairobi","Africa/Nairobi",-1.29,36.82],["nashville","Nashville","America/Chicago",36.16,-86.78],["new-orleans","New Orleans","America/Chicago",29.95,-90.07],["new-york","New York","America/New_York",40.71,-74.01],["nome","Nome","America/Nome",64.5,-165.41],["osaka","Osaka","Asia/Tokyo",34.69,135.5],["oslo","Oslo","Europe/Oslo",59.91,10.75],["paris","Paris","Europe/Paris",48.85,2.35],["perth","Perth","Australia/Perth",-31.95,115.86],["philadelphia","Philadelphia","America/New_York",39.95,-75.17],["phoenix","Phoenix","America/Phoenix",33.45,-112.07],["portland","Portland","America/Los_Angeles",45.52,-122.68],["prague","Prague","Europe/Prague",50.08,14.44],["reykjavik","Reykjavík","Atlantic/Reykjavik",64.15,-21.94],["rio-de-janeiro","Rio de Janeiro","America/Sao_Paulo",-22.91,-43.17],["riyadh","Riyadh","Asia/Riyadh",24.71,46.68],["rome","Rome","Europe/Rome",41.9,12.5],["salt-lake-city","Salt Lake City","America/Denver",40.76,-111.89],["san-diego","San Diego","America/Los_Angeles",32.72,-117.16],["san-francisco","San Francisco","America/Los_Angeles",37.77,-122.42],["santiago","Santiago","America/Santiago",-33.45,-70.67],["sao-paulo","São Paulo","America/Sao_Paulo",-23.55,-46.63],["seattle","Seattle","America/Los_Angeles",47.61,-122.33],["seoul","Seoul","Asia/Seoul",37.57,126.98],["shanghai","Shanghai","Asia/Shanghai",31.23,121.47],["singapore","Singapore","Asia/Singapore",1.35,103.82],["stockholm","Stockholm","Europe/Stockholm",59.33,18.07],["sydney","Sydney","Australia/Sydney",-33.87,151.21],["taipei","Taipei","Asia/Taipei",25.03,121.57],["tel-aviv","Tel Aviv","Asia/Jerusalem",32.09,34.78],["tokyo","Tokyo","Asia/Tokyo",35.68,139.65],["toronto","Toronto","America/Toronto",43.65,-79.38],["vancouver","Vancouver","America/Vancouver",49.28,-123.12],["vienna","Vienna","Europe/Vienna",48.21,16.37],["warsaw","Warsaw","Europe/Warsaw",52.23,21.01],["washington-d-c","Washington, D.C.","America/New_York",38.91,-77.04],["zurich","Zurich","Europe/Zurich",47.38,8.54],["bali","Bali","Asia/Makassar",-8.41,115.19],["bar-harbor","Bar Harbor","America/New_York",44.39,-68.2],["cabo-san-lucas","Cabo San Lucas","America/Mazatlan",22.89,-109.91],["cancun","Cancún","America/Cancun",21.16,-86.85],["cannon-beach","Cannon Beach","America/Los_Angeles",45.89,-123.96],["dubrovnik","Dubrovnik","Europe/Zagreb",42.64,18.11],["ibiza","Ibiza","Europe/Madrid",38.91,1.43],["key-west","Key West","America/New_York",24.56,-81.78],["male","Malé","Indian/Maldives",4.18,73.51],["malibu","Malibu","America/Los_Angeles",34.03,-118.69],["marrakech","Marrakech","Africa/Casablanca",31.63,-7.99],["nice","Nice","Europe/Paris",43.7,7.27],["papeete","Papeete","Pacific/Tahiti",-17.54,-149.57],["phuket","Phuket","Asia/Bangkok",7.88,98.39],["queenstown","Queenstown","Pacific/Auckland",-45.03,168.66],["santorini","Santorini","Europe/Athens",36.39,25.46],["sedona","Sedona","America/Phoenix",34.87,-111.76],["zanzibar","Zanzibar","Africa/Dar_es_Salaam",-6.16,39.19],["pago-pago","Pago Pago","Pacific/Pago_Pago",-14.28,-170.7],["anchorage","Anchorage","America/Anchorage",61.22,-149.9],["halifax","Halifax","America/Halifax",44.65,-63.57],["st-john-s","St. John's","America/St_Johns",47.56,-52.71],["azores","Azores","Atlantic/Azores",37.74,-25.67],["tehran","Tehran","Asia/Tehran",35.69,51.39],["kabul","Kabul","Asia/Kabul",34.53,69.17],["dhaka","Dhaka","Asia/Dhaka",23.81,90.41],["adelaide","Adelaide","Australia/Adelaide",-34.93,138.6],["noumea","Nouméa","Pacific/Noumea",-22.28,166.46],["apia","Apia","Pacific/Apia",-13.83,-171.77]];
+  var TIDE={"boston":"boston-ma","honolulu":"honolulu-hi","los-angeles":"santa-monica-ca","miami":"miami-fl","new-orleans":"new-orleans-la","new-york":"new-york-ny","philadelphia":"philadelphia-pa","san-diego":"san-diego-ca","san-francisco":"san-francisco-ca","seattle":"seattle-wa","washington-d-c":"washington-dc","bar-harbor":"bar-harbor-me","cannon-beach":"astoria-or","key-west":"key-west-fl","malibu":"santa-monica-ca","pago-pago":"pago-pago-as","anchorage":"anchorage-ak","jacksonville-fl":"jacksonville-fl","baltimore-md":"baltimore-md","long-beach-ca":"los-angeles-ca","virginia-beach-va":"virginia-beach-va","oakland-ca":"alameda-ca","tampa-fl":"st-petersburg-fl","anaheim-ca":"newport-beach-ca","santa-ana-ca":"newport-beach-ca","corpus-christi-tx":"rockport-tx","newark-nj":"new-york-ny","jersey-city-nj":"new-york-ny","chula-vista-ca":"san-diego-ca","st-petersburg-fl":"st-petersburg-fl","norfolk-va":"norfolk-va","irvine-ca":"newport-beach-ca","hialeah-fl":"miami-fl","chesapeake-va":"norfolk-va","fremont-ca":"alameda-ca","tacoma-wa":"tacoma-wa","oxnard-ca":"santa-barbara-ca","yonkers-ny":"kings-point-ny","huntington-beach-ca":"newport-beach-ca","glendale-ca":"santa-monica-ca","mobile-al":"mobile-al","newport-news-va":"norfolk-va","brownsville-tx":"port-isabel-tx","santa-clarita-ca":"santa-monica-ca","providence-ri":"providence-ri","garden-grove-ca":"newport-beach-ca","oceanside-ca":"la-jolla-ca","fort-lauderdale-fl":"miami-fl","santa-rosa-ca":"point-reyes-ca","ontario-ca":"newport-beach-ca","cape-coral-fl":"fort-myers-fl","pembroke-pines-fl":"miami-fl","corona-ca":"newport-beach-ca","salinas-ca":"monterey-ca","hayward-ca":"alameda-ca","pomona-ca":"newport-beach-ca","alexandria-va":"washington-dc","escondido-ca":"la-jolla-ca","sunnyvale-ca":"alameda-ca","torrance-ca":"los-angeles-ca","bridgeport-ct":"bridgeport-ct","hollywood-fl":"miami-fl","paterson-nj":"new-york-ny","savannah-ga":"savannah-ga","orange-ca":"newport-beach-ca","pasadena-ca":"santa-monica-ca","fullerton-ca":"newport-beach-ca","hampton-va":"norfolk-va","bellevue-wa":"seattle-wa","new-haven-ct":"new-haven-ct","miramar-fl":"miami-fl","thousand-oaks-ca":"santa-monica-ca","charleston-sc":"charleston-sc","elizabeth-nj":"new-york-ny","coral-springs-fl":"palm-beach-fl","stamford-ct":"bridgeport-ct","simi-valley-ca":"santa-monica-ca","concord-ca":"alameda-ca","kent-wa":"tacoma-wa","santa-clara-ca":"alameda-ca","vallejo-ca":"alameda-ca","beaumont-tx":"sabine-pass-tx","berkeley-ca":"alameda-ca","el-monte-ca":"santa-monica-ca","downey-ca":"los-angeles-ca","costa-mesa-ca":"newport-beach-ca","wilmington-nc":"wilmington-nc","inglewood-ca":"santa-monica-ca","miami-gardens-fl":"miami-fl","carlsbad-ca":"la-jolla-ca","clearwater-fl":"clearwater-beach-fl","waterbury-ct":"new-haven-ct","lowell-ma":"boston-ma","ventura-ca":"santa-barbara-ca","west-covina-ca":"los-angeles-ca","richmond-ca":"san-francisco-ca","cambridge-ma":"boston-ma","antioch-ca":"alameda-ca","norwalk-ca":"los-angeles-ca","everett-wa":"seattle-wa","palm-bay-fl":"cape-canaveral-fl","daly-city-ca":"san-francisco-ca","burbank-ca":"santa-monica-ca","pompano-beach-fl":"palm-beach-fl","north-charleston-sc":"charleston-sc","west-palm-beach-fl":"palm-beach-fl","santa-maria-ca":"port-san-luis-ca","el-cajon-ca":"san-diego-ca","san-mateo-ca":"alameda-ca","pearland-tx":"galveston-tx","compton-ca":"los-angeles-ca","renton-wa":"seattle-wa","vista-ca":"la-jolla-ca","davie-fl":"miami-fl","mission-viejo-ca":"newport-beach-ca","portsmouth-va":"norfolk-va","south-gate-ca":"los-angeles-ca","new-bedford-ma":"woods-hole-ma","brockton-ma":"boston-ma","quincy-ma":"boston-ma","federal-way-wa":"tacoma-wa","carson-ca":"los-angeles-ca","santa-monica-ca":"santa-monica-ca","westminster-ca":"newport-beach-ca","lynn-ma":"boston-ma","miami-beach-fl":"miami-fl","league-city-tx":"galveston-tx","santa-barbara-ca":"santa-barbara-ca","plantation-fl":"miami-fl","sunrise-fl":"miami-fl","boca-raton-fl":"palm-beach-fl","san-marcos-ca":"la-jolla-ca","fall-river-ma":"providence-ri","newton-ma":"boston-ma","san-leandro-ca":"alameda-ca","norwalk-ct":"bridgeport-ct","newport-beach-ca":"newport-beach-ca","whittier-ca":"los-angeles-ca","hawthorne-ca":"santa-monica-ca","suffolk-va":"norfolk-va","clifton-nj":"new-york-ny","livermore-ca":"alameda-ca","alhambra-ca":"santa-monica-ca","kirkland-wa":"seattle-wa","trenton-nj":"philadelphia-pa","danbury-ct":"bridgeport-ct","buena-park-ca":"los-angeles-ca","bellingham-wa":"friday-harbor-wa","warwick-ri":"newport-ri","lakewood-ca":"los-angeles-ca","chino-ca":"newport-beach-ca","redwood-city-ca":"alameda-ca","cranston-ri":"providence-ri","new-rochelle-ny":"kings-point-ny","lake-forest-ca":"newport-beach-ca","somerville-ma":"boston-ma","palm-coast-fl":"st-augustine-fl","largo-fl":"clearwater-beach-fl","tustin-ca":"newport-beach-ca","deerfield-beach-fl":"palm-beach-fl","mountain-view-ca":"alameda-ca","lawrence-ma":"boston-ma","bellflower-ca":"los-angeles-ca","melbourne-fl":"cape-canaveral-fl","camden-nj":"philadelphia-pa","baldwin-park-ca":"los-angeles-ca","chino-hills-ca":"newport-beach-ca","alameda-ca":"alameda-ca","baytown-tx":"galveston-tx","mount-pleasant-sc":"charleston-sc","auburn-wa":"tacoma-wa","san-ramon-ca":"alameda-ca","pleasanton-ca":"alameda-ca","new-britain-ct":"new-haven-ct","union-city-ca":"alameda-ca","wilmington-de":"philadelphia-pa","lynwood-ca":"los-angeles-ca","pawtucket-ri":"providence-ri","boynton-beach-fl":"palm-beach-fl","gulfport-ms":"bay-st-louis-ms","passaic-nj":"new-york-ny","lauderhill-fl":"miami-fl","milpitas-ca":"alameda-ca","weston-fl":"miami-fl","union-city-nj":"new-york-ny","mount-vernon-ny":"kings-point-ny","fort-myers-fl":"fort-myers-fl","redondo-beach-ca":"los-angeles-ca","yorba-linda-ca":"newport-beach-ca","kenner-la":"new-orleans-la","walnut-creek-ca":"alameda-ca","pittsburg-ca":"alameda-ca","palo-alto-ca":"alameda-ca","portland-me":"portland-me","south-san-francisco-ca":"alameda-ca","camarillo-ca":"santa-monica-ca","gaithersburg-md":"washington-dc","harlingen-tx":"port-isabel-tx","san-clemente-ca":"newport-beach-ca","bayonne-nj":"new-york-ny","laguna-niguel-ca":"newport-beach-ca","east-orange-nj":"new-york-ny","homestead-fl":"miami-fl","delray-beach-fl":"palm-beach-fl","rockville-md":"washington-dc","pico-rivera-ca":"los-angeles-ca","montebello-ca":"santa-monica-ca","marysville-wa":"port-townsend-wa","tamarac-fl":"palm-beach-fl","santa-cruz-ca":"monterey-ca","waltham-ma":"boston-ma","haverhill-ma":"portsmouth-nh","la-habra-ca":"newport-beach-ca","encinitas-ca":"la-jolla-ca","monterey-park-ca":"santa-monica-ca","vineland-nj":"philadelphia-pa","north-miami-fl":"miami-fl","bristol-ct":"new-haven-ct","malden-ma":"boston-ma","meriden-ct":"new-haven-ct","wellington-fl":"palm-beach-fl","cupertino-ca":"alameda-ca","gardena-ca":"los-angeles-ca","national-city-ca":"san-diego-ca","petaluma-ca":"point-reyes-ca","lakewood-wa":"tacoma-wa","san-rafael-ca":"san-francisco-ca","huntington-park-ca":"santa-monica-ca","la-mesa-ca":"san-diego-ca","jupiter-fl":"palm-beach-fl","white-plains-ny":"kings-point-ny","arcadia-ca":"santa-monica-ca","redmond-wa":"seattle-wa","lake-elsinore-ca":"newport-beach-ca","medford-ma":"boston-ma","coconut-creek-fl":"palm-beach-fl","bowie-md":"washington-dc","fountain-valley-ca":"newport-beach-ca","diamond-bar-ca":"newport-beach-ca","santee-ca":"san-diego-ca","taunton-ma":"providence-ri","new-brunswick-nj":"sandy-hook-nj","margate-fl":"palm-beach-fl","weymouth-town-ma":"boston-ma","hempstead-ny":"kings-point-ny","eastvale-ca":"newport-beach-ca","west-haven-ct":"new-haven-ct","brentwood-ca":"alameda-ca","paramount-ca":"los-angeles-ca","shoreline-wa":"seattle-wa","rosemead-ca":"santa-monica-ca","novato-ca":"point-reyes-ca","port-arthur-tx":"sabine-pass-tx","revere-ma":"boston-ma","sarasota-fl":"st-petersburg-fl","pensacola-fl":"pensacola-fl","hoboken-nj":"new-york-ny","watsonville-ca":"monterey-ca","placentia-ca":"newport-beach-ca","west-new-york-nj":"new-york-ny","dublin-ca":"alameda-ca","peabody-ma":"boston-ma","perth-amboy-nj":"sandy-hook-nj","bradenton-fl":"st-petersburg-fl","gilroy-ca":"monterey-ca","milford-ct":"bridgeport-ct","palm-beach-gardens-fl":"palm-beach-fl","plainfield-nj":"new-york-ny","doral-fl":"miami-fl","aliso-viejo-ca":"newport-beach-ca","sammamish-wa":"seattle-wa","pinellas-park-fl":"st-petersburg-fl","burien-wa":"seattle-wa","cerritos-ca":"los-angeles-ca","coral-gables-fl":"miami-fl","poway-ca":"la-jolla-ca","rancho-santa-margarita-ca":"newport-beach-ca","la-mirada-ca":"los-angeles-ca","cypress-ca":"los-angeles-ca","galveston-tx":"galveston-tx","methuen-ma":"boston-ma","covina-ca":"los-angeles-ca","olympia-wa":"tacoma-wa","azusa-ca":"santa-monica-ca","leesburg-va":"washington-dc","bonita-springs-fl":"naples-fl","middletown-ct":"new-haven-ct","east-providence-ri":"providence-ri","san-luis-obispo-ca":"port-san-luis-ca","texas-city-tx":"galveston-tx","summerville-sc":"charleston-sc","lacey-wa":"tacoma-wa","biloxi-ms":"bay-st-louis-ms","barnstable-town-ma":"nantucket-ma","sayreville-nj":"sandy-hook-nj","titusville-fl":"cape-canaveral-fl","hackensack-nj":"new-york-ny","newark-ca":"alameda-ca","attleboro-ma":"providence-ri","danville-ca":"alameda-ca","cutler-bay-fl":"miami-fl","oakland-park-fl":"miami-fl","north-miami-beach-fl":"miami-fl","freeport-ny":"kings-point-ny","everett-ma":"boston-ma","bell-gardens-ca":"los-angeles-ca","north-lauderdale-fl":"palm-beach-fl","salem-ma":"boston-ma","rancho-palos-verdes-ca":"los-angeles-ca","san-bruno-ca":"alameda-ca","manassas-va":"washington-dc","kearny-nj":"new-york-ny","rohnert-park-ca":"point-reyes-ca","linden-nj":"new-york-ny","woonsocket-ri":"providence-ri","shelton-ct":"new-haven-ct","brea-ca":"newport-beach-ca","edmonds-wa":"seattle-wa","beverly-ma":"boston-ma","la-puente-ca":"los-angeles-ca","norwich-ct":"new-london-ct","san-gabriel-ca":"santa-monica-ca","goose-creek-sc":"charleston-sc","atlantic-city-nj":"atlantic-city-nj","culver-city-ca":"santa-monica-ca","marlborough-ma":"boston-ma","hilton-head-island-sc":"savannah-ga","woburn-ma":"boston-ma","bremerton-wa":"seattle-wa","annapolis-md":"annapolis-md","greenacres-fl":"palm-beach-fl","hallandale-beach-fl":"miami-fl","stanton-ca":"newport-beach-ca","puyallup-wa":"tacoma-wa","pacifica-ca":"san-francisco-ca","montclair-ca":"newport-beach-ca","chelsea-ma":"boston-ma","valley-stream-ny":"kings-point-ny","friendswood-tx":"galveston-tx","dover-de":"lewes-de","aventura-fl":"miami-fl","martinez-ca":"alameda-ca","monrovia-ca":"santa-monica-ca","panama-city-fl":"panama-city-fl"};
+  var CLOCK=["amsterdam","athens","atlanta","auckland","austin","baghdad","bangkok","barcelona","beijing","berlin","bogota","boston","brisbane","brussels","buenos-aires","cairo","calgary","cape-town","caracas","casablanca","chicago","copenhagen","dallas","delhi","denver","detroit","dubai","dublin","edinburgh","frankfurt","geneva","hanoi","havana","helsinki","ho-chi-minh-city","hong-kong","honolulu","houston","istanbul","jakarta","jerusalem","johannesburg","karachi","kathmandu","kyiv","kuala-lumpur","lagos","las-vegas","lima","lisbon","london","los-angeles","madrid","manila","melbourne","mexico-city","miami","milan","minneapolis","montreal","moscow","mumbai","nairobi","nashville","new-orleans","new-york","osaka","oslo","paris","perth","philadelphia","phoenix","portland","prague","reykjavik","rio-de-janeiro","riyadh","rome","salt-lake-city","san-diego","san-francisco","santiago","sao-paulo","seattle","seoul","shanghai","singapore","stockholm","sydney","taipei","tel-aviv","tokyo","toronto","vancouver","vienna","warsaw","washington-d-c","zurich","pago-pago","anchorage","halifax","st-john-s","azores","tehran","kabul","dhaka","adelaide","noumea","apia"];
+  var SPAN_MIN={day:1440,week:10080,month:43200,year:525600}, SPAN_STEP={day:1,week:5,month:15,year:360};
+  var IDX=null;                       /* /sun/cities.json, fetched on demand  */
+  var P=null;                         /* the place: {slug,name,tz,lat,lon}    */
+  var START=null, SPAN='day', OFF=0, PLAY=0;
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function fmt(ms,o){ try{ var x={}; for(var k in o) x[k]=o[k]; x.timeZone=P.tz;
+    return new Intl.DateTimeFormat('en-US',x).format(new Date(ms)); }catch(e){ return '—'; } }
+  function when(){ return START+OFF*60000; }
+  function dayStart(ms){ var t=orrParse(orrDayOf(ms,P.tz)+'T00:00',P.tz); return t==null?ms:t; }
+
+  /* ---- location ---------------------------------------------------------- */
+  function setPlace(p){
+    P=p;
+    $('sim-place').textContent=p.name;
+    /* the coordinates, linked to the exact spot on a map. The time zone used to
+       share this line and has gone: it is already in the read-out and in the
+       page's own text, and what a reader might DO with a latitude is look at
+       where it is. */
+    var gl=$('sim-geolink');
+    if(gl){ gl.textContent=p.lat.toFixed(3)+'\u00b0, '+p.lon.toFixed(3)+'\u00b0';
+      gl.href='https://www.google.com/maps/search/?api=1&query='+p.lat.toFixed(4)+','+p.lon.toFixed(4);
+      gl.title=p.noTz?'No time zone in the link, so times use your device\u2019s zone':'Open this spot on a map'; }
+    var pk=$('sim-pick'); if(pk) pk.textContent=p.name;
+    links(); repaint();
+  }
+  function fromParams(){
+    var q; try{ q=new URLSearchParams(location.search); }catch(e){ return null; }
+    var la=parseFloat(q.get('lat')), lo=parseFloat(q.get('lon'));
+    if(isFinite(la)&&isFinite(lo)) return { slug:q.get('city')||null, name:q.get('name')||(la.toFixed(2)+', '+lo.toFixed(2)),
+      tz:q.get('tz')||devTz(), noTz:!q.get('tz'), lat:la, lon:lo };
+    var c=q.get('city'); if(c){ var hit=find(c); if(hit) return hit; }
+    return null;
+  }
+  function find(key){
+    key=String(key||'').toLowerCase().trim();
+    var lists=[SEED].concat(IDX?[IDX]:[]), i, j;
+    for(i=0;i<lists.length;i++) for(j=0;j<lists[i].length;j++){
+      var r=lists[i][j];
+      if(r[0]===key||r[1].toLowerCase()===key) return row(r);
+    }
+    return null;
+  }
+  function row(r){ return { slug:r[0], name:r[1], tz:r[2], lat:r[3], lon:r[4] }; }
+  function devTz(){ try{ return Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC'; }catch(e){ return 'UTC'; } }
+  /* no link, no saved place: match the visitor's own zone, preferring the city
+     the zone is NAMED after (America/New_York -> New York), as /sun/ does */
+  function byZone(){
+    var tz=devTz(), named=tz.split('/').pop().toLowerCase().replace(/_/g,'-'), first=null, i;
+    for(i=0;i<SEED.length;i++){ if(SEED[i][2]!==tz) continue;
+      if(SEED[i][0]===named) return row(SEED[i]); if(!first) first=SEED[i]; }
+    if(first) return row(first);
+    /* no curated city in that exact zone (America/Indiana/Indianapolis, say):
+       take one showing the same clock right now, which is the same fallback the
+       /sun/ hub uses. Failing that, New York rather than whatever happens to be
+       first alphabetically. */
+    var mine=clockIn(tz);
+    for(i=0;i<SEED.length;i++) if(clockIn(SEED[i][2])===mine) return row(SEED[i]);
+    for(i=0;i<SEED.length;i++) if(SEED[i][0]==='new-york') return row(SEED[i]);
+    return row(SEED[0]);
+  }
+  function clockIn(z){ try{ return new Intl.DateTimeFormat('en-GB',{timeZone:z,hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date()); }catch(e){ return ''; } }
+
+  /* ---- the family links for whatever place is showing -------------------- */
+  function links(){
+    var box=$('sim-links'); if(!box) return;
+    var lp=$('sim-links-place'); if(lp) lp.textContent=P.name;
+    var s=P.slug, out='';
+    if(s){
+      out+='<a class="chip" href="/sun/'+s+'/">Sunrise &amp; sunset in '+esc(P.name)+'</a>';
+      out+='<a class="chip" href="/moon/'+s+'/">Moonrise, moonset &amp; phase</a>';
+      if(TIDE[s]) out+='<a class="chip" href="/tides/'+TIDE[s]+'/">Predicted tide times</a>';
+      for(var i=0;i<CLOCK.length;i++) if(CLOCK[i]===s){ out+='<a class="chip" href="/world-clock/'+s+'/">World clock</a>'; break; }
+    } else {
+      out+='<a class="chip" href="/sun/anywhere/?lat='+P.lat+'&lon='+P.lon+'">Sun times for this spot</a>';
+      out+='<a class="chip" href="/moon/near-me/?lat='+P.lat+'&lon='+P.lon+'">Moon times for this spot</a>';
+    }
+    box.innerHTML=out;
+  }
+
+  /* THE FRAME'S WIDTH IS THE BOX'S WIDTH. The drawing's HEIGHT is fixed, so
+     every body in it is a fixed size; asking for a wider frame does one thing,
+     which is put more sky between the sun and the Earth. Handing it the box's
+     own ratio therefore fills the box exactly — no letterboxing — without
+     changing the size of anything in it, and the extra distance is the most
+     wrong figure in the picture getting less wrong.
+     Only worth doing where the box has a height of its own to be measured
+     against: in the card it does not (height comes FROM the drawing), so the
+     default 16:9 stands and this returns 0. */
+  function figW(){
+    var f=$('sim-fig'); if(!f) return 0;
+    var r=f.getBoundingClientRect();
+    if(!r.width||!r.height) return 0;
+    var ratio=r.width/r.height;
+    if(ratio<=480/270) return 0;              /* taller box: the default fits */
+    return Math.round(270*ratio);
+  }
+
+  /* ---- paint ------------------------------------------------------------- */
+  function repaint(){
+    var t=when();
+    $('sim-fig').innerHTML=orrSvg(t,P.lat,P.lon,P.name.split(',')[0],figW());
+    $('sim-note').innerHTML=orrNote(t,P.lat,P.lon,P.name.split(',')[0],false);
+    /* the instant, in the PLACE's clock — the only clock this page uses */
+    /* THE HOUR IS INFORMATION ONLY WHILE THE SLIDER COVERS A DAY. Over a week
+       or a month it is noise — and noise that changes width on every frame,
+       which is what made the whole row shuffle sideways as the picture played.
+       The stage carries the state as a class so the fixed field widths below
+       can be sized for the format actually in use. */
+    var TIMED=SPAN==='day';
+    var st=$('sim-stage'); if(st) st.classList[TIMED?'add':'remove']('sim-timed');
+    $('sim-when').textContent=fmt(t,TIMED
+      ?{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}
+      :{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+    var sp=sunPos(t), mp=mnPos(t,P.lat,P.lon), il=mnIllum(t), g=orrCalc(t,P.lat,P.lon);
+    put('sim-sun-alt',sp.alt.toFixed(1)+'\u00b0'); put('sim-sun-az',sp.az.toFixed(1)+'\u00b0 '+mnCompass(sp.az));
+    put('sim-moon-alt',mp.alt.toFixed(1)+'\u00b0'); put('sim-moon-az',mp.az.toFixed(1)+'\u00b0 '+mnCompass(mp.az));
+    put('sim-elong',Math.round(g.elong)+'\u00b0');
+    put('sim-phase',mnName(il.phase)); put('sim-lit',Math.round(il.fraction*100)+'%');
+    $('sim-glyph').innerHTML=mnGlyph(il.fraction,il.waxing,56,P.lat<0);
+    /* the full-screen copy: same instant, same solver, sized by CSS */
+    var fg=$('sim-fsglyph'); if(fg) fg.innerHTML=mnGlyph(il.fraction,il.waxing,56,P.lat<0);
+    put('sim-fsphase',mnName(il.phase)); put('sim-fslit',Math.round(il.fraction*100)+'%');
+    put('sim-moonwhen',fmt(t,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}));
+    /* the day the instant falls in: sun and moon rise/set, and day length */
+    var d0=dayStart(t), sc=sunCalc(new Date(t),P.lat,P.lon,-0.833), mt=mnTimes(d0,P.lat,P.lon);
+    put('sim-rise', sc.rise?fmt(sc.rise,{hour:'numeric',minute:'2-digit'}):'—');
+    put('sim-set', sc.set?fmt(sc.set,{hour:'numeric',minute:'2-digit'}):'—');
+    put('sim-len', sc.rise?dur(sc.set-sc.rise):'Midnight sun / polar night');
+    put('sim-mrise', mt.rise?fmt(mt.rise,{hour:'numeric',minute:'2-digit'}):(mt.alwaysUp?'up all day':'—'));
+    put('sim-mset', mt.set?fmt(mt.set,{hour:'numeric',minute:'2-digit'}):(mt.alwaysDown?'down all day':'—'));
+    /* the controls, kept in step with the state they describe */
+    var f=$('sim-start'); if(f&&!(dlg&&dlg.open)) f.value=orrLocalValue(START,P.tz);
+    var sl=$('sim-slider');
+    if(sl){ sl.max=SPAN_MIN[SPAN]; sl.step=SPAN_STEP[SPAN]; if(document.activeElement!==sl) sl.value=OFF; }
+    var ENDF=TIMED?{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}:{month:'short',day:'numeric'};
+    $('sim-from').textContent=fmt(START,ENDF);
+    $('sim-to').textContent=fmt(START+SPAN_MIN[SPAN]*60000,ENDF);
+    shareUrl();
+  }
+  function put(id,v){ var el=$(id); if(el) el.textContent=v; }
+  function dur(ms){ var m=Math.round(ms/60000); return Math.floor(m/60)+' h '+(m%60)+' m'; }
+  /* the sun's own position, from the same series MOON_CORE uses for the moon,
+     so the two bodies in the read-out cannot come from different solvers */
+  function sunPos(ms){
+    var d=mnDays(ms), s=mnSunPos(d), lw=MN_RAD*-P.lon, phi=MN_RAD*P.lat, H=mnSidereal(d,lw)-s.ra;
+    var az=Math.atan2(Math.sin(H), Math.cos(H)*Math.sin(phi)-Math.tan(s.dec)*Math.cos(phi));
+    return { alt:mnAlt(H,phi,s.dec)/MN_RAD, az:((az/MN_RAD+180)%360+360)%360 };
+  }
+  /* sunrise/sunset for the shown day: the same -0.833° crossing the /sun/ pages
+     solve for, by the same hourly-sample-then-refine method */
+  function sunCalc(date,lat,lon,h){
+    var d0=dayStart(date.getTime()), out={rise:null,set:null}, prev=null, i;
+    for(i=0;i<=1440;i+=5){
+      var t=d0+i*60000, al=(function(){ var dd=mnDays(t), s=mnSunPos(dd), lw=MN_RAD*-lon, phi=MN_RAD*lat;
+        return mnAlt(mnSidereal(dd,lw)-s.ra,phi,s.dec)/MN_RAD; })();
+      if(prev!==null){
+        if(prev<h&&al>=h) out.rise=refine(t-300000,t,lat,lon,h);
+        if(prev>=h&&al<h) out.set=refine(t-300000,t,lat,lon,h);
+      }
+      prev=al;
+    }
+    return out;
+  }
+  function refine(a,b,lat,lon,h){
+    for(var k=0;k<14;k++){ var m=(a+b)/2, dd=mnDays(m), s=mnSunPos(dd);
+      var al=mnAlt(mnSidereal(dd,MN_RAD*-lon)-s.ra,MN_RAD*lat,s.dec)/MN_RAD;
+      var alA=(function(){ var da=mnDays(a), sa=mnSunPos(da);
+        return mnAlt(mnSidereal(da,MN_RAD*-lon)-sa.ra,MN_RAD*lat,sa.dec)/MN_RAD; })();
+      if((alA<h)===(al<h)) a=m; else b=m; }
+    return (a+b)/2;
+  }
+
+  /* ---- the address bar --------------------------------------------------- */
+  /* Rewritten as the controls move, so the URL a reader copies out of the bar
+     is always the sky they are looking at. The builder card below composes its
+     own URL from its own fields — the two are separate on purpose, because a
+     builder that could only ever describe the current view would not be a
+     builder. */
+  function linkFor(place,startMs,span){
+    var v=orrLocalValue(startMs,place.tz), q=[];
+    if(place.slug) q.push('city='+encodeURIComponent(place.slug));
+    else q.push('lat='+place.lat+'&lon='+place.lon+'&tz='+encodeURIComponent(place.tz)+'&name='+encodeURIComponent(place.name));
+    q.push('date='+v.slice(0,10)); q.push('time='+v.slice(11)); q.push('span='+span);
+    return location.origin+'/sun-moon-earth-movement-simulator/'+(place.slug?place.slug+'/':'')+'?'+q.join('&');
+  }
+  /* The BUILDER stays in step on every repaint (it is a few property writes).
+     The ADDRESS BAR does not: Safari rate-limits history.replaceState to 100
+     calls per 30 seconds and throws past that, which the 40ms Play loop
+     exhausted in about four seconds — after which the catch swallowed the error
+     and the URL silently stopped tracking the view, which is the one thing this
+     page promises about its URL. So it is debounced, and skipped while Play
+     runs; stop() writes the final one. */
+  var URLT=0;
+  function shareUrl(){
+    if(!PLAY){
+      if(URLT) clearTimeout(URLT);
+      URLT=setTimeout(function(){ URLT=0; try{ history.replaceState(null,'',linkFor(P,START,SPAN)); }catch(e){} },500);
+    }
+    bSync();
+  }
+
+  /* ---- the link builder --------------------------------------------------- */
+  var bDirty=false;
+  function bCities(){ return IDX||SEED; }
+  function bFill(){
+    var sel=$('b-city'); if(!sel) return;
+    var want=sel.value, pool=bCities(), out='', i;
+    /* the place on screen always heads the list, because it may be a set of
+       coordinates or a census city that is not in the seeded 128 */
+    out+='<option value="'+(P.slug||'@')+'">'+esc(P.name)+'</option>';
+    for(i=0;i<pool.length;i++) if(pool[i][0]!==P.slug) out+='<option value="'+pool[i][0]+'">'+esc(pool[i][1])+'</option>';
+    sel.innerHTML=out;
+    if(want) sel.value=want;
+    if(!sel.value) sel.selectedIndex=0;
+  }
+  function bPlace(){
+    var v=$('b-city').value;
+    if(v==='@'||v===P.slug) return P;
+    var hit=find(v); return hit||P;
+  }
+  /* keep the form on the view until someone edits it; then it is theirs */
+  function bSync(){
+    if(!$('b-city')) return;
+    if(!bDirty){
+      bFill();
+      $('b-city').value=P.slug||'@';
+      var v=orrLocalValue(START,P.tz);
+      $('b-date').value=v.slice(0,10); $('b-time').value=v.slice(11); $('b-span').value=SPAN;
+    }
+    bUpdate();
+  }
+  function bUpdate(){
+    var out=$('sim-url'), sum=$('b-sum'); if(!out) return;
+    var pl=bPlace(), d=$('b-date').value, tm=$('b-time').value||'12:00', sp=$('b-span').value;
+    var t=d?orrParse(d+'T'+tm,pl.tz):null;
+    if(t==null){ out.value=''; if(sum) sum.innerHTML='Pick a starting date to build a link.'; return; }
+    out.value=linkFor(pl,t,sp);
+    if(!sum) return;
+    /* The check, in words. Every figure the URL encodes is repeated here in a
+       readable form, plus what the sky actually does at that instant — which is
+       the part that catches a link built for the wrong month or the wrong
+       hemisphere before it is sent to thirty people. */
+    var f=function(o){ try{ var x={}; for(var k in o) x[k]=o[k]; x.timeZone=pl.tz;
+      return new Intl.DateTimeFormat('en-US',x).format(new Date(t)); }catch(e){ return '—'; } };
+    var il=mnIllum(t), g=orrCalc(t,pl.lat,pl.lon);
+    var spanWords={day:'one day',week:'seven days',month:'30 days',year:'a year'}[sp]||sp;
+    sum.innerHTML='Opens the simulator for <b>'+esc(pl.name)+'</b>, starting <b>'
+      +esc(f({weekday:'long',month:'long',day:'numeric',year:'numeric'}))+'</b> at <b>'
+      +esc(f({hour:'numeric',minute:'2-digit'}))+'</b> local time, with the slider covering <b>'+spanWords+'</b>. '
+      +'At that moment the moon there is a <b>'+esc(mnName(il.phase).toLowerCase())+'</b>, <b>'
+      +Math.round(il.fraction*100)+'%</b> lit, and the sun is <b>'+Math.abs(g.sunAlt).toFixed(1)+'°</b> '
+      +(g.sunAlt>0?'above':'below')+' the horizon.';
+  }
+
+  /* ---- boot -------------------------------------------------------------- */
+  P=fromParams()||(window.AC_SIM_C||null)||byZone();
+  var q0=null; try{ q0=new URLSearchParams(location.search); }catch(e){}
+  /* THE MONTH IS THE DEFAULT. A day shows the Earth turning, which the card on
+     every /sun/ and /moon/ page already shows; what this page is for is the
+     thing a day cannot contain — the moon going right round, and the phase
+     going with it. Landing on a month means the first drag teaches that. */
+  SPAN=(q0&&SPAN_MIN[q0.get('span')])?q0.get('span'):'month';
+  var d=q0&&q0.get('date'), tm=(q0&&q0.get('time'))||'12:00';
+  START=(d&&orrParse(d+'T'+tm,P.tz))||Date.now()-(Date.now()%60000);
+  $('sim-span').value=SPAN;   /* the dialog sets it too, but not before it opens */
+  /* The controls shipped disabled (and Now / Use my location hidden) because
+     without this script not one of them could do anything, and a control that
+     silently does nothing is worse than no control. This is where they become
+     real — before the first repaint, so nothing is ever briefly live-but-wrong. */
+  var inert=document.querySelectorAll('[data-sim-inert]');
+  for(var ni=0;ni<inert.length;ni++){ inert[ni].disabled=false; inert[ni].removeAttribute('hidden'); inert[ni].removeAttribute('data-sim-inert'); }
+  setPlace(P);
+
+  /* controls */
+  $('sim-slider').addEventListener('input',function(){ OFF=+this.value||0; stop(); repaint(); });
+  $('sim-now').addEventListener('click',function(){ START=Date.now()-(Date.now()%60000); OFF=0; stop(); repaint(); });
+  /* Play sweeps the span in about 25 seconds — nobody drags a slider slowly
+     enough to read the moon's month — but NOT FASTER THAN ONE SIMULATED DAY
+     PER REAL SECOND. A fixed 25-second sweep works up to a month and falls
+     apart over a year: 365 days in 25 seconds is about 15 days a second, which
+     spins the Earth 15 times a second and swings the moon through half an orbit
+     in the same time. Both are past the point where an eye can follow either,
+     and following them is the entire purpose.
+
+     One day per second is the floor an Earth-rotation is still legible at, so
+     that is the cap. A day still takes 24 s and a week 24 s; a month goes from
+     24 s to 30 s, and a year takes about six minutes to play right through —
+     which is the honest cost of a year actually being watchable, and the slider
+     is still there for anyone who would rather jump. */
+  var PLAY_FPS=25, PLAY_MAXMIN=1440;      /* simulated minutes per real second */
+  function playStep(){ return Math.min(SPAN_MIN[SPAN]/600, PLAY_MAXMIN/PLAY_FPS); }
+  /* the city name and its leader line are hidden for the duration — see
+     .orr-spin in 20d2-orrery.css for why. The class goes on the CONTAINER, not
+     on the SVG, because repaint() replaces the SVG's contents 25 times a
+     second and anything set on it would be gone by the next frame. */
+  function spin(on){ var f=$('sim-fig'); if(f) f.classList[on?'add':'remove']('orr-spin'); }
+  function stop(){ if(PLAY){ clearInterval(PLAY); PLAY=0; spin(false);
+    var b=$('sim-play'); b.textContent='Play'; b.setAttribute('aria-pressed','false'); shareUrl(); } }
+  $('sim-play').addEventListener('click',function(){
+    if(PLAY){ stop(); return; }
+    this.textContent='Pause'; this.setAttribute('aria-pressed','true'); spin(true);
+    PLAY=setInterval(function(){
+      OFF+=playStep();
+      if(OFF>SPAN_MIN[SPAN]){
+        if(LOOP){ OFF=0; }
+        else { OFF=SPAN_MIN[SPAN]; repaint(); stop(); return; }   /* rest at the end */
+      }
+      repaint();
+    },1000/PLAY_FPS);      /* the same 25 the cap above is worked out against */
+  });
+  /* jump to the next primary phase — the moment a class actually wants to see */
+  var jumps=document.querySelectorAll('[data-sim-phase]');
+  for(var i=0;i<jumps.length;i++) jumps[i].addEventListener('click',function(){
+    var t=mnNextPhase(when(),+this.getAttribute('data-sim-phase'));
+    /* land ON the phase and keep whatever span is set: someone who chose a
+       month wants to carry on watching the month from there */
+    START=t-30*60000; OFF=30; stop(); repaint();
+  });
+
+  /* ---- the settings dialog --------------------------------------------
+     It applies on SAVE, so nothing half-typed repaints the picture. DRAFT is
+     the staged place; null means "unchanged". Cancel and Escape drop it. */
+  var dlg=$('sim-dialog'), DRAFT=null;
+  /* Play loops by default. Over a year that IS the point — the seasons come
+     round — but someone watching for one particular thing wants it to stop at
+     the end rather than start again behind their back. */
+  var LOOP=true;
+  function openSettings(){
+    if(!dlg) return;
+    DRAFT=null;
+    $('sim-pick').textContent=P.name;
+    $('sim-start').value=orrLocalValue(START,P.tz);
+    $('sim-span').value=SPAN;
+    if($('sim-loop')) $('sim-loop').checked=LOOP;
+    if(box){ box.value=''; }
+    if(GTIMER){ clearTimeout(GTIMER); GTIMER=0; }
+    GSEQ++; GROWS=[]; GBUSY=false; GDONE=false;
+    if(list){ list.innerHTML=''; list.hidden=true; }
+    /* the geocoder is not certain to be called from any page load, so it gets
+       no preconnect in the head — but once this dialog is open a search is the
+       likely next act, which is the moment to warm the handshake */
+    if(!GWARM){ GWARM=1; try{ var pl=document.createElement('link');
+      pl.rel='preconnect'; pl.href='https://geocoding-api.open-meteo.com'; pl.crossOrigin='';
+      document.head.appendChild(pl); }catch(e){} }
+    if(dlg.showModal) dlg.showModal(); else dlg.setAttribute('open','');
+  }
+  function closeSettings(){ if(!dlg) return; if(dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
+  function saveSettings(){
+    var place=DRAFT||P;
+    var sp=$('sim-span').value; if(SPAN_MIN[sp]) SPAN=sp;
+    if($('sim-loop')) LOOP=$('sim-loop').checked;
+    /* the date is read in the SAVED place's zone, not the old one, or moving
+       from Tokyo to Denver would shift the instant by the zone difference */
+    var t=orrParse($('sim-start').value,place.tz);
+    if(t!=null) START=t;
+    if(OFF>SPAN_MIN[SPAN]) OFF=SPAN_MIN[SPAN];
+    stop();
+    DRAFT=null;
+    setPlace(place);            /* repaints, and rewrites the header + links */
+    closeSettings();
+  }
+  if($('sim-cfg')) $('sim-cfg').addEventListener('click',openSettings);
+  if($('sim-cancel')) $('sim-cancel').addEventListener('click',closeSettings);
+  if($('sim-form')) $('sim-form').addEventListener('submit',function(e){ e.preventDefault(); saveSettings(); });
+
+  /* ---- full screen ------------------------------------------------------
+     The stage element goes full screen, not the page: it already carries the
+     picture, the instant, the buttons and the slider, so the full-screen view
+     is the same markup and the same layout rather than a second design.
+     On a phone the useful orientation is landscape and the phone is being held
+     portrait, so ask the browser to lock it. Android honours that; iOS does
+     not, and there the stylesheet rotates the stage a quarter turn instead —
+     the two compose, because a successful lock stops the portrait media query
+     from matching in the first place. */
+  var stage=$('sim-stage'), fsBtn=$('sim-fs');
+  function fsOn(){ return document.fullscreenElement===stage||document.webkitFullscreenElement===stage; }
+  function fsSync(){
+    if(!fsBtn) return;
+    var on=fsOn();
+    fsBtn.setAttribute('aria-pressed',on?'true':'false');
+    var lab=fsBtn.querySelector('.sim-fslab'); if(lab) lab.textContent=on?'Exit full screen':'Full screen';
+    /* the text is hidden on a narrow screen, so the label has to say it too */
+    fsBtn.setAttribute('aria-label',on?'Exit full screen':'Full screen');
+  }
+  function toggleFs(){
+    if(!stage) return;
+    if(fsOn()){
+      try{ if(screen.orientation&&screen.orientation.unlock) screen.orientation.unlock(); }catch(e){}
+      (document.exitFullscreen||document.webkitExitFullscreen||function(){}).call(document);
+      return;
+    }
+    var req=stage.requestFullscreen||stage.webkitRequestFullscreen;
+    if(!req) return;
+    var r=req.call(stage);
+    /* lock() rejects on desktop and on iOS; that is expected, not an error */
+    if(r&&r.then) r.then(function(){ try{ screen.orientation.lock('landscape')['catch'](function(){}); }catch(e){} },function(){});
+  }
+  if(fsBtn&&(stage.requestFullscreen||stage.webkitRequestFullscreen)) fsBtn.addEventListener('click',toggleFs);
+  else if(fsBtn) fsBtn.hidden=true;
+  function fsChanged(){ fsSync(); repaint(); }   /* the box just changed shape */
+  /* ?fs=1 means "opened from a Full screen link" on the home page. Full screen
+     NEEDS a user gesture and a navigation is not one, so this arms the next tap
+     or key press rather than trying on load and being refused. Once only. */
+  if(q0&&q0.get('fs')&&stage){
+    var armFs=function(){ document.removeEventListener('pointerdown',armFs); document.removeEventListener('keydown',armFs); toggleFs(); };
+    document.addEventListener('pointerdown',armFs); document.addEventListener('keydown',armFs);
+  }
+  document.addEventListener('fullscreenchange',fsChanged);
+  document.addEventListener('webkitfullscreenchange',fsChanged);
+  /* ...and when the window is resized or the phone is turned. Debounced,
+     because a repaint is a whole SVG and a drag of a desktop window edge fires
+     this every frame. */
+  var RSZ=0;
+  window.addEventListener('resize',function(){
+    if(RSZ) clearTimeout(RSZ);
+    RSZ=setTimeout(function(){ RSZ=0; repaint(); },180);
+  });
+
+  /* search: the seed answers instantly, the full index loads on first keystroke */
+  var box=$('sim-q'), list=$('sim-results');
+  function local(v){
+    v=v.toLowerCase().trim();
+    if(!v) return [];
+    var pool=IDX||SEED, out=[], i;
+    for(i=0;i<pool.length&&out.length<8;i++) if(pool[i][1].toLowerCase().indexOf(v)===0) out.push(pool[i]);
+    for(i=0;i<pool.length&&out.length<8;i++) if(pool[i][1].toLowerCase().indexOf(v)>0) out.push(pool[i]);
+    return out;
+  }
+  /* ANYWHERE, NOT JUST THE 1,103 PLACES WITH A PAGE. The index is the cities
+     this site publishes a simulator page for, which is a fine list of pages and
+     a poor answer to "where are you": Truckee, Bruges, Inverness and Ushuaia
+     are all real places and none of them are in it, and "no results" for a town
+     someone lives in reads as broken.
+
+     So when the local index comes up empty, the query goes to Open-Meteo's
+     keyless geocoder — the same one /sun/, /moon/ and /tides/ already use, so
+     this adds no new dependency — and the hits join the list. Picking one
+     stages a place with NO SLUG, which every consumer already handles because
+     "Use my location" has always produced one: the picture takes latitude and
+     longitude, the read-out takes the IANA zone the geocoder returns, and the
+     onward links fall back to /sun/anywhere/ and /moon/near-me/.
+
+     Local matches always come first and the call only fires when there are
+     none, so a search for a city that HAS a page still reaches the page. */
+  var GSEQ=0, GTIMER=0, GROWS=[], GBUSY=false, GDONE=false, GWARM=0;
+  function geoSearch(v){
+    var seq=++GSEQ; GBUSY=true; GDONE=false;
+    fetch('https://geocoding-api.open-meteo.com/v1/search?name='+encodeURIComponent(v)+'&count=10&language=en&format=json')
+      .then(function(r){ return r.json(); })
+      .then(function(j){ if(seq!==GSEQ) return; GBUSY=false; GDONE=true;
+        GROWS=(j.results||[]).slice(0,6).map(function(g){
+          /* the region is dropped when it just repeats the name — Open-Meteo
+             returns admin1 "Kyoto" for Kyoto, and "Kyoto, Kyoto" reads as a bug */
+          var nm=g.name+(g.admin1&&g.admin1!==g.name?', '+g.admin1:'');
+          return { slug:null, name:nm+(g.country_code&&g.country_code!=='US'?'\u2002\u00b7\u2002'+g.country_code:''),
+                   tz:g.timezone||devTz(), lat:+g.latitude.toFixed(4), lon:+g.longitude.toFixed(4) };
+        });
+        render(); })
+      ["catch"](function(){ if(seq!==GSEQ) return; GBUSY=false; GDONE=true; GROWS=[]; render(); });
+  }
+  function render(){
+    if(!list) return;
+    var raw=box.value.trim();
+    if(!raw){ list.innerHTML=''; list.hidden=true; return; }
+    var out=local(raw), html='', i;
+    for(i=0;i<out.length;i++) html+='<li><button type="button" data-slug="'+out[i][0]+'">'+esc(out[i][1])+'</button></li>';
+    for(i=0;i<GROWS.length;i++) html+='<li><button type="button" data-geo="'+i+'">'+esc(GROWS[i].name)+'</button></li>';
+    /* a search that found nothing has to SAY so, or the list just vanishes and
+       the reader cannot tell a miss from a spelling mistake from a dead network */
+    if(!html&&raw.length>=3) html='<li class="sim-noresult">'+(GBUSY||!GDONE?'Searching the map\u2026'
+      :'No place found for \u201c'+esc(raw)+'\u201d \u2014 check the spelling, or try a larger town nearby.')+'</li>';
+    list.innerHTML=html;
+    list.hidden=!html;
+  }
+  if(box){
+    box.addEventListener('input',function(){
+      if(!IDX) fetch('/sun/cities.json').then(function(r){ return r.json(); })
+        .then(function(j){ IDX=j; render(); })["catch"](function(){});
+      GROWS=[]; GDONE=false;
+      if(GTIMER) clearTimeout(GTIMER);
+      var v=box.value.trim();
+      /* debounced, and only when the index has nothing — one request per pause
+         in typing, none at all for a city that is already on the list */
+      if(v.length>=3) GTIMER=setTimeout(function(){
+        if(!local(box.value).length){ geoSearch(box.value.trim()); render(); }
+      },350);
+      render();
+    });
+    list.addEventListener('click',function(e){
+      var b=e.target.closest('button[data-slug],button[data-geo]'); if(!b) return;
+      var g=b.getAttribute('data-geo');
+      var hit=g!=null?GROWS[+g]:find(b.getAttribute('data-slug'));
+      /* staged, not applied — Save is what commits it */
+      if(hit){ DRAFT=hit; $('sim-pick').textContent=hit.name; box.value=''; GROWS=[]; list.innerHTML=''; list.hidden=true; }
+    });
+    /* a results list you can only reach with a mouse is not a results list.
+       Down/Up walk it, Enter takes the focused one, Escape closes and hands
+       focus back to the box. */
+    function items(){ return list.querySelectorAll('button[data-slug],button[data-geo]'); }
+    function step(n){
+      var els=items(); if(!els.length) return;
+      var at=-1, i; for(i=0;i<els.length;i++) if(els[i]===document.activeElement) at=i;
+      var next=at+n; if(next<0) next=els.length-1; if(next>=els.length) next=0;
+      els[next].focus();
+    }
+    function onKey(e){
+      if(e.key==='Escape'){ list.hidden=true; box.focus(); return; }
+      if(list.hidden) return;
+      if(e.key==='ArrowDown'){ e.preventDefault(); step(1); }
+      else if(e.key==='ArrowUp'){ e.preventDefault(); step(-1); }
+    }
+    box.addEventListener('keydown',onKey);
+    list.addEventListener('keydown',onKey);
+  }
+  var geo=$('sim-geo');
+  if(geo&&navigator.geolocation){ geo.hidden=false; geo.addEventListener('click',function(){
+    geo.textContent='Locating\u2026';
+    navigator.geolocation.getCurrentPosition(function(p){
+      geo.textContent='Use my location';
+      DRAFT={ slug:null, name:'My location', tz:devTz(), lat:+p.coords.latitude.toFixed(4), lon:+p.coords.longitude.toFixed(4) };
+      $('sim-pick').textContent=DRAFT.name;
+    },function(){ geo.textContent='Location unavailable'; });
+  }); } else if(geo) geo.hidden=true;
+
+  /* the link builder: the same URL the address bar already holds, on demand */
+  var bIds=['b-city','b-date','b-time','b-span'];
+  for(var bi=0;bi<bIds.length;bi++){ var el=$(bIds[bi]); if(!el) continue;
+    el.addEventListener('change',function(){ bDirty=true; bUpdate(); });
+    el.addEventListener('input',function(){ bDirty=true; bUpdate(); }); }
+  var bs=$('b-sync');
+  if(bs) bs.addEventListener('click',function(){ bDirty=false; bSync(); });
+  /* the full city list is worth having in the dropdown, so fetch it the moment
+     someone opens it rather than only when they type in the search box */
+  var bc=$('b-city');
+  if(bc) bc.addEventListener('focus',function(){
+    if(IDX) return;
+    fetch('/sun/cities.json').then(function(r){ return r.json(); })
+      .then(function(j){ IDX=j; bFill(); })["catch"](function(){});
+  });
+
+  var copy=$('sim-copy');
+  if(copy) copy.addEventListener('click',function(){
+    var el=$('sim-url'); el.select();
+    try{ navigator.clipboard.writeText(el.value); copy.textContent='Copied'; setTimeout(function(){ copy.textContent='Copy link'; },1600); }
+    catch(e){ try{ document.execCommand('copy'); }catch(e2){} }
+  });
+})();

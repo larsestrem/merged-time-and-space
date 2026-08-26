@@ -1,0 +1,223 @@
+/* ---- multi-timer board (timer hub): up to three independent countdowns ---- */
+.mt-board{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 12px}
+@media(min-width:680px){.mt-board{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}}
+/* The link blue lives here rather than in :root — every theme on this site is
+   dark and none of them touch --card, so one pair of values is safe, and
+   keeping them scoped means the palette generator has nothing new to learn.
+   Both are well clear of the card behind them (--card is a light wash on a dark
+   page, so the effective ground is near-black either way). */
+.mt-timer{--link:#7ab8ff;--link-hi:#b6d8ff;
+  position:relative;border:1px solid var(--border);border-radius:16px;background:var(--card);padding:12px 14px 14px;text-align:center;min-width:0;container-type:inline-size}
+.mt-timer[data-state="running"]{border-color:var(--accent)}
+/* paused is neither running nor reset, and the card should not look like either:
+   the accent border stays to say "this one is live", at half strength */
+.mt-timer[data-state="paused"]{border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.mt-timer.mt-done{border-color:#f87171}
+.mt-timer.mt-done .mt-disp{animation:toolflash 1s steps(2,start) infinite}
+.mt-x{position:absolute;top:6px;right:8px;background:none;border:0;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:2px 8px;border-radius:8px;z-index:1}
+.mt-x:hover{color:var(--text);background:rgba(255,255,255,.08)}
+/* header: the timer's name, then Reset as a link beside it.
+   The two are set apart by a real GAP rather than the " – " that used to run
+   between them: at 17px the dash separated two things of the same size, and now
+   that the name is the second-biggest thing on the card it separated nothing.
+   The dash element stays in the markup (both boards' scripts show and hide it),
+   it is simply not drawn. */
+.mt-head{display:flex;align-items:baseline;justify-content:center;gap:26px;margin:0 22px 12px;min-width:0}
+.mt-sep{display:none}
+.mt-name{font-weight:800;font-size:17px;color:var(--text);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* THE TIMER BOARD'S NAME IS THE LABEL, NOT A CAPTION. "5-minute timer" is what
+   somebody across a kitchen or a classroom reads to know which timer this is,
+   and at 17px against a 60px read-out it was a footnote to it. Roughly 2.5x,
+   scaled to the card so three side by side do not each shout at full size.
+   .ms-watch (the four-stopwatch board) is excluded on purpose: its name is an
+   editable field, several of them share the row, and nobody asked for it. */
+/* HALVED AND LIGHTENED. It had been pushed to roughly 2.5x on the reasoning
+   that a 17px label under a 60px read-out was a footnote — which overshot: at
+   52px "5 min timer" competed with the digits it labels and read as the
+   headline of the card. A label's job is to say which timer this is. Extra-bold
+   at that size also made it heavier than anything else on the page. */
+.mt-timer:not(.ms-watch) .mt-name{font-size:clamp(17px,5cqw,26px);font-weight:600;line-height:1.2}
+/* the reset link, as a link: blue and underlined, so it reads as the text link
+   it behaves like rather than as a third piece of dimmed furniture next to the
+   × and the muted name */
+.mt-reset-link{flex:0 0 auto;background:none;border:0;color:var(--link);font-size:13px;font-weight:600;
+  cursor:pointer;padding:0;font-family:inherit;text-decoration:underline;text-underline-offset:2px}
+.mt-reset-link:hover,.mt-reset-link:focus-visible{color:var(--link-hi)}
+.mt-timer:not(.ms-watch) .mt-reset-link{font-size:15px}
+/* display and Start/Stop share one line so the card stays short */
+.mt-row{display:flex;align-items:center;gap:10px}
+.mt-disp.seg-screen{flex:1 1 auto;min-width:0;font-size:clamp(34px,16cqw,60px);margin:0;overflow:hidden}
+/* Without container-query support the 16cqw declaration is invalid and
+ * dropped whole, and the cascade falls through to plain .seg-screen's own
+ * clamp(44px,15vw,108px) — sized for a near-full-width tool page, not a
+ * 240px-minimum board column. overflow:hidden here keeps it from overlapping
+ * like the home page's cards did (see 11-home.css), but it would still clip
+ * digits off the display. 34px is this rule's own designed minimum, so it's
+ * always a size the layout was already built to hold. */
+@supports not (container-type:inline-size){.mt-disp.seg-screen{font-size:34px}}
+.mt-toggle{flex:0 0 auto;width:auto;padding:11px 18px}
+.mt-bar{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin:4px 0 8px}
+.mt-bar .btn{width:auto}
+.mt-bar .btn:disabled{opacity:.45;cursor:default;background:rgba(255,255,255,.12);color:var(--text)}
+.mt-quick{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:12px 0 2px}
+.mt-name-in{display:block;width:100%;margin-top:12px;padding:11px 12px;border-radius:10px;border:1px solid var(--border);background:rgba(0,0,0,.2);color:var(--text);font-size:15px;font-family:inherit}
+/* ---- HIDE: visibility, and NOTHING ELSE ------------------------------------
+   Hide takes the page down to the timers and the button that brings it back. It
+   does NOT resize anything — that is Full screen's job, and the two were doing
+   each other's work. What Hide changes is what you can SEE; what Full screen
+   changes is how BIG the timers are. Keeping those separate means you can have
+   either, or both.
+   Written as "hide the wrap's children, then put three things back" rather than
+   as a list of the things to hide, because the list of cards below the board
+   changes and a stylesheet that names them would silently stop hiding a new one.
+   The page HEADING stays: a screen showing only digits and a dim button is not
+   obviously a timer. The instructions under it go with the buttons they
+   describe — directions for controls that are no longer on screen are worse
+   than nothing. */
+body.mt-focus .wrap>*{display:none}
+body.mt-focus .wrap>h1{display:block;margin-bottom:10px}
+body.mt-focus .wrap>#mt{display:block}
+body.mt-focus #mt>*{display:none}
+body.mt-focus #mt>.mt-board{display:grid}
+body.mt-focus #mt>.mt-bar{display:flex;margin-top:14px}
+body.mt-focus .mt-bar>*{display:none}
+body.mt-focus .mt-bar>#mt-hide{display:inline-flex}
+body.mt-focus .mt-hide{opacity:.5}
+body.mt-focus .mt-hide:hover,body.mt-focus .mt-hide:focus-visible{opacity:1}
+
+/* ---- FULL SCREEN: the size, and it depends on HOW MANY -----------------------
+   This is where making the read-out big belongs. One timer can have the screen;
+   three have to share it, and a size that suits one of those suits neither of
+   the others — so the board publishes its own count (data-count) and the sizes
+   are written per count rather than one clamp trying to cover all three.
+   Every size is capped against BOTH the card's width (cqw) and the screen's
+   height (svh), smaller wins: that is what keeps the digits from clipping
+   sideways on a narrow phone or running off the bottom of a short landscape
+   one. svh rather than vh because a phone's address bar is exactly the height
+   this view is trying to spend. */
+.mt-fs{position:fixed;inset:0;z-index:9999;margin:0;background:#0b1020;overflow:auto;padding:24px;display:flex;flex-direction:column;justify-content:center}
+.mt-fs .mt-board{max-width:1100px;width:100%;margin:0 auto;gap:20px}
+/* MORE THAN ONE TIMER STACKS on anything phone-shaped. Side by side, three
+   timers each get a third of the width AND a third of the type size, which is
+   the opposite of what full screen is for; in a column each is as wide as the
+   screen. Above 900px there is room for a row, and a projector wants one. */
+.mt-fs .mt-board{grid-template-columns:1fr}
+@media (min-width:900px){.mt-fs .mt-board{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}}
+.mt-fs .mt-timer{padding:22px 18px 20px}
+.mt-fs .mt-disp.seg-screen{font-size:min(15cqw,17svh)}
+.mt-fs .mt-board[data-count="2"] .mt-disp.seg-screen{font-size:min(17cqw,25svh)}
+.mt-fs .mt-toggle{padding:14px 22px;font-size:18px}
+/* ONE TIMER GETS THE WHOLE CARD WIDTH. The read-out normally shares its row with
+   Start, which is right when three cards sit side by side and wrong when one
+   card IS the screen: the button was taking a third of the width the digits
+   wanted. Alone, the button drops below and the digits get all of it.
+   25cqw is not a guess — a five-character segment read-out is almost exactly
+   3.9x its font size across, so a quarter of the card's width per character is
+   what fills it edge to edge without clipping. A single timer therefore fills
+   whichever way the phone is held: turned sideways it gets a wider card and a
+   bigger read-out for free, with nothing to switch. */
+.mt-fs .mt-board[data-count="1"] .mt-row{flex-direction:column;gap:12px}
+.mt-fs .mt-board[data-count="1"] .mt-disp.seg-screen{width:100%;font-size:min(25cqw,40svh)}
+.mt-fs .mt-board[data-count="1"] .mt-toggle{width:100%;max-width:320px}
+/* the one place the label may take two lines: alone on the screen there is
+   height to spare, and a wrapped label beats "5 min tim…" on a 360px phone */
+.mt-fs .mt-board[data-count="1"] .mt-timer:not(.ms-watch) .mt-name{font-size:clamp(19px,6cqw,32px);
+  white-space:normal;overflow:visible;text-overflow:clip}
+body.mt-fs-open{overflow:hidden}
+
+/* ---- multi-stopwatch board (/stopwatch/multiple/) ----
+   Reuses .mt-board / .mt-timer / .mt-bar wholesale; only the parts a stopwatch
+   has and a countdown doesn't are new: a lap button and a per-card summary of
+   lap count, last lap and best lap. */
+.ms-meta{margin:8px 0 6px;min-height:1.2em;text-align:center}
+.ms-meta .ms-best{color:#4ade80}
+.ms-watch .ms-lap{width:100%;padding:9px 12px}
+.ms-watch .ms-lap:disabled{opacity:.45;cursor:default}
+.ms-name{background:none;border:0;padding:0;cursor:pointer;font-family:inherit;text-align:left}
+.ms-name:hover{color:var(--accent)}
+.ms-name-in{border:1px solid var(--accent);border-radius:8px;padding:1px 6px;background:rgba(0,0,0,.25);color:var(--text);font-family:inherit;font-weight:800;font-size:17px;max-width:100%}
+.ms-cap{max-width:560px;margin:10px auto 0;text-align:center;line-height:1.55}
+.mt-fs .ms-cap{display:none}
+
+/* ---- per-stopwatch name and colour ------------------------------------------
+   Three dark cards in a row are three identical dark cards. The palette button
+   sits to the LEFT of the name because that is where the thing it labels is,
+   and the two settings it opens — name and colour — are the two answers to
+   "which card is this". The head therefore stops being centred on this board:
+   it is [palette] [name] ......... [Reset], with the name taking the slack, so
+   the button lands in the same place on every card instead of sliding around
+   with the length of the label. */
+.ms-watch .mt-head{justify-content:flex-start;align-items:center;gap:8px;margin:0 26px 12px 0}
+.ms-watch .ms-name{flex:1 1 auto}
+.ms-tintbtn{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
+  width:30px;height:30px;padding:0;border:1px solid var(--border);border-radius:9px;
+  background:rgba(255,255,255,.06);color:var(--text);cursor:pointer}
+.ms-tintbtn:hover,.ms-tintbtn:focus-visible{background:rgba(255,255,255,.14)}
+.ms-tintbtn svg{display:block}
+/* once a colour is set the button wears it, so the control that changed the
+   card also reports the card's current state */
+.ms-tinted .ms-tintbtn{border-color:var(--ms-tint);box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--ms-tint) 55%,transparent)}
+/* THE PANEL IS INSIDE THE CARD. It belongs to one stopwatch, and a dialog in
+   the middle of the screen would not say which. Absolute rather than in flow
+   so opening it does not push a running read-out down the page. */
+.ms-panel{position:absolute;left:10px;right:10px;top:44px;z-index:6;text-align:left;
+  background:var(--menu-bg);border:1px solid var(--border);border-radius:12px;padding:12px;
+  box-shadow:0 14px 34px rgba(0,0,0,.5)}
+.ms-field{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  font-size:13px;font-weight:600;color:var(--muted)}
+.ms-field input[type="text"]{flex:1 1 auto;min-width:0;padding:8px 10px;border-radius:9px;
+  border:1px solid var(--border);background:rgba(0,0,0,.28);color:var(--text);
+  font-family:inherit;font-size:15px;font-weight:600}
+.ms-field input[type="color"]{flex:0 0 auto;width:44px;height:30px;padding:0;cursor:pointer;
+  border:1px solid var(--border);border-radius:8px;background:transparent}
+.ms-field-lab{margin:12px 0 6px;font-size:13px;font-weight:600;color:var(--muted)}
+.ms-swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
+.ms-sw{height:30px;border-radius:9px;border:1px solid var(--border);background:var(--sw);cursor:pointer;padding:0}
+.ms-sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--bg-solid),0 0 0 4px var(--text)}
+/* "No colour" has to look like an absence rather than like black, which on this
+   page is just another dark card: the slash is what says "none". */
+.ms-sw-none{background:
+  linear-gradient(to top right,transparent calc(50% - 1px),var(--muted) calc(50% - 1px),var(--muted) calc(50% + 1px),transparent calc(50% + 1px)),
+  rgba(255,255,255,.06)}
+.ms-panel-done{width:100%;padding:9px 12px}
+/* THE COLOUR IS A TINT, NOT A FLOOD. The read-out is a lit LED panel on a dark
+   screen; a card filled with the raw colour would take the digits with it. The
+   mix is against --bg-solid rather than --card because --card is translucent,
+   and mixing into a translucent layer gives a colour that changes with whatever
+   happens to be behind the card. The BORDER only takes the tint while the watch
+   is idle — a running card keeps the accent border, because which watch is
+   running outranks which watch is orange. */
+.ms-watch.ms-tinted{background:color-mix(in srgb,var(--ms-tint) 26%,var(--bg-solid))}
+.ms-watch.ms-tinted[data-state="idle"]{border-color:color-mix(in srgb,var(--ms-tint) 55%,transparent)}
+/* ...AND THE TINT MUST NOT REACH THE LAP BUTTON. .btn.secondary is a
+   translucent white, so on a tinted card it stopped being a dark button and
+   became a paler wash of that card's colour — a different-looking button on
+   every stopwatch. Lap is the one control you hit mid-race without looking, so
+   it is pinned to an OPAQUE dark: the same value the translucent version
+   resolves to over the untinted page, which is why nothing changes on a card
+   with no colour set. */
+.ms-watch .ms-lap{background:color-mix(in srgb,#fff 12%,var(--bg-solid));color:var(--text);border:1px solid var(--border)}
+
+/* ---- HOW MANY COLUMNS: THE VIEW DECIDES, NOT THE WINDOW ----------------------
+   This board keys off data-view rather than a media query, because the layout
+   button has to be able to override the window and a media query cannot be
+   argued with. The script resolves auto -> desk/mob once and writes it here, so
+   there is one source of truth and the two cannot disagree.
+   Columns are written per data-count rather than left to auto-fit: six cards
+   across a 1400px page would be six unreadable slivers, so the sixth goes on a
+   second row instead of narrowing the other five. Four goes 2x2 rather than
+   3+1 — a lone card on its own row reads as the odd one out when it is just
+   the fourth lane. One column is the base both in and out of full screen: the
+   .mt-fs rules above are written for the three-countdown board and would
+   otherwise give a phone in full screen auto-fit columns. */
+.ms-board,.mt-fs .ms-board{grid-template-columns:1fr}
+.mt-fs .ms-board{max-width:1400px}
+/* The narrow view on a wide window is a NARROW COLUMN, not one card stretched
+   across 1400px — that is not what it is a preview of. */
+#ms[data-view="mob"] .ms-board{max-width:460px;margin-left:auto;margin-right:auto}
+#ms[data-view="desk"] .ms-board[data-count="2"],
+#ms[data-view="desk"] .ms-board[data-count="4"]{grid-template-columns:repeat(2,1fr)}
+#ms[data-view="desk"] .ms-board[data-count="3"],
+#ms[data-view="desk"] .ms-board[data-count="5"],
+#ms[data-view="desk"] .ms-board[data-count="6"]{grid-template-columns:repeat(3,1fr)}
+.ms-over{max-width:620px;margin:0 auto 10px}

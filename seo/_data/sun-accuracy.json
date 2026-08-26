@@ -1,0 +1,196 @@
+{
+  "method": "nSunCalc's closed-form rise/set compared with an iterative solution for the same −0.833° crossing, using the same solar-position series.",
+  "bounds": "This bounds the solver only. Both sides share one low-precision solar series, and neither models non-standard refraction, observer elevation, or terrain.",
+  "horizonAngleDeg": -0.833,
+  "latitudes": [
+    0,
+    20,
+    40,
+    51.5,
+    60,
+    65
+  ],
+  "dates": [
+    "2026-03-20",
+    "2026-06-21",
+    "2026-09-22",
+    "2026-12-21"
+  ],
+  "samples": 48,
+  "worstDeltaSec": 115,
+  "worstAt": {
+    "latitude": 65,
+    "date": "2026-09-22"
+  },
+  "medianDeltaSec": 60,
+  "rows": [
+    {
+      "lat": 0,
+      "date": "2026-03-20",
+      "season": "equinox (March)",
+      "riseDeltaSec": 50,
+      "setDeltaSec": 59
+    },
+    {
+      "lat": 0,
+      "date": "2026-06-21",
+      "season": "solstice (June)",
+      "riseDeltaSec": 63,
+      "setDeltaSec": 57
+    },
+    {
+      "lat": 0,
+      "date": "2026-09-22",
+      "season": "equinox (September)",
+      "riseDeltaSec": 54,
+      "setDeltaSec": 64
+    },
+    {
+      "lat": 0,
+      "date": "2026-12-21",
+      "season": "solstice (December)",
+      "riseDeltaSec": 70,
+      "setDeltaSec": 55
+    },
+    {
+      "lat": 20,
+      "date": "2026-03-20",
+      "season": "equinox (March)",
+      "riseDeltaSec": 41,
+      "setDeltaSec": 50
+    },
+    {
+      "lat": 20,
+      "date": "2026-06-21",
+      "season": "solstice (June)",
+      "riseDeltaSec": 64,
+      "setDeltaSec": 57
+    },
+    {
+      "lat": 20,
+      "date": "2026-09-22",
+      "season": "equinox (September)",
+      "riseDeltaSec": 62,
+      "setDeltaSec": 73
+    },
+    {
+      "lat": 20,
+      "date": "2026-12-21",
+      "season": "solstice (December)",
+      "riseDeltaSec": 69,
+      "setDeltaSec": 56
+    },
+    {
+      "lat": 40,
+      "date": "2026-03-20",
+      "season": "equinox (March)",
+      "riseDeltaSec": 30,
+      "setDeltaSec": 38
+    },
+    {
+      "lat": 40,
+      "date": "2026-06-21",
+      "season": "solstice (June)",
+      "riseDeltaSec": 64,
+      "setDeltaSec": 56
+    },
+    {
+      "lat": 40,
+      "date": "2026-09-22",
+      "season": "equinox (September)",
+      "riseDeltaSec": 74,
+      "setDeltaSec": 84
+    },
+    {
+      "lat": 40,
+      "date": "2026-12-21",
+      "season": "solstice (December)",
+      "riseDeltaSec": 69,
+      "setDeltaSec": 57
+    },
+    {
+      "lat": 51.5,
+      "date": "2026-03-20",
+      "season": "equinox (March)",
+      "riseDeltaSec": 20,
+      "setDeltaSec": 28
+    },
+    {
+      "lat": 51.5,
+      "date": "2026-06-21",
+      "season": "solstice (June)",
+      "riseDeltaSec": 64,
+      "setDeltaSec": 56
+    },
+    {
+      "lat": 51.5,
+      "date": "2026-09-22",
+      "season": "equinox (September)",
+      "riseDeltaSec": 84,
+      "setDeltaSec": 94
+    },
+    {
+      "lat": 51.5,
+      "date": "2026-12-21",
+      "season": "solstice (December)",
+      "riseDeltaSec": 68,
+      "setDeltaSec": 58
+    },
+    {
+      "lat": 60,
+      "date": "2026-03-20",
+      "season": "equinox (March)",
+      "riseDeltaSec": 9,
+      "setDeltaSec": 16
+    },
+    {
+      "lat": 60,
+      "date": "2026-06-21",
+      "season": "solstice (June)",
+      "riseDeltaSec": 64,
+      "setDeltaSec": 55
+    },
+    {
+      "lat": 60,
+      "date": "2026-09-22",
+      "season": "equinox (September)",
+      "riseDeltaSec": 96,
+      "setDeltaSec": 105
+    },
+    {
+      "lat": 60,
+      "date": "2026-12-21",
+      "season": "solstice (December)",
+      "riseDeltaSec": 67,
+      "setDeltaSec": 59
+    },
+    {
+      "lat": 65,
+      "date": "2026-03-20",
+      "season": "equinox (March)",
+      "riseDeltaSec": -1,
+      "setDeltaSec": 6
+    },
+    {
+      "lat": 65,
+      "date": "2026-06-21",
+      "season": "solstice (June)",
+      "riseDeltaSec": 61,
+      "setDeltaSec": 54
+    },
+    {
+      "lat": 65,
+      "date": "2026-09-22",
+      "season": "equinox (September)",
+      "riseDeltaSec": 106,
+      "setDeltaSec": 115
+    },
+    {
+      "lat": 65,
+      "date": "2026-12-21",
+      "season": "solstice (December)",
+      "riseDeltaSec": 66,
+      "setDeltaSec": 60
+    }
+  ]
+}

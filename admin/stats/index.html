@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site stats (admin)</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+  :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  body{margin:0;background:#0b1026;color:#f8fafc;line-height:1.5}
+  .wrap{max-width:980px;margin:0 auto;padding:24px 18px 64px}
+  h1{font-size:22px;margin-bottom:4px}
+  h2{font-size:16px;margin:26px 0 8px;color:#fcd34d}
+  p{color:#a5b4fc;margin-top:0}
+  button{font-size:14px;padding:9px 14px;border-radius:10px;border:none;background:#fcd34d;color:#1e1b4b;font-weight:700;cursor:pointer}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.12)}
+  th{color:#a5b4fc;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+  th.sortable{cursor:pointer;user-select:none}
+  th.sortable:hover{color:#fcd34d}
+  th.sorted{color:#fcd34d}
+  .graph{height:190px;margin-top:6px}
+  .graph svg{display:block;width:100%;height:100%}
+  .gdot:hover{r:5}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .muted{color:#94a3b8;font-size:12px}
+  .ok{color:#4ade80;font-weight:700}
+  .bad{color:#f87171;font-weight:700}
+  a{color:#7dd3fc}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+  .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 16px}
+  .bar{height:6px;background:#fcd34d;border-radius:3px;min-width:2px}
+  .links a{margin-right:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📊 Site stats</h1>
+  <p>Daily-unique visits per main page, tide-search purposes, and data-source health — straight from the site's own KV counters, no analytics account needed. <button id="refresh">Refresh</button> <span class="muted" id="asof"></span></p>
+  <p class="muted" id="notrack"></p>
+  <!-- The read APIs behind this dashboard are gated on the same MOD_LOG_KEY
+       /admin/reports uses; they answered anybody before. The key is kept in
+       this browser and sent as a header, never as a query parameter. -->
+  <p><label>Admin key <input type="password" id="adminkey" size="34" autocomplete="current-password"></label>
+     <button id="save-key">Use key</button> <span class="muted" id="keystate"></span></p>
+
+  <div class="card" style="margin-bottom:18px">
+    <h2 style="margin-top:0">Traffic — <span id="gwin">Today</span></h2>
+    <div id="graph" class="graph"></div>
+    <p class="muted" id="gnote"></p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2 style="margin-top:0">Visits by page</h2>
+      <p class="muted">One visit per IP address per day per page — repeat visits and extra devices on the same connection are ignored, and only a short-lived hash of the address is stored, never the raw IP. Windows are UTC days; 1d = yesterday. Click a column to sort high → low — the traffic graph above follows the same selection, and its plotted points sum to the Total row (the GA4 backfill has its own row so both pull from the same data).</p>
+      <table id="pages"><tr><th>Page</th><th class="num">30d</th><th class="num">7d</th><th class="num">1d</th><th class="num">Today</th></tr></table>
+    </div>
+    <div class="card">
+      <h2 style="margin-top:0">Tide search purposes</h2>
+      <p class="muted">Every checkbox pick on the tides pages, tallied server-side (<a href="/api/purpose">raw JSON</a>).</p>
+      <table id="purpose"><tr><th>Purpose</th><th class="num">Picks</th><th></th></tr></table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <h2 style="margin-top:0">Emails sent</h2>
+    <p class="muted">Every email the site sends (report/idea notifications) — purpose and send time only; addresses are never stored. Last 90 days.</p>
+    <table id="emails"><tr><th>Purpose</th><th>Sent</th></tr></table>
+  </div>
+
+  <h2>Data-source health</h2>
+  <p class="muted">Live checks from this browser to the tide pages' upstream APIs.</p>
+  <table id="health"><tr><th>Source</th><th>Status</th><th class="num">Latency</th></tr></table>
+
+  <h2>Quick links</h2>
+  <p class="links">
+    <a href="/admin/reports/">🚩 Reports</a>
+    <a href="/popular/">🔥 Popular countdowns</a>
+    <a href="/trending/">📈 Trending now</a>
+    <a href="https://dash.cloudflare.com/" rel="noopener" target="_blank">Cloudflare</a>
+    <a href="https://analytics.google.com/" rel="noopener" target="_blank">GA4</a>
+    <a href="https://search.google.com/search-console" rel="noopener" target="_blank">Search Console</a>
+  </p>
+  <p class="muted">This page is noindex + robots-disallowed. Counters live in Cloudflare KV daily buckets kept ~32 days, so the 30d column fills in as days accumulate from launch. Popular/trending countdown rankings have their own public pages (links above).</p>
+</div>
+<script>
+var PAGES=[["/","pghome","Home"],["/tides/","pgtides","Tides"],["/moon/","pgmoon","Moon"],["/alarm-clock/","pgalarmclock","Alarm clock"],
+["/timer/","pgtimer","Timer"],["/stopwatch/","pgstopwatch","Stopwatch"],["/world-clock/","pgworldclock","World clock"],
+["/countdown/","pgcountdown","Countdown hub"],["/calendar/","pgcalendar","Calendar"],["/work/","pgwork","Work week"],
+["/420-countdown/","pg420","420"],
+["/popular/","pgpopular","Popular"],["/trending/","pgtrending","Trending"],
+["/sun/","pgsun","Sun"],["/classroom/","pgclassroom","Classroom"],
+["/sun-moon-earth-movement-simulator/","pgsimulator","Sun-Earth-Moon sim"],
+["/solar-system-simulator/","pgsolar","Solar system sim"],
+["/planets/","pgplanets","Planets"]];
+
+/* the admin key, kept in this browser only and sent as a header */
+var KEY="";
+try{ KEY=localStorage.getItem("ac_adminkey")||""; }catch(_){}
+var keyEl=document.getElementById("adminkey"), keyState=document.getElementById("keystate");
+keyEl.value=KEY;
+function paintKey(){ keyState.textContent=KEY?"key set for this browser":"no key \u2014 the panels below need one"; }
+paintKey();
+document.getElementById("save-key").addEventListener("click",function(){
+  KEY=keyEl.value.trim(); try{ localStorage.setItem("ac_adminkey",KEY); }catch(_){}
+  paintKey(); loadAll();
+});
+keyEl.addEventListener("keydown",function(e){ if(e.key==="Enter") document.getElementById("save-key").click(); });
+
+function j(u){var o=KEY?{headers:{"X-Admin-Key":KEY}}:undefined;
+  return fetch(u,o).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;});}
+
+var pageRows=[], pageSort=null;   /* click a column header -> sort high-to-low */
+var series={days:{},hours:{}}, graphWin="today";   /* summed across all pages */
+/* One-time GA4 backfill (owner's dashboard, Jun 10 – Jul 9 2026, 188 total
+ * users): seeds the traffic graph with history from before the on-site
+ * counters launched (2026-07-09). GA listed the top 10 days only — the
+ * remaining ~34 users fell on unlisted days and can't be day-attributed, so
+ * they are not shown. Live beacon counts add on top from launch onward. */
+var GA_BACKFILL={"2026-06-13":29,"2026-06-14":28,"2026-06-27":18,"2026-07-08":17,"2026-07-09":17,
+  "2026-07-06":12,"2026-06-24":9,"2026-07-05":9,"2026-07-03":8,"2026-06-26":7};
+var WIN_LABELS={today:"Today",d1:"Yesterday",d7:"Last 7 days",d30:"Last 30 days"};
+function pad2(n){return (n<10?"0":"")+n;}
+function utcDay(o){return new Date(Date.now()-o*86400e3).toISOString().slice(0,10);}
+function renderGraph(){
+  document.getElementById("gwin").textContent=WIN_LABELS[graphWin]||"Today";
+  var g=document.getElementById("graph"), note=document.getElementById("gnote");
+  var bars=[];
+  if(graphWin==="today"||graphWin==="d1"){
+    var day=utcDay(graphWin==="today"?0:1);
+    for(var h=0;h<24;h++){
+      var d=new Date(day+"T"+pad2(h)+":00:00Z");
+      var hl=d.getHours(), ap=hl>=12?"p":"a"; hl=hl%12||12;
+      bars.push({v:series.hours[day+"T"+pad2(h)]||0,lab:hl+ap,every:3});
+    }
+    var gaDay=GA_BACKFILL[day];
+    note.textContent="Daily-unique page visits per hour (shown in your local time)."
+      +(graphWin==="d1"?" Hourly history reaches back ~2 days.":"")
+      +(gaDay?" GA4 backfill for this day: "+gaDay+" visitors (no hourly split available).":"");
+  } else {
+    var n=graphWin==="d7"?7:30;
+    for(var i=n-1;i>=0;i--){
+      var ds=utcDay(i);
+      bars.push({v:series.days[ds]||0,lab:(+ds.slice(5,7))+"/"+(+ds.slice(8,10)),every:n>10?5:1});
+    }
+    var cut=graphWin==="d7"?utcDay(6):utcDay(29);
+    var gaIn=Object.keys(GA_BACKFILL).some(function(d){ return d>=cut&&d<=utcDay(0); });
+    note.textContent="Daily-unique page visits per UTC day, all main pages combined."
+      +(gaIn?" Includes the GA4 backfill through Jul 9 (top-10 days only; ~34 more users fell on unlisted days).":"");
+  }
+  /* line chart: dates along the bottom, visitor scale on the RIGHT, a single
+   * connected dot-to-dot line (no area fill) */
+  var W=g.clientWidth||900, H=190, padL=8, padR=46, padT=12, padB=22;
+  var iw=W-padL-padR, ih=H-padT-padB;
+  var max=Math.max.apply(null,bars.map(function(b){return b.v;}).concat([1]));
+  /* right-side scale: a handful of ROUND numbers spanning the range — step is
+   * a nice 1/2/5×10^k so the ticks read like 5,10,15,20 or 100,200,300 */
+  var rough=max/4, mag=Math.pow(10,Math.floor(Math.log(rough)/Math.LN10));
+  var norm=rough/mag;
+  var step=(norm<=1?1:norm<=2?2:norm<=5?5:10)*mag;
+  if(!(step>=1)) step=1;
+  var top=Math.ceil(max/step)*step; if(top<=0) top=step;
+  var X=function(i){ return padL+(bars.length>1?iw*i/(bars.length-1):iw/2); };
+  var Y=function(v){ return padT+ih*(1-v/top); };
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" font-family="inherit">';
+  for(var tv=0;tv<=top;tv+=step){
+    var y=Y(tv).toFixed(1);
+    svg+='<line x1="'+padL+'" x2="'+(padL+iw)+'" y1="'+y+'" y2="'+y+'" stroke="rgba(255,255,255,.12)" stroke-width="1"/>';
+    svg+='<text x="'+(padL+iw+6)+'" y="'+(+y+3.5)+'" font-size="10" fill="#94a3b8">'+tv.toLocaleString()+'</text>';
+  }
+  /* x labels along the bottom */
+  bars.forEach(function(b,i){
+    if(i%b.every!==0) return;
+    svg+='<text x="'+X(i).toFixed(1)+'" y="'+(H-6)+'" font-size="9" fill="#94a3b8" text-anchor="middle">'+b.lab+'</text>';
+  });
+  /* the trend line, dot to dot */
+  var ptsStr=bars.map(function(b,i){ return X(i).toFixed(1)+","+Y(b.v).toFixed(1); }).join(" ");
+  svg+='<polyline points="'+ptsStr+'" fill="none" stroke="#fcd34d" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+  bars.forEach(function(b,i){
+    svg+='<circle class="gdot" cx="'+X(i).toFixed(1)+'" cy="'+Y(b.v).toFixed(1)+'" r="3" fill="#fcd34d" stroke="#0b1026" stroke-width="1"><title>'+b.lab+" — "+b.v.toLocaleString()+" visit"+(b.v===1?"":"s")+'</title></circle>';
+  });
+  svg+='</svg>';
+  g.innerHTML=svg;
+}
+var grto; window.addEventListener("resize",function(){ clearTimeout(grto); grto=setTimeout(renderGraph,150); });
+function renderPages(){
+  var t=document.getElementById("pages");
+  var cols=[["d30","30d"],["d7","7d"],["d1","1d"],["today","Today"]];
+  var head="<tr><th>Page</th>"+cols.map(function(c){
+    return "<th class='num sortable"+(pageSort===c[0]?" sorted":"")+"' data-k='"+c[0]+"'>"+c[1]+(pageSort===c[0]?" ▾":"")+"</th>";
+  }).join("")+"</tr>";
+  t.innerHTML=head;
+  var rows=pageRows.slice();
+  if(pageSort) rows.sort(function(a,b){ return (b[pageSort]||0)-(a[pageSort]||0); });
+  function n(x){return (x||0).toLocaleString();}
+  rows.forEach(function(r){
+    var tr=document.createElement("tr");
+    var name=r.href?"<a href='"+r.href+"'>"+r.label+"</a>":"<span class=muted>"+r.label+"</span>";
+    tr.innerHTML="<td>"+name+"</td><td class=num>"+n(r.d30)+"</td><td class=num>"+n(r.d7)+"</td><td class=num>"+n(r.d1)+"</td><td class=num>"+n(r.today)+"</td>";
+    t.appendChild(tr);
+  });
+  /* Total row: matches the chart's plotted sum for each window */
+  var tot={d30:0,d7:0,d1:0,today:0};
+  rows.forEach(function(r){ tot.d30+=r.d30; tot.d7+=r.d7; tot.d1+=r.d1; tot.today+=r.today; });
+  var trT=document.createElement("tr");
+  trT.innerHTML="<td><strong>Total</strong></td><td class=num><strong>"+n(tot.d30)+"</strong></td><td class=num><strong>"+n(tot.d7)+"</strong></td><td class=num><strong>"+n(tot.d1)+"</strong></td><td class=num><strong>"+n(tot.today)+"</strong></td>";
+  trT.style.borderTop="2px solid rgba(255,255,255,.25)";
+  t.appendChild(trT);
+  t.querySelectorAll("th.sortable").forEach(function(th){
+    th.setAttribute("tabindex","0");
+    th.setAttribute("aria-sort", pageSort===th.getAttribute("data-k")?"descending":"none");
+    function go(){ pageSort=th.getAttribute("data-k"); graphWin=pageSort; renderPages(); renderGraph(); }
+    th.addEventListener("click",go);
+    th.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); go(); } });
+  });
+}
+function gaRow(){
+  /* the GA4 backfill, windowed with the SAME UTC-day math as the chart and
+   * the per-page stats — so the table's Total always equals the chart's sum */
+  var r={href:null,label:"GA4 backfill (pre-launch)",d30:0,d7:0,d1:0,today:0};
+  var t=utcDay(0),y=utcDay(1),c7=utcDay(6),c30=utcDay(29);
+  Object.keys(GA_BACKFILL).forEach(function(d){ var c=GA_BACKFILL[d];
+    if(d===t) r.today+=c;
+    if(d===y) r.d1+=c;
+    if(d>=c7&&d<=t) r.d7+=c;
+    if(d>=c30&&d<=t) r.d30+=c;
+  });
+  /* the backfill retires itself: once every GA date has aged out of the
+   * 30-day window, the row disappears */
+  return (r.d30+r.d7+r.d1+r.today)>0?r:null;
+}
+function loadPages(){
+  Promise.all(PAGES.map(function(p){return j("/api/views?id="+p[1]+"&stats=1");})).then(function(rs){
+    series={days:{},hours:{}};
+    Object.keys(GA_BACKFILL).forEach(function(k){ series.days[k]=GA_BACKFILL[k]; });
+    rs.forEach(function(d){ if(!d) return;
+      Object.keys(d.days||{}).forEach(function(k){ series.days[k]=(series.days[k]||0)+d.days[k]; });
+      Object.keys(d.hours||{}).forEach(function(k){ series.hours[k]=(series.hours[k]||0)+d.hours[k]; });
+    });
+    pageRows=PAGES.map(function(p,i){ var d=rs[i]||{};
+      return {href:p[0],label:p[2],d30:d.d30||0,d7:d.d7||0,d1:d.d1||0,today:d.today||0}; });
+    var gr=gaRow(); if(gr) pageRows.push(gr);
+    renderPages(); renderGraph();
+  });
+}
+function loadPurpose(){
+  var t=document.getElementById("purpose");
+  t.innerHTML="<tr><th>Purpose</th><th class=num>Picks</th><th></th></tr>";
+  j("/api/purpose").then(function(d){
+    var tally=(d&&d.tally)||{}, names=Object.keys(tally);
+    if(!names.length){ t.insertAdjacentHTML("beforeend","<tr><td colspan=3 class=muted>No picks recorded yet.</td></tr>"); return; }
+    var max=Math.max.apply(null,names.map(function(n){return tally[n];}));
+    names.forEach(function(n){
+      var tr=document.createElement("tr");
+      var td1=document.createElement("td"); td1.textContent=n;
+      var td2=document.createElement("td"); td2.className="num"; td2.textContent=tally[n].toLocaleString();
+      var td3=document.createElement("td"); var bar=document.createElement("div"); bar.className="bar";
+      bar.style.width=Math.round(100*tally[n]/max)+"%"; td3.appendChild(bar);
+      tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3); t.appendChild(tr);
+    });
+  });
+}
+function loadEmails(){
+  var t=document.getElementById("emails");
+  t.innerHTML="<tr><th>Purpose</th><th>Sent</th></tr>";
+  j("/api/emails?n=50").then(function(d){
+    var list=(d&&d.emails)||[];
+    if(!list.length){ t.insertAdjacentHTML("beforeend","<tr><td colspan=2 class=muted>No emails sent yet.</td></tr>"); return; }
+    list.forEach(function(e){
+      var when=new Date(e.at); var ok=!isNaN(when.getTime());
+      var tr=document.createElement("tr");
+      var td1=document.createElement("td"); td1.textContent=e.p;
+      var td2=document.createElement("td"); td2.className="muted";
+      td2.textContent=ok?when.toLocaleString(undefined,{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}):e.at;
+      tr.appendChild(td1); tr.appendChild(td2); t.appendChild(tr);
+    });
+  });
+}
+function loadHealth(){
+  var t=document.getElementById("health");
+  t.innerHTML="<tr><th>Source</th><th>Status</th><th class=num>Latency</th></tr>";
+  var checks=[
+    ["NOAA CO-OPS (tide predictions)","https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&interval=hilo&station=8443970&date=today&datum=MLLW&time_zone=lst_ldt&units=english&format=json&application=timeandspace.science"],
+    /* The Open-Meteo row was removed: the weather overlay it checked is gone,
+       and the CSP connect-src has never allowed api.open-meteo.com from this
+       page, so the row was permanently "unreachable" — a red mark that meant
+       nothing and trained the eye to ignore the column. */
+    ["Site API (/api/purpose)","/api/purpose"]];
+  checks.forEach(function(c){
+    var tr=document.createElement("tr");
+    tr.innerHTML="<td>"+c[0]+"</td><td class=muted>checking…</td><td class=num></td>";
+    t.appendChild(tr);
+    var t0=performance.now();
+    fetch(c[1], c[1].charAt(0)==="/"&&KEY?{headers:{"X-Admin-Key":KEY}}:undefined).then(function(r){
+      var ms=Math.round(performance.now()-t0);
+      tr.cells[1].innerHTML=r.ok?"<span class=ok>✓ up</span>":"<span class=bad>✗ HTTP "+r.status+"</span>";
+      tr.cells[2].textContent=ms+" ms";
+    }).catch(function(){
+      tr.cells[1].innerHTML="<span class=bad>✗ unreachable</span>";
+      tr.cells[2].textContent=Math.round(performance.now()-t0)+" ms";
+    });
+  });
+}
+function loadAll(){
+  document.getElementById("asof").textContent="as of "+new Date().toLocaleTimeString();
+  loadPages(); loadPurpose(); loadEmails(); loadHealth();
+}
+/* opening this page marks the device as the owner's: the main-page visit
+ * beacons and the tide-purpose tally skip flagged devices, so your own
+ * browsing never pollutes these numbers. Survives IP changes; set it once
+ * per browser/device by opening this page there. */
+(function(){
+  var el=document.getElementById("notrack");
+  function paint(on){
+    el.innerHTML=on
+      ?"✅ This device is excluded from the stats (flag set automatically when you open this page — open it once on each device you use). <a href='#' id='nt-undo'>Count this device again</a>"
+      :"⚠️ This device is currently being counted. <a href='#' id='nt-on'>Exclude this device</a>";
+    var u=document.getElementById("nt-undo"), o=document.getElementById("nt-on");
+    if(u) u.addEventListener("click",function(e){ e.preventDefault(); try{localStorage.removeItem("ac_notrack");}catch(_){ } paint(false); });
+    if(o) o.addEventListener("click",function(e){ e.preventDefault(); try{localStorage.setItem("ac_notrack","1");}catch(_){ } paint(true); });
+  }
+  try{ localStorage.setItem("ac_notrack","1"); paint(true); }
+  catch(_){ el.textContent="Couldn't set the exclusion flag (storage blocked)."; }
+})();
+document.getElementById("refresh").addEventListener("click",loadAll);
+loadAll();
+setInterval(loadAll,300000);
+</script>
+</body>
+</html>

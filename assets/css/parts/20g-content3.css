@@ -1,0 +1,23 @@
+.give-line{margin:6px 0 0;font-size:15px;line-height:1.5}
+.give-line a{font-weight:700}
+/* collapsible FAQ on timer pages (visible Q&A for FAQ rich results) */
+.tool-faq .faq-item{border-bottom:1px solid var(--border);padding:4px 0}
+.tool-faq .faq-item:last-child{border-bottom:none}
+.tool-faq summary{cursor:pointer;font-weight:700;padding:8px 2px;list-style:none}
+.tool-faq summary::-webkit-details-marker{display:none}
+.tool-faq summary::after{content:" +";color:var(--muted);float:right}
+.tool-faq .faq-item[open] summary::after{content:" –"}
+.tool-faq .faq-item p{margin:2px 2px 10px;color:var(--muted);line-height:1.5}
+
+@media (max-width:420px){
+  .unit{min-width:62px;padding:12px 4px}
+  .unit .num{font-size:32px}
+  .presets{grid-template-columns:repeat(3,1fr)}
+}
+@media (min-width:560px){ h1{font-size:32px} }
+
+/* .pl-facts — the "About <city>" entity block on sun, moon and tide pages.
+   Reuses .wc-facts; only the label column needs to be wider, because these
+   keys ("Nearest major city", "UTC offset") are longer than the world clock's. */
+.pl-facts .wc-frow>span{flex:0 0 42%}
+@media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}

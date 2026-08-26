@@ -1,0 +1,77 @@
+# IndexNow — announce changed URLs to Bing (and the other IndexNow engines).
+#
+# Runs when a push to main changes sitemap.xml, because that is exactly when a
+# page's real source changed: build-sitemap.mjs derives each URL's <lastmod>
+# from the git history of the generator + data files behind it, so the hourly
+# freshness rebuild (which does not commit anything) never fires this.
+#
+# seo/tools/indexnow.mjs submits the URLs whose revision moved past the one
+# recorded in seo/_data/indexnow-state.json, plus any URL that has left the
+# sitemap (retired pages are announced once, then dropped from the state), then
+# commits the updated state.
+# That commit touches only the state file, so the paths filter below stops it
+# re-triggering this workflow.
+#
+# No secrets: IndexNow authenticates with a public key file (3ad13cdd…​.txt at
+# the site root), which is in the repo and served by Cloudflare Pages. Nothing
+# to configure — but the key file must stay reachable, so do not add a redirect
+# or auth rule that covers root .txt files. A pending key verification exits
+# clean without recording anything, so the next run simply tries again.
+#
+# Manual re-announce: delete seo/_data/indexnow-state.json and run this workflow
+# by hand (workflow_dispatch) to submit the whole sitemap again.
+
+name: IndexNow
+on:
+  push:
+    branches: [main]
+    # sitemap-revs.json too, and it is the one that matters: two changes on the
+    # same day produce an IDENTICAL sitemap.xml (the lastmod date doesn't move),
+    # so watching only the sitemap would miss exactly the case the per-URL
+    # revision was added to catch.
+    paths: ["sitemap.xml", "seo/_data/sitemap-revs.json"]
+  # Daily safety net. Two things need it: a brand-new key is not verified the
+  # instant its file is published (Bing answers 403 SiteVerificationNotCompleted
+  # until it has fetched and checked it), and a run that ends that way records
+  # nothing on purpose — so something has to come back and retry without
+  # waiting for the next sitemap change. On a normal day there is nothing to
+  # submit and the run is a no-op.
+  schedule:
+    - cron: "35 6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+# One at a time: two overlapping runs would both read the same state file and
+# the second push would fail on a non-fast-forward.
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Reads the COMMITTED sitemap.xml — no build step, so this cannot disagree
+      # with what is actually deployed.
+      - name: Submit changed URLs
+        run: node seo/tools/indexnow.mjs
+
+      - name: Commit the state file
+        run: |
+          if [ -n "$(git status --porcelain seo/_data/indexnow-state.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add seo/_data/indexnow-state.json
+            git commit -m "chore: record IndexNow submission"
+            git push
+            echo "recorded the submission"
+          else
+            echo "nothing was submitted — state unchanged"
+          fi

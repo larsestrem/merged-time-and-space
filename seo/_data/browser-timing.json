@@ -1,0 +1,76 @@
+{
+  "engine": {
+    "name": "Chromium",
+    "version": "141.0.7390.37",
+    "headless": true,
+    "platform": "Linux x86_64",
+    "gpu": false
+  },
+  "caveat": "One engine, one machine, headless, no GPU. Not a cross-browser comparison — Firefox and WebKit could not be installed in the environment these were taken in.",
+  "foreground": {
+    "seconds": 60,
+    "ticks": 60,
+    "expectedTicks": 60,
+    "naiveDriftMs": -1,
+    "tickErrorMedianMs": 1,
+    "tickErrorMaxMs": 1,
+    "correctedWorstMs": 1,
+    "driftPerHourMs": -60
+  },
+  "cpu4x": {
+    "seconds": 20,
+    "ticks": 20,
+    "expectedTicks": 20,
+    "naiveDriftMs": -1,
+    "tickErrorMedianMs": 1,
+    "tickErrorMaxMs": 2,
+    "correctedWorstMs": 0,
+    "cpuThrottleRate": 4
+  },
+  "cpu20x": {
+    "seconds": 20,
+    "ticks": 20,
+    "expectedTicks": 20,
+    "naiveDriftMs": -9,
+    "tickErrorMedianMs": 4,
+    "tickErrorMaxMs": 10,
+    "correctedWorstMs": 0,
+    "cpuThrottleRate": 20,
+    "driftPerHourMs": -1620
+  },
+  "nestedTimeoutClamp": {
+    "gapsMs": [
+      0,
+      0,
+      0,
+      0.1,
+      0,
+      0,
+      4.2,
+      4.2,
+      4.2,
+      4.2,
+      4.2
+    ],
+    "clampMs": 4.2,
+    "note": "setTimeout(fn, 0) chained; the spec permits a 4ms floor from the fifth nested level."
+  },
+  "unmeasured": [
+    {
+      "what": "Hidden-tab throttling (one timer wake per second, then one per minute after five minutes)",
+      "why": "Headless Chromium has no window manager, so a page is never actually hidden and the throttling policy never engages. CDP has no visibility override."
+    },
+    {
+      "what": "requestAnimationFrame stopping while a tab is hidden",
+      "why": "Same reason — the page cannot be made hidden."
+    },
+    {
+      "what": "A frozen background tab",
+      "why": "CDP accepts the freeze but it does not engage: the page still ran JavaScript while supposedly frozen, which a frozen page cannot do. Chromium only freezes a page that is already hidden."
+    },
+    {
+      "what": "Autoplay policy (whether audio can start without a user gesture)",
+      "why": "Playwright launches Chromium with --autoplay-policy=no-user-gesture-required, so this would measure the harness, not the browser."
+    }
+  ]
+}

@@ -1,0 +1,247 @@
+.tool-controls{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
+/* size to content (down from a 118px floor) so the sound button, Edit timer,
+ * Add timer and Start all fit on one line */
+.tool-controls .btn{width:auto;min-width:0}
+/* phones: four controls in a ~316px card only fit if they give up some padding
+   and a point of type — still a 44px-tall tap target */
+@media (max-width:480px){
+  .tool-controls{gap:7px}
+  .tool-controls .btn{padding:12px 11px;font-size:15px}
+  .tool-controls .btn.t-sound-btn{width:40px;min-width:40px;padding:12px 0}
+}
+@media (max-width:365px){
+  .tool-controls{gap:5px}
+  .tool-controls .btn{padding:11px 7px;font-size:13.5px}
+  .tool-controls .btn.t-sound-btn{width:36px;min-width:36px;padding:11px 0}
+}
+.timer-set{display:flex;gap:10px;justify-content:center;align-items:flex-end;margin:8px 0 2px}
+.timer-set div{width:84px}
+.timer-set input{width:100%;text-align:center;font-size:26px;font-variant-numeric:tabular-nums;padding:10px 4px}
+.timer-set .u{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:5px}
+/* keep the H/M/S digits big & centered when the set form sits inside a dialog
+ * (the generic .ac-form number-input rule would otherwise shrink them) */
+.ac-form .timer-set{margin:4px 0 2px}
+.ac-form .timer-set input{font-size:26px;text-align:center;padding:10px 4px;margin-top:0}
+/* alarm-sound dropdown: a square speaker button (same set as the alarm clock)
+ * that fits on the control row beside Custom timer / Start. */
+.t-sound-dd{position:relative;display:inline-flex}
+.t-sound-dd summary{list-style:none;cursor:pointer}
+.t-sound-dd summary::-webkit-details-marker{display:none}
+.tool-controls .btn.t-sound-btn{width:46px;min-width:46px;padding:13px 0}
+/* Preset timer pages only (.t-controls; the egg and the stopwatch keep their own
+   rows): size the control row to the LED display above it, so sound / Edit /
+   Add / Start read as one block with the read-out instead of a narrow strip
+   under a wide display. The width is driven by the SAME clamp that sets
+   .seg-screen's font-size below, so the two track each other at every viewport
+   rather than matching at one width and drifting at the rest. The read-out is a
+   fixed 8 glyphs plus em padding, so its width is a constant 4.63x that font
+   size — measured identical from 360px to 1200px, including past the 108px cap
+   where a mismatched clamp would have left the row 56px short. */
+.t-controls{width:100%;max-width:calc(4.63*clamp(44px,15vw,108px));margin-left:auto;margin-right:auto;margin-top:6px;gap:8px}
+/* Tighten display -> controls from 44px to ~15px on the preset pages. Most of
+   that gap was the empty .tool-msg slot, which reserves a line so the
+   "time's up" message doesn't shove the button row down when it appears. It
+   still reserves one, just a shorter one — scoped with :has so the stopwatch
+   and egg layouts, which share .tool-msg, are untouched. */
+.tool-msg:has(+ .t-controls){min-height:9px;margin:0}
+/* Extra room under the reliability line, PRESET PAGES ONLY. .tool-warn is
+   shared with the /timer/ hub and the egg timer, where the same margin left a
+   dead 62px band above the next card; on a preset page the warning is the
+   adjacent sibling of the control row, so this scopes it exactly. */
+.t-controls + .tool-warn{margin-bottom:62px}
+.t-controls .btn{flex:1 1 0;min-width:0;font-size:clamp(15px,4.3vw,22px);padding:clamp(12px,3.3vw,17px) 4px}
+.t-controls .t-sound-dd{flex:0 0 auto}
+.t-controls .btn.t-sound-btn{width:clamp(44px,11.5vw,58px);min-width:0;padding:0;display:inline-flex;align-items:center;justify-content:center}
+.t-controls .btn.t-sound-btn svg{width:clamp(20px,5vw,26px);height:auto}
+.t-sound-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);z-index:60;min-width:158px;max-width:calc(100vw - 24px);background:#171a26;border:1px solid var(--border);border-radius:12px;padding:6px;box-shadow:0 12px 34px rgba(0,0,0,.55);text-align:left}
+.t-sound-menu-h{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding:4px 8px 6px}
+.t-sound-opt{display:block;width:100%;text-align:left;padding:8px 10px;border:0;background:none;border-radius:8px;color:var(--text);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.t-sound-opt:hover{background:rgba(255,255,255,.08)}
+.t-sound-opt.on{background:rgba(255,255,255,.1);color:var(--accent)}
+/* egg keeps its dropdown in a centered row below the egg (its controls sit in
+ * an overflow-hidden shape, which would clip the menu). */
+.t-sound-row{display:flex;justify-content:center;margin:12px 0 0}
+/* subtle "Notify me when time's up" opt-in hint */
+.t-notify-hint{display:block;width:100%;margin:14px 0 0;padding:0;background:none;border:0;color:var(--muted);font-size:13px;font-weight:600;font-family:inherit;text-align:center;cursor:pointer;line-height:1.4}
+.t-notify-hint:hover:not(:disabled){color:var(--accent);text-decoration:underline}
+.t-notify-hint:disabled{cursor:default}
+.laps{list-style:none;padding:0;margin:6px auto 0;max-width:420px;text-align:left;max-height:260px;overflow:auto}
+.laps li{display:flex;justify-content:space-between;gap:10px;padding:7px 4px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums;font-size:14px}
+.laps li .lap-n{color:var(--muted)}
+.laps li>span{flex:1 1 0}.laps li>span:first-child{flex:0 0 64px}.laps li .lap-tot{text-align:right;color:var(--muted)}
+/* fastest / slowest lap accents (iOS-style) */
+.lap-fast{color:#4ade80}.lap-fast .lap-n,.lap-slow .lap-n{color:inherit;opacity:.85}
+.lap-slow{color:#f87171}
+/* the always-present "next lap" skeleton row (dim until it fills in) */
+.lap-row.lap-pending{color:var(--muted);opacity:.5}.lap-row.lap-pending .lap-tot{color:var(--muted)}
+/* column header above the lap list */
+.lap-head{display:flex;justify-content:space-between;gap:10px;max-width:420px;margin:16px auto 0;padding:0 4px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.lap-head span{flex:1 1 0}.lap-head span:first-child{flex:0 0 64px}.lap-head span:last-child{text-align:right}
+/* The +/- column: each lap against the one before it, which is the comparison
+   a runner actually makes mid-session — "am I holding pace" is about the last
+   lap, not the fastest. Green for faster, red for slower, matching the
+   fastest/slowest highlight already on the row. Narrower than the time columns
+   because it only ever holds a short signed value, and hidden on very small
+   screens where four columns stop being readable. */
+.laps li .lap-d,.lap-head .lap-d{flex:0 0 76px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.laps li .lap-d-up{color:#4ade80}
+.laps li .lap-d-down{color:#f87171}
+.laps li .lap-d{font-size:.94em}
+.lap-fast .lap-d,.lap-slow .lap-d{opacity:.85}
+@media (max-width:400px){.laps li .lap-d,.lap-head .lap-d{display:none}}
+/* fastest/slowest/average summary tiles */
+.lap-stats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:420px;margin:16px auto 0}
+.lap-stat{flex:1 1 90px;display:flex;flex-direction:column;gap:2px;padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.02);font-size:12px;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+.lap-stat b{font-size:15px;color:var(--text)}
+.lap-stat.lap-fast b{color:#4ade80}.lap-stat.lap-slow b{color:#f87171}
+/* Start / Lap are the two primary buttons — big and easy to hit */
+.sw-main-controls .btn{flex:1 1 0;max-width:220px;padding:18px 18px;font-size:19px;border-radius:14px}
+/* bottom row: Copy + Download (once there are laps) then Reset + full-screen,
+   kept clear of the big Start/Lap so they can't be hit by mistake. Sized to sit
+   on a single line down to narrow phones. */
+/* stopwatch options row: compact "Start delay" + "Label laps" dropdowns */
+/* settings gear sits to the left of the LED display and toggles the options
+   panel; the panel is hidden until the gear is pressed, and opens directly
+   under the gear/display row rather than below Start and Lap, so the options
+   appear next to the control that revealed them */
+.sw-display-row{display:flex;align-items:center;justify-content:center;gap:14px}
+.sw-gear{width:auto;padding:8px 11px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+.sw-gear svg{display:block}
+.sw-gear[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+/* ONE ROW WHERE THERE IS ROOM FOR ONE ROW. Same reasoning as .lap-actions
+   below: the three settings are one group, and the 380px cap broke them across
+   two lines in the middle of a card more than three times that wide. The labels
+   were shortened to "Delay" and "Interval type" so the row fits; the cap is now
+   what the row actually needs, and a phone still wraps. */
+.sw-opts{display:none;flex-wrap:wrap;gap:8px 18px;justify-content:center;align-items:center;max-width:700px;margin:14px auto 0}
+#sw.sw-opts-open .sw-opts{display:flex}
+.sw-opt{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--muted)}
+.sw-opt select{width:auto;margin:0;padding:6px 8px;font-size:14px;border-radius:8px;background:#0b0b0c;color:var(--text);border:1px solid var(--border);font-family:inherit;cursor:pointer}
+/* The session actions are a single group of buttons and belong on a single
+   line where the card is wide enough for one. At 380px the last two wrapped
+   onto their own row and read as a second, lesser set of controls. */
+.lap-actions{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;align-items:center;max-width:760px;margin:16px auto 0}
+.lap-actions .btn{width:auto;padding:8px 11px;font-size:14px}
+/* the capability line under the stopwatch controls: what Lap unlocks, and the
+   keyboard shortcuts. Centred and narrow so it reads as a caption to the
+   controls rather than page copy; hidden in full screen, where the whole point
+   is the digits and nothing else. */
+/* Full instructions, folded away by default. The one-line version that used to
+   sit here permanently was doing a job the greyed-out Copy/Download/Share
+   buttons now do better — showing that the capability exists — so the detail
+   can wait until it is asked for instead of crowding the tool. */
+.sw-help{max-width:520px;margin:14px auto 0}
+.sw-help>summary{cursor:pointer;list-style:none;text-align:center;font-size:14px;font-weight:700;
+  color:var(--muted);padding:8px 2px;border-top:1px solid var(--border)}
+.sw-help>summary::-webkit-details-marker{display:none}
+.sw-help>summary::after{content:" ▾";font-size:.85em}
+.sw-help[open]>summary::after{content:" ▴"}
+.sw-help>summary:hover{color:var(--accent)}
+/* .tool-card centres everything, which is right for one line and wrong for four
+   paragraphs of instructions — ragged on both edges is hard to read at length. */
+.sw-cap{max-width:440px;margin:10px auto 0;line-height:1.6;text-align:left}
+.sw-cap+.sw-cap{margin-top:8px}
+.sw-cap kbd{font-size:.92em}
+.sw-fs .sw-help{display:none}
+/* The one-line pointer to /stopwatch/multiple/, directly under the tool card.
+   Centred on the card above it and given its own air, so it reads as an offer
+   rather than as the first sentence of the article that follows. */
+.sw-multi{margin:12px 0 6px;text-align:center;font-size:15px;font-weight:600}
+/* full-screen icon button + big-display mode */
+.sw-fsbtn{width:auto;padding:8px 11px;display:inline-flex;align-items:center;justify-content:center}
+.sw-fsbtn svg{display:block}
+.sw-fs{position:fixed;inset:0;z-index:9999;margin:0;border:0;border-radius:0;background:#0b1020;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px 24px 28px;overflow:auto}
+/* FONT-SIZE, NOT transform:scale(). This used to be scale(1.5) and scale(1.9),
+   and a transform does not affect layout: the display kept the box of its
+   unscaled self and painted 1.5x or 1.9x bigger over the top of it, so on any
+   screen 1000px or wider the digits spilled downward across the Start and Lap
+   buttons — worse the wider the window, because the scale stepped up. Growing
+   the font grows the box with it, so the flex column below simply moves down.
+   Sizes chosen to match what the old scales rendered at: 108px x 1.5 = 162px,
+   108px x 1.9 = 205px. */
+.sw-fs #sw-time{transform-origin:center}
+@media(min-width:1000px){.sw-fs #sw-time{font-size:min(162px,15vw)}}
+@media(min-width:1500px){.sw-fs #sw-time{font-size:min(205px,14vw)}}
+/* full screen exposes the SAME controls as the normal view (stats tiles, the
+   copy/download/share buttons and the gear/options all match) — the gear just
+   moves to the top-left corner so the enlarged display stays centered */
+.sw-fs .sw-display-row{gap:0}
+.sw-fs .sw-gear{position:fixed;top:16px;left:16px;z-index:1}
+.sw-fs .lap-stats{width:min(420px,86vw);max-width:none}
+/* the 3-2-1 pre-start countdown reads as a single big accent digit */
+.sw-counting #sw-time .seg.on{background:var(--accent);box-shadow:0 0 .12em var(--accent)}
+.sw-fs .lap-head,.sw-fs .laps{margin-top:0;width:min(420px,86vw);max-width:none}
+.sw-fs .laps{max-height:28vh}
+.sw-fs .lap-actions{margin-top:0}
+.sw-fs .tool-controls{margin-top:10px}
+body.sw-fs-open{overflow:hidden}
+/* homepage stopwatch card is a static preview of a mid-session run. It lives in
+   a narrow column, so keep the summary tiles three-across (like the full tool),
+   let them fill the card width with single-line labels (no wrapping), keep the
+   lap totals from clipping, and stack the footer full-width. The Start/Lap
+   spans are visual only — the whole card links to a fresh /stopwatch/. */
+/* one capped-width wrapper holds every inner block, so the display, Start/Lap,
+   the summary tiles, the lap table and the footer are all exactly the same width
+   and line up as one boxy column (no per-element width tricks) */
+.tc-sw .sw-in{width:100%;max-width:380px;margin:0 auto}
+.tc-sw .lap-stats,.tc-sw .lap-head,.tc-sw .laps{max-width:none}
+.tc-sw .sw-main-controls{margin-top:12px;gap:8px}
+.tc-sw .sw-main-controls .btn{padding:11px 14px;font-size:16px;cursor:pointer}
+.tc-sw .lap-stats{gap:6px;margin-top:14px}
+.tc-sw .lap-stat{flex:1 1 0;min-width:0;padding:8px 3px;font-size:clamp(8.5px,3.4cqw,13px);white-space:nowrap}
+.tc-sw .lap-stat b{font-size:clamp(9.5px,4cqw,15px)}
+.tc-sw .lap-head{margin-top:12px;font-size:10px;letter-spacing:.02em}
+.tc-sw .lap-head span:nth-child(2){text-align:center}
+.tc-sw .lap-head span:first-child,.tc-sw .laps li>span:first-child{flex:0 0 40px}
+.tc-sw .laps{max-height:none}
+.tc-sw .laps li{font-size:12px;padding:6px 2px;gap:6px}
+.tc-sw .tc-foot{flex-direction:column;gap:8px}
+.tc-sw .tc-foot .btn{width:100%;flex:none;padding:10px 12px}
+.tool-done .tool-time{color:var(--accent);animation:toolflash 1s steps(2,start) infinite}
+@keyframes toolflash{50%{opacity:.4}}
+/* ---- full-screen preset timer (/timer/<duration>/ and the use-case pages) ----
+   Added for phones, which had no way to make the read-out big: "Pop out" needs
+   Document Picture-in-Picture (desktop Chrome/Edge) and hides itself under
+   560px. It is shown at EVERY width rather than only on narrow ones — a first
+   pass hid it above 560px as the exact mirror of the pop-out, and a phone
+   turned landscape is 780px wide, so the one control it needed vanished at the
+   moment the screen got wide enough to be worth filling. A projector is the
+   other case a width test gets wrong in the opposite direction.
+
+   So the two are mutually exclusive on CAPABILITY, not on width: full screen
+   hides itself only where the pop-out is genuinely available — Document
+   Picture-in-Picture present (the `pip-ok` class, set by the timer script) AND
+   wide enough for the pop-out button to be shown. The row therefore always
+   carries exactly five controls, which matters because it is width-matched to
+   the LED display above it and a sixth squeezes "Start" narrower than its own
+   label. Desktop Firefox and Safari, which have no Document PiP, keep full
+   screen rather than ending up with neither. */
+.t-fsbtn{width:auto;padding:8px 11px;display:inline-flex;align-items:center;justify-content:center}
+.t-fsbtn svg{display:block}
+@media(min-width:561px){html.pip-ok .t-fsbtn{display:none}}
+.t-controls .btn.t-fsbtn{flex:0 0 auto;width:clamp(44px,11.5vw,58px);min-width:0;padding:0}
+/* "Pop out" is a word, not an icon, so it has to size to its text. Without this
+   it inherits .t-controls .btn's flex:1 1 0 and gets clipped mid-word. */
+.t-controls .btn.ac-popbtn{flex:0 0 auto;width:auto;padding-left:10px;padding-right:10px}
+.t-controls .btn.t-fsbtn svg{width:clamp(20px,5vw,26px);height:auto}
+/* The CARD goes full screen, so the display and the whole control row travel
+   with it and every listener still applies. Everything the card carries for the
+   normal page — the reliability line, the preset chips, the notification hint —
+   is furniture for a page, not for a timer across the room, so it goes. */
+.t-fs{position:fixed;inset:0;z-index:9999;margin:0;border:0;border-radius:0;background:#0b1020;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px 16px 64px;overflow:auto}
+.t-fs .tool-warn,.t-fs .timer-presets,.t-fs .t-notify-hint,.t-fs .tool-uses{display:none}
+.t-fs .seg-screen{font-size:clamp(56px,19vw,190px);margin:0}
+.t-fs .t-controls{max-width:min(560px,92vw);margin-top:8px}
+/* portrait phone: the read-out is the point, so let it use the width */
+@media(orientation:portrait){.t-fs .seg-screen{font-size:min(19vw,13.5vh)}}
+/* A phone turned landscape is ~360px TALL. Sized on width alone the read-out
+   was taller than the viewport, and since the layer centres its content the
+   control row ended up underneath the wake-lock note. Height has to bound it. */
+@media(max-height:560px){
+  .t-fs{padding:12px 16px 52px;gap:4px}
+  .t-fs .seg-screen{font-size:min(13vw,20vh)}
+  .t-fs .seg-label{display:none}
+  .t-fs .t-controls{margin-top:2px}
+}
+body.t-fs-open{overflow:hidden}

@@ -1,0 +1,176 @@
+/* the year chart's read-out. The wrapper is the positioning context and the
+   focus target; the tooltip floats over the plot rather than reserving space,
+   so the chart does not jump when it appears. */
+/* the wrapper must be exactly as wide as the chart inside it: the tooltip is
+   positioned as a percentage OF THE WRAPPER, so a wrapper wider than the
+   660px-capped svg slid every reading sideways. */
+.sun-year-wrap{position:relative;display:block;width:100%;max-width:660px;border-radius:12px}
+.sun-year-wrap:focus{outline:2px solid var(--accent);outline-offset:3px}
+.sun-year-wrap:focus:not(:focus-visible){outline:none}
+.sun-yt{position:absolute;top:8px;transform:translateX(10px);z-index:2;pointer-events:none;
+  display:flex;flex-direction:column;gap:1px;padding:8px 11px;min-width:132px;
+  background:var(--menu-bg);border:1px solid var(--border);border-radius:10px;
+  box-shadow:0 10px 26px rgba(0,0,0,.5);font-size:12px;line-height:1.35;font-variant-numeric:tabular-nums}
+.sun-yt.is-left{transform:translateX(calc(-100% - 10px))}
+.sun-yt b{font-size:13px}
+.sun-yt span{display:flex;gap:8px;justify-content:space-between;white-space:nowrap;color:var(--text)}
+.sun-yt i{font-style:normal;color:var(--muted)}
+/* On a phone the chart is ~350px wide and a floating panel simply does not fit
+   beside the guide line at any x — so it stops floating and becomes a strip
+   pinned across the top of the chart, reading as one wrapping row. `left` and
+   `transform` are set inline by the script as the pointer moves, which is what
+   the !important overrides here: the position is no longer the script's to
+   decide once the layout mode has changed. */
+@media (max-width:560px){
+  .sun-yt{left:0!important;right:0;transform:none!important;top:0;width:100%;min-width:0;
+    flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:1px 10px;padding:6px 8px;font-size:11px}
+  .sun-yt span{gap:5px}
+}
+.sun-yt em{font-style:normal;color:var(--muted)}
+
+/* dial left + compact stats right on city pages; stacks on mobile */
+.sun-dial-card{flex-direction:row;flex-wrap:wrap;gap:20px;justify-content:center;align-items:center}
+.sun-dial-wrap{flex:0 1 300px;max-width:300px;text-align:center}
+.sun-dial-wrap svg{width:100%;height:auto}
+.sun-side{flex:1 1 230px;min-width:220px;display:flex;flex-direction:column;gap:6px}
+.sun-srow{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border);border-radius:10px;padding:6px 11px;font-size:13px}
+.sun-srow span{color:var(--muted);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.sun-srow b{font-size:16px;font-variant-numeric:tabular-nums}
+.sun-srow.sun-main{border-color:rgba(252,211,77,.5)}
+.sun-srow.sun-main b{color:var(--accent)}
+/* /sun/my-location/: the "computed for your spot (lat, lon)" note sits under
+   the sun clock as a footnote to the times, not as the page's opening line */
+.ml-place{margin:-4px 0 16px;text-align:center}
+/* the day's-daylight card above the dial: stat line + the two-row sun arc */
+/* sun pages carry long headings ("Sunrise & Sunset in Altamonte Springs, FL"),
+   so the H1 runs a size down to keep more of them on one line */
+body:has(#sun-arc) h1{font-size:21px}
+@media (min-width:560px){body:has(#sun-arc) h1{font-size:27px}}
+.sun-arccard h2{margin-bottom:6px}
+/* the heading's date is the picker itself — same control as the one under the
+   dial, and the two stay in step */
+/* The date picker lives INSIDE its <h2> ("Daylight in Chicago <input date>"),
+   so by default it trails the heading text inline. Make that h2 a flex row and
+   push the input to the far right: heading stays left, control sits right.
+   Scoped with :has so only headings that actually carry a picker change; the
+   margin-left:auto also keeps the input right-aligned if it wraps to its own
+   line on a narrow screen. */
+h2:has(> .sun-hdate){display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sun-hdate{width:auto;margin:0 0 0 auto;padding:3px 7px;font-size:13px;font-weight:400;color:var(--muted);vertical-align:middle}
+.sun-hdate:hover{color:var(--text);border-color:var(--accent)}
+/* one fact per line, plain text, tight — this block sits above the chart and
+   should read at a glance, not compete with it */
+.sun-arcbar{margin:0;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+/* accent colour carries the emphasis here; matching the bold times on the line
+   below keeps the three-line block even */
+.sun-arcbar #sun-arc-len{color:var(--accent);font-size:15px}
+.sun-arctimes{margin:1px 0 10px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sun-arctimes b{color:var(--text);font-size:15px}
+.sun-arcsep{opacity:.5;padding:0 2px}
+.sun-arccard .sun-next{display:block;margin:1px 0 0;padding:0;border:0;background:none;border-radius:0;font-size:14px;font-weight:400;color:var(--text)}
+/* the dial card's heading spans the dial+stats row, and carries the date picker
+   the same way the daylight card does — one line instead of a separate row of
+   its own under the dial */
+.sun-dial-card h2{flex:1 0 100%;margin:0 0 6px;align-self:flex-start}
+#sun-arc{width:100%;height:auto;display:block}
+#sun-arc .sun-aS{display:none}
+/* phones: the chart scales down to fit rather than scrolling, so its labels
+   swap to their short wording and scale back up to a legible size (a CSS rule
+   outranks the font-size attribute baked into the SVG) */
+@media (max-width:560px){
+  #sun-arc text{font-size:19px}
+  #sun-arc .sun-pk{font-size:17px}
+  #sun-arc .sun-ax{font-size:16px}
+  #sun-arc .sun-aL{display:none}
+  #sun-arc .sun-aS{display:inline}
+}
+/* "where the sun is right now": the Sun-Earth-Moon view leads the card, the
+   live stats sit beside it once there's room (.sun-nowgrid below), and the
+   explanation follows underneath both, full width. The picture used to share
+   a row with a small horizon plot instead, which drew the same two bodies
+   against a compass line that the Direction and Azimuth rows already state
+   in words — that's what .sun-nowgrid replaced it with. */
+/* One column on a phone, two from 560px. The rows are label-left/value-right
+   and "Right now / Full daylight" needs ~240px before it stops wrapping.
+   Two is the cap: auto-fit gave a wide screen three columns and an orphan.
+   Inside .sun-nowgrid (beside the picture) this is overridden back to one
+   column — see there for why. */
+.sun-nowstats{display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px}
+@media (min-width:560px){.sun-nowstats{grid-template-columns:1fr 1fr}}
+/* THE PICTURE AND ITS FOUR NUMBERS, SIDE BY SIDE WHEN THERE'S ROOM — the same
+   sibling shape as .sun-dial-card/.sun-side above it on this page. On a wide
+   page the picture alone (capped at 440px, like .orr-fig) left a band of card
+   background beside it exactly the width four stat rows need; this spends
+   that band on them instead. Wraps to stacked below ~700px on its own, same
+   as .sun-dial-card — no breakpoint needed, flex-wrap does it. The stats
+   column is forced back to ONE across (not .sun-nowstats' own 560px-wide
+   two-column rule above, which answers to the VIEWPORT and would cram two
+   columns into a ~230px flex item): a class selector beats a bare one on
+   specificity, so this wins without !important. */
+.sun-nowgrid{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:center;margin-top:16px}
+.sun-nowgrid .orr{flex:0 1 440px;max-width:440px;margin-top:0}
+.sun-nowgrid .sun-nowstats{flex:1 1 230px;min-width:220px;grid-template-columns:1fr;margin-top:0}
+/* golden hour / blue hour card: two columns (morning | evening) + moon note */
+.sun-gb{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+.sun-gbcol{display:flex;flex-direction:column;gap:6px}
+/* these values are RANGES ("3:33 AM – 4:47 AM"), not single times — at the
+   single-time size they dwarfed their labels and wrapped on phones */
+.sun-gb .sun-srow b{font-size:13.5px}
+@media (max-width:560px){.sun-gb .sun-srow{flex-direction:column;align-items:flex-start;gap:1px}}
+.sun-gbh{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+/* the moon line under the sun read-out. A sentence, not a stat row — it is
+   context for the card it sits in, and it carries the whole weight of that
+   card at night, when the sun has nothing to say. */
+/* the pointer from the daylight card down to tomorrow's times. Small and
+   centred: it is a signpost, not a headline. */
+.sun-tmwlink{text-align:center;margin:12px 0 0;font-size:13px}
+.sun-tmwlink a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border)}
+.sun-tmwlink a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.sun-tmwlink b{color:var(--text);font-variant-numeric:tabular-nums}
+.sun-nowmoon{margin:10px 0 0;padding-top:10px;border-top:1px solid var(--border);font-size:13.5px;color:var(--muted);line-height:1.5}
+.sun-nowmoon b{color:var(--text);font-variant-numeric:tabular-nums}
+.sun-nowmoon:empty{display:none}
+.sun-moon{display:flex;align-items:center;gap:10px;margin:10px 0 0;padding-top:10px;border-top:1px solid var(--border)}
+.sun-moon-ico{flex:0 0 auto;line-height:0}
+.sun-moon-txt{font-size:13px;color:var(--muted)}
+.sun-moon-txt b{color:var(--text)}
+@media (max-width:380px){.sun-gb{grid-template-columns:1fr}}
+/* locally-computed seasonal facts list (direction, trend, next solstice) */
+.sun-facts{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.sun-facts li{font-size:14px;line-height:1.5}
+/* next-solar-event highlight under the answer sentence (live countdown via JS) */
+.sun-next{display:inline-block;margin:2px 0 10px;padding:6px 14px;border-radius:999px;background:rgba(252,211,77,.12);border:1px solid rgba(252,211,77,.35);color:var(--text);font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+/* phones: a smaller dial keeps the sunrise/sunset numbers above the fold */
+@media (max-width:600px){
+  .sun-dial-card{gap:10px}
+  .sun-dial-wrap{flex-basis:230px;max-width:230px}
+}
+/* hub mini sundials */
+.sun-minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.sun-mini-card{border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center;background:rgba(255,255,255,.02)}
+.sun-mini-card svg{width:100%;max-width:120px;height:auto}
+.sun-mini-name{display:block;font-weight:700;color:var(--text);text-decoration:none;font-size:13px;margin-top:6px}
+.sun-mini-name:hover{color:var(--accent)}
+.sun-mini-times{font-size:12px;color:var(--text);margin-top:2px;font-variant-numeric:tabular-nums}
+.sun-mini-link{display:block;text-decoration:none}
+.sun-mini-link:hover .sun-mini-name{color:var(--accent)}
+.sun-mini-link .sun-mini-name{display:block;font-weight:700;color:var(--text);font-size:13px;margin-top:6px}
+/* homepage sunrise/sunset card: much smaller dials than the /sun/ hub's
+ * (auto-fill on a small min-width, not the hub's fixed 150px, so 2-3 fit
+ * per row even on a phone instead of one oversized card per row) */
+.sun-home-note{font-size:13px;line-height:1.5;color:var(--muted);margin:-2px 0 12px}
+/* A FIXED COUNT THAT DIVIDES SIX, not auto-fill. There are exactly six cities
+   here, so auto-fill's answer to "how many fit" was 5 at half width — five
+   dials and then one alone on a row with five dials' worth of space beside it.
+   Three and two both divide six; the count comes from the CARD's width, not the
+   window's, because at a third of 1400 the card is 450px while the viewport is
+   still 1400. */
+#home-sun-grid{grid-template-columns:repeat(6,1fr);gap:8px}
+@container (max-width:800px){#home-sun-grid{grid-template-columns:repeat(3,1fr)}}
+@container (max-width:430px){#home-sun-grid{grid-template-columns:repeat(2,1fr)}}
+#home-sun-grid .sun-mini-card{padding:6px}
+#home-sun-grid .sun-mini-card svg{max-width:72px}
+#home-sun-grid .sun-mini-name,#home-sun-grid .sun-mini-link .sun-mini-name{font-size:11px;margin-top:4px}
+#home-sun-grid .sun-mini-times{font-size:10.5px;margin-top:1px}
+.td-none{padding:4px 2px;color:var(--muted);font-size:13px;margin:0}
+/* lift the card while a sun panel/dropdown is open (cards are stacking

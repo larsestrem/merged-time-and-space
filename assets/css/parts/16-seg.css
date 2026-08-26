@@ -1,0 +1,30 @@
+/* 7-segment digit: 7 rectangular cells; unlit segments stay faintly visible */
+.dig{position:relative;display:inline-block;width:.58em;height:1em}
+.seg{position:absolute;background:var(--seg-off,#180505)}
+.seg-a,.seg-g,.seg-d{clip-path:polygon(13% 0,87% 0,100% 50%,87% 100%,13% 100%,0 50%)}
+.seg-b,.seg-c,.seg-e,.seg-f{clip-path:polygon(0 14%,50% 0,100% 14%,100% 86%,50% 100%,0 86%)}
+.seg.on{background:var(--seg-on,#ff2b2b);box-shadow:0 0 .12em var(--seg-glow,rgba(255,43,43,.65))}
+/* Hour-tens digit only ever shows blank or "1" (hours 10-12) — like an old
+ * digital alarm clock, where that position physically only had room for a
+ * narrow "1", not a full 7-segment character. Only segments b/c (the "1"
+ * shape) exist there; the rest are never rendered, on or off. */
+.dig[data-d="h1"] .seg-a,.dig[data-d="h1"] .seg-d,.dig[data-d="h1"] .seg-e,.dig[data-d="h1"] .seg-f,.dig[data-d="h1"] .seg-g{display:none}
+.seg-a{top:0;left:.1em;width:.38em;height:.1em}
+.seg-g{top:.45em;left:.1em;width:.38em;height:.1em}
+.seg-d{top:.9em;left:.1em;width:.38em;height:.1em}
+.seg-f{top:.1em;left:0;width:.1em;height:.35em}
+.seg-b{top:.1em;right:0;width:.1em;height:.35em}
+.seg-e{top:.55em;left:0;width:.1em;height:.35em}
+.seg-c{top:.55em;right:0;width:.1em;height:.35em}
+.ac-colon{display:inline-flex;flex-direction:column;justify-content:center;gap:.24em;height:1em;margin:0 .03em}
+.ac-colon i{width:.1em;height:.1em;border-radius:50%;background:var(--seg-on,#ff2b2b);box-shadow:0 0 .1em var(--seg-glow,rgba(255,43,43,.6))}
+/* decimal point for the stopwatch (hundredths) */
+.seg-dot{align-self:flex-end;width:.12em;height:.12em;border-radius:50%;margin:0 .04em .06em;background:var(--seg-on,#ff2b2b);box-shadow:0 0 .1em var(--seg-glow,rgba(255,43,43,.6))}
+/* shared LED "screen": black panel + light blue-green digits, for the timer
+ * and stopwatch (font-size scales the whole readout; digits use em units) */
+.seg-screen{--seg-on:#3df2c0;--seg-off:#0e3a33;--seg-glow:rgba(61,242,192,.55);
+  display:inline-flex;align-items:center;justify-content:center;gap:.04em;
+  background:#0b0b0c;border:1px solid #2a2a2a;border-radius:16px;padding:.16em .26em;
+  box-shadow:inset 0 3px 16px rgba(0,0,0,.9),0 10px 30px rgba(0,0,0,.3);
+  font-size:clamp(44px,15vw,108px);line-height:1;margin:4px auto;max-width:100%}
+.seg-label{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}

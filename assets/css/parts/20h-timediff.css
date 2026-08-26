@@ -1,0 +1,34 @@
+/* The time-difference widget (time-diff.mjs) — /time-difference-calculator/
+ * and the home page's card. The DST callout reuses .tool-msg-warn and the
+ * minutes pill .duration-equivalent, both core, so this part carries only what
+ * nothing else on the site has: a big centred duration read-out, and the
+ * two-leg form under it.
+ *
+ * A LEG IS ONE SENTENCE: "Start time [09:00] in [Portland, OR]". The time and
+ * its zone belong to each other, so they sit on one line and wrap together;
+ * the legs stack, because the second is the answer to the first and reading
+ * them as a column is reading them in order. Sized in flex basis rather than
+ * a media query so the same markup works in a full-width page card and in a
+ * third-width card on the home board without either knowing about the other.
+ * Digits only in the read-out, so tabular numerals per the site-wide rule. */
+.tdiff-result{font-size:clamp(32px,9vw,56px);font-weight:800;font-variant-numeric:tabular-nums;line-height:1;margin:16px 0 6px;text-align:center}
+.tdiff-actions{text-align:center;margin-top:8px}
+.tdiff-leg{display:flex;flex-wrap:wrap;gap:0 12px;align-items:flex-end}
+/* CAPTION ABOVE CONTROL, for both fields. A bare label lets its text sit
+   beside an inline-block control when there is room, which put "Start time"
+   to the LEFT of its clock field while the zone caption stacked above its
+   select (that one is width:100%, so it wrapped) — two fields on one line,
+   labelled two different ways. A flex column makes the rule explicit rather
+   than leaving it to whether the control happens to fit. Same shape as
+   .td-controls label on the tide pages. */
+.tdiff-leg label{display:flex;flex-direction:column;gap:4px;margin:12px 0 0;font-size:12px;font-weight:600;color:var(--muted)}
+/* the zone select takes the slack; the clock field stays its own width, since
+   a time input stretched across a card is all box and no content */
+.tdiff-leg label:first-child{flex:0 0 auto}
+.tdiff-leg label:last-child{flex:1 1 150px;min-width:0}
+.tdiff-leg input[type=time]{width:auto;margin:0;font-variant-numeric:tabular-nums}
+.tdiff-leg select{margin:0}
+.tdiff-sum{margin:6px 0 0;text-align:center}
+/* the cross-zone line is the second answer, not a caption for the first, so it
+   sits centred with the summary rather than tucked left as an aside */
+.tdiff-cross{text-align:center;margin:6px 0 0}

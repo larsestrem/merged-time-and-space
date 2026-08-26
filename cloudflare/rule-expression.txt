@@ -1,0 +1,319 @@
+(http.request.uri.path eq "/c" or http.request.uri.path eq "/c.html" or http.request.uri.path eq "/api/og" or http.request.uri.path contains "countdown") and (
+  (lower(url_decode(http.request.uri.query)) contains "nigger") or
+  (lower(url_decode(http.request.uri.query)) contains "nigga") or
+  (lower(url_decode(http.request.uri.query)) contains "niggas") or
+  (lower(url_decode(http.request.uri.query)) contains "chink") or
+  (lower(url_decode(http.request.uri.query)) contains "chinaman") or
+  (lower(url_decode(http.request.uri.query)) contains "gook") or
+  (lower(url_decode(http.request.uri.query)) contains "spic") or
+  (lower(url_decode(http.request.uri.query)) contains "wetback") or
+  (lower(url_decode(http.request.uri.query)) contains "beaner") or
+  (lower(url_decode(http.request.uri.query)) contains "kike") or
+  (lower(url_decode(http.request.uri.query)) contains "heeb") or
+  (lower(url_decode(http.request.uri.query)) contains "raghead") or
+  (lower(url_decode(http.request.uri.query)) contains "towelhead") or
+  (lower(url_decode(http.request.uri.query)) contains "sandnigger") or
+  (lower(url_decode(http.request.uri.query)) contains "coon") or
+  (lower(url_decode(http.request.uri.query)) contains "darkie") or
+  (lower(url_decode(http.request.uri.query)) contains "darky") or
+  (lower(url_decode(http.request.uri.query)) contains "negro") or
+  (lower(url_decode(http.request.uri.query)) contains "jigaboo") or
+  (lower(url_decode(http.request.uri.query)) contains "porchmonkey") or
+  (lower(url_decode(http.request.uri.query)) contains "spook nigger") or
+  (lower(url_decode(http.request.uri.query)) contains "wop") or
+  (lower(url_decode(http.request.uri.query)) contains "dago") or
+  (lower(url_decode(http.request.uri.query)) contains "paki") or
+  (lower(url_decode(http.request.uri.query)) contains "gypsy slur") or
+  (lower(url_decode(http.request.uri.query)) contains "zipperhead") or
+  (lower(url_decode(http.request.uri.query)) contains "redskin slur") or
+  (lower(url_decode(http.request.uri.query)) contains "faggot") or
+  (lower(url_decode(http.request.uri.query)) contains "faggy") or
+  (lower(url_decode(http.request.uri.query)) contains "fagget") or
+  (lower(url_decode(http.request.uri.query)) contains "dyke") or
+  (lower(url_decode(http.request.uri.query)) contains "tranny") or
+  (lower(url_decode(http.request.uri.query)) contains "shemale") or
+  (lower(url_decode(http.request.uri.query)) contains "ladyboy") or
+  (lower(url_decode(http.request.uri.query)) contains "retard") or
+  (lower(url_decode(http.request.uri.query)) contains "retarded") or
+  (lower(url_decode(http.request.uri.query)) contains "spaz") or
+  (lower(url_decode(http.request.uri.query)) contains "mongoloid") or
+  (lower(url_decode(http.request.uri.query)) contains "cripple slur") or
+  (lower(url_decode(http.request.uri.query)) contains "kkk") or
+  (lower(url_decode(http.request.uri.query)) contains "ku klux") or
+  (lower(url_decode(http.request.uri.query)) contains "klansman") or
+  (lower(url_decode(http.request.uri.query)) contains "nazi") or
+  (lower(url_decode(http.request.uri.query)) contains "neonazi") or
+  (lower(url_decode(http.request.uri.query)) contains "neo-nazi") or
+  (lower(url_decode(http.request.uri.query)) contains "heil hitler") or
+  (lower(url_decode(http.request.uri.query)) contains "sieg heil") or
+  (lower(url_decode(http.request.uri.query)) contains "white power") or
+  (lower(url_decode(http.request.uri.query)) contains "white supremacy") or
+  (lower(url_decode(http.request.uri.query)) contains "white supremacist") or
+  (lower(url_decode(http.request.uri.query)) contains "black supremacy") or
+  (lower(url_decode(http.request.uri.query)) contains "aryan") or
+  (lower(url_decode(http.request.uri.query)) contains "aryan nation") or
+  (lower(url_decode(http.request.uri.query)) contains "ethnic cleansing") or
+  (lower(url_decode(http.request.uri.query)) contains "genocide") or
+  (lower(url_decode(http.request.uri.query)) contains "holocaust denial") or
+  (lower(url_decode(http.request.uri.query)) contains "lynch") or
+  (lower(url_decode(http.request.uri.query)) contains "lynching") or
+  (lower(url_decode(http.request.uri.query)) contains "hate") or
+  (lower(url_decode(http.request.uri.query)) contains "hate crime") or
+  (lower(url_decode(http.request.uri.query)) contains "hate group") or
+  (lower(url_decode(http.request.uri.query)) contains "gas the") or
+  (lower(url_decode(http.request.uri.query)) contains "death to all") or
+  (lower(url_decode(http.request.uri.query)) contains "14 88") or
+  (lower(url_decode(http.request.uri.query)) contains "kill") or
+  (lower(url_decode(http.request.uri.query)) contains "killer") or
+  (lower(url_decode(http.request.uri.query)) contains "killing") or
+  (lower(url_decode(http.request.uri.query)) contains "murder") or
+  (lower(url_decode(http.request.uri.query)) contains "murderer") or
+  (lower(url_decode(http.request.uri.query)) contains "homicide") or
+  (lower(url_decode(http.request.uri.query)) contains "manslaughter") or
+  (lower(url_decode(http.request.uri.query)) contains "assassinate") or
+  (lower(url_decode(http.request.uri.query)) contains "assassination") or
+  (lower(url_decode(http.request.uri.query)) contains "massacre") or
+  (lower(url_decode(http.request.uri.query)) contains "slaughter") or
+  (lower(url_decode(http.request.uri.query)) contains "mass shooting") or
+  (lower(url_decode(http.request.uri.query)) contains "school shooting") or
+  (lower(url_decode(http.request.uri.query)) contains "school shooter") or
+  (lower(url_decode(http.request.uri.query)) contains "mass shooter") or
+  (lower(url_decode(http.request.uri.query)) contains "active shooter") or
+  (lower(url_decode(http.request.uri.query)) contains "shooting spree") or
+  (lower(url_decode(http.request.uri.query)) contains "shoot") or
+  (lower(url_decode(http.request.uri.query)) contains "shooting") or
+  (lower(url_decode(http.request.uri.query)) contains "shoot up") or
+  (lower(url_decode(http.request.uri.query)) contains "shoot em") or
+  (lower(url_decode(http.request.uri.query)) contains "gun down") or
+  (lower(url_decode(http.request.uri.query)) contains "gunman") or
+  (lower(url_decode(http.request.uri.query)) contains "behead") or
+  (lower(url_decode(http.request.uri.query)) contains "beheading") or
+  (lower(url_decode(http.request.uri.query)) contains "decapitate") or
+  (lower(url_decode(http.request.uri.query)) contains "dismember") or
+  (lower(url_decode(http.request.uri.query)) contains "stabbing") or
+  (lower(url_decode(http.request.uri.query)) contains "strangle") or
+  (lower(url_decode(http.request.uri.query)) contains "torture") or
+  (lower(url_decode(http.request.uri.query)) contains "maim") or
+  (lower(url_decode(http.request.uri.query)) contains "terrorist") or
+  (lower(url_decode(http.request.uri.query)) contains "terror attack") or
+  (lower(url_decode(http.request.uri.query)) contains "suicide bomber") or
+  (lower(url_decode(http.request.uri.query)) contains "bomb threat") or
+  (lower(url_decode(http.request.uri.query)) contains "pipe bomb") or
+  (lower(url_decode(http.request.uri.query)) contains "car bomb") or
+  (lower(url_decode(http.request.uri.query)) contains "detonate") or
+  (lower(url_decode(http.request.uri.query)) contains "explosive device") or
+  (lower(url_decode(http.request.uri.query)) contains "hostage") or
+  (lower(url_decode(http.request.uri.query)) contains "kidnap") or
+  (lower(url_decode(http.request.uri.query)) contains "abduct") or
+  (lower(url_decode(http.request.uri.query)) contains "suicide") or
+  (lower(url_decode(http.request.uri.query)) contains "kill myself") or
+  (lower(url_decode(http.request.uri.query)) contains "kill yourself") or
+  (lower(url_decode(http.request.uri.query)) contains "kys") or
+  (lower(url_decode(http.request.uri.query)) contains "self harm") or
+  (lower(url_decode(http.request.uri.query)) contains "cut myself") or
+  (lower(url_decode(http.request.uri.query)) contains "hang myself") or
+  (lower(url_decode(http.request.uri.query)) contains "overdose on") or
+  (lower(url_decode(http.request.uri.query)) contains "porn") or
+  (lower(url_decode(http.request.uri.query)) contains "porno") or
+  (lower(url_decode(http.request.uri.query)) contains "pornhub") or
+  (lower(url_decode(http.request.uri.query)) contains "hardcore porn") or
+  (lower(url_decode(http.request.uri.query)) contains "child porn") or
+  (lower(url_decode(http.request.uri.query)) contains "childporn") or
+  (lower(url_decode(http.request.uri.query)) contains "cp child") or
+  (lower(url_decode(http.request.uri.query)) contains "pedophile") or
+  (lower(url_decode(http.request.uri.query)) contains "pedo") or
+  (lower(url_decode(http.request.uri.query)) contains "underage") or
+  (lower(url_decode(http.request.uri.query)) contains "rape") or
+  (lower(url_decode(http.request.uri.query)) contains "rapist") or
+  (lower(url_decode(http.request.uri.query)) contains "raping") or
+  (lower(url_decode(http.request.uri.query)) contains "molest") or
+  (lower(url_decode(http.request.uri.query)) contains "molester") or
+  (lower(url_decode(http.request.uri.query)) contains "incest") or
+  (lower(url_decode(http.request.uri.query)) contains "bestiality") or
+  (lower(url_decode(http.request.uri.query)) contains "naked") or
+  (lower(url_decode(http.request.uri.query)) contains "nude") or
+  (lower(url_decode(http.request.uri.query)) contains "nudes") or
+  (lower(url_decode(http.request.uri.query)) contains "nudity") or
+  (lower(url_decode(http.request.uri.query)) contains "xxx") or
+  (lower(url_decode(http.request.uri.query)) contains "nsfw") or
+  (lower(url_decode(http.request.uri.query)) contains "blowjob") or
+  (lower(url_decode(http.request.uri.query)) contains "handjob") or
+  (lower(url_decode(http.request.uri.query)) contains "rimjob") or
+  (lower(url_decode(http.request.uri.query)) contains "deepthroat") or
+  (lower(url_decode(http.request.uri.query)) contains "creampie") or
+  (lower(url_decode(http.request.uri.query)) contains "gangbang") or
+  (lower(url_decode(http.request.uri.query)) contains "bukkake") or
+  (lower(url_decode(http.request.uri.query)) contains "cumshot") or
+  (lower(url_decode(http.request.uri.query)) contains "cumming") or
+  (lower(url_decode(http.request.uri.query)) contains "jizz") or
+  (lower(url_decode(http.request.uri.query)) contains "ejaculat") or
+  (lower(url_decode(http.request.uri.query)) contains "masturbat") or
+  (lower(url_decode(http.request.uri.query)) contains "fingering") or
+  (lower(url_decode(http.request.uri.query)) contains "orgasm") or
+  (lower(url_decode(http.request.uri.query)) contains "boner") or
+  (lower(url_decode(http.request.uri.query)) contains "erection") or
+  (lower(url_decode(http.request.uri.query)) contains "pussy") or
+  (lower(url_decode(http.request.uri.query)) contains "vagina") or
+  (lower(url_decode(http.request.uri.query)) contains "penis") or
+  (lower(url_decode(http.request.uri.query)) contains "testicle") or
+  (lower(url_decode(http.request.uri.query)) contains "ballsack") or
+  (lower(url_decode(http.request.uri.query)) contains "scrotum") or
+  (lower(url_decode(http.request.uri.query)) contains "clitoris") or
+  (lower(url_decode(http.request.uri.query)) contains "labia") or
+  (lower(url_decode(http.request.uri.query)) contains "butthole") or
+  (lower(url_decode(http.request.uri.query)) contains "anal sex") or
+  (lower(url_decode(http.request.uri.query)) contains "oral sex") or
+  (lower(url_decode(http.request.uri.query)) contains "sexual") or
+  (lower(url_decode(http.request.uri.query)) contains "sexually") or
+  (lower(url_decode(http.request.uri.query)) contains "horny") or
+  (lower(url_decode(http.request.uri.query)) contains "slut") or
+  (lower(url_decode(http.request.uri.query)) contains "slutty") or
+  (lower(url_decode(http.request.uri.query)) contains "whore") or
+  (lower(url_decode(http.request.uri.query)) contains "hooker") or
+  (lower(url_decode(http.request.uri.query)) contains "prostitute") or
+  (lower(url_decode(http.request.uri.query)) contains "escort service") or
+  (lower(url_decode(http.request.uri.query)) contains "stripper") or
+  (lower(url_decode(http.request.uri.query)) contains "hentai") or
+  (lower(url_decode(http.request.uri.query)) contains "milf") or
+  (lower(url_decode(http.request.uri.query)) contains "gilf") or
+  (lower(url_decode(http.request.uri.query)) contains "camgirl") or
+  (lower(url_decode(http.request.uri.query)) contains "onlyfans") or
+  (lower(url_decode(http.request.uri.query)) contains "fleshlight") or
+  (lower(url_decode(http.request.uri.query)) contains "dildo") or
+  (lower(url_decode(http.request.uri.query)) contains "buttplug") or
+  (lower(url_decode(http.request.uri.query)) contains "strapon") or
+  (lower(url_decode(http.request.uri.query)) contains "cocksucker") or
+  (lower(url_decode(http.request.uri.query)) contains "motherfucker") or
+  (lower(url_decode(http.request.uri.query)) contains "twat") or
+  (lower(url_decode(http.request.uri.query)) contains "wanker") or
+  (lower(url_decode(http.request.uri.query)) contains "jackoff") or
+  (lower(url_decode(http.request.uri.query)) contains "jerk off") or
+  (lower(url_decode(http.request.uri.query)) contains "dick") or
+  (lower(url_decode(http.request.uri.query)) contains "golden shower") or
+  (lower(url_decode(http.request.uri.query)) contains "hump") or
+  (lower(url_decode(http.request.uri.query)) contains "humping") or
+  (lower(url_decode(http.request.uri.query)) contains "dry hump") or
+  (lower(url_decode(http.request.uri.query)) contains "three way") or
+  (lower(url_decode(http.request.uri.query)) contains "threeway") or
+  (lower(url_decode(http.request.uri.query)) contains "threesome") or
+  (lower(url_decode(http.request.uri.query)) contains "foursome") or
+  (lower(url_decode(http.request.uri.query)) contains "menage a trois") or
+  (lower(url_decode(http.request.uri.query)) contains "menage") or
+  (lower(url_decode(http.request.uri.query)) contains "mangina") or
+  (lower(url_decode(http.request.uri.query)) contains "fisting") or
+  (lower(url_decode(http.request.uri.query)) contains "felching") or
+  (lower(url_decode(http.request.uri.query)) contains "scat play") or
+  (lower(url_decode(http.request.uri.query)) contains "fuck") or
+  (lower(url_decode(http.request.uri.query)) contains "fucking") or
+  (lower(url_decode(http.request.uri.query)) contains "fucked") or
+  (lower(url_decode(http.request.uri.query)) contains "fucker") or
+  (lower(url_decode(http.request.uri.query)) contains "fuckface") or
+  (lower(url_decode(http.request.uri.query)) contains "fuckhead") or
+  (lower(url_decode(http.request.uri.query)) contains "clusterfuck") or
+  (lower(url_decode(http.request.uri.query)) contains "shit") or
+  (lower(url_decode(http.request.uri.query)) contains "shitty") or
+  (lower(url_decode(http.request.uri.query)) contains "shithead") or
+  (lower(url_decode(http.request.uri.query)) contains "bullshit") or
+  (lower(url_decode(http.request.uri.query)) contains "batshit") or
+  (lower(url_decode(http.request.uri.query)) contains "dipshit") or
+  (lower(url_decode(http.request.uri.query)) contains "horseshit") or
+  (lower(url_decode(http.request.uri.query)) contains "bitch") or
+  (lower(url_decode(http.request.uri.query)) contains "bitches") or
+  (lower(url_decode(http.request.uri.query)) contains "bastard") or
+  (lower(url_decode(http.request.uri.query)) contains "cunt") or
+  (lower(url_decode(http.request.uri.query)) contains "asshole") or
+  (lower(url_decode(http.request.uri.query)) contains "asshat") or
+  (lower(url_decode(http.request.uri.query)) contains "dumbass") or
+  (lower(url_decode(http.request.uri.query)) contains "jackass") or
+  (lower(url_decode(http.request.uri.query)) contains "dickhead") or
+  (lower(url_decode(http.request.uri.query)) contains "dickwad") or
+  (lower(url_decode(http.request.uri.query)) contains "prick") or
+  (lower(url_decode(http.request.uri.query)) contains "douche") or
+  (lower(url_decode(http.request.uri.query)) contains "douchebag") or
+  (lower(url_decode(http.request.uri.query)) contains "piss off") or
+  (lower(url_decode(http.request.uri.query)) contains "pissed") or
+  (lower(url_decode(http.request.uri.query)) contains "goddamn") or
+  (lower(url_decode(http.request.uri.query)) contains "damn it") or
+  (lower(url_decode(http.request.uri.query)) contains "bollocks") or
+  (lower(url_decode(http.request.uri.query)) contains "bugger off") or
+  (lower(url_decode(http.request.uri.query)) contains "arsehole") or
+  (lower(url_decode(http.request.uri.query)) contains "poop") or
+  (lower(url_decode(http.request.uri.query)) contains "pooping") or
+  (lower(url_decode(http.request.uri.query)) contains "poophead") or
+  (lower(url_decode(http.request.uri.query)) contains "urine") or
+  (lower(url_decode(http.request.uri.query)) contains "urinate") or
+  (lower(url_decode(http.request.uri.query)) contains "peeing") or
+  (lower(url_decode(http.request.uri.query)) contains "crap") or
+  (lower(url_decode(http.request.uri.query)) contains "crappy") or
+  (lower(url_decode(http.request.uri.query)) contains "stink") or
+  (lower(url_decode(http.request.uri.query)) contains "stinky") or
+  (lower(url_decode(http.request.uri.query)) contains "stinks") or
+  (lower(url_decode(http.request.uri.query)) contains "fart") or
+  (lower(url_decode(http.request.uri.query)) contains "farting") or
+  (lower(url_decode(http.request.uri.query)) contains "turd") or
+  (lower(url_decode(http.request.uri.query)) contains "boobs") or
+  (lower(url_decode(http.request.uri.query)) contains "boob") or
+  (lower(url_decode(http.request.uri.query)) contains "breasts") or
+  (lower(url_decode(http.request.uri.query)) contains "titties") or
+  (lower(url_decode(http.request.uri.query)) contains "buttcrack") or
+  (lower(url_decode(http.request.uri.query)) contains "buttcheek") or
+  (lower(url_decode(http.request.uri.query)) contains "snot") or
+  (lower(url_decode(http.request.uri.query)) contains "booger") or
+  (lower(url_decode(http.request.uri.query)) contains "queef") or
+  (lower(url_decode(http.request.uri.query)) contains "smegma") or
+  (lower(url_decode(http.request.uri.query)) contains "diarrhea") or
+  (lower(url_decode(http.request.uri.query)) contains "dingleberry") or
+  (lower(url_decode(http.request.uri.query)) contains "skidmark") or
+  (lower(url_decode(http.request.uri.query)) contains "drugs") or
+  (lower(url_decode(http.request.uri.query)) contains "marijuana") or
+  (lower(url_decode(http.request.uri.query)) contains "cannabis") or
+  (lower(url_decode(http.request.uri.query)) contains "weed") or
+  (lower(url_decode(http.request.uri.query)) contains "cocaine") or
+  (lower(url_decode(http.request.uri.query)) contains "heroin") or
+  (lower(url_decode(http.request.uri.query)) contains "meth lab") or
+  (lower(url_decode(http.request.uri.query)) contains "sell drugs") or
+  (lower(url_decode(http.request.uri.query)) contains "crack cocaine") or
+  (lower(url_decode(http.request.uri.query)) contains "crack pipe") or
+  (lower(url_decode(http.request.uri.query)) contains "doxx") or
+  (lower(url_decode(http.request.uri.query)) contains "swatting") or
+  (lower(url_decode(http.request.uri.query)) contains "revenge porn") or
+  (lower(url_decode(http.request.uri.query)) contains "upskirt") or
+  (lower(url_decode(http.request.uri.query)) contains "creepshot") or
+  (lower(url_decode(http.request.uri.query)) contains "pendejo") or
+  (lower(url_decode(http.request.uri.query)) contains "gilipollas") or
+  (lower(url_decode(http.request.uri.query)) contains "cabron") or
+  (lower(url_decode(http.request.uri.query)) contains "maricon") or
+  (lower(url_decode(http.request.uri.query)) contains "mierda") or
+  (lower(url_decode(http.request.uri.query)) contains "pinche") or
+  (lower(url_decode(http.request.uri.query)) contains "chingada") or
+  (lower(url_decode(http.request.uri.query)) contains "verga") or
+  (lower(url_decode(http.request.uri.query)) contains "culero") or
+  (lower(url_decode(http.request.uri.query)) contains "putain") or
+  (lower(url_decode(http.request.uri.query)) contains "salope") or
+  (lower(url_decode(http.request.uri.query)) contains "connard") or
+  (lower(url_decode(http.request.uri.query)) contains "encule") or
+  (lower(url_decode(http.request.uri.query)) contains "batard") or
+  (lower(url_decode(http.request.uri.query)) contains "scheisse") or
+  (lower(url_decode(http.request.uri.query)) contains "arschloch") or
+  (lower(url_decode(http.request.uri.query)) contains "hurensohn") or
+  (lower(url_decode(http.request.uri.query)) contains "wichser") or
+  (lower(url_decode(http.request.uri.query)) contains "schwanz") or
+  (lower(url_decode(http.request.uri.query)) contains "fotze") or
+  (lower(url_decode(http.request.uri.query)) contains "vaffanculo") or
+  (lower(url_decode(http.request.uri.query)) contains "stronzo") or
+  (lower(url_decode(http.request.uri.query)) contains "puttana") or
+  (lower(url_decode(http.request.uri.query)) contains "coglione") or
+  (lower(url_decode(http.request.uri.query)) contains "cazzo") or
+  (lower(url_decode(http.request.uri.query)) contains "caralho") or
+  (lower(url_decode(http.request.uri.query)) contains "buceta") or
+  (lower(url_decode(http.request.uri.query)) contains "chutiya") or
+  (lower(url_decode(http.request.uri.query)) contains "madarchod") or
+  (lower(url_decode(http.request.uri.query)) contains "behenchod") or
+  (lower(url_decode(http.request.uri.query)) contains "bhosdike") or
+  (lower(url_decode(http.request.uri.query)) contains "gaandu") or
+  (lower(url_decode(http.request.uri.query)) contains "blyat") or
+  (lower(url_decode(http.request.uri.query)) contains "pizda") or
+  (lower(url_decode(http.request.uri.query)) contains "putangina") or
+  (lower(url_decode(http.request.uri.query)) contains "tangina") or
+  (lower(url_decode(http.request.uri.query)) contains "sharmuta")
+)

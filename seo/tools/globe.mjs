@@ -1,0 +1,770 @@
+/* globe.mjs — one planet, turning, drawn the way it actually looks.
+ *
+ * THIS IS THE MOON'S METHOD APPLIED TO THE PLANETS (see moon-face.mjs). The
+ * rule there is the rule here:
+ *
+ *   1. Every feature sits at its REAL planetographic longitude and latitude and
+ *      is sized in REAL kilometres, divided by the planet's real radius. So
+ *      Syrtis Major is where Syrtis Major is, and it is the size Syrtis Major
+ *      is, relative to the disc it is on.
+ *   2. Features FORESHORTEN toward the limb. A feature at angular distance d
+ *      from the disc centre is squashed along the radial direction by cos(d) =
+ *      sqrt(1 - rho^2) and left alone across it. That is the single thing the
+ *      eye recognises as "sphere" and it is very hard to fake by hand: it is
+ *      why Hellas turns into a narrow sliver as Mars rotates it toward the edge.
+ *   3. The palette is matched to a PHOTOGRAPH, not to an albedo table. Raw
+ *      albedo contrast reads as harsh blotches; a camera meters on the bright
+ *      parts and the dark ones come out only 15-30% down. Mars is butterscotch
+ *      with grey-brown patches, not red with black ones.
+ *   4. A feature is several overlapping lobes, not one ellipse. One ellipse
+ *      reads as a bubble; three or four read as a shape.
+ *   5. Edges are soft. Every feature is painted with a radial gradient that
+ *      fades to nothing at its rim, because nothing on a planet has a hard
+ *      outline seen from space — except a coastline and the shadow of a ring.
+ *   6. Randomness is seeded, so a build is byte-stable and does not churn.
+ *
+ * AND WHAT IT DOES NOT DO. There is no photograph in this repository and no
+ * network to fetch one from, so these are drawn from the published coordinates
+ * and sizes of named features, not traced from an image. What that buys is
+ * that the geography is right and in the right proportion; what it cannot buy
+ * is the exact mottling of a particular frame. Where a planet genuinely has
+ * nothing to see in visible light — Venus, and very nearly Uranus — it is
+ * drawn with nothing to see, which is the honest answer and not a shortcut.
+ *
+ * WHAT THE ROTATION MEANS. The phase comes from the IAU prime-meridian
+ * elements (GL_PM) at the real rate, anchored to J2000 — so the planet is
+ * turned to a real longitude at a real rate, and Syrtis Major comes round
+ * every 24h 37m as it should. What is NOT solved for is which face EARTH
+ * would see at a given instant: that also depends on where Earth is in its
+ * own orbit, and this draws from a fixed direction instead. The turn is real;
+ * the viewpoint is a convention.
+ * ------------------------------------------------------------------------- */
+import { PLANETS_JS } from "./planets.mjs";
+
+/* Axial tilt, degrees. Decides which way the axis leans and how the bands
+ * curve. It does NOT decide how far open a ring system looks — that is the
+ * sub-Earth latitude, which is solved for (glAspect below). */
+export const PL_OBL = {
+  Mercury: 0.03, Venus: 177.4, Earth: 23.44, Mars: 25.19, Jupiter: 3.13,
+  Saturn: 26.73, Uranus: 97.77, Neptune: 28.32, Pluto: 122.53,
+};
+
+/* ---------------------------------------------------------------------------
+ * EARTH'S COASTLINES — [lon, lat] rings, coarse but real.
+ * ------------------------------------------------------------------------- */
+/* exported: the home page's day-and-night world map draws the same coastlines
+   in an equirectangular projection, and two copies of a coastline would drift */
+export const COAST = [
+  /* Africa — the Med coast, the Gulf of Guinea bight, the Horn, the Cape */
+  [[-17,15],[-16,19],[-13,23],[-10,27],[-7,31],[-6,34],[-2,35],[3,37],[8,37],[11,33],[15,32],[20,31],[25,32],[29,31],[33,31],[34,28],[35,24],[37,21],[39,17],[43,13],[45,11],[48,11],[51,11],[51,8],[48,5],[44,2],[41,-1],[40,-4],[40,-8],[39,-12],[37,-16],[35,-20],[33,-24],[31,-29],[27,-33],[22,-34],[18,-34],[15,-27],[13,-23],[12,-18],[12,-14],[10,-9],[9,-5],[9,-1],[8,4],[3,6],[-2,5],[-5,5],[-8,4],[-11,6],[-13,9],[-15,12],[-17,15]],
+  /* Eurasia — Iberia, the Med, the Gulf, India, SE Asia, China, Siberia,
+     Scandinavia and the Baltic */
+  [[-9,37],[-9,41],[-8,43],[-2,43],[0,46],[4,43],[7,44],[10,44],[13,38],[16,38],[18,40],[19,42],[16,43],[13,45],[14,45],[19,40],[23,38],[24,40],[27,41],[28,37],[31,37],[35,36],[36,36],[36,33],[35,31],[34,31],[33,31],[38,31],[43,30],[48,30],[50,27],[53,24],[57,24],[59,23],[57,20],[55,17],[52,16],[48,14],[44,13],[43,15],[40,20],[38,24],[35,28],[43,30],[50,25],[57,24],[60,20],[62,25],[66,25],[68,24],[72,20],[73,16],[75,12],[77,8],[80,10],[80,13],[81,16],[85,20],[87,21],[89,22],[92,21],[94,18],[97,16],[98,12],[100,13],[100,8],[103,1],[104,10],[106,10],[108,11],[109,15],[107,18],[106,21],[109,21],[113,22],[117,23],[120,25],[121,29],[122,31],[121,35],[119,37],[122,39],[126,40],[128,38],[129,35],[129,43],[132,43],[135,49],[139,53],[142,54],[141,60],[145,59],[150,59],[156,61],[161,60],[163,58],[163,62],[170,62],[177,64],[180,66],[180,71],[170,70],[160,70],[150,72],[140,73],[130,72],[120,73],[113,74],[105,77],[95,78],[87,75],[80,73],[73,72],[68,73],[62,71],[57,71],[52,69],[45,68],[40,66],[35,67],[33,64],[31,62],[28,66],[25,65],[22,60],[24,60],[20,58],[19,56],[16,56],[13,55],[10,57],[8,58],[5,60],[5,62],[11,64],[15,68],[20,70],[26,70],[30,70],[28,71],[20,70],[14,67],[10,64],[6,58],[8,54],[4,52],[0,51],[-2,49],[-4,48],[-2,47],[-1,46],[-2,44],[-9,44],[-9,37]],
+  /* the Americas — Alaska, the west coast, Baja, Central America, the Andes,
+     Patagonia, Brazil's bulge, the Guianas, the Caribbean coast, Hudson Bay */
+  [[-168,66],[-166,68],[-160,71],[-155,71],[-148,70],[-140,70],[-133,69],[-125,70],[-117,69],[-110,68],[-102,69],[-95,68],[-90,68],[-85,67],[-82,70],[-78,73],[-72,70],[-68,66],[-65,60],[-64,58],[-78,57],[-82,55],[-86,53],[-80,51],[-79,55],[-78,60],[-73,62],[-66,60],[-60,55],[-56,52],[-59,48],[-65,45],[-67,44],[-70,42],[-72,41],[-74,39],[-75,37],[-76,35],[-78,34],[-81,31],[-81,27],[-80,25],[-82,25],[-83,28],[-85,30],[-88,30],[-90,29],[-94,29],[-97,26],[-97,21],[-95,19],[-91,18],[-88,21],[-87,21],[-88,18],[-87,15],[-84,11],[-83,9],[-80,9],[-78,8],[-79,5],[-78,1],[-80,-2],[-80,-4],[-76,-9],[-75,-14],[-71,-18],[-70,-23],[-71,-30],[-73,-37],[-73,-42],[-74,-46],[-75,-49],[-75,-52],[-70,-55],[-68,-55],[-65,-54],[-65,-48],[-64,-43],[-62,-40],[-58,-38],[-57,-35],[-53,-33],[-48,-27],[-48,-25],[-42,-23],[-39,-18],[-39,-13],[-37,-10],[-35,-6],[-38,-4],[-44,-2],[-48,0],[-51,0],[-52,4],[-55,6],[-60,8],[-63,10],[-68,11],[-71,12],[-73,10],[-75,9],[-77,9],[-79,9],[-82,9],[-84,10],[-87,16],[-91,16],[-95,16],[-101,18],[-105,20],[-106,23],[-110,24],[-112,27],[-114,28],[-115,30],[-117,33],[-120,34],[-122,37],[-124,40],[-124,44],[-124,48],[-127,51],[-131,54],[-133,57],[-140,60],[-146,60],[-151,59],[-155,58],[-160,59],[-165,60],[-166,62],[-168,66]],
+  /* Greenland */
+  [[-45,60],[-50,62],[-52,64],[-54,67],[-55,70],[-57,73],[-60,76],[-58,79],[-50,82],[-40,83],[-32,83],[-24,81],[-20,78],[-22,75],[-22,72],[-28,70],[-33,68],[-38,66],[-42,62],[-45,60]],
+  /* Australia */
+  [[113,-22],[113,-26],[115,-30],[118,-34],[122,-34],[126,-32],[130,-32],[134,-33],[138,-35],[140,-38],[144,-38],[147,-38],[150,-37],[151,-33],[153,-28],[153,-25],[151,-24],[149,-21],[146,-19],[145,-15],[142,-11],[141,-13],[138,-16],[136,-12],[133,-11],[130,-12],[127,-14],[125,-14],[122,-17],[121,-19],[118,-20],[114,-21],[113,-22]],
+  /* Antarctica, as a cap */
+  [[-180,-72],[-160,-75],[-140,-73],[-120,-74],[-100,-73],[-80,-72],[-60,-70],[-40,-72],[-20,-70],[0,-70],[20,-69],[40,-68],[60,-67],[80,-66],[100,-66],[120,-67],[140,-67],[160,-70],[180,-72],[180,-86],[-180,-86],[-180,-72]],
+  /* Madagascar */ [[43,-12],[48,-13],[50,-16],[49,-21],[48,-25],[45,-25],[44,-22],[43,-17],[43,-12]],
+  /* the British Isles, and Ireland */
+  [[-5,50],[-4,53],[-3,55],[-5,57],[-3,58],[-2,58],[0,54],[1,53],[-1,51],[-5,50]],
+  [[-10,52],[-8,55],[-6,55],[-6,52],[-9,51],[-10,52]],
+  /* Japan */ [[130,31],[132,33],[135,34],[137,35],[140,36],[141,39],[141,41],[142,42],[145,44],[142,45],[140,42],[137,37],[133,35],[131,33],[130,31]],
+  /* New Zealand */ [[173,-35],[176,-37],[178,-38],[176,-41],[174,-41],[171,-43],[168,-46],[166,-45],[170,-43],[172,-40],[173,-35]],
+  /* Borneo, Sumatra, Java, Sulawesi, New Guinea, the Philippines */
+  [[109,2],[113,4],[117,5],[119,3],[119,-1],[117,-4],[113,-3],[110,-3],[109,2]],
+  [[95,5],[99,3],[104,-2],[106,-6],[103,-5],[100,-1],[97,2],[95,5]],
+  [[105,-6],[110,-7],[114,-8],[114,-8],[110,-8],[106,-7],[105,-6]],
+  [[119,-1],[123,0],[125,1],[125,-2],[121,-4],[120,-5],[119,-1]],
+  [[131,-1],[137,-2],[141,-3],[146,-6],[150,-9],[147,-10],[143,-9],[138,-8],[134,-5],[131,-1]],
+  [[120,18],[122,18],[124,12],[126,10],[122,7],[120,12],[120,18]],
+  /* Sri Lanka, Iceland, Cuba, Hispaniola, Tasmania, Sakhalin, Novaya Zemlya */
+  [[80,10],[82,8],[82,6],[80,6],[80,10]],
+  [[-24,65],[-18,66],[-14,66],[-14,64],[-19,63],[-24,65]],
+  [[-85,22],[-80,23],[-75,20],[-78,20],[-84,22],[-85,22]],
+  [[-74,20],[-69,20],[-68,18],[-72,18],[-74,20]],
+  [[145,-41],[148,-41],[148,-43],[145,-43],[145,-41]],
+  [[142,46],[143,50],[143,54],[141,51],[142,46]],
+  [[52,71],[56,73],[68,76],[62,73],[56,71],[52,71]],
+];
+
+/* Where Earth is not green. Deserts are the second thing you see from space
+   after the ocean, and a planet with continents but no Sahara reads as a
+   schoolroom globe. [lon, lat, km] lobes, same form as everything else. */
+const EARTH_DESERT = [
+  [10,23,1900],[24,22,1700],[38,20,1300],[-4,25,1500],[45,22,1200],[52,20,1000],
+  [58,28,900],[68,28,900],[100,40,1300],[88,40,1100],
+  [125,-25,1500],[133,-24,1400],[118,-26,1200],
+  [-114,32,700],[-70,-24,700],[18,-24,700],[46,-20,500],
+];
+const EARTH_ICE = [[0,-90,4200],[-42,72,1700],[0,90,2600]];
+/* Cloud is banded on Earth — a wet belt at the equator and two storm tracks
+   near 55 degrees — and that banding is visible in every full-disc photo. */
+const EARTH_CLOUD = [
+  [-30,4,2200],[10,2,1800],[60,6,1600],[110,3,2000],[150,8,1700],[-90,5,1800],[-160,2,1900],
+  [-40,52,2600],[20,58,2300],[80,55,2200],[150,52,2400],[-120,50,2500],[-170,56,2100],
+  [-50,-52,2600],[10,-56,2400],[70,-54,2500],[130,-52,2300],[-130,-55,2400],
+  [-20,30,1200],[95,-15,1300],[-75,-8,1400],
+];
+
+export const GLOBE_JS = `
+var GL_OBL=${JSON.stringify(PL_OBL)};
+var GL_COAST=${JSON.stringify(COAST)};
+var GL_EDES=${JSON.stringify(EARTH_DESERT)};
+var GL_EICE=${JSON.stringify(EARTH_ICE)};
+var GL_ECLD=${JSON.stringify(EARTH_CLOUD)};
+
+/* ---- the palettes, matched to how each world PHOTOGRAPHS -------------------
+   base   the ground/cloud colour in full sun
+   limb   the same colour at the edge of the disc, where you look through more
+          atmosphere or across more curvature — every full-disc photograph is
+          brighter in the middle, and putting that back is the single biggest
+          step from "circle" to "ball"
+   km     the real equatorial radius, which is what turns a feature's real size
+          in kilometres into a fraction of the drawn disc */
+var GL_PAL={
+ Mercury:{base:'#8e8b86',limb:'#5e5b58',km:2440},
+ Venus:  {base:'#e8d5a0',limb:'#c9ab68',km:6052},
+ Earth:  {base:'#1c5b96',limb:'#12406e',km:6371},
+ Mars:   {base:'#bc7746',limb:'#87502f',km:3390},
+ Jupiter:{base:'#dfbf93',limb:'#a8815a',km:71492},
+ Saturn: {base:'#e3cca0',limb:'#a88f61',km:60268},
+ Uranus: {base:'#a8dfe3',limb:'#6fb0b8',km:25559},
+ Neptune:{base:'#3f6fc4',limb:'#254a8e',km:24764},
+ Pluto:  {base:'#b3a08c',limb:'#7d6c5c',km:1188}
+};
+
+/* ---- the features ---------------------------------------------------------
+   Each entry: [lon E, lat N, km across, colourIndex, opacity]. Colours are
+   indexes into the planet's own list so the data stays short. A feature is
+   several lobes because one ellipse reads as a bubble and three read as a
+   shape — the same reason the moon's maria are lobed. */
+var GL_FEAT={
+ /* MERCURY. Grey, and the flattest contrast in the solar system: the whole
+    disc varies by well under a factor of two, so these sit at low opacity. The
+    named basins are where they are; the anonymous cratering is seeded noise. */
+ Mercury:{
+  col:['#635f5a','#b8b3aa','#e2ddd2','#57534e'],
+  f:[
+   /* Caloris Planitia, 1550 km, one of the largest impact basins anywhere —
+      smoother and slightly BRIGHTER than its surroundings, not darker */
+   [190,30,1550,1,.55],[178,34,900,1,.4],[201,25,850,1,.4],
+   /* the big dark-floored basins */
+   [236,-20,630,0,.5],[195,-16,355,0,.45],[88,-33,715,0,.45],[183,-45,400,0,.4],
+   [302,27,306,0,.4],[110,8,290,0,.35],[335,15,250,0,.3],
+   /* the young rayed craters — Hokusai and Debussy both throw rays most of the
+      way round the planet, which is what a fresh impact on an airless world
+      looks like */
+   [17,58,95,2,.8],[348,-34,85,2,.75],[329,-11,62,2,.6],[122,-14,70,2,.5]
+  ],
+  ray:[[17,58,2600],[348,-34,2200]],
+  speckle:{n:300,km:[26,170],col:3,op:.6,seed:7412,rim:'#d5cfc2',rimop:.5}
+ },
+ /* VENUS. In visible light there is nothing to see and that is the fact worth
+    drawing: no telescope at any wavelength the eye uses has ever seen the
+    ground. What is here is the faint darker mottle of the cloud deck itself,
+    at the contrast a visible-light photograph actually shows — a few percent.
+    The famous dark Y is ULTRAVIOLET and does not belong on a picture of what
+    you would see. */
+ Venus:{
+  col:['#d9c084','#f4e6bd'],
+  f:[[40,20,5200,0,.16],[210,-10,5800,0,.14],[300,35,4200,0,.12],[130,-40,4600,0,.13],
+     [340,5,4000,1,.2],[95,25,3600,1,.16],[190,45,3000,1,.14],[250,-45,3400,1,.13]],
+  speckle:{n:70,km:[900,2600],col:1,op:.05,seed:2298}
+ },
+ /* EARTH. Handled by its own layers — coastline rings, deserts, ice, cloud —
+    because a coastline is the one thing on any of these worlds with a genuinely
+    hard edge, and it has to be a clipped path and not a blob. */
+ Earth:{col:[],f:[]},
+ /* MARS. Butterscotch, with the grey-brown albedo features telescopes have
+    tracked since the 1600s. Two things make it read as Mars: Syrtis Major is a
+    sharp dark wedge and Hellas is a BRIGHT circle, because it is a basin full
+    of dust rather than a dark plain. */
+ Mars:{
+  col:['#7d5a45','#6d4c3a','#e0a878','#f4efe8','#a86a44'],
+  f:[
+   /* Syrtis Major Planum — the dark wedge, 1300 km, the first surface feature
+      ever mapped on another planet (Huygens, 1659) */
+   [70,10,1300,1,.82],[74,2,900,1,.74],[66,18,800,0,.68],[78,-4,600,0,.6],
+   /* Acidalia Planitia, the big northern dark region */
+   [340,50,2400,0,.66],[350,42,1600,0,.58],[325,45,1400,0,.52],
+   /* Mare Erythraeum / Margaritifer */
+   [335,-25,1800,0,.66],[345,-18,1200,0,.55],[318,-30,1100,0,.52],
+   /* Mare Cimmerium and Mare Sirenum, the southern dark band */
+   [210,-20,2000,0,.64],[228,-26,1400,0,.55],[150,-30,1900,0,.62],[168,-24,1300,0,.52],
+   /* Mare Tyrrhenum, Sinus Sabaeus */
+   [95,-18,1100,0,.55],[10,-8,1200,0,.52],[350,-6,900,0,.47],
+   /* Hellas Planitia — 2300 km, and BRIGHT, because it is full of dust */
+   [70,-42,2300,2,.6],[62,-46,1400,2,.4],
+   /* Arabia Terra and Tharsis, the bright dusty uplands */
+   [20,20,2600,2,.4],[250,5,3000,2,.32],
+   /* Olympus Mons, and the three Tharsis Montes in their real diagonal line */
+   [226,18,600,4,.5],[247,12,400,4,.42],[247,3,400,4,.4],[248,-9,400,4,.38],
+   /* Valles Marineris — 4000 km long and only ~200 wide, so it is drawn as a
+      chain of lobes rather than a circle */
+   [285,-9,500,1,.42],[295,-11,500,1,.42],[305,-12,500,1,.4],[275,-7,450,1,.38],
+  ],
+  /* THE CAPS ARE LATITUDE BANDS, NOT BLOBS. A blob centred on the pole has a
+     depth of exactly zero here — the poles lie on the limb — so it was culled
+     on every frame and Mars was drawn capless. A cap is a band of latitude,
+     which is what the band machinery already draws correctly right up to the
+     pole. The south cap is the bigger one when it is winter down there. */
+  bands:[[90,80,'#f6f2ec',.82,.5,4],[-90,-74,'#f2ece2',.75,.7,4]],
+  speckle:{n:110,km:[200,760],col:0,op:.14,seed:5531}
+ },
+ /* JUPITER. The belts and zones are at their real latitudes and the Great Red
+    Spot at 22 degrees south. What makes it Jupiter rather than a striped ball
+    is that the boundaries are TURBULENT — the bands are drawn with a wave
+    along their edges, and the blue-grey festoons hang off the south edge of
+    the North Equatorial Belt into the bright Equatorial Zone, which is where
+    they really are. */
+ Jupiter:{
+  col:['#c9502f','#e8d3ae','#f2e6cc','#8a6242','#6f7f96'],
+  bands:[
+   /* [north lat, south lat, colour, opacity, wave amplitude, wave number] */
+   [90,62,'#93867e',.5,.35,4],
+   [62,48,'#c9ab84',.4,.5,5],
+   [48,40,'#8d6a4c',.55,.7,7],
+   [40,31,'#ead2ab',.6,.6,6],
+   [31,24,'#96704f',.6,.8,8],
+   [24,17,'#f0dcb8',.6,.7,7],
+   [17,7,'#8f6039',.75,1.1,9],
+   [7,-7,'#f6e9cd',.7,.6,6],
+   [-7,-21,'#93613b',.72,1.1,9],
+   [-21,-27,'#eddcb8',.6,.7,7],
+   [-27,-37,'#8d6a4c',.6,.8,6],
+   [-37,-48,'#dcc399',.5,.6,5],
+   [-48,-62,'#c9ab84',.4,.45,5],
+   [-62,-90,'#93867e',.5,.35,4]
+  ],
+  f:[
+   /* the Great Red Spot: 16,000 km by 12,000, one and a quarter Earths wide,
+      with its own paler curl inside it */
+   [58,-22,16000,0,.75],[58,-22,9000,0,.45],[54,-20,5000,3,.25],
+   /* Oval BA, the "little red spot", and the white ovals of the south */
+   [130,-33,9000,2,.5],[196,-33,7000,2,.42],[246,-40,6000,2,.38],
+   /* the festoons: blue-grey plumes trailing off the NEB into the bright zone.
+      Nothing else in the picture says "this is a fluid" as loudly. */
+   [20,7,6000,4,.4],[62,6,5200,4,.36],[104,8,5600,4,.34],[148,6,4800,4,.32],
+   [192,7,5400,4,.34],[236,6,5000,4,.3],[280,8,5600,4,.32],[324,6,4600,4,.3],
+   /* bright plumes in the equatorial zone itself */
+   [90,1,7000,2,.28],[210,-2,6000,2,.24],[330,2,6500,2,.26]
+  ]
+ },
+ /* SATURN. The banding is real and genuinely this faint — Saturn is a much
+    blander planet than Jupiter, and drawing it with Jupiter's contrast is the
+    commonest way to get it wrong. The polar hood is bluish. */
+ Saturn:{
+  col:['#f0e2ba','#c2a878','#8fa3b4'],
+  bands:[
+   [90,74,'#93a6b6',.45,.25,4],
+   [74,55,'#d8c091',.4,.4,5],
+   [55,38,'#e8d5a6',.36,.45,5],
+   [38,22,'#d2b884',.34,.5,6],
+   [22,8,'#efe0af',.4,.4,6],
+   [8,-8,'#f5e8bd',.45,.3,5],
+   [-8,-24,'#d8be8a',.36,.5,6],
+   [-24,-42,'#e6d3a2',.32,.45,5],
+   [-42,-62,'#d0b681',.34,.4,5],
+   [-62,-90,'#93a6b6',.4,.25,4]
+  ],
+  f:[[0,88,12000,2,.35],[0,-88,10000,2,.3],
+     [140,-40,9000,1,.18],[300,35,8000,0,.2]],
+  /* the real ring system, in Saturn radii: the C ring is translucent, the B
+     ring is the bright one, the Cassini Division is a genuine gap, and the A
+     ring carries the Encke gap near its outer edge. Seven evenly spaced arcs
+     — which is what this was — is the one thing everybody draws and nobody
+     has ever photographed. */
+  ring:[[1.239,1.527,.18],[1.527,1.951,.62],[1.951,2.026,.05],[2.026,2.214,.42],[2.214,2.229,.04],[2.229,2.269,.36]]
+ },
+ /* URANUS. Almost featureless in visible light, and drawn that way. The tilt
+    is the point: at 97.8 degrees it rolls along its orbit, and the thin rings
+    go round the equator, so from here they stand nearly upright. */
+ Uranus:{
+  col:['#bceaee','#8fcdd6'],
+  bands:[[90,45,'#a5dde3',.25,.2,3],[45,-45,'#b4e4e9',.2,.15,3],[-45,-90,'#a5dde3',.25,.2,3]],
+  f:[[0,90,9000,0,.3],[180,-25,7000,1,.12]],
+  ring:[[1.64,1.66,.07],[1.90,1.92,.08],[2.00,2.01,.16]]
+ },
+ /* NEPTUNE. The deepest blue of the eight, and the dark spots come and go over
+    a few years — the one Voyager 2 photographed in 1989 had gone by 1994. The
+    bright companion cloud that trails a dark spot is methane ice, and it is the
+    highest cloud on the planet. */
+ Neptune:{
+  col:['#1f3a78','#e6eefc','#5b83d4'],
+  bands:[[90,50,'#4f74c2',.4,.3,4],[50,20,'#33559f',.42,.45,5],[20,-20,'#5a80cc',.35,.4,4],
+         [-20,-50,'#31549e',.45,.45,5],[-50,-90,'#4f74c2',.4,.3,4]],
+  f:[[200,-22,12000,0,.6],[200,-22,7000,0,.3],
+     [186,-26,5000,1,.5],[318,-42,6000,1,.35],[120,42,5000,1,.3],[60,-12,4000,1,.2]]
+ },
+ /* PLUTO. New Horizons only saw one side properly, and that side is the one
+    everybody knows: Sputnik Planitia — the western lobe of the heart — is a
+    1000 km sheet of nitrogen ice, the brightest thing on the planet, and
+    Cthulhu Macula is the dark red equatorial band beside it, stained by
+    tholins. The north polar region is pale yellow methane frost. */
+ Pluto:{
+  col:['#f7f0e2','#5a4238','#d8c9a8','#8a6f56'],
+  f:[
+   /* Sputnik Planitia and the rest of Tombaugh Regio */
+   [175,20,1000,0,.92],[178,5,700,0,.8],[186,28,600,0,.75],[196,8,600,0,.6],
+   /* Cthulhu Macula — the dark whale, 3000 km of it along the equator */
+   [110,-8,1400,1,.62],[85,-6,1100,1,.58],[140,-10,1000,1,.5],[60,-4,800,1,.45],
+   [35,-8,700,1,.4],[155,-14,700,1,.38],
+   /* the other dark equatorial patches, and the pale north */
+   [280,-12,700,1,.35],[320,-6,600,1,.3],
+   [240,30,700,3,.3],[300,45,600,3,.25]
+  ],
+  bands:[[90,79,'#e8dcc4',.45,.6,3],[-90,-80,'#d8cbb4',.3,.6,3]],
+  speckle:{n:70,km:[70,240],col:3,op:.2,seed:9021}
+ }
+};
+/* how much light a world's own haze scatters back at you: high for a cloud
+   deck or an ice sheet, low for bare rock */
+/* HOW FLATTENED EACH ONE IS. Jupiter is 6.5% wider than it is tall and Saturn
+   nearly 10% — both are visibly oval in any photograph, and drawing them as
+   circles is one of the loudest wrong notes available. It is their own spin
+   that does it, so the squash is along the SPIN AXIS, which is why it goes in
+   before the tilt rotation rather than after. */
+var GL_FLAT={Jupiter:.0649,Saturn:.0980,Uranus:.0229,Neptune:.0171};
+/* WHERE THE PRIME MERIDIAN IS, for real. [W0 degrees at J2000, degrees per day]
+   — the IAU working-group rotation elements. Without these the phase was
+   anchored to 1 January 1970 for no reason, so the rate was right and the FACE
+   was arbitrary: Syrtis Major was the right size in the right place on Mars,
+   and Mars was turned to a longitude nothing had chosen. Jupiter and Saturn
+   are System III, the magnetic-field rotation, which is what "Jupiter's day"
+   means for a planet with no surface. */
+var GL_PM={
+ Mercury:[329.5988,6.1385108], Venus:[160.20,-1.4813688], Earth:[190.147,360.9856235],
+ Mars:[176.630,350.891982443297], Jupiter:[284.95,870.5360000], Saturn:[38.90,810.7939024],
+ Uranus:[203.81,-501.1600928], Neptune:[253.198,536.3128492], Pluto:[302.695,56.3625225]
+};
+/* THE RINGS' OWN COLOUR. Water ice, and it photographs as a cool off-white
+   against the planet's warm cream — the two being different is most of what
+   tells you they are not part of the planet. */
+var GL_RINGC='#efe9dc';
+var GL_SHEEN={Mercury:.05,Venus:.3,Earth:.18,Mars:.07,Jupiter:.14,Saturn:.16,Uranus:.22,Neptune:.2,Pluto:.1};
+var GL_CAP={Mercury:'Craters are placed by their real coordinates and sized in real kilometres \\u2014 Caloris really is 1,550 km across and really is at 30 degrees north. What is invented is the small stuff between them. Mercury is the most heavily cratered of the four rocky planets, and the flattest in contrast: the whole disc varies by less than a factor of two.',
+ Venus:'An unbroken cloud deck, which is what you would actually see: no telescope at any wavelength the eye uses has ever seen the ground through it. The famous dark Y is an ultraviolet feature and is deliberately not drawn here \\u2014 this is the visible-light view, and in visible light Venus is very nearly blank.',
+ Earth:'Coastlines from real coordinates, the deserts and the ice where they are, and cloud banded the way it is banded \\u2014 wet at the equator, stormy near 55 degrees. It turns at the real sidereal rate from the real prime meridian, so a full turn takes 23h 56m and the continents come round in the right order; which face you would see from anywhere in particular is not solved for.',
+ Mars:'Every dark patch is a named albedo feature at its real place and size: Syrtis Major the dark wedge, Acidalia in the north, Mare Cimmerium and Mare Sirenum along the south. Hellas is the bright circle \\u2014 it is a 2,300 km basin full of dust, not a dark plain. Olympus Mons and the three Tharsis Montes are in their real diagonal line.',
+ Jupiter:'The belts and zones are at their real latitudes and the Great Red Spot at 22 degrees south, one and a quarter Earths wide. The blue-grey plumes along the equator are festoons, hanging off the south edge of the North Equatorial Belt where they really hang. Where each sits in longitude is schematic, and the white ovals stand for a set that changes every few years.',
+ Saturn:'The rings are the real ring system to scale: the faint C ring from 1.24 Saturn radii, the bright B ring, the Cassini Division as a genuine gap at 1.95, then the A ring with the Encke gap near its outer edge. How far OPEN they look is solved for this date rather than assumed \u2014 it is the angle Earth stands above the ring plane, which is zero at a crossing (the last was 23 March 2025) and reaches the full 26.7 degrees only at solstice, so the rings here widen and close over the years as they really do. The dark line across the planet is the rings\u2019 own shadow, and how wide it runs is set by where the SUN stands above the plane rather than where you do. The banding is real and genuinely this faint.',
+ Uranus:'Almost featureless in visible light, and drawn that way \\u2014 adding detail here would be inventing it. The tilt is the point: at 97.8 degrees Uranus rolls along its orbit, so the face it turns to Earth swings from pole-on to edge-on and back over its 84-year year. This decade it is very nearly pole-on, which is why its thin rings are drawn here as circles around the disc rather than as a line across it, and why the axis marker is a stub: that pole is pointing very nearly at you.',
+ Neptune:'The deepest blue of the eight, and that colour is methane absorbing red light. The dark spot is schematic in position: Neptune\\u2019s come and go over a few years, and the one Voyager 2 photographed in 1989 had gone by 1994. The bright smudges are the methane clouds that trail them \\u2014 the highest clouds on the planet.',
+ Pluto:'The face New Horizons saw in 2015. Sputnik Planitia \\u2014 the western lobe of the heart \\u2014 is a 1,000 km sheet of nitrogen ice and the brightest thing on the planet; Cthulhu Macula is the dark band along the equator beside it, stained red-brown by tholins. The other hemisphere is far less well known, and is drawn with far less on it.'};
+
+/* ---------------------------------------------------------------------------
+ * HOW FAR OPEN A RING SYSTEM IS, SOLVED RATHER THAN ASSUMED.
+ *
+ * This drawing used to open Saturn's rings by its AXIAL TILT — 26.7 degrees,
+ * always, so they were drawn near their widest on every day of the 29-year
+ * orbit and the caption's own claim (that they close to a line twice a Saturn
+ * year) was the one thing the picture could not show. The angle that decides
+ * how open they look is the sub-Earth latitude on the ring plane, B: it is 0
+ * at a ring-plane crossing (the last was 23 March 2025) and reaches the axial
+ * tilt only at solstice.
+ *
+ * B falls out of two things this file can already reach: the pole direction,
+ * which is fixed in space (IAU right ascension and declination, converted to
+ * the ecliptic frame the orbits are solved in), and the planet-to-Earth vector
+ * from plPos. sin B is the pole dotted with that direction. The same dot
+ * against the planet-to-SUN vector gives the sub-solar latitude Bs, which is
+ * what casts the rings' shadow onto the planet.
+ *
+ * So the picture moves with the real date, at build time and in the browser,
+ * from the same series the rest of the site's positions come from — and
+ * NOTHING here is typed in beside the drawing.
+ * ------------------------------------------------------------------------- */
+var GL_POLE={Saturn:[5,40.589,83.537],Uranus:[6,257.311,-15.175]};
+function glPoleVec(ra,dec){
+  var e=23.439291*Math.PI/180, r=ra*Math.PI/180, d=dec*Math.PI/180;
+  var x=Math.cos(d)*Math.cos(r), y=Math.cos(d)*Math.sin(r), z=Math.sin(d);
+  return [x, y*Math.cos(e)+z*Math.sin(e), -y*Math.sin(e)+z*Math.cos(e)];
+}
+/* {B, Bs} in degrees, or null for a body with no ring plane worth solving —
+   and null too where plPos is absent, so a page that ships the globe without
+   the orbits still draws something rather than throwing. */
+function glAspect(name,ms){
+  var p=GL_POLE[name];
+  if(!p||typeof plPos!=='function') return null;
+  var n=glPoleVec(p[1],p[2]), s=plPos(p[0],ms), e=plPos(2,ms);
+  var vx=e.x-s.x, vy=e.y-s.y, vz=e.z-s.z, d=Math.sqrt(vx*vx+vy*vy+vz*vz);
+  return {
+    B:Math.asin((n[0]*vx+n[1]*vy+n[2]*vz)/d)*180/Math.PI,
+    Bs:Math.asin(-(n[0]*s.x+n[1]*s.y+n[2]*s.z)/s.r)*180/Math.PI
+  };
+}
+
+function glF(n){ return Math.round(n*100)/100; }
+/* seeded, so a build is byte-stable and the speckle does not crawl */
+function glRng(s){ var x=s>>>0; return function(){ x=(x*1664525+1013904223)>>>0; return x/4294967296; }; }
+
+/* THE DRAWN RADIUS THAT FITS A FRAME. Saturn's rings reach 2.27 planet radii
+   and Uranus's 2.01, so a ringed planet drawn at the same radius as a bare one
+   puts most of its rings outside the box. Derived from the ring table rather
+   than written beside it. 1.22 is the bare case: the axis overshoots the disc
+   by a fifth. */
+function glR(name,half){
+  var f=GL_FEAT[name], ro=f&&f.ring?f.ring[f.ring.length-1][1]:0;
+  return half/(ro?ro*1.04:1.22);
+}
+
+/* A point on the globe, orthographic, PLUS the foreshortening frame — this is
+   the moon's project() with the sub-observer longitude and the axial tilt
+   folded in. rho is how far out toward the limb it is; squash is how much a
+   feature there is compressed along the radial direction; ang is which way
+   "radial" points on screen.
+
+   vlat is the latitude the planet is being SEEN FROM, not the axial tilt.
+   The two used to be conflated, and the giveaway was Saturn: the rings opened
+   by its 26.7-degree tilt while the bands were drawn as if the viewer sat on
+   its equator, so one picture held two viewpoints at once. The LEAN of the
+   axis on screen is a rotation of the whole drawing (see glSvg) and does not
+   belong in here either. */
+function glPt(lat,lon,lon0,vlat,flat){
+  var a=lat*Math.PI/180, b=(lon-lon0)*Math.PI/180, B=(vlat||0)*Math.PI/180;
+  var cb=Math.cos(B), sb=Math.sin(B), ca=Math.cos(a), sa=Math.sin(a)*(1-(flat||0));
+  var x=ca*Math.sin(b), y=sa*cb-ca*Math.cos(b)*sb, z=sa*sb+ca*Math.cos(b)*cb;
+  var sx=x, sy=-y;
+  var rho=Math.min(1,Math.sqrt(sx*sx+sy*sy));
+  return { x:sx, y:sy, z:z, rho:rho,
+    squash:Math.sqrt(Math.max(0,1-rho*rho)),
+    ang:Math.atan2(sy,sx)*180/Math.PI };
+}
+
+/* ONE FEATURE. Foreshortened radially, faded at its own rim by a gradient, and
+   faded again as it approaches the limb — a feature seen at a glancing angle is
+   both squashed AND dimmer, and leaving the second one out is what makes a
+   rotating planet look like a rolling sticker. */
+function glBlob(lat,lon,km,R,rkm,lon0,vlat,gid,op,flat){
+  var p=glPt(lat,lon,lon0,vlat,flat);
+  if(p.z<=0.015) return '';
+  var r=km/2/rkm*R;
+  if(r<0.4) return '';
+  var rx=Math.max(0.3,r*p.squash);
+  var fade=Math.min(1,p.z*2.6);
+  return '<ellipse cx="0" cy="0" rx="'+glF(rx)+'" ry="'+glF(r)+'" fill="url(#'+gid+')" opacity="'+glF(op*fade)
+    +'" transform="translate('+glF(p.x*R)+' '+glF(p.y*R)+') rotate('+glF(p.ang)+')"/>';
+}
+
+/* A LATITUDE BAND, as a filled path across the visible hemisphere, with a WAVE
+   along both edges. Jupiter's belts do not have straight boundaries — the
+   shear between a belt and the zone beside it curls them — and a straight edge
+   is the giveaway that this is a drawing of stripes and not of weather.
+   It closes DOWN THE LIMB, not across the disc: at lon = lon0 +/- 90 the depth
+   is exactly zero, so every point on that meridian lies on the drawn circle.
+   Closing the two endpoints with a straight line instead cuts a chord through
+   the planet, and on a steeply tilted world that chord is the widest thing in
+   the picture. */
+function glBand(n,so,R,lon0,vlat,amp,wav,flat){
+  var i, d='', N=40, M=10;
+  var put=function(la,lo){
+    var q=glPt(la,lo,lon0,vlat,flat);
+    d+=(d?'L':'M')+glF(q.x*R)+' '+glF(q.y*R);
+  };
+  /* TWO HARMONICS, NOT ONE. A single sine reads as a ribbon; a belt edge on
+     Jupiter is ragged at several scales at once, and a second faster, smaller
+     term is the cheapest thing that stops the eye seeing the period. */
+  var wave=function(la,lo,s){
+    var r=lo*Math.PI/180;
+    return la+(amp||0)*(Math.sin((wav||3)*r+s)*.68+Math.sin((wav||3)*2.7*r+s*1.9)*.32);
+  };
+  for(i=0;i<=N;i++){ var lo=lon0-90+180*i/N; put(wave(n,lo,0),lo); }
+  for(i=1;i<M;i++) put(n+(so-n)*i/M,lon0+90);
+  for(i=0;i<=N;i++){ var lo2=lon0+90-180*i/N; put(wave(so,lo2,2.2),lo2); }
+  for(i=1;i<M;i++) put(so+(n-so)*i/M,lon0-90);
+  return d+'Z';
+}
+
+/* one closed ring of lat/lon, clipped to the near side. Returns path fragments
+   — a coastline that crosses the limb has to break there. */
+function glRing(pts,R,lon0,vlat,flat){
+  var out=[], run=null, i;
+  for(i=0;i<pts.length;i++){
+    var q=glPt(pts[i][1],pts[i][0],lon0,vlat,flat);
+    if(q.z>0.02){
+      var xy=glF(q.x*R)+' '+glF(q.y*R);
+      if(run===null) run='M'+xy; else run+='L'+xy;
+    } else if(run!==null){ out.push(run); run=null; }
+  }
+  if(run!==null) out.push(run);
+  return out;
+}
+
+/* ONE PLANET, TURNING. ms is the instant; R the drawn radius; rotHours the real
+   sidereal period, negative for a retrograde spin; sunAng where the light comes
+   from, so the terminator is where it really is. */
+function glSvg(name,ms,cx,cy,R,rotHours,sunAng){
+  var pal=GL_PAL[name], sk=GL_FEAT[name];
+  if(!pal||!sk) return '';
+  var tilt=GL_OBL[name]||0, retro=rotHours<0, fl=GL_FLAT[name]||0, i, j;
+  /* WHERE THIS PICTURE IS TAKEN FROM, and which way it is turned on screen.
+     A ringed planet is drawn the way every photograph of one is framed: the
+     ring plane FLAT to the viewer, opened by the real sub-Earth latitude for
+     this instant. Everything else keeps the old convention — seen from over
+     its equator, with the axis leaning by its tilt — because for a body with
+     no ring plane there is nothing in the picture that fixes a viewpoint, and
+     the lean is the fact worth showing.
+       vlat  the latitude the planet is seen from (bands, features, rings)
+       pa    how far the drawing is rotated on screen (the axis lean) */
+  var asp=glAspect(name,ms);
+  var vlat=asp?asp.B:(sk.ring?tilt:0), pa=asp?0:tilt;
+  /* THE SILHOUETTE OF A SQUASHED PLANET DEPENDS ON WHERE YOU STAND. Seen from
+     over the equator Saturn is 9.8% wider than tall; seen from over a pole it
+     is a circle. Uranus is very nearly pole-on this decade, so drawing it with
+     its equator-on squash would be visibly wrong. */
+  var vb=vlat*Math.PI/180;
+  var Ry=R*Math.sqrt((1-fl)*(1-fl)*Math.cos(vb)*Math.cos(vb)+Math.sin(vb)*Math.sin(vb));
+  var ell='rx="'+glF(R)+'" ry="'+glF(Ry)+'"';
+  /* days since J2000, and the prime meridian from it. Falls back to the old
+     rate-only turn if a body has no published elements. */
+  var pm=GL_PM[name], lon0;
+  if(pm){ lon0=pm[0]+pm[1]*((ms-946728000000)/86400000); }
+  else { lon0=(ms/3600000)/Math.abs(rotHours)*360; if(retro) lon0=-lon0; }
+  lon0=((lon0%360)+360)%360;
+  var uid='g'+name, s='', defs='';
+  var lx=Math.cos(sunAng), ly=-Math.sin(sunAng);
+
+  /* every distinct feature colour gets ONE soft-edged radial gradient, reused
+     by every blob of that colour — soft edges without a filter, which matters
+     because these repaint sixteen times a second */
+  var cols=sk.col||[];
+  for(i=0;i<cols.length;i++)
+    defs+='<radialGradient id="'+uid+'f'+i+'"><stop offset="0" stop-color="'+cols[i]+'" stop-opacity="1"/>'
+      +'<stop offset=".55" stop-color="'+cols[i]+'" stop-opacity=".85"/>'
+      +'<stop offset="1" stop-color="'+cols[i]+'" stop-opacity="0"/></radialGradient>';
+
+  /* LIMB DARKENING. A full-disc photograph of any of these is brighter in the
+     middle: you look straight down through the least atmosphere there and at a
+     glancing angle everywhere else. It is the difference between a ball and a
+     circle, and no amount of surface detail substitutes for it. */
+  defs+='<radialGradient id="'+uid+'l" cx=".5" cy=".5" r=".5">'
+    +'<stop offset="0" stop-color="'+pal.base+'"/><stop offset=".62" stop-color="'+pal.base+'"/>'
+    +'<stop offset=".88" stop-color="'+pal.limb+'"/><stop offset="1" stop-color="'+pal.limb+'"/></radialGradient>';
+  /* the night side: a hard-edged terminator across the disc, from the real
+     sun direction */
+  defs+='<linearGradient id="'+uid+'n" gradientUnits="objectBoundingBox" x1="'+glF(.5-lx*.5)+'" y1="'+glF(.5-ly*.5)+'" x2="'+glF(.5+lx*.5)+'" y2="'+glF(.5+ly*.5)+'">'
+    /* A PORTRAIT, NOT A CRESCENT. This is the card whose job is "look at this
+       planet", and a full-strength terminator hid most of the artwork behind
+       it — Earth came out as a dark disc with a lit sliver. Every full-disc
+       photograph these are drawn from is nearly fully lit, because that is
+       when anybody photographs a planet. So the shading says which way the
+       light is coming from and stops there. */
+    +'<stop offset=".3" stop-color="#000000" stop-opacity="0"/>'
+    +'<stop offset=".72" stop-color="#04060e" stop-opacity=".2"/>'
+    +'<stop offset="1" stop-color="#04060e" stop-opacity=".5"/></linearGradient>';
+  /* and the sheen the atmosphere scatters back at you, where there is one */
+  defs+='<radialGradient id="'+uid+'s" cx="'+glF(.5-lx*.26)+'" cy="'+glF(.5-ly*.26)+'" r=".7">'
+    +'<stop offset="0" stop-color="#ffffff" stop-opacity="'+(GL_SHEEN[name]||.1)+'"/>'
+    +'<stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>';
+  /* Earth's three extra layers get their own soft gradients: sand, ice, cloud */
+  if(name==='Earth'){
+    var ec=[['d','#c2a06a'],['i','#f2f6fa'],['w','#f4f8fd']];
+    for(i=0;i<ec.length;i++)
+      defs+='<radialGradient id="'+uid+ec[i][0]+'"><stop offset="0" stop-color="'+ec[i][1]+'" stop-opacity="1"/>'
+        +'<stop offset=".5" stop-color="'+ec[i][1]+'" stop-opacity=".8"/>'
+        +'<stop offset="1" stop-color="'+ec[i][1]+'" stop-opacity="0"/></radialGradient>';
+  }
+  defs+='<clipPath id="'+uid+'c"><ellipse cx="0" cy="0" '+ell+'/></clipPath>';
+  s+='<defs>'+defs+'</defs>';
+
+  /* THE AXIS LEAN IS ONE ROTATION OF THE WHOLE DRAWING, applied here rather
+     than point by point inside the projection: the disc, its bands, its
+     features and its rings all have to lean together, and doing it once is
+     what guarantees they do. */
+  s+='<g transform="translate('+cx+' '+cy+')'+(pa?' rotate('+glF(-pa)+')':'')+'">';
+
+  /* THE RINGS LIE IN THE EQUATORIAL PLANE, so how far open they look is the
+     sub-Earth latitude on that plane — near zero for years around a crossing,
+     the axial tilt only at solstice. Far half first, then the planet, then the
+     near half over it: that ordering is the whole illusion. */
+  var nearRing='';
+  if(sk.ring){
+    /* The projection already puts the viewer at latitude vlat, so the ring
+       plane's own foreshortening is the sine of the same angle and the two
+       cannot disagree. Positive means we are north of the plane, looking down
+       on the rings' north face; negative means the south face, and which half
+       of the ring passes in FRONT of the planet swaps with it. */
+    var ry=Math.abs(Math.sin(vb)), north=(vlat>0);
+    /* sweep 1 draws the UPPER arc; from north of the plane the half that
+       passes in front of the planet is the LOWER one. */
+    /* EACH RING IS A FILLED ANNULUS, not a stroked arc. A stroke is the same
+       width in every direction, so a ring drawn that way is right at the ansae
+       and far too thick top and bottom — which is exactly where a nearly
+       edge-on system spends most of its length, and why this used to read as a
+       smudge rather than as a set of rings. Two concentric half-ellipses with
+       the same squash put every edge where the projection puts it, and the
+       Cassini Division opens up as a real gap between two filled shapes. */
+    var half=function(a,b,sweep){
+      return 'M'+glF(-b)+' 0A'+glF(b)+' '+glF(b*ry)+' 0 0 '+sweep+' '+glF(b)+' 0'
+        +'L'+glF(a)+' 0A'+glF(a)+' '+glF(a*ry)+' 0 0 '+(sweep?0:1)+' '+glF(-a)+' 0Z';
+    };
+    var mk=function(front){
+      var sweep=north?(front?0:1):(front?1:0), t='', k;
+      for(k=0;k<sk.ring.length;k++){
+        var a=sk.ring[k][0]*R, b=sk.ring[k][1]*R, op=sk.ring[k][2];
+        if(op<.06) continue;                    /* a gap is drawn by not drawing */
+        /* A RING SEEN NEARLY EDGE-ON IS BRIGHTER, not fainter: the same sheet
+           of ice is being looked through at a glancing angle, so more of it
+           lies along the line of sight. That is why Saturn's rings stay
+           obvious in a photograph taken near a crossing, when they are only a
+           few pixels of sky. Capped at opaque. */
+        t+='<path d="'+half(a,b,sweep)+'" fill="'+GL_RINGC+'" fill-opacity="'
+          +glF(Math.min(.95,op*(1+(1-Math.min(1,ry/.45))*.55)))+'"/>';
+      }
+      return t;
+    };
+    s+=mk(0); nearRing=mk(1);
+  }
+
+  /* the ball */
+  s+='<ellipse cx="0" cy="0" '+ell+' fill="url(#'+uid+'l)"/>';
+  s+='<g clip-path="url(#'+uid+'c)">';
+
+  /* banding, wavy-edged */
+  if(sk.bands) for(i=0;i<sk.bands.length;i++){
+    var bd=sk.bands[i];
+    s+='<path d="'+glBand(bd[0],bd[1],R,lon0,vlat,bd[4],bd[5],fl)+'" fill="'+bd[2]+'" fill-opacity="'+bd[3]+'"/>';
+  }
+
+  /* THE RINGS' SHADOW ON THE PLANET — the hard dark line across Saturn in
+     every photograph of it, and the one feature of a ringed planet that a
+     drawing cannot fake convincingly because its width and its side are both
+     set by where the SUN is, not where the viewer is.
+     Sunlight reaching a point on the globe at height h above the ring plane
+     crosses that plane at radius roughly 1 + h/tan(Bs) planet-radii out, so
+     the shadowed band runs between the latitudes whose crossing radius is the
+     inner and the outer edge of the ring system — and it falls on the side of
+     the equator AWAY from the sun. Near a ring-plane crossing the sun is
+     nearly in the plane, the band is a thin line on the equator, and that is
+     exactly what the picture should show. */
+  if(sk.ring&&asp){
+    var tb=Math.tan(Math.abs(asp.Bs)*Math.PI/180), sgn=(asp.Bs>0?-1:1);
+    var rin=sk.ring[0][0], rout=sk.ring[sk.ring.length-1][1];
+    var l1=Math.asin(Math.min(1,(rin-1)*tb))*180/Math.PI;
+    var l2=Math.asin(Math.min(1,(rout-1)*tb))*180/Math.PI;
+    /* a floor of a quarter degree, so a shadow that is real but sub-pixel
+       thin still reads as the line it is */
+    if(l2-l1<.25) l2=l1+.25;
+    /* glBand takes the northern edge first, so the pair swaps with the side */
+    var sn=sgn>0?l2:-l1, ss=sgn>0?l1:-l2;
+    s+='<path d="'+glBand(sn,ss,R,lon0,vlat,.25,4,fl)+'" fill="#1a1508" fill-opacity=".62"/>';
+  }
+
+  /* EARTH: land, then desert, then ice, then cloud. In that order because that
+     is the order they sit in physically, and cloud over land is what a photo
+     of Earth mostly is. */
+  if(name==='Earth'){
+    for(i=0;i<GL_COAST.length;i++){
+      var frags=glRing(GL_COAST[i],R,lon0,vlat,fl);
+      /* Greenland and Antarctica are ice sheets, and drawing them the same
+         green as the Amazon is the one thing that makes a globe look painted */
+      var lc=(i===3||i===5)?'#e9f1f6':'#3d6b3a';
+      for(j=0;j<frags.length;j++)
+        s+='<path d="'+frags[j]+'Z" fill="'+lc+'" fill-opacity=".95"/>';
+    }
+    for(i=0;i<GL_EDES.length;i++) s+=glBlob(GL_EDES[i][1],GL_EDES[i][0],GL_EDES[i][2],R,pal.km,lon0,vlat,uid+'d',.7,fl);
+    for(i=0;i<GL_EICE.length;i++) s+=glBlob(GL_EICE[i][1],GL_EICE[i][0],GL_EICE[i][2],R,pal.km,lon0,vlat,uid+'i',.9,fl);
+    /* CLOUD IS A TEXTURE, NOT A SET OF SHAPES. Twenty-one big soft ovals read
+       as lozenges stuck on a globe. What a full-disc photograph shows is a
+       great many small overlapping puffs, densest in the wet belt at the
+       equator and in the two storm tracks near 55 degrees and thin over the
+       deserts in between — so each listed system is a SEED that scatters a
+       dozen smaller ones around itself, and the latitude bands are where the
+       seeds are. */
+    var cr=glRng(31337);
+    for(i=0;i<GL_ECLD.length;i++){
+      var C0=GL_ECLD[i];
+      for(j=0;j<14;j++){
+        var sp2=C0[2]/2/pal.km*R;
+        var dl=(cr()*2-1)*C0[2]/111/Math.max(.35,Math.cos(C0[1]*Math.PI/180))*.55;
+        var db=(cr()*2-1)*C0[2]/111*.35;
+        s+=glBlob(C0[1]+db,C0[0]+dl,C0[2]*(.13+cr()*.22),R,pal.km,lon0,vlat,uid+'w',.34+cr()*.3,fl);
+      }
+    }
+  }
+
+  /* the named features */
+  if(sk.f) for(i=0;i<sk.f.length;i++){
+    var ft=sk.f[i];
+    s+=glBlob(ft[1],ft[0],ft[2],R,pal.km,lon0,vlat,uid+'f'+ft[3],ft[4],fl);
+  }
+
+  /* ray systems: a fresh impact on an airless world throws bright streaks most
+     of the way round it, and on Mercury that is half of what you see */
+  if(sk.ray) for(i=0;i<sk.ray.length;i++){
+    var rp=glPt(sk.ray[i][1],sk.ray[i][0],lon0,vlat,fl);
+    if(rp.z<=0.05) continue;
+    var rr=sk.ray[i][2]/2/pal.km*R, rd=glRng(4001+i*97);
+    for(j=0;j<16;j++){
+      var th=rd()*360, ln=rr*(.45+rd()*.75);
+      s+='<line x1="0" y1="0" x2="'+glF(Math.cos(th*Math.PI/180)*ln*rp.squash)+'" y2="'+glF(Math.sin(th*Math.PI/180)*ln)
+        +'" stroke="#e8e2d6" stroke-opacity="'+glF(.16*Math.min(1,rp.z*2.4))+'" stroke-width="'+glF(Math.max(.5,rr*.09))
+        +'" stroke-linecap="round" transform="translate('+glF(rp.x*R)+' '+glF(rp.y*R)+') rotate('+glF(rp.ang)+')"/>';
+    }
+  }
+
+  /* THE ANONYMOUS SMALL STUFF, seeded. On an airless world it needs a RIM: a
+     dark patch alone reads as a stain, and the same patch with a bright arc on
+     its sunward side reads as a hole in the ground. That repetition — circle,
+     rim, shadow, over and over — is most of what makes cratered terrain look
+     cratered rather than mottled. */
+  if(sk.speckle){
+    var sp=sk.speckle, rd2=glRng(sp.seed);
+    for(i=0;i<sp.n;i++){
+      var slon=rd2()*360, slat=(rd2()*2-1)*88, big=rd2();
+      var skm=sp.km[0]+big*big*(sp.km[1]-sp.km[0]);
+      if(sp.rim){
+        var q3=glPt(slat,slon,lon0,vlat,fl);
+        if(q3.z>0.02){
+          var r3=skm/2/pal.km*R;
+          if(r3>=0.6){
+            var fd=Math.min(1,q3.z*2.6);
+            var g3='transform="translate('+glF(q3.x*R)+' '+glF(q3.y*R)+') rotate('+glF(q3.ang)+')"';
+            s+='<ellipse cx="0" cy="0" rx="'+glF(Math.max(.3,r3*q3.squash))+'" ry="'+glF(r3)+'" fill="url(#'+uid+'f'+sp.col+')" opacity="'+glF(sp.op*fd)+'" '+g3+'/>';
+            /* the rim, offset a fraction of a radius toward the sun */
+            if(r3>1.4) s+='<ellipse cx="'+glF(-lx*r3*.16*q3.squash)+'" cy="'+glF(-ly*r3*.16)+'" rx="'+glF(Math.max(.3,r3*q3.squash))+'" ry="'+glF(r3)+'" fill="none" stroke="'+sp.rim+'" stroke-opacity="'+glF(sp.rimop*fd)+'" stroke-width="'+glF(Math.max(.4,r3*.16))+'" '+g3+'/>';
+          }
+        }
+      } else {
+        s+=glBlob(slat,slon,skm,R,pal.km,lon0,vlat,uid+'f'+sp.col,sp.op,fl);
+      }
+    }
+  }
+  s+='</g>';
+
+  /* haze, then night, then the rings that pass in front */
+  s+='<ellipse cx="0" cy="0" '+ell+' fill="url(#'+uid+'s)"/>';
+  s+='<ellipse cx="0" cy="0" '+ell+' fill="url(#'+uid+'n)"/>';
+  s+=nearRing;
+  /* THE AXIS. It is vertical in this frame by construction — the whole drawing
+     is rotated by the lean above, and the projection puts the pole straight up
+     — so the only thing left to get right is its LENGTH: an axis pointing
+     partly at the viewer is foreshortened by the cosine of the latitude the
+     planet is seen from, which is what makes Uranus's stub read as "that pole
+     is aimed at you" rather than as a short line. */
+  var axl=R*1.2*Math.abs(Math.cos(vb));
+  if(axl>R*.06) s+='<g stroke="#e2e8f0" stroke-opacity=".33" stroke-dasharray="4 5">'
+    +'<line x1="0" y1="'+glF(-axl)+'" x2="0" y2="'+glF(axl)+'"/></g>';
+  s+='<ellipse cx="0" cy="0" '+ell+' fill="none" stroke="#0a1020" stroke-opacity=".4"/>';
+  return s+'</g>';
+}
+`;
+
+/* ---- the Node side, for the baked first paint --------------------------- */
+const G = new Function(`${PLANETS_JS}\n${GLOBE_JS}\nreturn { glSvg: glSvg, glR: glR, GL_CAP: GL_CAP, glAspect: glAspect };`)();
+export const globeSvg = (name, ms, cx, cy, r, rotHours, sunAng) =>
+  G.glSvg(name, +ms, cx, cy, r, rotHours, sunAng);
+export const globeRadius = (name, half) => G.glR(name, half);
+export const globeCaption = (name) => G.GL_CAP[name] || "";
+/** {B, Bs} in degrees for a ringed planet at an instant — how far open its
+ *  rings are from Earth, and from the sun. null for everything else. The page
+ *  quotes B beside the picture, so the figure and the drawing are the same
+ *  calculation rather than two. */
+export const ringAspect = (name, ms) => G.glAspect(name, +ms);
+/** the prime-meridian elements, exported so check-planets.mjs can prove them */
+export const PL_PM = new Function(`${GLOBE_JS}\nreturn GL_PM;`)();

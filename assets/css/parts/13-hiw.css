@@ -1,0 +1,13 @@
+
+/* how-it-works: CSS-only tabs (radio + label); selected tab is bold + accent */
+.hiw-tabs input{position:absolute;width:1px;height:1px;opacity:0;clip:rect(0 0 0 0);overflow:hidden}
+.hiw-tablist{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 18px}
+.hiw-tablist label{cursor:pointer;font-weight:600;font-size:15px;padding:9px 16px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text);user-select:none;transition:.15s}
+.hiw-tablist label:hover{border-color:var(--accent)}
+.hiw-panel{display:none}
+#hiw-countdown:checked~.hiw-tablist label[for=hiw-countdown],
+#hiw-timer:checked~.hiw-tablist label[for=hiw-timer],
+#hiw-stopwatch:checked~.hiw-tablist label[for=hiw-stopwatch]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:800;box-shadow:0 3px 10px rgba(0,0,0,.2)}
+#hiw-countdown:checked~.hiw-p-countdown,
+#hiw-timer:checked~.hiw-p-timer,
+#hiw-stopwatch:checked~.hiw-p-stopwatch{display:block}

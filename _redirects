@@ -1,0 +1,409 @@
+# Concept pages live at /concepts/<slug>/. The folder itself is not an essay.
+/concepts  /glossary/  301
+/concepts/  /glossary/  301
+/concepts/index.html  /glossary/  301
+
+# The nine planet pages moved out from under /solar-system-simulator/ to flat
+# URLs naming what they are — /jupiter-and-moons-simulator/ — because each is a page
+# ABOUT A PLANET, not a sub-topic of the system, and the nested URL read as the
+# latter. Mercury and Venus drop the "-and-moons": they have none. All nine were
+# indexed and sitemapped, so all nine 301, splat form included so any ?zoom= or
+# &date= link into them keeps resolving.
+/solar-system-simulator/mercury/*  /mercury-simulator/  301
+/solar-system-simulator/mercury  /mercury-simulator/  301
+/solar-system-simulator/venus/*  /venus-simulator/  301
+/solar-system-simulator/venus  /venus-simulator/  301
+/solar-system-simulator/earth/*  /earth-and-moon-simulator/  301
+/solar-system-simulator/earth  /earth-and-moon-simulator/  301
+/solar-system-simulator/mars/*  /mars-and-moons-simulator/  301
+/solar-system-simulator/mars  /mars-and-moons-simulator/  301
+/solar-system-simulator/jupiter/*  /jupiter-and-moons-simulator/  301
+/solar-system-simulator/jupiter  /jupiter-and-moons-simulator/  301
+/solar-system-simulator/saturn/*  /saturn-and-moons-simulator/  301
+/solar-system-simulator/saturn  /saturn-and-moons-simulator/  301
+/solar-system-simulator/uranus/*  /uranus-and-moons-simulator/  301
+/solar-system-simulator/uranus  /uranus-and-moons-simulator/  301
+/solar-system-simulator/neptune/*  /neptune-and-moons-simulator/  301
+/solar-system-simulator/neptune  /neptune-and-moons-simulator/  301
+/solar-system-simulator/pluto/*  /pluto-and-moons-simulator/  301
+/solar-system-simulator/pluto  /pluto-and-moons-simulator/  301
+# /rocket-launches/ became /rocket-launch-simulator/ when it gained a page per
+# destination — one page could only ever rank for one of "launch window to Mars",
+# "...to Jupiter", "...to Saturn". The splat keeps its ?to= share links working.
+/rocket-launches/*  /rocket-launch-simulator/  301
+/rocket-launches  /rocket-launch-simulator/  301
+
+# The two location tools moved to match /tides/near-me/, which does the same
+# job for tide stations: /sun/my-location/ -> /sun/near-me/ (its title already
+# read "Sunrise & Sunset Near Me") and /moon/anywhere/ -> /moon/near-me/. Both
+# old URLs were indexed and sitemapped, so both 301 rather than disappearing —
+# with and without the trailing slash, and the splat form so the shared
+# ?lat/lon links those pages generate keep resolving.
+/sun/my-location/*  /sun/near-me/  301
+/sun/my-location  /sun/near-me/  301
+/moon/anywhere/*  /moon/near-me/  301
+/moon/anywhere  /moon/near-me/  301
+
+# Anchorage was added to the curated city list after us-cities.json was last
+# generated, so the ~0.4-degree dedupe in make-us-cities never ran on it and the
+# census entry produced a SECOND, near-identical page. Both were self-canonical
+# and both were in the sitemap — a genuine split of the ranking signal, and the
+# only duplicate-title pair on the site. The -ak pages are no longer emitted;
+# these pass the equity from the indexed URLs to the surviving ones.
+/sun/anchorage-ak/*  /sun/anchorage/  301
+/moon/anchorage-ak/*  /moon/anchorage/  301
+
+# 301 redirects from the pre-restructure URLs (old hubs + old /<type>/<slug>/
+# event paths) to the new /<category>-countdowns/<slug>/ structure. Generated.
+# The SpaceX launch countdowns were retired (a per-pad "next launch" page has to
+# be refreshed every few days to stay true, and it wasn't worth the upkeep).
+# Send the four retired URLs to the astronomy hub rather than 404.
+/astronomy-countdowns/spacex-cape-canaveral/*  /astronomy-countdowns/  301
+/astronomy-countdowns/spacex-kennedy/*  /astronomy-countdowns/  301
+/astronomy-countdowns/spacex-vandenberg/*  /astronomy-countdowns/  301
+/astronomy-countdowns/starship-launch/*  /astronomy-countdowns/  301
+# The per-family child sitemaps were merged back into one /sitemap.xml.
+/sitemaps/*  /sitemap.xml  301
+# Custom countdown creation was retired; send old builder links to the countdown hub.
+/create/  /countdown/  301
+/create  /countdown/  301
+/create-custom-countdown/*  /countdown/  301
+# The alarm clock moved from /alarm/ to /alarm-clock/ (covers /alarm/about/ too).
+/alarm/*  /alarm-clock/:splat  301
+/alarm  /alarm-clock/  301
+# Retired the 12:00 PM "set alarm for" page (now an "Add a custom alarm" action).
+# The "escapism" work countdowns moved from flat /countdown-to-*/ names into
+# /work/<slug>/ so the folder + slug read as a contextual pair (e.g. "work" +
+# "friday"). The standalone daily 5pm page was folded into the Friday one
+# (its target already is 5pm), so it redirects there too.
+/countdown-to-friday/  /work/friday/  301
+/countdown-to-friday  /work/friday/  301
+/countdown-to-5pm/  /work/friday/  301
+/countdown-to-5pm  /work/friday/  301
+/next-federal-holiday/  /work/holiday/  301
+/next-federal-holiday  /work/holiday/  301
+/next-long-weekend/  /work/long-weekend/  301
+/next-long-weekend  /work/long-weekend/  301
+# Retired the one-off Trump birthday party page (event passed) -> annual birthday countdown.
+/trump-birthday-party-countdown/  /birthday-countdowns/donald-trump/  301
+/trump-birthday-party-countdown  /birthday-countdowns/donald-trump/  301
+/birthdays/  /birthday-countdowns/  301
+/birthdays  /birthday-countdowns/  301
+/holidays/  /holiday-countdowns/  301
+/holidays  /holiday-countdowns/  301
+/politics/  /political-countdowns/  301
+/politics  /political-countdowns/  301
+/sports/  /sports-countdowns/  301
+/sports  /sports-countdowns/  301
+/shopping/  /shopping-countdowns/  301
+/shopping  /shopping-countdowns/  301
+/entertainment/  /entertainment-countdowns/  301
+/entertainment  /entertainment-countdowns/  301
+/parties/  /party-countdowns/  301
+/parties  /party-countdowns/  301
+/astronomy/  /astronomy-countdowns/  301
+/astronomy  /astronomy-countdowns/  301
+/anniversaries/  /anniversary-countdowns/  301
+/anniversaries  /anniversary-countdowns/  301
+/graduations/  /graduation-countdowns/  301
+/graduations  /graduation-countdowns/  301
+/birthday-countdown/taylor-swift/  /birthday-countdowns/taylor-swift/  301
+/birthday-countdown/taylor-swift  /birthday-countdowns/taylor-swift/  301
+/birthday-countdown/george-washington/  /birthday-countdowns/george-washington/  301
+/birthday-countdown/george-washington  /birthday-countdowns/george-washington/  301
+/birthday-countdown/abraham-lincoln/  /birthday-countdowns/abraham-lincoln/  301
+/birthday-countdown/abraham-lincoln  /birthday-countdowns/abraham-lincoln/  301
+/christmas-countdown/  /holiday-countdowns/christmas/  301
+/christmas-countdown  /holiday-countdowns/christmas/  301
+/halloween-countdown/  /holiday-countdowns/halloween/  301
+/halloween-countdown  /holiday-countdowns/halloween/  301
+/valentines-day-countdown/  /holiday-countdowns/valentines-day/  301
+/valentines-day-countdown  /holiday-countdowns/valentines-day/  301
+/thanksgiving-countdown/  /holiday-countdowns/thanksgiving/  301
+/thanksgiving-countdown  /holiday-countdowns/thanksgiving/  301
+/new-year-countdown/  /holiday-countdowns/new-year/  301
+/new-year-countdown  /holiday-countdowns/new-year/  301
+/july-4th-countdown/  /holiday-countdowns/july-4th/  301
+/july-4th-countdown  /holiday-countdowns/july-4th/  301
+/summer-solstice-countdown/  /holiday-countdowns/summer-solstice/  301
+/summer-solstice-countdown  /holiday-countdowns/summer-solstice/  301
+/st-patricks-day-countdown/  /holiday-countdowns/st-patricks-day/  301
+/st-patricks-day-countdown  /holiday-countdowns/st-patricks-day/  301
+/cinco-de-mayo-countdown/  /holiday-countdowns/cinco-de-mayo/  301
+/cinco-de-mayo-countdown  /holiday-countdowns/cinco-de-mayo/  301
+/mothers-day-countdown/  /holiday-countdowns/mothers-day/  301
+/mothers-day-countdown  /holiday-countdowns/mothers-day/  301
+/fathers-day-countdown/  /holiday-countdowns/fathers-day/  301
+/fathers-day-countdown  /holiday-countdowns/fathers-day/  301
+/memorial-day-countdown/  /holiday-countdowns/memorial-day/  301
+/memorial-day-countdown  /holiday-countdowns/memorial-day/  301
+/labor-day-countdown/  /holiday-countdowns/labor-day/  301
+/labor-day-countdown  /holiday-countdowns/labor-day/  301
+/mlk-day-countdown/  /holiday-countdowns/mlk-day/  301
+/mlk-day-countdown  /holiday-countdowns/mlk-day/  301
+/presidents-day-countdown/  /holiday-countdowns/presidents-day/  301
+/presidents-day-countdown  /holiday-countdowns/presidents-day/  301
+/world-cup-countdown/  /sports-countdowns/world-cup/  301
+/world-cup-countdown  /sports-countdowns/world-cup/  301
+/super-bowl-countdown/  /sports-countdowns/super-bowl/  301
+/super-bowl-countdown  /sports-countdowns/super-bowl/  301
+/olympics-countdown/  /sports-countdowns/olympics/  301
+/olympics-countdown  /sports-countdowns/olympics/  301
+/election-day-countdown/  /political-countdowns/election-day/  301
+/election-day-countdown  /political-countdowns/election-day/  301
+/anniversary-countdown/william-and-kate/  /anniversary-countdowns/william-and-kate/  301
+/anniversary-countdown/william-and-kate  /anniversary-countdowns/william-and-kate/  301
+/anniversary-countdown/harry-and-meghan/  /anniversary-countdowns/harry-and-meghan/  301
+/anniversary-countdown/harry-and-meghan  /anniversary-countdowns/harry-and-meghan/  301
+/anniversary-countdown/beyonce-and-jay-z/  /anniversary-countdowns/beyonce-and-jay-z/  301
+/anniversary-countdown/beyonce-and-jay-z  /anniversary-countdowns/beyonce-and-jay-z/  301
+/anniversary-countdown/the-beckhams/  /anniversary-countdowns/the-beckhams/  301
+/anniversary-countdown/the-beckhams  /anniversary-countdowns/the-beckhams/  301
+/anniversary-countdown/lively-and-reynolds/  /anniversary-countdowns/lively-and-reynolds/  301
+/anniversary-countdown/lively-and-reynolds  /anniversary-countdowns/lively-and-reynolds/  301
+/anniversary-countdown/the-biebers/  /anniversary-countdowns/the-biebers/  301
+/anniversary-countdown/the-biebers  /anniversary-countdowns/the-biebers/  301
+/anniversary-countdown/legend-and-teigen/  /anniversary-countdowns/legend-and-teigen/  301
+/anniversary-countdown/legend-and-teigen  /anniversary-countdowns/legend-and-teigen/  301
+/anniversary-countdown/the-clooneys/  /anniversary-countdowns/the-clooneys/  301
+/anniversary-countdown/the-clooneys  /anniversary-countdowns/the-clooneys/  301
+/graduation-countdown/harvard/  /graduation-countdowns/harvard/  301
+/graduation-countdown/harvard  /graduation-countdowns/harvard/  301
+/graduation-countdown/stanford/  /graduation-countdowns/stanford/  301
+/graduation-countdown/stanford  /graduation-countdowns/stanford/  301
+/graduation-countdown/ucla/  /graduation-countdowns/ucla/  301
+/graduation-countdown/ucla  /graduation-countdowns/ucla/  301
+/graduation-countdown/ut-austin/  /graduation-countdowns/ut-austin/  301
+/graduation-countdown/ut-austin  /graduation-countdowns/ut-austin/  301
+/graduation-countdown/michigan/  /graduation-countdowns/michigan/  301
+/graduation-countdown/michigan  /graduation-countdowns/michigan/  301
+/graduation-countdown/florida/  /graduation-countdowns/florida/  301
+/graduation-countdown/florida  /graduation-countdowns/florida/  301
+/graduation-countdown/penn-state/  /graduation-countdowns/penn-state/  301
+/graduation-countdown/penn-state  /graduation-countdowns/penn-state/  301
+/graduation-countdown/usc/  /graduation-countdowns/usc/  301
+/graduation-countdown/usc  /graduation-countdowns/usc/  301
+/graduation-countdown/nyu/  /graduation-countdowns/nyu/  301
+/graduation-countdown/nyu  /graduation-countdowns/nyu/  301
+/graduation-countdown/mit/  /graduation-countdowns/mit/  301
+/graduation-countdown/mit  /graduation-countdowns/mit/  301
+/easter-countdown/  /holiday-countdowns/easter/  301
+/easter-countdown  /holiday-countdowns/easter/  301
+/diwali-countdown/  /holiday-countdowns/diwali/  301
+/diwali-countdown  /holiday-countdowns/diwali/  301
+/hanukkah-countdown/  /holiday-countdowns/hanukkah/  301
+/hanukkah-countdown  /holiday-countdowns/hanukkah/  301
+/lunar-new-year-countdown/  /holiday-countdowns/lunar-new-year/  301
+/lunar-new-year-countdown  /holiday-countdowns/lunar-new-year/  301
+/black-friday-countdown/  /shopping-countdowns/black-friday/  301
+/black-friday-countdown  /shopping-countdowns/black-friday/  301
+/election-day-countdown/presidential-election/  /political-countdowns/presidential-election/  301
+/election-day-countdown/presidential-election  /political-countdowns/presidential-election/  301
+/inauguration-countdown/  /political-countdowns/inauguration/  301
+/inauguration-countdown  /political-countdowns/inauguration/  301
+/march-madness-countdown/  /sports-countdowns/march-madness/  301
+/march-madness-countdown  /sports-countdowns/march-madness/  301
+/solar-eclipse-countdown/  /astronomy-countdowns/solar-eclipse/  301
+/solar-eclipse-countdown  /astronomy-countdowns/solar-eclipse/  301
+/perseids-countdown/  /astronomy-countdowns/perseids/  301
+/perseids-countdown  /astronomy-countdowns/perseids/  301
+/geminids-countdown/  /astronomy-countdowns/geminids/  301
+/geminids-countdown  /astronomy-countdowns/geminids/  301
+/gta-6-countdown/  /entertainment-countdowns/gta-6/  301
+/gta-6-countdown  /entertainment-countdowns/gta-6/  301
+/oscars-countdown/  /entertainment-countdowns/oscars/  301
+/oscars-countdown  /entertainment-countdowns/oscars/  301
+/avengers-doomsday-countdown/  /entertainment-countdowns/avengers-doomsday/  301
+/avengers-doomsday-countdown  /entertainment-countdowns/avengers-doomsday/  301
+/avengers-secret-wars-countdown/  /entertainment-countdowns/avengers-secret-wars/  301
+/avengers-secret-wars-countdown  /entertainment-countdowns/avengers-secret-wars/  301
+/prime-day-countdown/  /shopping-countdowns/prime-day/  301
+/prime-day-countdown  /shopping-countdowns/prime-day/  301
+/cyber-monday-countdown/  /shopping-countdowns/cyber-monday/  301
+/cyber-monday-countdown  /shopping-countdowns/cyber-monday/  301
+/masters-countdown/  /sports-countdowns/masters/  301
+/masters-countdown  /sports-countdowns/masters/  301
+/daytona-500-countdown/  /sports-countdowns/daytona-500/  301
+/daytona-500-countdown  /sports-countdowns/daytona-500/  301
+/indy-500-countdown/  /sports-countdowns/indy-500/  301
+/indy-500-countdown  /sports-countdowns/indy-500/  301
+/world-series-countdown/  /sports-countdowns/world-series/  301
+/world-series-countdown  /sports-countdowns/world-series/  301
+/times-square-nye-countdown/  /party-countdowns/times-square-nye/  301
+/times-square-nye-countdown  /party-countdowns/times-square-nye/  301
+/met-gala-countdown/  /party-countdowns/met-gala/  301
+/met-gala-countdown  /party-countdowns/met-gala/  301
+/sydney-nye-countdown/  /party-countdowns/sydney-nye/  301
+/sydney-nye-countdown  /party-countdowns/sydney-nye/  301
+/london-nye-countdown/  /party-countdowns/london-nye/  301
+/london-nye-countdown  /party-countdowns/london-nye/  301
+/macys-parade-countdown/  /holiday-countdowns/macys-parade/  301
+/macys-parade-countdown  /holiday-countdowns/macys-parade/  301
+/rose-parade-countdown/  /holiday-countdowns/rose-parade/  301
+/rose-parade-countdown  /holiday-countdowns/rose-parade/  301
+/singles-day-countdown/  /shopping-countdowns/singles-day/  301
+/singles-day-countdown  /shopping-countdowns/singles-day/  301
+/walmart-deals-countdown/  /shopping-countdowns/walmart-deals/  301
+/walmart-deals-countdown  /shopping-countdowns/walmart-deals/  301
+/white-day-countdown/  /holiday-countdowns/white-day/  301
+/white-day-countdown  /holiday-countdowns/white-day/  301
+/mardi-gras-countdown/  /party-countdowns/mardi-gras/  301
+/mardi-gras-countdown  /party-countdowns/mardi-gras/  301
+/oktoberfest-countdown/  /party-countdowns/oktoberfest/  301
+/oktoberfest-countdown  /party-countdowns/oktoberfest/  301
+/rio-carnival-countdown/  /party-countdowns/rio-carnival/  301
+/rio-carnival-countdown  /party-countdowns/rio-carnival/  301
+/coachella-countdown/  /party-countdowns/coachella/  301
+/coachella-countdown  /party-countdowns/coachella/  301
+/white-house-correspondents-dinner-countdown/  /party-countdowns/white-house-correspondents-dinner/  301
+/white-house-correspondents-dinner-countdown  /party-countdowns/white-house-correspondents-dinner/  301
+/prime-big-deal-days-countdown/  /shopping-countdowns/prime-big-deal-days/  301
+/prime-big-deal-days-countdown  /shopping-countdowns/prime-big-deal-days/  301
+/birthday-countdown/donald-trump/  /birthday-countdowns/donald-trump/  301
+/birthday-countdown/donald-trump  /birthday-countdowns/donald-trump/  301
+/birthday-countdown/beyonce/  /birthday-countdowns/beyonce/  301
+/birthday-countdown/beyonce  /birthday-countdowns/beyonce/  301
+/birthday-countdown/the-pope/  /birthday-countdowns/the-pope/  301
+/birthday-countdown/the-pope  /birthday-countdowns/the-pope/  301
+/birthday-countdown/lebron-james/  /birthday-countdowns/lebron-james/  301
+/birthday-countdown/lebron-james  /birthday-countdowns/lebron-james/  301
+/birthday-countdown/cristiano-ronaldo/  /birthday-countdowns/cristiano-ronaldo/  301
+/birthday-countdown/cristiano-ronaldo  /birthday-countdowns/cristiano-ronaldo/  301
+/birthday-countdown/mrbeast/  /birthday-countdowns/mrbeast/  301
+/birthday-countdown/mrbeast  /birthday-countdowns/mrbeast/  301
+/birthday-countdown/nick-digiovanni/  /birthday-countdowns/nick-digiovanni/  301
+/birthday-countdown/nick-digiovanni  /birthday-countdowns/nick-digiovanni/  301
+/birthday-countdown/ariana-grande/  /birthday-countdowns/ariana-grande/  301
+/birthday-countdown/ariana-grande  /birthday-countdowns/ariana-grande/  301
+/birthday-countdown/lionel-messi/  /birthday-countdowns/lionel-messi/  301
+/birthday-countdown/lionel-messi  /birthday-countdowns/lionel-messi/  301
+/birthday-countdown/elon-musk/  /birthday-countdowns/elon-musk/  301
+/birthday-countdown/elon-musk  /birthday-countdowns/elon-musk/  301
+/birthday-countdown/tom-cruise/  /birthday-countdowns/tom-cruise/  301
+/birthday-countdown/tom-cruise  /birthday-countdowns/tom-cruise/  301
+/birthday-countdown/shohei-ohtani/  /birthday-countdowns/shohei-ohtani/  301
+/birthday-countdown/shohei-ohtani  /birthday-countdowns/shohei-ohtani/  301
+/birthday-countdown/selena-gomez/  /birthday-countdowns/selena-gomez/  301
+/birthday-countdown/selena-gomez  /birthday-countdowns/selena-gomez/  301
+/birthday-countdown/zendaya/  /birthday-countdowns/zendaya/  301
+/birthday-countdown/zendaya  /birthday-countdowns/zendaya/  301
+/birthday-countdown/keanu-reeves/  /birthday-countdowns/keanu-reeves/  301
+/birthday-countdown/keanu-reeves  /birthday-countdowns/keanu-reeves/  301
+/birthday-countdown/patrick-mahomes/  /birthday-countdowns/patrick-mahomes/  301
+/birthday-countdown/patrick-mahomes  /birthday-countdowns/patrick-mahomes/  301
+/birthday-countdown/serena-williams/  /birthday-countdowns/serena-williams/  301
+/birthday-countdown/serena-williams  /birthday-countdowns/serena-williams/  301
+/birthday-countdown/snoop-dogg/  /birthday-countdowns/snoop-dogg/  301
+/birthday-countdown/snoop-dogg  /birthday-countdowns/snoop-dogg/  301
+/birthday-countdown/kim-kardashian/  /birthday-countdowns/kim-kardashian/  301
+/birthday-countdown/kim-kardashian  /birthday-countdowns/kim-kardashian/  301
+/birthday-countdown/drake/  /birthday-countdowns/drake/  301
+/birthday-countdown/drake  /birthday-countdowns/drake/  301
+/birthday-countdown/bill-gates/  /birthday-countdowns/bill-gates/  301
+/birthday-countdown/bill-gates  /birthday-countdowns/bill-gates/  301
+/birthday-countdown/king-charles/  /birthday-countdowns/king-charles/  301
+/birthday-countdown/king-charles  /birthday-countdowns/king-charles/  301
+/birthday-countdown/billie-eilish/  /birthday-countdowns/billie-eilish/  301
+/birthday-countdown/billie-eilish  /birthday-countdowns/billie-eilish/  301
+/birthday-countdown/timothee-chalamet/  /birthday-countdowns/timothee-chalamet/  301
+/birthday-countdown/timothee-chalamet  /birthday-countdowns/timothee-chalamet/  301
+/birthday-countdown/martin-luther-king-jr/  /birthday-countdowns/martin-luther-king-jr/  301
+/birthday-countdown/martin-luther-king-jr  /birthday-countdowns/martin-luther-king-jr/  301
+/birthday-countdown/dolly-parton/  /birthday-countdowns/dolly-parton/  301
+/birthday-countdown/dolly-parton  /birthday-countdowns/dolly-parton/  301
+/birthday-countdown/oprah-winfrey/  /birthday-countdowns/oprah-winfrey/  301
+/birthday-countdown/oprah-winfrey  /birthday-countdowns/oprah-winfrey/  301
+/birthday-countdown/harry-styles/  /birthday-countdowns/harry-styles/  301
+/birthday-countdown/harry-styles  /birthday-countdowns/harry-styles/  301
+/birthday-countdown/shakira/  /birthday-countdowns/shakira/  301
+/birthday-countdown/shakira  /birthday-countdowns/shakira/  301
+/birthday-countdown/michael-jordan/  /birthday-countdowns/michael-jordan/  301
+/birthday-countdown/michael-jordan  /birthday-countdowns/michael-jordan/  301
+/birthday-countdown/ed-sheeran/  /birthday-countdowns/ed-sheeran/  301
+/birthday-countdown/ed-sheeran  /birthday-countdowns/ed-sheeran/  301
+/birthday-countdown/rihanna/  /birthday-countdowns/rihanna/  301
+/birthday-countdown/rihanna  /birthday-countdowns/rihanna/  301
+/birthday-countdown/justin-bieber/  /birthday-countdowns/justin-bieber/  301
+/birthday-countdown/justin-bieber  /birthday-countdowns/justin-bieber/  301
+/birthday-countdown/dr-seuss/  /birthday-countdowns/dr-seuss/  301
+/birthday-countdown/dr-seuss  /birthday-countdowns/dr-seuss/  301
+/birthday-countdown/stephen-curry/  /birthday-countdowns/stephen-curry/  301
+/birthday-countdown/stephen-curry  /birthday-countdowns/stephen-curry/  301
+/birthday-countdown/lady-gaga/  /birthday-countdowns/lady-gaga/  301
+/birthday-countdown/lady-gaga  /birthday-countdowns/lady-gaga/  301
+/birthday-countdown/emma-watson/  /birthday-countdowns/emma-watson/  301
+/birthday-countdown/emma-watson  /birthday-countdowns/emma-watson/  301
+/birthday-countdown/dwayne-johnson/  /birthday-countdowns/dwayne-johnson/  301
+/birthday-countdown/dwayne-johnson  /birthday-countdowns/dwayne-johnson/  301
+/birthday-countdown/adele/  /birthday-countdowns/adele/  301
+/birthday-countdown/adele  /birthday-countdowns/adele/  301
+/entertainment-countdowns/star-wars-day/  /holiday-countdowns/star-wars-day/  301
+/entertainment-countdowns/star-wars-day  /holiday-countdowns/star-wars-day/  301
+# Retargeted from /rocket-launches/ to its replacement so this stays ONE hop:
+# /rocket-launches/ is itself a 301 now, and chaining 301 -> 301 wastes a round
+# trip and dilutes what the first one passes on.
+/solar-system-simulator/launch-windows/  /rocket-launch-simulator/  301
+/solar-system-simulator/launch-windows  /rocket-launch-simulator/  301
+
+# ---------------------------------------------------------------------------
+# AUGUST 2026: the site narrowed to what a teacher can put on a classroom
+# screen. Five families went with it — the 420 novelty countdowns, the office
+# "how long until Friday" pages, and the party, entertainment, anniversary and
+# shopping categories — along with fourteen celebrity birthday pages whose
+# subjects' work is not for children.
+#
+# Every one of these URLs was indexed, so every one 301s rather than 404s, and
+# each goes to the nearest page that still answers the same question: a
+# countdown category to the countdown hub, a birthday to the birthday hub.
+# The splat forms carry the query strings the old share links used.
+# ---------------------------------------------------------------------------
+/420-countdown/*  /countdown/  301
+/420-countdown  /countdown/  301
+/420-day-countdown/*  /countdown/  301
+/420-day-countdown  /countdown/  301
+/work/*  /countdown/  301
+/work  /countdown/  301
+/party-countdowns/*  /countdown/  301
+/party-countdowns  /countdown/  301
+/entertainment-countdowns/*  /countdown/  301
+/entertainment-countdowns  /countdown/  301
+/anniversary-countdowns/*  /countdown/  301
+/anniversary-countdowns  /countdown/  301
+/shopping-countdowns/*  /countdown/  301
+/shopping-countdowns  /countdown/  301
+/birthday-countdowns/snoop-dogg/*  /birthday-countdowns/  301
+/birthday-countdowns/snoop-dogg  /birthday-countdowns/  301
+/birthday-countdowns/drake/*  /birthday-countdowns/  301
+/birthday-countdowns/drake  /birthday-countdowns/  301
+/birthday-countdowns/bad-bunny/*  /birthday-countdowns/  301
+/birthday-countdowns/bad-bunny  /birthday-countdowns/  301
+/birthday-countdowns/rihanna/*  /birthday-countdowns/  301
+/birthday-countdowns/rihanna  /birthday-countdowns/  301
+/birthday-countdowns/kim-kardashian/*  /birthday-countdowns/  301
+/birthday-countdowns/kim-kardashian  /birthday-countdowns/  301
+/birthday-countdowns/will-smith/*  /birthday-countdowns/  301
+/birthday-countdowns/will-smith  /birthday-countdowns/  301
+/birthday-countdowns/justin-bieber/*  /birthday-countdowns/  301
+/birthday-countdowns/justin-bieber  /birthday-countdowns/  301
+/birthday-countdowns/donald-trump/*  /birthday-countdowns/  301
+/birthday-countdowns/donald-trump  /birthday-countdowns/  301
+/birthday-countdowns/joe-biden/*  /birthday-countdowns/  301
+/birthday-countdowns/joe-biden  /birthday-countdowns/  301
+/birthday-countdowns/barack-obama/*  /birthday-countdowns/  301
+/birthday-countdowns/barack-obama  /birthday-countdowns/  301
+/birthday-countdowns/michelle-obama/*  /birthday-countdowns/  301
+/birthday-countdowns/michelle-obama  /birthday-countdowns/  301
+/birthday-countdowns/bill-clinton/*  /birthday-countdowns/  301
+/birthday-countdowns/bill-clinton  /birthday-countdowns/  301
+/birthday-countdowns/george-w-bush/*  /birthday-countdowns/  301
+/birthday-countdowns/george-w-bush  /birthday-countdowns/  301
+/birthday-countdowns/elon-musk/*  /birthday-countdowns/  301
+/birthday-countdowns/elon-musk  /birthday-countdowns/  301
+
+# Commerce retired (August 2026): no affiliate links, nothing sold to a
+# classroom audience. The disclosure has nothing left to disclose, and the
+# paid-promotion pitch has no place on a site for kids.
+/affiliate-disclosure/*  /  301
+/affiliate-disclosure  /  301
+/promote-event/*  /suggest-event/  301
+/promote-event  /suggest-event/  301

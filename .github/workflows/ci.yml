@@ -1,0 +1,46 @@
+# CI — the build IS the test suite.
+#
+# `npm run build` already ends in the site's own gates: check-dates (nothing
+# stale presented as upcoming), build-inline's CSS-coverage assertion,
+# check-crosslinks (no one-way cross-links) and check-pages (title, body,
+# description, H1, nav, inlined CSS, footer idempotence, JSON-LD parses, and
+# every internal href resolves). check:solar proves the orbital, moon, comet,
+# belt and transfer tables against numbers they did not supply.
+#
+# This workflow exists so a push that skipped the local build still gets
+# gated: a red X on the commit instead of a broken deploy discovered later.
+# It deliberately does NOT run `npm run check` — check-links needs the open
+# network and its findings are advisory, not a merge gate.
+#
+# The build rewrites the generated HTML in the working tree; nothing here
+# commits or pushes, so a drift between committed HTML and regenerated HTML
+# is not an error (the hourly rebuild.yml owns freshness).
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build (runs every gate)
+        run: npm run build
+      - name: Prove the orbital, moon, comet, belt and transfer tables
+        run: npm run check:solar

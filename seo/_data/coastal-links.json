@@ -1,0 +1,601 @@
+{
+  "maxMiles": 35,
+  "count": 66,
+  "generated": "make-coastal-map.mjs",
+  "pairs": [
+    {
+      "station": "alameda-ca",
+      "stationCity": "Alameda",
+      "st": "CA",
+      "id": "9414750",
+      "sun": "oakland-ca",
+      "sunCity": "Oakland",
+      "mi": 3
+    },
+    {
+      "station": "anchorage-ak",
+      "stationCity": "Anchorage",
+      "st": "AK",
+      "id": "9455920",
+      "sun": "anchorage",
+      "sunCity": "Anchorage",
+      "mi": 1
+    },
+    {
+      "station": "annapolis-md",
+      "stationCity": "Annapolis",
+      "st": "MD",
+      "id": "8575512",
+      "sun": "annapolis-md",
+      "sunCity": "Annapolis",
+      "mi": 1
+    },
+    {
+      "station": "astoria-or",
+      "stationCity": "Astoria",
+      "st": "OR",
+      "id": "9439040",
+      "sun": "cannon-beach",
+      "sunCity": "Cannon Beach",
+      "mi": 24
+    },
+    {
+      "station": "atlantic-city-nj",
+      "stationCity": "Atlantic City",
+      "st": "NJ",
+      "id": "8534720",
+      "sun": "atlantic-city-nj",
+      "sunCity": "Atlantic City",
+      "mi": 0
+    },
+    {
+      "station": "baltimore-md",
+      "stationCity": "Baltimore",
+      "st": "MD",
+      "id": "8574680",
+      "sun": "baltimore-md",
+      "sunCity": "Baltimore",
+      "mi": 2
+    },
+    {
+      "station": "bar-harbor-me",
+      "stationCity": "Bar Harbor",
+      "st": "ME",
+      "id": "8413320",
+      "sun": "bar-harbor",
+      "sunCity": "Bar Harbor",
+      "mi": 0
+    },
+    {
+      "station": "bay-st-louis-ms",
+      "stationCity": "Bay St. Louis",
+      "st": "MS",
+      "id": "8747437",
+      "sun": "gulfport-ms",
+      "sunCity": "Gulfport",
+      "mi": 14
+    },
+    {
+      "station": "boston-ma",
+      "stationCity": "Boston",
+      "st": "MA",
+      "id": "8443970",
+      "sun": "boston",
+      "sunCity": "Boston",
+      "mi": 1
+    },
+    {
+      "station": "bridgeport-ct",
+      "stationCity": "Bridgeport",
+      "st": "CT",
+      "id": "8467150",
+      "sun": "bridgeport-ct",
+      "sunCity": "Bridgeport",
+      "mi": 1
+    },
+    {
+      "station": "cape-canaveral-fl",
+      "stationCity": "Cape Canaveral",
+      "st": "FL",
+      "id": "8721604",
+      "sun": "titusville-fl",
+      "sunCity": "Titusville",
+      "mi": 19
+    },
+    {
+      "station": "charleston-sc",
+      "stationCity": "Charleston",
+      "st": "SC",
+      "id": "8665530",
+      "sun": "charleston-sc",
+      "sunCity": "Charleston",
+      "mi": 1
+    },
+    {
+      "station": "clearwater-beach-fl",
+      "stationCity": "Clearwater Beach",
+      "st": "FL",
+      "id": "8726724",
+      "sun": "clearwater-fl",
+      "sunCity": "Clearwater",
+      "mi": 2
+    },
+    {
+      "station": "dauphin-island-al",
+      "stationCity": "Dauphin Island",
+      "st": "AL",
+      "id": "8735180",
+      "sun": "mobile-al",
+      "sunCity": "Mobile",
+      "mi": 31
+    },
+    {
+      "station": "fernandina-beach-fl",
+      "stationCity": "Fernandina Beach",
+      "st": "FL",
+      "id": "8720030",
+      "sun": "jacksonville-fl",
+      "sunCity": "Jacksonville",
+      "mi": 26
+    },
+    {
+      "station": "fort-myers-fl",
+      "stationCity": "Fort Myers",
+      "st": "FL",
+      "id": "8725520",
+      "sun": "fort-myers-fl",
+      "sunCity": "Fort Myers",
+      "mi": 1
+    },
+    {
+      "station": "friday-harbor-wa",
+      "stationCity": "Friday Harbor",
+      "st": "WA",
+      "id": "9449880",
+      "sun": "bellingham-wa",
+      "sunCity": "Bellingham",
+      "mi": 28
+    },
+    {
+      "station": "galveston-tx",
+      "stationCity": "Galveston",
+      "st": "TX",
+      "id": "8771450",
+      "sun": "galveston-tx",
+      "sunCity": "Galveston",
+      "mi": 1
+    },
+    {
+      "station": "honolulu-hi",
+      "stationCity": "Honolulu",
+      "st": "HI",
+      "id": "1612340",
+      "sun": "honolulu",
+      "sunCity": "Honolulu",
+      "mi": 1
+    },
+    {
+      "station": "jacksonville-fl",
+      "stationCity": "Jacksonville",
+      "st": "FL",
+      "id": "8720218",
+      "sun": "jacksonville-fl",
+      "sunCity": "Jacksonville",
+      "mi": 14
+    },
+    {
+      "station": "key-west-fl",
+      "stationCity": "Key West",
+      "st": "FL",
+      "id": "8724580",
+      "sun": "key-west",
+      "sunCity": "Key West",
+      "mi": 2
+    },
+    {
+      "station": "kings-point-ny",
+      "stationCity": "Kings Point",
+      "st": "NY",
+      "id": "8516945",
+      "sun": "new-rochelle-ny",
+      "sunCity": "New Rochelle",
+      "mi": 7
+    },
+    {
+      "station": "kiptopeke-va",
+      "stationCity": "Kiptopeke",
+      "st": "VA",
+      "id": "8632200",
+      "sun": "hampton-va",
+      "sunCity": "Hampton",
+      "mi": 22
+    },
+    {
+      "station": "la-jolla-ca",
+      "stationCity": "La Jolla",
+      "st": "CA",
+      "id": "9410230",
+      "sun": "encinitas-ca",
+      "sunCity": "Encinitas",
+      "mi": 12
+    },
+    {
+      "station": "lewes-de",
+      "stationCity": "Lewes",
+      "st": "DE",
+      "id": "8557380",
+      "sun": "dover-de",
+      "sunCity": "Dover",
+      "mi": 34
+    },
+    {
+      "station": "los-angeles-ca",
+      "stationCity": "Los Angeles",
+      "st": "CA",
+      "id": "9410660",
+      "sun": "long-beach-ca",
+      "sunCity": "Long Beach",
+      "mi": 6
+    },
+    {
+      "station": "miami-fl",
+      "stationCity": "Miami",
+      "st": "FL",
+      "id": "8723214",
+      "sun": "miami",
+      "sunCity": "Miami",
+      "mi": 3
+    },
+    {
+      "station": "mobile-al",
+      "stationCity": "Mobile",
+      "st": "AL",
+      "id": "8737048",
+      "sun": "mobile-al",
+      "sunCity": "Mobile",
+      "mi": 1
+    },
+    {
+      "station": "monterey-ca",
+      "stationCity": "Monterey",
+      "st": "CA",
+      "id": "9413450",
+      "sun": "salinas-ca",
+      "sunCity": "Salinas",
+      "mi": 14
+    },
+    {
+      "station": "nantucket-ma",
+      "stationCity": "Nantucket",
+      "st": "MA",
+      "id": "8449130",
+      "sun": "barnstable-town-ma",
+      "sunCity": "Barnstable Town",
+      "mi": 30
+    },
+    {
+      "station": "naples-fl",
+      "stationCity": "Naples",
+      "st": "FL",
+      "id": "8725110",
+      "sun": "bonita-springs-fl",
+      "sunCity": "Bonita Springs",
+      "mi": 15
+    },
+    {
+      "station": "new-haven-ct",
+      "stationCity": "New Haven",
+      "st": "CT",
+      "id": "8465705",
+      "sun": "west-haven-ct",
+      "sunCity": "West Haven",
+      "mi": 2
+    },
+    {
+      "station": "new-london-ct",
+      "stationCity": "New London",
+      "st": "CT",
+      "id": "8461490",
+      "sun": "norwich-ct",
+      "sunCity": "Norwich",
+      "mi": 11
+    },
+    {
+      "station": "new-orleans-la",
+      "stationCity": "New Orleans",
+      "st": "LA",
+      "id": "8761927",
+      "sun": "new-orleans",
+      "sunCity": "New Orleans",
+      "mi": 6
+    },
+    {
+      "station": "new-york-ny",
+      "stationCity": "New York",
+      "st": "NY",
+      "id": "8518750",
+      "sun": "new-york",
+      "sunCity": "New York",
+      "mi": 1
+    },
+    {
+      "station": "newport-beach-ca",
+      "stationCity": "Newport Beach",
+      "st": "CA",
+      "id": "9410580",
+      "sun": "newport-beach-ca",
+      "sunCity": "Newport Beach",
+      "mi": 3
+    },
+    {
+      "station": "newport-ri",
+      "stationCity": "Newport",
+      "st": "RI",
+      "id": "8452660",
+      "sun": "warwick-ri",
+      "sunCity": "Warwick",
+      "mi": 14
+    },
+    {
+      "station": "norfolk-va",
+      "stationCity": "Norfolk",
+      "st": "VA",
+      "id": "8638610",
+      "sun": "hampton-va",
+      "sunCity": "Hampton",
+      "mi": 6
+    },
+    {
+      "station": "pago-pago-as",
+      "stationCity": "Pago Pago",
+      "st": "AS",
+      "id": "1770000",
+      "sun": "pago-pago",
+      "sunCity": "Pago Pago",
+      "mi": 1
+    },
+    {
+      "station": "palm-beach-fl",
+      "stationCity": "Palm Beach",
+      "st": "FL",
+      "id": "8722670",
+      "sun": "boynton-beach-fl",
+      "sunCity": "Boynton Beach",
+      "mi": 7
+    },
+    {
+      "station": "panama-city-fl",
+      "stationCity": "Panama City",
+      "st": "FL",
+      "id": "8729108",
+      "sun": "panama-city-fl",
+      "sunCity": "Panama City",
+      "mi": 1
+    },
+    {
+      "station": "pensacola-fl",
+      "stationCity": "Pensacola",
+      "st": "FL",
+      "id": "8729840",
+      "sun": "pensacola-fl",
+      "sunCity": "Pensacola",
+      "mi": 2
+    },
+    {
+      "station": "philadelphia-pa",
+      "stationCity": "Philadelphia",
+      "st": "PA",
+      "id": "8545240",
+      "sun": "philadelphia",
+      "sunCity": "Philadelphia",
+      "mi": 2
+    },
+    {
+      "station": "point-reyes-ca",
+      "stationCity": "Point Reyes",
+      "st": "CA",
+      "id": "9415020",
+      "sun": "novato-ca",
+      "sunCity": "Novato",
+      "mi": 24
+    },
+    {
+      "station": "port-isabel-tx",
+      "stationCity": "Port Isabel",
+      "st": "TX",
+      "id": "8779770",
+      "sun": "brownsville-tx",
+      "sunCity": "Brownsville",
+      "mi": 20
+    },
+    {
+      "station": "port-san-luis-ca",
+      "stationCity": "Port San Luis",
+      "st": "CA",
+      "id": "9412110",
+      "sun": "san-luis-obispo-ca",
+      "sunCity": "San Luis Obispo",
+      "mi": 9
+    },
+    {
+      "station": "port-townsend-wa",
+      "stationCity": "Port Townsend",
+      "st": "WA",
+      "id": "9444900",
+      "sun": "marysville-wa",
+      "sunCity": "Marysville",
+      "mi": 27
+    },
+    {
+      "station": "portland-me",
+      "stationCity": "Portland",
+      "st": "ME",
+      "id": "8418150",
+      "sun": "portland-me",
+      "sunCity": "Portland",
+      "mi": 1
+    },
+    {
+      "station": "providence-ri",
+      "stationCity": "Providence",
+      "st": "RI",
+      "id": "8454000",
+      "sun": "providence-ri",
+      "sunCity": "Providence",
+      "mi": 1
+    },
+    {
+      "station": "rockport-tx",
+      "stationCity": "Rockport",
+      "st": "TX",
+      "id": "8774770",
+      "sun": "corpus-christi-tx",
+      "sunCity": "Corpus Christi",
+      "mi": 26
+    },
+    {
+      "station": "sabine-pass-tx",
+      "stationCity": "Sabine Pass",
+      "st": "TX",
+      "id": "8770570",
+      "sun": "port-arthur-tx",
+      "sunCity": "Port Arthur",
+      "mi": 12
+    },
+    {
+      "station": "san-diego-ca",
+      "stationCity": "San Diego",
+      "st": "CA",
+      "id": "9410170",
+      "sun": "san-diego",
+      "sunCity": "San Diego",
+      "mi": 1
+    },
+    {
+      "station": "san-francisco-ca",
+      "stationCity": "San Francisco",
+      "st": "CA",
+      "id": "9414290",
+      "sun": "san-francisco",
+      "sunCity": "San Francisco",
+      "mi": 4
+    },
+    {
+      "station": "sandy-hook-nj",
+      "stationCity": "Sandy Hook",
+      "st": "NJ",
+      "id": "8531680",
+      "sun": "perth-amboy-nj",
+      "sunCity": "Perth Amboy",
+      "mi": 14
+    },
+    {
+      "station": "santa-barbara-ca",
+      "stationCity": "Santa Barbara",
+      "st": "CA",
+      "id": "9411340",
+      "sun": "santa-barbara-ca",
+      "sunCity": "Santa Barbara",
+      "mi": 2
+    },
+    {
+      "station": "santa-monica-ca",
+      "stationCity": "Santa Monica",
+      "st": "CA",
+      "id": "9410840",
+      "sun": "santa-monica-ca",
+      "sunCity": "Santa Monica",
+      "mi": 1
+    },
+    {
+      "station": "savannah-ga",
+      "stationCity": "Savannah",
+      "st": "GA",
+      "id": "8670870",
+      "sun": "savannah-ga",
+      "sunCity": "Savannah",
+      "mi": 12
+    },
+    {
+      "station": "seattle-wa",
+      "stationCity": "Seattle",
+      "st": "WA",
+      "id": "9447130",
+      "sun": "seattle",
+      "sunCity": "Seattle",
+      "mi": 1
+    },
+    {
+      "station": "st-augustine-fl",
+      "stationCity": "St. Augustine",
+      "st": "FL",
+      "id": "8720587",
+      "sun": "palm-coast-fl",
+      "sunCity": "Palm Coast",
+      "mi": 19
+    },
+    {
+      "station": "st-petersburg-fl",
+      "stationCity": "St. Petersburg",
+      "st": "FL",
+      "id": "8726520",
+      "sun": "st-petersburg-fl",
+      "sunCity": "St. Petersburg",
+      "mi": 1
+    },
+    {
+      "station": "tacoma-wa",
+      "stationCity": "Tacoma",
+      "st": "WA",
+      "id": "9446484",
+      "sun": "tacoma-wa",
+      "sunCity": "Tacoma",
+      "mi": 2
+    },
+    {
+      "station": "virginia-beach-va",
+      "stationCity": "Virginia Beach",
+      "st": "VA",
+      "id": "8638863",
+      "sun": "virginia-beach-va",
+      "sunCity": "Virginia Beach",
+      "mi": 11
+    },
+    {
+      "station": "washington-dc",
+      "stationCity": "Washington",
+      "st": "DC",
+      "id": "8594900",
+      "sun": "washington-d-c",
+      "sunCity": "Washington, D.C.",
+      "mi": 3
+    },
+    {
+      "station": "wilmington-nc",
+      "stationCity": "Wilmington",
+      "st": "NC",
+      "id": "8658120",
+      "sun": "wilmington-nc",
+      "sunCity": "Wilmington",
+      "mi": 0
+    },
+    {
+      "station": "woods-hole-ma",
+      "stationCity": "Woods Hole",
+      "st": "MA",
+      "id": "8447930",
+      "sun": "new-bedford-ma",
+      "sunCity": "New Bedford",
+      "mi": 16
+    },
+    {
+      "station": "wrightsville-beach-nc",
+      "stationCity": "Wrightsville Beach",
+      "st": "NC",
+      "id": "8658163",
+      "sun": "wilmington-nc",
+      "sunCity": "Wilmington",
+      "mi": 9
+    }
+  ]
+}

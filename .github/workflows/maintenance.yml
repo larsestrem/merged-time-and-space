@@ -1,0 +1,71 @@
+# Scheduled site maintenance — daily:
+#   1. audit all event dates (passed one-offs, exhausted date tables,
+#      stale curated entries) — seo/tools/check-dates.mjs
+#   2. check all ~330 external links for breakage — seo/tools/check-links.mjs
+#   3. if anything was found, send the report to the owner's Google Sheet +
+#      Gmail through the same private Apps Script webhook the report form uses
+#   4. trigger a fresh Cloudflare Pages build so every page recomputes its
+#      "next occurrence" dates ({YEAR}/{NTH} tokens, date tables, recurring
+#      curated links via roll-dates.mjs) without any commit
+#
+# This rebuild is also what keeps /popular/ and /trending/ current: those
+# pages used to fetch their view-count ranking live, client-side, on every
+# single visit — which fanned out to hundreds of Workers KV reads per visit
+# and was the main driver of KV operation usage. build-popular.mjs and
+# build-trending.mjs now fetch the ranking ONCE, at build time (only Cloudflare
+# Pages' own build runs this workflow's rebuild step, so it has real internet
+# access even though this sandboxed session's outbound egress can't reach
+# timeandspace.science), and bake it directly into the static HTML — no client JS,
+# no per-visitor KV reads. This daily rebuild is what refreshes those baked-in
+# numbers; expect them to read "as of last night," not live-through-the-day.
+#
+# Repo secrets used (Settings -> Secrets and variables -> Actions):
+#   REPORT_WEBHOOK  — the Apps Script /exec URL (same value as in Cloudflare)
+#   CF_DEPLOY_HOOK  — Cloudflare Pages deploy hook URL (Pages project ->
+#                     Settings -> Builds & deployments -> Deploy hooks -> Add)
+# Both are optional: steps that lack their secret are skipped.
+
+name: Site maintenance
+on:
+  schedule:
+    # 11:20 UTC daily. Timed so that when the rebuild bakes each tide station's
+    # "today's tides" table (build-tides.mjs fetchTodayTides, which uses the
+    # station's OWN local date), the local date is already correct for every US
+    # station — including the western ones. 11:20 UTC is past midnight in
+    # Hawaii (UTC-10 -> 01:20) and Alaska/Pacific, so no station bakes
+    # "yesterday." (An earlier 06:xx run left Pacific/AK/HI a day behind, since
+    # it was still the previous evening there.) Also keeps the baked "days
+    # until" counts + popular/trending rankings fresh. Off-the-hour minute to
+    # dodge GitHub's top-of-hour scheduling backlog.
+    - cron: "20 11 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  maintain:
+    runs-on: ubuntu-latest
+    env:
+      WEBHOOK: ${{ secrets.REPORT_WEBHOOK }}
+      HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+
+      - name: Audit event dates
+        run: node seo/tools/check-dates.mjs | tee date-report.txt
+
+      - name: Check external links
+        run: node seo/tools/check-links.mjs | tee link-report.txt
+
+      - name: Send findings to owner (Sheet + Gmail)
+        if: ${{ env.WEBHOOK != '' }}
+        run: node .github/scripts/send-report.cjs
+
+      - name: Trigger Cloudflare Pages rebuild (refresh all dates)
+        if: ${{ env.HOOK != '' }}
+        run: curl -fsS -X POST "$HOOK" >/dev/null && echo "rebuild triggered"

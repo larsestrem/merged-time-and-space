@@ -1,0 +1,63 @@
+/* The 12-hour ⇄ 24-hour converter (clock-convert.mjs) — /24-hour-clock-converter/
+ * and its 48 per-time pages. The selects reuse the site's own form styling and
+ * the buttons are .btn, so this part carries only what nothing else has: two
+ * clocks laid out as an equation, and the conversion chart.
+ *
+ * THE LAYOUT IS THE ANSWER. The two sides sit either side of an "=", because
+ * that is what the page is saying — one time, two notations, nothing else
+ * changed. On a phone the "=" turns and the sides stack, so the equation still
+ * reads top to bottom instead of collapsing into two unrelated boxes.
+ *
+ * Every read-out is digits, so tabular numerals per the site-wide rule.
+ */
+.cv-form{display:flex;align-items:stretch;gap:10px;margin-top:4px}
+.cv-side{flex:1 1 0;min-width:0;border:1px solid var(--border);border-radius:12px;padding:12px 12px 14px;background:rgba(255,255,255,.03)}
+/* the side headings are h2 for the outline, not for their size — they label a
+   field group, so they read as captions */
+.cv-side-h{margin:0;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.cv-fields{display:flex;flex-wrap:wrap;align-items:flex-end;gap:0 8px;margin-top:8px}
+.cv-f{display:flex;flex-direction:column;gap:4px;margin:0;font-size:12px;font-weight:600;color:var(--muted)}
+.cv-f select{margin:0;font-variant-numeric:tabular-nums}
+/* the colon belongs between the two fields, on the controls' own line — it is
+   punctuation for the pair, so it sits on the baseline of the selects rather
+   than the labels above them */
+.cv-colon{align-self:flex-end;padding-bottom:9px;font-weight:800;color:var(--muted)}
+.cv-read{margin:12px 0 0;font-size:clamp(30px,8vw,46px);font-weight:800;line-height:1;font-variant-numeric:tabular-nums;text-align:center}
+.cv-eq{align-self:center;flex:0 0 auto;font-size:26px;font-weight:800;color:var(--muted)}
+.cv-say{margin:12px 0 0;text-align:center;color:var(--muted)}
+.cv-actions{margin:12px 0 0;text-align:center}
+/* Stacked, the sides read top to bottom and the "=" sits between them. It is
+   NOT turned a quarter circle to point down the column: a rotated equals sign
+   is two vertical bars, which is the pause glyph, and that is what it looked
+   like on a phone. An upright "=" between two boxes still says equals. */
+@media (max-width:560px){
+  .cv-form{flex-direction:column}
+  .cv-eq{align-self:center}
+}
+
+/* COMPACT (the home page's card): the sides stack at every width. The card is
+   half the board wide on a desktop, which no viewport media query can see —
+   a container is not a viewport, and side-by-side clocks in a 320px card put
+   three selects on a line meant for two. */
+.cv-compact{flex-direction:column;gap:6px}
+.cv-compact .cv-side{padding:10px 12px 12px}
+.cv-compact .cv-read{margin-top:8px}
+.cv-compact .cv-eq{align-self:center}
+
+/* ---- the conversion chart ----
+ * Two tables side by side (00–11 and 12–23) so an hour lines up with the hour
+ * twelve away from it; they stack on a narrow screen, where side-by-side would
+ * squeeze both into two columns of wrapped text. */
+.cv-chart-wrap{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:10px}
+.cv-chart{flex:1 1 240px;border-collapse:collapse;font-size:15px}
+.cv-chart th,.cv-chart td{padding:5px 8px;text-align:left;border-bottom:1px solid var(--border)}
+.cv-chart th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}
+.cv-chart td{font-variant-numeric:tabular-nums}
+.cv-chart .cv-24{font-weight:700}
+.cv-chart .cv-said{color:var(--muted);font-variant-numeric:normal}
+
+/* ---- the per-time pages ----
+ * The answer, before anything else on the page. It repeats the H1 on purpose:
+ * the H1 is a title ("14:30 in 12-hour time") and this is the reply to it. */
+.cv-ans{margin:0 0 4px;font-size:clamp(26px,7vw,40px);font-weight:800;line-height:1.15;font-variant-numeric:tabular-nums}
+.cv-ans b{color:var(--accent)}

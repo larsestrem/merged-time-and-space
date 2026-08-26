@@ -1,0 +1,964 @@
+/* The Sun-Earth-Moon view (seo/tools/orrery.mjs), shared by the /sun/ and
+   /moon/ place pages and the two any-location tools. Its own section, not part
+   of `sun`, so a moon page can carry the figure without also inlining the sun
+   dial, year chart and golden-hour rules it will never render.
+   Landscape (16:9) rather than square: it is a view of a plane, but the plane
+   has a long axis — the sun off one side, the Earth and moon on the other — and
+   a square frame spent its height on nothing. Capped so it stays a diagram
+   beside the numbers rather than becoming the card; at 440px wide it is still
+   shorter than the old 340px square, so the card did not grow. */
+.orr{margin:16px 0 0}
+.orr-fig{max-width:440px;margin:0 auto;line-height:0}
+.orr-fig svg{display:block;width:100%;height:auto}
+/* WHILE PLAY IS RUNNING, the city's NAME and its leader line come off, leaving
+   the marker and the daily circle it rides. The name is pinned to a spot on a
+   turning Earth, so at 25 frames a second it swings right round the globe
+   dragging a line behind it, and that movement is louder than the three things
+   the animation exists to show. The marker alone reads as a point on a spinning
+   ball, which is what it is. build-simulator puts the class on and takes it off
+   with Play, so the label is back the moment the picture stops. */
+.orr-spin .orr-cityname,.orr-spin .orr-citytick{display:none}
+.orr-note{margin-top:12px;font-variant-numeric:tabular-nums}
+/* WHICH INSTANT the picture is of, and the controls that set it: the native
+   date+time field, then Play and Now — one line, sized to the figure above so
+   the two read as one block. The "Drawn for" label that used to lead the row
+   is gone (owner's call): it was taking the width the buttons needed, and a
+   date field does not need telling that it is one. */
+.orr-stamp{max-width:440px;margin:8px auto 0;display:flex;align-items:center;justify-content:center;
+  flex-wrap:wrap;gap:6px 8px;font-size:12px;color:var(--muted)}
+/* A native datetime-local sizes itself to its own text, so it is the piece that
+   decides whether the row fits. Small type and tight padding keep all three on
+   one line inside 340px; wrapping is the backstop, because a clipped Now button
+   would be worse than a second line. */
+.orr-at{flex:0 1 auto;min-width:0;width:auto;margin:0;padding:3px 6px;font-size:11.5px;
+  font-variant-numeric:tabular-nums;color:var(--text);background:rgba(0,0,0,.18);
+  border:1px solid var(--border);border-radius:8px}
+.orr-at:hover:enabled{border-color:var(--accent)}
+.orr-at:disabled{opacity:.75}
+.orr-now{flex:0 0 auto;padding:3px 10px;font-size:11.5px}
+/* PLAY SITS BESIDE NOW, above the slider, because between them they are what
+   the slider is for: one runs the clock, the other gives it back. A fixed
+   min-width so the row does not jump when the word changes to Pause, and the
+   accent while it runs, matching every other toggle on the site. */
+.orr-play{min-width:6ch;justify-content:center}
+.orr-play[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+  background:rgba(252,211,77,.14)}
+/* the tide sentence under it: same voice as the caption, so it reads as one
+   block rather than as a promo line */
+.orr-tide{margin-top:10px}
+
+/* the day scrubber: full width under the field, its own line. The hint under it
+   doubles as the state read-out (what it does when live, what it is showing
+   when not), so no extra row is needed to say which mode the card is in. */
+.orr-scrub{max-width:440px;margin:8px auto 0;text-align:center}
+/* PLAY SITS BESIDE NOW, not down here beside the slider (owner's call, and the
+   right one): the two buttons that decide WHICH INSTANT the card is drawn for
+   belong together, above the slider they share. See .orr-play up with .orr-now. */
+.orr-slider{display:block;width:100%;margin:0;padding:0;accent-color:var(--accent);cursor:pointer}
+.orr-slider:disabled{opacity:.5;cursor:default}
+.orr-scrub-lab{display:block;margin-top:3px;font-size:11px;color:var(--muted)}
+
+/* ---- /orbital-velocity-simulator/ (seo/tools/build-orbital.mjs) ------------
+   Picture left, controls and read-out right — the same stage shape as the
+   solar page, for the same reason: the drawing is concentric circles and gains
+   nothing from extra width once it is square, so the width goes to the panel.
+   Below 1000px they stack, picture first. */
+.ov-stage{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:1000px){.ov-stage{grid-template-columns:minmax(0,1fr) minmax(300px,380px);align-items:start}}
+.ov-figwrap{min-width:0}
+.ov-fig{display:block;width:100%;max-width:min(100%,68vh);margin:0 auto;height:auto;border-radius:16px}
+.ov-panel{min-width:0}
+/* the verdict line — the one thing a reader looks at after every drag */
+.ov-status{margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em}
+.ov-status.is-good{color:#4ade80}
+.ov-status.is-warn{color:#fbbf24}
+.ov-status.is-bad{color:#f87171}
+.ov-shape{margin:4px 0 14px;font-size:13px;line-height:1.5;color:var(--muted);min-height:2.6em}
+.ov-ctl{display:grid;gap:2px}
+.ov-ctl .sim-flab{margin:10px 0 2px}
+.ov-ctl .sim-flab:first-child{margin-top:0}
+/* slider and its read-out on one line; the number is fixed-width so dragging
+   the slider does not resize the slider under the thumb */
+.ov-row{display:flex;align-items:center;gap:10px;margin:0}
+.ov-row input[type=range]{flex:1 1 auto;min-width:70px;margin:0}
+.ov-row output{flex:0 0 auto;min-width:8.5ch;text-align:right;font-size:13px;font-weight:700;
+  font-variant-numeric:tabular-nums;color:var(--text)}
+.ov-sub{margin:2px 0 0;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.ov-btns{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.ov-btns .chip{width:auto}
+#ov-play{min-width:7ch;justify-content:center}
+.ov-facts{display:grid;gap:6px;margin:14px 0 0}
+.ov-jump{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:14px 0 0;font-size:12.5px;color:var(--muted)}
+.ov-preset{width:auto;font-size:12.5px;padding:5px 11px}
+/* the arrow key, under the picture — the colours ARE the lesson, so they are
+   named in text rather than left to be inferred */
+.ov-key{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;margin:8px 0 0;font-size:12px}
+.ov-k{display:inline-flex;align-items:center;gap:6px;color:var(--muted)}
+.ov-k::before{content:"";width:14px;height:3px;border-radius:2px;flex:0 0 auto}
+.ov-k-v::before{background:#4ade80}
+.ov-k-g::before{background:#fbbf24}
+.ov-ink-v{color:#4ade80}
+.ov-ink-g{color:#fbbf24}
+/* the planet table: numbers align, the row the page is arguing about is lit */
+.ov-tablewrap{overflow-x:auto;margin-top:10px}
+.ov-table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+.ov-table th{text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
+.ov-table th:first-child{text-align:left}
+.ov-table td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.06);text-align:right;white-space:nowrap}
+.ov-table td:first-child{text-align:left;font-weight:700}
+.ov-table .ov-hi{background:rgba(252,211,77,.09)}
+.ov-table .ov-hi td:first-child{color:var(--accent)}
+/* the one-sentence restatement of the whole page, and the equation under it */
+.ov-pull{margin:14px 0 0;padding:12px 16px;border-left:3px solid var(--accent);
+  background:rgba(252,211,77,.07);border-radius:0 12px 12px 0;font-size:15.5px;line-height:1.55;font-weight:600}
+.ov-eq{margin:12px 0;text-align:center;font-size:22px;font-weight:700;color:var(--accent);
+  font-variant-numeric:tabular-nums;letter-spacing:.02em}
+
+/* ---- the three-view ladder (seo/tools/view-ladder.mjs) ---------------------
+   The same three tiles at the top of all three simulator pages: from-your-town
+   / the-three-together / the-whole-solar-system. It exists to put the
+   RELATIONSHIP between the views where a student will actually meet it —
+   day (the turn), month/seasons/year (the orbits), planets (the same
+   clockwork) — instead of as a link at the foot of the page. Three across
+   when the three fit legibly, stacked below that; the current page's tile is
+   marked, not linked. */
+.sys-vlad{margin:14px 0}
+/* a one-line heading now, not an explainer paragraph — sized and weighted
+   like a small section heading so it labels the row without competing with
+   the page's H1 two lines above it */
+.sys-vlad-lead{margin:0 0 8px;font-size:14px;font-weight:800;color:var(--text);
+  letter-spacing:.01em;line-height:1.4}
+.sys-vlad-row{display:grid;grid-template-columns:1fr;gap:8px}
+@media (min-width:760px){.sys-vlad-row{grid-template-columns:1fr 1fr 1fr}}
+.sys-vlad-tile{position:relative;display:flex;flex-direction:column;gap:3px;min-width:0;
+  padding:10px 12px;border:1px solid var(--border);border-radius:12px;
+  background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
+a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
+.sys-vlad-k{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+.sys-vlad-tile b{font-size:14.5px;line-height:1.3}
+.sys-vlad-what{font-size:12px;color:var(--muted);line-height:1.45}
+.sys-vlad-tile.is-here{border-color:rgba(252,211,77,.55);background:rgba(252,211,77,.07)}
+.sys-vlad-here{position:absolute;top:8px;right:10px;font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+/* ON A PHONE the ladder compresses to one line per view — the numbered label
+   and the name, with the what-it-teaches sentence dropped (the names carry
+   it) and the you-are-here badge inline at the right. Three stacked
+   full tiles cost most of the first screen; three rows cost three lines,
+   which is what buys the picture back its place above the fold. */
+@media (max-width:759px){
+  .sys-vlad-row{gap:6px}
+  .sys-vlad-tile{flex-direction:row;align-items:center;flex-wrap:nowrap;gap:9px;padding:8px 11px}
+  /* the kicker's words and the description both go; the numeral and the name
+     stay, which is one line per view at 390px even with the longer names */
+  .sys-vlad-what,.sys-vlad-k{display:none}
+  .sys-vlad-n{display:flex}
+  .sys-vlad-tile b{font-size:13.5px;line-height:1.25;min-width:0}
+  .sys-vlad-here{position:static;margin-left:auto;flex:0 0 auto}
+}
+/* the what-each-view-trades note under the ladder is phone-only, per the
+   owner: on a wide screen the three tiles' own descriptions already say what
+   each view shows, so the paragraph repeated them right above the picture */
+@media (min-width:760px){.sys-vlad-note{display:none}}
+/* the numeral is a desktop-invisible affordance: on a wide screen the kicker
+   already carries "1 · …", so a second copy would be noise */
+.sys-vlad-n{display:none;flex:0 0 auto;width:20px;height:20px;border-radius:50%;
+  align-items:center;justify-content:center;font-size:11px;font-weight:800;
+  background:rgba(252,211,77,.16);color:var(--accent)}
+
+/* ---- /sun-moon-earth-movement-simulator/ --------------------------------
+   The same figure, given room: a page whose whole job is the picture can
+   afford 520px of it, and the read-out sits beside rather than under it on a
+   wide screen. Classes are sim-* so orrPaint (which drives the sun and moon
+   CARD by id) stays out of this page's way entirely. */
+.sim-title{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px}
+/* the coordinates, beside the name rather than on a line of their own. A link,
+   because the one thing a reader might want to do with a latitude is see where
+   it is; the time zone that used to share this line has gone entirely. */
+.sim-geo{font-size:13px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums;
+  text-decoration:none;border-bottom:1px dotted currentColor}
+.sim-geo:hover,.sim-geo:focus-visible{color:var(--accent)}
+
+/* THE STAGE — picture, instant, buttons, slider. This is the element that goes
+   full screen, which is why the layout below is written once and not twice. */
+.sim-stage{margin-top:14px}
+.sim-figwrap{max-width:640px;margin:0 auto}
+/* the cap lives on the wrapper now; without this the shared .orr-fig rule
+   (440px, for the sun and moon cards) would hold the picture back */
+.sim-fig{max-width:none;margin:0}
+/* THE INSTANT AND THE BUTTONS SHARE ONE ROW — instant left, buttons right. Two
+   rows under the picture cost it height on the card and WIDTH in full screen (a
+   16:9 frame in a wider box is limited by its short side), and there is room on
+   one line for both at every width that matters. Where there genuinely is not —
+   a narrow phone with the hour showing — it wraps, and the instant takes the
+   line above rather than the buttons breaking in half. */
+.sim-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;
+  max-width:640px;margin:10px auto 0}
+.sim-bar{display:flex;align-items:center;gap:12px;min-width:0}
+/* auto on the left, so the buttons sit hard right whether they share the line
+   with the instant or have wrapped onto one of their own */
+.sim-row .sim-ctl{margin:0 0 0 auto;max-width:none}
+.sim-when{margin:0;text-align:center;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.sim-ctl{display:flex;flex-wrap:nowrap;gap:8px;align-items:center;justify-content:center;
+  margin:10px auto 0;max-width:640px}
+.sim-icobtn{display:inline-flex;align-items:center;gap:6px}
+/* ONE ROW, ALWAYS. Four buttons with full labels plus the instant beside them
+   do not fit a phone, and Play was dropping to a line of its own. Below 600px
+   the two icon buttons keep the icon and drop the word — each carries an
+   aria-label, kept in step with the full-screen state, so nothing is lost to a
+   screen reader. 600 rather than 560 because 560 is where the labels came back
+   BEFORE the instant shared the row, and the two together needed another 40px
+   of it; the breakpoint is set by what the row has to hold, not by a round
+   number. */
+@media (max-width:599px){
+  .sim-icobtn span{display:none}
+  .sim-ctl{gap:6px}
+  .sim-ctl .chip{padding-left:9px;padding-right:9px}
+  /* and the instant gives up a point and a half of its own, because the prize
+     is the whole row: at 390px the date plus four buttons is about 20px over,
+     and losing the wrap is worth more to the picture than the type size */
+  .sim-row{gap:6px 10px}
+  .sim-row .sim-when{font-size:13.5px}
+}
+/* a 375px phone (SE, mini) is four more pixels short again, so the padding goes
+   down once more rather than the row breaking there and nowhere else */
+@media (max-width:399px){
+  .sim-ctl{gap:5px}
+  .sim-ctl .chip{padding-left:7px;padding-right:7px}
+  .sim-row{gap:6px 8px}
+}
+/* Play/Pause is the only button whose word changes length, and a button that
+   grows by 10px when you press it drags the other three sideways with it.
+   Reserving the longer of the two holds the row still. */
+#sim-play{min-width:8ch;justify-content:center}
+@media (min-width:600px){#sim-play{min-width:10ch}}
+/* FULL SCREEN ON A PHONE HELD SIDEWAYS is wide but SHORT, and the row there has
+   to carry the moon's phase as well as the instant and the four buttons. The
+   width breakpoint above cannot see that case — the viewport is 667px wide, so
+   the labels would come back — so the short screen is what is asked about. */
+@media (max-height:540px){
+  .sim-stage:fullscreen .sim-icobtn span{display:none}
+  .sim-stage:fullscreen .sim-ctl{gap:6px}
+  .sim-stage:fullscreen .sim-ctl .chip{padding-left:9px;padding-right:9px}
+}
+.sim-icobtn svg{flex:0 0 auto}
+.sim-span{width:auto;margin:0;padding:3px 6px;font-size:11.5px}
+.sim-scrub{max-width:640px;margin-left:auto;margin-right:auto}
+.sim-q{width:100%;margin:0;padding:7px 10px;font-size:13px}
+
+/* the settings dialog. Same shell as the alarm dialogs (.ac-dialog); the form
+   inside is one column, because it is three fields and a pair of buttons. */
+.sim-dlg form{padding:16px}
+.sim-dlg h3{margin:0 0 12px;font-size:16px}
+.sim-flab{display:block;margin:12px 0 4px;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sim-flab:first-of-type{margin-top:0}
+.sim-dlg .orr-at,.sim-dlg .sim-span{width:100%;margin:0;padding:7px 9px;font-size:13px}
+.sim-check{display:flex;align-items:center;gap:8px;margin:12px 0 0;font-size:13px;color:var(--muted)}
+/* WIDTH:AUTO IS THE WHOLE POINT OF THIS RULE. The base stylesheet gives every
+   input width:100%, which is right for the text fields above and catastrophic
+   for a checkbox in a flex row: the control takes the entire line, the label
+   after it is pushed past the dialog's edge and the dialog grows a horizontal
+   scrollbar. `flex:0 0 auto` does NOT save it — an auto basis resolves to that
+   same 100% width. The same trap is already documented on .sol-tog input. */
+.sim-check input{width:auto;margin:0;flex:none;accent-color:var(--accent)}
+.sim-pickrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 0;font-size:13px;color:var(--muted)}
+.sim-pickrow b{color:var(--text)}
+.sim-dlgbtns{display:flex;justify-content:flex-end;gap:8px;margin:18px 0 0;padding:0}
+.sim-dlg .hs-results{position:static;margin-top:4px}
+.sim-qhint{margin:5px 0 0;font-size:11.5px;color:var(--muted)}
+/* IN FULL SCREEN THE DIALOG IS SHORT OF HEIGHT WHICHEVER WAY UP IT IS. The form
+   is 403px tall by nature and does not get shorter when it is made wider — it
+   is a fixed stack of single-line rows — while a phone has about 390 to give it
+   in landscape and the same again once it has been turned. So ~25px comes out
+   of the vertical rhythm here rather than a five-field settings form scrolling
+   its Save button off the bottom. Full screen on a desktop has height to spare
+   and is very slightly tighter for it, which is not worth a second breakpoint. */
+.sim-fields{display:grid;grid-template-columns:1fr}
+/* each field's label is now first-of-type inside its own wrapper, which the
+   rule above zeroes — put the spacing back */
+.sim-field .sim-flab{margin-top:12px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-fields{grid-template-columns:1fr 1fr;gap:0 12px}
+.sim-stage:fullscreen~.sim-dlg[open] form{padding:12px 16px}
+.sim-stage:fullscreen~.sim-dlg[open] h3{margin-bottom:8px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-flab{margin-top:9px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-qhint{margin-top:4px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-check{margin-top:9px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-dlgbtns{margin-top:12px}
+/* "searching" and "nothing found" are results too — a list that simply
+   disappears cannot tell a miss from a typo from a dead network */
+.sim-noresult{padding:9px 11px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+
+/* FULL SCREEN. The stage fills the screen and the picture takes whatever is
+   left after the read-out and the controls — hence the flex column with the
+   figure allowed to shrink to nothing before anything else does.
+   The auto side-margins that centre these blocks in the card have to go: on a
+   flex item they shrink-wrap it to its content instead of stretching it, which
+   is what left the slider a stub in the middle of a wide screen.
+   THE ROTATION BELOW IS WHY THERE IS AN INNER WRAPPER AT ALL. The UA stylesheet
+   applies `transform:none !important` (and width/height 100% !important) to the
+   fullscreen element itself, so the element that goes fullscreen can never be
+   the element that turns. The stage centres; the inner block turns inside it. */
+.sim-stage:fullscreen{display:flex;align-items:center;justify-content:center;
+  background:var(--bg,#0b0b10);margin:0}
+.sim-stage:fullscreen .sim-inner{display:flex;flex-direction:column;justify-content:center;
+  gap:6px;width:100%;height:100%;padding:10px 16px;box-sizing:border-box}
+.sim-stage:fullscreen .sim-figwrap,.sim-stage:fullscreen .sim-row,.sim-stage:fullscreen .sim-scrub{
+  max-width:none;width:100%;margin-left:0;margin-right:0}
+.sim-stage:fullscreen .sim-figwrap{min-height:0;flex:1 1 auto;display:flex;flex-direction:column}
+.sim-stage:fullscreen .sim-fig{min-height:0;flex:1 1 auto}
+/* the SVG keeps its own aspect ratio inside whatever box is left (the viewBox's
+   default xMidYMid meet does the letterboxing), so it grows to fill a landscape
+   screen without ever being stretched */
+.sim-stage:fullscreen .sim-fig svg{width:100%;height:100%}
+.sim-stage:fullscreen .sim-when{margin:0;font-size:clamp(12px,3vh,15px)}
+.sim-stage:fullscreen .sim-row{margin-top:0}
+
+/* THE PHASE, IN FULL SCREEN ONLY — the card's own disc lives in the read-out,
+   which is not part of the stage and so does not come along. Off everywhere
+   else, because a second copy of it on the card would just be a second copy.
+   Sized in vh so it is legible on a phone and never more than a third of the
+   picture; the glyph is emitted at 56px and scaled by the box around it.
+
+   IT SHARES THE INSTANT'S ROW rather than taking one of its own. Height is
+   exactly what the picture is short of — a 16:9 frame in a wider box is limited
+   by the short side, so every row beneath it costs the picture WIDTH, and a row
+   of its own cost about 15% of it. That row is now also the button row, so full
+   screen reads left to right as phase, instant, buttons on one line. */
+.sim-fsmoon{display:none}
+.sim-stage:fullscreen .sim-bar{gap:12px;flex-wrap:wrap}
+.sim-stage:fullscreen .sim-fsmoon{display:flex;align-items:center;gap:8px;margin:0}
+.sim-fsglyph{line-height:0;flex:0 0 auto;width:clamp(41px,13.2vh,77px)}   /* 20% up on 34/11/64 */
+.sim-fsglyph svg{display:block;width:100%;height:auto}
+.sim-fslab{font-size:clamp(11px,2.6vh,14px);color:var(--muted)}
+.sim-fslab b{color:var(--text)}
+
+/* FIXED FIELDS, so nothing shuffles as the picture plays. Every one of these
+   changes width on its own — "New moon" against "Waning crescent", "5%" against
+   "100%", "Sep 5" against "Wed, Sep 30, 2026" — and in a centred row each of
+   them drags its neighbours about. Reserving the widest each can be, and
+   left-aligning inside that, holds the whole row still. Sized in ch against the
+   longest real value rather than a guess: "Waning crescent" is 15, "100%" is 4,
+   and the date is 17 without a time or 26 with one — hence .sim-timed, which
+   the script sets when the slider covers a single day and the hour is worth
+   showing. */
+.sim-stage:fullscreen #sim-fsphase{display:inline-block;min-width:15ch}
+.sim-stage:fullscreen #sim-fslit{display:inline-block;min-width:4ch;text-align:right}
+.sim-stage:fullscreen .sim-fslab{font-variant-numeric:tabular-nums;white-space:nowrap}
+.sim-stage:fullscreen .sim-when{min-width:17ch;text-align:left;white-space:nowrap}
+.sim-stage:fullscreen.sim-timed .sim-when{min-width:26ch}
+/* the slider's two ends move for the same reason, and they sit at the edges
+   where a shifting width is most visible */
+.sim-stage:fullscreen .sim-ends span{min-width:7ch}
+.sim-stage:fullscreen.sim-timed .sim-ends span{min-width:15ch}
+.sim-stage:fullscreen .sim-ends span:last-child{text-align:right}
+
+/* ...and if the phone is still portrait, turn the picture a quarter turn rather
+   than show a letterboxed sliver across the middle of the screen.
+   screen.orientation.lock('landscape') is tried first and Android honours it —
+   when it works this rule cannot match, because the viewport is no longer
+   portrait. iOS refuses the lock, and this is what it gets instead. Swapping
+   the inner block's width and height and turning it about its own centre needs
+   no offset maths, because the stage has already centred it. */
+@media (orientation:portrait){
+  /* flex-shrink must be off: the turned block is DELIBERATELY wider than the
+     portrait stage that holds it, and a flex item would otherwise be squeezed
+     back to the stage's width before the rotation ever took effect. */
+  .sim-stage:fullscreen .sim-inner{flex:0 0 auto;width:100vh;height:100vw;transform:rotate(90deg)}
+  /* AND SO MUST THE SETTINGS. Once the picture has turned, the reader has
+     turned the PHONE — that is the whole point of turning it — so a dialog
+     left the other way up arrives sideways to their eyes. It is a modal in the
+     top layer rather than a child of the stage, so it is not caught by the
+     rule above and needs its own; nothing stops it turning, because
+     `transform:none !important` is forced only on the fullscreen element
+     itself. Its box has to be measured against the TURNED frame too: what
+     limits its width is now the screen's height. */
+  .sim-stage:fullscreen ~ .sim-dlg[open]{transform:rotate(90deg);
+    width:min(420px,86vh);max-width:none;max-height:96vw}
+}
+.sim-ends{display:flex;justify-content:space-between;margin-top:3px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+/* phase disc left, numbers right; one column when there is no room for two */
+.sim-read{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+@media (min-width:620px){.sim-read{grid-template-columns:150px 1fr;align-items:start}}
+.sim-moonbox{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.sim-moonbox b{font-size:15px}
+/* ON A PHONE the phase block turns sideways: the disc drops to 68px — about
+   0.6× its desktop size, per the owner — with the name, the lit fraction and
+   the instant stacked BESIDE it instead of under it. The column layout cost
+   ~190px of a phone's first screen for one number and a picture; the row
+   costs ~70px, which is what lets the stat rows below it surface above the
+   fold. Grid, not flex: the disc spans all three text rows, so the block
+   reads disc-left/facts-right without any wrapper element. */
+@media (max-width:619px){
+  .sim-moonbox{display:grid;grid-template-columns:auto auto;gap:2px 14px;
+    align-items:center;justify-content:center;justify-items:start;text-align:left}
+  .sim-moonbox .sim-glyph{grid-row:1/4}
+  .sim-glyph svg{width:68px;height:68px}
+}
+.sim-moonlab{font-size:11px;line-height:1.35}
+.sim-glyph{line-height:0}
+/* same reasoning as .wc-facts: a label-and-value row gets a readable width */
+.sim-rows{display:grid;grid-template-columns:1fr;gap:6px;max-width:760px}
+@media (min-width:520px){.sim-rows{grid-template-columns:1fr 1fr}}
+/* ---- picture left, read-out right on a wide screen -------------------------
+   The stage (picture, instant, buttons, slider) and the read-out (phase disc
+   + the eight numbers) become two columns at 1080px — the same breakpoint and
+   the same shape as the solar-system page's .sol-stage, because the two
+   simulators are siblings and were laid out as strangers: this one stacked a
+   640px picture over a full-width read-out, leaving a third of a 1400px card
+   empty either side of both. The read-out is the column that benefits — eight
+   label-value rows read best narrow — and the PICTURE gains real accuracy
+   from the freed width: its height is fixed and every extra pixel of width is
+   more sky between the sun and the Earth (see the scale card), so the caps
+   that centred it in the one-column layout come off inside this one.
+   The read-out's own two-column shapes (moonbox|rows at 620px, rows 2-up at
+   520px) answer to the VIEWPORT, which is exactly wrong inside a 340px
+   column — both are forced back to one column here. */
+@media (min-width:1080px){
+  .sim-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,340px);
+    gap:20px;align-items:center}
+  .sim-top .sim-figwrap,.sim-top .sim-row,.sim-top .sim-scrub{max-width:none}
+  .sim-top .sim-read{grid-template-columns:1fr;gap:10px;margin-top:0}
+  .sim-top .sim-rows{grid-template-columns:1fr;max-width:none}
+}
+.sim-jump{margin:14px 0 0;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.sim-links{display:flex;flex-wrap:wrap;gap:8px}
+.sim-urlrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.sim-url{flex:1 1 260px;min-width:0;margin:0;padding:7px 10px;font-size:12.5px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* The teaching and classroom cards' sub-headings. Scoped to .sim-teach, NOT to .card h3:
+   sectionsNeeded() derives a page's CSS needs from the selectors themselves, so
+   a bare `.card h3` would have claimed every methodology page needs the orrery
+   section — and the build says so out loud rather than shipping it. */
+.sim-teach h3{margin:18px 0 4px;font-size:15px}
+.sim-teach h3:first-of-type{margin-top:10px}
+
+/* the link builder's form: four labelled fields that wrap to one column on a
+   phone, then the URL, then the sentence that says where it goes */
+.sim-form{display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0 10px}
+@media (min-width:520px){.sim-form{grid-template-columns:1fr 1fr}}
+@media (min-width:820px){.sim-form{grid-template-columns:2fr 1fr 1fr 1fr}}
+.sim-fld{display:flex;flex-direction:column;gap:3px;min-width:0}
+.sim-fld > span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sim-fld select,.sim-fld input{width:100%;margin:0;padding:7px 9px;font-size:13px}
+.sim-formrow{margin:0 0 12px}
+/* the verification sentence: the URL above it is for machines, this is for the
+   person about to send it */
+.sim-sum{margin:8px 0 0;padding:10px 12px;border:1px solid var(--border);border-radius:10px;
+  background:rgba(255,255,255,.03);font-size:13px;line-height:1.55;color:var(--muted)}
+.sim-sum b{color:var(--text);font-variant-numeric:tabular-nums}
+.sim-params{margin-top:14px}
+.sim-params summary{cursor:pointer;font-size:13px;color:var(--muted)}
+.sim-params summary:hover{color:var(--accent)}
+
+/* ---- /solar-system-simulator/ -------------------------------------------
+   THE FRAME IS SQUARE because everything in it is a set of concentric circles,
+   and a circle in a widescreen frame is limited by the SHORT side — the corners
+   hold nothing. At the same height, squaring buys about 40% more drawing
+   radius, which on the outer rungs is the difference between Mercury's orbit
+   being four pixels wide and six.
+
+   THE STAGE IS TWO COLUMNS on a wide screen for the same reason: the width
+   freed up by the wide shell goes to the read-out and the controls rather than
+   to empty space either side of a round picture. Below 1080px it stacks, and
+   the figure is capped against the viewport height so the controls under it are
+   still on screen on a laptop. */
+/* FULL SCREEN for the solar view. Nothing rotates here, unlike the
+   Sun-Earth-Moon one: this drawing is square, so it reads the same whichever
+   way a phone is held, and the figure-beside-read-out layout is already the
+   right shape for a landscape screen. Below 1080px the two stack, which in
+   full screen would bury the controls — so the side-by-side kicks in for any
+   full-screen width. */
+/* ---- FULL SCREEN --------------------------------------------------------
+   THE DRAWING IS SQUARE, so the only thing that can make it bigger is HEIGHT,
+   and the only way to give it all of the height is to put everything else
+   beside it. This used to stack the panel under the picture and cap it at
+   27vh, which sounds like it favours the picture and does the opposite: the
+   panel and its gaps took ~330px of a 1080-tall screen, leaving the square
+   ~700 — against the 756 (70vh) the page itself already allows. Full screen
+   that makes the picture SMALLER than the page is the bug that was reported.
+   Landscape now gives the picture the entire height and puts the read-out,
+   the date and the timeline in the width a square can never use: a square in
+   a 16:9 frame leaves ~890px of it empty. 973px at 1920x1080. */
+.sol-stage:fullscreen{background:var(--bg,#0b0b10);padding:10px 14px;margin:0;
+  align-items:stretch;gap:10px 14px;height:100%;box-sizing:border-box}
+/* the panel is a single scrolling column, which is the shape it was built in */
+.sol-stage:fullscreen .sol-panel{min-height:0;max-height:none;overflow-y:auto;overscroll-behavior:contain}
+.sol-stage:fullscreen .sol-rows{margin-top:8px}
+.sol-stage:fullscreen .sol-note{margin-top:8px}
+/* the jump chips go: on a screen given over to the picture, a row of links to
+   other pages is the one thing nobody is in full screen to press */
+.sol-stage:fullscreen .sol-jump{display:none}
+.sol-stage:fullscreen .sol-scrub{max-width:none;width:100%}
+.sol-stage:fullscreen .sol-slider,.sol-stage:fullscreen #sol-slider{height:26px}
+.sol-stage:fullscreen .sim-when{font-size:clamp(14px,2.2vh,19px);margin:0}
+.sol-stage:fullscreen .sol-fig{min-height:0;flex:1 1 auto;display:flex;align-items:center;justify-content:center}
+
+@media (orientation:landscape){
+  /* PICTURE IN COLUMN ONE, TOP TO BOTTOM. display:contents dissolves the
+     figure column so its children become items of the stage's own grid and
+     can be placed in either of them — the same technique the brand bar uses
+     to centre the wordmark. The date and the timeline go with the read-out,
+     because those two rows are ~90px of the only dimension that matters. */
+  .sol-stage:fullscreen{grid-template-columns:minmax(0,1fr) minmax(230px,clamp(230px,24vw,360px));
+    grid-template-rows:minmax(0,1fr) auto auto auto}
+  .sol-stage:fullscreen .sol-figwrap{display:contents}
+  .sol-stage:fullscreen .sol-figbox{grid-column:1;grid-row:1/-1;height:100%;width:auto;
+    aspect-ratio:1;max-width:100%;justify-self:center;align-self:center;margin:0;min-height:0;
+    display:flex;flex-direction:column}
+  .sol-stage:fullscreen .sol-panel{grid-column:2;grid-row:1}
+  .sol-stage:fullscreen .sim-when{grid-column:2;grid-row:2;text-align:left}
+  .sol-stage:fullscreen .sol-scrub{grid-column:2;grid-row:3}
+  .sol-stage:fullscreen .sol-destrow{grid-column:2;grid-row:4}
+  .sol-stage:fullscreen .sol-fig svg{width:auto;height:100%;max-width:100%}
+}
+@media (orientation:portrait){
+  /* A PHONE HELD UPRIGHT has no spare width to put a column in, so the two
+     stack: the picture as wide as the screen, everything else under it. The
+     landscape placement is deliberately not in force here — dropped into a
+     one-column grid it would put the date and the slider in a column that
+     does not exist. */
+  .sol-stage:fullscreen{grid-template-columns:minmax(0,1fr);grid-template-rows:auto;
+    align-content:start;overflow-y:auto}
+  .sol-stage:fullscreen .sol-figwrap{display:flex;flex-direction:column;gap:8px;min-height:0}
+  .sol-stage:fullscreen .sol-figbox{width:100%;max-width:100%;height:auto;aspect-ratio:auto;
+    margin:0;flex:0 0 auto;display:block}
+  .sol-stage:fullscreen .sol-fig{display:block;flex:none;min-height:0}
+  .sol-stage:fullscreen .sol-fig svg{width:100%;height:auto}
+}
+.sol-stage{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:1080px){.sol-stage{grid-template-columns:minmax(0,1fr) 340px;align-items:start}}
+.sol-figwrap{min-width:0}
+.sol-fig{width:100%;max-width:min(100%,70vh);margin:4px auto 0;line-height:0}
+.sol-fig svg{display:block;width:100%;height:auto;border-radius:16px}
+/* ---- /sun-moon-earth-movement-simulator/system/ — the Earth-round-the-sun,
+   moon-round-the-Earth schematic. A static SVG with two CSS rotations, the
+   same nested-rotation trick the home page's mini simulator uses: the outer
+   group carries the Earth (and everything drawn inside it) round the sun,
+   the inner group — nested INSIDE the outer one — carries the moon round
+   wherever the Earth currently is, because a child rotates in its parent's
+   own (pre-rotation) coordinates and rides along with it for free. Each
+   instance sets its own --sys-o (rotation centre) and animation-duration
+   inline, since the sun/Earth-orbit and Earth/moon-orbit periods differ. */
+.sys-figwrap{width:100%;max-width:620px;margin:4px auto 0;line-height:0}
+.sys-fig{display:block;width:100%;height:auto;border-radius:16px}
+.sys-eorbit,.sys-mo,.sys-rev{transform-box:view-box;transform-origin:var(--sys-o);animation-name:sys-spin;animation-timing-function:linear;animation-iteration-count:infinite}
+/* .sys-rev runs the same spin BACKWARD at its parent's own duration, cancelling
+   the parent's rotation for whatever it wraps: the moon's shading (so its dark
+   half stays sun-true instead of Earth-true), the Earth's axis (so the 23.4°
+   lean stays FIXED IN SPACE — which is the entire mechanism of the seasons)
+   and the labels (so the text never turns upside down). */
+.sys-rev{animation-direction:reverse}
+@keyframes sys-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.sys-eorbit,.sys-mo,.sys-rev{animation:none}}
+/* the tilt slider under the /system/ figure: label · slider · read-out (· the
+   back-to-real chip when the value has left 23.4°) on one row, the sized-to-
+   the-figure width the stamp rows above use, with the what-kind-of-world
+   sentence on its own line beneath — it changes length by band and would drag
+   the slider about if it shared the row. */
+.sys-tiltrow{display:flex;align-items:center;gap:10px;max-width:620px;margin:12px auto 0}
+.sys-tiltrow label{margin:0;flex:0 0 auto;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;color:var(--muted);white-space:nowrap}
+.sys-tiltrow input[type=range]{flex:1 1 auto;width:auto;min-width:80px;margin:0;padding:0;
+  accent-color:var(--accent);cursor:pointer}
+.sys-tiltrow input[type=range]:disabled{opacity:.5;cursor:default}
+#sys-tilt-v{flex:0 0 auto;min-width:5.5ch;text-align:right;font-size:13px;font-weight:700;
+  font-variant-numeric:tabular-nums}
+.sys-tiltrow .chip{flex:0 0 auto;padding:3px 10px;font-size:11.5px}
+.sys-tiltnote{max-width:620px;margin:8px auto 0;line-height:1.5}
+.sol-scrub{max-width:none}
+.sol-panel{min-width:0}
+.sol-sel{max-width:100%}
+/* ---- the three live controls, over the picture ----------------------------
+   Now / Full screen / Play sat at the end of a seven-control row that inherited
+   .sim-ctl's flex-wrap:nowrap, so on a 390px phone they ran 68px past the right
+   edge and the whole PAGE scrolled sideways to reach them. They are also the
+   only three you press while the thing is moving, so the picture is where they
+   belong; the settings you touch once stay in the panel, and the row they used
+   to share is gone, which lifts everything below it that much further up.
+   The scrim is the same idea as the simulator's read-out bar: the outer orbits
+   run right to the corner and a button on bare sky is unreadable half the time. */
+.sol-figbox{position:relative;width:100%;max-width:min(100%,70vh);margin:4px auto 0}
+.sol-figbox .sol-fig{max-width:none;margin:0}
+.sol-overlay{position:absolute;right:8px;bottom:8px;z-index:2;
+  display:flex;gap:8px;align-items:center;padding:8px 8px 6px;border-radius:14px;
+  background:radial-gradient(120% 160% at 80% 100%,rgba(5,10,22,.82) 40%,rgba(5,10,22,0))}
+.sol-overlay .chip{box-shadow:0 2px 10px rgba(0,0,0,.45)}
+/* ---- hovering / clicking a planet or its orbit ring ----
+   The shapes themselves carry fill=/stroke= attributes, not classes, so a
+   plain :hover rule can't reach them — the JS in PAGE_JS toggles this class
+   on the dot AND its ring together (they share data-sol-planet) the moment
+   either is hovered. brightness() over a filled fill/stroke gives the "lit
+   up" read without needing to know each planet's own colour. */
+[data-sol-planet]{cursor:pointer}
+[data-sol-planet].sol-hoverlit{filter:brightness(1.5)}
+/* the tooltip that follows the pointer, positioned in JS (fixed, so it is
+   never clipped by the figure's own overflow or by full screen) */
+.sol-ptip{position:fixed;z-index:80;pointer-events:none;transform:translate(-50%,-135%);
+  padding:5px 10px;font-size:12px;line-height:1.3;white-space:nowrap;
+  background:var(--menu-bg);border:1px solid var(--border);border-radius:8px;
+  color:var(--text);box-shadow:0 8px 22px rgba(0,0,0,.45)}
+/* ---- what stayed behind: the settings, as fields ----
+   A grid of labelled fields rather than one line reading "Showing [select] from
+   [date] [select]" — that only parsed as a sentence at the width it happened to
+   fit on, and at every other width it wrapped into fragments. Two columns as
+   soon as there is room for them; the date is the wide one, so it takes both. */
+.sol-fields{display:grid;grid-template-columns:1fr;gap:10px 14px;margin:2px 0 4px}
+/* a wide field spans the pair at EVERY width the grid has two columns — this
+   rule used to live inside the 520px query below, which left the 380–519px
+   band (most phones) with a two-column grid but no spanning rule: the zoom
+   ladder was crushed into one ~150px column with the date field riding
+   beside it, and every rung chip wrapped onto a line of its own. */
+.sol-field-wide{grid-column:1/-1}
+@media (min-width:520px){
+  .sol-fields{grid-template-columns:1fr 1fr}
+}
+/* Showing and Starting date share a line at every width now that the date field
+   is a date and not a date-and-time — two short controls that are both "where do
+   we begin", against the span below them which is "how far do we go". */
+.sol-fields{grid-template-columns:1fr 1fr}
+@media (max-width:379px){.sol-fields{grid-template-columns:1fr}}
+/* tilt and speed, one above the other, as a single block — so full screen can
+   lift the zoom ladder out to its own full-width row without splitting these
+   two into columns of their own */
+.sol-sliders{display:grid;gap:10px;grid-column:1/-1;min-width:0}
+.sol-field{min-width:0}
+.sol-field .sim-flab{margin-top:0}
+.sol-field .orr-at,.sol-field .sim-span{width:100%;margin:0;padding:7px 9px;font-size:13px}
+/* THE READ-OUT IS CAPPED, AND SCROLLS PAST THE CAP. A moon system used to be
+   at most nine rows, which always fitted beside the picture. At detail level 3
+   Saturn is thirty, and an uncapped list grew the panel far past the drawing
+   next to it — the read-out ran straight out of the bottom of the card. A
+   ceiling with its own scrollbar keeps the card the height of its picture
+   however many moons are being drawn, and costs nothing on the short lists
+   because max-height only bites when it is exceeded. */
+.sol-rows{margin-top:14px;grid-template-columns:1fr;max-height:min(56vh,470px);
+  overflow-y:auto;overscroll-behavior:contain}
+@media (min-width:520px){.sol-rows{grid-template-columns:1fr 1fr}}
+@media (min-width:1080px){.sol-rows{grid-template-columns:1fr}}
+.sol-mission:not(:empty){margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.sol-note{margin:12px 0 0;font-size:12px;line-height:1.45;color:var(--muted)}
+/* Speed has the same shape as the tilt below it: label, slider, read-out under
+   the slider. Sharing a line, the read-out both stole width from the slider and
+   changed length as you dragged, so the slider resized under the thumb. */
+.sol-speedrow{display:flex;flex-direction:column;align-items:stretch;gap:3px;margin:0}
+.sol-speed{width:100%;min-width:80px}
+.sol-speedout{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* ---- the ladder and the layers, on one line ----
+   The zoom buttons take the width and start at the left; Include rides the
+   right end of the same line when there is room for it, and drops to a line of
+   its own — still left — when there is not. No margin-left:auto does that: the
+   ladder is the one that GROWS (flex:1 1 auto), so it eats the free space and
+   pushes Include to the edge while they share a line, and takes the whole line
+   by itself once Include has wrapped past it. */
+.sol-zoomline{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px 16px}
+/* ON A PHONE THE LINE SPLITS IN TWO, STACKED. Left to flexbox, the ladder and
+   the Include block stayed side by side and simply shared the ~330px between
+   them — each ended up ~150px wide, every chip wrapped to a line of its own,
+   and six rungs plus two layers ate a whole screen of height. Stacked, the
+   rungs flow inline three to a line, and Include with its two chips is one
+   line — the whole block is a third the height. */
+@media (max-width:699px){
+  .sol-zoomline{display:block}
+  .sol-zoomline .sol-toggles{margin-top:8px}
+}
+.sol-toggles{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;
+  flex:0 1 auto;font-size:12.5px}
+/* the layer switches are buttons like the rungs beside them, so the pressed
+   look is the rungs' pressed look — one gesture and one lit state across the
+   whole row */
+.sol-togbtn{width:auto;font-size:13px;padding:6px 12px}
+.sol-togbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+  background:rgba(252,211,77,.14)}
+/* greyed out when the layer has nothing to draw at this zoom — the belt starts
+   at 2.06 AU, so on the inner-planets rung there is no belt in the frame to
+   switch on */
+.sol-togbtn[disabled]{opacity:.38;cursor:not-allowed}
+.sol-togbtn[disabled][aria-pressed="true"]{border-color:var(--border);color:var(--muted);
+  background:transparent}
+/* the belt, the comets and the flight path are all heliocentric: on a moon
+   system there is nothing for them to draw, so they go quiet rather than
+   sitting there looking broken */
+.sol-off{opacity:.42}
+.sol-off label{cursor:default}
+.sol-torow{margin:8px 0 0}
+.sol-jump{margin-top:16px;font-size:12.5px}
+.sol-facts{margin:8px 0 0;padding-left:20px}
+.sol-facts li{margin:0 0 10px;line-height:1.55}
+/* the open-questions card: sub-headings scoped to it, like .sim-teach h3, so a
+   bare .card h3 rule cannot leak across the site */
+.sol-open h3{margin:18px 0 4px;font-size:15px}
+.sol-open h3:first-of-type{margin-top:10px}
+.sol-table th,.sol-table td{font-variant-numeric:tabular-nums;white-space:nowrap}
+.sol-table td:last-child{white-space:normal;min-width:15rem}
+
+/* the view-tilt slider: same row shape as Speed, because it is the same kind of
+   control — one continuous thing you drag and read the result of on the picture */
+/* THE READ-OUT GOES UNDER THE SLIDER, not beside it. Sharing the line, it took
+   width from the only part of the control you actually drag, and its own text
+   changes length as you drag ("flat — straight down on the plane" against
+   "45° · orbit tilts ×8"), so the slider kept resizing under the thumb. */
+.sol-tiltrow{display:flex;flex-direction:column;align-items:stretch;gap:3px;margin:0}
+/* ---- ON A DESKTOP THE SETTINGS DO NOT HIDE ----------------------------------
+   The drawer earns its place on a phone, where the panel and the picture are
+   fighting for one column. On a wide screen the panel is a column of its own
+   with room to spare, and a button that hides controls into empty space is
+   just an extra press. So above 1080px — the same width at which the stage goes
+   two-column — the drawer is always open and the button that opens it goes. */
+/* the button that opens it is hidden at that width too — see the end of this
+   file, where it comes after .sol-overlay's own display and therefore wins.
+   The DRAWER itself is opened by script rather than by CSS: the UA stylesheet's
+   [hidden] rule beats an author selector here, and a state the markup says is
+   hidden should not be un-hidden behind the markup's back anyway. */
+.sol-tiltslider{flex:1 1 auto;min-width:80px}
+.sol-tiltout{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* ---- the solar panel's Settings drawer ----
+   Everything that is "what the page is LIKE" rather than "what the page is OF"
+   lives behind one button: the span, the tilt, the speed, the layers and the
+   flight path. On a phone that is the difference between the picture owning the
+   screen and the panel owning it. Hidden, not destroyed, so a control's value
+   survives being put away. */
+.sol-setrow{margin:12px 0 0}
+.sol-setrow .chip{width:auto}
+.sol-cfg-on{border-color:var(--accent);color:var(--accent)}
+.sol-settings{margin-top:10px;padding-top:12px;border-top:1px solid var(--border);
+  display:grid;gap:10px}
+.sol-settings>p{margin:0}
+.sol-launchrow{margin-top:2px}
+/* Settings on the picture, bottom-left, mirroring the live controls opposite */
+.sol-overlay-l{left:8px;right:auto;
+  background:radial-gradient(120% 160% at 20% 100%,rgba(5,10,22,.82) 40%,rgba(5,10,22,0))}
+
+/* Settings is not a button on a wide screen: the panel is a column of its own
+   with room to spare, so the drawer stays open and the button goes. After
+   .sol-overlay above, so it wins on order rather than on specificity. */
+@media (min-width:1080px){.sol-overlay-l{display:none}}
+
+/* "Launch to:" and its destination, as a labelled pair at the head of the
+   drawer. Bigger than the layer controls beneath it because once a destination
+   is set it is the subject of the page, not a switch. */
+.sol-torow{display:flex;align-items:center;gap:10px;margin:0}
+.sol-tolab{margin:0;flex:0 0 auto}
+.sol-tosel{flex:1 1 auto;min-width:0;font-size:15px;padding:7px 9px}
+/* "Show:" in front of the layer switches, so the two checkboxes read as a set
+   with a name rather than as two loose options */
+.sol-toglab{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);flex:0 0 auto}
+
+/* ---- the zoom ladder as buttons ----
+   Six rungs, all visible. They were an <optgroup> dropdown, which put five of
+   the six behind a tap on the control the page is most about. */
+.sol-zooms{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px;flex:1 1 auto;
+  justify-content:flex-start}
+.sol-zoombtn{width:auto;font-size:13px;padding:6px 12px}
+.sol-zoombtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+  background:rgba(252,211,77,.14)}
+.sol-toglab{margin-right:2px}
+/* ---- how much of a moon system to draw --------------------------------------
+   The same choose-one row as the zoom rungs above it, because it is the same
+   gesture: press one, it lights. It sits directly above the ladder since both
+   answer "what am I looking at" — the ladder picks the system, this picks how
+   much of it. Hidden entirely on views with nothing more to show. */
+.sol-moons{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.sol-moonbtn{width:auto;font-size:13px;padding:6px 12px}
+.sol-moonbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+  background:rgba(252,211,77,.14)}
+.sol-moonbtn[hidden]{display:none}
+/* the honest count under the buttons: how many are drawn against how many are
+   really there. Muted and small — it is a caption, not a control. */
+.sol-moonsout{margin:6px 0 0;font-size:11.5px;line-height:1.5;color:var(--muted)}
+.sol-moonsout b{color:var(--text);font-variant-numeric:tabular-nums}
+/* The full-screen panel's own layout is set where the panel is — see
+   .sol-stage:fullscreen .sol-panel above. It used to be re-declared here as a
+   flex column, which came LATER in the file and so quietly beat it. */
+
+/* ---- one planet, turning, on its own page ----
+   Globe on the left, the four figures that describe its spin on the right; one
+   column when there is not room for two. */
+.sol-globewrap{display:grid;grid-template-columns:1fr;gap:16px;align-items:center;margin-top:6px}
+@media (min-width:620px){.sol-globewrap{grid-template-columns:minmax(0,1fr) minmax(200px,1fr)}}
+.sol-globe{line-height:0;max-width:400px;margin:0 auto;width:100%}
+.sol-globe svg{display:block;width:100%;height:auto;border-radius:16px}
+.sol-globefacts{display:grid;gap:8px;min-width:0}
+
+/* ---- one card per moon ----------------------------------------------------
+   The table above them carries every computed figure; these carry what a
+   figure cannot say. Slightly inset and rule-marked so a run of eight of them
+   on the Saturn page reads as a set rather than as eight more page sections. */
+.sol-moonlead{margin-bottom:6px}
+.sol-moon{border-left:3px solid var(--accent);padding-left:18px}
+.sol-moon h2{margin-bottom:2px}
+.sol-moon .sub{margin-top:0}
+.sol-moonfacts{margin:10px 0 4px}
+.sol-moon .sol-facts{margin-top:10px}
+.sol-moon h3{margin:16px 0 4px;font-size:15px}
+.sol-moon h3+p{margin-top:0}
+
+/* ---- the flight, marked on the date slider --------------------------------
+   A second layer behind the slider showing the stretch of the span the ship is
+   actually in flight for — launch at one end, arrival at the other. It sits
+   BEHIND the track (z-index 0 against the input's 1) so the thumb still reads,
+   and it is coloured away from the accent because the accent already means
+   "the control you are dragging". Squared ends where the crossing runs past
+   the span, because a crossing to Saturn is longer than a year and pretending
+   otherwise would be the one thing this bar exists to show. */
+.sol-scrub{position:relative}
+.sol-flight{position:absolute;left:0;right:0;top:0;height:26px;pointer-events:none;z-index:0}
+.sol-flight-bar{position:absolute;top:50%;transform:translateY(-50%);height:10px;border-radius:5px;
+  background:linear-gradient(90deg,#38bdf8,#a78bfa);opacity:.85;
+  box-shadow:0 0 0 1px rgba(10,16,32,.6)}
+.sol-flight-cutl{border-top-left-radius:0;border-bottom-left-radius:0}
+.sol-flight-cutr{border-top-right-radius:0;border-bottom-right-radius:0}
+.sol-scrub .orr-slider{position:relative;z-index:1;background:transparent}
+
+/* the destination buttons on /rocket-launches/ — the same control as the zoom
+   rungs on the solar page, choosing a different thing */
+.sol-destbtn{width:auto;font-size:14px;padding:8px 16px}
+.sol-destbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+  background:rgba(252,211,77,.14)}
+.sol-destlink{margin:8px 0 0;font-size:13.5px;color:var(--muted)}
+.sol-destlink b{color:var(--text)}
+/* the destination block, under the slider and inside the figure column */
+.sol-destrow{margin-top:14px;display:grid;gap:10px}
+@media (min-width:640px){
+  .sol-destrow{grid-template-columns:minmax(0,1fr) minmax(200px,260px);align-items:start}
+  .sol-destrow .sol-destlink{grid-column:1/-1;margin-top:0}
+}
+
+/* ---- the breadcrumb under the title -------------------------------------
+   The bar at the top of every page is logo, wordmark and menu — its crumb
+   links were removed with the copy-link dropdown — so this is the only thing
+   on a planet page that says where it sits. Under the H1, quiet, and the
+   current page is not a link. */
+.sol-crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:-6px 0 12px;font-size:13.5px}
+.sol-crumb{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent}
+.sol-crumb:hover{color:var(--text);border-bottom-color:var(--border)}
+.sol-crumb-sep{color:var(--muted);opacity:.5}
+.sol-crumb-here{color:var(--text)}
+
+/* ---- /planets/ : one card per world -------------------------------------
+   Picture left, words right, and on a phone picture first — the drawing is
+   what a reader is scrolling for, and it is what tells them which card they
+   have reached before they have read a word of it. The art column is capped
+   rather than fluid: past about 300px a planet drawn at card size stops
+   gaining anything and starts pushing the prose into a narrow gutter. */
+.sol-plan{scroll-margin-top:12px}
+.sol-planrow{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
+@media (min-width:760px){
+  .sol-planrow{grid-template-columns:minmax(0,290px) minmax(0,1fr);gap:26px}
+}
+.sol-planart{line-height:0;max-width:340px;width:100%;margin:0 auto}
+.sol-planart a{display:block;border-radius:16px}
+.sol-planart svg{display:block;width:100%;height:auto;border-radius:16px}
+/* the belt's picture is the simulator's own square frame, which is a bigger
+   drawing than a globe — it holds four orbits and a band, not one disc */
+.sol-planbelt{display:block;line-height:0}
+.sol-planbelt svg{display:block;width:100%;height:auto;border-radius:16px}
+.sol-plankind{margin:0 0 2px;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.sol-planbody h2{margin:0 0 4px}
+.sol-planbody h2 a{color:inherit;text-decoration:none}
+.sol-planbody h2 a:hover{color:var(--accent)}
+.sol-planbody>p{margin:0 0 10px}
+.sol-planfacts{margin:14px 0 0}
+.sol-planmore{margin:14px 0 0}
+/* the lead card's row of onward links: the simulator first and larger, the
+   rest beside it — this is the "I came to watch them move" exit and it must
+   not need a scroll to find */
+.sol-planjump{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+
+/* ---- /day-night-map/ ------------------------------------------------------
+   The map is the page, so the layout's only job is not to steal height from
+   it. The two buttons sit ON the picture along its bottom edge (Now hard
+   left, Play hard right) rather than in a row underneath, which is worth
+   about 44px of map on a phone. Everything else stacks below. */
+.dn-card{padding-top:14px}
+.dn-figwrap{position:relative;line-height:0;border-radius:12px;overflow:hidden;
+  border:1px solid var(--border);background:#12304f}
+.dn-svg{display:block;width:100%;height:auto}
+.dn-overlay{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;
+  align-items:flex-end;gap:8px;padding:10px 12px;pointer-events:none;
+  background:linear-gradient(to top,rgba(2,6,23,.55),rgba(2,6,23,0))}
+/* Now and My location travel together on the left; Play holds the right. */
+.dn-oleft{display:flex;align-items:center;gap:8px}
+/* TALLER THAN A CHIP. These are pressed on a phone, over a picture, often at
+   arm's length on a projector — 40px is the smallest target worth aiming at. */
+.dn-overlay .dn-obtn{pointer-events:auto;background:rgba(2,6,23,.72);border-color:rgba(255,255,255,.28);
+  backdrop-filter:blur(2px);font-weight:700;min-height:40px;padding:10px 18px;font-size:14px;line-height:1}
+.dn-overlay .dn-obtn:hover{background:rgba(2,6,23,.9)}
+/* the location button: glyph plus its label, and glyph alone where the map is
+   too narrow to spend the width on the words */
+.dn-oicon{display:inline-flex;align-items:center;gap:7px}
+.dn-oicon .dn-pin{flex:0 0 auto}
+@media(max-width:520px){.dn-oicon{padding:10px 13px}.dn-oicon-t{display:none}}
+.dn-play[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+/* the parallels that mean something — thin, so they never compete with the
+   terminator, which is what the picture is actually of */
+.dn-par{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:5 6}
+.dn-parlab{fill:rgba(226,232,240,.55);font-size:10px;font-weight:600}
+.dn-slider-row{margin:14px 0 4px}
+.dn-slider-row .orr-slider{width:100%}
+.dn-span{color:var(--muted);font-weight:600}
+.dn-when{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:6px 0 12px}
+.dn-when b{font-size:17px}
+.dn-when span{color:var(--muted);font-size:13px}
+/* the four cities: the map says WHERE, this row says WHAT TIME and WHICH
+   STATE, and the tint is the same information a third time for anyone
+   reading it across a room */
+.dn-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 12px}
+@media(min-width:560px){.dn-strip{grid-template-columns:repeat(4,1fr)}}
+.dn-city{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
+  border:1px solid var(--border);background:rgba(0,0,0,.18);text-decoration:none;color:var(--text)}
+.dn-city:hover{border-color:var(--accent);text-decoration:none}
+.dn-city-n{font-size:12px;color:var(--muted);font-weight:600}
+.dn-city b{font-size:16px;font-variant-numeric:tabular-nums}
+.dn-city-s{font-size:11.5px;color:var(--muted)}
+.dn-city.is-day{background:rgba(253,224,71,.10);border-color:rgba(253,224,71,.35)}
+.dn-city.is-night{background:rgba(15,23,42,.55)}
+.dn-city.is-civil,.dn-city.is-twi{background:rgba(129,140,248,.12);border-color:rgba(129,140,248,.3)}
+.dn-readout{display:grid;grid-template-columns:1fr;gap:8px;margin:0 0 12px}
+@media(min-width:560px){.dn-readout{grid-template-columns:repeat(2,1fr)}}
+.dn-ro{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
+  border:1px solid var(--border);background:rgba(0,0,0,.18)}
+.dn-ro span{font-size:12px;color:var(--muted);font-weight:600}
+.dn-ro b{font-size:15px;font-variant-numeric:tabular-nums}
+.dn-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
+.dn-me-line{margin:4px 0 10px;font-size:14.5px}
+
+/* ---- the side view: the sun, the Earth, and the line between their centres
+   The map is the answer and this is the reason, so it gets the same dark
+   ground and the same yellow for "sun" — a reader has to see at a glance that
+   the dot here and the dot on the map are the same point. The equator is
+   solid white and the two tropics are the accent, dashed, because the tropics
+   are a LIMIT rather than a place: they are where the yellow line lands twice
+   a year and never passes. */
+.dns-wrap{margin:14px 0 4px;border:1px solid var(--border);border-radius:12px;
+  background:#0a1428;padding:4px 4px 0;line-height:0;overflow:hidden}
+.dns-svg{display:block;width:100%;height:auto}
+.dns-glow{fill:#fde68a;fill-opacity:.13}
+.dns-sun{fill:#fde68a;stroke:#b45309;stroke-width:2}
+.dns-ray{stroke:#fde68a;stroke-opacity:.4;stroke-width:2;stroke-dasharray:2 7;stroke-linecap:round}
+.dns-earth{fill:#2f5d3a;stroke:rgba(226,232,240,.35);stroke-width:1}
+.dns-night{fill:#050a16;fill-opacity:.62}
+.dns-term{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:4 5}
+.dns-axis{stroke:rgba(226,232,240,.72);stroke-width:2;stroke-dasharray:7 5}
+.dns-par{stroke-width:1.5}
+.dns-eq{stroke:rgba(255,255,255,.85)}
+.dns-trop{stroke:var(--accent);stroke-opacity:.95;stroke-dasharray:6 5}
+/* the one line the card is about — the only thing here drawn solid and thick */
+.dns-ctr{stroke:#fde68a;stroke-width:2.5}
+.dns-hit{fill:#fde68a;stroke:#b45309;stroke-width:2}
+.dns-lab{fill:#e2e8f0;font-size:12px;font-weight:600;paint-order:stroke;stroke:#050a16;stroke-width:3.5}
+.dns-lab-d{fill:#fcd34d;font-weight:700}
+.dns-lab-t{fill:var(--accent)}
+.dns-cap{margin:10px 0 12px;font-size:14.5px;line-height:1.55}
+/* On a phone the whole 700-unit frame shrinks to about 330px and every label
+   in it goes with it — 12px of SVG text lands at under 6px on screen, which is
+   decoration, not a diagram. Below 620px the figure keeps a floor width and
+   scrolls sideways INSIDE its own box (the page itself never does), and the
+   labels come up a point to meet it. */
+@media(max-width:620px){
+  .dns-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .dns-svg{min-width:520px}
+  .dns-lab{font-size:13px}
+}

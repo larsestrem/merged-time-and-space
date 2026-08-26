@@ -1,0 +1,917 @@
+{
+  "_note": "Content for /solar-system-simulator/ and its per-body pages. NUMBERS THAT CAN BE COMPUTED ARE NOT IN HERE: diameter comes from planets.mjs, mass and surface gravity from GM in satellites.mjs, orbital period from Kepler's third law, moon counts and moon data from satellites.mjs, belt positions from Jupiter's axis. What lives here is what cannot be derived — axial tilt, temperature, atmosphere, and prose. 'findings' are dated on purpose: a finding without its date ages into a false claim.",
+  "reviewed": "2026-08",
+  "system": {
+    "facts": [
+      "The Sun holds 99.86% of all the mass in the solar system. Everything else — all eight planets, every moon, the entire asteroid belt — divides up the remaining 0.14%, and Jupiter takes about two thirds of that.",
+      "The solar system is mostly empty in a way no diagram survives. Drawn at a scale where the Earth is 1 mm across, the Sun is a 11 cm ball 12 m away and Neptune is 360 m off. That is why this simulator climbs a zoom ladder instead of pretending to one frame.",
+      "Everything orbits in nearly the same plane and nearly the same direction, because it all condensed out of one spinning disc. The exceptions — Venus turning backwards, Uranus lying on its side, Triton going the wrong way round Neptune — are the interesting bits, because each one needs an event to explain it.",
+      "The whole system is itself in orbit, about 26,000 light years out from the centre of the galaxy, taking roughly 230 million years to go round once. The last time the Sun was in this part of its orbit, the dinosaurs had not appeared yet.",
+      "Voyager 1 crossed the heliopause — where the Sun's wind gives way to interstellar space — in 2012, and Voyager 2 in 2018. Both are still transmitting from beyond 20 billion km, on instruments designed in the early 1970s."
+    ],
+    "questions": [
+      {
+        "q": "Is there another planet out there?",
+        "a": "A cluster of distant objects beyond Neptune share an orbital orientation that looks non-random, and one explanation is an unseen planet of roughly 5–10 Earth masses on a very wide orbit. The competing explanation is that we found those objects with telescopes that were pointed at particular parts of the sky at particular times, and the clustering is in the searching rather than in the sky. Neither has been settled, and the Vera C. Rubin Observatory's ten-year survey is the instrument most likely to settle it."
+      },
+      {
+        "q": "Why is the Sun's corona hotter than its surface?",
+        "a": "The visible surface is about 5,500 °C. The thin corona above it is one to three million degrees. Heat is not supposed to flow that way. Magnetic reconnection and wave heating are the leading candidates, and the Parker Solar Probe was built to fly into the corona and find out — it has now been through it repeatedly, and the answer is still being argued over."
+      },
+      {
+        "q": "Why is there no super-Earth here?",
+        "a": "Planets between the size of Earth and Neptune are the commonest kind found around other stars, and our system does not have one — there is a gap between Earth and Neptune where most systems put their most typical planet. Jupiter's early migration inward and back out is the usual explanation, but that migration is itself a model, not an observation."
+      },
+      {
+        "q": "How did the planets get where they are?",
+        "a": "They did not form where they now sit. Models in which the giant planets shift outward and inward — dragging small bodies around, emptying part of the asteroid belt and scattering the Kuiper belt — reproduce a great deal of what we see. Which version happened, and when, is not agreed."
+      }
+    ],
+    "findings": [
+      {
+        "when": "December 2024",
+        "what": "The Parker Solar Probe flew 6.1 million km from the Sun's surface at about 692,000 km/h — the closest and fastest any object built by people has been, and inside the corona it was sent to sample."
+      },
+      {
+        "when": "June 2025",
+        "what": "The Vera C. Rubin Observatory released its first images. In roughly ten hours of test data it turned up about 2,100 previously unknown asteroids; over ten years it is expected to multiply the known solar-system inventory several times over."
+      },
+      {
+        "when": "2025",
+        "what": "3I/ATLAS became the third confirmed interstellar object to be tracked through the solar system, after 1I/ʻOumuamua in 2017 and 2I/Borisov in 2019 — three in eight years, where there had been none in all of recorded history before."
+      }
+    ]
+  },
+  "bodies": [
+    {
+      "slug": "mercury",
+      "idx": 0,
+      "name": "Mercury",
+      "tagline": "The smallest planet, the fastest, and the one with almost no sky.",
+      "tilt": "0.03°",
+      "temp": "−180 °C at night, 430 °C in the day",
+      "atmos": "Effectively none — a surface-bound exosphere of oxygen, sodium, hydrogen, helium and potassium, knocked off the rock by sunlight and the solar wind",
+      "facts": [
+        "Mercury turns three times for every two orbits, locked into a 3:2 resonance with the Sun. The consequence is that a single day — sunrise to sunrise — lasts 176 Earth days, which is two Mercury years.",
+        "Its iron core takes up about 85% of its radius. Proportionally, Mercury is the most metallic planet in the solar system, and nobody is sure why.",
+        "There is water ice at the poles. Mercury's axis is barely tilted at all, so some crater floors have never seen sunlight, and radar and MESSENGER both found ice sitting in them a few hundred kilometres from rock at 430 °C.",
+        "The planet is shrinking. Long cliffs called lobate scarps run for hundreds of kilometres, and they are wrinkles: the whole globe has contracted by several kilometres in radius as its core cooled.",
+        "Mercury broke Newton. Its perihelion drifts by 43 arcseconds per century more than Newtonian gravity allows, and explaining that was the first observational success of general relativity, in 1915."
+      ],
+      "questions": [
+        {
+          "q": "Why does Mercury have no moon?",
+          "a": "The usual answer is that it is too close to the Sun: the region in which Mercury's gravity beats the Sun's — its Hill sphere — is small, so a captured body has very little room to be stable in, and one that formed alongside would be dragged out of that room by solar tides. The unsatisfying part is that this is an argument about probability, not a piece of evidence. Nothing tells us whether Mercury ever had a moon and lost it, and the same reasoning is used for Venus, which is much further out and has a Hill sphere a moon could comfortably live in."
+        },
+        {
+          "q": "Why is it so metal-rich?",
+          "a": "Three families of explanation compete: a giant impact stripped off most of the original rocky mantle; the young Sun vaporised the outer layers; or Mercury simply formed from material that was already metal-heavy. MESSENGER found volatile elements like potassium and sulfur still present on the surface, which is awkward for both of the violent explanations — you would expect them to have been driven off."
+        },
+        {
+          "q": "Where did the polar ice come from?",
+          "a": "Comet and asteroid impacts are the leading candidate, with solar-wind hydrogen combining with oxygen in the rock as a second source. The proportions are unknown, and they matter, because the same question is asked about the Moon's polar ice and about the water on Earth."
+        }
+      ],
+      "findings": [
+        {
+          "when": "January 2025",
+          "what": "BepiColombo made the sixth and last of its Mercury flybys, passing close to the north pole and imaging the permanently shadowed craters where the ice sits. A thruster power fault in 2024 pushed the mission's orbit insertion back to late 2026."
+        },
+        {
+          "when": "2024",
+          "what": "A modelling study proposed that a thin layer of diamond could have crystallised at Mercury's core–mantle boundary from a carbon-rich early magma ocean. It is a calculation, not a measurement, and BepiColombo's magnetic and gravity data are what would test it."
+        }
+      ],
+      "overview": [
+        "Mercury is the smallest planet and the closest to the sun: 4,879 km across, which makes it smaller than Ganymede and smaller than Titan, both of which are moons. It is mostly iron. The core takes up about 85% of the radius, a proportion nothing else here comes close to, and the leading explanation is that a young Mercury lost most of its rock in a collision.",
+        "It goes round the sun in 88 days and turns exactly three times for every two of those orbits, so a day from one sunrise to the next lasts 176 Earth days — two of its years. With almost no atmosphere to move heat around, the ground reaches about 430 °C in that long noon and falls to −180 °C at night. Radar and MESSENGER found water ice in craters at the poles that the sun has never reached."
+      ]
+    },
+    {
+      "slug": "venus",
+      "idx": 1,
+      "name": "Venus",
+      "tagline": "Earth's twin in size and mass, and in nothing else at all.",
+      "tilt": "177.4° — it is upside down",
+      "temp": "464 °C, and almost the same everywhere, day and night, poles and equator",
+      "atmos": "96.5% carbon dioxide at 92 times Earth's pressure, under permanent clouds of sulfuric acid",
+      "facts": [
+        "Venus turns backwards, and so slowly that its day is longer than its year: 243 Earth days to rotate once, 225 to go round the Sun.",
+        "The surface pressure is what you would feel 900 m underwater on Earth. The first landers survived between 23 minutes and about two hours before being crushed and cooked.",
+        "It is hotter than Mercury even though it is nearly twice as far from the Sun. That is the greenhouse effect, and Venus is the reason we know how far it can go.",
+        "The atmosphere super-rotates: the cloud tops circle the planet in about four days while the planet underneath takes 243. Nothing on Earth does anything like this.",
+        "Almost the whole surface is between 300 and 600 million years old, which for a planet is suspiciously uniform — it suggests the crust was resurfaced globally rather than gradually."
+      ],
+      "questions": [
+        {
+          "q": "Why does it spin backwards, and so slowly?",
+          "a": "Either a giant impact flipped it, or the thick atmosphere did it: solar tides in an atmosphere that heavy, working against friction between core and mantle, can in principle turn a planet over and stall its spin without hitting it. The two histories are hard to tell apart from the outside, and the answer decides whether Venus was violently rearranged or just slowly wound down."
+        },
+        {
+          "q": "Did Venus ever have oceans?",
+          "a": "Its deuterium-to-hydrogen ratio is about 150 times Earth's, which is the signature of a planet that has lost an enormous amount of ordinary water to space. How much, and when the last of it went — early, or as recently as a billion years ago — is unresolved, and the answer changes whether Venus was ever habitable."
+        },
+        {
+          "q": "Is anything happening in the clouds?",
+          "a": "A 2020 claim of phosphine in the cloud deck, where the temperature is mild even though the surface is not, has been argued about ever since; later observations have both supported and failed to reproduce it, and there is no accepted abiotic or biological explanation. Treat it as an open measurement question, not as a discovery."
+        }
+      ],
+      "findings": [
+        {
+          "when": "2023",
+          "what": "A reanalysis of Magellan radar images from 1990–92 found a volcanic vent that changed shape between two passes — the first direct evidence that Venus is volcanically active now, rather than in the past. Further flow features were identified in the same archive in 2024."
+        },
+        {
+          "when": "2020s",
+          "what": "Three missions have been approved to go back — DAVINCI (an atmospheric probe), VERITAS (radar mapping) and ESA's EnVision — after more than thirty years in which no dedicated mission was sent. Their launch dates have slipped repeatedly with budget cycles."
+        }
+      ],
+      "overview": [
+        "Venus is very nearly Earth's size — 12,104 km across against Earth's 12,742 — and is the least Earth-like place in the solar system. The atmosphere is carbon dioxide at 92 times Earth's surface pressure, the equivalent of being 900 m underwater, and it holds the surface at about 465 °C everywhere: at the poles, at the equator, and right through the night. That is hotter than Mercury, which is twice as close to the sun.",
+        "It also turns backwards, and slowly: one rotation takes 243 Earth days while one orbit takes 225, so Venus's day is longer than its year. The cloud deck is sulfuric acid and completely unbroken, which is why no telescope has ever seen the ground through it in visible light and why the globe here is drawn blank. Everything known about the surface underneath comes from radar and from a handful of Soviet landers that survived minutes."
+      ]
+    },
+    {
+      "slug": "earth",
+      "idx": 2,
+      "name": "Earth",
+      "tagline": "The only planet where the interesting question is not geology.",
+      "tilt": "23.44°",
+      "temp": "15 °C average",
+      "atmos": "78% nitrogen, 21% oxygen — and the oxygen is there because living things put it there",
+      "facts": [
+        "The Moon is a quarter of Earth's width. Relative to its planet, it is the largest moon in the solar system by a wide margin, and this simulator's Earth &amp; Moon view is the only one on the site drawn to scale in size and distance at once.",
+        "It is drifting away at 3.8 cm a year, and slowing our rotation as it goes: the day lengthens by roughly 1.8 milliseconds per century.",
+        "Earth is the only planet with plate tectonics — a crust broken into pieces that move, subduct and recycle. It is also the only planet with a long-term carbon cycle, and those two facts are related.",
+        "The magnetic field is generated by convection in a liquid iron outer core. Mars had one and lost it; the difference in what happened to the two atmospheres afterwards is stark.",
+        "About 71% of the surface is water, but all of it together is only about 0.02% of the planet's mass. Earth is a rock with a film of water on it."
+      ],
+      "questions": [
+        {
+          "q": "Where did the water come from?",
+          "a": "Delivered by asteroids and comets after the Earth formed, or present in the material Earth formed from and never entirely lost? The deuterium ratio in most comets does not match Earth's oceans — 67P, measured directly by Rosetta, was three times off — while many meteorites match well. The mixture is still being argued."
+        },
+        {
+          "q": "When and why did plate tectonics start?",
+          "a": "Estimates range across billions of years, from 4 billion to under 1 billion years ago, depending on which rock evidence is trusted. Nobody knows what makes a planet do it, which is exactly what you would want to know before guessing how common Earth-like worlds are."
+        },
+        {
+          "q": "How did the Moon form?",
+          "a": "A Mars-sized body hit the young Earth — that much is broadly accepted. But the Moon's isotopes are nearly identical to Earth's, and most impact simulations produce a moon made largely of the impactor, which should look different. Getting a moon that looks like Earth's mantle out of a collision with something else is an unsolved modelling problem."
+        }
+      ],
+      "findings": [
+        {
+          "when": "June 2024",
+          "what": "Chang'e-6 returned the first samples from the Moon's far side. They contain volcanic rock about 2.8 billion years old and show a mantle source depleted compared with the near side — the first physical evidence for why the two hemispheres look so different."
+        }
+      ],
+      "overview": [
+        "Earth is the only place known where water sits liquid on the surface, and the only place known with life. It is the largest and densest of the four rocky planets, the only one with plate tectonics running today, and the only one with a large moon — Ganymede and Titan are bigger than our moon, but they orbit planets hundreds of times heavier than the worlds they circle.",
+        "That moon is a quarter of Earth's width, which makes the pair closer to a double planet than anything else in the inner solar system, and it holds the tilt of Earth's axis steady at about 23.4°. The tilt is what gives the year seasons; without the moon it would wander, and the climate with it. The oceans' tides are the moon's doing too, and the drag of them is pushing it about 3.8 cm further away every year."
+      ]
+    },
+    {
+      "slug": "mars",
+      "idx": 3,
+      "name": "Mars",
+      "tagline": "The planet we have looked at hardest, and still cannot answer the main question about.",
+      "tilt": "25.19°",
+      "temp": "−65 °C average, from −140 °C to about 20 °C",
+      "atmos": "95% carbon dioxide at 0.6% of Earth's pressure — thin enough that liquid water boils and freezes at once",
+      "facts": [
+        "Olympus Mons is about 22 km high and roughly the size of Arizona. It got that big because Mars has no plate tectonics: the crust never moved off the hot spot, so one volcano kept growing for billions of years.",
+        "Valles Marineris runs 4,000 km, about the width of the United States, and up to 7 km deep.",
+        "Phobos orbits faster than Mars turns, so from the surface it rises in the west and sets in the east, twice a Martian day. It is also spiralling in, and will break up or hit the planet in the next few tens of millions of years.",
+        "Mars lost its global magnetic field about 4 billion years ago, and the solar wind has been stripping the atmosphere ever since. The magnetised patches left in the southern crust are the fossil of the field that was.",
+        "A Martian day is 24 h 37 m. It is the only planet in the solar system where the natural working day is nearly ours."
+      ],
+      "questions": [
+        {
+          "q": "Did life ever start there?",
+          "a": "Mars had standing water, a thicker atmosphere and a magnetic field at the same time that life was getting going on Earth. Perseverance has found organic molecules and mineral textures in Jezero Crater that could be biological or could be ordinary chemistry — a 2025 paper describing 'leopard spot' features in the Cheyava Falls rock set out the case for both. Nothing yet is a confirmed biosignature, and settling it probably requires the samples to come back to a laboratory."
+        },
+        {
+          "q": "Where did the atmosphere go?",
+          "a": "Some was stripped away by the solar wind, which MAVEN has watched happening. Some is thought to be locked in carbonate rock and in the polar caps. The books do not balance yet — and how much is still stored in the crust decides whether the loss was inevitable or reversible."
+        },
+        {
+          "q": "Why are the two hemispheres so different?",
+          "a": "The northern third is low, smooth and thin-crusted; the south is high, ancient and cratered. One enormous impact, several large ones, or convection inside the young planet — the Martian dichotomy is one of the oldest unexplained features in the solar system."
+        },
+        {
+          "q": "Where did Phobos and Deimos come from?",
+          "a": "They look like captured asteroids and are made of similar stuff. But both sit on nearly circular orbits right over the equator, which is very hard to achieve by capture and very natural for moons that formed from a debris disc after an impact. Japan's MMX mission is designed to bring a piece of Phobos back and end the argument."
+        }
+      ],
+      "findings": [
+        {
+          "when": "2024",
+          "what": "Seismic data from InSight was interpreted as evidence for liquid water in fractured rock in the middle crust, kilometres down — not accessible, but a reservoir large enough in principle to account for a good deal of the water that has gone missing from the surface."
+        },
+        {
+          "when": "2025",
+          "what": "Curiosity reported long-chain organic molecules — decane, undecane and dodecane — in mudstone, the largest organic molecules yet found on Mars, and separately identified carbonate minerals consistent with a carbon cycle that shut down as the atmosphere thinned."
+        },
+        {
+          "when": "September 2025",
+          "what": "A paper in Nature described the Sapphire Canyon sample from Cheyava Falls as a potential biosignature: mineral pairings that on Earth are usually produced by microbes, in a rock that Perseverance sampled but cannot analyse further. The sample is sitting on Mars waiting for a return mission that has not been funded."
+        }
+      ],
+      "overview": [
+        "Mars is half Earth's width and about a tenth of its mass, with a day of 24 hours 37 minutes and a tilt of 25° — so it has seasons that run on a two-year calendar. The atmosphere is carbon dioxide at about 0.6% of Earth's surface pressure, thin enough that liquid water on the surface boils and freezes at the same time, and thick enough to raise dust storms that can cover the planet for weeks.",
+        "It holds the extremes of the solar system's geography: Olympus Mons stands about 22 km high, and Valles Marineris runs 4,000 km along the equator, which on Earth would reach from California to New York. Riverbeds, deltas and lake floors are everywhere in the older terrain, so the water was there and stayed long enough to move rock. Where it went, and when, is the question every rover on the ground is there to answer."
+      ]
+    },
+    {
+      "slug": "jupiter",
+      "idx": 4,
+      "name": "Jupiter",
+      "tagline": "Two and a half times the mass of everything else in the solar system put together.",
+      "tilt": "3.13°",
+      "temp": "−110 °C at the cloud tops",
+      "atmos": "Hydrogen and helium, in roughly the Sun's proportions, with no surface underneath — the gas simply gets denser until it is a liquid metal",
+      "facts": [
+        "Jupiter does not orbit the centre of the Sun. The pair's balance point sits just outside the Sun's surface, so strictly the Sun and Jupiter both go round a point in empty space.",
+        "It turns once in under ten hours, faster than any other planet, and the spin visibly squashes it: the equator is about 7% wider than the poles.",
+        "The Great Red Spot is a storm that has been watched for at least 190 years and possibly 360. It is shrinking — it was more than twice Earth's width in the 1800s and is now about one Earth wide.",
+        "Io, Europa and Ganymede are locked in a 1:2:4 resonance: Io goes round exactly twice for each Europa orbit and four times for each Ganymede orbit. The regular tug that produces is what keeps Io molten and Europa's ocean liquid. You can watch it happen on Jupiter's view here — the periods in the drawing are the real ones.",
+        "Jupiter has rings. Voyager 1 found them in 1979, and they are made of dust kicked off the tiny inner moons Metis, Adrastea, Amalthea and Thebe by micrometeorite impacts — a ring system that has to be continuously resupplied to exist at all."
+      ],
+      "questions": [
+        {
+          "q": "Why does Jupiter have rings, and why are they so faint?",
+          "a": "The mechanism is fairly well settled — dust knocked off four small inner moons, held briefly in orbit, spiralling in and being replaced. What is not settled is why the giants all have rings and the rocky planets have none, and why Jupiter's are dust while Saturn's are ice boulders. Ring systems may be a phase every giant goes through, in which case Saturn's are a snapshot of something Jupiter has already finished."
+        },
+        {
+          "q": "Is there a core in there?",
+          "a": "Juno's gravity measurements do not fit a planet with a clean rocky core, nor one with none. They fit a 'fuzzy' core: heavy elements smeared through the inner half of the planet rather than concentrated. That is difficult to produce in formation models unless something enormous hit Jupiter early on, and it has not been explained."
+        },
+        {
+          "q": "How deep does the weather go?",
+          "a": "Juno found that the belts and zones extend about 3,000 km down — far deeper than expected — before the interior starts rotating as a solid body. What sets that depth, and what the flows look like below the clouds, is unresolved."
+        }
+      ],
+      "findings": [
+        {
+          "when": "December 2024",
+          "what": "Juno's close Io flybys ruled out a global magma ocean under the surface, which had been the standard explanation for Io's volcanism. The heat is real; the plumbing has to be more local than a planet-wide sea of magma."
+        },
+        {
+          "when": "2023",
+          "what": "JWST identified carbon dioxide on Europa concentrated in Tara Regio, a disrupted region, and argued it comes from the ocean below rather than from impacts — the strongest indication yet that Europa's ocean carbon is reaching the surface where a spacecraft could sample it."
+        },
+        {
+          "when": "October 2024",
+          "what": "Europa Clipper launched. It flew past Mars in March 2025 for a gravity assist and arrives at Jupiter in 2030, where it will make roughly 50 flybys of Europa. ESA's JUICE, launched in 2023, is on a longer route to orbit Ganymede in 2034."
+        }
+      ],
+      "overview": [
+        "Jupiter is two and a half times the mass of every other planet, moon, asteroid and comet in the solar system put together. It is hydrogen and helium in roughly the sun's proportions, with no surface at all: the gas simply gets denser with depth until it behaves like a liquid metal. It turns once in under ten hours, faster than anything else here, and that spin visibly squashes it — the equator is about 7% wider than the poles.",
+        "The Great Red Spot has been watched for at least 190 years and is still shrinking; it was more than twice Earth's width in the 1800s and is now about one Earth across. Four of its moons are worlds in their own right, and Io, Europa and Ganymede are locked in a resonance that keeps flexing them: Io is the most volcanically active body known, and Europa holds a salt-water ocean under its ice with more water in it than every ocean on Earth."
+      ]
+    },
+    {
+      "slug": "saturn",
+      "idx": 5,
+      "name": "Saturn",
+      "tagline": "The rings are the famous part. The moons are where the questions are.",
+      "tilt": "26.73°",
+      "temp": "−140 °C at the cloud tops",
+      "atmos": "Hydrogen and helium, with ammonia ice hazes that mute everything into shades of butterscotch",
+      "facts": [
+        "The rings are about 280,000 km across and, in most places, ten metres thick. At the scale of this page's drawing they are thinner than the anti-aliasing on the line used to draw them.",
+        "Saturn's average density is less than water's. Given an ocean large enough, it would float — and be torn apart doing it.",
+        "There are 274 confirmed moons, after 128 were confirmed at once in March 2025. Almost all of them are a few kilometres of captured rubble; the ones drawn here are the ones large enough to be worth drawing.",
+        "Titan has a thicker atmosphere than Earth's, and rain, rivers, lakes and seas — of methane and ethane, at −180 °C. It is the only place other than Earth with standing liquid on its surface.",
+        "Enceladus, 500 km across, is venting water from a subsurface ocean into space through cracks at its south pole. Cassini flew through the plume and tasted salt, silica and organic molecules.",
+        "Nobody could measure Saturn's day directly, because it has no surface to watch. The current figure, 10 h 33 m 38 s, was worked out in 2019 from waves the planet's own oscillations raise in its rings."
+      ],
+      "questions": [
+        {
+          "q": "How old are the rings?",
+          "a": "Cassini measured their mass and found it small, and their ice remarkably clean of the dust that constantly rains in — both of which suggest something that formed in the last 100 million years, long after the planet. Recent work argues that ring particles may shed pollution and stay looking young indefinitely, which would allow rings as old as Saturn. It is one of the sharpest open disagreements in planetary science, and it decides whether we are watching something rare and temporary or something permanent."
+        },
+        {
+          "q": "Where does Titan's methane come from?",
+          "a": "Sunlight destroys atmospheric methane in around 30 million years, and Titan's has not run out. Something is resupplying it — cryovolcanism, or release from clathrates in the crust — and neither has been observed happening. Dragonfly, a nuclear-powered rotorcraft due to launch in 2028 and arrive in 2034, is designed to go looking."
+        },
+        {
+          "q": "Is Enceladus's ocean inhabited?",
+          "a": "It has liquid water, a rocky seafloor, chemical energy, and — from a 2023 reanalysis of Cassini data — phosphates, the last of the elements considered essential for life as we know it. That is a complete list of ingredients and no evidence whatever of the thing itself. No mission is currently funded to go back."
+        },
+        {
+          "q": "What makes the hexagon?",
+          "a": "A six-sided jet stream, 30,000 km across, has sat over Saturn's north pole for at least as long as we have been able to see it. Laboratory tanks of spinning fluid do produce polygons, so it is not magic — but why six, why so stable, and how deep it goes are not answered."
+        }
+      ],
+      "findings": [
+        {
+          "when": "March 2025",
+          "what": "128 new moons were confirmed in one announcement, taking Saturn's total to 274 — more than every other planet in the solar system combined."
+        },
+        {
+          "when": "2023",
+          "what": "JWST caught the Enceladus plume extending about 9,600 km, twenty times the width of the moon producing it, feeding a torus of water around Saturn. Cassini data reanalysed the same year showed phosphates in the plume material."
+        }
+      ],
+      "overview": [
+        "Saturn is the second-largest planet and the least dense object in the solar system — mean density about 0.69 that of water. The rings are its own signature: 280,000 km across and in most places only tens of metres thick, made of water ice from dust grains up to boulders. Drawn to scale they are a sheet of paper the width of a football pitch, which is why they vanish to a line when Earth passes through their plane, as it last did in March 2025.",
+        "It has more confirmed moons than every other planet put together, and two of them are among the most interesting places anywhere. Titan is bigger than Mercury and the only moon with a thick atmosphere, with rivers, rain and seas of liquid methane on a surface at −179 °C. Enceladus, 500 km across, sprays water from an ocean under its south pole through cracks in its ice — Cassini flew through those plumes and tasted salt and organic molecules in them."
+      ]
+    },
+    {
+      "slug": "uranus",
+      "idx": 6,
+      "name": "Uranus",
+      "tagline": "Tipped over on its side, visited once, and still mostly unexplained.",
+      "tilt": "97.8° — the axis lies almost in the orbital plane",
+      "temp": "−195 °C, with a minimum of −224 °C: the coldest atmosphere measured in the solar system",
+      "atmos": "Hydrogen and helium with methane, which absorbs red light and leaves the planet blue-green",
+      "facts": [
+        "Because it is tipped over, each pole spends 42 years in continuous sunlight and then 42 years in darkness. Its seasons are unlike anything else in the solar system.",
+        "It is the coldest planet, despite Neptune being half again as far out — Uranus radiates barely more heat than it receives from the Sun, while Neptune radiates 2.6 times as much.",
+        "Its rings were found in 1977, by accident: astronomers watching Uranus pass in front of a star saw the star wink several times before and after the planet crossed it.",
+        "One spacecraft has ever been there. Voyager 2 passed in January 1986 and everything else we know comes from telescopes.",
+        "The magnetic field is tilted 59° from the rotation axis and offset from the centre of the planet, so the magnetosphere opens and closes like a badly fitted valve once every rotation.",
+        "The moons are named from Shakespeare and Pope rather than classical myth — Miranda, Ariel, Umbriel, Titania, Oberon. Miranda has a cliff about 20 km high, the tallest known anywhere."
+      ],
+      "questions": [
+        {
+          "q": "What knocked it over?",
+          "a": "A single Earth-sized impact is the standard answer, but a single impact should also have scrambled the moons, and instead they orbit neatly around the tilted equator — which suggests whatever happened, happened while a disc was still there to re-form them. Several smaller impacts, or a lost massive moon, are the alternatives."
+        },
+        {
+          "q": "Why is it so much colder than Neptune?",
+          "a": "The two planets are near twins in size and composition, and Neptune pours out internal heat while Uranus barely does. Either Uranus lost its internal heat in the same event that tipped it, or something in its interior stops heat convecting out. Neither has been demonstrated."
+        },
+        {
+          "q": "Was Voyager 2 unlucky?",
+          "a": "A 2024 reanalysis found that the flyby happened within days of a rare solar-wind compression that squashed the magnetosphere to about a fifth its usual volume. Much of what textbooks say about Uranus's magnetic environment may therefore describe an unusual few days rather than the planet — an unusually clean example of how thin one flyby's worth of data is."
+        }
+      ],
+      "findings": [
+        {
+          "when": "2025",
+          "what": "Hubble observations refined the rotation period to 17 h 14 m 52 s, about 28 seconds longer than the Voyager-era value, by tracking the aurorae over a decade. It sounds like a small correction; without it, predicted feature positions drift by a full rotation within a couple of decades."
+        },
+        {
+          "when": "2023–2024",
+          "what": "JWST resolved the rings, including the faint Zeta ring, and mapped seasonal brightening of the polar cap. A Uranus orbiter and probe was ranked the top large mission priority by the 2023–2032 US planetary decadal survey; nothing has been launched."
+        }
+      ],
+      "overview": [
+        "Uranus lies on its side. Its axis is tilted 98°, so instead of spinning like a top it rolls along its orbit, and each pole spends 42 years in continuous sunlight followed by 42 years of night. The most likely cause is an impact with something Earth-sized early on, though the moons orbit tidily around the tipped equator, which is hard to arrange with a single blow.",
+        "It is the coldest atmosphere measured anywhere in the solar system, −224 °C, colder than Neptune despite being closer to the sun — nobody has fully explained that. In visible light it is nearly featureless, a flat blue-green from methane absorbing red light, and it has been visited exactly once: Voyager 2 flew past in January 1986 and everything since has come from telescopes. Its 13 narrow, dark rings were found in 1977 when they blocked the light of a star."
+      ]
+    },
+    {
+      "slug": "neptune",
+      "idx": 7,
+      "name": "Neptune",
+      "tagline": "Found with a pencil before anyone pointed a telescope at it.",
+      "tilt": "28.32°",
+      "temp": "−200 °C at the cloud tops",
+      "atmos": "Hydrogen, helium and methane — the same recipe as Uranus, and a deeper blue nobody has fully explained",
+      "facts": [
+        "It was predicted before it was seen. Irregularities in Uranus's orbit were used to calculate where an unseen planet had to be, and it was found in 1846 within a degree of the predicted spot.",
+        "The fastest winds in the solar system blow here — up to about 2,100 km/h — on the planet that receives the least sunlight of the eight.",
+        "Neptune radiates 2.6 times as much energy as it gets from the Sun. Where that heat comes from, on a planet the same size and age as Uranus, is unknown.",
+        "Triton orbits backwards, which means it did not form there: it was captured, almost certainly from the Kuiper belt. It is also geologically active, with nitrogen geysers, and it is spiralling inward.",
+        "One Neptune year is 164.8 Earth years. It completed its first full orbit since discovery in 2011.",
+        "The Great Dark Spot photographed by Voyager 2 in 1989 had vanished by the time Hubble looked in 1994. Others have appeared and gone since."
+      ],
+      "questions": [
+        {
+          "q": "Why is Neptune so much warmer inside than Uranus?",
+          "a": "Same size, same composition, same era — and one has an internal heat engine while the other does not. Every explanation offered (a different impact history, layered convection, helium raining out of the interior) is a hypothesis without a decisive measurement, and only a mission to one or both of them would change that."
+        },
+        {
+          "q": "What powers those winds?",
+          "a": "Neptune receives about 0.1% of the sunlight Earth does, and generates the strongest winds anywhere. Internal heat is the presumed engine, but the mechanism that turns it into 2,000 km/h zonal jets has not been demonstrated."
+        },
+        {
+          "q": "How was Triton captured without wrecking the system?",
+          "a": "Capturing a body that large normally requires shedding an enormous amount of energy. The favoured route is that Triton arrived as half of a binary and its partner was flung away, leaving Triton bound. Whatever happened, it would have destroyed Neptune's original moons — which is consistent with the odd, sparse system that is there now."
+        }
+      ],
+      "findings": [
+        {
+          "when": "March 2025",
+          "what": "JWST made the first confirmed detection of aurorae on Neptune, in infrared — they had been looked for since Voyager 2 and never seen. The same data showed the upper atmosphere has cooled by several hundred degrees since 1989, which nobody predicted."
+        },
+        {
+          "when": "2023",
+          "what": "JWST imaged Neptune's rings more clearly than anything since Voyager 2, including the faint dust bands, and picked out seven of its moons in a single exposure."
+        }
+      ],
+      "overview": [
+        "Neptune is the farthest planet, 30 times Earth's distance from the sun, and it was found with mathematics before anyone looked: Uranus was not keeping to its predicted path, and in 1846 Neptune was located within a degree of where the calculations said the missing pull had to come from. One of its years lasts 165 of ours, so it has completed a single orbit since that night.",
+        "It has the fastest winds anywhere — measured near 2,000 km/h — on a planet that receives about a thousandth of Earth's sunlight, which means the weather is driven from inside rather than from above. Triton, its big moon, goes round backwards, which means it did not form there: it is a captured Kuiper belt object, and it has nitrogen geysers on a surface at −235 °C."
+      ]
+    },
+    {
+      "slug": "pluto",
+      "idx": 8,
+      "name": "Pluto",
+      "tagline": "A dwarf planet, a double world, and the only one of these anybody has visited exactly once.",
+      "tilt": "122.5° — it spins on its side and backwards",
+      "temp": "About −229 °C",
+      "atmos": "Nitrogen with a little methane and carbon monoxide, at roughly a hundred-thousandth of Earth's surface pressure — and hazes in dozens of distinct layers",
+      "facts": [
+        "It is a dwarf planet, not a planet. The IAU drew the line in 2006: a planet has to have cleared its orbital neighbourhood, and Pluto shares the Kuiper belt with a great many other bodies.",
+        "Pluto and Charon are a double world. Charon is half Pluto's diameter and about an eighth of its mass, which puts the point they both orbit outside Pluto's surface — no other named pair here does that. They also keep the same faces to each other permanently.",
+        "Its orbit crosses Neptune's, and the two can never collide. Pluto goes round twice for every three Neptune orbits, a resonance that keeps them apart; the closest they ever get is about 17 AU.",
+        "It was inside Neptune's orbit from 1979 to 1999. For those twenty years Neptune, not Pluto, was the outermost planet.",
+        "Sputnik Planitia — the left half of the famous heart — is a basin of nitrogen ice that convects in cells tens of kilometres across, resurfacing itself far too fast for any crater to survive.",
+        "Only one spacecraft has ever been there. New Horizons flew past on 14 July 2015 after a nine-and-a-half-year crossing, and everything close-up that anyone knows about Pluto came from that single afternoon.",
+        "The four small moons tumble. Styx, Nix, Kerberos and Hydra do not keep a face to Pluto, because the gravity they sit in is a rotating pair rather than a point — their day lengths change unpredictably."
+      ],
+      "questions": [
+        {
+          "q": "Is there an ocean under the ice?",
+          "a": "Sputnik Planitia sits almost exactly on the line between Pluto and Charon, which is where a heavy patch would end up if the crust could slide — and a subsurface ocean is the most natural way to make that patch heavy. It is strong circumstantial evidence and not a measurement; nothing has sounded the interior."
+        },
+        {
+          "q": "Does the atmosphere freeze out completely as it moves away from the sun?",
+          "a": "It was expected to collapse as Pluto receded past its 1989 perihelion, and instead the pressure rose for two decades before starting to fall. How much survives at aphelion, 49 AU out, has not been observed — nobody has watched Pluto through a full 248-year orbit."
+        },
+        {
+          "q": "How did it get five moons?",
+          "a": "A giant impact that made Charon is the standard answer, with the small four condensing from the debris. It accounts for the mass ratio and the tidy, near-circular, coplanar orbits, but not for every detail of their sizes and spacings."
+        }
+      ],
+      "findings": [
+        {
+          "when": "2015–2016",
+          "what": "New Horizons returned the only close-up data there is: nitrogen-ice convection in Sputnik Planitia, mountains of water ice several kilometres high, and a layered haze reaching 200 km up that nobody had predicted."
+        },
+        {
+          "when": "2022",
+          "what": "Re-analysis of the flyby data put the surface of Sputnik Planitia at under about ten million years old, and probably far younger — a body that small was expected to be geologically dead."
+        }
+      ],
+      "overview": [
+        "Pluto is a dwarf planet, and the label is a statement about its neighbourhood rather than about the world itself. The IAU's 2006 definition asks a planet to have cleared its orbital region; Pluto shares the Kuiper belt with a great many other bodies, one of which — Eris — turned out to be more massive. It is 2,377 km across, smaller than our moon, and its 248-year orbit is tilted and elliptical enough to bring it inside Neptune's for 20 years at a time.",
+        "It is also a double world. Charon is half Pluto's diameter, and the point the two of them orbit lies outside Pluto's surface — nothing else here does that. When New Horizons arrived in July 2015 and turned a fuzzy dot into a place, it found a 1,000 km glacier of nitrogen ice with no craters on it at all, mountains of water ice standing 3 km high, and a hazy blue atmosphere in dozens of layers. It has been visited once, for a single day."
+      ]
+    }
+  ],
+  "extras": [
+    {
+      "slug": "asteroid-belt",
+      "name": "The asteroid belt",
+      "tagline": "Not a hazard, not a shattered planet — a place where a planet was never allowed to finish.",
+      "facts": [
+        "Everything in the belt put together comes to about 3% of the mass of the Moon. Ceres alone is roughly a third of it, and the four largest objects are about half.",
+        "It is not crowded. The typical separation between belt objects large enough to name is on the order of a million kilometres; every spacecraft sent to the outer solar system has flown straight through without a course change for debris.",
+        "The gaps in it are Jupiter's fingerprints. An asteroid whose orbital period is a simple fraction of Jupiter's gets the same tug at the same point every few orbits, and is eventually pushed out — which is why the belt has clean lanes at the 3:1, 5:2 and 7:3 resonances and edges at 4:1 and 2:1. This page computes all of those from Jupiter's orbit rather than drawing them from memory.",
+        "The same resonances that empty parts of the belt fill others. The Hildas sit at 3:2, and the Trojans share Jupiter's orbit exactly, in two clouds 60° ahead of and behind it — which is why this simulator draws them wherever Jupiter happens to be.",
+        "It was never a planet. There is not enough material there to make one, and there is no evidence of a body that broke up; Jupiter's gravity stirred the region hard enough that collisions smashed rather than stuck."
+      ],
+      "questions": [
+        {
+          "q": "How much of the belt did Jupiter throw away?",
+          "a": "Models in which the giant planets migrate depopulate the belt by a factor of a hundred or more and mix in bodies from elsewhere — which would explain why the belt contains both dry inner-system rock and water-rich outer-system material. How much migration, and when, is not settled."
+        },
+        {
+          "q": "Where did Ceres form?",
+          "a": "It has ammoniated clays on its surface, and ammonia is not stable that close to the Sun. Either Ceres formed much further out and was moved in, or the ammonia was delivered. It is a dwarf planet with water ice and possible brines, sitting in a region we thought we understood."
+        },
+        {
+          "q": "What is Psyche?",
+          "a": "The largest metal-rich asteroid has been described for years as the exposed core of a shattered protoplanet, which would make it the only place we could look at a planetary core directly. Density measurements since have muddied that: it may be far more porous and less purely metallic than the story requires. The Psyche spacecraft arrives in 2029."
+        }
+      ],
+      "findings": [
+        {
+          "when": "November 2023",
+          "what": "Lucy's flyby of the small asteroid Dinkinesh found it had a moon — and that the moon, Selam, is itself two objects stuck together. Nothing like it had been seen, and it came from a target chosen mainly as a rehearsal."
+        },
+        {
+          "when": "2024–2025",
+          "what": "Analyses of the Bennu sample returned by OSIRIS-REx in 2023 identified 14 of the 20 amino acids used by life on Earth, all five nucleobases of DNA and RNA, and salt minerals left by evaporating brine — evidence that the chemistry preceding life is assembled routinely in ordinary asteroids."
+        },
+        {
+          "when": "April 2025",
+          "what": "Lucy flew past Donaldjohanson on its way to the Jupiter Trojans, the first of which it reaches in 2027 — the population this page draws 60° ahead of and behind Jupiter."
+        }
+      ],
+      "overview": [
+        "Between Mars and Jupiter, from roughly 2.1 to 3.3 times Earth's distance from the sun, is a broad ring of rock and metal that never became a planet. Jupiter is the reason: its gravity stirred the region hard enough that the material there kept colliding at speeds that broke bodies apart rather than building them up. What is left is not the wreckage of an exploded world — the pieces have different compositions and never formed one.",
+        "There is far less of it than the pictures suggest. Everything in the belt put together comes to about 3% of the mass of the Moon, and Ceres alone — a dwarf planet 940 km across — is roughly a third of that. The typical gap between two named objects runs to millions of kilometres, which is why every spacecraft sent to the outer planets has flown straight through without steering around anything."
+      ]
+    },
+    {
+      "slug": "comets",
+      "name": "Comets",
+      "tagline": "The only objects that regularly cross the whole solar system, and the only ones you can watch do it.",
+      "facts": [
+        "A comet's tail always points away from the Sun, not backwards along its path. On the way out, a comet travels tail-first.",
+        "There are usually two tails: dust, which curves because it is left behind along the orbit, and ionised gas, which is blown straight out by the solar wind.",
+        "Short-period comets like Encke and 67P come from the Kuiper belt beyond Neptune. Long-period ones like Hale-Bopp fall in from the Oort cloud, which is thought to reach a substantial fraction of the way to the nearest star.",
+        "Meteor showers are comet dust. The Perseids in August are debris from 109P/Swift-Tuttle and the Leonids in November from 55P/Tempel-Tuttle — both of which are drawn on this page, on the orbits that leave the dust.",
+        "Comets are small. 67P, which Rosetta orbited for two years, is about 4 km across; the coma that makes it visible can be larger than the Sun and is almost entirely empty space."
+      ],
+      "questions": [
+        {
+          "q": "Did comets bring Earth's water?",
+          "a": "It was the standard answer for decades, and then the ratios stopped matching. Rosetta measured 67P's deuterium-to-hydrogen ratio at about three times Earth's ocean value; some other comets match better. The current view is that asteroids did most of the delivering — but the sample of comets measured directly is tiny."
+        },
+        {
+          "q": "What is the Oort cloud actually like?",
+          "a": "Nothing in it has ever been observed in place. Its existence is inferred entirely from the orbits of the comets that fall out of it. Its inner edge, its total mass and whether it is shared with other stars are all estimates."
+        },
+        {
+          "q": "Why do some comets simply fall apart?",
+          "a": "Comets have disintegrated on approach with no impact and no obvious trigger — Schwassmann-Wachmann 3 broke into dozens of pieces, and others have vanished entirely. Rotational spin-up from outgassing is the leading explanation, but predicting which comet will survive perihelion is still not possible."
+        }
+      ],
+      "findings": [
+        {
+          "when": "2025",
+          "what": "3I/ATLAS was discovered on 1 July 2025 and confirmed as the third known interstellar object. It passed perihelion around 29–30 October 2025 at about 1.36 AU — inside Mars's orbit — passed close to Mars in early October, and made its closest approach to Earth in December 2025 at a safe 1.8 AU. It is not drawn on this page: its orbit is hyperbolic, so it is leaving and will not come back."
+        },
+        {
+          "when": "2024",
+          "what": "12P/Pons-Brooks made its first return since 1954, becoming a naked-eye object during the April total solar eclipse, and C/2023 A3 (Tsuchinshan-ATLAS) became the brightest comet in nearly two decades that autumn."
+        }
+      ]
+    }
+  ],
+  "missions_note": "Real interplanetary missions. Launch and arrival are HISTORY and cannot be derived, which is why they are here; everything compared against them on /rocket-launches/ (the minimum-energy flight time for the same window, and how much longer or shorter the mission actually took) is solved by transfer.mjs at build time. target is the planet index used by planets.mjs. assists lists the gravity-assist flybys in order.",
+  "missions": [
+    {
+      "name": "Mariner 4",
+      "target": 3,
+      "launch": "1964-11-28",
+      "arrive": "1965-07-15",
+      "assists": [],
+      "note": "The first spacecraft to reach Mars, and the first pictures of another planet from close up — 21 of them, of a cratered surface nobody expected."
+    },
+    {
+      "name": "Viking 1",
+      "target": 3,
+      "launch": "1975-08-20",
+      "arrive": "1976-07-20",
+      "assists": [],
+      "note": "The first lander to work on Mars, and it kept working for six years. Its orbiter mapped nearly the whole planet."
+    },
+    {
+      "name": "Mars Pathfinder",
+      "target": 3,
+      "launch": "1996-12-04",
+      "arrive": "1997-07-04",
+      "assists": [],
+      "note": "Bounced to a stop on airbags and let the first rover, Sojourner, off the ramp."
+    },
+    {
+      "name": "Mars Reconnaissance Orbiter",
+      "target": 3,
+      "launch": "2005-08-12",
+      "arrive": "2006-03-10",
+      "assists": [],
+      "note": "Still the sharpest eye at Mars, and the relay almost every surface mission talks home through."
+    },
+    {
+      "name": "Curiosity",
+      "target": 3,
+      "launch": "2011-11-26",
+      "arrive": "2012-08-06",
+      "assists": [],
+      "note": "Too heavy for airbags, so it was lowered on cables from a rocket-powered stage — the sky crane."
+    },
+    {
+      "name": "Perseverance",
+      "target": 3,
+      "launch": "2020-07-30",
+      "arrive": "2021-02-18",
+      "assists": [],
+      "note": "Caching rock cores for a later mission to collect, and it carried the first aircraft to fly on another planet."
+    },
+    {
+      "name": "Galileo",
+      "target": 4,
+      "launch": "1989-10-18",
+      "arrive": "1995-12-07",
+      "assists": [
+        "Venus",
+        "Earth",
+        "Earth"
+      ],
+      "note": "Went inward first, to Venus, then twice past Earth — the VEEGA route. Six years to Jupiter, and it dropped a probe into the atmosphere on arrival."
+    },
+    {
+      "name": "Juno",
+      "target": 4,
+      "launch": "2011-08-05",
+      "arrive": "2016-07-04",
+      "assists": [
+        "Earth"
+      ],
+      "note": "One Earth flyby two years after launch, and a polar orbit that dives between Jupiter and its radiation belts."
+    },
+    {
+      "name": "Cassini",
+      "target": 5,
+      "launch": "1997-10-15",
+      "arrive": "2004-07-01",
+      "assists": [
+        "Venus",
+        "Venus",
+        "Earth",
+        "Jupiter"
+      ],
+      "note": "Four flybys and nearly seven years, because no launcher then or now could throw it straight to Saturn. It carried the Huygens lander to Titan."
+    },
+    {
+      "name": "Voyager 2",
+      "target": 5,
+      "launch": "1977-08-20",
+      "arrive": "1981-08-25",
+      "assists": [
+        "Jupiter"
+      ],
+      "note": "The fastest crossing to Saturn there has been, and it did not stop: Jupiter threw it on, and Saturn threw it to Uranus and Neptune."
+    },
+    {
+      "name": "New Horizons",
+      "target": 8,
+      "launch": "2006-01-19",
+      "arrive": "2015-07-14",
+      "assists": [
+        "Jupiter"
+      ],
+      "note": "The fastest launch ever made, straight past the moon in nine hours, and it still took nine and a half years to reach Pluto — where it could only fly past."
+    }
+  ],
+  "moons_note": "Prose for the moons that get a card of their own on their planet’s page. A moon gets a card if it has an entry here; the rest stay in the table above it, where their distance, period and size already are. Deliberately holds NOTHING derivable — distance, orbital period, diameter and direction all come from satellites.mjs and are checked against Kepler’s third law, so this file cannot disagree with them. \"found\" is history and cannot be computed, which is why it is here.",
+  "moons": {
+    "Phobos": {
+      "found": "Asaph Hall, 1877, after his wife talked him out of giving up the search",
+      "tagline": "The doomed one. It orbits below the height at which a Martian day and an orbit take the same time, so tides are dragging it DOWN rather than pushing it out.",
+      "facts": [
+        "It rises in the west and sets in the east, twice every Martian day — it laps Mars faster than Mars turns.",
+        "Stickney, its largest crater, is 9 km across on a moon 22 km wide. Whatever made it very nearly broke the moon apart, and the grooves radiating from it may be the cracks.",
+        "It is too light to be solid rock: a quarter to a third of it is empty space, so it is a rubble pile held together by very little."
+      ],
+      "questions": [
+        "Is it a captured asteroid or debris from a giant impact on Mars that re-accreted? Its spectrum says asteroid; its near-circular equatorial orbit says debris. Both cannot be right.",
+        "It is spiralling in about 1.8 cm a year. Whether it hits Mars in roughly 50 million years or is torn into a ring first depends on how strong that rubble pile is — which nobody has measured."
+      ]
+    },
+    "Deimos": {
+      "found": "Asaph Hall, 1877, six days before Phobos",
+      "tagline": "The quiet one, and the opposite case: it orbits outside the synchronous height, so it is drifting slowly away, as our own moon is.",
+      "facts": [
+        "Its craters are half-buried in its own dust, which makes it look smoother than Phobos at the same resolution.",
+        "From the Martian surface it takes about 2.7 days to cross the sky, because it is barely outrunning the planet’s own rotation.",
+        "It is 12 km across. Standing on it, escape velocity is about 5.6 m/s — a hard throw would leave."
+      ]
+    },
+    "Io": {
+      "found": "Galileo, January 1610, one of the four that ended the argument about what goes round what",
+      "tagline": "The most volcanically active body in the solar system, by a wide margin — and none of that heat comes from the sun.",
+      "facts": [
+        "More than 400 active volcanoes, with plumes reaching 500 km up. Its surface is repaved so fast that it has essentially no impact craters.",
+        "The heat is tidal: Io is squeezed and released on every lap because Europa and Ganymede keep tugging it out of a circular orbit. That resonance is what powers it.",
+        "It loses about a tonne of material every second to a doughnut of plasma around Jupiter, which is part of what drives Jupiter’s aurorae.",
+        "The yellows, reds and whites are sulfur and sulfur dioxide frost, not lava colour."
+      ],
+      "questions": [
+        "Is there a global magma ocean under the crust, or many separate chambers? The induced magnetic signature suggests a connected layer; the eruption pattern does not obviously agree.",
+        "The volcanoes are systematically offset from where tidal heating models say they should be, and nobody has a settled explanation."
+      ]
+    },
+    "Europa": {
+      "found": "Galileo, January 1610",
+      "tagline": "A shell of ice over a salt-water ocean holding perhaps twice as much water as every ocean on Earth.",
+      "facts": [
+        "Its surface is among the youngest in the solar system — tens of millions of years — which means something is actively resurfacing it.",
+        "The dark lines crossing it are cracks that have opened and refrozen as the shell is flexed by Jupiter.",
+        "Jupiter’s magnetic field induces a field in Europa, and only a conducting layer — salty liquid water — does that. It is the strongest evidence for the ocean and it is indirect.",
+        "Europa Clipper launched in October 2024 and arrives in 2030, to fly past it about fifty times."
+      ],
+      "questions": [
+        "How thick is the ice? Estimates run from a few kilometres to thirty, and that single number decides whether anything could ever reach the ocean.",
+        "Are the water plumes real? They have been reported more than once and confirmed never.",
+        "It has liquid water, chemistry and an energy source. Whether that is enough is the question the next decade is built around."
+      ]
+    },
+    "Ganymede": {
+      "found": "Galileo, January 1610",
+      "tagline": "The largest moon in the solar system, and larger than the planet Mercury.",
+      "facts": [
+        "It is the only moon known to generate its own magnetic field, which means it has its own aurorae inside Jupiter’s.",
+        "Two kinds of ground: dark, ancient, heavily cratered terrain, and lighter ground grooved by tectonics.",
+        "Those aurorae rock back and forth less than they should if there were no ocean underneath, which is how a subsurface ocean was inferred from a telescope in Earth orbit.",
+        "ESA’s JUICE arrives in 2031 and will end up in orbit around it — the first spacecraft ever to orbit a moon other than ours."
+      ],
+      "questions": [
+        "Why does it have a dynamo when Callisto, a similar size, does not?",
+        "Its ocean may be layered, with ice both above and below it. If so, water never touches rock, which matters for whether anything could live there."
+      ]
+    },
+    "Callisto": {
+      "found": "Galileo, January 1610",
+      "tagline": "The most heavily cratered object anyone has ever photographed — a surface that has been left alone for four billion years.",
+      "facts": [
+        "Valhalla is a bullseye of concentric rings about 3,800 km across, from an impact into ice that behaved like a liquid and then froze.",
+        "It barely separated into layers: rock and ice are still substantially mixed inside, which means it never got hot enough to sort itself out.",
+        "It orbits outside the worst of Jupiter’s radiation belts, which is why it turns up in nearly every serious sketch of a crewed outpost at Jupiter."
+      ],
+      "questions": [
+        "It probably has an ocean too, and it has no tidal heating worth the name. What is keeping it liquid is not settled."
+      ]
+    },
+    "Amalthea": {
+      "found": "E. E. Barnard, 1892 — the last moon in the solar system found by eye at a telescope rather than on a photograph",
+      "tagline": "The reddest object in the solar system, and less dense than water.",
+      "facts": [
+        "Its red colour is thought to be sulfur thrown out by Io and swept up.",
+        "It is less dense than water ice, so it is a loose pile with a great deal of empty space in it."
+      ]
+    },
+    "Mimas": {
+      "found": "William Herschel, 1789",
+      "tagline": "A 396 km ball of ice with a 130 km crater in it — a third of its own diameter.",
+      "facts": [
+        "Herschel crater is so large in proportion that the moon is genuinely lucky to exist; the impact came close to the energy needed to shatter it.",
+        "It wobbles as it orbits, by more than a rigid body should."
+      ],
+      "questions": [
+        "That wobble means either a global ocean under 20–30 km of ice, or an elongated rocky core. In 2024 the ocean case strengthened sharply — and a young ocean under an old, cratered, unresurfaced crust is hard to explain either way."
+      ]
+    },
+    "Enceladus": {
+      "found": "William Herschel, 1789",
+      "tagline": "500 km across, and it is spraying its ocean into space hard enough to build one of Saturn’s rings out of it.",
+      "facts": [
+        "Jets erupt from four fractures near the south pole — the \"tiger stripes\" — and Cassini flew straight through them.",
+        "The plume contains salt, silica and organic molecules. The silica grains in particular only form in hot water in contact with rock, which is as close to direct evidence of hydrothermal vents as anyone has for another world.",
+        "The E ring IS the plume: material that escapes and settles into orbit around Saturn."
+      ],
+      "questions": [
+        "How long has the ocean lasted? Some models make it only tens of millions of years old, which would be an awkward coincidence for us to be watching now.",
+        "It has water, heat, and the right chemistry. Nobody has looked for anything living in it, and a plume you can fly through is the easiest sample in the outer solar system."
+      ]
+    },
+    "Tethys": {
+      "found": "Giovanni Cassini, 1684",
+      "tagline": "Very nearly pure water ice — its density is a shade under water’s own.",
+      "facts": [
+        "Ithaca Chasma runs about 2,000 km, most of the way round the moon.",
+        "Two small moons, Telesto and Calypso, sit permanently 60 degrees ahead of and behind it on the same orbit."
+      ]
+    },
+    "Dione": {
+      "found": "Giovanni Cassini, 1684",
+      "tagline": "The wispy streaks across it turned out not to be wisps at all.",
+      "facts": [
+        "Voyager saw bright streaks and everyone assumed frost. Cassini got closer and they are cliffs — fresh ice faces on fault scarps hundreds of metres high.",
+        "Its gravity field hints at an ocean 100 km down."
+      ]
+    },
+    "Rhea": {
+      "found": "Giovanni Cassini, 1672",
+      "tagline": "Saturn’s second largest moon, and it has a wisp of an atmosphere made of oxygen.",
+      "facts": [
+        "That oxygen comes from Saturn’s radiation belts breaking up surface ice — not from anything living.",
+        "It is thin enough that the whole atmosphere would fit in a few large rooms at sea-level pressure."
+      ]
+    },
+    "Titan": {
+      "found": "Christiaan Huygens, 1655",
+      "tagline": "The only moon with a real atmosphere — half again as thick as Earth’s at the surface — and the only other place with standing liquid on it.",
+      "facts": [
+        "The air is nitrogen, like ours, at about 1.5 bar. You could walk around in a coat and a mask, though not without one.",
+        "Lakes and seas of liquid methane and ethane sit near the poles. Kraken Mare is larger than the Caspian.",
+        "Huygens landed on it in January 2005 — still the only landing anywhere in the outer solar system.",
+        "NASA’s Dragonfly, a nuclear-powered rotorcraft, launches in 2028 and arrives in 2034 to fly between sites on the surface."
+      ],
+      "questions": [
+        "Sunlight destroys atmospheric methane in about 30 million years. Something must be replacing it, and nobody knows what — cryovolcanism is the usual guess and has never been caught happening.",
+        "Its chemistry is the most complex prebiotic chemistry we can reach. Whether it goes anywhere at 94 kelvin is open."
+      ]
+    },
+    "Hyperion": {
+      "found": "Bond, Bond and Lassell, independently, 1848",
+      "tagline": "It does not have a day. Its rotation is mathematically chaotic — there is no period to quote.",
+      "facts": [
+        "Its irregular shape and Titan’s pull tumble it unpredictably, so its orientation cannot be predicted more than a few weeks ahead. It is the clearest case of chaotic rotation known.",
+        "It looks like a sponge, and it is about 40% empty space — impacts compress it rather than throwing material off."
+      ]
+    },
+    "Iapetus": {
+      "found": "Giovanni Cassini, 1671 — who noticed he could only see it on one side of Saturn, and correctly guessed one hemisphere was dark",
+      "tagline": "One side is as dark as coal, the other as bright as snow, and it wears a mountain range round its equator.",
+      "facts": [
+        "The dark material is dust spiralling in from Phoebe, swept up by the leading face. Darker ground absorbs more sunlight, so its ice sublimates away and moves to the cold bright side — which makes the contrast run away with itself.",
+        "A ridge 20 km high and 1,300 km long runs almost exactly along the equator, making it the only moon that looks like a walnut."
+      ],
+      "questions": [
+        "Nobody knows what built the equatorial ridge. A collapsed ring of its own, a seam from a re-merged body, and an upwelling have all been proposed and none is settled."
+      ]
+    },
+    "Phoebe": {
+      "found": "W. H. Pickering, 1899 — the first moon anywhere found on a photographic plate rather than by eye",
+      "tagline": "It goes round backwards, which is the giveaway: it did not form here.",
+      "facts": [
+        "It is a captured body from the Kuiper Belt, dark and rich in water ice under the surface.",
+        "Dust knocked off it forms the largest ring in the solar system — so faint it was not found until 2009, and so big that Saturn itself would be a dot in it."
+      ]
+    },
+    "Miranda": {
+      "found": "Gerard Kuiper, 1948",
+      "tagline": "The strangest surface in the solar system: it looks assembled out of mismatched parts.",
+      "facts": [
+        "Verona Rupes is a cliff up to 20 km high — the tallest known anywhere. Stepping off it, you would fall for about twelve minutes.",
+        "Huge oval \"coronae\" of grooved terrain sit against ancient cratered ground with no gradation between them."
+      ],
+      "questions": [
+        "Was it smashed apart and reassembled, or did tidal heating in a past resonance churn it from the inside? The second is currently ahead, and the argument is not over."
+      ]
+    },
+    "Ariel": {
+      "found": "William Lassell, 1851",
+      "tagline": "The brightest and youngest-looking of the Uranian moons.",
+      "facts": [
+        "Broad rift valleys with flat floors suggest something flowed across them after they opened.",
+        "It shows carbon dioxide ice, concentrated on the trailing hemisphere."
+      ]
+    },
+    "Umbriel": {
+      "found": "William Lassell, 1851",
+      "tagline": "The darkest of the five, and nobody knows why.",
+      "facts": [
+        "Wunda, a crater near its equator, has a bright ring on its floor that stands out against everything around it.",
+        "It reflects about half as much light as Ariel, despite being a similar mixture of ice and rock."
+      ]
+    },
+    "Titania": {
+      "found": "William Herschel, 1787",
+      "tagline": "The largest moon of Uranus, and cut by a canyon system 1,500 km long.",
+      "facts": [
+        "Messina Chasma runs from near the equator most of the way to the south pole.",
+        "Its surface is less cratered than Oberon’s, so something resurfaced it after it formed."
+      ]
+    },
+    "Oberon": {
+      "found": "William Herschel, 1787",
+      "tagline": "The outermost of the large five, and the most heavily battered.",
+      "facts": [
+        "Several of its craters have dark floors, as if something erupted into them after the impact.",
+        "A mountain about 11 km high shows in profile on the limb in the one Voyager 2 image that caught it."
+      ]
+    },
+    "Triton": {
+      "found": "William Lassell, 1846, seventeen days after Neptune itself was found",
+      "tagline": "It orbits backwards, which means Neptune did not make it — Neptune caught it.",
+      "facts": [
+        "It is a captured Kuiper Belt object, and the only large moon in the solar system on a retrograde orbit.",
+        "Geysers of nitrogen erupt several kilometres up and are blown downwind into dark streaks. Voyager 2 caught them in 1989.",
+        "At 38 kelvin it is the coldest surface ever measured anywhere in the solar system.",
+        "Its \"cantaloupe terrain\" — dimpled, and almost uncratered — means the surface is being renewed."
+      ],
+      "questions": [
+        "What drives the geysers is still argued: a solid-state greenhouse warming nitrogen ice from below is the leading idea, and it has never been observed directly.",
+        "Because it orbits backwards, tides are dragging it in. In about three and a half billion years it will pass Neptune’s Roche limit and become a ring."
+      ]
+    },
+    "Nereid": {
+      "found": "Gerard Kuiper, 1949",
+      "tagline": "The most eccentric orbit of any moon in the solar system.",
+      "facts": [
+        "Its distance from Neptune varies by a factor of seven over one orbit — it is almost certainly a survivor of whatever disruption Triton’s capture caused."
+      ]
+    },
+    "Proteus": {
+      "found": "Voyager 2, 1989 — too dark and too close to Neptune to be seen from Earth",
+      "tagline": "Just about the largest a body can be and still not be round.",
+      "facts": [
+        "It sits right at the size where gravity starts winning against material strength, and it has not quite lost."
+      ]
+    },
+    "Charon": {
+      "found": "James Christy, 1978, as a bump that kept moving round the edge of Pluto on photographic plates",
+      "tagline": "Half Pluto’s width. The two do not orbit each other so much as orbit a point in the empty space between them.",
+      "facts": [
+        "That balance point lies OUTSIDE Pluto’s surface, which is true of no planet-and-moon pair in the solar system. They are a genuine double system.",
+        "Both are tidally locked to each other: from one side of Pluto, Charon hangs motionless in the sky forever, and from the other it is never seen at all.",
+        "Its north pole is a deep red cap — methane escaping from Pluto, freezing out on the coldest ground on Charon, and being cooked by ultraviolet into tholins.",
+        "Serenity Chasma is part of a canyon system running about 1,800 km, four times the length of the Grand Canyon and twice as deep."
+      ],
+      "questions": [
+        "The tectonics say Charon once had an ocean that froze and expanded, splitting the crust. Whether anything is left of it is unknown."
+      ]
+    },
+    "Nix": {
+      "found": "Hubble Space Telescope, 2005",
+      "tagline": "One of four small moons that tumble unpredictably, because they are orbiting a pair rather than a point.",
+      "facts": [
+        "With two large bodies at the centre, the gravity field a small moon feels changes as the pair rotates, so its spin never settles. Nix and Hydra both tumble chaotically.",
+        "Nix would send its \"day\" from one length to another within a couple of orbits — sunrise on it is not a schedule, it is a surprise."
+      ]
+    }
+  }
+}

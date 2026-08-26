@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /api/og
+Disallow: /not-found
+Disallow: /admin
+Disallow: /api
+
+Sitemap: https://timeandspace.science/sitemap.xml

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reports (admin)</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+  :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  body{margin:0;background:#0b1026;color:#f8fafc;line-height:1.5}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 18px 64px}
+  h1{font-size:22px}
+  p{color:#a5b4fc}
+  input,button{font-size:15px;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.2)}
+  input{background:rgba(0,0,0,.3);color:#fff;min-width:240px}
+  button{background:#fcd34d;color:#1e1b4b;font-weight:700;border:none;cursor:pointer}
+  select{font-size:15px;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.3);color:#fff;margin-top:12px}
+  table{width:100%;border-collapse:collapse;margin-top:18px;font-size:14px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.12);vertical-align:top}
+  th{color:#a5b4fc;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+  .reason{font-weight:700}
+  .muted{color:#94a3b8;font-size:12px}
+  a{color:#7dd3fc;word-break:break-all}
+  .note{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px;margin-top:14px;font-size:13px;color:#cbd5e1}
+  code{background:rgba(0,0,0,.35);padding:1px 5px;border-radius:5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🚩 Reports</h1>
+  <p>Abuse reports, wrong-date corrections and event suggestions submitted through the site's forms.</p>
+  <div>
+    <input id="key" type="password" placeholder="Admin key (MOD_LOG_KEY)" autocomplete="current-password">
+    <button id="go">Load</button>
+  </div>
+  <p id="status" class="muted"></p>
+  <select id="filter" hidden aria-label="Filter by report type"></select>
+  <div id="out"></div>
+  <div class="note">
+    <strong>Where reports live:</strong> each submission is stored in Cloudflare KV for 90 days and, if email is configured, sent to you. For this page to work, in
+    Cloudflare Pages → Settings → Functions set <code>MOD_LOG_KEY</code> (a long secret) and bind a KV namespace named <code>RATE</code>.
+    For email delivery, also set <code>RESEND_API_KEY</code>, <code>FROM_EMAIL</code> and (optionally) <code>REPORT_EMAIL</code>.
+    This page is <code>noindex</code> and data is only returned with the correct key.
+  </div>
+</div>
+<script>
+(function(){
+  var keyEl=document.getElementById("key"),out=document.getElementById("out"),st=document.getElementById("status"),filterEl=document.getElementById("filter");
+  var m=/[?&]key=([^&#]+)/.exec(location.search); if(m){try{keyEl.value=decodeURIComponent(m[1]);}catch(e){}}
+  var all=[];
+  function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+  function render(){
+    var pick=filterEl.value;
+    var items=pick?all.filter(function(it){return (it.reason||"(no reason)")===pick;}):all;
+    st.textContent=pick?(items.length+" of "+all.length+" report(s) — "+pick):(all.length+" report(s).");
+    if(!items.length){out.innerHTML="<p class='muted'>No reports match this type.</p>";return;}
+    var rows=items.map(function(it){
+      var when=it.at?new Date(it.at).toLocaleString():"";
+      var link=it.url?("<a href='"+esc(it.url)+"' target='_blank' rel='noopener'>"+esc(it.url)+"</a>"):"";
+      return "<tr><td class='muted'>"+esc(when)+"</td>"+
+        "<td class='reason'>"+esc(it.reason)+"</td>"+
+        "<td>"+link+"</td>"+
+        "<td>"+esc(it.details)+"</td>"+
+        "<td>"+esc(it.email)+"<div class='muted'>"+esc(it.ip)+"</div></td></tr>";
+    }).join("");
+    out.innerHTML="<table><thead><tr><th>When</th><th>Reason</th><th>URL</th><th>Details</th><th>Reporter</th></tr></thead><tbody>"+rows+"</tbody></table>";
+  }
+  function buildFilter(){
+    var counts={};
+    all.forEach(function(it){var r=it.reason||"(no reason)";counts[r]=(counts[r]||0)+1;});
+    var names=Object.keys(counts).sort();
+    filterEl.innerHTML="<option value=''>All reports ("+all.length+")</option>"+names.map(function(n){
+      return "<option value='"+esc(n)+"'>"+esc(n)+" ("+counts[n]+")</option>";
+    }).join("");
+    filterEl.hidden=false;
+  }
+  function load(){
+    var k=keyEl.value.trim(); if(!k){st.textContent="Enter your admin key.";return;}
+    st.textContent="Loading…"; out.innerHTML=""; filterEl.hidden=true;
+    /* header, not ?key= — a secret in the query string lands in browser
+       history, the Referer header and every proxy log on the way */
+    try{ localStorage.setItem("ac_adminkey",k); }catch(_){}
+    fetch("/api/reports",{headers:{"X-Admin-Key":k}})
+      .then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d};});})
+      .then(function(x){
+        if(!x.ok){st.textContent=(x.d&&x.d.error)||"Error.";return;}
+        all=x.d.items||[];
+        if(!all.length){st.textContent="0 report(s).";out.innerHTML="<p class='muted'>No reports stored yet. (If you expected one, the RATE KV binding may not be configured — see the note below.)</p>";return;}
+        buildFilter();
+        render();
+      })
+      .catch(function(){st.textContent="Network error.";});
+  }
+  filterEl.addEventListener("change",render);
+  document.getElementById("go").addEventListener("click",load);
+  keyEl.addEventListener("keydown",function(e){if(e.key==="Enter")load();});
+  if(keyEl.value)load();
+})();
+</script>
+</body>
+</html>

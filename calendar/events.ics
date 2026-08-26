@@ -1,0 +1,1631 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//timeandspace.science//Events Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Time and Space Science countdowns
+X-WR-CALDESC:Holidays\, celebrity birthdays\, sports and other dates counted down on Time and Space Science.
+X-PUBLISHED-TTL:PT24H
+BEGIN:VEVENT
+UID:birthday-countdowns-zendaya@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+SUMMARY:Zendaya
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/z
+ endaya/
+URL:https://timeandspace.science/birthday-countdowns/zendaya/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-keanu-reeves@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20260902
+DTEND;VALUE=DATE:20260903
+SUMMARY:Keanu Reeves
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/k
+ eanu-reeves/
+URL:https://timeandspace.science/birthday-countdowns/keanu-reeves/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-beyonce@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20260904
+DTEND;VALUE=DATE:20260905
+SUMMARY:Beyoncé
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/b
+ eyonce/
+URL:https://timeandspace.science/birthday-countdowns/beyonce/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-labor-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20260907
+DTEND;VALUE=DATE:20260908
+SUMMARY:Labor Day
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/la
+ bor-day/
+URL:https://timeandspace.science/holiday-countdowns/labor-day/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-nfl-kickoff@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20260909
+DTEND;VALUE=DATE:20260910
+SUMMARY:NFL Kickoff
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/nfl
+ -kickoff/
+URL:https://timeandspace.science/sports-countdowns/nfl-kickoff/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-the-pope@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20260914
+DTEND;VALUE=DATE:20260915
+SUMMARY:Pope Leo XIV
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/t
+ he-pope/
+URL:https://timeandspace.science/birthday-countdowns/the-pope/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-patrick-mahomes@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20260917
+DTEND;VALUE=DATE:20260918
+SUMMARY:Patrick Mahomes
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/p
+ atrick-mahomes/
+URL:https://timeandspace.science/birthday-countdowns/patrick-mahomes/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-fall-equinox@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20260923
+DTEND;VALUE=DATE:20260924
+SUMMARY:First Day of Fall
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/fa
+ ll-equinox/
+URL:https://timeandspace.science/holiday-countdowns/fall-equinox/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-serena-williams@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20260926
+DTEND;VALUE=DATE:20260927
+SUMMARY:Serena Williams
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/s
+ erena-williams/
+URL:https://timeandspace.science/birthday-countdowns/serena-williams/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-travis-kelce@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261005
+DTEND;VALUE=DATE:20261006
+SUMMARY:Travis Kelce
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/t
+ ravis-kelce/
+URL:https://timeandspace.science/birthday-countdowns/travis-kelce/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-ryan-trahan@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261007
+DTEND;VALUE=DATE:20261008
+SUMMARY:Ryan Trahan
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/r
+ yan-trahan/
+URL:https://timeandspace.science/birthday-countdowns/ryan-trahan/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-bruno-mars@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261008
+DTEND;VALUE=DATE:20261009
+SUMMARY:Bruno Mars
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/b
+ runo-mars/
+URL:https://timeandspace.science/birthday-countdowns/bruno-mars/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-columbus-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261012
+DTEND;VALUE=DATE:20261013
+SUMMARY:Columbus Day
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/co
+ lumbus-day/
+URL:https://timeandspace.science/holiday-countdowns/columbus-day/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-world-series@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261020
+DTEND;VALUE=DATE:20261021
+SUMMARY:World Series
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/wor
+ ld-series/
+URL:https://timeandspace.science/sports-countdowns/world-series/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-ryan-reynolds@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261023
+DTEND;VALUE=DATE:20261024
+SUMMARY:Ryan Reynolds
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/r
+ yan-reynolds/
+URL:https://timeandspace.science/birthday-countdowns/ryan-reynolds/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-bill-gates@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261028
+DTEND;VALUE=DATE:20261029
+SUMMARY:Bill Gates
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/b
+ ill-gates/
+URL:https://timeandspace.science/birthday-countdowns/bill-gates/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-halloween@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:Halloween
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ha
+ lloween/
+URL:https://timeandspace.science/holiday-countdowns/halloween/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-dst-ends@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261101
+DTEND;VALUE=DATE:20261102
+SUMMARY:Clocks Fall Back
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ds
+ t-ends/
+URL:https://timeandspace.science/holiday-countdowns/dst-ends/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:political-countdowns-election-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261103
+DTEND;VALUE=DATE:20261104
+SUMMARY:Midterm Elections 2026
+DESCRIPTION:Countdown: https://timeandspace.science/political-countdowns/
+ election-day/
+URL:https://timeandspace.science/political-countdowns/election-day/
+CATEGORIES:Politics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-diwali@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261108
+DTEND;VALUE=DATE:20261109
+SUMMARY:Diwali
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/di
+ wali/
+URL:https://timeandspace.science/holiday-countdowns/diwali/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-gordon-ramsay@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261108
+DTEND;VALUE=DATE:20261109
+SUMMARY:Gordon Ramsay
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/g
+ ordon-ramsay/
+URL:https://timeandspace.science/birthday-countdowns/gordon-ramsay/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-veterans-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261111
+DTEND;VALUE=DATE:20261112
+SUMMARY:Veterans Day
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ve
+ terans-day/
+URL:https://timeandspace.science/holiday-countdowns/veterans-day/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-leonardo-dicaprio@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261111
+DTEND;VALUE=DATE:20261112
+SUMMARY:Leonardo DiCaprio
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/l
+ eonardo-dicaprio/
+URL:https://timeandspace.science/birthday-countdowns/leonardo-dicaprio/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-king-charles@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261114
+DTEND;VALUE=DATE:20261115
+SUMMARY:King Charles III
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/k
+ ing-charles/
+URL:https://timeandspace.science/birthday-countdowns/king-charles/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-scarlett-johansson@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261122
+DTEND;VALUE=DATE:20261123
+SUMMARY:Scarlett Johansson
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/s
+ carlett-johansson/
+URL:https://timeandspace.science/birthday-countdowns/scarlett-johansson/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-thanksgiving@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261126
+DTEND;VALUE=DATE:20261127
+SUMMARY:Thanksgiving
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/th
+ anksgiving/
+URL:https://timeandspace.science/holiday-countdowns/thanksgiving/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-macys-parade@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261126
+DTEND;VALUE=DATE:20261127
+SUMMARY:Macy's Thanksgiving Parade
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ma
+ cys-parade/
+URL:https://timeandspace.science/holiday-countdowns/macys-parade/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-hanukkah@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261204
+DTEND;VALUE=DATE:20261205
+SUMMARY:Hanukkah
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ha
+ nukkah/
+URL:https://timeandspace.science/holiday-countdowns/hanukkah/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-taylor-swift@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261213
+DTEND;VALUE=DATE:20261214
+SUMMARY:Taylor Swift
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/t
+ aylor-swift/
+URL:https://timeandspace.science/birthday-countdowns/taylor-swift/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:astronomy-countdowns-geminids@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261214
+DTEND;VALUE=DATE:20261215
+SUMMARY:Geminid Meteor Shower
+DESCRIPTION:Countdown: https://timeandspace.science/astronomy-countdowns/
+ geminids/
+URL:https://timeandspace.science/astronomy-countdowns/geminids/
+CATEGORIES:Astronomy
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-billie-eilish@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261218
+DTEND;VALUE=DATE:20261219
+SUMMARY:Billie Eilish
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/b
+ illie-eilish/
+URL:https://timeandspace.science/birthday-countdowns/billie-eilish/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-winter-solstice@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261221
+DTEND;VALUE=DATE:20261222
+SUMMARY:Winter Solstice
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/wi
+ nter-solstice/
+URL:https://timeandspace.science/holiday-countdowns/winter-solstice/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-christmas@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261225
+DTEND;VALUE=DATE:20261226
+SUMMARY:Christmas
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ch
+ ristmas/
+URL:https://timeandspace.science/holiday-countdowns/christmas/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-timothee-chalamet@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261227
+DTEND;VALUE=DATE:20261228
+SUMMARY:Timothée Chalamet
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/t
+ imothee-chalamet/
+URL:https://timeandspace.science/birthday-countdowns/timothee-chalamet/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-lebron-james@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20261230
+DTEND;VALUE=DATE:20261231
+SUMMARY:LeBron James
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/l
+ ebron-james/
+URL:https://timeandspace.science/birthday-countdowns/lebron-james/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-new-year@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270101
+DTEND;VALUE=DATE:20270102
+SUMMARY:New Year
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ne
+ w-year/
+URL:https://timeandspace.science/holiday-countdowns/new-year/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-rose-parade@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270101
+DTEND;VALUE=DATE:20270102
+SUMMARY:Rose Parade
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ro
+ se-parade/
+URL:https://timeandspace.science/holiday-countdowns/rose-parade/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-martin-luther-king-jr@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270115
+DTEND;VALUE=DATE:20270116
+SUMMARY:Martin Luther King Jr.
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/m
+ artin-luther-king-jr/
+URL:https://timeandspace.science/birthday-countdowns/martin-luther-king-j
+ r/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-mlk-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270118
+DTEND;VALUE=DATE:20270119
+SUMMARY:MLK Day
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ml
+ k-day/
+URL:https://timeandspace.science/holiday-countdowns/mlk-day/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-dolly-parton@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270119
+DTEND;VALUE=DATE:20270120
+SUMMARY:Dolly Parton
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/d
+ olly-parton/
+URL:https://timeandspace.science/birthday-countdowns/dolly-parton/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-oprah-winfrey@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270129
+DTEND;VALUE=DATE:20270130
+SUMMARY:Oprah Winfrey
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/o
+ prah-winfrey/
+URL:https://timeandspace.science/birthday-countdowns/oprah-winfrey/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-harry-styles@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270201
+DTEND;VALUE=DATE:20270202
+SUMMARY:Harry Styles
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/h
+ arry-styles/
+URL:https://timeandspace.science/birthday-countdowns/harry-styles/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-shakira@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270202
+DTEND;VALUE=DATE:20270203
+SUMMARY:Shakira
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/s
+ hakira/
+URL:https://timeandspace.science/birthday-countdowns/shakira/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-zach-king@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270204
+DTEND;VALUE=DATE:20270205
+SUMMARY:Zach King
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/z
+ ach-king/
+URL:https://timeandspace.science/birthday-countdowns/zach-king/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-cristiano-ronaldo@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270205
+DTEND;VALUE=DATE:20270206
+SUMMARY:Cristiano Ronaldo
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/c
+ ristiano-ronaldo/
+URL:https://timeandspace.science/birthday-countdowns/cristiano-ronaldo/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-lunar-new-year@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270206
+DTEND;VALUE=DATE:20270207
+SUMMARY:Lunar New Year
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/lu
+ nar-new-year/
+URL:https://timeandspace.science/holiday-countdowns/lunar-new-year/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-abraham-lincoln@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270212
+DTEND;VALUE=DATE:20270213
+SUMMARY:Abraham Lincoln
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/a
+ braham-lincoln/
+URL:https://timeandspace.science/birthday-countdowns/abraham-lincoln/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-valentines-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270214
+DTEND;VALUE=DATE:20270215
+SUMMARY:Valentine's Day
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/va
+ lentines-day/
+URL:https://timeandspace.science/holiday-countdowns/valentines-day/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-super-bowl@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270214
+DTEND;VALUE=DATE:20270215
+SUMMARY:Super Bowl LXI
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/sup
+ er-bowl/
+URL:https://timeandspace.science/sports-countdowns/super-bowl/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-presidents-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270215
+DTEND;VALUE=DATE:20270216
+SUMMARY:Presidents' Day
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/pr
+ esidents-day/
+URL:https://timeandspace.science/holiday-countdowns/presidents-day/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-michael-jordan@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270217
+DTEND;VALUE=DATE:20270218
+SUMMARY:Michael Jordan
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/m
+ ichael-jordan/
+URL:https://timeandspace.science/birthday-countdowns/michael-jordan/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-ed-sheeran@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270217
+DTEND;VALUE=DATE:20270218
+SUMMARY:Ed Sheeran
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/e
+ d-sheeran/
+URL:https://timeandspace.science/birthday-countdowns/ed-sheeran/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-olivia-rodrigo@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270220
+DTEND;VALUE=DATE:20270221
+SUMMARY:Olivia Rodrigo
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/o
+ livia-rodrigo/
+URL:https://timeandspace.science/birthday-countdowns/olivia-rodrigo/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-daytona-500@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270221
+DTEND;VALUE=DATE:20270222
+SUMMARY:Daytona 500
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/day
+ tona-500/
+URL:https://timeandspace.science/sports-countdowns/daytona-500/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-george-washington@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270222
+DTEND;VALUE=DATE:20270223
+SUMMARY:George Washington
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/g
+ eorge-washington/
+URL:https://timeandspace.science/birthday-countdowns/george-washington/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-dr-seuss@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270302
+DTEND;VALUE=DATE:20270303
+SUMMARY:Dr. Seuss
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/d
+ r-seuss/
+URL:https://timeandspace.science/birthday-countdowns/dr-seuss/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-mark-rober@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270311
+DTEND;VALUE=DATE:20270312
+SUMMARY:Mark Rober
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/m
+ ark-rober/
+URL:https://timeandspace.science/birthday-countdowns/mark-rober/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-white-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270314
+DTEND;VALUE=DATE:20270315
+SUMMARY:White Day
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/wh
+ ite-day/
+URL:https://timeandspace.science/holiday-countdowns/white-day/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-dst-begins@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270314
+DTEND;VALUE=DATE:20270315
+SUMMARY:Clocks Spring Forward
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ds
+ t-begins/
+URL:https://timeandspace.science/holiday-countdowns/dst-begins/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-selection-sunday@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270314
+DTEND;VALUE=DATE:20270315
+SUMMARY:Selection Sunday
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/sel
+ ection-sunday/
+URL:https://timeandspace.science/sports-countdowns/selection-sunday/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-stephen-curry@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270314
+DTEND;VALUE=DATE:20270315
+SUMMARY:Stephen Curry
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/s
+ tephen-curry/
+URL:https://timeandspace.science/birthday-countdowns/stephen-curry/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-simone-biles@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270314
+DTEND;VALUE=DATE:20270315
+SUMMARY:Simone Biles
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/s
+ imone-biles/
+URL:https://timeandspace.science/birthday-countdowns/simone-biles/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-st-patricks-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270317
+DTEND;VALUE=DATE:20270318
+SUMMARY:St. Patrick's Day
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/st
+ -patricks-day/
+URL:https://timeandspace.science/holiday-countdowns/st-patricks-day/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-spring-equinox@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270320
+DTEND;VALUE=DATE:20270321
+SUMMARY:First Day of Spring
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/sp
+ ring-equinox/
+URL:https://timeandspace.science/holiday-countdowns/spring-equinox/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-easter@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270328
+DTEND;VALUE=DATE:20270329
+SUMMARY:Easter
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ea
+ ster/
+URL:https://timeandspace.science/holiday-countdowns/easter/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-lady-gaga@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270328
+DTEND;VALUE=DATE:20270329
+SUMMARY:Lady Gaga
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/l
+ ady-gaga/
+URL:https://timeandspace.science/birthday-countdowns/lady-gaga/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-mlb-opening-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270401
+DTEND;VALUE=DATE:20270402
+SUMMARY:MLB Opening Day
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/mlb
+ -opening-day/
+URL:https://timeandspace.science/sports-countdowns/mlb-opening-day/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-march-madness@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270405
+DTEND;VALUE=DATE:20270406
+SUMMARY:March Madness Final 2027
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/mar
+ ch-madness/
+URL:https://timeandspace.science/sports-countdowns/march-madness/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-dude-perfect@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270409
+DTEND;VALUE=DATE:20270410
+SUMMARY:Dude Perfect
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/d
+ ude-perfect/
+URL:https://timeandspace.science/birthday-countdowns/dude-perfect/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-wrestlemania@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270410
+DTEND;VALUE=DATE:20270411
+SUMMARY:WrestleMania
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/wre
+ stlemania/
+URL:https://timeandspace.science/sports-countdowns/wrestlemania/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-masters@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270411
+DTEND;VALUE=DATE:20270412
+SUMMARY:The Masters
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/mas
+ ters/
+URL:https://timeandspace.science/sports-countdowns/masters/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-tax-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270415
+DTEND;VALUE=DATE:20270416
+SUMMARY:Tax Day
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ta
+ x-day/
+URL:https://timeandspace.science/holiday-countdowns/tax-day/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-emma-watson@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270415
+DTEND;VALUE=DATE:20270416
+SUMMARY:Emma Watson
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/e
+ mma-watson/
+URL:https://timeandspace.science/birthday-countdowns/emma-watson/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-boston-marathon@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270419
+DTEND;VALUE=DATE:20270420
+SUMMARY:Boston Marathon
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/bos
+ ton-marathon/
+URL:https://timeandspace.science/sports-countdowns/boston-marathon/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-nfl-draft@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270429
+DTEND;VALUE=DATE:20270430
+SUMMARY:NFL Draft
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/nfl
+ -draft/
+URL:https://timeandspace.science/sports-countdowns/nfl-draft/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-florida@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270430
+DTEND;VALUE=DATE:20270501
+SUMMARY:University of Florida Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /florida/
+URL:https://timeandspace.science/graduation-countdowns/florida/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-kentucky-derby@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270501
+DTEND;VALUE=DATE:20270502
+SUMMARY:Kentucky Derby
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/ken
+ tucky-derby/
+URL:https://timeandspace.science/sports-countdowns/kentucky-derby/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-auburn@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270501
+DTEND;VALUE=DATE:20270502
+SUMMARY:Auburn Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /auburn/
+URL:https://timeandspace.science/graduation-countdowns/auburn/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-dwayne-johnson@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270502
+DTEND;VALUE=DATE:20270503
+SUMMARY:Dwayne Johnson
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/d
+ wayne-johnson/
+URL:https://timeandspace.science/birthday-countdowns/dwayne-johnson/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-star-wars-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270504
+DTEND;VALUE=DATE:20270505
+SUMMARY:Star Wars Day
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/st
+ ar-wars-day/
+URL:https://timeandspace.science/holiday-countdowns/star-wars-day/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-cinco-de-mayo@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270505
+DTEND;VALUE=DATE:20270506
+SUMMARY:Cinco de Mayo
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ci
+ nco-de-mayo/
+URL:https://timeandspace.science/holiday-countdowns/cinco-de-mayo/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-clemson@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270505
+DTEND;VALUE=DATE:20270506
+SUMMARY:Clemson Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /clemson/
+URL:https://timeandspace.science/graduation-countdowns/clemson/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-adele@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270505
+DTEND;VALUE=DATE:20270506
+SUMMARY:Adele
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/a
+ dele/
+URL:https://timeandspace.science/birthday-countdowns/adele/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-alabama@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270507
+DTEND;VALUE=DATE:20270508
+SUMMARY:Alabama Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /alabama/
+URL:https://timeandspace.science/graduation-countdowns/alabama/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-georgia@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270507
+DTEND;VALUE=DATE:20270508
+SUMMARY:UGA Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /georgia/
+URL:https://timeandspace.science/graduation-countdowns/georgia/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-mrbeast@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270507
+DTEND;VALUE=DATE:20270508
+SUMMARY:MrBeast
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/m
+ rbeast/
+URL:https://timeandspace.science/birthday-countdowns/mrbeast/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-ut-austin@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270508
+DTEND;VALUE=DATE:20270509
+SUMMARY:UT Austin Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /ut-austin/
+URL:https://timeandspace.science/graduation-countdowns/ut-austin/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-michigan@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270508
+DTEND;VALUE=DATE:20270509
+SUMMARY:University of Michigan Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /michigan/
+URL:https://timeandspace.science/graduation-countdowns/michigan/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-penn-state@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270508
+DTEND;VALUE=DATE:20270509
+SUMMARY:Penn State Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /penn-state/
+URL:https://timeandspace.science/graduation-countdowns/penn-state/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-wisconsin@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270508
+DTEND;VALUE=DATE:20270509
+SUMMARY:UW–Madison Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /wisconsin/
+URL:https://timeandspace.science/graduation-countdowns/wisconsin/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-north-carolina@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270508
+DTEND;VALUE=DATE:20270509
+SUMMARY:UNC Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /north-carolina/
+URL:https://timeandspace.science/graduation-countdowns/north-carolina/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-mothers-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270509
+DTEND;VALUE=DATE:20270510
+SUMMARY:Mother's Day
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/mo
+ thers-day/
+URL:https://timeandspace.science/holiday-countdowns/mothers-day/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-ohio-state@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270509
+DTEND;VALUE=DATE:20270510
+SUMMARY:Ohio State Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /ohio-state/
+URL:https://timeandspace.science/graduation-countdowns/ohio-state/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-arizona-state@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270510
+DTEND;VALUE=DATE:20270511
+SUMMARY:ASU Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /arizona-state/
+URL:https://timeandspace.science/graduation-countdowns/arizona-state/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-texas-am@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270512
+DTEND;VALUE=DATE:20270513
+SUMMARY:Texas A&M Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /texas-am/
+URL:https://timeandspace.science/graduation-countdowns/texas-am/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-usc@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270513
+DTEND;VALUE=DATE:20270514
+SUMMARY:USC Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /usc/
+URL:https://timeandspace.science/graduation-countdowns/usc/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-nyu@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270513
+DTEND;VALUE=DATE:20270514
+SUMMARY:NYU Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /nyu/
+URL:https://timeandspace.science/graduation-countdowns/nyu/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-tennessee@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270513
+DTEND;VALUE=DATE:20270514
+SUMMARY:UT Knoxville Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /tennessee/
+URL:https://timeandspace.science/graduation-countdowns/tennessee/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-purdue@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270514
+DTEND;VALUE=DATE:20270515
+SUMMARY:Purdue Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /purdue/
+URL:https://timeandspace.science/graduation-countdowns/purdue/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-virginia-tech@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270514
+DTEND;VALUE=DATE:20270515
+SUMMARY:Virginia Tech Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /virginia-tech/
+URL:https://timeandspace.science/graduation-countdowns/virginia-tech/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-berkeley@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270515
+DTEND;VALUE=DATE:20270516
+SUMMARY:UC Berkeley Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /berkeley/
+URL:https://timeandspace.science/graduation-countdowns/berkeley/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-chico-state@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270519
+DTEND;VALUE=DATE:20270520
+SUMMARY:Chico State Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /chico-state/
+URL:https://timeandspace.science/graduation-countdowns/chico-state/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-nick-digiovanni@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270519
+DTEND;VALUE=DATE:20270520
+SUMMARY:Nick DiGiovanni
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/n
+ ick-digiovanni/
+URL:https://timeandspace.science/birthday-countdowns/nick-digiovanni/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-harvard@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270527
+DTEND;VALUE=DATE:20270528
+SUMMARY:Harvard Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /harvard/
+URL:https://timeandspace.science/graduation-countdowns/harvard/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-mit@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270527
+DTEND;VALUE=DATE:20270528
+SUMMARY:MIT Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /mit/
+URL:https://timeandspace.science/graduation-countdowns/mit/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-indy-500@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270530
+DTEND;VALUE=DATE:20270531
+SUMMARY:Indianapolis 500
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/ind
+ y-500/
+URL:https://timeandspace.science/sports-countdowns/indy-500/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-memorial-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270531
+DTEND;VALUE=DATE:20270601
+SUMMARY:Memorial Day
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/me
+ morial-day/
+URL:https://timeandspace.science/holiday-countdowns/memorial-day/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-high-school@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270605
+DTEND;VALUE=DATE:20270606
+SUMMARY:High School Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /high-school/
+URL:https://timeandspace.science/graduation-countdowns/high-school/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-monaco-grand-prix@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270606
+DTEND;VALUE=DATE:20270607
+SUMMARY:Monaco Grand Prix
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/mon
+ aco-grand-prix/
+URL:https://timeandspace.science/sports-countdowns/monaco-grand-prix/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-ucla@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270611
+DTEND;VALUE=DATE:20270612
+SUMMARY:UCLA Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /ucla/
+URL:https://timeandspace.science/graduation-countdowns/ucla/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-washington@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270612
+DTEND;VALUE=DATE:20270613
+SUMMARY:UW Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /washington/
+URL:https://timeandspace.science/graduation-countdowns/washington/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-stanford@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270613
+DTEND;VALUE=DATE:20270614
+SUMMARY:Stanford Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /stanford/
+URL:https://timeandspace.science/graduation-countdowns/stanford/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:graduation-countdowns-oregon@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270614
+DTEND;VALUE=DATE:20270615
+SUMMARY:University of Oregon Graduation
+DESCRIPTION:Countdown: https://timeandspace.science/graduation-countdowns
+ /oregon/
+URL:https://timeandspace.science/graduation-countdowns/oregon/
+CATEGORIES:Graduations
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-juneteenth@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270619
+DTEND;VALUE=DATE:20270620
+SUMMARY:Juneteenth
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ju
+ neteenth/
+URL:https://timeandspace.science/holiday-countdowns/juneteenth/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-fathers-day@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270620
+DTEND;VALUE=DATE:20270621
+SUMMARY:Father's Day
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/fa
+ thers-day/
+URL:https://timeandspace.science/holiday-countdowns/fathers-day/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-summer-solstice@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270621
+DTEND;VALUE=DATE:20270622
+SUMMARY:Summer Solstice
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/su
+ mmer-solstice/
+URL:https://timeandspace.science/holiday-countdowns/summer-solstice/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-lionel-messi@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270624
+DTEND;VALUE=DATE:20270625
+SUMMARY:Lionel Messi
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/l
+ ionel-messi/
+URL:https://timeandspace.science/birthday-countdowns/lionel-messi/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-ariana-grande@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270626
+DTEND;VALUE=DATE:20270627
+SUMMARY:Ariana Grande
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/a
+ riana-grande/
+URL:https://timeandspace.science/birthday-countdowns/ariana-grande/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-wimbledon@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270628
+DTEND;VALUE=DATE:20270629
+SUMMARY:Wimbledon
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/wim
+ bledon/
+URL:https://timeandspace.science/sports-countdowns/wimbledon/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-tour-de-france@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270702
+DTEND;VALUE=DATE:20270703
+SUMMARY:Tour de France
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/tou
+ r-de-france/
+URL:https://timeandspace.science/sports-countdowns/tour-de-france/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-tom-cruise@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270703
+DTEND;VALUE=DATE:20270704
+SUMMARY:Tom Cruise
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/t
+ om-cruise/
+URL:https://timeandspace.science/birthday-countdowns/tom-cruise/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:holiday-countdowns-july-4th@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270704
+DTEND;VALUE=DATE:20270705
+SUMMARY:July 4th
+DESCRIPTION:Countdown: https://timeandspace.science/holiday-countdowns/ju
+ ly-4th/
+URL:https://timeandspace.science/holiday-countdowns/july-4th/
+CATEGORIES:Holidays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-shohei-ohtani@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270705
+DTEND;VALUE=DATE:20270706
+SUMMARY:Shohei Ohtani
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/s
+ hohei-ohtani/
+URL:https://timeandspace.science/birthday-countdowns/shohei-ohtani/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-selena-gomez@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270722
+DTEND;VALUE=DATE:20270723
+SUMMARY:Selena Gomez
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/s
+ elena-gomez/
+URL:https://timeandspace.science/birthday-countdowns/selena-gomez/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:astronomy-countdowns-solar-eclipse@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270802
+DTEND;VALUE=DATE:20270803
+SUMMARY:Total Solar Eclipse 2027
+DESCRIPTION:Countdown: https://timeandspace.science/astronomy-countdowns/
+ solar-eclipse/
+URL:https://timeandspace.science/astronomy-countdowns/solar-eclipse/
+CATEGORIES:Astronomy
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-tom-brady@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270803
+DTEND;VALUE=DATE:20270804
+SUMMARY:Tom Brady
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/t
+ om-brady/
+URL:https://timeandspace.science/birthday-countdowns/tom-brady/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-roger-federer@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270808
+DTEND;VALUE=DATE:20270809
+SUMMARY:Roger Federer
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/r
+ oger-federer/
+URL:https://timeandspace.science/birthday-countdowns/roger-federer/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:astronomy-countdowns-perseids@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270812
+DTEND;VALUE=DATE:20270813
+SUMMARY:Perseid Meteor Shower
+DESCRIPTION:Countdown: https://timeandspace.science/astronomy-countdowns/
+ perseids/
+URL:https://timeandspace.science/astronomy-countdowns/perseids/
+CATEGORIES:Astronomy
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-jennifer-lawrence@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270815
+DTEND;VALUE=DATE:20270816
+SUMMARY:Jennifer Lawrence
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/j
+ ennifer-lawrence/
+URL:https://timeandspace.science/birthday-countdowns/jennifer-lawrence/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-usain-bolt@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270821
+DTEND;VALUE=DATE:20270822
+SUMMARY:Usain Bolt
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/u
+ sain-bolt/
+URL:https://timeandspace.science/birthday-countdowns/usain-bolt/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:birthday-countdowns-dua-lipa@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20270822
+DTEND;VALUE=DATE:20270823
+SUMMARY:Dua Lipa
+DESCRIPTION:Countdown: https://timeandspace.science/birthday-countdowns/d
+ ua-lipa/
+URL:https://timeandspace.science/birthday-countdowns/dua-lipa/
+CATEGORIES:Birthdays
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-olympics@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20280714
+DTEND;VALUE=DATE:20280715
+SUMMARY:LA 2028 Olympics
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/oly
+ mpics/
+URL:https://timeandspace.science/sports-countdowns/olympics/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:political-countdowns-presidential-election@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20281107
+DTEND;VALUE=DATE:20281108
+SUMMARY:Presidential Election 2028
+DESCRIPTION:Countdown: https://timeandspace.science/political-countdowns/
+ presidential-election/
+URL:https://timeandspace.science/political-countdowns/presidential-electi
+ on/
+CATEGORIES:Politics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:political-countdowns-inauguration@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20290120
+DTEND;VALUE=DATE:20290121
+SUMMARY:Inauguration Day 2029
+DESCRIPTION:Countdown: https://timeandspace.science/political-countdowns/
+ inauguration/
+URL:https://timeandspace.science/political-countdowns/inauguration/
+CATEGORIES:Politics
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sports-countdowns-world-cup@timeandspace.science
+DTSTAMP:20260826T000000Z
+DTSTART;VALUE=DATE:20300608
+DTEND;VALUE=DATE:20300609
+SUMMARY:World Cup 2030
+DESCRIPTION:Countdown: https://timeandspace.science/sports-countdowns/wor
+ ld-cup/
+URL:https://timeandspace.science/sports-countdowns/world-cup/
+CATEGORIES:Sports
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

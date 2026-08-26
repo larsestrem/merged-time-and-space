@@ -1,0 +1,147 @@
+# Cloudflare Pages cache headers for timeandspace.science.
+#
+# Cloudflare is set to "use the Cache-Control header if present, bypass if not",
+# so every static file needs a header here to be cached. CSS + per-page JS are
+# inlined into each HTML file, so the HTML *is* the whole page — it must never
+# serve stale after a deploy.
+#
+# Default: browsers revalidate on every load (instant freshness — a browser
+# cache can't be purged remotely), while Cloudflare's edge caches. A Pages
+# deploy purges the build cache but does NOT reliably purge the zone-level CDN
+# cache, so s-maxage is how long a deploy can stay invisible.
+#
+# It was 3600, paired with the hourly rebuild, on the reasoning that the edge
+# would self-refresh within an hour. In practice that made every deploy look
+# like it had failed: push, watch the build succeed, load the page, see the old
+# one, for up to an hour with no way to tell a cache hit from a broken deploy.
+# 300 means a deploy is visible in at most five minutes. The cost is more
+# revalidation requests to the Pages origin, which is free and static — a much
+# better trade than an hour of ambiguity. The hourly rebuild still exists for
+# the baked "today" values (sun, tides, "days until"); this only controls how
+# fast a NEW build reaches visitors.
+#
+# `must-revalidate` was dropped and `stale-while-revalidate=300` added: with
+# max-age=0 the browser still checks back on every navigation, but it now paints
+# the cached copy IMMEDIATELY and revalidates behind the paint instead of
+# blocking first paint on the conditional request. On this site the HTML *is*
+# the render-critical resource (CSS and JS are inlined into it), so that is the
+# largest repeat-visit win available without touching freshness: the staleness
+# window is the same 300s the edge already allows.
+#
+# s-maxage stays at 300 deliberately, and the hour is bought elsewhere. Raising
+# it to 3600 (matching the rebuild cadence) turns most first visits into edge
+# HITs — ~200ms instead of the 600-800ms an origin MISS costs — but only once a
+# deploy actively PURGES the zone cache, otherwise it restores the "deploy
+# invisible for an hour" problem described above.
+#
+# That purge is set up in the Cloudflare account, not here: a Cache Rule sets a
+# 2-hour Edge TTL for pages (the Free zone plan's minimum override — freshness
+# comes from the purge, not the TTL; it overrides this line at the edge while
+# browsers go on seeing max-age=0), and a cron Worker watches the Pages
+# deployments API and purges within ~2 minutes of each deploy finishing. See
+# cloudflare/cache-setup.md
+# — which also lists what that Cache Rule must EXCLUDE, because "ignore
+# cache-control" would otherwise flatten every deliberate TTL below.
+#
+# This line stays as it is on purpose: it is the correct behaviour if the Cache
+# Rule is ever deleted, and it is the value the edge falls back to.
+# Functions under /api/* set their own Cache-Control in code (e.g. no-store for
+# the view counter / reports) and are not affected by this file.
+
+# Security headers, site-wide. Scoped to what the site actually does: every
+# page's CSS/JS is inlined, so the only external script is Cloudflare Web
+# Analytics (static.cloudflareinsights.com beacon); the cross-origin fetches
+# are NOAA CO-OPS (tides), Open-Meteo geocoding (sun location search),
+# BigDataCloud reverse geocoding (turning /sun/my-location/'s coordinates into a
+# town name — keyless; omitting it silently left that page saying "your
+# location" forever), and the Cloudflare Analytics beacon
+# (static.cloudflareinsights.com / cloudflareinsights.com).
+# The only embed is a click-to-play YouTube (youtube-nocookie.com, SpaceX
+# launch videos). GA4 runs first-party via Cloudflare Zaraz (/cdn-cgi/zaraz/,
+# covered by 'self'); its advertising features (Google Signals / remarketing to
+# doubleclick.net + google.com/ads) are disabled in the GA dashboard, so they
+# are intentionally NOT allowlisted here.
+# 'unsafe-inline' is required for script-src/style-src because pages
+# ship inline <style>/<script> blocks and a few inline onclick= handlers by
+# design (build-inline.mjs inlines everything so there's no render-blocking
+# request) — a nonce/hash-based CSP would need per-page hashes computed at
+# build time, which is a larger follow-up, not a drop-in change here.
+/*
+  Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=300
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(self), fullscreen=(self "https://www.youtube-nocookie.com"), accelerometer=(self), gyroscope=(self), camera=(), microphone=(), payment=(), usb=(), magnetometer=(), midi=(), interest-cohort=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://api.tidesandcurrents.noaa.gov https://geocoding-api.open-meteo.com https://api.bigdatacloud.net https://static.cloudflareinsights.com https://cloudflareinsights.com; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+
+# Images, the moon sprite and the favicon are CONTENT, not the page. They do not
+# change when the baked "today" values do, so the reasoning above ("the HTML is
+# the whole page") does not apply to them: revalidating a 170KB hero image on
+# every navigation costs a round trip for a byte-identical answer. A week in the
+# browser and a year at the edge; a changed image gets a changed filename, or at
+# worst appears a week late to a repeat visitor.
+/assets/img/*
+  Cache-Control: public, max-age=604800, s-maxage=31536000
+
+# Content-hashed filenames can be cached forever by definition — a new hash is a
+# new URL, so a stale one is unreachable rather than wrong.
+/assets/img/moon-face.*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+# The same face as a raster, hashed the same way by build-inline and referenced
+# 41x on a moon page (one fetch). It was falling to the /assets/img/* week rule
+# above purely because the pattern named .svg. The unhashed SOURCE file
+# (moon-face.webp, no second dot) deliberately does NOT match this.
+/assets/img/moon-face.*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon.svg
+  Cache-Control: public, max-age=604800, s-maxage=31536000
+
+# The PNG the SVG favicon cannot cover — iOS home-screen bookmarks. Same
+# reasoning and the same TTL as favicon.svg: it is a mark, not a page, and it
+# was falling through to the /* page rule and revalidating on every load.
+/apple-touch-icon.png
+  Cache-Control: public, max-age=604800, s-maxage=31536000
+
+# build-home.mjs's search index + view-id map (fetched client-side rather than
+# inlined, see the comment above their writeFileSync calls). Not content-hashed
+# — a filename that never changes but content that does on every rebuild — so
+# they need their own TTL rather than the /* page default of max-age=0, which
+# forced a revalidation round trip on every single home-page load even though
+# the underlying data only changes on the hourly rebuild. 2 hours (not the
+# page's 5 minutes) because neither file is deploy-sensitive the way a page
+# is — worst case a returning visitor's search or trending labels lag two
+# rebuilds behind, which nobody can see happen.
+/assets/data/*
+  Cache-Control: public, max-age=7200, s-maxage=7200
+
+# The shared page controllers (/sun/, /moon/, the tide bundle) that build-inline
+# hoists out of the HTML. Their filenames carry a content hash, so a code change
+# is a new URL — and, crucially, the file does NOT change when the hourly
+# rebuild re-bakes today's sun and tide times, so it stays cached across
+# rebuilds while the HTML around it revalidates.
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# The only static files that must NOT cache: the service workers that drive the
+# timer + alarm notifications. Caching them would hold back an update behind a
+# stale worker, which breaks the feature.
+/timer/sw.js
+  Cache-Control: no-cache
+
+/alarm-clock/sw.js
+  Cache-Control: no-cache
+
+# The subscribable calendar feed. Calendar clients poll it on their own
+# schedule (X-PUBLISHED-TTL says daily), so it wants the same freshness rule as
+# a page rather than the images' week: a date that rolls to next year has to
+# reach a subscriber's calendar.
+/calendar/events.ics
+  Content-Type: text/calendar; charset=utf-8
+  Cache-Control: public, max-age=3600, s-maxage=3600
+
+# Admin pages: never index (robots.txt also disallows /admin)
+/admin/*
+  X-Robots-Tag: noindex, nofollow

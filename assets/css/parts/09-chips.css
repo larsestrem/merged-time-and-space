@@ -1,0 +1,10 @@
+.timer-presets{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 0}
+.chip{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--text);text-decoration:none;background:rgba(0,0,0,.18);cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--accent)}
+/* .chip-alt — a chip that is not one of the set beside it. Used for "Custom
+   timer" at the end of the classroom preset row: it belongs in the row, but it
+   opens the timer page rather than a fixed length, and an identical chip would
+   read as just another duration. Outlined in the accent rather than filled, so
+   it reads as "and anything else" without shouting. */
+.chip.chip-alt{border-color:var(--accent);color:var(--accent)}
+.chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}

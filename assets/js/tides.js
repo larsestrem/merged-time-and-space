@@ -1,0 +1,942 @@
+/* tides.js — the /tides/ tool. Data source: NOAA CO-OPS predictions —
+ * official U.S. tide predictions, available a year+ ahead
+ * (api.tidesandcurrents.noaa.gov, product=predictions). interval=hilo -> the
+ * high/low list, which is all this tool asks for: the extremes are what the
+ * page reports, and the curve between them is drawn by tideSeries() in
+ * tide-chart.js. Astronomical predictions only —
+ * no weather, storm, or pressure data.
+ * All times are STATION-LOCAL wall time (NOAA time_zone=lst_ldt), parsed
+ * manually (never via the Date string parser, which Safari mangles).
+ * Heights are feet above MLLW (mean lower low water), NOAA's chart datum. */
+(function(){
+  var $=function(s){return document.querySelector(s);};
+  var NOAA="https://api.tidesandcurrents.noaa.gov/api/prod/datagetter";
+  var MDAPI="https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=tidepredictions";
+  /* Typed queries name states in words; NOAA labels use the two-letter code, so
+     "Nome Alaska" never substring-matched "Nome, Norton Sound, AK" and the
+     search reported no match for a town that has its own station. Expanding the
+     name to the code and then requiring every TOKEN to appear (rather than the
+     whole string as one substring) makes word order and punctuation stop
+     mattering: "nome, ak", "Nome Alaska" and "alaska nome" all land. */
+  var ST_MAP={"alabama":"al","alaska":"ak","california":"ca","connecticut":"ct","delaware":"de",
+    "florida":"fl","georgia":"ga","hawaii":"hi","louisiana":"la","maine":"me","maryland":"md",
+    "massachusetts":"ma","mississippi":"ms","new hampshire":"nh","new jersey":"nj","new york":"ny",
+    "north carolina":"nc","oregon":"or","pennsylvania":"pa","rhode island":"ri","south carolina":"sc",
+    "texas":"tx","virginia":"va","washington":"wa","puerto rico":"pr","district of columbia":"dc",
+    "washington, d.c.":"dc","american samoa":"as","guam":"gu","virgin islands":"vi"};
+  function qTokens(q){
+    q=" "+String(q).toLowerCase().replace(/[.,]/g," ").replace(/\s+/g," ").trim()+" ";
+    /* longest names first so "new york" is not eaten by "york" */
+    var names=Object.keys(ST_MAP).sort(function(a,b){return b.length-a.length;});
+    for(var i=0;i<names.length;i++){ var n2=names[i];
+      if(q.indexOf(" "+n2+" ")>-1) q=q.split(" "+n2+" ").join(" "+ST_MAP[n2]+" "); }
+    return q.trim().split(" ").filter(Boolean);
+  }
+  function tokensMatch(hay,toks){ hay=String(hay||"").toLowerCase();
+    for(var i=0;i<toks.length;i++) if(hay.indexOf(toks[i])<0) return false; return toks.length>0; }
+  var APP="timeandspace.science";
+
+  /* curated stations baked in by the generator:
+   * [slug, city, st, id, lat, lng, tz, alt] — alt = official NOAA station name
+   * when it differs from the city (searchable alias), else "" */
+  var CUR=(window.TIDE_STATIONS||[]).map(function(a){return {slug:a[0],city:a[1],st:a[2],id:a[3],lat:a[4],lng:a[5],tz:a[6],alt:a[7]||"",dest:a[8]?1:0};});
+  var allStations=null;         /* full NOAA list, fetched on demand */
+  var station=null;             /* {id, label, lat, lng, tz} */
+  /* chart window: chartStart (any date up to ~a year out) + chartDays (1–14).
+   * sumHilo (today→+2d) feeds the next-tide summary + today chips so they stay
+   * correct even when the chart is scrolled to a future window. */
+  var chartStart=null, chartDays=4, chartSelA=0, chartSelB=0, chartHilo=[], sumHilo=[], chartPts=[], offSec=null, lastRows=[], rawRows=[];
+
+  /* ---- tiny utils ---- */
+  function pad(n){return (n<10?"0":"")+n;}
+  function ymd(d){return ""+d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate());}
+  function parseT(s){ /* "YYYY-MM-DD HH:MM" or "YYYY-MM-DDTHH:MM" -> Date (wall time) */
+    var m=/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})/.exec(s);
+    return m?new Date(+m[1],+m[2]-1,+m[3],+m[4],+m[5]):null; }
+  function fmtTime(d){ var h=d.getHours(),ap=h>=12?"PM":"AM"; h=h%12||12; return h+":"+pad(d.getMinutes())+" "+ap; }
+  function fmtDay(d){ return ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][d.getDay()]+" "+["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][d.getMonth()]+" "+d.getDate(); }
+  /* compact M-D-YY for the stat tiles, so their labels fit on one line */
+  function fmtShort(d){ return (d.getMonth()+1)+"-"+d.getDate()+"-"+String(d.getFullYear()).slice(-2); }
+  function hourKey(d){ var x=new Date(d.getTime()); if(x.getMinutes()>=30) x.setHours(x.getHours()+1); return ""+x.getFullYear()+"-"+pad(x.getMonth()+1)+"-"+pad(x.getDate())+"T"+pad(x.getHours()); }
+  function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function addDays(d,n){ var x=new Date(d.getTime()); x.setDate(x.getDate()+n); return x; }
+  function dist(a,b,c,d){ var R=3959,p=Math.PI/180,dl=(c-a)*p,dg=(d-b)*p, h=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a*p)*Math.cos(c*p)*Math.sin(dg/2)*Math.sin(dg/2); return 2*R*Math.asin(Math.sqrt(h)); }
+
+  /* analytics: events go through Cloudflare Zaraz (which feeds GA4) when it's
+   * present; silently a no-op otherwise. */
+  function track(ev,data){ try{ if(window.zaraz&&zaraz.track) zaraz.track(ev,data||{}); }catch(e){} }
+
+  function getJSON(url){ return fetch(url).then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }); }
+  function noaa(params){ var q="application="+APP+"&datum=MLLW&time_zone=lst_ldt&units=english&format=json&"+params; return getJSON(NOAA+"?"+q).then(function(d){ if(d&&d.error) throw new Error(d.error.message||"NOAA error"); return d; }); }
+
+  /* ---- station UTC offset, computed locally (no API). Curated stations carry
+   * an IANA zone name baked in at build time (seo/tools/tide-stations.mjs via
+   * the vendored tz-lookup), so the browser's own Intl API gives an exact,
+   * DST-aware offset — same technique as /world-clock/. Stations found via
+   * search (outside the curated list, from NOAA's full directory) have no
+   * baked zone, so fall back to a nominal offset from longitude with a simple
+   * US daylight-saving window — not exact, but every NOAA station is US
+   * territory, so it's a reasonable approximation. ---- */
+  function resolveOffSec(){
+    if(station.tz){ try{
+      var parts=new Intl.DateTimeFormat("en-US",{timeZone:station.tz,timeZoneName:"shortOffset"}).formatToParts(new Date());
+      var v=parts.filter(function(p){return p.type==="timeZoneName";})[0];
+      var m=v&&v.value.match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/);
+      if(m) return (m[1]==="-"?-1:1)*((+m[2])*3600+(+(m[3]||0))*60);
+    }catch(e){} }
+    if(station.lng==null) return null;
+    var off=Math.round(station.lng/15)*3600;
+    var now=new Date(), mo=now.getMonth(), da=now.getDate();
+    var dst=(mo>2&&mo<10)||(mo===2&&da>=8)||(mo===10&&da<=4);
+    return off+(dst?3600:0);
+  }
+
+  /* ---- sun & moon, computed locally (no API). Sunrise/sunset via the classic
+   * NOAA solar approximation (±2 min); converted to STATION wall time using
+   * resolveOffSec() above, so it matches the tide times. Moon phase from the
+   * mean synodic month — approximate, plenty for planning. ---- */
+  function sunUT(d,lat,lng,rise){ var rad=Math.PI/180;
+    var N=Math.ceil((d-new Date(d.getFullYear(),0,0))/86400e3);
+    var lngH=lng/15, t=N+(((rise?6:18)-lngH)/24);
+    var M=0.9856*t-3.289;
+    var L=(M+1.916*Math.sin(M*rad)+0.020*Math.sin(2*M*rad)+282.634)%360; if(L<0)L+=360;
+    var RA=Math.atan(0.91764*Math.tan(L*rad))/rad; if(RA<0)RA+=360;
+    RA=(RA+(Math.floor(L/90)-Math.floor(RA/90))*90)/15;
+    var sinD=0.39782*Math.sin(L*rad), cosD=Math.cos(Math.asin(sinD));
+    var cosH=(Math.cos(90.833*rad)-sinD*Math.sin(lat*rad))/(cosD*Math.cos(lat*rad));
+    if(cosH>1||cosH<-1) return null;                     /* polar day/night */
+    var H=(rise?360-Math.acos(cosH)/rad:Math.acos(cosH)/rad)/15;
+    var T=H+RA-0.06571*t-6.622, UT=(T-lngH)%24; if(UT<0)UT+=24; return UT; }
+  function sunWall(d,rise){ if(offSec===null||station.lat===null) return null;
+    var ut=sunUT(d,station.lat,station.lng,rise); if(ut===null) return null;
+    var h=ut+offSec/3600; h=((h%24)+24)%24;
+    return new Date(d.getFullYear(),d.getMonth(),d.getDate(),Math.floor(h),Math.round((h%1)*60)); }
+  /* Moon phase comes from the shared module (assets/js/moon.js, GENERATED from
+   * seo/tools/moon.mjs and bundled ahead of this file). It replaces a local
+   * mean-synodic approximation that could be most of a day out, and drew the
+   * phase with emoji — the same numbers and the same SVG glyph the /moon/
+   * pages use. Falls back to no phase row if the bundle is somehow absent,
+   * rather than silently quoting a worse figure. */
+  function moonPhase(d){ if(!window.AC_MOON) return null;
+    var m=window.AC_MOON.illum(d.getTime());
+    return {name:window.AC_MOON.name(m.phase), glyph:window.AC_MOON.glyph(m.fraction,m.waxing,15,station.lat<0),
+      ill:Math.round(m.fraction*100), p:m.phase}; }
+
+  /* =============== station handling =============== */
+  /* ---- saved stations: one default (loads first on the hub) + a follow list
+   * shown as a quick-switch dropdown. Stored per device in localStorage. ---- */
+  /* favGet normalizes as it reads: ids coerced to strings and DUPLICATES
+   * dropped (older flows could save the same station twice, which made two
+   * Default radios light up — both were checked while detached from the DOM,
+   * where radio groups don't enforce exclusivity) */
+  function favGet(){ try{ var raw=JSON.parse(localStorage.getItem("td_favs"))||[], seen={}, out=[];
+    raw.forEach(function(f){ if(!f||f.id==null) return; var k=String(f.id);
+      if(seen[k]) return; seen[k]=1; f.id=k; out.push(f); });
+    return out; }catch(e){ return []; } }
+  function favSet(a){ try{ localStorage.setItem("td_favs",JSON.stringify(a)); }catch(e){} }
+  function homeGet(){ try{ var h=JSON.parse(localStorage.getItem("td_home"));
+    if(h&&h.id!=null) h.id=String(h.id); return h; }catch(e){ return null; } }
+  function homeSet(s){ try{ localStorage.setItem("td_home",JSON.stringify(s)); }catch(e){} }
+  function stationLite(s){ return {id:s.id,label:s.label,slug:s.slug||null,lat:s.lat,lng:s.lng}; }
+  function renderFavUI(){
+    var favs=favGet(), home=homeGet();
+    /* next to the station name: the add button, or the green saved note */
+    var ab=$("#td-addsta"), sm=$("#td-savedok");
+    if(ab&&station){
+      var saved=favs.some(function(f){ return String(f.id)===String(station.id); })||(home&&String(home.id)===String(station.id));
+      ab.hidden=!!saved; if(sm) sm.hidden=!saved;
+    } else if(ab){ ab.hidden=true; if(sm) sm.hidden=true; }
+    renderMyStations();   /* keep the Saved Stations dropdown in sync */
+    renderQuick();
+  }
+  /* one cached geolocation request shared by the nearest-first search list
+   * and the "＋ Add nearest" button */
+  var geoProm=null;
+  function getGeo(){ if(geoProm) return geoProm;
+    geoProm=new Promise(function(res){
+      if(!navigator.geolocation) return res(null);
+      navigator.geolocation.getCurrentPosition(
+        function(p){ res({la:p.coords.latitude,lo:p.coords.longitude}); },
+        /* Forget a refusal. Memoising it for the whole session meant that once
+           the boot render had been denied, the explicit "＋ Add nearest" button
+           could only ever answer "Location unavailable" — even after the user
+           went and changed the site permission. */
+        function(){ geoProm=null; res(null); },{maximumAge:600000,timeout:8000}); });
+    return geoProm; }
+  /* Location WITHOUT ever raising the permission prompt: resolves a position
+     only if the user has already granted it, and null otherwise. The hub used
+     to call getGeo() straight off the boot render, so simply opening /tides/
+     threw up a browser permission dialog nobody had asked for. Sorting a list
+     of stations is not worth a cold prompt; an explicit tap is. */
+  function getGeoQuiet(){
+    if(geoProm) return geoProm;
+    if(!navigator.permissions||!navigator.permissions.query) return Promise.resolve(null);
+    return navigator.permissions.query({name:"geolocation"})
+      .then(function(st){ return st && st.state==="granted" ? getGeo() : null; })
+      ["catch"](function(){ return null; });
+  }
+  function nearestTo(g){ var pool=allStations||CUR.filter(function(c){return !c.dest;}).map(function(c){return stationFromCur(c);}),best=null,bd=1e9;
+    pool.forEach(function(p){ if(p.lat===null) return; var dd=dist(g.la,g.lo,p.lat,p.lng); if(dd<bd){ bd=dd; best=p; } });
+    return best?{s:best,mi:bd}:null; }
+  /* ---- "Saved Stations" dropdown (same on hub + station pages): rows open the
+   * station, the Default radio column picks the default, the Edit button next
+   * to the dropdown exposes remove, and the last option is ＋ Add nearest ---- */
+  var myEdit=false, myEditBtn=$("#td-myedit"), myBtn=$("#td-mybtn"), myPanel=$("#td-mypanel");
+  function watchDisc(btn,panel){ if(!btn||!panel) return; function sync(){ btn.setAttribute("aria-expanded", panel.hidden?"false":"true"); } sync(); try{ new MutationObserver(sync).observe(panel,{attributes:true,attributeFilter:["hidden"]}); }catch(e){} }
+  watchDisc(myBtn,myPanel); watchDisc(myEditBtn,myPanel);
+  if(myBtn){
+    myBtn.addEventListener("click",function(){
+      myPanel.hidden=!myPanel.hidden; if(!myPanel.hidden){ myEdit=false; renderMyStations(); } });
+    document.addEventListener("click",function(e){ if(document.contains(e.target)&&!e.target.closest(".td-saved-wrap")) myPanel.hidden=true; });
+  }
+  if(myEditBtn) myEditBtn.addEventListener("click",function(){
+    myEdit=!myEdit; if(myPanel) myPanel.hidden=false; renderMyStations(); });
+  function myMsg(t){ var el=$("#td-mymsg"); if(el){ el.textContent=t||""; el.hidden=!t; } }
+  function renderMyStations(){
+    var wrap=$("#td-mylist"); if(!wrap) return;
+    var favs=favGet(), home=homeGet(), defSeen=false;
+    var items=favs.slice();
+    if(home&&!items.some(function(f){ return String(f.id)===String(home.id); })) items.unshift(stationLite(home));
+    if(myEditBtn){ myEditBtn.disabled=!items.length; myEditBtn.textContent=myEdit?"Done":"Edit"; }
+    var col=$("#td-mycol"); if(col) col.textContent=myEdit?"Delete":"Default";
+    wrap.innerHTML="";
+    if(!items.length){ myEdit=false;   /* nothing left to edit */
+      var p=document.createElement("p"); p.className="td-none";
+      p.textContent="No stations yet — add your nearest below, or use the search."; wrap.appendChild(p); }
+    items.forEach(function(s){
+      var row=document.createElement("div"); row.className="td-myitem";
+      var b=document.createElement("button"); b.type="button"; b.className="td-savedgo"; b.textContent=s.label;
+      b.addEventListener("click",function(){ goStation(s); });
+      row.appendChild(b);
+      if(myEdit){
+        var x=document.createElement("button"); x.type="button"; x.className="td-savedx"; x.textContent="✕";
+        x.setAttribute("aria-label","Remove "+s.label);
+        x.addEventListener("click",function(){
+          favSet(favGet().filter(function(f){ return String(f.id)!==String(s.id); }));
+          var h=homeGet(); if(h&&String(h.id)===String(s.id)){ try{ localStorage.removeItem("td_home"); }catch(e){} }
+          renderFavUI(); });
+        row.appendChild(x);
+      } else {
+        var r=document.createElement("input"); r.type="radio"; r.name="td-defsel";
+        var isDef=!defSeen&&!!(home&&String(home.id)===String(s.id));
+        if(isDef) defSeen=true;                 /* hard guarantee: one default only */
+        r.checked=isDef;
+        r.setAttribute("aria-label","Make "+s.label+" the default");
+        r.addEventListener("change",function(){ if(!r.checked) return;
+          homeSet(stationLite(s)); favSet(favGet());   /* one default; persist deduped list */
+          myMsg("");
+          track("tide_feature",{f:"default_radio",station:s.id});
+          renderFavUI(); });
+        row.appendChild(r);
+      }
+      wrap.appendChild(row); });
+    var foot=document.createElement("div"); foot.className="td-myfoot";
+    /* cross-seed from the /sun/ pages: for each saved sunrise/sunset city,
+       offer its nearest tide station (skip ones already saved) */
+    try{
+      var sunFavs=JSON.parse(localStorage.getItem("sun_favs"))||[];
+      sunFavs.forEach(function(sc){ if(!sc||sc.lat==null) return;
+        var n=nearestTo({la:sc.lat,lo:sc.lon}); if(!n||n.mi>120) return;
+        var favsNow=favGet(), homeNow=homeGet();
+        if(favsNow.some(function(f){ return String(f.id)===String(n.s.id); })||(homeNow&&String(homeNow.id)===String(n.s.id))) return;
+        var sb=document.createElement("button"); sb.type="button"; sb.className="chip";
+        sb.textContent="＋ Near "+sc.city+" (from Sun)";
+        sb.addEventListener("click",function(){
+          var f2=favGet(); if(f2.some(function(f){ return String(f.id)===String(n.s.id); })){ myMsg(n.s.label+" is already in Saved Stations."); return; }
+          f2.push(stationLite(n.s)); favSet(f2); myMsg("Added "+n.s.label+" — nearest station to "+sc.city+"."); renderFavUI(); });
+        foot.appendChild(sb); });
+    }catch(e){}
+    var add=document.createElement("button"); add.type="button"; add.className="chip"; add.textContent="＋ Add nearest";
+    add.addEventListener("click",function(){
+      add.disabled=true; add.textContent="Locating…";
+      getGeo().then(function(g){
+        add.disabled=false; add.textContent="＋ Add nearest";
+        if(!g){ myMsg("Location unavailable — allow location access to add your nearest station."); return; }
+        var n=nearestTo(g); if(!n) return;
+        var favs2=favGet(), home2=homeGet();
+        if(favs2.some(function(f){ return String(f.id)===String(n.s.id); })||(home2&&String(home2.id)===String(n.s.id))){
+          myMsg(n.s.label+" is already in Saved Stations."); return; }
+        favs2.push(stationLite(n.s)); favSet(favs2);
+        myMsg("Added "+n.s.label+" — "+Math.round(n.mi)+" mi from you.");
+        track("tide_feature",{f:"add_nearest",station:n.s.id});
+        renderFavUI(); }); });
+    foot.appendChild(add);
+    wrap.appendChild(foot);
+  }
+  /* hub-only mini cards inside the admin card: one per saved location
+   * (default first, badged) — or the nearest stations when nothing is saved */
+  var qGen=0;
+  function renderQuick(){
+    var q=$("#td-quick"); if(!q) return;
+    if(window.TIDE_CFG){ q.innerHTML=""; return; }   /* tides home page only */
+    var gen=++qGen;                                  /* stale async guard */
+    var favs=favGet(), home=homeGet();
+    var items=favs.slice();
+    if(home&&!items.some(function(f){ return String(f.id)===String(home.id); })) items.unshift(stationLite(home));
+    if(home) items.sort(function(a,b){ return (String(b.id)===String(home.id)?1:0)-(String(a.id)===String(home.id)?1:0); });
+    q.innerHTML="";
+    var pool=CUR.map(function(c){ return stationFromCur(c); });
+    function card(st,isDef,sub){
+      var b=document.createElement("button"); b.type="button"; b.className="td-qcard";
+      var t=document.createElement("strong"); t.textContent=st.label; b.appendChild(t);
+      if(isDef){ var bd=document.createElement("span"); bd.className="td-qbadge"; bd.textContent="★ default"; b.appendChild(bd); }
+      if(sub){ var em=document.createElement("em"); em.textContent=sub; b.appendChild(em); }
+      b.addEventListener("click",function(){ goStation(st); });
+      q.appendChild(b);
+    }
+    if(items.length){
+      /* saved stations exist: just the DEFAULT + the next nearest station,
+       * headed "Saved" with a View-all link that opens the dropdown */
+      var head=document.createElement("p"); head.className="td-quick-h td-quick-row";
+      var lab=document.createElement("span"); lab.textContent="Saved"; head.appendChild(lab);
+      var va=document.createElement("button"); va.type="button"; va.className="td-viewall"; va.textContent="View all";
+      va.addEventListener("click",function(e){ e.stopPropagation();   /* keep the outside-click closer from eating it */
+        if(myPanel){ myEdit=false; renderMyStations(); myPanel.hidden=false; } });
+      head.appendChild(va); q.appendChild(head);
+      var def=null;
+      if(home) items.forEach(function(f){ if(String(f.id)===String(home.id)) def=f; });
+      if(!def) def=items[0];
+      card(def,!!(home&&String(def.id)===String(home.id)));
+      getGeoQuiet().then(function(g){
+        if(gen!==qGen) return;
+        var near=null;
+        if(g){ var cand=pool.filter(function(p2){ return String(p2.id)!==String(def.id)&&p2.lat!==null; })
+            .map(function(p2){ p2.mi=dist(g.la,g.lo,p2.lat,p2.lng); return p2; })
+            .sort(function(a,b){ return a.mi-b.mi; });
+          if(cand.length) near=cand[0]; }
+        if(near){ card(near,false,Math.round(near.mi)+" mi away"); return; }
+        /* no location: fall back to the next saved station */
+        var alt=null; items.forEach(function(f){ if(!alt&&String(f.id)!==String(def.id)) alt=f; });
+        if(alt) card(alt,false);
+      });
+      return;
+    }
+    /* nothing saved: show the nearest stations instead */
+    var head=document.createElement("p"); head.className="td-quick-h";
+    head.textContent="Nearest stations"; q.appendChild(head);
+    function fill(g){
+      if(gen!==qGen||favGet().length||homeGet()) return;        /* re-rendered meanwhile */
+      q.innerHTML=""; q.appendChild(head);
+      if(!g){ head.textContent="Popular stations";
+        pool.slice(0,4).forEach(function(st){ card(st,false); });
+        var gb=document.createElement("button"); gb.type="button"; gb.className="chip";
+        gb.textContent="Use my location";
+        gb.addEventListener("click",function(){ gb.disabled=true; gb.textContent="Locating…";
+          getGeo().then(function(g2){ if(g2) fill(g2); else { gb.disabled=false; gb.textContent="Use my location"; myMsg("Location unavailable — allow location access to see your nearest stations."); } }); });
+        q.appendChild(gb); return; }
+      head.textContent="Nearest stations";
+      pool.map(function(p2){ p2.mi=dist(g.la,g.lo,p2.lat,p2.lng); return p2; })
+        .sort(function(a,b){ return a.mi-b.mi; })
+        .slice(0,4).forEach(function(st){ card(st,false,Math.round(st.mi)+" mi away"); });
+    }
+    pool.slice(0,4).forEach(function(st){ card(st,false); });   /* instant, replaced below */
+    getGeoQuiet().then(fill);
+  }
+  function setStation(s,push){
+    stGen++;   /* everything still in flight for the previous station is now stale */
+    station=s; chartHilo=[]; sumHilo=[]; chartPts=[]; offSec=resolveOffSec();
+    var tw=$("#td-tool"); if(tw) tw.hidden=false;   /* hub: reveal the tool */
+    var cur=$("#td-cur"); if(cur) cur.innerHTML="<strong>"+esc(s.label)+"</strong>";
+    var ci=$("#td-curid"); if(ci) ci.textContent="NOAA station "+s.id;
+    /* on the hub (no baked station), reflect the choice in the URL + tab title */
+    if(push&&!window.TIDE_CFG){ try{ history.replaceState(null,"","?station="+encodeURIComponent(s.id)+"&name="+encodeURIComponent(s.label)); document.title=s.label+" Tide Chart & Tide Times"; }catch(e){} }
+    renderFavUI();
+    loadAll();
+  }
+  function stationFromCur(c){ return {id:c.id,label:c.city+", "+c.st,alt:c.alt||"",lat:c.lat,lng:c.lng,slug:c.slug,tz:c.tz,dest:c.dest}; }
+  /* picking a station NAVIGATES: curated stations go to their own page (so the
+   * headline always matches the data — no more "Miami" H1 over Newport tides);
+   * anything else opens the hub preset to that station. */
+  function goStation(p){
+    if(p.slug){ location.href="/tides/"+p.slug+"/"; return; }
+    var hub="/tides/?station="+encodeURIComponent(p.id)+"&name="+encodeURIComponent(p.label);
+    if(!window.TIDE_CFG){ setStation(p,true); } else { location.href=hub; }
+  }
+
+  /* search: curated list instantly; full NOAA list once loaded. Typing a
+   * STATE (name or abbreviation) lists that state's curated stations. */
+  var STATE_NAMES={AL:"Alabama",AK:"Alaska",AS:"American Samoa",CA:"California",CT:"Connecticut",DC:"Washington DC",DE:"Delaware",FL:"Florida",GA:"Georgia",GU:"Guam",HI:"Hawaii",LA:"Louisiana",ME:"Maine",MD:"Maryland",MA:"Massachusetts",MS:"Mississippi",NH:"New Hampshire",NJ:"New Jersey",NY:"New York",NC:"North Carolina",OR:"Oregon",PA:"Pennsylvania",PR:"Puerto Rico",RI:"Rhode Island",SC:"South Carolina",TX:"Texas",VA:"Virginia",WA:"Washington"};
+  var box=$("#td-q"), list=$("#td-results");
+  function stateFor(q){ var hit=null;
+    Object.keys(STATE_NAMES).forEach(function(ab){ if(hit) return;
+      if(q===ab.toLowerCase()||(q.length>=3&&STATE_NAMES[ab].toLowerCase().indexOf(q)===0)) hit=ab; });
+    return hit; }
+  function doSearch(q){
+    q=q.trim().toLowerCase(); list.innerHTML="";
+    if(!q){ list.hidden=true; return; }
+    var seen={},out=[],skey=function(p){return p.slug||p.id;}; /* slug key: a beach destination can share its source station's id */
+    /* a state query surfaces that state's curated stations first */
+    var st=stateFor(q);
+    if(st) CUR.forEach(function(c){ if(c.st===st&&out.length<8){ var p=stationFromCur(c); seen[skey(p)]=1; out.push(p); } });
+    var pool=CUR.map(function(c){return stationFromCur(c);});
+    if(allStations) pool=pool.concat(allStations);
+    var toks=qTokens(q);
+    /* the curated tier and the NOAA directory overlap — Boston is in both, and
+       keying only on slug-or-id let the same station list twice (curated has a
+       slug, the directory row has only an id). Claim the id too. */
+    out.forEach(function(p){ if(p.id) seen["id:"+p.id]=1; });
+    for(var i=0;i<pool.length&&out.length<10;i++){ var p=pool[i];
+      if(seen[skey(p)]||(p.id&&seen["id:"+p.id])) continue;
+      if(p.id) seen["id:"+p.id]=1;
+      var inLabel=tokensMatch(p.label,toks);
+      var inAlt=p.alt&&tokensMatch(p.alt,toks);
+      if(inLabel||inAlt||p.id.indexOf(q)===0){ seen[skey(p)]=1; p._viaAlt=!inLabel&&inAlt; out.push(p); } }
+    if(!out.length){ var li=document.createElement("li"); li.className="td-none";
+      li.textContent=allStations?"No station matches — try a nearby town or the station ID.":"No match in the popular list.";
+      list.appendChild(li);
+      if(!allStations){ var b=document.createElement("button"); b.type="button"; b.className="chip"; b.textContent="Search all 3,300+ NOAA stations";
+        b.addEventListener("click",function(){ b.disabled=true; b.textContent="Loading station list…"; loadAllStations().then(function(){ doSearch(box.value); })["catch"](function(){ b.textContent="Couldn't load — try again"; b.disabled=false; }); });
+        var li2=document.createElement("li"); li2.className="td-none"; li2.appendChild(b); list.appendChild(li2); } }
+    out.forEach(function(p){ var li=document.createElement("li"),a=document.createElement("button"); a.type="button"; a.className="td-hit";
+      /* when the match came from the official NOAA name (not the city), show it
+       * so the searcher sees why this station matched their query */
+      a.textContent=p.label+(p._viaAlt?" — "+p.alt:"")+(p.dest?" · beach":" ("+p.id+")");
+      a.addEventListener("click",function(){ list.hidden=true; box.value=""; goStation(p); }); li.appendChild(a); list.appendChild(li); });
+    list.hidden=false;
+  }
+  /* Load the full NOAA directory unprompted, once the page is idle. It used to
+     sit behind a "Search all 3,300+ NOAA stations" button shown only AFTER a
+     search had already failed — so the honest report from a visitor was "I
+     searched for Nome and nothing came up". The button stays as the retry path
+     when the fetch fails. */
+  function warmAllStations(){
+    if(allStations||allLoading) return;
+    if(window.requestIdleCallback) requestIdleCallback(function(){ loadAllStations()["catch"](function(){}); },{timeout:4000});
+    else setTimeout(function(){ loadAllStations()["catch"](function(){}); },800);
+  }
+  var allLoading=false;
+  function loadAllStations(){ allLoading=true; return getJSON(MDAPI).then(function(d){
+    allStations=(d.stations||[]).map(function(s){ return {id:String(s.id),label:s.name+(s.state?", "+s.state:""),lat:+s.lat,lng:+s.lng}; });
+    allLoading=false;
+    /* if the visitor typed while it was in flight, answer them now */
+    if(box&&box.value.trim()) doSearch(box.value);
+  })["catch"](function(e){ allLoading=false; throw e; }); }
+  /* clicking into the empty box shows curated stations nearest to you (a
+   * plain list right away, re-sorted with distances once location arrives) */
+  function showNearby(){
+    var pool=CUR.map(function(c){ return stationFromCur(c); });
+    function render(items,withMi){
+      list.innerHTML="";
+      var li0=document.createElement("li"); li0.className="td-none";
+      li0.textContent=withMi?"Nearest stations":"Popular stations — allow location access to sort by nearest";
+      list.appendChild(li0);
+      items.slice(0,8).forEach(function(p){
+        var li=document.createElement("li"), a=document.createElement("button");
+        a.type="button"; a.className="td-hit";
+        a.textContent=p.label+(withMi?" · "+Math.round(p.mi)+" mi":"");
+        a.addEventListener("click",function(){ list.hidden=true; box.value=""; goStation(p); });
+        li.appendChild(a); list.appendChild(li); });
+      list.hidden=false;
+    }
+    render(pool,false);
+    getGeo().then(function(g){
+      if(!g||box.value.trim()||list.hidden) return;
+      var sorted=pool.map(function(p){ p.mi=dist(g.la,g.lo,p.lat,p.lng); return p; })
+        .sort(function(a,b){ return a.mi-b.mi; });
+      render(sorted,true); });
+  }
+  if(box){
+    warmAllStations();
+    box.addEventListener("input",function(){ if(box.value.trim()) doSearch(box.value); else showNearby(); });
+    box.addEventListener("focus",function(){ if(!box.value.trim()) showNearby(); });
+    box.addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault();
+      var hits=list.querySelectorAll("button.td-hit"); if(hits.length) hits[0].click(); } });
+    document.addEventListener("click",function(e){ if(document.contains(e.target)&&!e.target.closest(".td-search")) list.hidden=true; }); }
+  var qgo=$("#td-qgo");
+  if(qgo) qgo.addEventListener("click",function(){
+    var q=box.value.trim(); if(!q){ box.focus(); return; }
+    doSearch(q);
+    var hits=list.querySelectorAll("button.td-hit");
+    if(hits.length===1){ hits[0].click(); return; }
+    /* nothing in the curated list: go straight to the full NOAA list */
+    if(!hits.length&&!allStations) loadAllStations().then(function(){ doSearch(box.value); })["catch"](function(){});
+  });
+
+  /* =============== data loads =============== */
+  function status(id,msg,err){ var el=$(id); if(el){ el.textContent=msg||""; el.classList.toggle("td-err",!!err); } }
+  /* STATION GENERATION. Every NOAA request below is slow and none of them used
+     to check, on the way back, that they still belonged to the station on
+     screen. Open station A from a ?station= deep link, switch to B before A's
+     365-day king-tide request returns, and A's numbers were written under B's
+     heading. setStation() bumps this; each loader captures it and drops its own
+     response if it no longer matches. renderQuick has done this all along with
+     qGen — this is the same pattern for the four that did not. */
+  var stGen=0;
+  var current=function(g){ return g===stGen; };
+  function loadAll(){ loadSummary(); loadChart(); loadTable(); loadKing(); }
+
+  /* next-tide summary + today chips: a small dedicated fetch (today→+2d), so
+   * they stay live no matter where the chart window is scrolled */
+  function loadSummary(){
+    status("#td-sum-note","Loading tides…");
+    var now=new Date(), g=stGen;
+    noaa("product=predictions&interval=hilo&station="+station.id+"&begin_date="+ymd(now)+"&end_date="+ymd(addDays(now,2))).then(function(d){
+      if(!current(g)) return;
+      sumHilo=(d.predictions||[]).map(function(p){return {d:parseT(p.t),v:+p.v,hi:p.type==="H"};});
+      status("#td-sum-note",""); renderSummary();
+    })["catch"](function(e){ if(!current(g)) return; status("#td-sum-note","Couldn't load tide predictions for this station ("+e.message+"). Try another station.",true); });
+  }
+
+  /* The page ships this station's high/low extremes for the next couple of
+     weeks (window.TIDE_BAKED, written by build-tides from the same committed
+     NOAA file the baked chart is drawn from). When they cover the window being
+     asked for, the chart is drawn from them at once — same picture, no network
+     — and the NOAA request that follows only refines the curve between the
+     extremes. Nothing waits on the wire for the default view. */
+  function bakedHilo(t0,t1){
+    var B=window.TIDE_BAKED;
+    if(!B||!station||String(B.id)!==String(station.id)||!B.ev||!B.ev.length) return null;
+    var rows=[],i,t;
+    for(i=0;i<B.ev.length;i++){ t=parseT(B.ev[i][0]);
+      if(t.getTime()>=t0-43200e3&&t.getTime()<=t1+43200e3) rows.push({d:t,v:+B.ev[i][1],hi:!!B.ev[i][2]}); }
+    /* only usable if the baked window really reaches the end being asked for */
+    var last=parseT(B.ev[B.ev.length-1][0]).getTime();
+    return (rows.length>2&&last>=t1-86400e3)?rows:null;
+  }
+  var chartGen=0;
+  function loadChart(){
+    status("#td-chart-note","Loading…");
+    var g=stGen, cg=++chartGen;
+    var start=chartStart||new Date(), end=addDays(start,chartDays);
+    /* draw EXACTLY the chosen window (no context padding) so the chart is
+     * zoomed all the way into the selected days. The fetch still rounds out to
+     * whole days — NOAA's request granularity — then trims to [selA, selB]. */
+    chartSelA=start.getTime(); chartSelB=end.getTime();
+    var ta=chartSelA, tb=chartSelB;
+    var fs=addDays(start,-1), fe=addDays(end,1);
+    var inCtx=function(p){ return p.d&&p.d.getTime()>=ta&&p.d.getTime()<=tb; };
+    var baked=bakedHilo(ta,tb);
+    if(baked){ chartHilo=baked; status("#td-chart-note",chartNote); drawChart(); }
+    /* ONE request: the high/low extremes. Those are what the page reports, and
+       the curve between them is drawn by tideSeries — the same maths the baked
+       chart uses, so the redraw lands on the same pixels instead of swapping in
+       a differently-shaped line. (Fetching interval=h as well used to double the
+       NOAA traffic for a slightly different-looking curve.) */
+    noaa("product=predictions&interval=hilo&station="+station.id+"&begin_date="+ymd(fs)+"&end_date="+ymd(fe)).then(function(d){
+      if(!current(g)||cg!==chartGen) return;   /* station changed, or the window was scrolled again */
+      var rows=(d.predictions||[]).map(function(p){return {d:parseT(p.t),v:+p.v,hi:p.type==="H"};});
+      chartHilo=rows.filter(function(p){ return p.d.getTime()>=ta-43200e3&&p.d.getTime()<=tb+43200e3; });
+      status("#td-chart-note",chartNote); drawChart();
+    })["catch"](function(e){ if(!current(g)||cg!==chartGen) return; status("#td-chart-note","Couldn't load that window ("+e.message+"). NOAA predictions reach about a year ahead.",true); });
+  }
+
+  function loadTable(){
+    var s=parseT($("#td-from").value+" 00:00")||new Date(), e=parseT($("#td-to").value+" 00:00")||addDays(new Date(),5);
+    status("#td-tbl-note","Loading…");
+    var g=stGen;
+    noaa("product=predictions&interval=hilo&station="+station.id+"&begin_date="+ymd(s)+"&end_date="+ymd(e)).then(function(d){
+      if(!current(g)) return;
+      rawRows=(d.predictions||[]).map(function(p){return {d:parseT(p.t),v:+p.v,hi:p.type==="H"};});
+      renderTable(); status("#td-tbl-note","");
+    })["catch"](function(err){ if(!current(g)) return; status("#td-tbl-note","Couldn't load that range ("+err.message+"). NOAA allows about one year per request.",true); });
+  }
+
+  /* =============== renders =============== */
+  /* HEIGHTS FOLLOW THE READER'S UNITS. NOAA is asked for feet (units=english,
+     its chart-datum default for US stations), so feet are what this file holds;
+     acFromFt (units.mjs) hands back feet or metres depending on the choice in
+     the menu, rounded to the same tenth either way. The fallbacks keep the page
+     working if that script is ever missing. */
+  function ht(ft){ return (window.acFromFt?window.acFromFt(ft,-1):ft.toFixed(1)+" ft"); }
+  function htUnit(){ return (window.acUnitFt?window.acUnitFt():"ft"); }
+  function htVal(ft){ return (window.acFtVal?window.acFtVal(ft):ft); }
+
+  function renderSummary(){
+    var now=new Date(), nh=null,nl=null;
+    for(var i=0;i<sumHilo.length;i++){ var p=sumHilo[i]; if(p.d>now){ if(p.hi&&!nh) nh=p; if(!p.hi&&!nl) nl=p; if(nh&&nl) break; } }
+    function cell(p,label){ if(!p) return "<div class='td-next'><span>"+label+"</span><b>—</b></div>";
+      return "<div class='td-next'><span>"+label+"</span><b>"+ht(p.v)+"</b><em>"+fmtShort(p.d)+" · "+fmtTime(p.d)+"</em></div>"; }
+    $("#td-summary").innerHTML=cell(nh,"Next high tide")+cell(nl,"Next low tide");
+    renderToday(); renderSun();
+  }
+
+  /* today's full tide list, as a row of chips under the next-tide tiles */
+  function renderToday(){ var el=$("#td-today"); if(!el) return;
+    var now=new Date(), out="";
+    sumHilo.forEach(function(p){ if(p.d.getDate()!==now.getDate()||p.d.getMonth()!==now.getMonth()) return;
+      out+="<span class='chip td-tchip"+(p.d<now?" td-past":"")+"'>"+fmtTime(p.d)+" · "+(p.hi?"High":"Low")+" "+ht(p.v)+"</span>"; });
+    el.innerHTML=out?("<span class='td-today-l'>Today:</span> "+out):""; }
+
+  /* sunrise / sunset / moon phase for the station (see sunUT/moonPhase above) */
+  function renderSun(){ var el=$("#td-sun"); if(!el) return;
+    var now=new Date(), r=sunWall(now,true), s=sunWall(now,false), m=moonPhase(now);
+    el.innerHTML=
+      "<div class='td-next'><span>Sunrise</span><b>"+(r?fmtTime(r):"—")+"</b></div>"+
+      "<div class='td-next'><span>Sunset</span><b>"+(s?fmtTime(s):"—")+"</b></div>"+
+      (m?"<div class='td-next'><span>Moon phase</span><b class='td-moon'>"+m.glyph+" "+esc(m.name)+"</b></div>"+
+      "<div class='td-next'><span>Moon illumination</span><b>"+m.ill+"%</b></div>":"");
+    var note=$("#td-sun-note"); if(note) note.textContent=(r?"Station local time. ":"")+"New and full moons bring the biggest tides (spring tides); quarter moons the smallest (neaps). Sun times ±2 min. See the full moon calendar for exact phase times."; }
+
+  /* next king tides: scan a full year of highs, take the top 10%, cluster runs
+   * of nearby days, and show the next few windows with their peak height. */
+  function loadKing(){ var card=$("#td-king-card"); if(!card) return;
+    var now=new Date(), end=addDays(now,364), g=stGen;
+    noaa("product=predictions&interval=hilo&station="+station.id+"&begin_date="+ymd(now)+"&end_date="+ymd(end)).then(function(d){
+      if(!current(g)) return;   /* the slowest request on the page — most likely to outlive its station */
+      var highs=(d.predictions||[]).filter(function(p){return p.type==="H";}).map(function(p){return {d:parseT(p.t),v:+p.v};});
+      if(highs.length<20){ card.hidden=true; return; }
+      var sorted=highs.map(function(h){return h.v;}).sort(function(a,b){return a-b;});
+      var p90=sorted[Math.floor(sorted.length*0.9)];
+      /* cluster into short windows: extend while gaps are ≤2 days AND the
+       * window stays ≤4 days (king-tide runs are 2–4 days; the cap also keeps
+       * a station with quantized heights from chaining the whole year). */
+      var top=highs.filter(function(h){return h.v>=p90;}), clusters=[];
+      top.forEach(function(h){ var c=clusters[clusters.length-1];
+        if(c&&(h.d-c.end)<=2*86400e3&&(h.d-c.start)<=4*86400e3){ c.end=h.d; c.max=Math.max(c.max,h.v); c.n++; }
+        else clusters.push({start:h.d,end:h.d,max:h.v,n:1}); });
+      var out=""; clusters.slice(0,4).forEach(function(c){
+        var range=fmtShort(c.start)+(c.end.getDate()!==c.start.getDate()?" – "+fmtShort(c.end):"");
+        out+="<div class='td-next'><span>"+esc(range)+"</span><b>up to "+ht(c.max)+"</b><em>"+c.n+" high"+(c.n>1?"s":"")+" in the top 10%</em></div>"; });
+      $("#td-king").innerHTML=out; card.hidden=!out;
+    })["catch"](function(){ card.hidden=true; });
+  }
+
+  /* One number for the row cap and the note under the table — they said 220
+     and "first 200 shown" respectively, so a 210-row range printed no note. */
+  var TABLE_CAP=200;
+  function renderTable(){
+    var highs=rawRows.filter(function(r){return r.hi;}).map(function(r){return r.v;}).sort(function(a,b){return a-b;});
+    var p90=highs.length?highs[Math.floor(highs.length*0.9)]:1e9;
+    var out=rawRows.slice();
+    lastRows=out;
+    renderHighest();
+    var html="<tr><th>Date</th><th>Time</th><th>Tide</th><th>Height</th></tr>";
+    var shown=0;
+    out.forEach(function(r){ if(shown>=TABLE_CAP) return; shown++;
+      var king=r.hi&&highs.length>=10&&r.v>=p90;
+      html+="<tr class='"+(r.hi?"td-hi":"td-lo")+"'><td>"+fmtDay(r.d)+"</td><td>"+fmtTime(r.d)+"</td><td>"+(r.hi?"High":"Low")+(king?" 👑":"")+"</td><td>"+ht(r.v)+"</td></tr>"; });
+    $("#td-table").innerHTML=html;
+    status("#td-tbl-note",out.length+" tide"+(out.length===1?"":"s")+(out.length>TABLE_CAP?" (first "+TABLE_CAP+" shown)":"")+(highs.length>=10?" · 👑 = top 10% highest (king-tide territory)":""));
+  }
+
+  /* the two biggest upcoming high tides (highest per DAY, top two days in
+   * the finder's loaded range) — shown as two tiles at the top of the page */
+  function renderHighest(){
+    var el=$("#td-highest"); if(!el) return;
+    var byDay={};
+    rawRows.forEach(function(r){ if(!r.hi) return;
+      var k=r.d.getFullYear()+"-"+r.d.getMonth()+"-"+r.d.getDate();
+      if(!byDay[k]||r.v>byDay[k].v) byDay[k]=r; });
+    var top=Object.keys(byDay).map(function(k){ return byDay[k]; })
+      .sort(function(a,b){ return b.v-a.v; }).slice(0,2);
+    el.innerHTML=top.map(function(r,i){
+      return "<div class='td-next'><span>#"+(i+1)+" highest tide</span><b>"+ht(r.v)+"</b><em>"+fmtShort(r.d)+" · "+fmtTime(r.d)+"</em></div>";
+    }).join("");
+  }
+
+  /* =============== chart =============== */
+  /* The picture itself is drawn by tideChartSvg() in tide-chart.js — the SAME
+   * function the build uses to bake the chart into the page, so what loads and
+   * what redraws here are the same drawing. This function's job is only to
+   * gather the window, the curve, the night spans and the day ticks and hand
+   * them over, then keep _map so the pointer handlers below can convert a
+   * screen x back into a time. */
+  var canvas=$("#td-chart"), tip=$("#td-tip");
+  var VBW=700, VBH=600, PADL=40, PADR=12;
+  function chartWindow(){
+    if(chartHilo.length<3) return null;
+    var a=chartSelA||(chartStart?chartStart.getTime():chartHilo[0].d.getTime());
+    var b=chartSelB||(a+(chartDays||3)*86400e3);
+    /* zoomed out, the view is wider than the selection */
+    if(zoomed||holdZoom){ a=chartHilo[0].d.getTime(); b=chartHilo[chartHilo.length-1].d.getTime(); }
+    return {t0:a, t1:b};
+  }
+  function drawChart(){
+    if(!canvas) return;
+    var win=chartWindow(); if(!win) return;
+    var t0=win.t0, t1=win.t1, spanD=(t1-t0)/86400e3;
+    /* the curve, sampled fine enough to look smooth at any window width */
+    var pts=tideSeries(chartHilo.map(function(p){ return {t:p.d.getTime(),v:p.v}; }),t0,t1,Math.max(300000,(t1-t0)/600));
+    if(!pts.length) return;
+    chartPts=pts;
+    /* night spans: sunset -> next sunrise, one per day in view */
+    var nights=[];
+    if(offSec!==null&&station.lat!==null){
+      var d0=new Date(t0); d0.setHours(0,0,0,0); d0=addDays(d0,-1);
+      for(var di=0;di<Math.ceil(spanD)+4;di++){ var dd=addDays(d0,di), set=sunWall(dd,false);
+        if(!set) continue;
+        var nx=sunWall(addDays(dd,1),true)||new Date(dd.getFullYear(),dd.getMonth(),dd.getDate()+1,6,0);
+        nights.push([set.getTime(),nx.getTime()]); }
+    }
+    /* day boundaries + their labels */
+    var ticks=[], day=new Date(t0); day.setHours(0,0,0,0);
+    while(day.getTime()<t1){ if(day.getTime()>=t0)
+        ticks.push([day.getTime(), (spanD<=14||day.getDay()===0)?(["Su","Mo","Tu","We","Th","Fr","Sa"][day.getDay()]+" "+(day.getMonth()+1)+"/"+day.getDate()):""]);
+      day=addDays(day,1); }
+    var nd=new Date(), nowT=new Date(nd.getFullYear(),nd.getMonth(),nd.getDate(),nd.getHours(),nd.getMinutes()).getTime();
+    canvas.innerHTML=tideChartSvg({
+      W:VBW, H:VBH, t0:t0, t1:t1, pts:pts,
+      hilo:chartHilo.map(function(p){ var v=htVal(p.v).toFixed(1); if(v==="-0.0") v="0.0";
+        return {t:p.d.getTime(), v:p.v, hi:p.hi, lbl:v+htUnit()}; }),
+      nights:nights, days:ticks, marks:spanD<=9, now:nowT,
+      selA:chartSelA, selB:chartSelB
+    });
+    /* _map works in CSS pixels (the overlay buttons are positioned in px), so
+       it scales the viewBox coordinates by however wide the SVG is drawn */
+    var sc=(canvas.clientWidth||VBW)/VBW, iw=(VBW-PADL-PADR)*sc, padL=PADL*sc;
+    canvas._map={ t0:t0, t1:t1, padL:padL, iw:iw,
+      X:function(t){ return padL+iw*(t-t0)/(t1-t0); } };
+    updOverlay();
+  }
+  /* the menu's unit control: every height on the page is rendered by this
+     file, so it all has to be drawn again */
+  document.addEventListener("ac:units",function(){
+    try{ renderSummary(); renderTable(); drawChart(); }catch(e){}
+  });
+  if(canvas){
+    canvas.addEventListener("mousemove",function(e){
+      if(!chartPts.length||!canvas._map||dragEdge) return;
+      var r=canvas.getBoundingClientRect(), fx=e.clientX-r.left;
+      var t=canvas._map.t0+(fx-canvas._map.padL)/canvas._map.iw*(canvas._map.t1-canvas._map.t0);
+      var best=null,bd=1e18,k; for(k=0;k<chartPts.length;k++){ var dd=Math.abs(chartPts[k][0]-t); if(dd<bd){bd=dd;best=chartPts[k];} }
+      if(best){ var bt=new Date(best[0]); tip.hidden=false; tip.style.left=Math.min(fx,r.width-110)+"px";
+        tip.textContent=fmtDay(bt)+" "+fmtTime(bt)+" · "+ht(best[1]); } });
+    canvas.addEventListener("mouseleave",function(){ tip.hidden=true; });
+    var rto; window.addEventListener("resize",function(){ clearTimeout(rto); rto=setTimeout(drawChart,150); });
+  }
+
+  /* =============== controls =============== */
+  /* ---- chart controls: the Days dropdown picks the window length (2–7 days).
+   * To move to other dates you zoom out — either hold the center ⇔ button (zoom
+   * out + slide + release to zoom back in) or tap Zoom out (pins the 15-day
+   * view; drag the bright band, then Zoom in). No on-chart edge handles; the
+   * normal view is a static zoomed-in window. Resets to a fresh window on every
+   * page load by design. ---- */
+  var selALab=$("#td-selA"), selBLab=$("#td-selB"), chartNote="";
+  var edgeA=$("#td-edgeA"), edgeB=$("#td-edgeB"), moveBtn=$("#td-move");
+  var MINW=2, MAXW=7, DAY=86400e3;
+  function chartToday(){ var n=new Date(); return new Date(n.getFullYear(),n.getMonth(),n.getDate()); }
+  /* Default window: 3 days everywhere. It used to be 2 on phones, but the chart
+   * baked into the page can't know the viewport — a phone would have loaded a
+   * 3-day chart and then redrawn it as 2, which is the swap this whole thing is
+   * meant to avoid. The chart is twice as tall now, so 3 days reads fine on a
+   * phone, and anyone who prefers 2 picks it once (remembered in td_days). */
+  var daysDefault=3;
+  var storedDays=0; try{ storedDays=parseInt(localStorage.getItem("td_days"),10)||0; }catch(e){}
+  var selStart=chartToday(), selDays=(storedDays>=2&&storedDays<=7)?storedDays:daysDefault;
+  var zoomed=false, zoomBusy=false, dragEdge=0, grabOff=0, holdZoom=false;
+  function todayT(){ return chartToday().getTime(); }
+  function selB(){ return selStart.getTime()+selDays*DAY; }
+  function setSel(aT,bT){ selStart=new Date(aT); selDays=Math.round((bT-aT)/DAY); chartSelA=aT; chartSelB=bT; }
+  function endLimit(){ return todayT()+((zoomed||holdZoom)?15:364)*DAY; }   /* zoomed-out data reaches +15d */
+  function syncDays(){ var ds=$("#td-days"); if(ds) ds.value=String(selDays);
+    try{ localStorage.setItem("td_days",String(selDays)); }catch(e){} }
+  function commitSel(){ syncDays(); chartStart=new Date(selStart.getTime()); chartDays=selDays; loadChart();
+    track("tide_feature",{f:"chart_window",days:selDays}); }
+  function updOverlay(){
+    if(selALab) selALab.textContent=chartSelA?fmtDay(new Date(chartSelA)):"";
+    if(selBLab) selBLab.textContent=chartSelB?fmtDay(new Date(chartSelB)):"";
+    if(!canvas||!canvas._map) return;
+    var m=canvas._map;
+    /* center ⇔ handle: grab it to slide the whole window (normal view AND
+     * zoomed out) — visual only, drags fall through to the canvas band-move */
+    if(moveBtn){ var mid=(chartSelA+chartSelB)/2;
+      if(chartSelA&&mid>m.t0&&mid<m.t1){ moveBtn.hidden=false; moveBtn.style.left=m.X(mid)+"px"; }
+      else moveBtn.hidden=true; }
+    /* round ‹ › handles on the selection edges — the visual "grab me" hint;
+     * pointer-events:none, so drags fall through to the canvas hit zones */
+    [[edgeA,chartSelA],[edgeB,chartSelB]].forEach(function(pair){ var el=pair[0], t=pair[1];
+      if(!el) return;
+      /* at the 7-day max the window can only shrink — flip the arrows inward */
+      el.classList.toggle("td-edge-flip",selDays>=MAXW);
+      if(t&&t>m.t0&&t<m.t1){ el.hidden=false; el.style.left=m.X(t)+"px"; }
+      else el.hidden=true; }); }
+  function xToT(clientX){ var m=canvas._map, r=canvas.getBoundingClientRect();
+    return m.t0+(clientX-r.left-m.padL)/m.iw*(m.t1-m.t0); }
+  function snapDay(t){ return todayT()+Math.round((t-todayT())/DAY)*DAY; }
+  /* dragging on the canvas: ONLY when zoomed out — grab the bright band to
+   * slide it to a date range (no edge-resize; the window length is the Days
+   * dropdown). In the normal view the chart is a static zoomed-in window. */
+  if(canvas){
+    canvas.addEventListener("pointerdown",function(e){ if(!canvas._map||!(zoomed||holdZoom)) return;
+      var x=e.clientX-canvas.getBoundingClientRect().left, m=canvas._map;
+      var xa=m.X(chartSelA), xb=m.X(chartSelB);
+      if(x>xa-16&&x<xb+16){ dragEdge=3; grabOff=xToT(e.clientX)-chartSelA; }
+      else return;
+      try{ canvas.setPointerCapture(e.pointerId); }catch(_){}
+      e.preventDefault(); });
+    canvas.addEventListener("pointermove",function(e){
+      if(dragEdge===3&&canvas._map){ var a=snapDay(xToT(e.clientX)-grabOff);
+        if(a<todayT()) a=todayT();
+        if(a>endLimit()-selDays*DAY) a=endLimit()-selDays*DAY;
+        setSel(a,a+selDays*DAY); drawChart(); return; }
+      if(canvas._map&&(zoomed||holdZoom)){ var x2=e.clientX-canvas.getBoundingClientRect().left, m2=canvas._map;
+        var xa2=m2.X(chartSelA), xb2=m2.X(chartSelB);
+        canvas.style.cursor=(x2>xa2-16&&x2<xb2+16)?"grab":""; } });
+    function edgeUp(){ if(dragEdge){ dragEdge=0;
+      if(zoomed){ syncDays(); drawChart(); }   /* stay zoomed out; commit happens on Zoom in */
+      else commitSel(); } }
+    canvas.addEventListener("pointerup",edgeUp); canvas.addEventListener("pointercancel",edgeUp);
+  }
+  /* Settings row: days 2–7, zoom out/in */
+  function loadZoomOut(){ if(zoomBusy) return; zoomBusy=true;
+    var vs=chartToday(), ve=new Date(todayT()+15*DAY);
+    status("#td-chart-note","Zoomed out to 15 days — drag the bright band to the dates you want, then tap Zoom in.");
+    var zb=bakedHilo(vs.getTime(),ve.getTime());
+    if(zb){ chartHilo=zb; drawChart(); }
+    noaa("product=predictions&interval=hilo&station="+station.id+"&begin_date="+ymd(vs)+"&end_date="+ymd(ve)).then(function(d){ zoomBusy=false; if(!zoomed&&!holdZoom) return;
+      chartHilo=(d.predictions||[]).map(function(p){return {d:parseT(p.t),v:+p.v,hi:p.type==="H"};});
+      drawChart();
+    })["catch"](function(){ zoomBusy=false; });
+  }
+  /* press & HOLD the center button: the chart zooms out to 30 days while
+   * held — slide the band under your finger/pointer to any dates — and zooms
+   * back into the selection on release. If the 30-day view is already pinned
+   * via Zoom out, holding just slides (no extra zoom, stays wide). */
+  if(moveBtn){
+    moveBtn.addEventListener("pointerdown",function(e){ if(!canvas._map) return;
+      holdZoom=true; moveBtn.classList.add("on");
+      try{ moveBtn.setPointerCapture(e.pointerId); }catch(_){}
+      if(!zoomed){ loadZoomOut(); status("#td-chart-note","Zoomed out — slide to the dates you want, release to zoom back in."); }
+      e.preventDefault(); });
+    moveBtn.addEventListener("pointermove",function(e){ if(!holdZoom||!canvas._map) return;
+      var a=snapDay(xToT(e.clientX)-selDays*DAY/2);
+      if(a<todayT()) a=todayT();
+      if(a>endLimit()-selDays*DAY) a=endLimit()-selDays*DAY;
+      setSel(a,a+selDays*DAY); drawChart(); });
+    function mUp(){ if(!holdZoom) return; holdZoom=false; moveBtn.classList.remove("on");
+      if(!zoomed){ status("#td-chart-note",""); commitSel(); }
+      else { syncDays(); drawChart(); } }
+    moveBtn.addEventListener("pointerup",mUp); moveBtn.addEventListener("pointercancel",mUp);
+  }
+  var daysSel=$("#td-days"), zoomTg=$("#td-zoomtg");
+  if(daysSel) daysSel.addEventListener("change",function(){
+    var n=Math.max(MINW,Math.min(MAXW,+daysSel.value||4));
+    selDays=n; var a=selStart.getTime();
+    if(a>endLimit()-n*DAY) a=endLimit()-n*DAY;
+    setSel(a,a+n*DAY);
+    if(zoomed) drawChart(); else commitSel(); });
+  if(zoomTg) zoomTg.addEventListener("click",function(){
+    zoomed=!zoomed;
+    zoomTg.textContent=zoomed?"Zoom in":"Zoom out · 15 days";
+    if(zoomed) loadZoomOut();
+    else { status("#td-chart-note",""); commitSel(); }
+    track("tide_feature",{f:"chart_zoom",out:zoomed}); });
+  /* explicit, non-drag chart navigation — a keyboard- and screen-reader-
+   * accessible alternative to dragging the band or its edge handles */
+  function shiftWindow(deltaDays){
+    var a=selStart.getTime()+deltaDays*DAY;
+    if(a<todayT()) a=todayT();
+    if(a>endLimit()-selDays*DAY) a=endLimit()-selDays*DAY;
+    setSel(a,a+selDays*DAY);
+    if(zoomed) drawChart(); else commitSel();
+    track("tide_feature",{f:"chart_navbtn",delta:deltaDays});
+  }
+  var navPWeek=$("#td-nav-pweek"), navPDay=$("#td-nav-pday"), navToday=$("#td-nav-today"),
+      navNDay=$("#td-nav-nday"), navNWeek=$("#td-nav-nweek");
+  if(navPWeek) navPWeek.addEventListener("click",function(){ shiftWindow(-7); });
+  if(navPDay) navPDay.addEventListener("click",function(){ shiftWindow(-1); });
+  if(navToday) navToday.addEventListener("click",function(){ shiftWindow((todayT()-selStart.getTime())/DAY); });
+  if(navNDay) navNDay.addEventListener("click",function(){ shiftWindow(1); });
+  if(navNWeek) navNWeek.addEventListener("click",function(){ shiftWindow(7); });
+  syncDays();
+  chartStart=new Date(selStart.getTime()); chartDays=selDays;
+  var reload=$("#td-apply"); if(reload) reload.addEventListener("click",loadTable);
+  /* "Show 5 more days": extend the finder's To date and reload in place —
+   * press as many times as you like (up to NOAA's ~1-year horizon) */
+  var moreBtn=$("#td-more");
+  if(moreBtn) moreBtn.addEventListener("click",function(){
+    var toEl=$("#td-to"), cur=parseT(toEl.value+" 00:00")||addDays(new Date(),5);
+    var e3=addDays(cur,5);
+    toEl.value=e3.getFullYear()+"-"+pad(e3.getMonth()+1)+"-"+pad(e3.getDate());
+    loadTable();
+    track("tide_feature",{f:"more_days"}); });
+  /* self-heal stored duplicates once per load, then render everything that
+   * reads saved state (list, quick cards, saved note) */
+  favSet(favGet());
+  renderFavUI();
+  /* the default + saved list must STICK across every tide page: if another
+   * tab changes them (storage event), or this page returns from the
+   * back-forward cache or regains focus, re-read localStorage and re-render
+   * so all open tide pages agree on the ONE default */
+  function refreshSaved(){ renderFavUI(); }
+  /* The saved-station UI was the only thing brought back up to date on return.
+     "Next high tide" is the reason people open these pages, and a tab restored
+     the next morning was still showing yesterday's — right up until something
+     else happened to re-render. Re-derive it from the data in hand, and re-ask
+     NOAA when the two-day window no longer reaches now. */
+  function refreshLive(){
+    if(!station) return;
+    var last=sumHilo.length?sumHilo[sumHilo.length-1].d.getTime():0;
+    if(last<Date.now()+3600e3) loadSummary(); else { renderSummary(); if(chartHilo&&chartHilo.length) drawChart(); }
+  }
+  function onReturn(){ refreshSaved(); refreshLive(); }
+  /* The chart's "now" line is baked at draw time, and renderSummary() does not
+     redraw the chart — so the tiles came back up to date on return while the
+     line itself stayed wherever it was when the page loaded. A tab left open
+     for six hours showed a marker six hours behind, which is worse than showing
+     none: it puts "now" on the wrong side of a peak and invites the reader to
+     expect a rising tide while it is actually falling. So the chart is redrawn
+     on return (above) AND ticked once a minute while the tab is visible.
+     Paused while hidden — same rule the localtime strip uses — so a background
+     tab costs nothing. */
+  var nowTick=null;
+  function stopTick(){ if(nowTick){ clearTimeout(nowTick); nowTick=null; } }
+  function scheduleTick(){
+    stopTick();
+    if(document.hidden) return;
+    var n=new Date();
+    nowTick=setTimeout(function(){
+      if(station&&chartHilo&&chartHilo.length) drawChart();
+      scheduleTick();
+    },60000-(n.getSeconds()*1000+n.getMilliseconds()));
+  }
+  scheduleTick();
+  window.addEventListener("storage",function(e){
+    if(!e.key||e.key==="td_favs"||e.key==="td_home") refreshSaved(); });
+  window.addEventListener("pageshow",function(e){ if(e.persisted) onReturn(); });
+  document.addEventListener("visibilitychange",function(){ if(document.hidden){ stopTick(); } else { onReturn(); scheduleTick(); } });
+  /* "＋ Add to Saved Stations" under the station name (station pages + hub tool) */
+  var addSta=$("#td-addsta");
+  if(addSta) addSta.addEventListener("click",function(){ if(!station) return;
+    var favs=favGet();
+    if(!favs.some(function(f){ return String(f.id)===String(station.id); })){ favs.push(stationLite(station)); favSet(favs); }
+    track("tide_feature",{f:"add_station",station:station.id});
+    renderFavUI(); });
+  var csvBtn=$("#td-csv");
+  if(csvBtn) csvBtn.addEventListener("click",function(){
+    if(!lastRows.length) return;
+    var csv='"NOAA astronomical tide predictions only — not for navigation or safety decisions. For those, check NOAA and the U.S. Coast Guard."\n\n';
+    csv+="Date,Time,Tide,Height ("+htUnit()+" MLLW)\n";
+    lastRows.forEach(function(r){
+      var cells=[fmtDay(r.d),fmtTime(r.d),r.hi?"High":"Low",r.v.toFixed(2)];
+      csv+=cells.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(",")+"\n"; });
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
+    a.download="tides-"+station.id+".csv"; document.body.appendChild(a); a.click(); track("tide_feature",{f:"csv",station:station.id});
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },500);
+  });
+
+  /* =============== boot =============== */
+  var from=$("#td-from"),to=$("#td-to");
+  if(from&&to){ var n=new Date(); from.value=n.getFullYear()+"-"+pad(n.getMonth()+1)+"-"+pad(n.getDate());
+    var e2=addDays(n,5); to.value=e2.getFullYear()+"-"+pad(e2.getMonth()+1)+"-"+pad(e2.getDate()); }
+  var init=null;
+  if(window.TIDE_CFG&&window.TIDE_CFG.station) init=window.TIDE_CFG.station;
+  else{ var m=/[?&]station=([^&]+)/.exec(location.search);
+    if(m){ var id=decodeURIComponent(m[1]), nm=/[?&]name=([^&]+)/.exec(location.search);
+      var hit=null; CUR.forEach(function(c){ if(c.id===id) hit=stationFromCur(c); });
+      init=hit||{id:id,label:nm?decodeURIComponent(nm[1].replace(/\+/g," ")):("Station "+id),lat:null,lng:null}; } }
+  /* the hub is navigation only — tide results live on the location pages
+   * (the hidden data cards on the hub serve ?station= deep links for
+   * non-curated NOAA stations found via full search) */
+  if(init){
+    /* a URL-only station without coords: look it up in the full list for lat/lng
+     * (needed for sunrise/sunset and the station's UTC offset) */
+    /* A ?station= deep link to a NON-curated station arrives with no coords, so
+       the full NOAA directory has to be consulted for lat/lng (sun times, the
+       station's UTC offset). Running setStation() both now and again when the
+       directory resolves ran all four NOAA loads TWICE — including the 365-day
+       king-tide request. The directory lookup only ever supplies coordinates,
+       so patch those in and re-render the pieces that use them; the tide data
+       already on its way is for the same station and stays valid. */
+    if(init.lat===null){ loadAllStations().then(function(){
+      var f=null; allStations.forEach(function(s){ if(s.id===init.id) f=s; });
+      if(!f||!station||String(station.id)!==String(init.id)) return;
+      station.lat=f.lat; station.lng=f.lng; if(f.tz) station.tz=f.tz; if(f.slug) station.slug=f.slug;
+      offSec=resolveOffSec(); renderSummary();
+    })["catch"](function(){}); }
+    setStation(init,false);
+  }
+  track("tide_view",{station:init?init.id:"hub"});
+})();

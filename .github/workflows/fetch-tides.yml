@@ -1,0 +1,45 @@
+# Weekly batch fetch of NOAA tide predictions -> seo/_data/tide-predictions.json.
+#
+# The site's hourly builds read TODAY's high/low from that committed file
+# instead of calling NOAA per build. This decouples NOAA request frequency
+# (~100 requests once a week, spaced out) from build frequency (hourly), which
+# keeps us well within NOAA CO-OPS acceptable use. Predictions are fixed
+# astronomy, so the 45-day window stays valid between runs.
+#
+# Commits the refreshed JSON to main (which also triggers a Cloudflare rebuild).
+# Needs contents:write; if main has branch protection that blocks the Actions
+# bot, allow it (or point this at a deploy PR instead).
+
+name: Fetch tide predictions
+on:
+  schedule:
+    - cron: "40 9 * * 1"   # Mondays 09:40 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch tide predictions (batched, throttled)
+        run: node seo/tools/fetch-tides.mjs
+
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain seo/_data/tide-predictions.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add seo/_data/tide-predictions.json
+            git commit -m "data: refresh NOAA tide predictions (45-day window)"
+            git push
+            echo "committed refreshed tide predictions"
+          else
+            echo "no change in tide predictions"
+          fi

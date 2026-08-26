@@ -1,0 +1,492 @@
+/* the skip link: the first thing keyboard focus reaches, invisible until it
+   does. position:fixed so appearing cannot shift the layout under it. */
+.skip-link{position:fixed;top:-48px;left:12px;z-index:200;padding:10px 16px;border-radius:0 0 10px 10px;
+  background:var(--accent);color:var(--accent-text);font-weight:700;text-decoration:none;transition:top .15s}
+.skip-link:focus{top:0;outline:2px solid var(--text);outline-offset:2px}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  /* faint themed motif tiled over the gradient (both fixed) */
+  background-image:var(--motif,none),var(--bg);
+  background-size:var(--motif-size,200px),cover;
+  background-repeat:repeat,no-repeat; background-attachment:fixed;
+  color:var(--text); min-height:100vh; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent)}
+/* ONE WIDTH FOR THE WHOLE SITE. It was 820px here and 1500 on the solar pages,
+   so the page resized as you moved between sections. 1400 everywhere, and
+   responsive below it.
+
+   NOTHING CAPS PARAGRAPH WIDTH ANY MORE. A measure set in characters is an
+   arbitrary number applied to a container that already knows how wide it is,
+   and on a wide screen it left prose stopping four fifths of the way across
+   with the card still going. What DOES get capped is a label-and-value ROW —
+   see .wc-facts and .sim-rows — because a label at the far left and its number
+   at the far right of a 1400px page is not a row anyone can read across. */
+.wrap{max-width:1400px;margin:0 auto;padding:12px 18px 64px}
+/* 820px is a reading measure, and it is the right one for a page of prose. The
+ * solar-system pages are not that: their content is a round picture whose inner
+ * orbits are a handful of pixels across, and every pixel of width buys
+ * legibility there. So those pages opt in to a wide shell, and the cards inside
+ * it that ARE prose cap their own line length rather than running to 1500px. */
+/* 1400 is the site's wide container. It was 1500 on the solar pages alone,
+   which meant the page width CHANGED as you moved between sections — the thing
+   most likely to make a site feel like two sites stitched together. */
+.wrap-wide{max-width:1400px}
+/* THE CONTAINER SETS THE MEASURE, NOT A CHARACTER COUNT. These carried
+   max-width:78ch, which on a 1500px wide page stopped the prose about four
+   fifths of the way across and left a ragged column of empty space beside every
+   paragraph — a cap that looked like a mistake rather than like typography.
+   Where a narrow measure is genuinely wanted, the CARD is made narrow; the text
+   inside it now fills whatever it is given. */
+/* ---- the domain-change notice -------------------------------------------
+   One line above the logo, on every page, saying alarm-clock.org is now
+   timeandspace.science. It is TEMPORARY: build-inline stops emitting it after
+   its retire date, and strips it from every page whether or not it emits.
+   Dismissal sets html.nb-off from a script in <head>, so a returning visitor
+   never sees it paint and then vanish. Sized so it reads as a note about the
+   site rather than as content: smaller than the body text, muted, one rule
+   under it instead of a filled bar, which on a dark page would fight the
+   logo it sits above. */
+.site-notice{display:flex;align-items:center;gap:10px;
+  padding:7px 0 8px;margin:0 0 4px;border-bottom:1px solid var(--border);
+  font-size:13px;line-height:1.35;color:var(--muted)}
+.site-notice p{margin:0;flex:1;min-width:0}
+.site-notice b{color:var(--text);font-weight:600}
+.site-notice-x{flex:none;display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;padding:0;border:0;border-radius:6px;
+  background:none;color:var(--muted);cursor:pointer}
+.site-notice-x:hover{background:rgba(255,255,255,.07);color:var(--text)}
+.site-notice-x:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+html.nb-off .site-notice{display:none}
+/* On a phone the reassuring half ("same tools, same pages") took the notice to
+   three lines — more chrome above the fold than the tool the page is for. The
+   part that has to survive is which name replaced which; the rest is a nicety
+   that earns its space only where there is space. */
+@media (max-width:560px){.site-notice-sub{display:none}}
+.brand{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:2px 0 8px}
+/* ---- the home page's H1, IN the brand bar --------------------------------
+   Logo left, heading centred, menu right. A three-column grid, not a flex row
+   with margin:auto: the heading has to be centred on the BAR, and in a flex
+   row it would centre on whatever space the logo and the menu left over, which
+   is not the same thing unless those two happen to be the same width. .topnav
+   is display:none already, so the bar has exactly three items. */
+.brand-titled{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;flex-wrap:nowrap}
+.brand-titled .crumbs{justify-self:start}
+.brand-titled .menu-dd{justify-self:end;margin-left:0}
+.brand-h1{justify-self:center;margin:0;text-align:center;line-height:1.1;
+  font-size:clamp(19px,4.6vw,32px)}
+/* ONE ROW AT EVERY WIDTH, all three centred on each other. It used to drop the
+   heading onto a second line below 430px; on a phone that pushed everything
+   under it down by a whole line and made the top of the page read as two
+   half-empty rows rather than one bar. The heading shrinks to fit instead —
+   min-width:0 is what lets a grid item go narrower than its own text, and the
+   clamp bottoms out at 17px, which still reads. */
+.brand-titled{min-height:45px}
+.brand-titled .crumbs,.brand-titled .brand-h1,.brand-titled .menu-dd{align-self:center}
+.brand-h1{min-width:0}
+@media (max-width:429px){
+  .brand-h1{font-size:clamp(17px,5.1vw,22px)}
+  .brand-titled{gap:4px}
+}
+
+/* top navigation (CSS-only dropdowns via <details>) */
+/* the hamburger menu is the nav at all widths; .topnav is a hidden holder for
+ * the close-on-click script, kept only so nav injection stays idempotent */
+.topnav{display:none}
+.menu-dd{margin-left:auto}
+.nav-dd{position:relative}
+.nav-dd summary{list-style:none;cursor:pointer;user-select:none;font-size:14px;font-weight:600;
+  padding:8px 10px;border-radius:10px;color:var(--text);display:flex;align-items:center;gap:5px}
+.nav-dd summary::-webkit-details-marker{display:none}
+.nav-dd summary::after{content:"▾";font-size:10px;opacity:.7}
+.nav-dd summary:hover,.nav-dd[open] summary{background:var(--card)}
+/* hamburger: a touch smaller than the + button, bigger glyph, no ▾ arrow */
+.menu-dd summary{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;padding:0;font-size:30px;line-height:1;border-radius:10px;gap:0}
+.menu-dd summary::after{content:none}
+.nav-dd .menu{position:absolute;right:0;top:calc(100% + 6px);min-width:215px;z-index:60;
+  background:var(--menu-bg);border:1px solid var(--border);border-radius:14px;padding:6px;
+  box-shadow:0 12px 32px rgba(0,0,0,.35);list-style:none;margin:0}
+.nav-dd .menu a{display:block;padding:7px 13px;border-radius:9px;font-size:15px;font-weight:600;
+  color:var(--menu-text);text-decoration:none;white-space:nowrap}
+.nav-dd .menu a:hover{background:rgba(125,125,125,.16)}
+.nav-dd .menu .sep{height:1px;background:var(--border);margin:5px 8px}
+/* the cannabis-leaf glyph on the 420 Countdown item — cropped viewBox + this
+ * size make it fill roughly the same box as the emoji icons on the other
+ * menu items */
+.nav-dd .menu .nav-leaf{width:24px;height:24px;vertical-align:-7px;margin-right:-1px}
+/* inline SVG country flags (replace emoji flags, which degrade to "JP" etc.) */
+.flag{display:inline-block;width:20px;height:14px;border-radius:2px;vertical-align:-2px;
+  margin-right:6px;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.h1-flag .flag{width:30px;height:20px;vertical-align:-3px;margin-right:4px}
+/* breadcrumb header: domain + (dimmer) first folder, reading like a URL path */
+.crumbs{display:inline-flex;align-items:center;gap:1px;flex-wrap:wrap;min-width:0}
+.brand-name{font-weight:800;font-size:18px;color:var(--text);text-decoration:none;display:inline-flex;align-items:center}
+.brand-name .logo{display:block;height:45px;width:auto}
+.brand-name:hover{color:var(--accent)}
+/* ---- the logo as the section menu (build-inline's BRAND_DD) --------------
+   The logo replaced the wordmark long ago; now it also opens the four home
+   sections. It reuses .nav-dd wholesale — the same open/close markup, the
+   same panel, and the same close-on-outside-click script the copy and
+   hamburger menus use — so this is only the three things that differ from a
+   right-hand dropdown. */
+/* 1. it opens to the RIGHT of its own left edge. .nav-dd .menu pins right:0,
+      which is correct for the two menus at the far end of the bar and puts
+      this one off the left of the viewport. */
+.brand-dd .menu{left:0;right:auto}
+/* 2. the logo keeps the size it had as a link — the .brand-name rule above no
+      longer applies to it now that it lives in a <summary>. */
+.brand-dd summary{padding:2px 4px;gap:3px}
+.brand-dd .logo{display:block;height:45px;width:auto}
+/* 3. the section rows carry an icon, so they lay out as icon + label rather
+      than as the plain text rows .nav-dd .menu a assumes. */
+.brand-menu a{display:flex;align-items:center;gap:9px}
+.brand-menu .nav-ico{flex:0 0 auto;opacity:.85}
+/* ---- the wordmark ---------------------------------------------------------
+   The domain set as a logotype: capitals start each word so a run-together
+   string reads as words, and the two JOINS (And, and the dot) go grey while
+   the three CONCEPTS stay white. That is one rule rather than three
+   exceptions, which is why the dot is grey too.
+
+   THE GAPS ARE MARGINS, NOT SPACES. A real space would let the name break
+   across two lines and, worse, would be copied — paste "Time And Space .
+   Science" into an address bar and you get a search, not this site. A margin
+   is the same gap optically while the text stays the one string
+   "TimeAndSpace.Science". About 0.1em: a word space in this face is ~0.26em,
+   so this is the requested third-to-half of one. `.wm-tld` cancels it so the
+   dot stays welded to Science and ".Science" reads as the single unit it is. */
+/* THE BAR IS THREE THINGS, AND THE WORDMARK IS THE MIDDLE ONE.
+   `display:contents` on .crumbs dissolves that wrapper so the logo menu and
+   the wordmark become grid items of .brand itself — the same technique the
+   moon hero and the solar panel use — which is what lets the wordmark be
+   centred on the BAR rather than on the space left over beside the logo.
+   Centring it inside .crumbs would have put it ~26px off true centre. */
+.brand{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.crumbs{display:contents}
+.brand-dd{justify-self:start}
+.brand-word{justify-self:center}
+.menu-dd{justify-self:end;margin-left:0}
+/* no ▾ on the logo: the caret reads as a form control next to a mark that is
+   plainly a button already, and it pulled the eye off the wordmark */
+.brand-dd summary::after{content:none}
+.brand-word{display:inline-flex;align-items:baseline;margin:0;text-decoration:none;
+  font-weight:800;letter-spacing:-.005em;line-height:1.1;white-space:nowrap;
+  font-size:clamp(19px,4.2vw,30px)}
+.brand-word>*+*{margin-left:.1em}
+.wm-w{color:var(--text)}
+.wm-j{color:var(--muted)}
+.wm-tld{margin-left:0}
+/* the whole lockup lifts on hover when it is a link, so it still reads as one
+   thing to click rather than five coloured pieces */
+a.brand-word:hover .wm-w{color:var(--accent)}
+a.brand-word:hover .wm-j{color:var(--accent);opacity:.55}
+/* the bar is logo + wordmark + (copy) + hamburger; on a small phone the
+   wordmark is the piece that must give way first, and it shrinks rather than
+   wrapping because it cannot wrap */
+@media (max-width:380px){.brand-word{font-size:17px}}
+.brand-cat{font-weight:600;font-size:18px;color:var(--muted);text-decoration:none;word-break:break-all}
+.brand-cat:hover{color:var(--text)}
+/* copy / share dropdown (reuses the nav-dd machinery, icon instead of a label) */
+.copy-dd summary{padding:6px;color:var(--muted)}
+.copy-dd summary::after{content:none}
+.copy-dd summary svg{display:block}
+.copy-dd[open] summary,.copy-dd summary:hover{color:var(--text)}
+.copy-dd .menu{left:0;right:auto;min-width:200px}
+.copy-menu .menu-h{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);
+  padding:4px 12px 6px;font-weight:700}
+.copy-item{display:block;width:100%;text-align:left;background:none;border:0;cursor:pointer;
+  padding:9px 12px;border-radius:9px;font-size:14px;font-weight:600;color:var(--menu-text);
+  white-space:nowrap;font-family:inherit}
+.copy-item:hover{background:rgba(125,125,125,.16)}
+.copy-item.copied{color:var(--accent)}
+/* mobile: anchor every dropdown to the header so it spans the width and never
+   runs off-screen (instead of hanging off whichever trigger is near an edge) */
+@media (max-width:600px){
+  .brand{position:relative}
+  .nav-dd{position:static}
+  .nav-dd .menu,.copy-dd .menu{left:12px;right:12px;top:calc(100% + 4px);min-width:0;
+    max-height:72vh;overflow-y:auto}
+  .copy-item,.nav-dd .menu a{white-space:normal}
+}
+/* desktop: nav links sit on the top row, centered between logo and Create */
+@media (min-width:680px){
+  .menu-dd summary{width:38px;height:38px;font-size:27px}
+}
+h1{font-size:26px;line-height:1.2;margin:2px 0 4px}
+.sub{color:var(--muted);margin:0 0 22px}
+/* homepage brand line: domain + linked tool list */
+.home-tagline{margin:0 0 14px;font-size:14px;color:var(--muted)}
+.home-tagline a{color:var(--accent);text-decoration:none;font-weight:600}
+.home-tagline a:hover{text-decoration:underline}
+
+/* cards / form */
+/* symmetric vertical margin: adjacent cards collapse to 16px (unchanged
+ * rhythm), but a card that follows a non-card section (e.g. the countdown) now
+ * also gets a consistent 16px of room above it instead of butting right up
+ * against it */
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;margin:16px 0;backdrop-filter:blur(8px)}
+/* ---- pairing two cards on a wide page --------------------------------------
+   The 1400px shell made a full-width card the default answer for content that
+   never asked for it: two short explainers, a fact table and its footnote, a
+   chip list — each one a 1400px band that is four-fifths background. A .duo
+   wrapper pairs two such cards side by side once there is genuinely room for
+   two readable columns (980px — two ~640px cards, each wider than the whole
+   page used to be), and simply dissolves below that: one column, the same
+   stacked order the DOM already has, so phones and narrow windows see exactly
+   the page they always saw. Pair only cards that are COMPLEMENTARY — two
+   halves of one thought (the two caveat lists, the two explainers) — never
+   two unrelated cards that happen to be short; side-by-side reads as "these
+   belong together" and the layout should only say that when it is true.
+   .duo-23 weights the pair 2:1 for a long card beside a short one.
+   The children's own card margins are zeroed and the wrapper takes them —
+   the grid gap keeps the site's 16px rhythm inside. align-items stretch
+   (grid's default) makes the pair equal height, so the row reads as a row. */
+.duo{margin:16px 0;display:grid;grid-template-columns:1fr;gap:16px}
+/* min-width:0 releases each card from its content's min-content width, so a
+   sideways-scrolling strip inside one card cannot steal the other's column */
+.duo>.card{margin:0;min-width:0}
+@media (min-width:980px){
+  .duo{grid-template-columns:1fr 1fr}
+  .duo-23{grid-template-columns:2fr 1fr}
+}
+/* .duo-m KEEPS its two columns on a phone. Only for pairs whose innards
+   collapse to one legible ~170px column — tile stacks that wrap (.mn-next,
+   .mn-rise-row) or strips that already scroll sideways (.mn-strip). A table,
+   a dial or a paragraph card does not survive that width; those stay .duo
+   and stack. The gap tightens so the columns keep a readable measure. */
+.duo-m{grid-template-columns:1fr 1fr}
+@media (max-width:560px){.duo-m{gap:10px}}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+input,select,textarea{
+  width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
+  background:rgba(0,0,0,.25);color:var(--text);font-size:16px;font-family:inherit
+}
+/* The closed select matches the text inputs (translucent dark) so every field
+ * looks consistent. Only the OPEN option list is forced opaque + near-white:
+ * the browser draws it itself and would otherwise composite the translucent
+ * field background to an unreadable light gray. */
+select option{background-color:#171327;color:#f8fafc}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.4)}
+textarea{resize:vertical;min-height:64px}
+.row{display:flex;gap:12px}
+.row>*{flex:1}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+/* Concise reliability warning beside tool controls (timer Start, etc.). No
+   max-width cap: the sentence is meant to read as one line wherever the card is
+   wide enough for it, rather than being folded into three by a 520px box. It
+   still wraps on a phone — 97 characters can't fit 430px at any legible size. */
+.tool-warn{text-align:center;margin:10px auto 0}
+.tool-warn a{color:var(--muted)}
+/* duration-equivalent fact line under a preset timer ("90 minutes equals 1 hour
+ * 30 minutes, or 1½ hours") — a subtle centered pill, tabular digits */
+.duration-equivalent{margin:14px auto 0;width:max-content;max-width:100%;padding:7px 15px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.03);text-align:center;font-size:14px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+/* per-duration illustration in the timer page's How-it-works card */
+.timer-illus{float:right;width:160px;height:160px;margin:0 0 10px 16px;border-radius:14px}
+@media (max-width:480px){.timer-illus{float:none;display:block;margin:0 auto 12px}}
+/* analog clock illustration on the "set alarm for HH:MM" pages */
+.clock-illus{float:right;width:150px;height:150px;margin:0 0 8px 16px}
+@media (max-width:480px){.clock-illus{float:none;display:block;margin:0 auto 10px}}
+/* "Show more times" expander under the alarm quick-links (CSS-only) */
+.more-times{margin-top:12px}
+.more-times>summary{list-style:none;cursor:pointer;display:inline-block;font-size:13px;font-weight:700;color:var(--accent)}
+.more-times>summary::-webkit-details-marker{display:none}
+.more-times>summary::after{content:" ▾"}
+.more-times[open]>summary::after{content:" ▴"}
+.more-times>summary:hover{text-decoration:underline}
+/* schematic tide-pattern curve on tide station pages */
+.tide-figure{margin:12px 0 0;text-align:center}
+.tide-curve{display:block;width:100%;max-width:340px;height:auto;margin:0 auto}
+.tide-figure figcaption{font-size:11px;color:var(--muted);margin-top:4px}
+/* "Tides near me" geolocation CTA on the tides hub */
+.td-nearme{border:1.5px solid var(--accent);box-shadow:0 0 0 4px rgba(125,211,252,.06)}
+.td-nearme .btn{margin-top:4px}
+/* /tides/near-me/ inline preview: lead card CTA + nearest-locations list */
+.nm-status{margin:0 0 10px;color:var(--muted)}
+/* status row: a fixed spinner-width column on the left, the message to the
+ * right — the spinner shows while we're locating/looking up the nearest tides */
+.nm-statusrow{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.nm-statusrow .nm-status{margin:0}
+.nm-spinner{flex:0 0 18px;width:18px;height:18px;border-radius:50%;border:2px solid var(--border);border-top-color:var(--accent);animation:nm-spin .7s linear infinite}
+.nm-spinner[hidden]{display:none}
+@keyframes nm-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.nm-spinner{animation-duration:2.4s}}
+.nm-list:not(:empty){margin-bottom:12px}
+.nm-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.nm-item{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;padding:10px 14px;border:1px solid var(--border);border-radius:12px;background:var(--card2,#171a26);text-decoration:none;color:inherit}
+.nm-item:hover{border-color:var(--accent);background:rgba(125,211,252,.08)}
+.nm-city{font-weight:600}
+.nm-mi{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* reciprocal coastal cards: baked sunrise/sunset line on a tide page */
+.td-sunline{font-size:16px;margin:2px 0 8px;font-variant-numeric:tabular-nums}
+.td-sunline b{color:var(--accent);font-weight:700}
+/* baked "today's tides" table on tide station pages */
+.tide-today{width:100%;border-collapse:collapse;margin-top:4px}
+.tide-today th,.tide-today td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+.tide-today th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.tide-today td{font-variant-numeric:tabular-nums}
+.tide-today tr:last-child td{border-bottom:none}
+/* live theme preview in the builder: shows the chosen background colour +
+ * pattern with the selected image on top, so you see the look before sharing */
+.theme-preview{margin:12px 0 4px;height:128px;border:1px solid var(--border);border-radius:14px;
+  background-image:var(--motif,none),var(--bg);background-size:var(--motif-size,auto),cover;
+  background-position:center;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.theme-preview svg{width:88px;height:88px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.45))}
+/* image picker + live preview side by side: the preview stretches to match
+ * the label+select column, so the row reads as one unit */
+.art-row{align-items:stretch}
+.art-row .theme-preview{margin:14px 0 0;height:auto;min-height:74px}
+.art-row .theme-preview svg{width:60px;height:60px}
+
+/* tappable suggested zero-messages under the message box */
+.msg-suggest{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.msg-suggest button{cursor:pointer;border:1px solid var(--border);border-radius:999px;padding:5px 11px;
+  font-size:12px;font-weight:600;color:var(--text);background:rgba(0,0,0,.18);font-family:inherit;width:auto}
+.msg-suggest button:hover{border-color:var(--accent)}
+
+/* preset grid */
+.presets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.preset{
+  display:block;cursor:pointer;border:1px solid var(--border);border-radius:14px;padding:12px 6px;text-align:center;
+  background:rgba(0,0,0,.18);transition:.15s;font-size:13px;color:var(--text);text-decoration:none
+}
+.preset:hover{transform:translateY(-2px)}
+.preset.active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset;background:rgba(56,189,248,.12)}
+.preset .em{font-size:26px;display:block;margin-bottom:4px}
+.more-cta{display:block;text-align:center;margin-top:12px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none}
+.more-cta:hover{text-decoration:underline}
+
+/* home portal: popular-countdown lists */
+.card h2{font-size:17px;margin:0 0 10px}
+.cat-link{color:var(--text);text-decoration:none}
+.cat-link:hover{text-decoration:underline}
+.facts{margin:0;padding-left:20px}
+.facts li{margin:7px 0}
+/* compact career/life timeline (build-events.mjs `timeline`) */
+.tl-list{display:flex;flex-direction:column;gap:2px}
+.tl-row{display:flex;gap:14px;padding:9px 2px;border-bottom:1px solid var(--border)}
+.tl-row:last-child{border-bottom:none}
+.tl-year{flex:0 0 auto;min-width:64px;max-width:42%;font-weight:800;color:var(--accent);overflow-wrap:break-word}
+.tl-text{flex:1;min-width:0;line-height:1.4}
+.champ-note{color:var(--muted);font-weight:400}
+/* records list (build-events.mjs `records`): label/value rows, same rhythm as .tl-list */
+.rec-list{display:flex;flex-direction:column;gap:2px}
+.rec-row{display:flex;gap:14px;padding:9px 2px;border-bottom:1px solid var(--border)}
+.rec-row:last-child{border-bottom:none}
+.rec-label{flex:0 0 auto;min-width:160px;max-width:42%;font-weight:700;color:var(--muted);overflow-wrap:break-word}
+.rec-value{flex:1;min-width:0;line-height:1.4;font-weight:600}
+@media (max-width:560px){
+  /* long labels (timeline years are fine, but record stat labels can run
+     long) can't share a row with their text on narrow screens without
+     squeezing it into a sliver — stack label above text instead */
+  .tl-row,.rec-row{flex-direction:column;gap:3px}
+  .tl-year,.rec-label{max-width:100%}
+}
+/* sortable column headers above a .toplist (Name | Date) */
+.list-head{display:flex;justify-content:space-between;gap:10px;padding:0 0 8px;margin-bottom:4px;border-bottom:1px solid var(--border)}
+.sortbtn{background:none;border:0;cursor:pointer;font:inherit;font-size:12px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:2px}
+.sortbtn:hover{color:var(--text)}
+.sortbtn[data-dir]{color:var(--accent)}
+.sortbtn[data-dir="asc"]::after{content:" ▲";font-size:9px}
+.sortbtn[data-dir="desc"]::after{content:" ▼";font-size:9px}
+.toplist{list-style:none;margin:0;padding:0}
+.toplist li{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  padding:9px 2px;border-bottom:1px solid var(--border)}
+.toplist li:last-child{border-bottom:none}
+.toplist a{font-weight:600;text-decoration:none}
+.toplist a:hover{text-decoration:underline}
+.toplist .when{font-size:12px;color:var(--muted);white-space:nowrap}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;
+  border:none;border-radius:12px;padding:13px 18px;font-size:16px;font-weight:700;
+  background:var(--accent);color:var(--accent-text);width:100%;font-family:inherit;text-decoration:none
+}
+.btn.secondary{background:rgba(255,255,255,.12);color:var(--text);border:1px solid var(--border)}
+.btn:active{transform:scale(.99)}
+/* A DISABLED BUTTON MUST LOOK DISABLED. There was no rule for this, so the
+   stopwatch's Lap and Reset — both disabled until there is something to act on
+   — rendered identically to live buttons: two controls that invited a tap and
+   did nothing. Dimming them also lets a control that is not yet usable STAY on
+   screen instead of being hidden, which is how the stopwatch's Copy, Download
+   and Share now announce themselves before the first lap exists. */
+.btn:disabled,.btn[disabled]{opacity:.45;cursor:default}
+.btn:disabled:active,.btn[disabled]:active{transform:none}
+.btn.small{padding:9px 12px;font-size:14px;width:auto}
+
+/* share row */
+.share{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.share .btn{flex:1;min-width:120px}
+
+/* icon share + add-to-calendar */
+.share-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:16px}
+.cal-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:12px 0 22px}
+.share-label{font-weight:700;font-size:14px;color:var(--text)}
+/* put the "Share:" label on its own line (bolder), so the icons all sit on the
+ * row beneath it instead of the label pushing them onto a second line */
+.share-row .share-label{flex-basis:100%;font-weight:800;margin-bottom:2px}
+.ico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;
+  border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;transition:.15s}
+.ico svg{width:20px;height:20px;fill:currentColor}
+.ico:hover{transform:translateY(-2px)}
+.ico.wa{background:#25d366;color:#fff;border-color:transparent}
+.ico.fb{background:#1877f2;color:#fff;border-color:transparent}
+.ico.x{background:#000;color:#fff;border-color:transparent}
+.ico.tg{background:#229ed9;color:#fff;border-color:transparent}
+.ico.sms{background:#34c759;color:#fff;border-color:transparent}
+.ico.em{background:#5b6472;color:#fff;border-color:transparent}
+
+/* link box */
+.linkbox{display:flex;gap:8px;margin-top:8px}
+.linkbox input{font-size:13px}
+
+/* notice */
+.notice{font-size:12px;color:var(--muted);border-left:3px solid var(--accent);padding:8px 12px;margin-top:14px;background:rgba(0,0,0,.18);border-radius:0 10px 10px 0}
+.notice-warn{margin-top:0;border-left-color:#f87171;background:rgba(248,113,113,.14);font-size:13px;color:var(--text)}
+
+/* "how it works" mini-steps on the builder */
+.steps{margin:0 0 18px;padding:0;list-style:none;display:grid;gap:6px;font-size:14px;color:var(--muted)}
+.steps strong{color:var(--text)}
+
+/* the projector toggle at the foot of the nav menu */
+.menu-sep{border-top:1px solid var(--border);margin-top:6px;padding-top:6px}
+/* ---- the settings block at the foot of the menu ---------------------------
+   Units and Projector mode are settings, not destinations, so they sit below a
+   rule with the pages above it. Units is a two-state segmented control rather
+   than a toggle, because "Metric / Imperial" names both answers where a switch
+   would only name one and leave the reader guessing what the other is. */
+.menu-units{border-top:1px solid var(--border);margin-top:6px;padding:6px 10px 2px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px}
+.menu-ulab{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px;white-space:nowrap}
+.menu-useg{display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden}
+.menu-ubtn{appearance:none;background:none;border:0;color:var(--muted);cursor:pointer;
+  padding:4px 10px;font:inherit;font-size:12.5px;line-height:1.6}
+.menu-ubtn+.menu-ubtn{border-left:1px solid var(--border)}
+.menu-ubtn:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.menu-ubtn[aria-pressed="true"]{background:rgba(252,211,77,.16);color:var(--accent)}
+.menu-pj{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;
+  padding:9px 12px;font:inherit;font-size:14px;color:var(--menu-text);cursor:pointer;
+  text-align:left;border-radius:8px}
+.menu-pj:hover{background:rgba(255,255,255,.1)}
+.menu-pj[aria-pressed="true"]{color:var(--accent)}
+.menu-pj[aria-pressed="true"] span::after{content:" · on";opacity:.8}
+
+/* ---- print: the ink-friendly version of any page ------------------------
+   The site is a dark screen; printed as-is it is an ink disaster. Printing
+   flips to black-on-white, drops the chrome (nav, menus, forms, the suggest
+   box, buttons that only work on screen) and lets links show as text. This is
+   what makes a lesson page its own printable teacher one-pager and the
+   student view its own worksheet — no PDF pipeline, just the page. */
+@media print{
+  :root{--bg:#fff;--bg-solid:#fff;--text:#111;--muted:#444;--card:#fff;--border:#bbb;--accent:#111;--accent-text:#fff}
+  body{background:#fff;color:#111}
+  .topnav,.brand-dd,.menu-dd,.skip-link,.site-notice,.suggest-box,.cr-ask,.lp-actions,
+  .privacy-notice,.footer.sitelinks,.report-link,button{display:none !important}
+  .card{border:1px solid #bbb;box-shadow:none;break-inside:avoid}
+  a{color:#111;text-decoration:underline}
+  .lp-blank,.lp-blank-wide{border-color:#111}
+  .lp-blank-wide{background:repeating-linear-gradient(to bottom,transparent,transparent 1.5em,#777 1.55em)}
+}

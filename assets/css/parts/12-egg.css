@@ -1,0 +1,25 @@
+/*TOOLCSS-START*/
+/* egg-timer: the countdown sits in the middle of an egg */
+.egg-wrap{display:flex;justify-content:center;margin:6px 0 14px}
+.egg-layout{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 30px;margin:6px 0 14px}
+.egg-layout .egg-wrap{margin:0}
+.egg-options{min-width:200px}
+.egg-grp{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.egg-grp-h{font-weight:700;font-size:15px;margin:0;min-width:58px}
+.egg-grp-row{display:flex;flex-wrap:wrap;gap:5px}
+.egg-grp-row .chip{padding:5px 9px;font-size:13px;text-align:center}
+.egg-intro{margin:0 0 16px}
+.egg-intro .sub{margin:0}
+.egg-more-link{color:var(--accent);font-weight:600;cursor:pointer}
+.egg-more-link::after{content:"\00a0▾";font-size:10px}
+.egg-more-toggle{position:absolute;width:1px;height:1px;opacity:0;clip:rect(0 0 0 0)}
+.egg-more-toggle:checked~.sub .egg-more-link::after{content:"\00a0▴"}
+.egg-more-body{display:none;font-size:14px;color:var(--muted);line-height:1.5;margin-top:8px}
+.egg-more-toggle:checked~.egg-more-body{display:block}
+.egg-more-body ul{margin:8px 0;padding-left:20px}
+.egg-more-body li{margin:5px 0}
+.egg-grp:last-child{margin-bottom:0}
+.egg-card{padding-top:12px;padding-bottom:14px}
+.egg-card .egg-layout{margin:3px 0 4px}
+.egg-card .tool-msg:empty{min-height:0;margin:0}
+/*TOOLCSS-END*/

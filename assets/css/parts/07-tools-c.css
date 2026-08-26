@@ -1,0 +1,4 @@
+/* product/preview shot in the "how it works" card (also the SERP/og image) */
+.sw-illus{display:block;width:240px;max-width:44%;height:auto;float:right;margin:0 0 12px 18px;border-radius:16px;border:1px solid var(--border)}
+@media(max-width:520px){.sw-illus{float:none;margin:2px auto 16px;max-width:260px;width:100%}}
+/*TOOLCSS-END*/
