@@ -566,8 +566,10 @@
 .wk-grat line{stroke:rgba(255,255,255,.32);stroke-width:1}
 .wk-grat .wk-trop{stroke:rgba(252,211,77,.34);stroke-dasharray:7 6}
 .wk-grat text{fill:rgba(255,255,255,.42);font-size:10.5px;font-weight:600}
-.wk-sunline{margin:0 0 12px;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.wk-sunline{margin:0 0 12px;font-size:13.5px;line-height:1.55;color:var(--muted)}
 .wk-sunline b{color:var(--accent);font-variant-numeric:tabular-nums}
+.wk-sunline a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.wk-sunline a:hover{color:var(--accent)}
 .wk-seasons{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
 .wk-seasons .chip{margin:0;padding:6px 12px;font-size:12.5px}
 

@@ -263,11 +263,14 @@ export function landPath() {
  * York, Seoul beside Tokyo, Dubai beside Karachi. */
 export const DN_MAP_EXTRA = [
   "America/Los_Angeles", "America/Mexico_City", "America/Sao_Paulo",
-  "America/Bogota", "America/Anchorage", "Europe/Moscow", "Europe/Madrid", "Africa/Lagos",
+  "America/Bogota", "America/Anchorage", "America/New_York",
+  "Europe/London", "Europe/Moscow", "Europe/Madrid", "Africa/Lagos",
   "Africa/Cairo", "Africa/Johannesburg", "Africa/Nairobi", "Asia/Karachi",
   "Asia/Kolkata", "Asia/Bangkok", "Asia/Shanghai", "Asia/Singapore", "Asia/Jakarta",
-  "Pacific/Auckland", "Australia/Perth",
+  "Asia/Tokyo", "Pacific/Auckland", "Australia/Perth", "Australia/Sydney",
 ];
+/* still the four cities the world-clock card puts clocks under. They are
+   ordinary labelled dots on the map now, not a featured strip. */
 export const DN_MAP_BIG = [
   { slug: "new-york", city: "New York", tz: "America/New_York" },
   { slug: "london", city: "London", tz: "Europe/London" },
@@ -290,3 +293,41 @@ export function cityMark(list, tz, big, esc) {
 
 /** the page this map's own explanation and simulator live on */
 export const DAYNIGHT_PATH = "/day-night-map/";
+
+/* ---- the live sentence under the map --------------------------------------
+ * ONE SOURCE FOR TWO RUNTIMES, same pattern as sideCapText in build-daynight:
+ * this function bakes the HTML at build and is stringified into the page
+ * script so a slider drag cannot disagree with the first paint.
+ *
+ * ES5, no backticks, no default args — it is dropped into a template literal.
+ * laterDec is the declination ~7 days ahead, which is how we tell whether the
+ * sun is still climbing toward a solstice or already sliding away. The season
+ * names are the northern ones (June = summer) because that is the convention
+ * the rest of the site uses; the sentence always says "the northern half of
+ * the world" so it is not a lie over Sydney.
+ *
+ * Links that are always justified:
+ *   overhead      → /concepts/what-is-the-subsolar-point/
+ *   Earth's orbit → /sun-moon-earth-movement-simulator/system/
+ *     (the view that draws Earth going round the sun WITH the tilt shown)
+ */
+export function seasonSunHtml(dec, lon, laterDec, tilt) {
+  var lat = Math.abs(dec).toFixed(1) + '\u00B0 ' + (dec >= 0 ? 'N' : 'S');
+  var lo = Math.abs(lon).toFixed(1) + '\u00B0 ' + (lon >= 0 ? 'E' : 'W');
+  var a = Math.abs(dec), n = dec >= 0, rising = laterDec > dec;
+  var orbit = '<a href="/sun-moon-earth-movement-simulator/system/">Earth\u2019s orbit</a>';
+  var over = '<a href="/concepts/what-is-the-subsolar-point/">overhead</a>';
+  var head = 'The sun is ' + over + ' at <b>' + lat + ', ' + lo + '</b> \u2014 the yellow marker on the map (press <b>Now</b> to put it on this minute). ';
+  if (a < 0.6) {
+    if (rising) return head + 'Day and night are about equal everywhere \u2014 this is the March equinox. The northern half of the world is heading into spring, and its days will get longer as Earth tilts toward the sun in ' + orbit + '.';
+    return head + 'Day and night are about equal everywhere \u2014 this is the September equinox. The northern half of the world is heading into fall, and its days will get shorter as Earth tilts away from the sun in ' + orbit + '.';
+  }
+  if (tilt - a < 0.15) {
+    if (n) return head + 'The sun is as far north as it ever gets \u2014 the June solstice, the longest days in the northern half of the world. From here Earth starts tilting away from the sun in ' + orbit + '.';
+    return head + 'The sun is as far south as it ever gets \u2014 the December solstice, the shortest days in the northern half of the world. From here Earth starts tilting back toward the sun in ' + orbit + '.';
+  }
+  if (n && !rising) return head + 'This time of year the sun is moving from summer toward fall, and days in the northern half of the world are getting shorter because Earth is tilting away from the sun in ' + orbit + '.';
+  if (n && rising) return head + 'This time of year the sun is moving from spring toward summer, and days in the northern half of the world are getting longer because Earth is tilting toward the sun in ' + orbit + '.';
+  if (!n && !rising) return head + 'This time of year the sun is moving from fall toward winter, and days in the northern half of the world are getting shorter because Earth is tilting away from the sun in ' + orbit + '.';
+  return head + 'This time of year the sun is moving from winter toward spring, and days in the northern half of the world are getting longer because Earth is tilting toward the sun in ' + orbit + '.';
+}

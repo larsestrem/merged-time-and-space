@@ -31,7 +31,7 @@ import { SIDEREAL } from "./build-simulator.mjs";
 /* the same coastline rings the planet globes are drawn from — imported, not
    copied, because two coastline tables would drift apart */
 import { WC_CITY_LIST } from "./wc-cities.mjs";
-import { DAYNIGHT_PATH, seasonPoints, DN_CORE, DN_W, DN_TOP, DN_BOT, dnX, dnY, dnF, subsolar, nightPath, landPath, cityMark, DN_MAP_EXTRA, DN_MAP_BIG } from "./daynight.mjs";
+import { DAYNIGHT_PATH, seasonPoints, DN_CORE, DN_W, DN_TOP, DN_BOT, dnX, dnY, dnF, subsolar, nightPath, landPath, cityMark, DN_MAP_EXTRA, DN_MAP_BIG, seasonSunHtml } from "./daynight.mjs";
 /* the simulator URLs, imported rather than typed: the planet pages are flat
    (/jupiter-and-moons-simulator/) and the launch hub moved, and a second copy
    of either rule here would rot the first time one changed */
@@ -1067,13 +1067,12 @@ const WK = (() => {
   const ss = subsolar(+_hbNow);
   const land = landPath();
   /* EVERY DOT COMES FROM THE WORLD-CLOCK REGISTRY'S OWN COORDINATES, so a city
-     cannot be marked in one place here and another on its own page. The four
-     with clocks under the map are drawn a size up; the rest are there to give
-     the eye somewhere to land on every continent, and are small enough not to
-     compete with the terminator, which is what the picture is actually of. */
+     cannot be marked in one place here and another on its own page. Drawn one
+     size — landmarks, not a featured four. The world-clock card still puts
+     clocks under New York, London, Tokyo and Sydney; the map itself does not
+     pick them out. */
   const mark = (tz, big) => cityMark(WC_CITY_LIST, tz, big, esc);
-  const dots = MAP_EXTRA.map((tz) => mark(tz, 0)).join("")
-    + HOME_WC.map((c) => mark(c.tz, 1)).join("");
+  const dots = MAP_EXTRA.map((tz) => mark(tz, 0)).join("");
   const svg = `<div class="wk-map">
         <svg viewBox="0 ${wmF(wmY(WMAP_TOP))} ${WMAP_W} ${wmF(wmY(WMAP_BOT) - wmY(WMAP_TOP))}" width="100%" aria-label="A world map with the night side shaded and major cities marked" role="img">
           <rect y="${wmF(wmY(WMAP_TOP))}" width="${WMAP_W}" height="${wmF(wmY(WMAP_BOT) - wmY(WMAP_TOP))}" fill="#12304f"/>
@@ -1412,6 +1411,8 @@ const HOME_HERO_JS = `
       when=document.getElementById('wk-when'), nowB=document.getElementById('wk-nowbtn');
   var cs=document.querySelectorAll('[data-wk-tz]');
   var sunline=document.getElementById('wk-sunline');
+  var TILT=${WK_TILT};
+  var seasonSun=function(dec,lon,laterDec){ return (${seasonSunHtml.toString()})(dec,lon,laterDec,TILT); };
   /* DAY0 is the midnight the slider is scrubbing — today's, until a season
      button moves it to a solstice or an equinox. */
   function midnightOf(ms){ var d=new Date(ms); d.setHours(0,0,0,0); return +d; }
@@ -1424,16 +1425,10 @@ const HOME_HERO_JS = `
       try{ cs[i].textContent=new Intl.DateTimeFormat('en-US',{timeZone:cs[i].getAttribute('data-wk-tz'),hour:'numeric',minute:'2-digit',hour12:true}).format(new Date(at)); }catch(e){}
     }
     if(sunline){
-      /* the sentence the equator line exists for. The declination IS the
-         season: north of the equator is the northern summer half of the year,
-         south of it the southern. Half the planet is lit either way — what
-         the tilt decides is WHICH half gets the bigger share. */
-      var d=ss.dec, n=d>=0, a=Math.abs(d), x=a.toFixed(1);
-      var txt;
-      if(a<0.6) txt='<b>right on the equator</b> \u2014 neither half of the world is leaning toward it, so day and night are near enough equal everywhere. This is an equinox.';
-      else txt='<b>'+x+'\u00B0 '+(n?'N':'S')+'</b> \u2014 '+(n?'north':'south')+' of the equator, so the '+(n?'northern':'southern')
-        +' half of the world is having its summer'+(a>23?(n?', and the Arctic is in daylight around the clock while Antarctica sits in darkness.':', and Antarctica is in daylight around the clock while the Arctic sits in darkness.'):'.');
-      sunline.innerHTML='The sun is overhead at '+txt;
+      /* coordinates of the yellow marker + which way the year is leaning.
+         laterDec is a week on, so August is "summer toward fall", not a
+         hardcoded month. Same function that baked the first paint. */
+      sunline.innerHTML=seasonSun(ss.dec,ss.lon,dnSub(at+7*86400000).dec);
     }
   }
   function fmt(at){ try{ return new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',hour12:true}).format(new Date(at)); }catch(e){ return ''; } }
@@ -1586,8 +1581,7 @@ ${switcher("/")}
       </div>
       <div class="home-hero-side">
         <p class="home-hero-line"><strong>Half the Earth is in daylight right now — this map is live</strong>, repainted from the real motions every minute. Everything on this site works like that.</p>
-        <p class="wk-sunline" id="wk-sunline">The sun is overhead at <b>${Math.abs(subsolar(+_hbNow).dec).toFixed(1)}° ${subsolar(+_hbNow).dec >= 0 ? "N" : "S"}</b> — ${subsolar(+_hbNow).dec >= 0 ? "north of the equator, so the northern half of the world is having its summer" : "south of the equator, so the southern half of the world is having its summer"}.</p>
-        ${WK.strip}
+        <p class="wk-sunline" id="wk-sunline">${seasonSunHtml(subsolar(+_hbNow).dec, subsolar(+_hbNow).lon, subsolar(+_hbNow + 7 * 86400000).dec, WK_TILT)}</p>
         <div class="wk-links">
           <a class="wk-all" href="${DAYNIGHT_PATH}">Play the next 7 days →</a>
           ${/* the map draws the equator and both tropics, so it raises "what
@@ -1595,6 +1589,7 @@ ${switcher("/")}
                draws the sun and the Earth side by side with the one line
                between their centres. */""
           }<a class="wk-all" href="/concepts/what-is-the-tropic-of-cancer/">Why the tropics are there →</a>
+          <a class="wk-all" href="/sun-moon-earth-movement-simulator/system/">Earth’s orbit with the tilt →</a>
           <a class="wk-all" href="/world-clock/">Every time zone →</a>
         </div>
       </div>

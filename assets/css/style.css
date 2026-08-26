@@ -2008,8 +2008,10 @@ body.mt-fs-open{overflow:hidden}
 .wk-grat line{stroke:rgba(255,255,255,.32);stroke-width:1}
 .wk-grat .wk-trop{stroke:rgba(252,211,77,.34);stroke-dasharray:7 6}
 .wk-grat text{fill:rgba(255,255,255,.42);font-size:10.5px;font-weight:600}
-.wk-sunline{margin:0 0 12px;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.wk-sunline{margin:0 0 12px;font-size:13.5px;line-height:1.55;color:var(--muted)}
 .wk-sunline b{color:var(--accent);font-variant-numeric:tabular-nums}
+.wk-sunline a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.wk-sunline a:hover{color:var(--accent)}
 .wk-seasons{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
 .wk-seasons .chip{margin:0;padding:6px 12px;font-size:12.5px}
 
@@ -3697,9 +3699,14 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-when{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:6px 0 12px}
 .dn-when b{font-size:17px}
 .dn-when span{color:var(--muted);font-size:13px}
-/* the four cities: the map says WHERE, this row says WHAT TIME and WHICH
-   STATE, and the tint is the same information a third time for anyone
-   reading it across a room */
+/* overhead coordinates + which way the year is leaning. Replaces the old
+   two-box readout and the four-city clock strip. */
+.dn-sunline{margin:0 0 14px;font-size:15px;line-height:1.55;max-width:62em}
+.dn-sunline b{color:var(--accent);font-variant-numeric:tabular-nums}
+.dn-sunline a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.dn-sunline a:hover{color:var(--accent)}
+/* the four cities: kept for any leftover markup; the day/night page no
+   longer ships the strip. */
 .dn-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 12px}
 @media(min-width:560px){.dn-strip{grid-template-columns:repeat(4,1fr)}}
 .dn-city{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
@@ -3747,6 +3754,8 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dns-lab-d{fill:#fcd34d;font-weight:700}
 .dns-lab-t{fill:var(--accent)}
 .dns-cap{margin:10px 0 12px;font-size:14.5px;line-height:1.55}
+.dns-cap a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.dns-cap a:hover{color:var(--accent)}
 /* On a phone the whole 700-unit frame shrinks to about 330px and every label
    in it goes with it — 12px of SVG text lands at under 6px on screen, which is
    decoration, not a diagram. Below 620px the figure keeps a floor width and

@@ -31,7 +31,7 @@ import { hubQuestionsCard } from "./concepts.mjs";
 import {
   DAYNIGHT_PATH, DN_CORE, DN_W, DN_VIEW_Y, DN_VIEW_H, DN_VIEWBOX,
   DN_TOP, DN_BOT, dnX, dnY, dnF, subsolar, sunAltitude, nightPath, twilightPath, landPath, seasonPoints,
-  cityMark, DN_MAP_EXTRA, DN_MAP_BIG, sideView,
+  cityMark, DN_MAP_EXTRA, sideView, seasonSunHtml,
 } from "./daynight.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -73,8 +73,7 @@ const PIN = `<svg class="dn-pin" viewBox="0 0 24 24" width="16" height="16" aria
 /* ---- the baked picture --------------------------------------------------- */
 const SS = subsolar(NOW);
 const LAND = landPath();
-const DOTS = DN_MAP_EXTRA.map((tz) => cityMark(WC_CITY_LIST, tz, 0, esc)).join("")
-  + DN_MAP_BIG.map((c) => cityMark(WC_CITY_LIST, c.tz, 1, esc)).join("");
+const DOTS = DN_MAP_EXTRA.map((tz) => cityMark(WC_CITY_LIST, tz, 0, esc)).join("");
 
 /* the parallels that mean something: the equator, the two tropics (where the
    sun can stand overhead) and the two polar circles (where it can fail to rise
@@ -88,13 +87,10 @@ const GRAT = [
     + `<text class="dn-parlab" x="6" y="${dnF(y - 4)}">${esc(label)}</text>`;
 }).join("");
 
-/* the four cities the read-out strip follows, with the coordinates the map
-   marks them at — one source for the dot and the row under it */
-const STRIP = DN_MAP_BIG.map((c) => {
-  const g = WC_CITY_LIST.find((x) => x.tz === c.tz);
-  return { ...c, lat: g.lat, lon: g.lon };
-});
-
+/* the four world-clock cities stay on the map as ordinary labelled dots
+   (they used to be yellow and a size up, with a clock strip under the map —
+   the strip is gone, the sentence under the map now names the yellow sun
+   marker instead). */
 const MAP_SVG = `<svg id="dn-svg" class="dn-svg" viewBox="${DN_VIEWBOX}" width="100%" role="img" aria-label="A world map with the night side shaded, the twilight band between, and the point the sun is directly over marked">
         <rect y="${DN_VIEW_Y}" width="${DN_W}" height="${DN_VIEW_H}" fill="#12304f"/>
         <path d="${LAND}" fill="#2f5d3a"/>
@@ -131,9 +127,9 @@ const MAP_SVG = `<svg id="dn-svg" class="dn-svg" viewBox="${DN_VIEWBOX}" width="
 function sideCapText(dec, tilt) {
   var a = Math.abs(dec), n = dec >= 0, x = a.toFixed(1), gap = (tilt - a).toFixed(1);
   var TC = 'Tropic of ' + (n ? 'Cancer' : 'Capricorn');
-  if (a < 0.6) return 'That line lands <b>on the equator</b>. The tilt has not gone anywhere — it never does — but today the axis leans SIDEWAYS to the sun rather than toward it or away from it, so from this viewpoint it looks upright and the light divides the globe from pole to pole. Every place on Earth gets about twelve hours of each. This is an equinox.';
-  if (tilt - a < 0.15) return 'That line lands <b>right on the ' + TC + '</b>, ' + x + '° ' + (n ? 'N' : 'S') + ' — the furthest ' + (n ? 'north' : 'south') + ' it ever reaches. This is the solstice: the ' + (n ? 'northern' : 'southern') + ' half of the world is tipped as far into the light as it will get all year, and the ' + (n ? 'north' : 'south') + ' end of the axis stays inside the lit half all the way round, which is why the sun does not set up there today.';
-  return 'That line lands at <b>' + x + '° ' + (n ? 'N' : 'S') + '</b> — ' + gap + '° short of the ' + TC + ', which is as far ' + (n ? 'north' : 'south') + ' as it can ever get. The ' + (n ? 'northern' : 'southern') + ' half of the world is leaning into the light, so more of it falls inside the lit half than outside, and its days are longer than its nights.';
+  if (a < 0.6) return 'That line lands <b>on the equator</b>. The tilt has not gone anywhere — it never does — but today the axis leans SIDEWAYS to the sun rather than toward it or away from it, so from this viewpoint it looks upright and the light divides the globe from pole to pole. Every place on Earth gets about twelve hours of each. This is an equinox. The lean is the tilt of Earth in <a href="/sun-moon-earth-movement-simulator/system/">Earth\u2019s orbit</a>.';
+  if (tilt - a < 0.15) return 'That line lands <b>right on the ' + TC + '</b>, ' + x + '° ' + (n ? 'N' : 'S') + ' — the furthest ' + (n ? 'north' : 'south') + ' it ever reaches. This is the solstice: the ' + (n ? 'northern' : 'southern') + ' half of the world is tipped as far into the light as it will get all year, and the ' + (n ? 'north' : 'south') + ' end of the axis stays inside the lit half all the way round, which is why the sun does not set up there today. See the tilt in <a href="/sun-moon-earth-movement-simulator/system/">Earth\u2019s orbit</a>.';
+  return 'That line lands at <b>' + x + '° ' + (n ? 'N' : 'S') + '</b> — ' + gap + '° short of the ' + TC + ', which is as far ' + (n ? 'north' : 'south') + ' as it can ever get. The ' + (n ? 'northern' : 'southern') + ' half of the world is leaning into the light, so more of it falls inside the lit half than outside, and its days are longer than its nights. That lean is the tilt of Earth in <a href="/sun-moon-earth-movement-simulator/system/">Earth\u2019s orbit</a>.';
 }
 
 /* ---- the page's own script ----------------------------------------------
@@ -154,9 +150,9 @@ var night=document.getElementById('dn-night'), twi=document.getElementById('dn-t
     sunG=document.getElementById('dn-sun'), meG=document.getElementById('dn-me'),
     slider=document.getElementById('dn-slider'), play=document.getElementById('dn-play'),
     nowB=document.getElementById('dn-now'), locB=document.getElementById('dn-loc');
-var CITIES=${JSON.stringify(STRIP.map((c) => ({ s: c.slug, c: c.city, la: c.lat, lo: c.lon, tz: c.tz })))};
 var TILT=${TILT};                 /* solved at build from the same series */
-var sideBox=document.getElementById('dn-side'), sideCapEl=document.getElementById('dn-side-cap');
+var sideBox=document.getElementById('dn-side'), sideCapEl=document.getElementById('dn-side-cap'),
+    sunline=document.getElementById('dn-sunline');
 var SPAN=7*24*60;                 /* minutes the slider covers */
 var RATE=21600;                   /* six hours of map time per real second */
 var T0=${NOW}, AT=${NOW}, PLAY=0, RAF=0, LAST=0, HOME=null;
@@ -167,15 +163,14 @@ function fmt(ms,tz){
   try{ return new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true,timeZone:tz}).format(new Date(ms)); }
   catch(e){ return new Date(ms).toUTCString(); }
 }
-function clock(ms,tz){
-  try{ return new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:tz}).format(new Date(ms)); }catch(e){ return ''; }
-}
-function ns(v,pos,neg){ return Math.abs(v).toFixed(1)+'\\u00B0 '+(v>=0?pos:neg); }
 
 /* the caption under the side view — ONE source, shipped as its own text. See
    sideCapText() above the script: the same function bakes the sentence into
    the page and repaints it in the browser. */
 var sideCap=function(dec){ return (${sideCapText.toString()})(dec,TILT); };
+/* the sentence under the map: overhead coordinates + which way the year is
+   leaning. Same function that baked the first paint; laterDec is a week on. */
+var seasonSun=function(dec,lon,laterDec){ return (${seasonSunHtml.toString()})(dec,lon,laterDec,TILT); };
 
 /* the state of one place at the instant on show */
 function state(alt){
@@ -192,29 +187,12 @@ function paint(){
   sunG.setAttribute('transform','translate('+dnF(dnX(ss.lon))+' '+dnF(dnY(ss.dec))+')');
   set('dn-o-when',fmt(AT));
   set('dn-o-utc',fmt(AT,'UTC')+' UTC');
-  set('dn-o-sub',ns(ss.dec,'N','S')+', '+ns(ss.lon,'E','W'));
-  /* the declination IS the season — say so, rather than leaving the reader to
-     work out what "12.3 degrees north of the equator" implies. Half the planet
-     is lit whatever the date; the tilt decides which half gets the bigger
-     share of it. */
-  var _d=ss.dec, _a=Math.abs(_d), _n=_d>=0;
-  set('dn-o-dec', _a<0.6 ? 'right on the equator \u2014 an equinox, and day and night are near enough equal everywhere'
-    : ns(_d,'north of the equator','south of the equator')
-      +' \u2014 so the '+(_n?'northern':'southern')+' half of the world is having its summer'
-      +(_a>23?(_n?', and the Arctic has daylight around the clock':', and Antarctica has daylight around the clock'):''));
+  if(sunline) sunline.innerHTML=seasonSun(ss.dec,ss.lon,dnSub(AT+7*86400000).dec);
   /* the side view is the same instant from a different place to stand, so it
      repaints from the same ss and cannot disagree with the map above it */
   if(sideBox) sideBox.innerHTML=dnSide(ss.dec,TILT);
   if(sideCapEl) sideCapEl.innerHTML=sideCap(ss.dec);
   if(slider) slider.value=Math.round((AT-T0)/60000);
-  /* the four cities under the map, at the instant on show */
-  for(var i=0;i<CITIES.length;i++){
-    var c=CITIES[i], st=state(dnAlt(c.la,c.lo,ss.dec,ss.lon));
-    var row=$('dn-c-'+c.s); if(!row) continue;
-    row.className='dn-city is-'+st.k;
-    set('dn-ct-'+c.s,clock(AT,c.tz));
-    set('dn-cs-'+c.s,st.t);
-  }
   if(HOME){
     var a=dnAlt(HOME.lat,HOME.lon,ss.dec,ss.lon), s2=state(a);
     meG.removeAttribute('hidden');
@@ -350,12 +328,6 @@ const jumpRow = (cls) => `    <p class="${cls}">
 const jumpBtn = (k, t) => `<button type="button" class="chip" data-dn-jump="${k}" disabled>${esc(t)}</button>`;
 
 /* ---- the simulator card -------------------------------------------------- */
-const cityRows = STRIP.map((c) => `        <a class="dn-city" id="dn-c-${esc(c.slug)}" href="/world-clock/${esc(c.slug)}/">
-          <span class="dn-city-n">${esc(c.city)}</span>
-          <b id="dn-ct-${esc(c.slug)}">&nbsp;</b>
-          <span class="dn-city-s" id="dn-cs-${esc(c.slug)}">&nbsp;</span>
-        </a>`).join("\n");
-
 const simCard = `  <div class="card dn-card">
     <div class="dn-figwrap">
       ${MAP_SVG}
@@ -379,13 +351,7 @@ const simCard = `  <div class="card dn-card">
       <input type="range" class="orr-slider" id="dn-slider" min="0" max="10080" step="10" value="0" disabled aria-label="Move through the next seven days">
     </div>
     <p class="dn-when"><b id="dn-o-when">&nbsp;</b><span id="dn-o-utc">&nbsp;</span></p>
-    <div class="dn-strip">
-${cityRows}
-    </div>
-    <div class="dn-readout">
-      <div class="dn-ro"><span>The sun is directly overhead at</span><b id="dn-o-sub">&nbsp;</b></div>
-      <div class="dn-ro"><span>Which puts it</span><b id="dn-o-dec">&nbsp;</b></div>
-    </div>
+    <p class="dn-sunline" id="dn-sunline">${seasonSunHtml(SS.dec, SS.lon, subsolar(NOW + 7 * 86400000).dec, TILT)}</p>
 ${jumpRow("dn-tools")}
     <p class="hint" id="dn-loc-msg"></p>
     <p class="dn-me-line" id="dn-mewrap" hidden><b id="dn-o-me">&nbsp;</b> <a id="dn-me-sun" href="/sun/near-me/?geo=1">Your sunrise and sunset →</a></p>
@@ -397,9 +363,9 @@ ${jumpRow("dn-tools")}
 const howCard = `  <div class="card" id="how">
     <h2>What this is, and how it works</h2>
     <p>This is a live map of day and night on Earth, solved for this moment. Half the planet is in sunlight at every instant. The bright half is where the sun is above the horizon, the dark half is below, and the <strong>soft band</strong> is twilight — the sun has set but the sky is still lit, out to 18° down.</p>
-    <p>The <strong>yellow dot</strong> is the one place the sun stands straight overhead. The <strong>dashed gold lines</strong> are the tropics, at plus and minus the tilt. The <strong>curve</strong> is the terminator. <strong>Play</strong> watches it sweep west. Pick a date, or jump to an equinox or a solstice, to see the shadow change through the year.</p>
+    <p>The <strong>yellow marker</strong> is the one place the sun stands <a href="/concepts/what-is-the-subsolar-point/">straight overhead</a>. The <strong>dashed gold lines</strong> are the tropics, at plus and minus the tilt. The <strong>curve</strong> is the <a href="/concepts/what-is-the-terminator/">terminator</a>. <strong>Play</strong> watches it sweep west. Pick a date, or jump to an equinox or a solstice, to see the shadow change through the year. The lean is the tilt of Earth in <a href="/sun-moon-earth-movement-simulator/system/">Earth’s orbit</a>.</p>
     <div class="wc-facts">
-      <div class="wc-frow"><span>Yellow dot</span><b>Subsolar point — a flagpole there casts no shadow.</b></div>
+      <div class="wc-frow"><span>Yellow marker</span><b>Subsolar point — a flagpole there casts no shadow.</b></div>
       <div class="wc-frow"><span>Soft band</span><b>Twilight, widest toward the poles.</b></div>
       <div class="wc-frow"><span>Dark half</span><b>Night, solved per meridian, not stamped on.</b></div>
     </div>
@@ -409,7 +375,7 @@ const howCard = `  <div class="card" id="how">
 /* ---- the side view: original drawing, short caption, jump controls -------- */
 const sideCard = `  <div class="card">
     <h2>${ico("globe")} Where the sun is standing, seen from the side</h2>
-    <p>The map above looks down at the ground. This is the same instant from beside Earth’s orbit — parallel sunlight, and the one yellow line from the centre of the sun to the centre of the Earth. It meets the surface at the yellow dot.</p>
+    <p>The map above looks down at the ground. This is the same instant from beside <a href="/sun-moon-earth-movement-simulator/system/">Earth’s orbit</a> — parallel sunlight, and the one yellow line from the centre of the sun to the centre of the Earth. It meets the surface at the yellow marker.</p>
     <div class="dns-wrap" id="dn-side">${sideView(SS.dec, TILT)}</div>
     <p class="dns-cap" id="dn-side-cap">${sideCapText(SS.dec, TILT)}</p>
 ${jumpRow("dn-tools")}
@@ -423,7 +389,7 @@ ${jumpRow("dn-tools")}
 
 const tiltCard = `  <div class="card">
     <h2>How the shadow changes through the year</h2>
-    <p>Half the Earth is lit at every moment. Winter is not more shadow. The tilt (${n1(TILT)}°) changes <em>where</em> the line falls, so one hemisphere sits in the lit half longer. Jump to a solstice to see the Arctic swap from all-light to all-dark.</p>
+    <p>Half the Earth is lit at every moment. Winter is not more shadow. The tilt (${n1(TILT)}°) changes <em>where</em> the line falls, so one hemisphere sits in the lit half longer — that is <a href="/concepts/why-do-we-have-seasons/">why we have seasons</a>. Jump to a solstice to see the Arctic swap from all-light to all-dark. The same lean is drawn on <a href="/sun-moon-earth-movement-simulator/system/">Earth’s orbit around the sun</a>.</p>
 ${jumpRow("dn-tools")}
     <div class="wc-facts">
       <div class="wc-frow"><span>March and September equinox</span><b>The line runs nearly pole to pole. ${jumpBtn("mar", "March")} ${jumpBtn("sep", "September")}</b></div>
@@ -446,7 +412,7 @@ const tryCard = `  <div class="card">
     <h2>${ico("classroom")} Things to try</h2>
     <ul class="facts">
       <li><strong>Find your own bedtime.</strong> The map marks where you are as soon as your browser shares it — if it did not, there is a <strong>My location</strong> button on the map. Then drag the slider to tonight and watch the shading arrive over your dot: that is your sunset, to the minute the sun goes down where you are standing.</li>
-      <li><strong>Who is asleep right now?</strong> Press <strong>Now</strong> and look at the four city rows under the map. Then pick a country the class has a connection to and check whether anyone there would answer the phone.</li>
+      <li><strong>Who is asleep right now?</strong> Press <strong>Now</strong> and look at which continents sit in the dark half. Then pick a country the class has a connection to and check whether anyone there would answer the phone.</li>
       <li><strong>Race the line.</strong> Press <strong>Play</strong> and follow the terminator west. It crosses the whole map in 24 hours, which at the equator is about 1,670 km/h — faster than an airliner. Ask which way you would have to fly to keep the sun from setting.</li>
       <li><strong>Break the tilt.</strong> Jump to the <strong>June solstice</strong>, then to <strong>December</strong>, and watch the top of the map swap from all-light to all-dark. Ask what would happen to seasons if the tilt were zero — the answer is on the map, because the line would simply stand up straight.</li>
       <li><strong>Catch the equinox.</strong> Jump to an equinox and check the line: nearly vertical, and every place on Earth getting about twelve hours of each. It is the only date the map is symmetric.</li>
@@ -493,6 +459,7 @@ ${simCard}${howCard}${sideCard}${hubQuestionsCard(PATH)}  <div class="card">
     <p>This map answers "where", to the nearest few hundred kilometres. For "when", to the minute, in your own town:</p>
     <p class="timer-presets">
       <a class="chip" href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a>
+      <a class="chip" href="/sun-moon-earth-movement-simulator/system/">Earth’s orbit with the tilt</a>
       <a class="chip" href="/concepts/why-is-this-map-flat/">Why is this map flat?</a>
       <a class="chip" href="/glossary/">Glossary</a>
       <a class="chip" href="/sun/">Sunrise &amp; sunset for your city</a>
