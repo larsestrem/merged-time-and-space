@@ -468,9 +468,10 @@
     "slug": "how-does-an-orbit-work",
     "question": "How does an orbit work?",
     "term": "Orbital motion",
-    "shortAnswer": "At every instant a planet has a velocity — where it is already going — and gravity adds a small pull straight toward the Sun. Bend a path by the same small amount at every step and it closes. That closed path is the orbit.",
+    "shortAnswer": "A planet is always falling toward the Sun, and it is already moving sideways. Gravity only pulls inward — it never pushes the planet along. Those two together bend a straight line into a closed curve. That closed path is the orbit.",
+    "ledeHtml": "A planet is always <a href=\"/concepts/why-dont-planets-fall-into-the-sun/\">falling toward the Sun</a>, and it is already moving sideways. Gravity only pulls inward — it never pushes the planet along. In the picture, the <span class=\"ol-ink-v\">green arrow</span> is the way it is already going. The <span class=\"ol-ink-g\">gold arrow</span> is the pull, always straight at the Sun. Press Slow down: the other side of the path falls toward the Sun, and the planet still comes back. That closed path is the orbit.",
     "title": "How Does an Orbit Work?",
-    "description": "An orbit is motion endlessly redirected. Gravity never pushes a planet along its path; it only bends the direction.",
+    "description": "An orbit is falling toward the Sun and missing. Gravity pulls inward; sideways speed keeps the path from hitting. One speed at each distance makes a circle.",
     "cluster": "questions",
     "hubUrls": [
       {
@@ -488,32 +489,45 @@
     ],
     "relatedSlugs": [
       "why-dont-planets-fall-into-the-sun",
-      "why-does-jupiter-have-so-many-moons",
-      "how-does-an-orbit-change"
+      "how-does-an-orbit-change",
+      "why-does-jupiter-have-so-many-moons"
     ],
-    "graphicId": "orbit",
-    "graphicCaption": "Two arrows, one rule: velocity tangent to the path, gravity toward the Sun. On a circle the bend exactly matches the curve.",
-    "graphicAlt": "Planet on a circle around the Sun with a tangent velocity arrow and an inward gravity arrow.",
+    "graphicId": "orbit-live",
+    "graphicCaption": "The Sun stays where it is. You change the speed on the right. The other side of the path is what moves. Gold always points at the Sun; green is always sideways.",
+    "graphicAlt": "The Sun at the centre of a circular orbit. A planet on the right has a green velocity arrow pointing along the path and a gold gravity arrow pointing at the Sun. Buttons play the orbit, slow it down, or speed it up.",
     "sections": [
+      {
+        "heading": "Two arrows, not a balance",
+        "band": "5-12",
+        "body": [
+          "The gold arrow always points at the Sun. The green arrow is the way the planet is already going — and the dashed line is where it would go if gravity vanished for a moment. On a circle they stay at right angles, so gravity changes the planet’s direction without changing its speed. There is no outward force holding it up. Press Play and watch: gold stays aimed at the Sun while the planet goes around.",
+          "The Sun in the drawing is far larger than scale, on purpose. At an honest size its disc would be a fraction of a pixel, and you could not see what the planet is going around."
+        ]
+      },
       {
         "heading": "One speed at each distance",
         "band": "5-12",
         "body": [
-          "At any distance from the Sun there is one speed at which the bending exactly matches a circle: the square root of the pull times the distance (Kepler and Newton, the same fact). Too slow, and the path dips closer. Too fast, and it swings wide. Either way it traces an ellipse and comes back."
+          "At Earth’s distance a circle needs about 29.8 km/s. Press Slow down: the far side of the orbit drops toward the Sun — the dashed circle is where it was — and the planet speeds up as it falls in. Press Speed up: the far side climbs away. Either way it comes back through the point where you changed it. That new path is an ellipse, with the Sun at one focus: not beside the path, and not at the empty middle of the oval."
         ]
       },
       {
-        "heading": "Change one part, change the shape",
+        "heading": "What it takes to hit the Sun",
         "band": "deeper",
         "body": [
-          "Slow a planet at one point and it does not spiral in. It drops onto a longer ellipse that returns to the same point. To drop something into the Sun from Earth’s distance you would have to strip away almost all of its 29.8 km/s. Nature almost never does that."
+          "Keep pressing Slow down. The ellipse gets longer and thinner. Only when almost all of that 29.8 km/s is gone does the near end reach the Sun. Nature almost never does that to a planet. Escape is the other end of the same slider: about 42 km/s at Earth’s distance, √2 times circular, and the path never closes.",
+          "A heavier planet is pulled harder, and is harder to turn, in exact proportion — so mass never appears on the controls. A grain of dust at Earth’s distance orbits at Earth’s speed. That is why the picture never asks you for a mass."
         ]
       }
     ],
     "seeItLive": [
       {
         "href": "/orbital-velocity-simulator/",
-        "label": "Slow a planet and watch the ellipse"
+        "label": "Open the full simulator — pick a planet, change the distance"
+      },
+      {
+        "href": "/solar-system-simulator/",
+        "label": "See the real planets on their orbits"
       }
     ]
   },

@@ -9,7 +9,7 @@ import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { esc, GA_SNIPPET, brand, breadcrumbLD, faqLd, learningLd } from "./lib.mjs";
-import { loadConcepts, conceptBySlug, relatedPartial, graphicHtml, fillConcept } from "./concepts.mjs";
+import { loadConcepts, conceptBySlug, relatedPartial, graphicHtml, fillConcept, ORBIT_LESSON_JS } from "./concepts.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -108,6 +108,7 @@ ${GA_SNIPPET}
   </div>
   <p class="footer"><a href="/glossary/">Glossary</a> · <a href="/questions/">All questions</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
+${c.slug === "how-does-an-orbit-work" ? `<script data-ac="js">${ORBIT_LESSON_JS}</script>` : ""}
 </body>
 </html>
 `;

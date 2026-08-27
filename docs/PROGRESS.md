@@ -10,6 +10,23 @@ output. See `CLAUDE.md` for the architecture and working rules. Deploy = push to
 `main` (Cloudflare auto-publishes).
 
 ---
+### 2026-08-27 — /concepts/how-does-an-orbit-work/ is a Sun-centered lesson
+
+The live page drew an ellipse around empty space with the Sun parked off to
+the left, and it was not interactive. A later draft put the Sun in the
+middle but auto-zoomed so Slow down looked like nothing happened, and drew
+the velocity arrow the opposite way of the dashed “no gravity” line.
+
+The page is now a small lesson: Sun stays put, you change the speed on the
+right, the other side of the path is what moves. Play / Circle / Slow down /
+Speed up. Same vis-viva as the home orbit card (`a = r/(2−k²)`, `e = |k²−1|`).
+A faint original circle stays on screen so the change is visible. Gold always
+points at the Sun; green is always sideways, in the direction of motion.
+
+Files: `seo/tools/concepts.mjs` (`graphicId: orbit-live`), `seo/_data/concepts.json`,
+`assets/css/parts/23-concept.css`.
+
+---
 ### 2026-08-27 — hub questions sit with the graphic they are about
 
 `/earth`, `/time` and `/space` no longer open with a question stack. Each

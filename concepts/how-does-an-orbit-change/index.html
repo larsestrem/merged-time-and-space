@@ -1157,21 +1157,38 @@ text-transform: uppercase;
 color: var(--muted);
 font-weight: 700;
 }
-.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }</style>
+.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); max-width: 70ch; min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Glossary","item":"https://timeandspace.science/glossary/"},{"@type":"ListItem","position":3,"name":"Orbit change","item":"https://timeandspace.science/concepts/how-does-an-orbit-change/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"What happens when you change one part of an orbit?","url":"https://timeandspace.science/concepts/how-does-an-orbit-change/","description":"The shape changes, not just the speed. Slow a planet at one point and it drops onto a longer ellipse that swings closer in and climbs back out. Speed it up and the far side lifts away. It does not spiral into the Sun unless almost all of the sideways speed is gone.","learningResourceType":"explanation","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"student"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What happens when you change one part of an orbit?","acceptedAnswer":{"@type":"Answer","text":"The shape changes, not just the speed. Slow a planet at one point and it drops onto a longer ellipse that swings closer in and climbs back out. Speed it up and the far side lifts away. It does not spiral into the Sun unless almost all of the sideways speed is gone."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Orbit change","description":"The shape changes, not just the speed. Slow a planet at one point and it drops onto a longer ellipse that swings closer in and climbs back out. Speed it up and the far side lifts away. It does not spiral into the Sun unless almost all of the sideways speed is gone.","url":"https://timeandspace.science/concepts/how-does-an-orbit-change/","inDefinedTermSet":"https://timeandspace.science/glossary/"}</script>
 
-<meta property="og:image" content="https://timeandspace.science/api/og?name=What%20Happens%20When%20You%20Change%20an%20Orbit%3F&amp;theme=generic">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://timeandspace.science/api/og?name=What%20Happens%20When%20You%20Change%20an%20Orbit%3F&amp;theme=generic">
-<meta name="robots" content="max-image-preview:large">
-<!-- build 6dbbc644f55a · generated 2026-08-27T20:42:45.420Z -->
+<!-- build ec1107a3b908 · generated 2026-08-27T23:00:41.096Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
+<meta property="og:image" content="https://timeandspace.science/api/og?name=What%20Happens%20When%20You%20Change%20an%20Orbit%3F&amp;theme=generic">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=What%20Happens%20When%20You%20Change%20an%20Orbit%3F&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -1309,18 +1326,23 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <h1>What happens when you change one part of an orbit?</h1>
   <p class="answer">The shape changes, not just the speed. Slow a planet at one point and it drops onto a longer ellipse that swings closer in and climbs back out. Speed it up and the far side lifts away. It does not spiral into the Sun unless almost all of the sideways speed is gone.</p>
   <figure class="graphic-block dn">
-  <svg class="dns-svg" viewBox="0 0 700 276" width="100%" role="img" aria-label="A planet falling toward the sun and missing, tracing a closed orbit">
-    <circle class="dns-glow" cx="54" cy="138" r="54"/><circle class="dns-sun" cx="54" cy="138" r="34"/>
-    <ellipse cx="390" cy="138" rx="230" ry="92" fill="none" stroke="rgba(248,250,252,.28)" stroke-width="1.6"/>
-    <path d="M390 46 L620 70" fill="none" stroke="rgba(248,250,252,.35)" stroke-dasharray="6 5" stroke-width="1.4"/>
-    <circle cx="390" cy="46" r="11" fill="#e8ecf4"/>
-    <path d="M390 46 l28 4" stroke="#86efac" stroke-width="2" fill="none" marker-end="url(#ov-v)"/>
-    <path d="M390 46 l-36 18" stroke="#fcd34d" stroke-width="2" fill="none"/>
-    <defs><marker id="ov-v" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6z" fill="#86efac"/></marker></defs>
-    <text class="dns-lab" x="98" y="36">Sun</text>
-    <text class="dns-lab" x="410" y="38">sideways</text>
-    <text class="dns-lab" x="300" y="90">pull</text>
-    <text class="dns-lab" x="520" y="64">no gravity — a straight line</text>
+  <svg class="dns-svg" viewBox="0 0 700 336" width="100%" role="img" aria-label="A planet on a circle around the Sun, with a sideways velocity arrow and a gravity arrow pointing at the Sun">
+    <defs>
+      <marker id="ol-st-v" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7z" fill="#4ade80"/></marker>
+      <marker id="ol-st-g" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7z" fill="#fbbf24"/></marker>
+    </defs>
+    <circle class="dns-glow" cx="350" cy="168" r="40"/>
+    <circle class="dns-sun" cx="350" cy="168" r="22"/>
+    <ellipse cx="350" cy="168" rx="118" ry="118" fill="none" stroke="rgba(125,211,252,.7)" stroke-width="2"/>
+    <line x1="468" y1="168" x2="468" y2="60" stroke="rgba(248,250,252,.35)" stroke-width="1.4" stroke-dasharray="6 5"/>
+    <line x1="468" y1="168" x2="468" y2="112" stroke="#4ade80" stroke-width="3" marker-end="url(#ol-st-v)"/>
+    <line x1="468" y1="168" x2="416" y2="168" stroke="#fbbf24" stroke-width="3" marker-end="url(#ol-st-g)"/>
+    <circle cx="468" cy="168" r="9" fill="#60a5fa" stroke="#dbeafe" stroke-width="1.6"/>
+    <text class="dns-lab" x="350" y="208" text-anchor="middle">Sun</text>
+    <text class="dns-lab" x="478" y="106" fill="#4ade80">velocity</text>
+    <text class="dns-lab" x="410" y="158" text-anchor="end" fill="#fbbf24">gravity</text>
+    <text class="dns-lab" x="476" y="68">no gravity — a straight line</text>
+    <text class="dns-lab" x="480" y="172">planet</text>
   </svg>
   <figcaption>Take speed away at one point and the far side of the path drops toward the Sun. The planet still comes back through the point where you changed it.</figcaption>
 </figure>
@@ -1344,7 +1366,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <div class="card related">
     <h2>Related questions</h2>
     <p><a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a> They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up.</p>
-<p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> At every instant a planet has a velocity — where it is already going — and gravity adds a small pull straight toward the Sun. Bend a path by the same small amount at every step and it closes. That closed path is the orbit.</p>
+<p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> A planet is always falling toward the Sun, and it is already moving sideways. Gravity only pulls inward — it never pushes the planet along. Those two together bend a straight line into a closed curve. That closed path is the orbit.</p>
   </div>
   <details class="suggest-box" data-ac="suggest">
     <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
@@ -1367,7 +1389,9 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <p class="footer copyright">© 2026 Time and Space Science. All rights reserved.</p>
   <p class="footer sitelinks">Gravity, motion, time and space — one set of rules, seen from different sides: <a href="/questions/">the big questions</a> · <a href="/glossary/">the glossary</a> · <a href="/sun-moon-earth-movement-simulator/">the Sun, Earth &amp; Moon</a> · <a href="/day-night-map/">day &amp; night on Earth</a> · <a href="/solar-system-simulator/">the solar system</a> · <a href="/planets/">the planets</a> · <a href="/orbital-velocity-simulator/">gravity &amp; orbits</a> · <a href="/sun/">sunrise &amp; sunset</a> · <a href="/moon/">moon phases</a> · <a href="/world-clock/">time zones</a></p>
   <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. Teachers: <a href="/classroom/submit-a-lesson/">send us the lesson you already run</a> and we will build it into a page here, with your name on it — or <a href="/classroom/#ask">ask us to build a simulator</a> your class has thought of. <a href="/classroom/">Classroom</a> · <a href="/about/">About this site</a>.</p>
-</div><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+</div>
+
+<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];

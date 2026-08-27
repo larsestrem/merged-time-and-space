@@ -157,19 +157,204 @@ function miniMap() {
 }
 
 function orbitDiagram() {
-  return `<svg class="dns-svg" viewBox="0 0 700 276" width="100%" role="img" aria-label="A planet falling toward the sun and missing, tracing a closed orbit">
-    <circle class="dns-glow" cx="54" cy="138" r="54"/><circle class="dns-sun" cx="54" cy="138" r="34"/>
-    <ellipse cx="390" cy="138" rx="230" ry="92" fill="none" stroke="rgba(248,250,252,.28)" stroke-width="1.6"/>
-    <path d="M390 46 L620 70" fill="none" stroke="rgba(248,250,252,.35)" stroke-dasharray="6 5" stroke-width="1.4"/>
-    <circle cx="390" cy="46" r="11" fill="#e8ecf4"/>
-    <path d="M390 46 l28 4" stroke="#86efac" stroke-width="2" fill="none" marker-end="url(#ov-v)"/>
-    <path d="M390 46 l-36 18" stroke="#fcd34d" stroke-width="2" fill="none"/>
-    <defs><marker id="ov-v" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6z" fill="#86efac"/></marker></defs>
-    <text class="dns-lab" x="98" y="36">Sun</text>
-    <text class="dns-lab" x="410" y="38">sideways</text>
-    <text class="dns-lab" x="300" y="90">pull</text>
-    <text class="dns-lab" x="520" y="64">no gravity — a straight line</text>
+  /* Sun at the CENTRE of the path. The old drawing parked the Sun off to the
+     left of an ellipse that went around empty space, so the picture taught
+     the opposite of the sentence above it. Circle, two arrows, dashed miss. */
+  const CX = 350, CY = 168, R = 118, px = CX + R, py = CY;
+  return `<svg class="dns-svg" viewBox="0 0 700 336" width="100%" role="img" aria-label="A planet on a circle around the Sun, with a sideways velocity arrow and a gravity arrow pointing at the Sun">
+    <defs>
+      <marker id="ol-st-v" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7z" fill="#4ade80"/></marker>
+      <marker id="ol-st-g" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7z" fill="#fbbf24"/></marker>
+    </defs>
+    <circle class="dns-glow" cx="${CX}" cy="${CY}" r="40"/>
+    <circle class="dns-sun" cx="${CX}" cy="${CY}" r="22"/>
+    <ellipse cx="${CX}" cy="${CY}" rx="${R}" ry="${R}" fill="none" stroke="rgba(125,211,252,.7)" stroke-width="2"/>
+    <line x1="${px}" y1="${py}" x2="${px}" y2="${py - 108}" stroke="rgba(248,250,252,.35)" stroke-width="1.4" stroke-dasharray="6 5"/>
+    <line x1="${px}" y1="${py}" x2="${px}" y2="${py - 56}" stroke="#4ade80" stroke-width="3" marker-end="url(#ol-st-v)"/>
+    <line x1="${px}" y1="${py}" x2="${px - 52}" y2="${py}" stroke="#fbbf24" stroke-width="3" marker-end="url(#ol-st-g)"/>
+    <circle cx="${px}" cy="${py}" r="9" fill="#60a5fa" stroke="#dbeafe" stroke-width="1.6"/>
+    <text class="dns-lab" x="${CX}" y="${CY + 40}" text-anchor="middle">Sun</text>
+    <text class="dns-lab" x="${px + 10}" y="${py - 62}" fill="#4ade80">velocity</text>
+    <text class="dns-lab" x="${px - 58}" y="${py - 10}" text-anchor="end" fill="#fbbf24">gravity</text>
+    <text class="dns-lab" x="${px + 8}" y="${py - 100}">no gravity — a straight line</text>
+    <text class="dns-lab" x="${px + 12}" y="${py + 4}">planet</text>
   </svg>`;
+}
+
+/* One ES5 source, two runtimes. Node bakes the opening frame so a no-JS
+ * reader still sees a Sun-centred orbit; the browser runs the identical
+ * functions to move the planet.
+ *
+ * Vis-viva is the same pair of lines the home "slow it down" card and
+ * /orbital-velocity-simulator/ use: a = r/(2-k^2), e = |k^2-1|, with
+ * k = v / v_circular. Scale is FIXED, like the home card: the Sun stays
+ * put, the right-hand point stays put, the OTHER side of the path is
+ * what moves. Auto-zoom was hiding that, which made Slow down look like
+ * nothing happened.
+ *
+ * Velocity is screen-counterclockwise (up at the right-hand point), the
+ * same way the planet actually travels. An earlier draft pointed the
+ * green arrow the opposite way of the dashed "no gravity" line. */
+const OL_CORE = `
+var OL_W=700, OL_H=420, OL_CX=350, OL_CY=210, OL_R=128, OL_SUN=20;
+function olGeom(k){
+  var kk=k*k;
+  if(kk>=1.98) return {escape:true, k:k};
+  var a=OL_R/(2-kk), e=Math.abs(kk-1);
+  var q=a*(1-e), Q=a*(1+e);
+  return {escape:false, k:k, a:a, e:e, q:q, Q:Q, hits:q<=OL_SUN+2};
+}
+function olR(g,th){
+  if(g.escape) return OL_R;
+  var sign=g.k<1?-1:1;
+  return g.a*(1-g.e*g.e)/(1+sign*g.e*Math.cos(th));
+}
+function olPos(g,th){
+  if(g.escape) return { x:OL_CX+OL_R, y:OL_CY-OL_R*th*1.7, r:OL_R };
+  var r=olR(g,th);
+  return { x:OL_CX+r*Math.cos(th), y:OL_CY-r*Math.sin(th), r:r };
+}
+function olPath(g){
+  var i, th, p, d='';
+  if(g.escape){
+    return 'M'+(OL_CX+OL_R)+' '+OL_CY+' L'+(OL_CX+OL_R)+' 8';
+  }
+  for(i=0;i<=180;i++){
+    th=i/180*Math.PI*2;
+    p=olPos(g,th);
+    d+=(i?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1);
+  }
+  return d+'Z';
+}
+function olClamp(n,a,b){ return n<a?a:n>b?b:n; }
+function olScene(k,th){
+  var g=olGeom(k), p=olPos(g,th), s='', sx=p.x, sy=p.y;
+  var col=g.escape||g.hits?'#f87171':'#7dd3fc';
+  s+='<rect width="'+OL_W+'" height="'+OL_H+'" rx="16" fill="#080d1a"/>';
+  if(!g.escape && Math.abs(k-1)>0.02){
+    s+='<circle cx="'+OL_CX+'" cy="'+OL_CY+'" r="'+OL_R+'" fill="none" stroke="rgba(125,211,252,.28)" stroke-width="1.4" stroke-dasharray="5 6"/>';
+  }
+  s+='<path d="'+olPath(g)+'" fill="none" stroke="'+col+'" stroke-opacity=".9" stroke-width="2.2"'+(g.escape?' stroke-dasharray="7 6"':'')+'/>';
+  s+='<circle cx="'+OL_CX+'" cy="'+OL_CY+'" r="34" fill="#fcd34d" fill-opacity=".16"/>';
+  s+='<circle cx="'+OL_CX+'" cy="'+OL_CY+'" r="'+OL_SUN+'" fill="#fcd34d"/>';
+  s+='<text x="'+OL_CX+'" y="'+(OL_CY+OL_SUN+18)+'" text-anchor="middle" font-size="13" font-weight="700" fill="#fcd34d">Sun</text>';
+  if(!g.escape && g.e>0.05){
+    var far=olPos(g, Math.PI);
+    if(far.x>28 && far.x<OL_W-28 && far.y>22 && far.y<OL_H-18){
+      s+='<text x="'+far.x.toFixed(1)+'" y="'+(far.y+(g.k<1?18:-14)).toFixed(1)+'" text-anchor="middle" font-size="12" font-weight="700" fill="#94a3b8">'+(g.k<1?'closer':'farther')+'</text>';
+    }
+  }
+  var rx=sx-OL_CX, ry=sy-OL_CY, len=Math.sqrt(rx*rx+ry*ry)||1;
+  var ux=rx/len, uy=ry/len;
+  /* screen-CCW tangent: (uy, -ux). At the right-hand point this is UP, which
+     is the way the planet travels and the way the dashed miss is drawn. */
+  var tx=uy, ty=-ux;
+  var vlen=56, glen=Math.max(28, Math.min(72, 38*(OL_R/Math.max(24,p.r))));
+  var vx=sx+tx*vlen, vy=sy+ty*vlen;
+  var gx=sx-ux*glen, gy=sy-uy*glen;
+  var showHint=!g.escape && Math.abs(k-1)<0.02 && (th<0.22 || th>Math.PI*2-0.22);
+  if(showHint){
+    s+='<line x1="'+sx.toFixed(1)+'" y1="'+sy.toFixed(1)+'" x2="'+(sx+tx*118).toFixed(1)+'" y2="'+(sy+ty*118).toFixed(1)+'" stroke="rgba(248,250,252,.35)" stroke-width="1.4" stroke-dasharray="6 5"/>';
+    s+='<text x="'+(sx+tx*122+8).toFixed(1)+'" y="'+(sy+ty*122).toFixed(1)+'" font-size="12" fill="#94a3b8">no gravity \\u2014 a straight line</text>';
+  }
+  s+='<line x1="'+sx.toFixed(1)+'" y1="'+sy.toFixed(1)+'" x2="'+vx.toFixed(1)+'" y2="'+vy.toFixed(1)+'" stroke="#4ade80" stroke-width="3" marker-end="url(#ol-av)"/>';
+  s+='<line x1="'+sx.toFixed(1)+'" y1="'+sy.toFixed(1)+'" x2="'+gx.toFixed(1)+'" y2="'+gy.toFixed(1)+'" stroke="#fbbf24" stroke-width="3" marker-end="url(#ol-ag)"/>';
+  s+='<circle cx="'+sx.toFixed(1)+'" cy="'+sy.toFixed(1)+'" r="8" fill="#60a5fa" stroke="#dbeafe" stroke-width="1.6"/>';
+  s+='<text x="'+olClamp(vx+tx*10+8,16,684).toFixed(1)+'" y="'+olClamp(vy+ty*10,16,406).toFixed(1)+'" font-size="12" font-weight="700" fill="#4ade80">velocity</text>';
+  s+='<text x="'+olClamp(gx-ux*8,16,684).toFixed(1)+'" y="'+olClamp(gy-uy*8-6,16,406).toFixed(1)+'" text-anchor="end" font-size="12" font-weight="700" fill="#fbbf24">gravity</text>';
+  return s;
+}
+`;
+
+const OL = new Function(OL_CORE + "; return { olScene: olScene };")();
+
+export const ORBIT_LESSON_JS = `(function(){
+${OL_CORE}
+var fig=document.getElementById('ol-scene'); if(!fig) return;
+var play=document.getElementById('ol-play');
+var st=document.getElementById('ol-status');
+var note=document.getElementById('ol-note');
+var k=1, th=0, running=false, iv=0;
+var VC=29.8;
+function say(){
+  var g=olGeom(k);
+  var v=(k*VC).toFixed(1);
+  if(g.escape){
+    st.textContent='Escapes the Sun \\u00b7 '+v+' km/s';
+    st.className='ol-status is-warn';
+    note.textContent='Past escape speed \\u2014 about 1.41 times circular, or 42 km/s at Earth\\u2019s distance. Gravity still pulls, but the path never closes.';
+  } else if(g.hits){
+    st.textContent='Hits the Sun \\u00b7 '+v+' km/s';
+    st.className='ol-status is-bad';
+    note.textContent='Almost all of the sideways speed is gone. The near end of this ellipse reaches the Sun. Nature almost never does that to a planet.';
+  } else if(Math.abs(k-1)<0.02){
+    st.textContent='A circle around the Sun \\u00b7 '+v+' km/s';
+    st.className='ol-status is-good';
+    note.textContent='Earth\\u2019s distance. Green is the way the planet is already going. Gold is the pull, always straight at the Sun. They stay at right angles, so the pull turns the planet instead of speeding it up. Press Slow down \\u2014 the other side of the path is what moves.';
+  } else if(k<1){
+    st.textContent='Slower \\u2014 the far side fell in \\u00b7 '+v+' km/s';
+    st.className='ol-status is-good';
+    note.textContent='You took speed away at the right-hand point, so that point is now the farthest from the Sun. The other side dropped closer. The planet speeds up as it falls in, then comes back through here. It does not spiral.';
+  } else {
+    var off=g.Q>OL_CX-24;
+    st.textContent=(off?'Faster \\u2014 the far side climbed off the page':'Faster \\u2014 the far side climbed out')+' \\u00b7 '+v+' km/s';
+    st.className='ol-status is-good';
+    note.textContent='You added speed at the right-hand point, so that point is now the closest to the Sun. The other side climbed away'+(off?', off the page':'')+'. The planet slows as it climbs, then comes back through here.';
+  }
+}
+function paint(){ fig.innerHTML=olScene(k,th); say(); }
+function step(){
+  if(!running) return;
+  var g=olGeom(k);
+  if(g.escape){ th+=0.012; if(th>1.1) th=1.1; }
+  else {
+    var r=olR(g,th);
+    th+=0.028*Math.pow(OL_R/Math.max(24,r),2);
+    if(th>Math.PI*2) th-=Math.PI*2;
+  }
+  fig.innerHTML=olScene(k,th);
+}
+function setK(nk){
+  k=Math.max(0.42, Math.min(1.45, nk));
+  th=0;
+  paint();
+}
+function run(on){
+  running=on;
+  play.textContent=on?'Pause':'Play';
+  play.setAttribute('aria-pressed', on?'true':'false');
+  if(iv){ clearInterval(iv); iv=0; }
+  if(on) iv=setInterval(step, 40);
+}
+play.addEventListener('click', function(){ run(!running); });
+document.getElementById('ol-circ').addEventListener('click', function(){ setK(1); });
+document.getElementById('ol-slow').addEventListener('click', function(){ setK(k-0.12); });
+document.getElementById('ol-fast').addEventListener('click', function(){ setK(k+0.12); });
+paint();
+document.addEventListener('visibilitychange', function(){ if(document.hidden){ if(iv){ clearInterval(iv); iv=0; } } else if(running) run(true); });
+})();
+`;
+
+function orbitLessonHtml(c) {
+  const scene = OL.olScene(1, 0);
+  return `<div class="ol-lesson">
+    <svg class="ol-fig" viewBox="0 0 700 420" width="100%" role="img" aria-label="${esc(c.graphicAlt)}">
+      <defs>
+        <marker id="ol-av" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="#4ade80"/></marker>
+        <marker id="ol-ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="#fbbf24"/></marker>
+      </defs>
+      <g id="ol-scene">${scene}</g>
+    </svg>
+    <p class="ol-key"><span class="ol-k ol-k-v">Green: the way it is moving</span><span class="ol-k ol-k-g">Gold: the Sun\u2019s pull, always inward</span></p>
+    <p class="ol-btns">
+      <button type="button" class="chip chip-alt" id="ol-play" aria-pressed="false">Play</button>
+      <button type="button" class="chip" id="ol-circ">Circle</button>
+      <button type="button" class="chip" id="ol-slow">Slow down</button>
+      <button type="button" class="chip" id="ol-fast">Speed up</button>
+    </p>
+    <p class="ol-status is-good" id="ol-status">A circle around the Sun · 29.8 km/s</p>
+    <p class="ol-note" id="ol-note">Earth\u2019s distance. Green is the way the planet is already going. Gold is the pull, always straight at the Sun. They stay at right angles, so the pull turns the planet instead of speeding it up. Press Slow down \u2014 the other side of the path is what moves.</p>
+  </div>`;
 }
 
 function tidesDiagram() {
@@ -221,6 +406,9 @@ export function graphicHtml(c) {
       break;
     case "orbit":
       inner = orbitDiagram();
+      break;
+    case "orbit-live":
+      inner = orbitLessonHtml(c);
       break;
     case "moon-phase":
       inner = `<div class="orr-fig">${orrerySvg(NOW, 40.7, -74.0, "New York")}</div>`;
