@@ -37,6 +37,27 @@ export function conceptBySlug() {
   return new Map(loadConcepts().map((c) => [c.slug, c]));
 }
 
+/** Dates and the tilt, solved from the same solar series the map uses, so a
+ *  concept page cannot type "June 21" on a year it falls on the 20th. */
+export function conceptTokens() {
+  const Y = seasonPoints(Date.now());
+  const day = (ms) => new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", timeZone: "UTC" }).format(new Date(ms));
+  return {
+    tilt: Y.tilt.toFixed(1),
+    juneSolstice: day(Y.maxMs),
+    decSolstice: day(Y.minMs),
+  };
+}
+
+export function fillConcept(text) {
+  if (!text) return text;
+  const t = conceptTokens();
+  return text
+    .replace(/\{tilt\}/g, t.tilt)
+    .replace(/\{juneSolstice\}/g, t.juneSolstice)
+    .replace(/\{decSolstice\}/g, t.decSolstice);
+}
+
 export const CONCEPT_SLUGS = () => loadConcepts().map((c) => c.slug);
 
 export function relatedPartial(slugs, bySlug = conceptBySlug()) {
@@ -44,7 +65,7 @@ export function relatedPartial(slugs, bySlug = conceptBySlug()) {
     .map((slug) => {
       const c = bySlug.get(slug);
       if (!c) throw new Error(`related slug missing: ${slug}`);
-      return `<p><a href="/concepts/${esc(c.slug)}/">${esc(c.question)}</a> ${esc(c.shortAnswer)}</p>`;
+      return `<p><a href="/concepts/${esc(c.slug)}/">${esc(c.question)}</a> ${esc(fillConcept(c.shortAnswer))}</p>`;
     })
     .join("\n");
 }
@@ -103,7 +124,7 @@ function teaserLi(c, hubPath, used) {
   let hid = teaserAnchor(c, hubPath);
   if (used.has(hid)) hid = c.slug;
   used.add(hid);
-  return `<li id="${esc(hid)}"><p><a href="/concepts/${esc(c.slug)}/">${esc(c.question)}</a> ${esc(c.shortAnswer)}</p></li>`;
+  return `<li id="${esc(hid)}"><p><a href="/concepts/${esc(c.slug)}/">${esc(c.question)}</a> ${esc(fillConcept(c.shortAnswer))}</p></li>`;
 }
 
 /* ---- graphics: the live-site drawings, baked at the current instant ------ */
@@ -185,9 +206,16 @@ export function graphicHtml(c) {
   const SS = subsolar(NOW);
   let inner = "";
   switch (c.graphicId) {
-    case "sun-earth-line":
-      inner = sideView(SS.dec, YEAR.tilt);
+    case "sun-earth-line": {
+      /* Tropic pages must show the solstice they are about — today's
+         declination (August ~10° N) leaves the yellow line short of the
+         tropic, which is the opposite of the sentence above the picture. */
+      let dec = SS.dec;
+      if (c.slug === "what-is-the-tropic-of-cancer") dec = YEAR.tilt;
+      else if (c.slug === "what-is-the-tropic-of-capricorn") dec = -YEAR.tilt;
+      inner = sideView(dec, YEAR.tilt).replace(/aria-label="[^"]*"/, `aria-label="${esc(c.graphicAlt)}"`);
       break;
+    }
     case "day-night-map":
       inner = miniMap();
       break;
@@ -216,6 +244,6 @@ export function graphicHtml(c) {
   }
   return `<figure class="graphic-block dn">
   ${inner}
-  <figcaption>${esc(c.graphicCaption)}</figcaption>
+  <figcaption>${esc(fillConcept(c.graphicCaption))}</figcaption>
 </figure>`;
 }

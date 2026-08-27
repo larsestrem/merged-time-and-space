@@ -12,7 +12,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { esc, GA_SNIPPET, brand, faqLd, breadcrumbLD, learningLd } from "./lib.mjs";
 import { ico } from "./icons.mjs";
-import { loadConcepts } from "./concepts.mjs";
+import { loadConcepts, fillConcept } from "./concepts.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -45,7 +45,7 @@ const qCard = (Q, i) => {
     .join("\n");
   return `  <div class="card hub-teasers" id="${Q.id}">
     <h2>${i + 1} · <a href="/concepts/${esc(Q.c.slug)}/">${esc(Q.c.question)}</a></h2>
-    <p class="answer hub-teaser">${esc(Q.c.shortAnswer)} <a class="hub-more" href="/concepts/${esc(Q.c.slug)}/">Get more</a></p>
+    <p class="answer hub-teaser">${esc(fillConcept(Q.c.shortAnswer))} <a class="hub-more" href="/concepts/${esc(Q.c.slug)}/">Get more</a></p>
     <p class="timer-presets">
 ${see}
     </p>
@@ -56,7 +56,7 @@ ${next
 `;
 };
 
-const FAQ = QUESTIONS.map((Q) => [Q.c.question, Q.c.shortAnswer]);
+const FAQ = QUESTIONS.map((Q) => [Q.c.question, fillConcept(Q.c.shortAnswer)]);
 
 const page = `<!DOCTYPE html>
 <html lang="en">

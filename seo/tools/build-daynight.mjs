@@ -33,7 +33,7 @@ import {
   DN_TOP, DN_BOT, dnX, dnY, dnF, subsolar, sunAltitude, nightPath, twilightPath, landPath, seasonPoints,
   cityMark, DN_MAP_EXTRA, sideView, seasonSunHtml, seasonOrbitSvg,
 } from "./daynight.mjs";
-import { MOON_CORE, sublunar } from "./moon.mjs";
+import { MOON_CORE, sublunar, moonGlyph, moonIllum, moonName } from "./moon.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -73,6 +73,9 @@ const PIN = `<svg class="dn-pin" viewBox="0 0 24 24" width="16" height="16" aria
 
 /* ---- the baked picture --------------------------------------------------- */
 const SS = subsolar(NOW);
+const MM = sublunar(NOW);
+const MN_ILL = moonIllum(NOW);
+const MN_R = 10;
 const LAND = landPath();
 const DOTS = DN_MAP_EXTRA.map((tz) => cityMark(WC_CITY_LIST, tz, 0, esc)).join("");
 
@@ -92,7 +95,7 @@ const GRAT = [
    (they used to be yellow and a size up, with a clock strip under the map —
    the strip is gone, the sentence under the map now names the yellow sun
    marker instead). */
-const MAP_SVG = `<svg id="dn-svg" class="dn-svg" viewBox="${DN_VIEWBOX}" width="100%" role="img" aria-label="A world map with the night side shaded, the twilight band between, and the point the sun is directly over marked">
+const MAP_SVG = `<svg id="dn-svg" class="dn-svg" viewBox="${DN_VIEWBOX}" width="100%" role="img" aria-label="A world map with the night side shaded, the twilight band between, the sun overhead, and the moon in its current phase">
         <rect y="${DN_VIEW_Y}" width="${DN_W}" height="${DN_VIEW_H}" fill="#12304f"/>
         <path d="${LAND}" fill="#2f5d3a"/>
         <g class="dn-grat">${GRAT}</g>
@@ -103,10 +106,11 @@ const MAP_SVG = `<svg id="dn-svg" class="dn-svg" viewBox="${DN_VIEWBOX}" width="
         }<path id="dn-tw" d="${twilightPath(SS.dec, SS.lon, 1)}" fill-rule="evenodd" fill="#050a16" fill-opacity=".34"/>
         <path id="dn-night" d="${nightPath(SS.dec, SS.lon, -18, 1)}" fill="#050a16" fill-opacity=".52"/>
         ${DOTS}
-        <g id="dn-moon" transform="translate(${dnF(dnX(sublunar(NOW).lon))} ${dnF(dnY(sublunar(NOW).dec))})">
-          <circle r="11" fill="#e8e0c8" fill-opacity=".22"/>
-          <circle r="5.2" fill="#e8e0c8" stroke="#0b0e1c" stroke-width="1.4"/>
-          <text y="-12" text-anchor="middle" font-size="11.5" font-weight="700" fill="#e8e0c8" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Moon</text>
+        <g id="dn-moon" transform="translate(${dnF(dnX(MM.lon))} ${dnF(dnY(MM.dec))})">
+          <title id="dn-moon-title">${esc(moonName(MN_ILL.phase))}</title>
+          <circle r="14" fill="#e8e0c8" fill-opacity=".18"/>
+          <g id="dn-moon-g" transform="translate(-${MN_R} -${MN_R})">${moonGlyph(MN_ILL.fraction, MN_ILL.waxing, MN_R, MM.dec < 0, true)}</g>
+          <text y="-16" text-anchor="middle" font-size="11.5" font-weight="700" fill="#e8e0c8" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Moon</text>
         </g>
         <g id="dn-sun" transform="translate(${dnF(dnX(SS.lon))} ${dnF(dnY(SS.dec))})">
           <circle r="13" fill="#fde68a" fill-opacity=".25"/>
@@ -197,6 +201,11 @@ function paint(){
   if(moonG){
     var mm=mnSub(AT);
     moonG.setAttribute('transform','translate('+dnF(dnX(mm.lon))+' '+dnF(dnY(mm.dec))+')');
+    var il=mnIllum(AT);
+    var hold=document.getElementById('dn-moon-g');
+    if(hold) hold.innerHTML=mnGlyph(il.fraction,il.waxing,10,mm.dec<0,1);
+    var ttl=document.getElementById('dn-moon-title');
+    if(ttl) ttl.textContent=mnName(il.phase);
   }
   if(orbitNow){
     var op=soXY(dnEcl(AT));
@@ -389,10 +398,10 @@ ${jumpRow("dn-tools")}
 const howCard = `  <div class="card" id="how">
     <h2>What this is, and how it works</h2>
     <p>This is a live map of day and night on Earth, solved for this moment. Half the planet is in sunlight at every instant. The bright half is where the sun is above the horizon, the dark half is below, and the <strong>soft band</strong> is twilight — the sun has set but the sky is still lit, out to 18° down.</p>
-    <p>The <strong>yellow marker</strong> is the one place the sun stands <a href="/concepts/what-is-the-subsolar-point/">straight overhead</a>. The <strong>pale marker</strong> is the moon, in the same sense — where it stands overhead at the time on the slider. It can sit in daylight or in night; that is <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">a daytime moon</a>. The <strong>dashed gold lines</strong> are the tropics. The <strong>curve</strong> is the <a href="/concepts/what-is-the-terminator/">terminator</a>. <strong>Play</strong> watches both markers sweep west. Jump to a season start to see the shadow lean.</p>
+    <p>The <strong>yellow marker</strong> is the one place the sun stands <a href="/concepts/what-is-the-subsolar-point/">straight overhead</a>. The <strong>moon marker</strong> is where the moon stands overhead at the time on the slider, drawn in its current phase. It can sit in daylight or in night; that is <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">a daytime moon</a>. The <strong>dashed gold lines</strong> are the tropics. The <strong>curve</strong> is the <a href="/concepts/what-is-the-terminator/">terminator</a>. <strong>Play</strong> watches both markers sweep west. Jump to a season start to see the shadow lean.</p>
     <div class="wc-facts">
       <div class="wc-frow"><span>Yellow marker</span><b>Subsolar point — a flagpole there casts no shadow.</b></div>
-      <div class="wc-frow"><span>Pale marker</span><b>The moon, overhead. Daylight does not hide it.</b></div>
+      <div class="wc-frow"><span>Moon marker</span><b>Overhead, in the phase of that moment.</b></div>
       <div class="wc-frow"><span>Soft band</span><b>Twilight, widest toward the poles.</b></div>
       <div class="wc-frow"><span>Dark half</span><b>Night, solved per meridian, not stamped on.</b></div>
     </div>

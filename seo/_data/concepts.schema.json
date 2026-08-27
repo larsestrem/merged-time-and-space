@@ -28,6 +28,10 @@
       "question": { "type": "string" },
       "term": { "type": "string" },
       "shortAnswer": { "type": "string", "maxLength": 520 },
+      "ledeHtml": {
+        "type": "string",
+        "description": "Optional intro HTML for the concept page only. Teasers, glossary and JSON-LD keep using the plain shortAnswer. Tokens {tilt}, {juneSolstice}, {decSolstice} are filled at build."
+      },
       "title": { "type": "string" },
       "description": { "type": "string", "maxLength": 170 },
       "cluster": { "enum": ["day-night", "questions", "simulator", "solar"] },

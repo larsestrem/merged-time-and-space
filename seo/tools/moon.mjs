@@ -265,13 +265,13 @@ function mnCompass(bearing){ return MN_COMPASS[Math.round(((bearing%360)+360)%36
  *
  * \`south\` flips it: the phase is identical everywhere on Earth, but below the
  * equator the lit limb — and the whole face with it — appears rotated 180°. */
-function mnGlyph(fraction,waxing,r,south){
+function mnGlyph(fraction,waxing,r,south,plain){
   var f=fraction<0?0:(fraction>1?1:fraction), d=2*r, cx=r, cy=r;
   var rx=(r*Math.abs(1-2*f)).toFixed(2), litRight=(waxing!==!!south);
   var s1=litRight?0:1, s2=litRight?(f<0.5?0:1):(f<0.5?1:0);
   var shadow='M'+cx+' '+(cy-r)+'A'+r+' '+r+' 0 0 '+s1+' '+cx+' '+(cy+r)
     +'A'+rx+' '+r+' 0 0 '+s2+' '+cx+' '+(cy-r)+'Z';
-  return '<svg viewBox="0 0 '+d+' '+d+'" width="'+d+'" height="'+d+'" aria-hidden="true" class="mn-moon">'
+  return '<svg viewBox="0 0 '+d+' '+d+'" width="'+d+'" height="'+d+'" aria-hidden="true" class="mn-moon"'+(plain?' overflow="visible"':'')+'>'
     /* plain disc underneath: if the sprite is ever missing the glyph still
        reads as a moon in the right phase rather than vanishing */
     +'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="#efe3c2"/>'
@@ -286,10 +286,12 @@ function mnGlyph(fraction,waxing,r,south){
        /moon/ city page is a single instance and keeps the vector, which stays
        crisp at any size. See make-moon-face-raster.mjs.
        "#ac-moon-raster" is rewritten to the hashed .webp by build-inline, the
-       same way "#ac-moon-face" is pointed at the hashed sprite. */
-    +(r<=32
+       same way "#ac-moon-face" is pointed at the hashed sprite.
+       \`plain\` skips the face: the day/night map marker is too small to read it,
+       and that page does not carry the sprite. */
+    +(plain?'':(r<=32
       ? '<image href="#ac-moon-raster" x="0" y="0" width="'+d+'" height="'+d+'"'+(south?' transform="rotate(180 '+cx+' '+cy+')"':'')+'/>'
-      : '<g transform="scale('+(r/100)+')'+(south?' rotate(180 100 100)':'')+'"><use href="#ac-moon-face"/></g>')
+      : '<g transform="scale('+(r/100)+')'+(south?' rotate(180 100 100)':'')+'"><use href="#ac-moon-face"/></g>'))
     /* Earthshine: the shadow is not equally opaque at every phase. Sunlight
        bounced off the Earth genuinely lights the moon's dark side, and it is
        most obvious on a thin crescent (a big, bright Earth in the moon's sky)
@@ -328,7 +330,7 @@ export const nextPhase = (ms, kind) => M.mnNextPhase(+ms, kind);
 export const prevPhase = (ms, kind) => M.mnPrevPhase(+ms, kind);
 export const phasesBetween = (from, to) => M.mnPhasesBetween(+from, +to);
 export const moonTimes = (startMs, lat, lon) => M.mnTimes(+startMs, lat, lon);
-export const moonGlyph = (fraction, waxing, r, south = false) => M.mnGlyph(fraction, waxing, r, south);
+export const moonGlyph = (fraction, waxing, r, south = false, plain = false) => M.mnGlyph(fraction, waxing, r, south, plain);
 export const moonDistance = (ms) => M.mnMoonPos(M.mnDays(+ms)).dist;
 export const moonPos = (ms, lat, lon) => M.mnPos(+ms, lat, lon);
 export const compass = (bearing) => M.mnCompass(bearing);

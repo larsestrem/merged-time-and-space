@@ -3674,6 +3674,7 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-figwrap{position:relative;line-height:0;border-radius:12px;overflow:hidden;
   border:1px solid var(--border);background:#12304f}
 .dn-svg{display:block;width:100%;height:auto}
+#dn-moon .mn-moon{overflow:visible}
 .dn-overlay{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;
   align-items:flex-end;gap:8px;padding:10px 12px;pointer-events:none;
   background:linear-gradient(to top,rgba(2,6,23,.55),rgba(2,6,23,0))}
@@ -3997,6 +3998,12 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
   max-width: 62ch;
   line-height: 1.55;
 }
+.answer a {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
 .concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
 .band-deeper h2::after {
   content: " Further down";

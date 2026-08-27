@@ -3,9 +3,10 @@
     "slug": "what-is-the-tropic-of-cancer",
     "question": "What is the Tropic of Cancer?",
     "term": "Tropic of Cancer",
-    "shortAnswer": "It is the circle at 23.4° north. The Sun is straight overhead there once a year, on the summer solstice, and never north of it. That number is Earth’s tilt, not a climate zone someone drew.",
+    "shortAnswer": "The Tropic of Cancer is the circle at {tilt}° north. On one day each year — the summer solstice, around {juneSolstice} — the Sun stands straight overhead on this line. North of it, the Sun is never straight overhead.",
+    "ledeHtml": "The Tropic of Cancer is the circle at {tilt}° north. This circle is where the Sun stands <a href=\"/concepts/what-is-the-subsolar-point/\">straight overhead</a> — a flagpole there would cast no shadow — on the <a href=\"/concepts/why-do-we-have-seasons/\">summer solstice</a>, around {juneSolstice}. That is the longest day of the year in the north. The Sun is never straight overhead anywhere north of this line. The number {tilt}° is <a href=\"/concepts/what-is-earths-axial-tilt/\">Earth’s tilt</a>.",
     "title": "What Is the Tropic of Cancer?",
-    "description": "The Tropic of Cancer is the circle at 23.4° N — as far north as the Sun can stand straight overhead. That latitude is Earth’s axial tilt written on the surface.",
+    "description": "The Tropic of Cancer is the circle at {tilt}° N. On the summer solstice, around {juneSolstice}, the Sun stands straight overhead there — and never north of it.",
     "cluster": "day-night",
     "hubUrls": [
       {
@@ -25,19 +26,19 @@
       "why-do-we-have-seasons"
     ],
     "graphicId": "sun-earth-line",
-    "graphicCaption": "A line from the centre of the Sun through the centre of the Earth meets the surface at one point. The Tropic of Cancer is the northern limit of that meeting point.",
-    "graphicAlt": "Side view of the Sun and Earth. Parallel sunlight from the left. A solid yellow line from the Sun’s centre through Earth’s centre hits the surface. Dashed chords mark the Tropic of Cancer and the Tropic of Capricorn at plus and minus the axial tilt.",
+    "graphicCaption": "Drawn at the summer solstice, around {juneSolstice}. Earth is leaning as far toward the Sun as it ever does. The yellow line from the Sun’s centre through Earth’s centre hits the Tropic of Cancer.",
+    "graphicAlt": "Side view of the Sun and Earth at the summer solstice. Parallel sunlight from the left. A solid yellow line from the Sun’s centre through Earth’s centre hits the Tropic of Cancer. Dashed chords mark both tropics at plus and minus Earth’s tilt.",
     "sections": [
       {
-        "heading": "Where the number comes from",
+        "heading": "Why it sits at {tilt}° north",
         "band": "5-12",
         "body": [
-          "Earth does not sit upright in its orbit. Its spin axis leans. The size of that lean is the obliquity of the ecliptic, which this page computes from the same solar series that draws the map: about 23.4° in our century, and slowly shrinking.",
-          "Because the axis keeps pointing the same way all year, the lean facing the Sun changes as Earth goes round. In June the north end leans into the light. The centre-to-centre line — Sun centre to Earth centre — then hits as far north as the lean itself. That hit is the Tropic of Cancer."
+          "Earth does not sit straight up as it goes around the Sun. It leans about {tilt}°. That lean is Earth’s axial tilt, and it barely changes from one year to the next.",
+          "Because the axis keeps pointing the same way all year, the lean facing the Sun changes as Earth goes around. Around {juneSolstice} the north end leans as far into the light as it ever does. A ray from the centre of the Sun through the centre of Earth then hits this circle. That day is the summer solstice — the longest day of the year in the north. The picture above is that day."
         ]
       },
       {
-        "heading": "Why 23.4° — and why it is not a climate stripe",
+        "heading": "Why {tilt}° — and why it is not a climate stripe",
         "band": "deeper",
         "body": [
           "A climate map that colours a band “tropical” is a later idea. The tropic itself is a measurement: the maximum solar declination. If the tilt were 10°, the tropic would sit at 10° N. If the tilt were zero, both tropics would collapse onto the equator, and there would be no seasons.",
@@ -62,7 +63,7 @@
     "seeItLive": [
       {
         "href": "/day-night-map/#tropics",
-        "label": "Watch the yellow dot stop at 23.4° N"
+        "label": "Watch the yellow dot stop at {tilt}° N"
       },
       {
         "href": "/sun-moon-earth-movement-simulator/",
@@ -74,9 +75,10 @@
     "slug": "what-is-the-tropic-of-capricorn",
     "question": "What is the Tropic of Capricorn?",
     "term": "Tropic of Capricorn",
-    "shortAnswer": "It is the circle at 23.4° south — the southern twin of the Tropic of Cancer. The Sun stands straight overhead there once a year, on the winter solstice, and never south of it.",
+    "shortAnswer": "The Tropic of Capricorn is the circle at {tilt}° south. On one day each year — the winter solstice, around {decSolstice} — the Sun stands straight overhead on this line. South of it, the Sun is never straight overhead. It is the southern twin of the Tropic of Cancer.",
+    "ledeHtml": "The Tropic of Capricorn is the circle at {tilt}° south. This circle is where the Sun stands <a href=\"/concepts/what-is-the-subsolar-point/\">straight overhead</a> — a flagpole there would cast no shadow — on the <a href=\"/concepts/why-do-we-have-seasons/\">winter solstice</a>, around {decSolstice}. That is the shortest day of the year in the north, and summer in the south. The Sun is never straight overhead anywhere south of this line. It is the southern twin of the <a href=\"/concepts/what-is-the-tropic-of-cancer/\">Tropic of Cancer</a>.",
     "title": "What Is the Tropic of Capricorn?",
-    "description": "The Tropic of Capricorn is the circle at 23.4° S, the farthest south the Sun can stand straight overhead. It is Earth’s tilt, not a line someone chose.",
+    "description": "The Tropic of Capricorn is the circle at {tilt}° S. On the winter solstice, around {decSolstice}, the Sun stands straight overhead there — and never south of it.",
     "cluster": "day-night",
     "hubUrls": [
       {
@@ -91,14 +93,15 @@
       "why-do-we-have-seasons"
     ],
     "graphicId": "sun-earth-line",
-    "graphicCaption": "In December the north end of the axis leans away from the Sun. The centre-to-centre line then lands as far south as the tilt — on the Tropic of Capricorn.",
-    "graphicAlt": "Side view of the Sun and Earth with the subsolar point on the Tropic of Capricorn, the southern dashed chord.",
+    "graphicCaption": "Drawn at the winter solstice, around {decSolstice}. The north end of Earth’s axis leans as far away from the Sun as it ever does. The yellow line from the Sun’s centre through Earth’s centre hits the Tropic of Capricorn.",
+    "graphicAlt": "Side view of the Sun and Earth at the winter solstice. Parallel sunlight from the left. A solid yellow line from the Sun’s centre through Earth’s centre hits the Tropic of Capricorn. Dashed chords mark both tropics at plus and minus Earth’s tilt.",
     "sections": [
       {
-        "heading": "The same limit, going south",
+        "heading": "Why it sits at {tilt}° south",
         "band": "5-12",
         "body": [
-          "Whatever the Tropic of Cancer is for the north, the Tropic of Capricorn is for the south. Earth’s axis leans about 23.4°. That lean never grows, so the Sun’s overhead point never crosses either tropic.",
+          "Whatever the Tropic of Cancer is for the north, the Tropic of Capricorn is for the south. Earth’s axis leans about {tilt}°. That lean never grows, so the Sun’s overhead point never crosses either tropic.",
+          "Around {decSolstice} the north end leans as far away from the Sun as it ever does, and the south end leans into the light. A ray from the centre of the Sun through the centre of Earth then hits this circle. That day is the winter solstice in the north — the shortest northern day, and summer in the south. The picture above is that day.",
           "Between the two tropics, every place gets the Sun straight up on two days each year — once on the way north, once on the way back. Outside them, a vertical pole always casts some noon shadow, even on the longest day."
         ]
       },

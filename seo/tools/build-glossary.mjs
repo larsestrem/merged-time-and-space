@@ -4,7 +4,7 @@ import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { esc, GA_SNIPPET, brand, breadcrumbLD } from "./lib.mjs";
-import { loadConcepts } from "./concepts.mjs";
+import { loadConcepts, fillConcept } from "./concepts.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -18,7 +18,7 @@ const items = rows.map((c) => {
   const head = L !== letter ? ((letter = L), `<h2 class="letter" id="${L}">${L}</h2>\n`) : "";
   return `${head}<li class="glossary-item" id="${esc(c.slug)}">
 <h2><a href="/concepts/${esc(c.slug)}/">${esc(c.term)}</a></h2>
-<p><a href="/concepts/${esc(c.slug)}/">${esc(c.question)}</a> ${esc(c.shortAnswer)}</p>
+<p><a href="/concepts/${esc(c.slug)}/">${esc(c.question)}</a> ${esc(fillConcept(c.shortAnswer))}</p>
 </li>`;
 }).join("\n");
 
@@ -30,7 +30,7 @@ const jsonLd = {
   hasDefinedTerm: rows.map((c) => ({
     "@type": "DefinedTerm",
     name: c.term,
-    description: c.shortAnswer,
+    description: fillConcept(c.shortAnswer),
     url: SITE + `/concepts/${c.slug}/`,
   })),
 };

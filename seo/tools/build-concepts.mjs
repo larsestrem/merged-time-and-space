@@ -9,7 +9,7 @@ import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { esc, GA_SNIPPET, brand, breadcrumbLD, faqLd, learningLd } from "./lib.mjs";
-import { loadConcepts, conceptBySlug, relatedPartial, graphicHtml } from "./concepts.mjs";
+import { loadConcepts, conceptBySlug, relatedPartial, graphicHtml, fillConcept } from "./concepts.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -19,7 +19,25 @@ const bySlug = conceptBySlug();
 
 export const CONCEPT_URLS = data.map((c) => `/concepts/${c.slug}/`);
 
-for (const c of data) {
+for (const raw of data) {
+  const c = {
+    ...raw,
+    shortAnswer: fillConcept(raw.shortAnswer),
+    description: fillConcept(raw.description),
+    title: fillConcept(raw.title),
+    ledeHtml: raw.ledeHtml ? fillConcept(raw.ledeHtml) : "",
+    graphicCaption: fillConcept(raw.graphicCaption),
+    graphicAlt: fillConcept(raw.graphicAlt),
+    sections: raw.sections.map((s) => ({
+      ...s,
+      heading: fillConcept(s.heading),
+      body: s.body.map(fillConcept),
+    })),
+    seeItLive: raw.seeItLive.map((h) => ({
+      ...h,
+      label: fillConcept(h.label),
+    })),
+  };
   const url = `/concepts/${c.slug}/`;
   const canonical = SITE + url;
   const grade = c.sections.filter((s) => s.band === "5-12");
@@ -75,7 +93,7 @@ ${GA_SNIPPET}
   ${brand({ crumb: { slug: "concepts", url: "/glossary/" }, page: { label: c.term, url } })}
   <p class="kicker">${esc(c.term)}</p>
   <h1>${esc(c.question)}</h1>
-  <p class="answer">${esc(c.shortAnswer)}</p>
+  <p class="answer">${c.ledeHtml || esc(c.shortAnswer)}</p>
   ${graphicHtml(c)}
   ${sectionHtml(grade)}
   ${deeperBlock}

@@ -12,6 +12,12 @@
   max-width: 62ch;
   line-height: 1.55;
 }
+.answer a {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
 .concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
 .band-deeper h2::after {
   content: " Further down";
