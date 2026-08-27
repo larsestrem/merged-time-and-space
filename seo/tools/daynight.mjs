@@ -55,6 +55,23 @@ function dnSub(ms){
   var lo=ra-gmst; lo=((lo%360)+540)%360-180;
   return {dec:dec,lon:lo};
 }
+/* apparent ecliptic longitude of the sun, degrees. 0 at the spring equinox,
+   90 at the summer solstice, 180 at the fall equinox, 270 at the winter
+   solstice. The season-orbit drawing places Earth with this angle. */
+function dnEcl(ms){
+  var d=(ms-Date.UTC(2000,0,1,12))/86400000;
+  var g=(357.529+0.98560028*d)*Math.PI/180;
+  var q=280.459+0.98564736*d;
+  return q+1.915*Math.sin(g)+0.020*Math.sin(2*g);
+}
+/* the season-orbit figure: sun at the centre, Earth on a circle. Spring
+   equinox at the top, then counterclockwise: summer right, fall bottom,
+   winter left. soXY is shared with the live "today" marker. */
+var SO_CX=320,SO_CY=288,SO_R=172;
+function soXY(L){
+  var a=L*Math.PI/180;
+  return {x:SO_CX+SO_R*Math.sin(a), y:SO_CY-SO_R*Math.cos(a)};
+}
 /* how high the sun is, in degrees, at one place at one instant. The argument
    is clamped because sin^2+cos^2 lands on 1.0000000000000002 often enough to
    matter: at the subsolar point itself, an unclamped asin returns NaN. */
@@ -197,7 +214,7 @@ function dnSide(dec,tilt){
 
 /* the same functions, here, by evaluating the source the browser gets */
 const DN = new Function(`${DN_CORE}
-return {dnX:dnX,dnY:dnY,dnF:dnF,dnSub:dnSub,dnAlt:dnAlt,dnBands:dnBands,dnPath:dnPath,dnTwiPath:dnTwiPath,dnSide:dnSide};`)();
+return {dnX:dnX,dnY:dnY,dnF:dnF,dnSub:dnSub,dnEcl:dnEcl,soXY:soXY,dnAlt:dnAlt,dnBands:dnBands,dnPath:dnPath,dnTwiPath:dnTwiPath,dnSide:dnSide};`)();
 
 export const DN_W = 720, DN_H = 360;
 /* THE POLES ARE CROPPED OFF. A whole-globe equirectangular map is 2:1, and the
@@ -208,6 +225,8 @@ export const DN_W = 720, DN_H = 360;
 export const DN_TOP = 82, DN_BOT = -62;
 export const dnX = DN.dnX, dnY = DN.dnY, dnF = DN.dnF;
 export const subsolar = DN.dnSub;
+export const eclipticLon = DN.dnEcl;
+export const seasonOrbitXY = DN.soXY;
 export const sunAltitude = DN.dnAlt;
 export const nightPath = DN.dnPath;
 export const twilightPath = DN.dnTwiPath;
@@ -316,18 +335,90 @@ export function seasonSunHtml(dec, lon, laterDec, tilt) {
   var lo = Math.abs(lon).toFixed(1) + '\u00B0 ' + (lon >= 0 ? 'E' : 'W');
   var a = Math.abs(dec), n = dec >= 0, rising = laterDec > dec;
   var orbit = '<a href="/sun-moon-earth-movement-simulator/system/">Earth\u2019s orbit</a>';
-  var over = '<a href="/concepts/what-is-the-subsolar-point/">overhead</a>';
-  var head = 'The sun is ' + over + ' at <b>' + lat + ', ' + lo + '</b> \u2014 the yellow marker on the map (press <b>Now</b> to put it on this minute). ';
+  var sub = '<a href="/concepts/what-is-the-subsolar-point/">subsolar point</a>';
+  var head = 'The sun is overhead at <b>' + lat + ', ' + lo + '</b> \u2014 this is the ' + sub + '. ';
   if (a < 0.6) {
-    if (rising) return head + 'Day and night are about equal everywhere \u2014 this is the March equinox. The northern half of the world is heading into spring, and its days will get longer as Earth tilts toward the sun in ' + orbit + '.';
-    return head + 'Day and night are about equal everywhere \u2014 this is the September equinox. The northern half of the world is heading into fall, and its days will get shorter as Earth tilts away from the sun in ' + orbit + '.';
+    if (rising) return head + 'Day and night are about equal everywhere \u2014 this is the spring equinox, the start of spring in the northern half of the world. Days there will get longer as Earth tilts toward the sun in ' + orbit + '.';
+    return head + 'Day and night are about equal everywhere \u2014 this is the fall equinox, the start of fall in the northern half of the world. Days there will get shorter as Earth tilts away from the sun in ' + orbit + '.';
   }
   if (tilt - a < 0.15) {
-    if (n) return head + 'The sun is as far north as it ever gets \u2014 the June solstice, the longest days in the northern half of the world. From here Earth starts tilting away from the sun in ' + orbit + '.';
-    return head + 'The sun is as far south as it ever gets \u2014 the December solstice, the shortest days in the northern half of the world. From here Earth starts tilting back toward the sun in ' + orbit + '.';
+    if (n) return head + 'The sun is as far north as it ever gets \u2014 the summer solstice, the start of summer and the longest days in the northern half of the world. From here Earth starts tilting away from the sun in ' + orbit + '.';
+    return head + 'The sun is as far south as it ever gets \u2014 the winter solstice, the start of winter and the shortest days in the northern half of the world. From here Earth starts tilting back toward the sun in ' + orbit + '.';
   }
   if (n && !rising) return head + 'This time of year the sun is moving from summer toward fall, and days in the northern half of the world are getting shorter because Earth is tilting away from the sun in ' + orbit + '.';
   if (n && rising) return head + 'This time of year the sun is moving from spring toward summer, and days in the northern half of the world are getting longer because Earth is tilting toward the sun in ' + orbit + '.';
   if (!n && !rising) return head + 'This time of year the sun is moving from fall toward winter, and days in the northern half of the world are getting shorter because Earth is tilting away from the sun in ' + orbit + '.';
   return head + 'This time of year the sun is moving from winter toward spring, and days in the northern half of the world are getting longer because Earth is tilting toward the sun in ' + orbit + '.';
+}
+
+/* ---- Earth around the sun, with the four season corners ------------------
+ * Spring equinox at the top, then counterclockwise: summer solstice (right),
+ * fall equinox (bottom), winter solstice (left). The season names sit on the
+ * ARCS BETWEEN those four, because each named Earth is the start of a season
+ * and the stop of the one before. The axis on every Earth points the same
+ * way in space (left, toward the summer-solstice sun), which is the whole
+ * lesson: the lean does not turn with the year.
+ *
+ * `opts.attr` / `opts.values` stamp data-dn-jump or data-wk-at on the four
+ * Earths so a click is the same as the chip row. `opts.id` prefixes the
+ * live "today" marker. */
+export function seasonOrbitSvg(ms, opts) {
+  const o = opts || {};
+  const id = o.id || "so";
+  const attr = o.attr || "";
+  const values = o.values || {};
+  const f = (n) => Math.round(n * 10) / 10;
+  const CX = 320, CY = 288, R = 172, ER = 20;
+  const xy = (L) => {
+    const a = L * Math.PI / 180;
+    return { x: CX + R * Math.sin(a), y: CY - R * Math.cos(a) };
+  };
+  const earth = (L, label, key) => {
+    const p = xy(L);
+    const dx = CX - p.x, dy = CY - p.y;
+    const len = Math.hypot(dx, dy) || 1;
+    const ux = dx / len, uy = dy / len;
+    const px = -uy, py = ux;
+    const x1 = f(p.x + px * ER), y1 = f(p.y + py * ER);
+    const x2 = f(p.x - px * ER), y2 = f(p.y - py * ER);
+    const jump = attr && values[key] !== undefined ? ` ${attr}="${values[key]}"` : "";
+    const a = L * Math.PI / 180;
+    const lx = f(CX + (R + 50) * Math.sin(a));
+    const ly = f(CY - (R + 50) * Math.cos(a));
+    const anc = L === 90 ? "start" : L === 270 ? "end" : "middle";
+    const ty = L === 0 ? ly - 2 : L === 180 ? ly + 12 : ly + 4;
+    return `<g class="so-earth"${jump}>
+      <title>${label} \u2014 the start of the next season</title>
+      <circle cx="${f(p.x)}" cy="${f(p.y)}" r="${ER}" fill="#2f5d3a" stroke="rgba(226,232,240,.45)" stroke-width="1.2"/>
+      <path d="M${x1} ${y1}A${ER} ${ER} 0 0 1 ${x2} ${y2}Z" fill="#050a16" fill-opacity=".62"/>
+      <line class="so-axis" x1="${f(p.x + ER * 1.45)}" y1="${f(p.y)}" x2="${f(p.x - ER * 1.45)}" y2="${f(p.y)}"/>
+      <text class="so-n" text-anchor="end" x="${f(p.x - ER * 1.55)}" y="${f(p.y + 3.5)}">N</text>
+      <text class="so-elab" text-anchor="${anc}" x="${lx}" y="${f(ty)}">${label}</text>
+    </g>`;
+  };
+  const season = (L, name) => {
+    const a = L * Math.PI / 180, rr = R * 0.62;
+    return `<text class="so-season" text-anchor="middle" x="${f(CX + rr * Math.sin(a))}" y="${f(CY - rr * Math.cos(a) + 4)}">${name}</text>`;
+  };
+  const L = ((eclipticLon(ms) % 360) + 360) % 360;
+  const now = xy(L);
+  return `<svg class="so-svg" viewBox="0 0 640 560" width="100%" role="img" aria-label="Earth going around the Sun. The four marked positions are the spring equinox, summer solstice, fall equinox and winter solstice, and the season names sit on the orbit between them.">
+    <rect width="640" height="560" rx="12" fill="#0a1428"/>
+    <circle class="so-orbit" cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="rgba(226,232,240,.3)" stroke-width="1.6"/>
+    <circle cx="${CX}" cy="${CY}" r="38" fill="#fde68a" fill-opacity=".15"/>
+    <circle cx="${CX}" cy="${CY}" r="22" fill="#fde68a" stroke="#b45309" stroke-width="1.6"/>
+    <text class="so-sunlab" text-anchor="middle" x="${CX}" y="${CY + 40}">Sun</text>
+    ${season(45, "Spring")}
+    ${season(135, "Summer")}
+    ${season(225, "Fall")}
+    ${season(315, "Winter")}
+    ${earth(0, "Spring equinox", "mar")}
+    ${earth(90, "Summer solstice", "jun")}
+    ${earth(180, "Fall equinox", "sep")}
+    ${earth(270, "Winter solstice", "dec")}
+    <g id="${id}-orbit-now" transform="translate(${f(now.x)} ${f(now.y)})">
+      <circle r="7.5" fill="#fde68a" stroke="#b45309" stroke-width="1.5"/>
+      <text class="so-today" text-anchor="middle" y="-14">today</text>
+    </g>
+  </svg>`;
 }

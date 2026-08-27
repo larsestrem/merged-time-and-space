@@ -959,6 +959,26 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dns-cap{margin:10px 0 12px;font-size:14.5px;line-height:1.55}
 .dns-cap a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
 .dns-cap a:hover{color:var(--accent)}
+
+/* Earth around the sun: four season corners, names on the arcs between */
+.so-wrap{margin:12px 0 8px;border:1px solid var(--border);border-radius:12px;
+  background:#0a1428;padding:4px;line-height:0;overflow:hidden}
+.so-svg{display:block;width:100%;height:auto}
+.so-orbit{fill:none}
+.so-axis{stroke:rgba(226,232,240,.75);stroke-width:1.6;stroke-dasharray:5 4}
+.so-n,.so-elab,.so-season,.so-today,.so-sunlab{
+  fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
+.so-n{font-size:11px}
+.so-elab{font-size:12.5px}
+.so-season{font-size:15px;fill:#fcd34d;stroke-width:4}
+.so-today{font-size:11px;fill:#fde68a}
+.so-sunlab{font-size:12px;fill:#fde68a}
+.so-earth{cursor:pointer}
+.so-earth:hover circle{stroke:#fde68a;stroke-width:2}
+@media(max-width:620px){
+  .so-elab{font-size:11px}
+  .so-season{font-size:13px}
+}
 /* On a phone the whole 700-unit frame shrinks to about 330px and every label
    in it goes with it — 12px of SVG text lands at under 6px on screen, which is
    decoration, not a diagram. Below 620px the figure keeps a floor width and

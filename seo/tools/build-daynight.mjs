@@ -31,8 +31,9 @@ import { hubQuestionsCard } from "./concepts.mjs";
 import {
   DAYNIGHT_PATH, DN_CORE, DN_W, DN_VIEW_Y, DN_VIEW_H, DN_VIEWBOX,
   DN_TOP, DN_BOT, dnX, dnY, dnF, subsolar, sunAltitude, nightPath, twilightPath, landPath, seasonPoints,
-  cityMark, DN_MAP_EXTRA, sideView, seasonSunHtml,
+  cityMark, DN_MAP_EXTRA, sideView, seasonSunHtml, seasonOrbitSvg,
 } from "./daynight.mjs";
+import { MOON_CORE, sublunar } from "./moon.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -102,6 +103,11 @@ const MAP_SVG = `<svg id="dn-svg" class="dn-svg" viewBox="${DN_VIEWBOX}" width="
         }<path id="dn-tw" d="${twilightPath(SS.dec, SS.lon, 1)}" fill-rule="evenodd" fill="#050a16" fill-opacity=".34"/>
         <path id="dn-night" d="${nightPath(SS.dec, SS.lon, -18, 1)}" fill="#050a16" fill-opacity=".52"/>
         ${DOTS}
+        <g id="dn-moon" transform="translate(${dnF(dnX(sublunar(NOW).lon))} ${dnF(dnY(sublunar(NOW).dec))})">
+          <circle r="11" fill="#e8e0c8" fill-opacity=".22"/>
+          <circle r="5.2" fill="#e8e0c8" stroke="#0b0e1c" stroke-width="1.4"/>
+          <text y="-12" text-anchor="middle" font-size="11.5" font-weight="700" fill="#e8e0c8" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Moon</text>
+        </g>
         <g id="dn-sun" transform="translate(${dnF(dnX(SS.lon))} ${dnF(dnY(SS.dec))})">
           <circle r="13" fill="#fde68a" fill-opacity=".25"/>
           <circle r="6.5" fill="#fde68a" stroke="#b45309" stroke-width="1.5"/>
@@ -145,14 +151,17 @@ function sideCapText(dec, tilt) {
  * a point on a cylinder that has been cut open — and the page says so. */
 const PAGE_JS = `<script>(function(){
 ${DN_CORE}
+${MOON_CORE}
 var svg=document.getElementById('dn-svg'); if(!svg) return;
 var night=document.getElementById('dn-night'), twi=document.getElementById('dn-tw'),
-    sunG=document.getElementById('dn-sun'), meG=document.getElementById('dn-me'),
+    sunG=document.getElementById('dn-sun'), moonG=document.getElementById('dn-moon'),
+    meG=document.getElementById('dn-me'),
     slider=document.getElementById('dn-slider'), play=document.getElementById('dn-play'),
     nowB=document.getElementById('dn-now'), locB=document.getElementById('dn-loc');
 var TILT=${TILT};                 /* solved at build from the same series */
 var sideBox=document.getElementById('dn-side'), sideCapEl=document.getElementById('dn-side-cap'),
-    sunline=document.getElementById('dn-sunline');
+    sunline=document.getElementById('dn-sunline'),
+    orbitNow=document.getElementById('dn-orbit-now');
 var SPAN=7*24*60;                 /* minutes the slider covers */
 var RATE=21600;                   /* six hours of map time per real second */
 var T0=${NOW}, AT=${NOW}, PLAY=0, RAF=0, LAST=0, HOME=null;
@@ -185,6 +194,14 @@ function paint(){
   night.setAttribute('d',dnPath(ss.dec,ss.lon,-18,1));
   twi.setAttribute('d',dnTwiPath(ss.dec,ss.lon,1));
   sunG.setAttribute('transform','translate('+dnF(dnX(ss.lon))+' '+dnF(dnY(ss.dec))+')');
+  if(moonG){
+    var mm=mnSub(AT);
+    moonG.setAttribute('transform','translate('+dnF(dnX(mm.lon))+' '+dnF(dnY(mm.dec))+')');
+  }
+  if(orbitNow){
+    var op=soXY(dnEcl(AT));
+    orbitNow.setAttribute('transform','translate('+op.x+' '+op.y+')');
+  }
   set('dn-o-when',fmt(AT));
   set('dn-o-utc',fmt(AT,'UTC')+' UTC');
   if(sunline) sunline.innerHTML=seasonSun(ss.dec,ss.lon,dnSub(AT+7*86400000).dec);
@@ -319,11 +336,11 @@ setInterval(function(){ if(!PLAY&&Math.abs(AT-Date.now())<90000){ AT=Date.now();
    next to the sentence describing it is worth more than a button the reader
    has to scroll back up to find. */
 const jumpRow = (cls) => `    <p class="${cls}">
-      <button type="button" class="chip" data-dn-jump="now" disabled>Today</button>
-      <button type="button" class="chip" data-dn-jump="mar" disabled>March equinox</button>
-      <button type="button" class="chip" data-dn-jump="jun" disabled>June solstice</button>
-      <button type="button" class="chip" data-dn-jump="sep" disabled>September equinox</button>
-      <button type="button" class="chip" data-dn-jump="dec" disabled>December solstice</button>
+      <button type="button" class="chip" data-dn-jump="now" disabled>Now</button>
+      <button type="button" class="chip" data-dn-jump="mar" disabled>Spring equinox</button>
+      <button type="button" class="chip" data-dn-jump="jun" disabled>Summer solstice</button>
+      <button type="button" class="chip" data-dn-jump="sep" disabled>Fall equinox</button>
+      <button type="button" class="chip" data-dn-jump="dec" disabled>Winter solstice</button>
     </p>`;
 const jumpBtn = (k, t) => `<button type="button" class="chip" data-dn-jump="${k}" disabled>${esc(t)}</button>`;
 
@@ -359,13 +376,23 @@ ${jumpRow("dn-tools")}
   </div>
 `;
 
+const orbitCard = `  <div class="card" id="seasons">
+    <h2>The start and stop of each season</h2>
+    <p>Each marked Earth is the <strong>start</strong> of a season, and the stop of the one before. Spring starts at the spring equinox and runs until the summer solstice; summer, fall and winter follow the same way around. The axis on every Earth points the same way — that unmoving lean is <a href="/concepts/why-do-we-have-seasons/">why we have seasons</a>.</p>
+    <div class="so-wrap">${seasonOrbitSvg(NOW, { id: "dn", attr: "data-dn-jump", values: { mar: "mar", jun: "jun", sep: "sep", dec: "dec" } })}</div>
+    <p class="dns-cap">The yellow dot is today on the year. Press a season name, or tap an Earth, to jump the map to that start.</p>
+${jumpRow("dn-tools")}
+  </div>
+`;
+
 /* ---- the explanation (thinned: essays live on /concepts/) ---------------- */
 const howCard = `  <div class="card" id="how">
     <h2>What this is, and how it works</h2>
     <p>This is a live map of day and night on Earth, solved for this moment. Half the planet is in sunlight at every instant. The bright half is where the sun is above the horizon, the dark half is below, and the <strong>soft band</strong> is twilight — the sun has set but the sky is still lit, out to 18° down.</p>
-    <p>The <strong>yellow marker</strong> is the one place the sun stands <a href="/concepts/what-is-the-subsolar-point/">straight overhead</a>. The <strong>dashed gold lines</strong> are the tropics, at plus and minus the tilt. The <strong>curve</strong> is the <a href="/concepts/what-is-the-terminator/">terminator</a>. <strong>Play</strong> watches it sweep west. Pick a date, or jump to an equinox or a solstice, to see the shadow change through the year. The lean is the tilt of Earth in <a href="/sun-moon-earth-movement-simulator/system/">Earth’s orbit</a>.</p>
+    <p>The <strong>yellow marker</strong> is the one place the sun stands <a href="/concepts/what-is-the-subsolar-point/">straight overhead</a>. The <strong>pale marker</strong> is the moon, in the same sense — where it stands overhead at the time on the slider. It can sit in daylight or in night; that is <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">a daytime moon</a>. The <strong>dashed gold lines</strong> are the tropics. The <strong>curve</strong> is the <a href="/concepts/what-is-the-terminator/">terminator</a>. <strong>Play</strong> watches both markers sweep west. Jump to a season start to see the shadow lean.</p>
     <div class="wc-facts">
       <div class="wc-frow"><span>Yellow marker</span><b>Subsolar point — a flagpole there casts no shadow.</b></div>
+      <div class="wc-frow"><span>Pale marker</span><b>The moon, overhead. Daylight does not hide it.</b></div>
       <div class="wc-frow"><span>Soft band</span><b>Twilight, widest toward the poles.</b></div>
       <div class="wc-frow"><span>Dark half</span><b>Night, solved per meridian, not stamped on.</b></div>
     </div>
@@ -414,8 +441,8 @@ const tryCard = `  <div class="card">
       <li><strong>Find your own bedtime.</strong> The map marks where you are as soon as your browser shares it — if it did not, there is a <strong>My location</strong> button on the map. Then drag the slider to tonight and watch the shading arrive over your dot: that is your sunset, to the minute the sun goes down where you are standing.</li>
       <li><strong>Who is asleep right now?</strong> Press <strong>Now</strong> and look at which continents sit in the dark half. Then pick a country the class has a connection to and check whether anyone there would answer the phone.</li>
       <li><strong>Race the line.</strong> Press <strong>Play</strong> and follow the terminator west. It crosses the whole map in 24 hours, which at the equator is about 1,670 km/h — faster than an airliner. Ask which way you would have to fly to keep the sun from setting.</li>
-      <li><strong>Break the tilt.</strong> Jump to the <strong>June solstice</strong>, then to <strong>December</strong>, and watch the top of the map swap from all-light to all-dark. Ask what would happen to seasons if the tilt were zero — the answer is on the map, because the line would simply stand up straight.</li>
-      <li><strong>Catch the equinox.</strong> Jump to an equinox and check the line: nearly vertical, and every place on Earth getting about twelve hours of each. It is the only date the map is symmetric.</li>
+      <li><strong>Break the tilt.</strong> Jump to the <strong>summer solstice</strong>, then to the <strong>winter solstice</strong>, and watch the top of the map swap from all-light to all-dark. Ask what would happen to seasons if the tilt were zero — the answer is on the map, because the line would simply stand up straight.</li>
+      <li><strong>Catch the equinox.</strong> Jump to the <strong>spring equinox</strong> or the <strong>fall equinox</strong> and check the line: nearly vertical, and every place on Earth getting about twelve hours of each. It is the only date the map is symmetric.</li>
       <li><strong>Argue with the map.</strong> Compare Greenland with Africa, then look up their real areas. This is the cheapest possible lesson in why the projection matters, and it lands harder when the map is one they have just been using and trusting.</li>
     </ul>
   </div>
@@ -427,7 +454,7 @@ const FAQ = [
   ["Where can I see the exact sunrise and sunset time for my town?",
     "On the sun pages: they give sunrise, sunset, day length, twilight and a seven-day outlook for more than a thousand cities, or for any location you name. This map is the shape of the thing; those pages are the numbers."],
   ["What do Play, Now and the season buttons do?",
-    "Play runs about six hours a second so one turn of the Earth takes four seconds. Now jumps back to this moment. The season buttons jump the date to an equinox or solstice so you can see the slow lean of the year, which barely changes across the seven-day slider."],
+    "Play runs about six hours a second so one turn of the Earth takes four seconds. Now jumps back to this moment. The four season buttons — spring equinox, summer solstice, fall equinox, winter solstice — jump to the start of each season so you can see the slow lean of the year."],
 ];
 
 const page = `<!DOCTYPE html>
@@ -454,7 +481,7 @@ ${GA_SNIPPET}
   <h1>Day and Night Map</h1>
   <p class="sub">Where it is light on Earth right now, where it is dark, and the twilight in between. Drag the slider to move through the next seven days, or press play and watch the line sweep round. The same picture as the <a href="/world-clock/">world clock</a>'s map, with time attached.</p>
 
-${simCard}${howCard}${sideCard}${hubQuestionsCard(PATH)}  <div class="card">
+${simCard}${orbitCard}${howCard}${sideCard}${hubQuestionsCard(PATH)}  <div class="card">
     <h2>Keep going</h2>
     <p>This map answers "where", to the nearest few hundred kilometres. For "when", to the minute, in your own town:</p>
     <p class="timer-presets">

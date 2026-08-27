@@ -514,7 +514,7 @@
 .home-hero{padding:14px 16px 16px}
 .home-hero .wk-map{margin:0}
 .home-hero-line{margin:0 0 12px;font-size:15.5px;line-height:1.55}
-.home-hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(280px,5fr);gap:18px;align-items:center}
+.home-hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(280px,5fr);gap:18px;align-items:start}
 /* inside the narrow side column the clock strip is 2x2, not the 4-across the
    global 520px media query would pick from the viewport's width */
 .home-hero-side .wk-strip{grid-template-columns:repeat(2,1fr) !important;margin-bottom:12px}
@@ -572,6 +572,7 @@
 .wk-sunline a:hover{color:var(--accent)}
 .wk-seasons{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
 .wk-seasons .chip{margin:0;padding:6px 12px;font-size:12.5px}
+.so-wrap-home{margin:10px 0 0}
 
 .wk-scrub{display:flex;align-items:center;gap:12px;margin-top:10px}
 .wk-scrub input{flex:1;min-width:0}

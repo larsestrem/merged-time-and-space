@@ -31,7 +31,7 @@ import { SIDEREAL } from "./build-simulator.mjs";
 /* the same coastline rings the planet globes are drawn from — imported, not
    copied, because two coastline tables would drift apart */
 import { WC_CITY_LIST } from "./wc-cities.mjs";
-import { DAYNIGHT_PATH, seasonPoints, DN_CORE, DN_W, DN_TOP, DN_BOT, dnX, dnY, dnF, subsolar, nightPath, landPath, cityMark, DN_MAP_EXTRA, DN_MAP_BIG, seasonSunHtml } from "./daynight.mjs";
+import { DAYNIGHT_PATH, seasonPoints, DN_CORE, DN_W, DN_TOP, DN_BOT, dnX, dnY, dnF, subsolar, nightPath, landPath, cityMark, DN_MAP_EXTRA, DN_MAP_BIG, seasonSunHtml, seasonOrbitSvg } from "./daynight.mjs";
 /* the simulator URLs, imported rather than typed: the planet pages are flat
    (/jupiter-and-moons-simulator/) and the launch hub moved, and a second copy
    of either rule here would rot the first time one changed */
@@ -1411,6 +1411,7 @@ const HOME_HERO_JS = `
       when=document.getElementById('wk-when'), nowB=document.getElementById('wk-nowbtn');
   var cs=document.querySelectorAll('[data-wk-tz]');
   var sunline=document.getElementById('wk-sunline');
+  var orbitNow=document.getElementById('wk-orbit-now');
   var TILT=${WK_TILT};
   var seasonSun=function(dec,lon,laterDec){ return (${seasonSunHtml.toString()})(dec,lon,laterDec,TILT); };
   /* DAY0 is the midnight the slider is scrubbing — today's, until a season
@@ -1425,10 +1426,11 @@ const HOME_HERO_JS = `
       try{ cs[i].textContent=new Intl.DateTimeFormat('en-US',{timeZone:cs[i].getAttribute('data-wk-tz'),hour:'numeric',minute:'2-digit',hour12:true}).format(new Date(at)); }catch(e){}
     }
     if(sunline){
-      /* coordinates of the yellow marker + which way the year is leaning.
-         laterDec is a week on, so August is "summer toward fall", not a
-         hardcoded month. Same function that baked the first paint. */
       sunline.innerHTML=seasonSun(ss.dec,ss.lon,dnSub(at+7*86400000).dec);
+    }
+    if(orbitNow){
+      var op=soXY(dnEcl(at));
+      orbitNow.setAttribute('transform','translate('+op.x+' '+op.y+')');
     }
   }
   function fmt(at){ try{ return new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',hour12:true}).format(new Date(at)); }catch(e){ return ''; } }
@@ -1442,19 +1444,21 @@ const HOME_HERO_JS = `
   function syncNow(){ if(window.__wkHold) return; var d=new Date(); slider.value=d.getHours()*60+d.getMinutes(); }
   slider.disabled=false; syncNow(); setInterval(syncNow,60000);
   slider.addEventListener('input',function(){
-    window.__wkHold=1; nowB.hidden=false; label(); paint(shown());
+    window.__wkHold=1; label(); paint(shown());
   });
-  nowB.hidden=true;
-  nowB.addEventListener('click',function(){
-    window.__wkHold=0; nowB.hidden=true; when.textContent='Right now';
-    DAY0=midnightOf(Date.now()); syncNow(); paint(Date.now());
-  });
+  if(nowB){
+    nowB.disabled=false;
+    nowB.addEventListener('click',function(){
+      window.__wkHold=0; when.textContent='Right now';
+      DAY0=midnightOf(Date.now()); syncNow(); paint(Date.now());
+    });
+  }
   /* the four corners of the year: keep the time of day, move the date */
   var jumps=document.querySelectorAll('[data-wk-at]');
   for(var j=0;j<jumps.length;j++){
     jumps[j].disabled=false;
     jumps[j].addEventListener('click',function(){
-      window.__wkHold=1; nowB.hidden=false;
+      window.__wkHold=1;
       DAY0=midnightOf(+this.getAttribute('data-wk-at'));
       label(); paint(shown());
     });
@@ -1564,7 +1568,7 @@ ${switcher("/")}
              side and the overhead sun move; Now hands it back to the clock */""
         }<div class="wk-scrub">
           <input type="range" class="orr-slider" id="wk-slider" min="0" max="1439" step="5" value="720" disabled aria-label="Time of day shown on the map">
-          <span class="wk-scrub-lab"><b id="wk-when">Right now</b><button type="button" class="chip wk-nowbtn" id="wk-nowbtn" hidden>Now</button></span>
+          <span class="wk-scrub-lab"><b id="wk-when">Right now</b></span>
         </div>
         ${/* THE FOUR CORNERS OF THE YEAR, roughly three months apart, and the
              reason the equator line is drawn: jump between them and the sun
@@ -1573,28 +1577,20 @@ ${switcher("/")}
              the shared solver — an hourly rebuild keeps them current and they
              move by seconds. */""
         }<div class="wk-seasons">
-          <button type="button" class="chip" data-wk-at="${WK_YEAR.up}" disabled>March equinox</button>
-          <button type="button" class="chip" data-wk-at="${WK_YEAR.maxMs}" disabled>June solstice</button>
-          <button type="button" class="chip" data-wk-at="${WK_YEAR.down}" disabled>September equinox</button>
-          <button type="button" class="chip" data-wk-at="${WK_YEAR.minMs}" disabled>December solstice</button>
+          <button type="button" class="chip wk-nowbtn" id="wk-nowbtn" disabled>Now</button>
+          <button type="button" class="chip" data-wk-at="${WK_YEAR.up}" disabled>Spring equinox</button>
+          <button type="button" class="chip" data-wk-at="${WK_YEAR.maxMs}" disabled>Summer solstice</button>
+          <button type="button" class="chip" data-wk-at="${WK_YEAR.down}" disabled>Fall equinox</button>
+          <button type="button" class="chip" data-wk-at="${WK_YEAR.minMs}" disabled>Winter solstice</button>
         </div>
       </div>
       <div class="home-hero-side">
-        <p class="home-hero-line"><strong>Half the Earth is in daylight right now — this map is live</strong>, repainted from the real motions every minute. Everything on this site works like that.</p>
+        <p class="home-hero-line"><strong>Half the Earth is always in daylight, and the other half is night.</strong></p>
         <p class="wk-sunline" id="wk-sunline">${seasonSunHtml(subsolar(+_hbNow).dec, subsolar(+_hbNow).lon, subsolar(+_hbNow + 7 * 86400000).dec, WK_TILT)}</p>
-        <div class="wk-links">
-          <a class="wk-all" href="${DAYNIGHT_PATH}">Play the next 7 days →</a>
-          ${/* the map draws the equator and both tropics, so it raises "what
-               are those?" — this is the answer, and it lands on the card that
-               draws the sun and the Earth side by side with the one line
-               between their centres. */""
-          }<a class="wk-all" href="/concepts/what-is-the-tropic-of-cancer/">Why the tropics are there →</a>
-          <a class="wk-all" href="/sun-moon-earth-movement-simulator/system/">Earth’s orbit with the tilt →</a>
-          <a class="wk-all" href="/world-clock/">Every time zone →</a>
-        </div>
+        <div class="so-wrap so-wrap-home">${seasonOrbitSvg(+_hbNow, { id: "wk", attr: "data-wk-at", values: { mar: WK_YEAR.up, jun: WK_YEAR.maxMs, sep: WK_YEAR.down, dec: WK_YEAR.minMs } })}</div>
       </div>
     </div>
-    ${hubQs(["what-is-the-subsolar-point", "what-is-the-tropic-of-cancer", "why-do-we-have-seasons", "what-is-the-terminator"])}
+    ${hubQs(["what-is-the-tropic-of-cancer", "why-do-we-have-seasons", "what-is-the-terminator", "why-can-the-moon-be-up-in-the-daytime"])}
   </div>
   ${/* the curiosity door: real questions, no audience label */""
   }<div class="home-q">
@@ -1602,6 +1598,7 @@ ${switcher("/")}
     <a class="chip" href="/concepts/why-is-the-night-sky-dark/">Why is the night sky so dark?</a>
     <a class="chip" href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall in?</a>
     <a class="chip" href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a>
+    <a class="chip" href="/concepts/why-can-the-moon-be-up-in-the-daytime/">Can the moon be up in the daytime?</a>
     <a class="chip" href="/concepts/why-does-the-moon-change-shape/">Why does the moon change shape?</a>
     <a class="chip chip-alt" href="/questions/">More questions →</a>
   </div>

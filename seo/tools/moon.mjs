@@ -72,6 +72,15 @@ function mnMoonPos(d){
         +104755*Math.cos(Ms+M)+10321*Math.cos(2*D-2*F)+79661*Math.cos(M-2*F))/1000;
   return { ra:mnRa(l,b), dec:mnDec(l,b), dist:dt };
 }
+/* the one place the moon is straight overhead — same job as dnSub for the sun.
+   Latitude is the moon's declination; longitude is RA minus Greenwich sidereal
+   time, using THIS file's sidereal so a marker cannot disagree with mnPos. */
+function mnSub(ms){
+  var d=mnDays(ms), m=mnMoonPos(d);
+  var lo=m.ra/MN_RAD-(280.16+360.9856235*d);
+  lo=((lo%360)+540)%360-180;
+  return {dec:m.dec/MN_RAD, lon:lo};
+}
 
 /* Illuminated fraction, cycle position and limb angle.
  *   fraction 0..1, phase 0=new .5=full (rises 0->1 across the cycle),
@@ -309,7 +318,7 @@ window.AC_MOON={ illum:mnIllum, name:mnName, primaryName:mnPrimaryName, age:mnAg
  * ------------------------------------------------------------------------- */
 const M = new Function(`${MOON_CORE}
 return { mnIllum, mnName, mnPrimaryName, mnAge, mnNextPhase, mnPrevPhase,
-         mnPhasesBetween, mnTimes, mnGlyph, mnMoonPos, mnDays, mnPos, mnCompass };`)();
+         mnPhasesBetween, mnTimes, mnGlyph, mnMoonPos, mnDays, mnPos, mnCompass, mnSub };`)();
 
 export const moonIllum = (ms) => M.mnIllum(+ms);
 export const moonName = (phase) => M.mnName(phase);
@@ -323,6 +332,8 @@ export const moonGlyph = (fraction, waxing, r, south = false) => M.mnGlyph(fract
 export const moonDistance = (ms) => M.mnMoonPos(M.mnDays(+ms)).dist;
 export const moonPos = (ms, lat, lon) => M.mnPos(+ms, lat, lon);
 export const compass = (bearing) => M.mnCompass(bearing);
+/** where the moon is straight overhead — the pale marker on the day/night map */
+export const sublunar = (ms) => M.mnSub(+ms);
 
 /* ---- naming the full moons ------------------------------------------------
  * The month names are the widely published Farmers'-Almanac set. Harvest Moon

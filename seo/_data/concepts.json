@@ -3,7 +3,7 @@
     "slug": "what-is-the-tropic-of-cancer",
     "question": "What is the Tropic of Cancer?",
     "term": "Tropic of Cancer",
-    "shortAnswer": "It is the circle at 23.4° north. The Sun is straight overhead there once a year, on the June solstice, and never north of it. That number is Earth’s tilt, not a climate zone someone drew.",
+    "shortAnswer": "It is the circle at 23.4° north. The Sun is straight overhead there once a year, on the summer solstice, and never north of it. That number is Earth’s tilt, not a climate zone someone drew.",
     "title": "What Is the Tropic of Cancer?",
     "description": "The Tropic of Cancer is the circle at 23.4° N — as far north as the Sun can stand straight overhead. That latitude is Earth’s axial tilt written on the surface.",
     "cluster": "day-night",
@@ -74,7 +74,7 @@
     "slug": "what-is-the-tropic-of-capricorn",
     "question": "What is the Tropic of Capricorn?",
     "term": "Tropic of Capricorn",
-    "shortAnswer": "It is the circle at 23.4° south — the southern twin of the Tropic of Cancer. The Sun stands straight overhead there once a year, on the December solstice, and never south of it.",
+    "shortAnswer": "It is the circle at 23.4° south — the southern twin of the Tropic of Cancer. The Sun stands straight overhead there once a year, on the winter solstice, and never south of it.",
     "title": "What Is the Tropic of Capricorn?",
     "description": "The Tropic of Capricorn is the circle at 23.4° S, the farthest south the Sun can stand straight overhead. It is Earth’s tilt, not a line someone chose.",
     "cluster": "day-night",
@@ -537,9 +537,9 @@
       "what-is-the-tropic-of-cancer",
       "what-are-the-polar-circles"
     ],
-    "graphicId": "sun-earth-line",
-    "graphicCaption": "The northern half leaning into the light: longer days, higher Sun, summer. Half a year later the same picture upside down.",
-    "graphicAlt": "Side view of Earth with the north end of the axis leaning toward the Sun.",
+    "graphicId": "season-orbit",
+    "graphicCaption": "Earth goes around the Sun. The four marked positions are the start of each season. Spring sits on the orbit between the spring equinox and the summer solstice; summer, fall and winter follow the same way. The north end of the axis points the same way the whole year.",
+    "graphicAlt": "The Sun in the centre of Earth’s orbit. Four Earths mark the spring equinox, summer solstice, fall equinox and winter solstice. Season names sit on the orbit between them. A yellow marker shows today’s place on the year.",
     "sections": [
       {
         "heading": "The test that kills the distance story",
@@ -560,6 +560,61 @@
       {
         "href": "/day-night-map/",
         "label": "Watch the day/night line lean with the year"
+      }
+    ]
+  },
+  {
+    "slug": "why-can-the-moon-be-up-in-the-daytime",
+    "question": "Can the moon be up in the daytime?",
+    "term": "Daytime moon",
+    "shortAnswer": "Yes. The moon is above the horizon about half of every day, and those hours drift through daylight as the month goes by. It is simply bright enough to beat the blue sky. On the day/night map the pale marker is where the moon stands overhead — watch it ride through the lit half.",
+    "title": "Can the Moon Be Up in the Daytime?",
+    "description": "The moon is up in daylight about as often as at night. It does not belong to the night; it just happens to be easier to notice then.",
+    "cluster": "day-night",
+    "hubUrls": [
+      {
+        "href": "/day-night-map/#daytime-moon",
+        "label": "Day and night map"
+      },
+      {
+        "href": "/moon/",
+        "label": "Moon"
+      }
+    ],
+    "relatedSlugs": [
+      "why-does-the-moon-change-shape",
+      "what-is-the-subsolar-point",
+      "what-is-the-terminator"
+    ],
+    "graphicId": "day-night-map",
+    "graphicCaption": "The yellow marker is the sun, straight overhead. The pale marker is the moon. They are not opposites: near a new moon they sit close together, both in daylight.",
+    "graphicAlt": "Day and night world map with the sun’s overhead point and the moon’s overhead point both marked.",
+    "sections": [
+      {
+        "heading": "The moon does not know about night",
+        "band": "5-12",
+        "body": [
+          "The moon goes around Earth once a month. For about twelve hours of every twenty-four it is above somebody’s horizon, and those twelve hours slide through the clock as the month goes on. Roughly half of all the time the moon is up is daytime.",
+          "You notice it more at night because the sky is dark. In daylight it is still there — a pale disc, bright enough to beat the blue. A crescent is hardest to spot; a fat gibbous moon in the afternoon is easy."
+        ]
+      },
+      {
+        "heading": "Where the map puts it",
+        "band": "deeper",
+        "body": [
+          "The pale marker on the day/night map is the sublunar point: the one place the moon stands straight overhead at the instant on the slider. It is the same idea as the yellow subsolar point, solved from the moon’s position rather than the sun’s.",
+          "Near new moon the two markers sit close together, both in the lit half — that is a daytime moon. Near full moon they sit on opposite sides of the world, so the moon is overhead at night. Press Play and watch the pale marker sweep; it will cross into daylight and back out again."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/day-night-map/#daytime-moon",
+        "label": "Find the pale moon marker"
+      },
+      {
+        "href": "/moon/near-me/",
+        "label": "Moonrise and moonset for your town"
       }
     ]
   },

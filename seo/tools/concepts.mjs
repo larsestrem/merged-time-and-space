@@ -12,7 +12,7 @@ import { esc } from "./lib.mjs";
 import {
   DN_W, DN_VIEW_Y, DN_VIEW_H, DN_VIEWBOX, DN_TOP, DN_BOT,
   dnX, dnY, dnF, subsolar, nightPath, twilightPath, landPath, seasonPoints,
-  sideView,
+  sideView, seasonOrbitSvg,
 } from "./daynight.mjs";
 import { orrerySvg } from "./orrery.mjs";
 import { globeSvg, globeRadius } from "./globe.mjs";
@@ -207,6 +207,9 @@ export function graphicHtml(c) {
     }
     case "olbers":
       inner = olbersDiagram();
+      break;
+    case "season-orbit":
+      inner = `<div class="so-wrap">${seasonOrbitSvg(NOW, { id: "concept" })}</div>`;
       break;
     default:
       inner = `<p>${esc(c.graphicAlt)}</p>`;
