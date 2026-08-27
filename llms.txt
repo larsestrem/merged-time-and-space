@@ -2,7 +2,7 @@
 
 > Free, no-sign-up clock tools and countdowns that run entirely in the browser.
 > Static pages on Cloudflare Pages; no accounts, no tracking beyond analytics,
-> nothing to install. 4198 pages in all.
+> nothing to install. 4199 pages in all.
 
 Everything below is a real, permanent URL. Figures on time-and-sky pages are
 computed, not scraped: the methodology pages state the method and its limits.
@@ -18,7 +18,7 @@ computed, not scraped: the methodology pages state the method and its limits.
 - [Sunrise & sunset](https://timeandspace.science/sun/) — 1157 pages: Sunrise, sunset, day length and twilight for a city and any date. Includes an any-location page.
 - [Moon](https://timeandspace.science/moon/) — 1237 pages: Moonrise, moonset, phase and illumination per city, plus phase calendars, eclipses, supermoons and blue moons.
 - [Tide predictions](https://timeandspace.science/tides/) — 166 pages: Predicted tide times and heights for US NOAA stations, grouped by state and county.
-- [Sun, Earth & Moon simulator](https://timeandspace.science/sun-moon-earth-movement-simulator/) — 1105 pages: Where the sun and moon are from a given place at a given instant, scrubbable over a day, week or month.
+- [Sun, Earth & Moon simulator](https://timeandspace.science/sun-moon-earth-movement-simulator/) — 1104 pages: Where the sun and moon are from a given place at a given instant, scrubbable over a day, week or month.
 - [The planets](https://timeandspace.science/planets/): Every planet in orbital order with a picture and a couple of paragraphs each, the asteroid belt in its place, and a page for every one.
 - [Solar system simulator](https://timeandspace.science/solar-system-simulator/) — 5 pages: The planets on their real orbits, with moon systems, the asteroid belt and comets.
 - [Rocket launch simulator](https://timeandspace.science/rocket-launch-simulator/) — 4 pages: When the next launch window to Mars, Jupiter and Saturn opens, what it costs, and how the real missions compare.

@@ -42,7 +42,7 @@ const TITLE = "Sun, Moon & Earth Movement Simulator";
 /* the middle rung between this page (one town, looking up) and
    /solar-system-simulator/ (the whole system, to scale in distance) — see
    buildSystemView() near the bottom of this file */
-export const SYS_PATH = `${SIM_PATH}system/`;
+export const SYS_PATH = "/earth-sun-moon-orbit-simulator/";
 
 /* ---- the real thing, for the scale card. Mean values, in km. ------------- */
 const REAL = {
@@ -1215,7 +1215,7 @@ ${script(c)}
 }
 
 /* ---------------------------------------------------------------------------
- * /sun-moon-earth-movement-simulator/system/ — THE STEP BETWEEN THE TWO
+ * /earth-sun-moon-orbit-simulator/ — THE STEP BETWEEN THE TWO
  * SIMULATORS.
  *
  * The hub above answers "where are the sun and moon from my town" — one
@@ -1554,6 +1554,8 @@ const SYS_FAQ = [
   ["Where can I see this to scale?", "Nowhere on one screen, at both distances at once — that is the whole point of this page. The Earth and the Moon ARE drawn to real scale, in both size and distance, on the Earth & the Moon rung of the solar system simulator; that view has no room left to also show the sun."],
 ];
 
+const sysTeachCard = hubQuestionsCard(SYS_PATH, "What this picture is telling you", { id: "learn" });
+
 function buildSystemView() {
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -1562,17 +1564,17 @@ ${head({
     title: "Earth, the Sun & the Moon — All Three Moving at Once",
     desc: "A schematic of the Earth going round the sun while the moon goes round the Earth, drawn small enough to fit one screen. Not to scale — the page says by how much — but the real ratio between the two orbital periods.",
     path: SYS_PATH,
-    ld: `\n<script type="application/ld+json">${breadcrumbLD(SITE, [{ name: "Time and Space Science", url: "/" }, { name: "Sun, Moon & Earth simulator", url: SIM_PATH }, { name: "Earth, sun & moon together", url: SYS_PATH }])}</script>\n${learningLd({ name: "Earth, Sun & Moon: the whole system moving", url: `${SITE}${SYS_PATH}`, description: "A schematic showing the Earth orbiting the sun while the moon orbits the Earth, at the real ratio between the two periods and an openly invented scale." })}`,
+    ld: `\n<script type="application/ld+json">${breadcrumbLD(SITE, [{ name: "Time and Space Science", url: "/" }, { name: "Earth, Sun & Moon orbit simulator", url: SYS_PATH }])}</script>\n${learningLd({ name: "Earth, Sun & Moon: the whole system moving", url: `${SITE}${SYS_PATH}`, description: "A schematic showing the Earth orbiting the sun while the moon orbits the Earth, at the real ratio between the two periods and an openly invented scale." })}`,
     faq: SYS_FAQ,
   })}
 </head>
 <body>
 <div class="wrap">
-  ${brand({ crumb: { slug: "simulator", url: SIM_PATH }, page: { label: "system", url: SYS_PATH } })}
+  ${brand({ crumb: { slug: "earth-sun-moon-orbit-simulator", url: SYS_PATH } })}
   <h1>Earth, the Sun &amp; the Moon — All Three Moving</h1>
   <p class="sub">The picture neither of this site's other simulators draws: the Earth going round the sun while the moon goes round the Earth, both at once. It is drawn small enough to fit a screen, which means it cannot be to scale — and the card below it says exactly how far out it is.</p>
 
-${viewLadder("system", { note: sysTradeNote })}${sysFigureCard}${sysWatchCard}${sysScaleCard}${faqCard(SYS_FAQ, "Common questions")}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
+${viewLadder("system", { note: sysTradeNote })}${sysFigureCard}${sysWatchCard}${sysTeachCard}${sysScaleCard}${faqCard(SYS_FAQ, "Common questions")}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 ${SYS_VIEW_JS}
 </body>

@@ -575,7 +575,7 @@ text-transform:uppercase;color:var(--accent);margin-bottom:3px}
 .home-hero{padding:14px 16px 16px}
 .home-hero .wk-map{margin:0}
 .home-hero-line{margin:0 0 12px;font-size:15.5px;line-height:1.55}
-.home-hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(280px,5fr);gap:18px;align-items:center}
+.home-hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(280px,5fr);gap:18px;align-items:start}
 .home-hero-side .wk-strip{grid-template-columns:repeat(2,1fr) !important;margin-bottom:12px}
 .home-hero-side .wk-links{justify-content:flex-start}
 @media(max-width:880px){
@@ -615,10 +615,13 @@ background:rgba(2,6,23,.72);color:var(--text);font-size:12.5px;font-weight:700;b
 .wk-grat line{stroke:rgba(255,255,255,.32);stroke-width:1}
 .wk-grat .wk-trop{stroke:rgba(252,211,77,.34);stroke-dasharray:7 6}
 .wk-grat text{fill:rgba(255,255,255,.42);font-size:10.5px;font-weight:600}
-.wk-sunline{margin:0 0 12px;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.wk-sunline{margin:0 0 12px;font-size:13.5px;line-height:1.55;color:var(--muted)}
 .wk-sunline b{color:var(--accent);font-variant-numeric:tabular-nums}
+.wk-sunline a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.wk-sunline a:hover{color:var(--accent)}
 .wk-seasons{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
 .wk-seasons .chip{margin:0;padding:6px 12px;font-size:12.5px}
+.so-wrap-home{margin:10px 0 0}
 .wk-scrub{display:flex;align-items:center;gap:12px;margin-top:10px}
 .wk-scrub input{flex:1;min-width:0}
 .wk-scrub-lab{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;white-space:nowrap;color:var(--muted)}
@@ -627,7 +630,14 @@ background:rgba(2,6,23,.72);color:var(--text);font-size:12.5px;font-weight:700;b
 .sec-switch{margin:2px 0 14px}
 .sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .home-hero .hub-qs{margin-top:16px}
+.home-board .hub-qs,.tc .hub-qs,.hub-sim .hub-qs{margin-top:12px;gap:8px}
+.home-board .hub-qs p,.tc .hub-qs p{font-size:14px}
 .home-hero > h2{margin:0 0 10px;font-size:1.35rem}
+.home-hero > h2 a{color:inherit;text-decoration:none}
+.home-hero > h2 a:hover{color:var(--accent)}
+.home-dn-link{display:block;line-height:0;border-radius:12px;color:inherit;text-decoration:none}
+.home-dn-link:hover .wk-map,.home-dn-link:focus-visible .wk-map{box-shadow:0 0 0 2px var(--accent)}
+.home-hero-side .wk-all{text-align:left;margin-top:4px}
 .hub-sim{margin:22px 0 0}
 .hub-live{margin:0 0 8px;line-height:0;border-radius:12px;overflow:hidden}
 .hub-live svg{display:block;width:100%;height:auto}
@@ -829,6 +839,12 @@ font-size: 1.125rem;
 max-width: 62ch;
 line-height: 1.55;
 }
+.answer a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
 .concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
 .band-deeper h2::after {
 content: " Further down";
@@ -944,13 +960,13 @@ font-weight: 700;
 .hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Space","item":"https://timeandspace.science/space/"}]}</script>
 
-<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Space&amp;theme=generic">
-<meta name="robots" content="max-image-preview:large">
-<!-- build 36c60ce3d05a · generated 2026-08-26T20:24:10.871Z -->
+<!-- build e5fe2cf46226 · generated 2026-08-27T20:26:58.037Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Space&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -1093,11 +1109,6 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <a class="chip" href="/classroom/">Classroom</a>
   </nav>
   <p class="home-lede"><strong>Where everything actually is, right now.</strong> <a href="/planets/">Every planet</a>, a page each, turning on its own axis with its moons going round it — the <a href="/solar-system-simulator/">whole system on its real orbits</a>, and the <a href="/rocket-launch-simulator/">next launch window to Mars</a>. The positions are solved when the page loads, not drawn from memory.</p>
-  <ul class="hub-qs">
-<li id="fall-in"><p><a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a> They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up.</p></li>
-<li id="how-does-an-orbit-work"><p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> At every instant a planet has a velocity — where it is already going — and gravity adds a small pull straight toward the Sun. Bend a path by the same small amount at every step and it closes. That closed path is the orbit.</p></li>
-<li id="why-does-jupiter-have-so-many-moons"><p><a href="/concepts/why-does-jupiter-have-so-many-moons/">Why does Jupiter have so many moons?</a> Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun. A wide region around it is a place where a small body stays with Jupiter instead of orbiting the Sun on its own.</p></li>
-</ul>
   <div class="home-board">
     <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/sun-moon-earth-movement-simulator/">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="9.4" cy="13.6" r="7.2" fill="#2563eb"/><path d="M5.2 8.2c1.8.6 1.4 2.4 0 2.9-1.5.5-1.6 1.9-.6 2.9 1.1 1.1.2 2.6-1.2 2.2-.8-1.9-.7-5.3 1.8-8z" fill="#34d399"/><path d="M11.6 7.1c2 .4 3.7 1.7 4.7 3.4-.8 1.2-2.2 1.1-2.8.2-.5-.8-1.7-.6-2.2-1.5-.4-.8-.6-1.8.3-2.1z" fill="#34d399"/><path d="M9 14.6c1.4-.3 2.8.6 2.6 2-.1 1.2.9 1.7.6 2.9-.3 1.1-1.9 1.5-2.9 1.1-1.2-.5-.8-1.8-1.5-2.6-.8-.8-.3-3.1 1.2-3.4z" fill="#34d399"/><ellipse cx="6.8" cy="9.2" rx="2.3" ry="1.3" fill="#ffffff" opacity=".3" transform="rotate(-28 6.8 9.2)"/><circle cx="19" cy="5.6" r="3.3" fill="#475569"/><path d="M19 2.3a3.3 3.3 0 0 1 0 6.6z" fill="#e2e8f0"/><circle cx="20.1" cy="4.6" r=".6" fill="#cbd5e1"/></g></svg> Sun, Earth &amp; Moon Simulator</div>
@@ -1139,7 +1150,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
         <a class="wk-all" href="/sun-moon-earth-movement-simulator/">Open the simulator →</a>
       </div>
     </div>
-    <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/sun-moon-earth-movement-simulator/system/">
+    <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/earth-sun-moon-orbit-simulator/">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="9.4" cy="13.6" r="7.2" fill="#2563eb"/><path d="M5.2 8.2c1.8.6 1.4 2.4 0 2.9-1.5.5-1.6 1.9-.6 2.9 1.1 1.1.2 2.6-1.2 2.2-.8-1.9-.7-5.3 1.8-8z" fill="#34d399"/><path d="M11.6 7.1c2 .4 3.7 1.7 4.7 3.4-.8 1.2-2.2 1.1-2.8.2-.5-.8-1.7-.6-2.2-1.5-.4-.8-.6-1.8.3-2.1z" fill="#34d399"/><path d="M9 14.6c1.4-.3 2.8.6 2.6 2-.1 1.2.9 1.7.6 2.9-.3 1.1-1.9 1.5-2.9 1.1-1.2-.5-.8-1.8-1.5-2.6-.8-.8-.3-3.1 1.2-3.4z" fill="#34d399"/><ellipse cx="6.8" cy="9.2" rx="2.3" ry="1.3" fill="#ffffff" opacity=".3" transform="rotate(-28 6.8 9.2)"/><circle cx="19" cy="5.6" r="3.3" fill="#475569"/><path d="M19 2.3a3.3 3.3 0 0 1 0 6.6z" fill="#e2e8f0"/><circle cx="20.1" cy="4.6" r=".6" fill="#cbd5e1"/></g></svg> Earth, Moon &amp; Sun Together</div>
       <div class="home-simwide"><svg viewBox="0 0 480 300" aria-hidden="true" class="home-simsvg">
 <defs><clipPath id="sy-clip"><rect width="480" height="300" rx="16"/></clipPath></defs>
@@ -1164,9 +1175,13 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 </svg></div>
       <p class="home-simtxt">The year and the month running at once — and the moon lapping the Earth about thirteen times on the way round, which is the one ratio this picture keeps real. Tip the whole orbit edge-on and watch the Earth loop in front of the sun, then behind it.</p>
       <div class="home-simlinks">
-        <a class="wk-all" href="/sun-moon-earth-movement-simulator/system/#learn">Educational info →</a>
-        <a class="wk-all" href="/sun-moon-earth-movement-simulator/system/">Open the view →</a>
+        <a class="wk-all" href="/earth-sun-moon-orbit-simulator/#learn">Educational info →</a>
+        <a class="wk-all" href="/earth-sun-moon-orbit-simulator/">Open the view →</a>
       </div>
+    
+      <ul class="hub-qs">
+<li id="why-do-we-have-seasons"><p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year.</p></li>
+</ul>
     </div>
     <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/solar-system-simulator/">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Solar System Simulator</div>
@@ -1176,6 +1191,10 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
         <a class="wk-all" href="/solar-system-simulator/#learn">Educational info →</a>
         <a class="wk-all" href="/solar-system-simulator/">Open the simulator →</a>
       </div>
+    
+      <ul class="hub-qs">
+<li id="fall-in"><p><a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a> They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up.</p></li>
+</ul>
     </div>
     <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/planets/">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> The planets</div>
@@ -1212,6 +1231,10 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       </div>
       <p class="home-simtxt">Nothing spirals in. Take speed away and the far side of the orbit drops toward the planet; add speed and it climbs away — and either way the moon comes back through the point where you changed it.</p>
       <a class="wk-all" href="/orbital-velocity-simulator/">Why planets don't fall into the sun →</a>
+    
+      <ul class="hub-qs">
+<li id="how-does-an-orbit-work"><p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> At every instant a planet has a velocity — where it is already going — and gravity adds a small pull straight toward the Sun. Bend a path by the same small amount at every step and it closes. That closed path is the orbit.</p></li>
+</ul>
     </div>
     <div class="tc tc-mini tc-sim tc-moons sp-4" data-hg="space" data-href="/mars-and-moons-simulator/">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Mars&rsquo;s Moons</div>
@@ -1226,6 +1249,10 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <p class="home-simtxt">Metis laps Callisto about 57 times over — 7.1 hours against 17 days. Orbits, periods and sizes are real; where each moon sits on its ring is not solved here, and 9 further out are off the edge of this frame.</p>
       <p class="home-moonline">97 confirmed moons · 8 drawn</p>
       <a class="wk-all" href="/jupiter-and-moons-simulator/">Jupiter and its moons →</a>
+    
+      <ul class="hub-qs">
+<li id="why-does-jupiter-have-so-many-moons"><p><a href="/concepts/why-does-jupiter-have-so-many-moons/">Why does Jupiter have so many moons?</a> Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun. A wide region around it is a place where a small body stays with Jupiter instead of orbiting the Sun on its own.</p></li>
+</ul>
     </div>
     <div class="tc tc-mini tc-sim tc-moons sp-4" data-hg="space" data-href="/saturn-and-moons-simulator/">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Saturn&rsquo;s Moons</div>
@@ -1334,7 +1361,8 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   function run(on){ if(iv){ clearInterval(iv); iv=0; } if(on&&!reduce) iv=setInterval(step,45); }
   document.addEventListener('visibilitychange',function(){ run(!document.hidden); });
   draw(); run(!document.hidden);
-})();</script><script data-pgv="1">(function(){try{if(localStorage.getItem("ac_notrack"))return;}catch(_){}
+})();</script>
+<script data-pgv="1">(function(){try{if(localStorage.getItem("ac_notrack"))return;}catch(_){}
 var vid="";try{vid=localStorage.getItem("ac_vid")||"";if(!vid){vid=Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem("ac_vid",vid);}}catch(_){}
 /* sendBeacon, fired at idle: this is a fire-and-forget counter whose reply the
    page discards, so it has no business sitting in the load timeline. sendBeacon

@@ -588,6 +588,8 @@
    Base .hub-qs / .hub-kicker / .hub-blurb live in 23-concept.css so simulator
    pages don't get pulled into the home section. Home-only layout stays here. */
 .home-hero .hub-qs{margin-top:16px}
+.home-board .hub-qs,.tc .hub-qs,.hub-sim .hub-qs{margin-top:12px;gap:8px}
+.home-board .hub-qs p,.tc .hub-qs p{font-size:14px}
 .home-hero > h2{margin:0 0 10px;font-size:1.35rem}
 .home-hero > h2 a{color:inherit;text-decoration:none}
 .home-hero > h2 a:hover{color:var(--accent)}

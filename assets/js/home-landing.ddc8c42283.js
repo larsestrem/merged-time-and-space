@@ -17,6 +17,23 @@ function dnSub(ms){
   var lo=ra-gmst; lo=((lo%360)+540)%360-180;
   return {dec:dec,lon:lo};
 }
+/* apparent ecliptic longitude of the sun, degrees. 0 at the spring equinox,
+   90 at the summer solstice, 180 at the fall equinox, 270 at the winter
+   solstice. The season-orbit drawing places Earth with this angle. */
+function dnEcl(ms){
+  var d=(ms-Date.UTC(2000,0,1,12))/86400000;
+  var g=(357.529+0.98560028*d)*Math.PI/180;
+  var q=280.459+0.98564736*d;
+  return q+1.915*Math.sin(g)+0.020*Math.sin(2*g);
+}
+/* the season-orbit figure: sun at the centre, Earth on a circle. Spring
+   equinox at the top, then counterclockwise: summer right, fall bottom,
+   winter left. soXY is shared with the live "today" marker. */
+var SO_CX=320,SO_CY=320,SO_R=248;
+function soXY(L){
+  var a=L*Math.PI/180;
+  return {x:SO_CX+SO_R*Math.sin(a), y:SO_CY-SO_R*Math.cos(a)};
+}
 /* how high the sun is, in degrees, at one place at one instant. The argument
    is clamped because sin^2+cos^2 lands on 1.0000000000000002 often enough to
    matter: at the subsolar point itself, an unclamped asin returns NaN. */
@@ -123,7 +140,7 @@ function dnTwiPath(dec,ss,step){
  * Returns a complete <svg>, not inner markup, because the client replaces it
  * by setting innerHTML on a plain <div> — an HTML parser handles a whole svg
  * element correctly, where SVG-namespaced innerHTML has historically not. */
-function dnSide(dec,tilt){
+function dnSide(dec,tilt,youLat){
   var RD=Math.PI/180,cx=372,cy=138,r=86,d=dec*RD,t=tilt*RD,i,y;
   var ax=-Math.sin(d),ay=-Math.cos(d);          /* unit vector toward the north pole */
   var ex=Math.cos(d),ey=-Math.sin(d);           /* along the equator, perpendicular to it */
@@ -153,6 +170,14 @@ function dnSide(dec,tilt){
   s+='<text class="dns-lab dns-lab-t" x="'+(PX(o,h)+10)+'" y="'+(PY(o,h)+4)+'">Tropic of Cancer</text>';
   s+='<text class="dns-lab" x="'+(PX(0,r)+10)+'" y="'+(PY(0,r)+4)+'">Equator</text>';
   s+='<text class="dns-lab dns-lab-t" x="'+(PX(-o,h)+10)+'" y="'+(PY(-o,h)+4)+'">Tropic of Capricorn</text>';
+  /* a visitor whose location is already known: their latitude on the
+     sun-facing limb, so they can see themselves against the tropics and
+     the overhead-sun hit. v is negative because that is the left, lit edge. */
+  if(youLat!=null && isFinite(youLat)){
+    var yl=youLat*RD, yu=r*Math.sin(yl), yv=-r*Math.cos(yl);
+    s+='<circle class="dns-you" cx="'+PX(yu,yv)+'" cy="'+PY(yu,yv)+'" r="5.5"/>';
+    s+='<text class="dns-you-lab" text-anchor="middle" x="'+PX(yu,yv)+'" y="'+(PY(yu,yv)-12)+'">You</text>';
+  }
   return s+'</svg>';
 }
 
@@ -196,6 +221,23 @@ function dnSub(ms){
   var lo=ra-gmst; lo=((lo%360)+540)%360-180;
   return {dec:dec,lon:lo};
 }
+/* apparent ecliptic longitude of the sun, degrees. 0 at the spring equinox,
+   90 at the summer solstice, 180 at the fall equinox, 270 at the winter
+   solstice. The season-orbit drawing places Earth with this angle. */
+function dnEcl(ms){
+  var d=(ms-Date.UTC(2000,0,1,12))/86400000;
+  var g=(357.529+0.98560028*d)*Math.PI/180;
+  var q=280.459+0.98564736*d;
+  return q+1.915*Math.sin(g)+0.020*Math.sin(2*g);
+}
+/* the season-orbit figure: sun at the centre, Earth on a circle. Spring
+   equinox at the top, then counterclockwise: summer right, fall bottom,
+   winter left. soXY is shared with the live "today" marker. */
+var SO_CX=320,SO_CY=320,SO_R=248;
+function soXY(L){
+  var a=L*Math.PI/180;
+  return {x:SO_CX+SO_R*Math.sin(a), y:SO_CY-SO_R*Math.cos(a)};
+}
 /* how high the sun is, in degrees, at one place at one instant. The argument
    is clamped because sin^2+cos^2 lands on 1.0000000000000002 often enough to
    matter: at the subsolar point itself, an unclamped asin returns NaN. */
@@ -302,7 +344,7 @@ function dnTwiPath(dec,ss,step){
  * Returns a complete <svg>, not inner markup, because the client replaces it
  * by setting innerHTML on a plain <div> — an HTML parser handles a whole svg
  * element correctly, where SVG-namespaced innerHTML has historically not. */
-function dnSide(dec,tilt){
+function dnSide(dec,tilt,youLat){
   var RD=Math.PI/180,cx=372,cy=138,r=86,d=dec*RD,t=tilt*RD,i,y;
   var ax=-Math.sin(d),ay=-Math.cos(d);          /* unit vector toward the north pole */
   var ex=Math.cos(d),ey=-Math.sin(d);           /* along the equator, perpendicular to it */
@@ -332,6 +374,14 @@ function dnSide(dec,tilt){
   s+='<text class="dns-lab dns-lab-t" x="'+(PX(o,h)+10)+'" y="'+(PY(o,h)+4)+'">Tropic of Cancer</text>';
   s+='<text class="dns-lab" x="'+(PX(0,r)+10)+'" y="'+(PY(0,r)+4)+'">Equator</text>';
   s+='<text class="dns-lab dns-lab-t" x="'+(PX(-o,h)+10)+'" y="'+(PY(-o,h)+4)+'">Tropic of Capricorn</text>';
+  /* a visitor whose location is already known: their latitude on the
+     sun-facing limb, so they can see themselves against the tropics and
+     the overhead-sun hit. v is negative because that is the left, lit edge. */
+  if(youLat!=null && isFinite(youLat)){
+    var yl=youLat*RD, yu=r*Math.sin(yl), yv=-r*Math.cos(yl);
+    s+='<circle class="dns-you" cx="'+PX(yu,yv)+'" cy="'+PY(yu,yv)+'" r="5.5"/>';
+    s+='<text class="dns-you-lab" text-anchor="middle" x="'+PX(yu,yv)+'" y="'+(PY(yu,yv)-12)+'">You</text>';
+  }
   return s+'</svg>';
 }
 
@@ -341,6 +391,28 @@ function dnSide(dec,tilt){
       when=document.getElementById('wk-when'), nowB=document.getElementById('wk-nowbtn');
   var cs=document.querySelectorAll('[data-wk-tz]');
   var sunline=document.getElementById('wk-sunline');
+  var orbitNow=document.getElementById('wk-orbit-now');
+  var TILT=23.435387836377153;
+  var seasonSun=function(dec,lon,laterDec){ return (function seasonSunHtml(dec, lon, laterDec, tilt) {
+  var lat = Math.abs(dec).toFixed(1) + '\u00B0 ' + (dec >= 0 ? 'N' : 'S');
+  var lo = Math.abs(lon).toFixed(1) + '\u00B0 ' + (lon >= 0 ? 'E' : 'W');
+  var a = Math.abs(dec), n = dec >= 0, rising = laterDec > dec;
+  var orbit = '<a href="/earth-sun-moon-orbit-simulator/">Earth\u2019s orbit</a>';
+  var sub = '<a href="/concepts/what-is-the-subsolar-point/">subsolar point</a>';
+  var head = 'The sun is overhead at <b>' + lat + ', ' + lo + '</b> \u2014 this is the ' + sub + '. ';
+  if (a < 0.6) {
+    if (rising) return head + 'Day and night are about equal everywhere \u2014 this is the spring equinox, the start of spring in the northern half of the world. Days there will get longer as Earth tilts toward the sun in ' + orbit + '.';
+    return head + 'Day and night are about equal everywhere \u2014 this is the fall equinox, the start of fall in the northern half of the world. Days there will get shorter as Earth tilts away from the sun in ' + orbit + '.';
+  }
+  if (tilt - a < 0.15) {
+    if (n) return head + 'The sun is as far north as it ever gets \u2014 the summer solstice, the start of summer and the longest days in the northern half of the world. From here Earth starts tilting away from the sun in ' + orbit + '.';
+    return head + 'The sun is as far south as it ever gets \u2014 the winter solstice, the start of winter and the shortest days in the northern half of the world. From here Earth starts tilting back toward the sun in ' + orbit + '.';
+  }
+  if (n && !rising) return head + 'This time of year the sun is moving from summer toward fall, and days in the northern half of the world are getting shorter because Earth is tilting away from the sun in ' + orbit + '.';
+  if (n && rising) return head + 'This time of year the sun is moving from spring toward summer, and days in the northern half of the world are getting longer because Earth is tilting toward the sun in ' + orbit + '.';
+  if (!n && !rising) return head + 'This time of year the sun is moving from fall toward winter, and days in the northern half of the world are getting shorter because Earth is tilting away from the sun in ' + orbit + '.';
+  return head + 'This time of year the sun is moving from winter toward spring, and days in the northern half of the world are getting longer because Earth is tilting toward the sun in ' + orbit + '.';
+})(dec,lon,laterDec,TILT); };
   /* DAY0 is the midnight the slider is scrubbing — today's, until a season
      button moves it to a solstice or an equinox. */
   function midnightOf(ms){ var d=new Date(ms); d.setHours(0,0,0,0); return +d; }
@@ -353,16 +425,11 @@ function dnSide(dec,tilt){
       try{ cs[i].textContent=new Intl.DateTimeFormat('en-US',{timeZone:cs[i].getAttribute('data-wk-tz'),hour:'numeric',minute:'2-digit',hour12:true}).format(new Date(at)); }catch(e){}
     }
     if(sunline){
-      /* the sentence the equator line exists for. The declination IS the
-         season: north of the equator is the northern summer half of the year,
-         south of it the southern. Half the planet is lit either way — what
-         the tilt decides is WHICH half gets the bigger share. */
-      var d=ss.dec, n=d>=0, a=Math.abs(d), x=a.toFixed(1);
-      var txt;
-      if(a<0.6) txt='<b>right on the equator</b> — neither half of the world is leaning toward it, so day and night are near enough equal everywhere. This is an equinox.';
-      else txt='<b>'+x+'° '+(n?'N':'S')+'</b> — '+(n?'north':'south')+' of the equator, so the '+(n?'northern':'southern')
-        +' half of the world is having its summer'+(a>23?(n?', and the Arctic is in daylight around the clock while Antarctica sits in darkness.':', and Antarctica is in daylight around the clock while the Arctic sits in darkness.'):'.');
-      sunline.innerHTML='The sun is overhead at '+txt;
+      sunline.innerHTML=seasonSun(ss.dec,ss.lon,dnSub(at+7*86400000).dec);
+    }
+    if(orbitNow){
+      var op=soXY(dnEcl(at));
+      orbitNow.setAttribute('transform','translate('+op.x+' '+op.y+')');
     }
   }
   function fmt(at){ try{ return new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',hour12:true}).format(new Date(at)); }catch(e){ return ''; } }
@@ -376,19 +443,21 @@ function dnSide(dec,tilt){
   function syncNow(){ if(window.__wkHold) return; var d=new Date(); slider.value=d.getHours()*60+d.getMinutes(); }
   slider.disabled=false; syncNow(); setInterval(syncNow,60000);
   slider.addEventListener('input',function(){
-    window.__wkHold=1; nowB.hidden=false; label(); paint(shown());
+    window.__wkHold=1; label(); paint(shown());
   });
-  nowB.hidden=true;
-  nowB.addEventListener('click',function(){
-    window.__wkHold=0; nowB.hidden=true; when.textContent='Right now';
-    DAY0=midnightOf(Date.now()); syncNow(); paint(Date.now());
-  });
+  if(nowB){
+    nowB.disabled=false;
+    nowB.addEventListener('click',function(){
+      window.__wkHold=0; when.textContent='Right now';
+      DAY0=midnightOf(Date.now()); syncNow(); paint(Date.now());
+    });
+  }
   /* the four corners of the year: keep the time of day, move the date */
   var jumps=document.querySelectorAll('[data-wk-at]');
   for(var j=0;j<jumps.length;j++){
     jumps[j].disabled=false;
     jumps[j].addEventListener('click',function(){
-      window.__wkHold=1; nowB.hidden=false;
+      window.__wkHold=1;
       DAY0=midnightOf(+this.getAttribute('data-wk-at'));
       label(); paint(shown());
     });
@@ -456,6 +525,15 @@ function mnMoonPos(d){
         -204586*Math.cos(2*D-Ms)-129620*Math.cos(Ms-M)+108743*Math.cos(D)
         +104755*Math.cos(Ms+M)+10321*Math.cos(2*D-2*F)+79661*Math.cos(M-2*F))/1000;
   return { ra:mnRa(l,b), dec:mnDec(l,b), dist:dt };
+}
+/* the one place the moon is straight overhead — same job as dnSub for the sun.
+   Latitude is the moon's declination; longitude is RA minus Greenwich sidereal
+   time, using THIS file's sidereal so a marker cannot disagree with mnPos. */
+function mnSub(ms){
+  var d=mnDays(ms), m=mnMoonPos(d);
+  var lo=m.ra/MN_RAD-(280.16+360.9856235*d);
+  lo=((lo%360)+540)%360-180;
+  return {dec:m.dec/MN_RAD, lon:lo};
 }
 
 /* Illuminated fraction, cycle position and limb angle.
@@ -641,13 +719,13 @@ function mnCompass(bearing){ return MN_COMPASS[Math.round(((bearing%360)+360)%36
  *
  * `south` flips it: the phase is identical everywhere on Earth, but below the
  * equator the lit limb — and the whole face with it — appears rotated 180°. */
-function mnGlyph(fraction,waxing,r,south){
+function mnGlyph(fraction,waxing,r,south,plain){
   var f=fraction<0?0:(fraction>1?1:fraction), d=2*r, cx=r, cy=r;
   var rx=(r*Math.abs(1-2*f)).toFixed(2), litRight=(waxing!==!!south);
   var s1=litRight?0:1, s2=litRight?(f<0.5?0:1):(f<0.5?1:0);
   var shadow='M'+cx+' '+(cy-r)+'A'+r+' '+r+' 0 0 '+s1+' '+cx+' '+(cy+r)
     +'A'+rx+' '+r+' 0 0 '+s2+' '+cx+' '+(cy-r)+'Z';
-  return '<svg viewBox="0 0 '+d+' '+d+'" width="'+d+'" height="'+d+'" aria-hidden="true" class="mn-moon">'
+  return '<svg viewBox="0 0 '+d+' '+d+'" width="'+d+'" height="'+d+'" aria-hidden="true" class="mn-moon"'+(plain?' overflow="visible"':'')+'>'
     /* plain disc underneath: if the sprite is ever missing the glyph still
        reads as a moon in the right phase rather than vanishing */
     +'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="#efe3c2"/>'
@@ -662,10 +740,12 @@ function mnGlyph(fraction,waxing,r,south){
        /moon/ city page is a single instance and keeps the vector, which stays
        crisp at any size. See make-moon-face-raster.mjs.
        "/assets/img/moon-face.a952fb5bbe.webp" is rewritten to the hashed .webp by build-inline, the
-       same way "/assets/img/moon-face.b9e194850d.svg#ac-moon-face" is pointed at the hashed sprite. */
-    +(r<=32
+       same way "/assets/img/moon-face.b9e194850d.svg#ac-moon-face" is pointed at the hashed sprite.
+       `plain` skips the face: the day/night map marker is too small to read it,
+       and that page does not carry the sprite. */
+    +(plain?'':(r<=32
       ? '<image href="/assets/img/moon-face.a952fb5bbe.webp" x="0" y="0" width="'+d+'" height="'+d+'"'+(south?' transform="rotate(180 '+cx+' '+cy+')"':'')+'/>'
-      : '<g transform="scale('+(r/100)+')'+(south?' rotate(180 100 100)':'')+'"><use href="/assets/img/moon-face.b9e194850d.svg#ac-moon-face"/></g>')
+      : '<g transform="scale('+(r/100)+')'+(south?' rotate(180 100 100)':'')+'"><use href="/assets/img/moon-face.b9e194850d.svg#ac-moon-face"/></g>'))
     /* Earthshine: the shadow is not equally opaque at every phase. Sunlight
        bounced off the Earth genuinely lights the moon's dark side, and it is
        most obvious on a thin crescent (a big, bright Earth in the moon's sky)
@@ -939,6 +1019,18 @@ function orrSvg(ms,lat,lon,name,fw){
      sides for the rare wide-frame case. */
   var mw=30, lby=my+mr+11;
   s+='<text x="'+orrF(orrClampX(mx,'middle',mw,W))+'" y="'+orrF(lby)+'" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text>';
+
+  /* the phase as seen from Earth, sitting in the sun–earth gap, low in the
+     frame. The moon on the ring is always half-lit from this vantage; this
+     disc is the face a person on Earth actually sees, and it updates as the
+     moon goes round. */
+  var il=mnIllum(ms);
+  var phR=14, gapL=ORR_SX+ORR_RS, gapR=CX-R;
+  var phx=(gapL+gapR)/2, phy=ORR_H-42;
+  s+='<g class="orr-phase" transform="translate('+orrF(phx-phR)+' '+orrF(phy-phR)+')">'
+   +mnGlyph(il.fraction,il.waxing,phR,lat<0,1)
+   +'</g>'
+   +'<text class="orr-phase-lab" x="'+orrF(phx)+'" y="'+orrF(phy+phR+12)+'" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">'+orrEsc(mnName(il.phase))+'</text>';
 
   return s+'</g></svg>';
 }

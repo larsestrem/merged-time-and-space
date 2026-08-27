@@ -660,6 +660,8 @@ h2:has(> .sun-hdate){display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .orr{margin:16px 0 0}
 .orr-fig{max-width:440px;margin:0 auto;line-height:0}
 .orr-fig svg{display:block;width:100%;height:auto}
+.orr-phase .mn-moon{overflow:visible}
+.orr-phase-lab{font-variant-numeric:tabular-nums}
 .orr-spin .orr-cityname,.orr-spin .orr-citytick{display:none}
 .orr-note{margin-top:12px;font-variant-numeric:tabular-nums}
 .orr-stamp{max-width:440px;margin:8px auto 0;display:flex;align-items:center;justify-content:center;
@@ -1082,25 +1084,25 @@ background:rgba(252,211,77,.14)}
 .dn-figwrap{position:relative;line-height:0;border-radius:12px;overflow:hidden;
 border:1px solid var(--border);background:#12304f}
 .dn-svg{display:block;width:100%;height:auto}
-.dn-overlay{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;
-align-items:flex-end;gap:8px;padding:10px 12px;pointer-events:none;
-background:linear-gradient(to top,rgba(2,6,23,.55),rgba(2,6,23,0))}
-.dn-oleft{display:flex;align-items:center;gap:8px}
-.dn-overlay .dn-obtn{pointer-events:auto;background:rgba(2,6,23,.72);border-color:rgba(255,255,255,.28);
-backdrop-filter:blur(2px);font-weight:700;min-height:40px;padding:10px 18px;font-size:14px;line-height:1}
-.dn-overlay .dn-obtn:hover{background:rgba(2,6,23,.9)}
-.dn-oicon{display:inline-flex;align-items:center;gap:7px}
-.dn-oicon .dn-pin{flex:0 0 auto}
-@media(max-width:520px){.dn-oicon{padding:10px 13px}.dn-oicon-t{display:none}}
+#dn-moon .mn-moon{overflow:visible}
 .dn-play[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
 .dn-par{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:5 6}
 .dn-parlab{fill:rgba(226,232,240,.55);font-size:10px;font-weight:600}
-.dn-slider-row{margin:14px 0 4px}
+.dn-slider-row{display:flex;align-items:center;gap:10px;margin:14px 0 4px}
+.dn-slider-mid{flex:1;min-width:0}
 .dn-slider-row .orr-slider{width:100%}
+.dn-slider-row .dn-obtn{flex:0 0 auto;min-height:40px;padding:10px 16px;font-weight:700}
+.dn-loc-chip{min-width:40px;min-height:40px;padding:8px;display:inline-flex;
+align-items:center;justify-content:center}
+.dn-loc-chip .dn-pin{display:block}
 .dn-span{color:var(--muted);font-weight:600}
 .dn-when{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:6px 0 12px}
 .dn-when b{font-size:17px}
 .dn-when span{color:var(--muted);font-size:13px}
+.dn-sunline{margin:0 0 14px;font-size:15px;line-height:1.55;max-width:62em}
+.dn-sunline b{color:var(--accent);font-variant-numeric:tabular-nums}
+.dn-sunline a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.dn-sunline a:hover{color:var(--accent)}
 .dn-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 12px}
 @media(min-width:560px){.dn-strip{grid-template-columns:repeat(4,1fr)}}
 .dn-city{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
@@ -1135,10 +1137,35 @@ background:#0a1428;padding:4px 4px 0;line-height:0;overflow:hidden}
 .dns-trop{stroke:var(--accent);stroke-opacity:.95;stroke-dasharray:6 5}
 .dns-ctr{stroke:#fde68a;stroke-width:2.5}
 .dns-hit{fill:#fde68a;stroke:#b45309;stroke-width:2}
+.dns-you{fill:#f472b6;stroke:#0b0e1c;stroke-width:1.6}
+.dns-you-lab{fill:#f9a8d4;font-size:11px;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3}
 .dns-lab{fill:#e2e8f0;font-size:12px;font-weight:600;paint-order:stroke;stroke:#050a16;stroke-width:3.5}
 .dns-lab-d{fill:#fcd34d;font-weight:700}
 .dns-lab-t{fill:var(--accent)}
 .dns-cap{margin:10px 0 12px;font-size:14.5px;line-height:1.55}
+.dns-cap a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.dns-cap a:hover{color:var(--accent)}
+.so-wrap{margin:12px 0 8px;border:1px solid var(--border);border-radius:12px;
+background:#0a1428;padding:4px;line-height:0;overflow:hidden}
+.so-svg{display:block;width:100%;height:auto}
+.so-orbit{fill:none}
+.so-ray{stroke:#fde68a;stroke-width:1.15;stroke-opacity:.45}
+.so-day{fill:#fde68a;fill-opacity:.42}
+.so-eq{stroke:rgba(253,230,138,.7);stroke-width:1.15}
+.so-axis{stroke:rgba(226,232,240,.85);stroke-width:1.6;stroke-dasharray:5 4}
+.so-n,.so-elab,.so-season,.so-today,.so-sunlab{
+fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
+.so-n{font-size:11px}
+.so-elab{font-size:13px}
+.so-season{font-size:14px;fill:#fcd34d;stroke-width:4}
+.so-today{font-size:11px;fill:#fde68a}
+.so-sunlab{font-size:12px;fill:#fde68a}
+.so-earth{cursor:pointer}
+.so-earth:hover circle{stroke:#fde68a;stroke-width:2}
+@media(max-width:620px){
+.so-elab{font-size:11px}
+.so-season{font-size:13px}
+}
 @media(max-width:620px){
 .dns-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .dns-svg{min-width:520px}
@@ -1340,7 +1367,7 @@ color:var(--muted);padding:7px 2px;border-top:1px solid var(--border)}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=Pittsburg%2C%20CA%20Sunrise%20%26%20Sunset%20Times&amp;theme=generic">
 <meta name="robots" content="max-image-preview:large">
-<!-- build 36c60ce3d05a · generated 2026-08-26T20:24:10.871Z -->
+<!-- build e5fe2cf46226 · generated 2026-08-27T20:26:58.037Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/sunrise.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">

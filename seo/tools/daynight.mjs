@@ -178,7 +178,7 @@ function dnTwiPath(dec,ss,step){
  * Returns a complete <svg>, not inner markup, because the client replaces it
  * by setting innerHTML on a plain <div> — an HTML parser handles a whole svg
  * element correctly, where SVG-namespaced innerHTML has historically not. */
-function dnSide(dec,tilt){
+function dnSide(dec,tilt,youLat){
   var RD=Math.PI/180,cx=372,cy=138,r=86,d=dec*RD,t=tilt*RD,i,y;
   var ax=-Math.sin(d),ay=-Math.cos(d);          /* unit vector toward the north pole */
   var ex=Math.cos(d),ey=-Math.sin(d);           /* along the equator, perpendicular to it */
@@ -208,6 +208,14 @@ function dnSide(dec,tilt){
   s+='<text class="dns-lab dns-lab-t" x="'+(PX(o,h)+10)+'" y="'+(PY(o,h)+4)+'">Tropic of Cancer</text>';
   s+='<text class="dns-lab" x="'+(PX(0,r)+10)+'" y="'+(PY(0,r)+4)+'">Equator</text>';
   s+='<text class="dns-lab dns-lab-t" x="'+(PX(-o,h)+10)+'" y="'+(PY(-o,h)+4)+'">Tropic of Capricorn</text>';
+  /* a visitor whose location is already known: their latitude on the
+     sun-facing limb, so they can see themselves against the tropics and
+     the overhead-sun hit. v is negative because that is the left, lit edge. */
+  if(youLat!=null && isFinite(youLat)){
+    var yl=youLat*RD, yu=r*Math.sin(yl), yv=-r*Math.cos(yl);
+    s+='<circle class="dns-you" cx="'+PX(yu,yv)+'" cy="'+PY(yu,yv)+'" r="5.5"/>';
+    s+='<text class="dns-you-lab" text-anchor="middle" x="'+PX(yu,yv)+'" y="'+(PY(yu,yv)-12)+'">You</text>';
+  }
   return s+'</svg>';
 }
 `;
@@ -327,14 +335,14 @@ export const DAYNIGHT_PATH = "/day-night-map/";
  *
  * Links that are always justified:
  *   overhead      → /concepts/what-is-the-subsolar-point/
- *   Earth's orbit → /sun-moon-earth-movement-simulator/system/
+ *   Earth's orbit → /earth-sun-moon-orbit-simulator/
  *     (the view that draws Earth going round the sun WITH the tilt shown)
  */
 export function seasonSunHtml(dec, lon, laterDec, tilt) {
   var lat = Math.abs(dec).toFixed(1) + '\u00B0 ' + (dec >= 0 ? 'N' : 'S');
   var lo = Math.abs(lon).toFixed(1) + '\u00B0 ' + (lon >= 0 ? 'E' : 'W');
   var a = Math.abs(dec), n = dec >= 0, rising = laterDec > dec;
-  var orbit = '<a href="/sun-moon-earth-movement-simulator/system/">Earth\u2019s orbit</a>';
+  var orbit = '<a href="/earth-sun-moon-orbit-simulator/">Earth\u2019s orbit</a>';
   var sub = '<a href="/concepts/what-is-the-subsolar-point/">subsolar point</a>';
   var head = 'The sun is overhead at <b>' + lat + ', ' + lo + '</b> \u2014 this is the ' + sub + '. ';
   if (a < 0.6) {

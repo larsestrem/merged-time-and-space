@@ -528,7 +528,7 @@ ${simCard}${whyShort}${hubQuestionsCard(OV_PATH)}${tableCard}  <div class="card"
       <a class="chip" href="/concepts/why-dont-planets-fall-into-the-sun/">Why planets don't fall into the sun</a>
       <a class="chip" href="${OV_WHY}">Newton's cannonball, with the tables</a>
       <a class="chip" href="/solar-system-simulator/">The whole solar system, moving</a>
-      <a class="chip" href="/sun-moon-earth-movement-simulator/system/">Earth, sun &amp; moon together</a>
+      <a class="chip" href="/earth-sun-moon-orbit-simulator/">Earth, sun &amp; moon together</a>
       <a class="chip" href="${PLANETS_PATH}">Every planet, a page each</a>
       <a class="chip" href="${ROCKET_PATH}">Launch windows to Mars</a>
     </p>

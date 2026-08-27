@@ -313,6 +313,18 @@ function orrSvg(ms,lat,lon,name,fw){
   var mw=30, lby=my+mr+11;
   s+='<text x="'+orrF(orrClampX(mx,'middle',mw,W))+'" y="'+orrF(lby)+'" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text>';
 
+  /* the phase as seen from Earth, sitting in the sun–earth gap, low in the
+     frame. The moon on the ring is always half-lit from this vantage; this
+     disc is the face a person on Earth actually sees, and it updates as the
+     moon goes round. */
+  var il=mnIllum(ms);
+  var phR=14, gapL=ORR_SX+ORR_RS, gapR=CX-R;
+  var phx=(gapL+gapR)/2, phy=ORR_H-42;
+  s+='<g class="orr-phase" transform="translate('+orrF(phx-phR)+' '+orrF(phy-phR)+')">'
+   +mnGlyph(il.fraction,il.waxing,phR,lat<0,1)
+   +'</g>'
+   +'<text class="orr-phase-lab" x="'+orrF(phx)+'" y="'+orrF(phy+phR+12)+'" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">'+orrEsc(mnName(il.phase))+'</text>';
+
   return s+'</g></svg>';
 }
 

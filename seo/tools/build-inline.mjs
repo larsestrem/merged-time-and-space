@@ -57,7 +57,7 @@ const HTML = [
   ...(await import("./build-classroom.mjs")).CLASSROOM_SUBJECTS.map((s) => `classroom/${s}/index.html`),
   ...(await import("./build-classroom.mjs")).LESSON_PAGES.map((s) => `classroom/lessons/${s}/index.html`),
   ...(await import("./build-classroom.mjs")).LESSON_STUDENT_PAGES.map((s) => `classroom/lessons/${s}/student/index.html`),
-  "sun-moon-earth-movement-simulator/index.html", "sun-moon-earth-movement-simulator/system/index.html",
+  "sun-moon-earth-movement-simulator/index.html", "earth-sun-moon-orbit-simulator/index.html",
   "orbital-velocity-simulator/index.html", "orbital-velocity-simulator/why-planets-dont-fall-into-the-sun/index.html",
   ...(await import("./build-simulator.mjs")).SIM_SLUGS.map((s) => `sun-moon-earth-movement-simulator/${s}/index.html`),
   /* the solar + rocket pages, from the list the generator recorded as it wrote
@@ -195,7 +195,7 @@ const SECTION_PROBES = {
   /* the Sun-Earth-Moon view, on /sun/ and /moon/ place pages alike — the
      solar-system pages, whose sol-* furniture was cut from the same part —
      and the sys-* Earth/moon-round-the-sun schematic on
-     /sun-moon-earth-movement-simulator/system/ */
+     /earth-sun-moon-orbit-simulator/ */
   orrery: /class="[^"]*\b(orr|sol|sys|ov|dn)\b/,
   /* event-page media furniture (works chips, songs, artist module) */
   event: /class="[^"]*\b(works-links|work-name|song-list|song-row|media-tile|media-grid|amm-|give-cta|give-line)/,

@@ -162,7 +162,7 @@ const families = {
     /* one page per lesson (topic × grade band) — same sources as the hub */
     ...group((await import("./build-classroom.mjs")).LESSON_PAGES.map((s) => [`/classroom/lessons/${s}/`, "0.6"]),
       ...deps("seo/tools/build-classroom.mjs")),
-    ...group([["/sun-moon-earth-movement-simulator/", "0.7"], ["/sun-moon-earth-movement-simulator/system/", "0.6"]], ...deps("seo/tools/build-simulator.mjs")),
+    ...group([["/sun-moon-earth-movement-simulator/", "0.7"], ["/earth-sun-moon-orbit-simulator/", "0.6"]], ...deps("seo/tools/build-simulator.mjs")),
     /* EVERY SOLAR + ROCKET PAGE, from the list build-solar recorded as it wrote
        them. It used to be three hand-kept entries plus a
        `/solar-system-simulator/<slug>/` pattern, which silently stopped being

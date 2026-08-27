@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sun, Moon &amp; Earth Simulator for Poway, CA — Any Date or Time</title>
-<meta name="description" content="Watch the sun and moon move around the Earth as seen from Poway, CA: scrub a day, a week or a month, see the phase, altitude and direction of both, sunrise 6:20 AM, sunset 7:22 PM and today&#39;s waxing gibbous moon.">
+<meta name="description" content="Watch the sun and moon move around the Earth as seen from Poway, CA: scrub a day, a week or a month, see the phase, altitude and direction of both, sunrise 6:20 AM, sunset 7:21 PM and today&#39;s full moon moon.">
 <link rel="canonical" href="https://timeandspace.science/sun-moon-earth-movement-simulator/poway-ca/">
 <meta property="og:title" content="Sun, Moon &amp; Earth Simulator for Poway, CA — Any Date or Time">
-<meta property="og:description" content="Watch the sun and moon move around the Earth as seen from Poway, CA: scrub a day, a week or a month, see the phase, altitude and direction of both, sunrise 6:20 AM, sunset 7:22 PM and today&#39;s waxing gibbous moon.">
+<meta property="og:description" content="Watch the sun and moon move around the Earth as seen from Poway, CA: scrub a day, a week or a month, see the phase, altitude and direction of both, sunrise 6:20 AM, sunset 7:21 PM and today&#39;s full moon moon.">
 <meta property="og:type" content="website">
 <style data-ac="css">:root{
 --bg:linear-gradient(#0b0e1c,#0b0e1c);
@@ -660,6 +660,8 @@ h2:has(> .sun-hdate){display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .orr{margin:16px 0 0}
 .orr-fig{max-width:440px;margin:0 auto;line-height:0}
 .orr-fig svg{display:block;width:100%;height:auto}
+.orr-phase .mn-moon{overflow:visible}
+.orr-phase-lab{font-variant-numeric:tabular-nums}
 .orr-spin .orr-cityname,.orr-spin .orr-citytick{display:none}
 .orr-note{margin-top:12px;font-variant-numeric:tabular-nums}
 .orr-stamp{max-width:440px;margin:8px auto 0;display:flex;align-items:center;justify-content:center;
@@ -1082,25 +1084,25 @@ background:rgba(252,211,77,.14)}
 .dn-figwrap{position:relative;line-height:0;border-radius:12px;overflow:hidden;
 border:1px solid var(--border);background:#12304f}
 .dn-svg{display:block;width:100%;height:auto}
-.dn-overlay{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;
-align-items:flex-end;gap:8px;padding:10px 12px;pointer-events:none;
-background:linear-gradient(to top,rgba(2,6,23,.55),rgba(2,6,23,0))}
-.dn-oleft{display:flex;align-items:center;gap:8px}
-.dn-overlay .dn-obtn{pointer-events:auto;background:rgba(2,6,23,.72);border-color:rgba(255,255,255,.28);
-backdrop-filter:blur(2px);font-weight:700;min-height:40px;padding:10px 18px;font-size:14px;line-height:1}
-.dn-overlay .dn-obtn:hover{background:rgba(2,6,23,.9)}
-.dn-oicon{display:inline-flex;align-items:center;gap:7px}
-.dn-oicon .dn-pin{flex:0 0 auto}
-@media(max-width:520px){.dn-oicon{padding:10px 13px}.dn-oicon-t{display:none}}
+#dn-moon .mn-moon{overflow:visible}
 .dn-play[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
 .dn-par{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:5 6}
 .dn-parlab{fill:rgba(226,232,240,.55);font-size:10px;font-weight:600}
-.dn-slider-row{margin:14px 0 4px}
+.dn-slider-row{display:flex;align-items:center;gap:10px;margin:14px 0 4px}
+.dn-slider-mid{flex:1;min-width:0}
 .dn-slider-row .orr-slider{width:100%}
+.dn-slider-row .dn-obtn{flex:0 0 auto;min-height:40px;padding:10px 16px;font-weight:700}
+.dn-loc-chip{min-width:40px;min-height:40px;padding:8px;display:inline-flex;
+align-items:center;justify-content:center}
+.dn-loc-chip .dn-pin{display:block}
 .dn-span{color:var(--muted);font-weight:600}
 .dn-when{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:6px 0 12px}
 .dn-when b{font-size:17px}
 .dn-when span{color:var(--muted);font-size:13px}
+.dn-sunline{margin:0 0 14px;font-size:15px;line-height:1.55;max-width:62em}
+.dn-sunline b{color:var(--accent);font-variant-numeric:tabular-nums}
+.dn-sunline a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.dn-sunline a:hover{color:var(--accent)}
 .dn-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 12px}
 @media(min-width:560px){.dn-strip{grid-template-columns:repeat(4,1fr)}}
 .dn-city{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
@@ -1135,10 +1137,35 @@ background:#0a1428;padding:4px 4px 0;line-height:0;overflow:hidden}
 .dns-trop{stroke:var(--accent);stroke-opacity:.95;stroke-dasharray:6 5}
 .dns-ctr{stroke:#fde68a;stroke-width:2.5}
 .dns-hit{fill:#fde68a;stroke:#b45309;stroke-width:2}
+.dns-you{fill:#f472b6;stroke:#0b0e1c;stroke-width:1.6}
+.dns-you-lab{fill:#f9a8d4;font-size:11px;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3}
 .dns-lab{fill:#e2e8f0;font-size:12px;font-weight:600;paint-order:stroke;stroke:#050a16;stroke-width:3.5}
 .dns-lab-d{fill:#fcd34d;font-weight:700}
 .dns-lab-t{fill:var(--accent)}
 .dns-cap{margin:10px 0 12px;font-size:14.5px;line-height:1.55}
+.dns-cap a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.dns-cap a:hover{color:var(--accent)}
+.so-wrap{margin:12px 0 8px;border:1px solid var(--border);border-radius:12px;
+background:#0a1428;padding:4px;line-height:0;overflow:hidden}
+.so-svg{display:block;width:100%;height:auto}
+.so-orbit{fill:none}
+.so-ray{stroke:#fde68a;stroke-width:1.15;stroke-opacity:.45}
+.so-day{fill:#fde68a;fill-opacity:.42}
+.so-eq{stroke:rgba(253,230,138,.7);stroke-width:1.15}
+.so-axis{stroke:rgba(226,232,240,.85);stroke-width:1.6;stroke-dasharray:5 4}
+.so-n,.so-elab,.so-season,.so-today,.so-sunlab{
+fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
+.so-n{font-size:11px}
+.so-elab{font-size:13px}
+.so-season{font-size:14px;fill:#fcd34d;stroke-width:4}
+.so-today{font-size:11px;fill:#fde68a}
+.so-sunlab{font-size:12px;fill:#fde68a}
+.so-earth{cursor:pointer}
+.so-earth:hover circle{stroke:#fde68a;stroke-width:2}
+@media(max-width:620px){
+.so-elab{font-size:11px}
+.so-season{font-size:13px}
+}
 @media(max-width:620px){
 .dns-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .dns-svg{min-width:520px}
@@ -1203,6 +1230,12 @@ font-size: 1.125rem;
 max-width: 62ch;
 line-height: 1.55;
 }
+.answer a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
 .concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
 .band-deeper h2::after {
 content: " Further down";
@@ -1316,20 +1349,20 @@ color: var(--muted);
 font-weight: 700;
 }
 .hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sun, Moon & Earth Simulator for Poway, CA — Any Date or Time","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/sun-moon-earth-movement-simulator/poway-ca/","description":"Watch the sun and moon move around the Earth as seen from Poway, CA: scrub a day, a week or a month, see the phase, altitude and direction of both, sunrise 6:20 AM, sunset 7:22 PM and today's waxing gibbous moon.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sun, Moon & Earth Simulator for Poway, CA — Any Date or Time","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/sun-moon-earth-movement-simulator/poway-ca/","description":"Watch the sun and moon move around the Earth as seen from Poway, CA: scrub a day, a week or a month, see the phase, altitude and direction of both, sunrise 6:20 AM, sunset 7:21 PM and today's full moon moon.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Sun, Moon & Earth simulator","item":"https://timeandspace.science/sun-moon-earth-movement-simulator/"},{"@type":"ListItem","position":3,"name":"Poway, CA","item":"https://timeandspace.science/sun-moon-earth-movement-simulator/poway-ca/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Poway","address":{"@type":"PostalAddress","addressLocality":"Poway","addressCountry":"US","addressRegion":"California"},"geo":{"@type":"GeoCoordinates","latitude":32.9628,"longitude":-117.0359},"containedInPlace":[{"@type":"AdministrativeArea","name":"California"},{"@type":"Country","name":"United States"}],"url":"https://timeandspace.science/sun-moon-earth-movement-simulator/poway-ca/"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this drawing to scale?","acceptedAnswer":{"@type":"Answer","text":"No, and it cannot be. The moon is drawn about 24 times too close to the Earth, and the sun about 3,151 times too close and 52 times too small. Shrink the Earth to a 16 mm marble and the moon is a 4.4 mm bead about 48 cm away, while the sun is a 1.7 m ball roughly 188 m down the road. What IS true here is every direction and angle: where the sun and moon lie around the Earth, which half of the Earth is lit, and where you are on it."}},{"@type":"Question","name":"What am I looking at?","acceptedAnswer":{"@type":"Answer","text":"The Earth from far above its orbit, looking down from your own hemisphere. Sunlight arrives from the top left, so the half of the Earth facing that way is having its day. The marker is the place you chose, the dotted circle inside the globe is the path that spot rides as the Earth turns, and the moon sits at its true angle from the sun."}},{"@type":"Question","name":"Why does the moon always look half lit?","acceptedAnswer":{"@type":"Answer","text":"Because from this vantage you are looking at the moon side-on: the sun lights one half of it, and from above you see the boundary edge-on. The phase people see from Earth is not how much of the moon is lit — it is how much of the lit half faces us, and that is the ANGLE between the moon and the sun in this picture. Line the moon up with the sun and it is a new moon; put it opposite and it is full. The phase disc beside the read-out shows the same instant as it looks from the ground."}},{"@type":"Question","name":"Why do we always see the same side of the moon?","acceptedAnswer":{"@type":"Answer","text":"Because the moon turns on its own axis exactly once per orbit — 27.3 days for both — so the same hemisphere faces us permanently. Earth's pull slowed its spin over billions of years until the two matched, which is called tidal locking. A wobble in the orbit lets us see about 59% of the surface over time. It also means \"the dark side of the moon\" is a misnomer: the far side gets exactly as much sunlight, and at new moon it is the fully lit one."}},{"@type":"Question","name":"Does it show eclipses?","acceptedAnswer":{"@type":"Answer","text":"No — deliberately. Earth's real shadow reaches well past the moon's orbit, so drawing it would put the moon inside it at every full moon and imply an eclipse every month. What actually decides an eclipse is how far the moon sits above or below the plane of Earth's orbit, and that is the one thing this flat view cannot show. Lunar eclipses have their own pages."}},{"@type":"Question","name":"How accurate are the positions?","acceptedAnswer":{"@type":"Answer","text":"The sun and moon positions come from the same solver the rest of the site uses — good to about a minute of time for sunrise and sunset, and to a fraction of a degree for the moon. It runs entirely in your browser, so nothing is cached or stale. The methodology pages set out where each figure stops being reliable."}},{"@type":"Question","name":"Can I share the exact view I am looking at?","acceptedAnswer":{"@type":"Answer","text":"Yes. The location, date, time and span are all in the address bar, so copying the URL shares the exact sky on screen. The link builder further down writes one for you if you would rather fill in a form than edit a URL."}}]}</script>
+
+<!-- build e5fe2cf46226 · generated 2026-08-27T20:26:58.037Z -->
+<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon/earthmoon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:site_name" content="Time and Space Science">
 
 <meta property="og:image" content="https://timeandspace.science/api/og?name=Sun%2C%20Moon%20%26%20Earth%20Simulator%20for%20Poway%2C%20CA&amp;theme=generic">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=Sun%2C%20Moon%20%26%20Earth%20Simulator%20for%20Poway%2C%20CA&amp;theme=generic">
 <meta name="robots" content="max-image-preview:large">
-<!-- build 36c60ce3d05a · generated 2026-08-26T20:24:10.871Z -->
-<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
-<link rel="icon" type="image/svg+xml" href="/assets/favicon/earthmoon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:site_name" content="Time and Space Science">
-
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -1464,13 +1497,13 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   document.addEventListener('ac:units',function(){ apply(get()); });
 })();</script></div>
   <h1>Sun, Moon &amp; Earth Movement Simulator for Poway, CA</h1>
-  <p class="sub">Where the sun and the moon are from Poway, CA, at any moment you choose. Today the sun rises at <b>6:20 AM</b> and sets at <b>7:22 PM</b> — <b>13 h 3 m</b> of daylight — and the moon is a <b>waxing gibbous</b>, 98% lit. Drag the slider through a day, a week or a month and watch all of it move.</p>
+  <p class="sub">Where the sun and the moon are from Poway, CA, at any moment you choose. Today the sun rises at <b>6:20 AM</b> and sets at <b>7:21 PM</b> — <b>13 h 1 m</b> of daylight — and the moon is a <b>full moon</b>, 100% lit. Drag the slider through a day, a week or a month and watch all of it move.</p>
 
   <nav class="sys-vlad" aria-label="Three views of Earth in the solar system">
     <p class="sys-vlad-lead">Three views of Earth, and how it fits with the rest of the solar system</p>
     <div class="sys-vlad-row">
       <span class="sys-vlad-tile is-here" aria-current="page"><span class="sys-vlad-n" aria-hidden="true">1</span><span class="sys-vlad-k">1 · From a place on Earth</span><b>Sun & moon from your own town</b><span class="sys-vlad-what">The Earth turns under a marked location: day and night, sunrise, moonrise and tonight's phase.</span><span class="sys-vlad-here">You are here</span></span>
-      <a class="sys-vlad-tile" href="/sun-moon-earth-movement-simulator/system/"><span class="sys-vlad-n" aria-hidden="true">2</span><span class="sys-vlad-k">2 · Step back</span><b>Earth & the moon's orbit around the sun</b><span class="sys-vlad-what">All three moving at once — the month, the seasons and the year on one screen.</span></a>
+      <a class="sys-vlad-tile" href="/earth-sun-moon-orbit-simulator/"><span class="sys-vlad-n" aria-hidden="true">2</span><span class="sys-vlad-k">2 · Step back</span><b>Earth & the moon's orbit around the sun</b><span class="sys-vlad-what">All three moving at once — the month, the seasons and the year on one screen.</span></a>
       <a class="sys-vlad-tile" href="/solar-system-simulator/"><span class="sys-vlad-n" aria-hidden="true">3</span><span class="sys-vlad-k">3 · Step back again</span><b>The full solar system</b><span class="sys-vlad-what">Earth's orbit among all eight, from Mercury's 88 days out to Neptune's 165 years.</span></a>
     </div>
   </nav>
@@ -1480,16 +1513,16 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <div class="sim-top">
     <div class="sim-stage" id="sim-stage"><div class="sim-inner">
     <div class="sim-figwrap">
-    <div class="orr-fig sim-fig" id="sim-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="372.3,111 370.8,108.2 368.9,105.7 366.7,103.3 364.4,101.2 361.7,99.3 358.9,97.6 355.9,96.3 352.8,95.2 349.6,94.5 346.2,94.1 342.8,93.9 339.4,94.1 336.1,94.7 332.7,95.5 329.5,96.6 326.3,98 323.3,99.7 320.4,101.7 317.8,103.9 315.4,106.3 313.2,108.9 311.3,111.7 309.7,114.7 308.3,117.7 307.3,120.9 306.6,124.1 306.3,127.3 306.3,130.5 306.6,133.7 307.2,136.9 308.2,139.9 309.5,142.8 311,145.6 312.9,148.1 315,150.5 317.4,152.6 320,154.5 322.9,156.1 325.9,157.5 329,158.5 332.2,159.3 335.6,159.7 338.9,159.8 342.3,159.6 345.7,159.1 349.1,158.3 352.3,157.2 355.5,155.7 358.5,154 361.3,152.1 364,149.9 366.4,147.5 368.6,144.8 370.5,142 372.1,139.1 373.5,136 374.5,132.9 375.1,129.7 375.5,126.5 375.5,123.2 375.2,120 374.6,116.9 373.6,113.9 372.3,111" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.5 120.1" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.5" cy="120.1" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="333.8" y="116.5" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M306.6 133.7L294 133.3" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="306.6" cy="133.7" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="290" y="137.2" text-anchor="end" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Poway</text><circle cx="448.4" cy="162.6" r="11.45" fill="#4b5563"/><path d="M448.4 151.2A11.45 11.45 0 0 0 448.4 174.1Z" fill="#e8eef7"/><circle cx="448.4" cy="162.6" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="448.4" y="185.1" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text></g></svg></div>
+    <div class="orr-fig sim-fig" id="sim-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="372.7,111.4 371.2,108.7 369.4,106.1 367.3,103.7 364.9,101.5 362.3,99.5 359.6,97.9 356.6,96.5 353.5,95.4 350.2,94.6 346.9,94.1 343.5,93.9 340.1,94.1 336.7,94.5 333.4,95.3 330.1,96.4 326.9,97.7 323.9,99.4 321,101.3 318.3,103.4 315.9,105.8 313.6,108.4 311.7,111.2 310,114.1 308.6,117.1 307.6,120.3 306.8,123.4 306.4,126.7 306.3,129.9 306.6,133.1 307.2,136.2 308.1,139.3 309.3,142.2 310.9,145 312.7,147.6 314.8,150 317.1,152.2 319.7,154.1 322.5,155.8 325.5,157.2 328.6,158.3 331.8,159.1 335.1,159.6 338.5,159.7 341.9,159.6 345.3,159.1 348.7,158.4 352,157.3 355.1,155.9 358.2,154.3 361.1,152.4 363.7,150.2 366.2,147.8 368.4,145.2 370.4,142.5 372.1,139.6 373.4,136.5 374.5,133.4 375.2,130.2 375.6,127 375.7,123.7 375.5,120.6 374.9,117.4 374,114.4 372.7,111.4" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.7 120" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.7" cy="120" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="334.2" y="116.3" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M306.8 134.2L294 134" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="306.8" cy="134.2" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="290" y="137.9" text-anchor="end" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Poway</text><circle cx="451.8" cy="141.2" r="11.45" fill="#4b5563"/><path d="M451.8 129.7A11.45 11.45 0 0 0 451.8 152.6Z" fill="#e8eef7"/><circle cx="451.8" cy="141.2" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="451.8" y="163.6" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Full moon</text></g></svg></div>
     </div>
 
     <div class="sim-row">
     <div class="sim-bar">
     <p class="sim-fsmoon">
-      <span class="sim-fsglyph" id="sim-fsglyph" aria-hidden="true"><svg viewBox="0 0 112 112" width="112" height="112" aria-hidden="true" class="mn-moon"><circle cx="56" cy="56" r="56" fill="#efe3c2"/><g transform="scale(0.56)"><use href="/assets/img/moon-face.b9e194850d.svg#ac-moon-face"/></g><path d="M56 0A56 56 0 0 0 56 112A54.10 56 0 0 1 56 0Z" fill="#0e0d08" fill-opacity="0.984"/><circle cx="56" cy="56" r="56" fill="none" stroke="#57503a" stroke-width="1"/></svg></span>
-      <span class="sim-fslab"><b id="sim-fsphase">Waxing gibbous</b> <span id="sim-fslit">98%</span> lit</span>
+      <span class="sim-fsglyph" id="sim-fsglyph" aria-hidden="true"><svg viewBox="0 0 112 112" width="112" height="112" aria-hidden="true" class="mn-moon"><circle cx="56" cy="56" r="56" fill="#efe3c2"/><g transform="scale(0.56)"><use href="/assets/img/moon-face.b9e194850d.svg#ac-moon-face"/></g><circle cx="56" cy="56" r="56" fill="none" stroke="#57503a" stroke-width="1"/></svg></span>
+      <span class="sim-fslab"><b id="sim-fsphase">Full moon</b> <span id="sim-fslit">100%</span> lit</span>
     </p>
-    <p class="sim-when" id="sim-when">Wed, Aug 26, 2026, 1:22 PM</p>
+    <p class="sim-when" id="sim-when">Thu, Aug 27, 2026, 1:26 PM</p>
     </div>
     <div class="sim-ctl">
       <button type="button" class="chip sim-icobtn" id="sim-cfg" data-sim-inert disabled hidden aria-haspopup="dialog" aria-label="Simulator settings"><svg class="nav-ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><g><path d="M12 8.4A3.6 3.6 0 1 0 12 15.6 3.6 3.6 0 0 0 12 8.4zm0 2.1a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" fill="#cbd5e1"/><path d="M10.6 2.2h2.8l.35 2.2a7.8 7.8 0 0 1 1.72.72l1.8-1.3 2 2-1.3 1.8c.3.54.54 1.12.72 1.72l2.2.35v2.8l-2.2.35a7.8 7.8 0 0 1-.72 1.72l1.3 1.8-2 2-1.8-1.3a7.8 7.8 0 0 1-1.72.72l-.35 2.2h-2.8l-.35-2.2a7.8 7.8 0 0 1-1.72-.72l-1.8 1.3-2-2 1.3-1.8a7.8 7.8 0 0 1-.72-1.72l-2.2-.35v-2.8l2.2-.35c.18-.6.42-1.18.72-1.72l-1.3-1.8 2-2 1.8 1.3c.54-.3 1.12-.54 1.72-.72zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z" fill="#94a3b8"/></g></svg><span>Settings</span></button>
@@ -1516,7 +1549,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
         <div class="sim-fields">
           <div class="sim-field">
             <label class="sim-flab" for="sim-start">Starting date and time</label>
-            <input type="datetime-local" class="orr-at" id="sim-start" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-26T13:22">
+            <input type="datetime-local" class="orr-at" id="sim-start" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-27T13:26">
           </div>
           <div class="sim-field">
             <label class="sim-flab" for="sim-span">The slider covers</label>
@@ -1533,20 +1566,20 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 
     <div class="sim-read">
       <div class="sim-moonbox">
-        <span class="sim-glyph" id="sim-glyph" aria-hidden="true"><svg viewBox="0 0 112 112" width="112" height="112" aria-hidden="true" class="mn-moon"><circle cx="56" cy="56" r="56" fill="#efe3c2"/><g transform="scale(0.56)"><use href="/assets/img/moon-face.b9e194850d.svg#ac-moon-face"/></g><path d="M56 0A56 56 0 0 0 56 112A54.10 56 0 0 1 56 0Z" fill="#0e0d08" fill-opacity="0.984"/><circle cx="56" cy="56" r="56" fill="none" stroke="#57503a" stroke-width="1"/></svg></span>
-        <b id="sim-phase">Waxing gibbous</b>
-        <span class="hint"><span id="sim-lit">98%</span> lit</span>
+        <span class="sim-glyph" id="sim-glyph" aria-hidden="true"><svg viewBox="0 0 112 112" width="112" height="112" aria-hidden="true" class="mn-moon"><circle cx="56" cy="56" r="56" fill="#efe3c2"/><g transform="scale(0.56)"><use href="/assets/img/moon-face.b9e194850d.svg#ac-moon-face"/></g><circle cx="56" cy="56" r="56" fill="none" stroke="#57503a" stroke-width="1"/></svg></span>
+        <b id="sim-phase">Full moon</b>
+        <span class="hint"><span id="sim-lit">100%</span> lit</span>
         <span class="hint sim-moonlab">from the ground at <span id="sim-moonwhen">—</span></span>
       </div>
       <div class="sim-rows">
-        <div class="sun-srow sun-main"><span>Sun altitude</span><b id="sim-sun-alt">66.2°</b></div>
+        <div class="sun-srow sun-main"><span>Sun altitude</span><b id="sim-sun-alt">65.5°</b></div>
         <div class="sun-srow"><span>Sun direction</span><b id="sim-sun-az">SSW</b></div>
-        <div class="sun-srow sun-main"><span>Moon altitude</span><b id="sim-moon-alt">-64.2°</b></div>
-        <div class="sun-srow"><span>Moon direction</span><b id="sim-moon-az">NE</b></div>
-        <div class="sun-srow"><span>Moon–sun angle</span><b id="sim-elong">165°</b></div>
-        <div class="sun-srow"><span>Daylight that day</span><b id="sim-len">13 h 3 m</b></div>
-        <div class="sun-srow"><span>Sunrise · sunset</span><b><span id="sim-rise">6:20 AM</span> · <span id="sim-set">7:22 PM</span></b></div>
-        <div class="sun-srow"><span>Moonrise · moonset</span><b><span id="sim-mrise">6:45 PM</span> · <span id="sim-mset">4:48 AM</span></b></div>
+        <div class="sun-srow sun-main"><span>Moon altitude</span><b id="sim-moon-alt">-65.5°</b></div>
+        <div class="sun-srow"><span>Moon direction</span><b id="sim-moon-az">NNE</b></div>
+        <div class="sun-srow"><span>Moon–sun angle</span><b id="sim-elong">177°</b></div>
+        <div class="sun-srow"><span>Daylight that day</span><b id="sim-len">13 h 1 m</b></div>
+        <div class="sun-srow"><span>Sunrise · sunset</span><b><span id="sim-rise">6:20 AM</span> · <span id="sim-set">7:21 PM</span></b></div>
+        <div class="sun-srow"><span>Moonrise · moonset</span><b><span id="sim-mrise">7:14 PM</span> · <span id="sim-mset">5:48 AM</span></b></div>
       </div>
     </div>
     </div>
@@ -1558,17 +1591,17 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <button type="button" class="chip" data-sim-inert disabled data-sim-phase="3">last quarter</button>
     </p>
 
-    <p class="hint orr-note" id="sim-note"><b>Poway</b> is the marker on the globe — on the daylit half at the time shown, riding the dotted circle its spot traces as the Earth turns. The moon is <b>165°</b> from the sun in the sky then, and that angle is the phase: waxing gibbous. You are looking down on the Earth from far above its orbit, from the north — the side you are on — with sunlight arriving from the top left, so the half of the Earth facing that way is the half having its day. Sizes and distances are not to scale; the directions are.</p>
+    <p class="hint orr-note" id="sim-note"><b>Poway</b> is the marker on the globe — on the daylit half at the time shown, riding the dotted circle its spot traces as the Earth turns. The moon is <b>177°</b> from the sun in the sky then, and that angle is the phase: full moon. You are looking down on the Earth from far above its orbit, from the north — the side you are on — with sunlight arriving from the top left, so the half of the Earth facing that way is the half having its day. Sizes and distances are not to scale; the directions are.</p>
   </div>
   <div class="card">
     <h2>What Poway’s latitude does to the picture</h2>
     <p>At 33.0° north, Poway has a moderate swing through the year — 14 h 20 m of daylight at the longest day and 9 h 58 m at the shortest — and the sun never quite reaches straight overhead.</p>
     <div class="wc-facts">
-      <div class="wc-frow"><span>Sunrise · sunset today</span><b>6:20 AM · 7:22 PM</b></div>
-      <div class="wc-frow"><span>Daylight today</span><b>13 h 3 m</b></div>
-      <div class="wc-frow"><span>Moonrise · moonset today</span><b>6:45 PM · 4:48 AM</b></div>
-      <div class="wc-frow"><span>Moonrise tomorrow</span><b>7:14 PM — 29 min later</b></div>
-      <div class="wc-frow"><span>Moon–sun angle now</span><b>165° — waxing gibbous</b></div>
+      <div class="wc-frow"><span>Sunrise · sunset today</span><b>6:20 AM · 7:21 PM</b></div>
+      <div class="wc-frow"><span>Daylight today</span><b>13 h 1 m</b></div>
+      <div class="wc-frow"><span>Moonrise · moonset today</span><b>7:14 PM · 5:48 AM</b></div>
+      <div class="wc-frow"><span>Moonrise tomorrow</span><b>7:41 PM — 27 min later</b></div>
+      <div class="wc-frow"><span>Moon–sun angle now</span><b>177° — full moon</b></div>
       <div class="wc-frow"><span>Longest · shortest day of 2026</span><b>14 h 20 m · 9 h 58 m</b></div>
       <div class="wc-frow"><span>Time zone</span><b>America/Los Angeles</b></div>
     </div>
@@ -1590,6 +1623,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     </div>
     <p class="hint">Nearby, for a side-by-side: <a href="/sun-moon-earth-movement-simulator/santee-ca/">Santee, CA</a> (9 mi) · <a href="/sun-moon-earth-movement-simulator/escondido-ca/">Escondido, CA</a> (11 mi) · <a href="/sun-moon-earth-movement-simulator/el-cajon-ca/">El Cajon, CA</a> (12 mi) · <a href="/sun-moon-earth-movement-simulator/la-mesa-ca/">La Mesa, CA</a> (13 mi) · <a href="/sun-moon-earth-movement-simulator/san-marcos-ca/">San Marcos, CA</a> (15 mi) · <a href="/sun-moon-earth-movement-simulator/encinitas-ca/">Encinitas, CA</a> (16 mi).</p>
   </div>
+
   <details class="suggest-box" data-ac="suggest">
     <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
     <form class="suggest-form" autocomplete="off">
@@ -1615,7 +1649,8 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 <script>window.AC_SIM_C={"slug":"poway-ca","name":"Poway, CA","tz":"America/Los_Angeles","lat":32.9628,"lon":-117.0359};</script>
 <!-- ~60KB, byte-identical on the hub and all 1103 city pages but the
      config line above, so it is hoisted into one cached file (build-inline). -->
-<script defer src="/assets/js/simulator.ba3d27493e.js"></script><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+<script defer src="/assets/js/simulator.5ec744239e.js"></script>
+<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];

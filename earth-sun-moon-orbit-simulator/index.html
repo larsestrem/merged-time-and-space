@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Earth, the Sun &amp; the Moon — All Three Moving at Once</title>
 <meta name="description" content="A schematic of the Earth going round the sun while the moon goes round the Earth, drawn small enough to fit one screen. Not to scale — the page says by how much — but the real ratio between the two orbital periods.">
-<link rel="canonical" href="https://timeandspace.science/sun-moon-earth-movement-simulator/system/">
+<link rel="canonical" href="https://timeandspace.science/earth-sun-moon-orbit-simulator/">
 <meta property="og:title" content="Earth, the Sun &amp; the Moon — All Three Moving at Once">
 <meta property="og:description" content="A schematic of the Earth going round the sun while the moon goes round the Earth, drawn small enough to fit one screen. Not to scale — the page says by how much — but the real ratio between the two orbital periods.">
 <meta property="og:type" content="website">
@@ -533,6 +533,8 @@ border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:v
 .orr{margin:16px 0 0}
 .orr-fig{max-width:440px;margin:0 auto;line-height:0}
 .orr-fig svg{display:block;width:100%;height:auto}
+.orr-phase .mn-moon{overflow:visible}
+.orr-phase-lab{font-variant-numeric:tabular-nums}
 .orr-spin .orr-cityname,.orr-spin .orr-citytick{display:none}
 .orr-note{margin-top:12px;font-variant-numeric:tabular-nums}
 .orr-stamp{max-width:440px;margin:8px auto 0;display:flex;align-items:center;justify-content:center;
@@ -955,25 +957,25 @@ background:rgba(252,211,77,.14)}
 .dn-figwrap{position:relative;line-height:0;border-radius:12px;overflow:hidden;
 border:1px solid var(--border);background:#12304f}
 .dn-svg{display:block;width:100%;height:auto}
-.dn-overlay{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;
-align-items:flex-end;gap:8px;padding:10px 12px;pointer-events:none;
-background:linear-gradient(to top,rgba(2,6,23,.55),rgba(2,6,23,0))}
-.dn-oleft{display:flex;align-items:center;gap:8px}
-.dn-overlay .dn-obtn{pointer-events:auto;background:rgba(2,6,23,.72);border-color:rgba(255,255,255,.28);
-backdrop-filter:blur(2px);font-weight:700;min-height:40px;padding:10px 18px;font-size:14px;line-height:1}
-.dn-overlay .dn-obtn:hover{background:rgba(2,6,23,.9)}
-.dn-oicon{display:inline-flex;align-items:center;gap:7px}
-.dn-oicon .dn-pin{flex:0 0 auto}
-@media(max-width:520px){.dn-oicon{padding:10px 13px}.dn-oicon-t{display:none}}
+#dn-moon .mn-moon{overflow:visible}
 .dn-play[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
 .dn-par{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:5 6}
 .dn-parlab{fill:rgba(226,232,240,.55);font-size:10px;font-weight:600}
-.dn-slider-row{margin:14px 0 4px}
+.dn-slider-row{display:flex;align-items:center;gap:10px;margin:14px 0 4px}
+.dn-slider-mid{flex:1;min-width:0}
 .dn-slider-row .orr-slider{width:100%}
+.dn-slider-row .dn-obtn{flex:0 0 auto;min-height:40px;padding:10px 16px;font-weight:700}
+.dn-loc-chip{min-width:40px;min-height:40px;padding:8px;display:inline-flex;
+align-items:center;justify-content:center}
+.dn-loc-chip .dn-pin{display:block}
 .dn-span{color:var(--muted);font-weight:600}
 .dn-when{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:6px 0 12px}
 .dn-when b{font-size:17px}
 .dn-when span{color:var(--muted);font-size:13px}
+.dn-sunline{margin:0 0 14px;font-size:15px;line-height:1.55;max-width:62em}
+.dn-sunline b{color:var(--accent);font-variant-numeric:tabular-nums}
+.dn-sunline a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.dn-sunline a:hover{color:var(--accent)}
 .dn-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 12px}
 @media(min-width:560px){.dn-strip{grid-template-columns:repeat(4,1fr)}}
 .dn-city{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
@@ -1008,10 +1010,35 @@ background:#0a1428;padding:4px 4px 0;line-height:0;overflow:hidden}
 .dns-trop{stroke:var(--accent);stroke-opacity:.95;stroke-dasharray:6 5}
 .dns-ctr{stroke:#fde68a;stroke-width:2.5}
 .dns-hit{fill:#fde68a;stroke:#b45309;stroke-width:2}
+.dns-you{fill:#f472b6;stroke:#0b0e1c;stroke-width:1.6}
+.dns-you-lab{fill:#f9a8d4;font-size:11px;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3}
 .dns-lab{fill:#e2e8f0;font-size:12px;font-weight:600;paint-order:stroke;stroke:#050a16;stroke-width:3.5}
 .dns-lab-d{fill:#fcd34d;font-weight:700}
 .dns-lab-t{fill:var(--accent)}
 .dns-cap{margin:10px 0 12px;font-size:14.5px;line-height:1.55}
+.dns-cap a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.dns-cap a:hover{color:var(--accent)}
+.so-wrap{margin:12px 0 8px;border:1px solid var(--border);border-radius:12px;
+background:#0a1428;padding:4px;line-height:0;overflow:hidden}
+.so-svg{display:block;width:100%;height:auto}
+.so-orbit{fill:none}
+.so-ray{stroke:#fde68a;stroke-width:1.15;stroke-opacity:.45}
+.so-day{fill:#fde68a;fill-opacity:.42}
+.so-eq{stroke:rgba(253,230,138,.7);stroke-width:1.15}
+.so-axis{stroke:rgba(226,232,240,.85);stroke-width:1.6;stroke-dasharray:5 4}
+.so-n,.so-elab,.so-season,.so-today,.so-sunlab{
+fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
+.so-n{font-size:11px}
+.so-elab{font-size:13px}
+.so-season{font-size:14px;fill:#fcd34d;stroke-width:4}
+.so-today{font-size:11px;fill:#fde68a}
+.so-sunlab{font-size:12px;fill:#fde68a}
+.so-earth{cursor:pointer}
+.so-earth:hover circle{stroke:#fde68a;stroke-width:2}
+@media(max-width:620px){
+.so-elab{font-size:11px}
+.so-season{font-size:13px}
+}
 @media(max-width:620px){
 .dns-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .dns-svg{min-width:520px}
@@ -1062,21 +1089,153 @@ background:#0a1428;padding:4px 4px 0;line-height:0;overflow:hidden}
 }
 @media (min-width:560px){ h1{font-size:32px} }
 .pl-facts .wc-frow>span{flex:0 0 42%}
-@media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Earth, the Sun & the Moon — All Three Moving at Once","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/sun-moon-earth-movement-simulator/system/","description":"A schematic of the Earth going round the sun while the moon goes round the Earth, drawn small enough to fit one screen. Not to scale — the page says by how much — but the real ratio between the two orbital periods.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Sun, Moon & Earth simulator","item":"https://timeandspace.science/sun-moon-earth-movement-simulator/"},{"@type":"ListItem","position":3,"name":"Earth, sun & moon together","item":"https://timeandspace.science/sun-moon-earth-movement-simulator/system/"}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Earth, Sun & Moon: the whole system moving","url":"https://timeandspace.science/sun-moon-earth-movement-simulator/system/","description":"A schematic showing the Earth orbiting the sun while the moon orbits the Earth, at the real ratio between the two periods and an openly invented scale.","learningResourceType":"simulation","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"student"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
+@media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}
+.kicker {
+text-transform: uppercase;
+letter-spacing: 0.12em;
+font-size: 0.72rem;
+color: var(--muted);
+margin: 0 0 8px;
+font-weight: 600;
+}
+.answer {
+font-size: 1.125rem;
+max-width: 62ch;
+line-height: 1.55;
+}
+.answer a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
+.concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
+.band-deeper h2::after {
+content: " Further down";
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--muted);
+margin-left: 8px;
+font-weight: 600;
+}
+.hub-teaser, .related p, .see-live p {
+margin: 0 0 16px;
+color: var(--muted);
+max-width: 66ch;
+}
+.hub-teaser a, .related p a, .glossary-item a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.hub-teaser a:hover, .related p a:hover, .glossary-item a:hover { text-decoration: underline; }
+.hub-teaser a.hub-more, .related p a.hub-more, .glossary-item a.hub-more {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+white-space: nowrap;
+margin-left: 0.35em;
+}
+.see-live ul, .related ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: grid;
+gap: 12px;
+}
+.graphic-block {
+margin: 24px 0;
+}
+.graphic-block figcaption, figcaption {
+margin-top: 10px;
+color: var(--muted);
+font-size: 0.9rem;
+max-width: 70ch;
+}
+.more-info {
+margin: 24px 0;
+border: 1px solid var(--border);
+border-radius: 12px;
+background: var(--card);
+padding: 4px 16px 16px;
+}
+.more-info > summary {
+cursor: pointer;
+font-weight: 650;
+padding: 14px 0;
+list-style: none;
+color: var(--text);
+}
+.more-info > summary::-webkit-details-marker { display: none; }
+.more-info > summary::after {
+content: " +";
+color: var(--accent);
+font-weight: 700;
+}
+.more-info[open] > summary::after { content: " −"; }
+.search {
+width: 100%;
+height: 48px;
+border-radius: 10px;
+border: 1px solid var(--border);
+background: var(--card);
+color: var(--text);
+padding: 0 14px;
+font-size: 1rem;
+margin: 16px 0 28px;
+font-variant-numeric: tabular-nums;
+}
+.search:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.glossary-list {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.glossary-item {
+padding: 16px 0;
+border-bottom: 1px solid var(--border);
+}
+.glossary-item h2 {
+font-size: 1.05rem;
+margin: 0 0 6px;
+letter-spacing: 0;
+font-weight: 650;
+}
+.glossary-item p { max-width: 66ch; margin: 0; color: var(--muted); }
+.letter {
+font-size: 1.5rem;
+margin: 28px 0 0;
+color: var(--muted);
+}
+.glossary-item[hidden], .letter[hidden] { display: none; }
+.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
+.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
+.hub-qs a:hover { text-decoration: underline; }
+.hub-kicker {
+margin: 0 0 4px;
+font-size: 0.72rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--muted);
+font-weight: 700;
+}
+.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Earth, the Sun & the Moon — All Three Moving at Once","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/earth-sun-moon-orbit-simulator/","description":"A schematic of the Earth going round the sun while the moon goes round the Earth, drawn small enough to fit one screen. Not to scale — the page says by how much — but the real ratio between the two orbital periods.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Earth, Sun & Moon orbit simulator","item":"https://timeandspace.science/earth-sun-moon-orbit-simulator/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Earth, Sun & Moon: the whole system moving","url":"https://timeandspace.science/earth-sun-moon-orbit-simulator/","description":"A schematic showing the Earth orbiting the sun while the moon orbits the Earth, at the real ratio between the two periods and an openly invented scale.","learningResourceType":"simulation","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"student"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this to scale?","acceptedAnswer":{"@type":"Answer","text":"No, and it says so on the page: every size and every distance here is invented so the Earth's orbit and the moon's orbit can both fit on one screen. What is real is the direction each body turns, the ratio between the two periods, the fixed lean of the Earth's axis, and which half of each body is lit."}},{"@type":"Question","name":"Why does the moon go round so much faster than the Earth does?","acceptedAnswer":{"@type":"Answer","text":"Because it really does: the moon completes an orbit in about 27.3 days against the stars, and the Earth takes 365.25 days to go once round the sun — about thirteen moon orbits to one Earth orbit, which is the speed this page's animation runs at."}},{"@type":"Question","name":"Does the same side of the moon always face the Earth?","acceptedAnswer":{"@type":"Answer","text":"Yes — the grey patch in the drawing marks it. The moon rotates exactly once per orbit, so one face points at us permanently. But the SUN lights whichever half faces it, so the face we see swings from fully dark (new moon) to fully lit (full moon) and back. Same face, changing light: that is what the phases are."}},{"@type":"Question","name":"Is the Earth's tilt really why we have seasons?","acceptedAnswer":{"@type":"Answer","text":"Yes. The axis leans 23.4 degrees and keeps pointing the same way in space all year — watch it hold its angle through the whole drawn orbit. When your hemisphere's pole leans sunward the days run long and the sun stands high; half an orbit later it leans away. Distance is not the cause — the Earth is actually closest to the sun in early January, in the middle of the northern winter."}},{"@type":"Question","name":"What does the tilt slider do?","acceptedAnswer":{"@type":"Answer","text":"It tips Earth's whole orbit away from you, from lying flat and face on to standing edge on. As it tips, the orbit flattens — wider and shorter — until it is a line. Edge on you can see the things a flat diagram cannot show: Earth passing in front of the sun and then behind it, which is the year, and the moon's tilted orbit carrying it above or below the sun-Earth line at most new and full moons, which is why eclipses are rare. Earth's axis keeps its 23.4-degree lean relative to the orbit throughout and tips along with it."}},{"@type":"Question","name":"Why isn't there an eclipse every month?","acceptedAnswer":{"@type":"Answer","text":"Because the moon's orbit is tilted about 5 degrees out of the plane of the Earth's, so at most new and full moons the moon passes above or below the exact sun-Earth line instead of through it. Tip the orbit edge on with the slider and you can watch it happen — the drawn tilt is exaggerated so it is visible at this size, but the miss is real: even 5 degrees carries the moon several times its own width off the line."}},{"@type":"Question","name":"Where can I see this to scale?","acceptedAnswer":{"@type":"Answer","text":"Nowhere on one screen, at both distances at once — that is the whole point of this page. The Earth and the Moon ARE drawn to real scale, in both size and distance, on the Earth & the Moon rung of the solar system simulator; that view has no room left to also show the sun."}}]}</script>
+
+<!-- build e5fe2cf46226 · generated 2026-08-27T20:26:58.037Z -->
+<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:site_name" content="Time and Space Science">
 
 <meta property="og:image" content="https://timeandspace.science/api/og?name=Earth%2C%20the%20Sun%20%26%20the%20Moon&amp;theme=generic">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=Earth%2C%20the%20Sun%20%26%20the%20Moon&amp;theme=generic">
 <meta name="robots" content="max-image-preview:large">
-<!-- build 36c60ce3d05a · generated 2026-08-26T20:24:10.871Z -->
-<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
-<link rel="icon" type="image/svg+xml" href="/assets/favicon/earthmoon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:site_name" content="Time and Space Science">
-
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -1272,6 +1431,16 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <p><strong>3 · The axis leans one fixed way — and that lean is the seasons.</strong> The Earth's pole is tilted 23.4° and keeps pointing at the same patch of sky all year (toward Polaris). It does NOT swivel to follow the sun — watch the little axis hold its angle through the whole orbit. So on one side of the orbit the north pole leans sunward (June — long days, high sun) and half a year later it leans away (December). Nothing about the Earth changed; only which end leans toward the light. The lean is easiest to see from the side — <strong>drag the tilt slider under the picture</strong> to tip the orbit edge on, and watch the axis stay parallel to itself all the way round the loop. <a href="/classroom/lessons/seasons-grades-7-8/">The seasons lesson</a> turns exactly this into a class period, including why "closer to the sun" cannot be the reason.</p>
     <p><strong>4 · Why eclipses are rare — visible from the side.</strong> Seen from above, the moon crosses the sun–Earth line twice a month and you would expect an eclipse every crossing. Now <strong>tip the orbit edge on with the slider</strong>: the moon's orbit is tilted out of the Earth's, so at most new and full moons it slides <em>above</em> or <em>below</em> the sun–Earth line instead of through it. The tilt is drawn steeper than its real 5.1° so you can see it (the scale card below says by how much), but the miss is genuine — the real angle still carries the moon several times its own width off the exact line, which is why eclipses come in occasional seasons and <a href="/moon/eclipses/">the real list</a> is short. <a href="/classroom/lessons/moon-phases-grades-7-8/">The eclipse lesson</a> is built on exactly this.</p>
   </div>
+  <div class="card hub-teasers" id="learn">
+    <h2>What this picture is telling you</h2>
+    <p class="sub">The question is the link. A short answer sits here; tap through for the drawing and the deeper pass.</p>
+    <ul class="hub-qs">
+    <li id="what-is-the-tropic-of-cancer"><p><a href="/concepts/what-is-the-tropic-of-cancer/">What is the Tropic of Cancer?</a> The Tropic of Cancer is the circle at 23.4° north. On one day each year — the summer solstice, around June 21 — the Sun stands straight overhead on this line. North of it, the Sun is never straight overhead.</p></li>
+    <li id="what-is-earths-axial-tilt"><p><a href="/concepts/what-is-earths-axial-tilt/">What is Earth’s axial tilt?</a> Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.</p></li>
+    <li id="why-do-we-have-seasons"><p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year.</p></li>
+    <li id="why-isnt-there-an-eclipse-every-month"><p><a href="/concepts/why-isnt-there-an-eclipse-every-month/">Why isn’t there an eclipse every month?</a> The Moon’s path around Earth is tipped about 5° to Earth’s path around the Sun. Most months the full Moon rides above or below Earth’s shadow, and the new Moon rides above or below the Sun. An eclipse needs the Moon at a crossing, not just at a phase.</p></li>
+    </ul>
+  </div>
   <div class="card">
     <h2>This picture is not to scale — by how much</h2>
     <p>The <em>directions</em> each body turns, and the <em>ratio</em> between the two periods, are real. Every <em>size</em> and every <em>distance</em> is invented, because a drawing that held the Earth's orbit AND the Moon's true distance at once has no room left to show the Moon at all — it would sit closer to the Earth than the line marking the Earth's own edge.</p>
@@ -1313,7 +1482,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     </form>
   </details>
   <script data-ac="suggest">(function(){var b=document.querySelector('.suggest-box[data-ac="suggest"]');if(!b)return;var f=b.querySelector('.suggest-form'),note=b.querySelector('#sg-note'),btn=b.querySelector('#sg-send');f.addEventListener('submit',function(e){e.preventDefault();if(b.querySelector('#sg-hp').value)return;var idea=b.querySelector('#sg-idea').value.trim();if(!idea){note.textContent='Please add a quick note first.';return;}var age=b.querySelector('#sg-age');if(age&&!age.checked){note.textContent='Please confirm the age notice.';return;}var em=b.querySelector('#sg-email').value.trim();btn.disabled=true;note.textContent='Sending…';fetch('/api/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:location.href,reason:'Site idea',details:idea,email:em,website:''})}).then(function(r){return r.json().catch(function(){return{};});}).then(function(d){if(d&&!d.error){f.reset();note.textContent=em?'Thanks — got it. A reply will go to '+em+'. 🙌':'Thanks — got it. 🙌 (No email given, so this one cannot be answered.)';}else{note.textContent='Sorry, that did not send. Please try again.';btn.disabled=false;}}).catch(function(){note.textContent='Network hiccup — please try again.';btn.disabled=false;});});})();</script>
-  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/suggest-event/">Suggest an event</a> · <a class="report-link" href="/report/?url=https%3A%2F%2Ftimeandspace.science%2Fsun-moon-earth-movement-simulator%2Fsystem%2F">Report abuse</a></p>
+  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/suggest-event/">Suggest an event</a> · <a class="report-link" href="/report/?url=https%3A%2F%2Ftimeandspace.science%2Fearth-sun-moon-orbit-simulator%2F">Report abuse</a></p>
   <p class="footer copyright">© 2026 Time and Space Science. All rights reserved.</p>
   <p class="footer sitelinks">Gravity, motion, time and space — one set of rules, seen from different sides: <a href="/questions/">the big questions</a> · <a href="/glossary/">the glossary</a> · <a href="/sun-moon-earth-movement-simulator/">the Sun, Earth &amp; Moon</a> · <a href="/day-night-map/">day &amp; night on Earth</a> · <a href="/solar-system-simulator/">the solar system</a> · <a href="/planets/">the planets</a> · <a href="/orbital-velocity-simulator/">gravity &amp; orbits</a> · <a href="/sun/">sunrise &amp; sunset</a> · <a href="/moon/">moon phases</a> · <a href="/world-clock/">time zones</a></p>
   <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. Teachers: <a href="/classroom/submit-a-lesson/">send us the lesson you already run</a> and we will build it into a page here, with your name on it — or <a href="/classroom/#ask">ask us to build a simulator</a> your class has thought of. <a href="/classroom/">Classroom</a> · <a href="/about/">About this site</a>.</p>
@@ -1448,7 +1617,8 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   side.addEventListener('click',function(){ s.value=90; vdeg=90; applyView(); if(still) render(0.8,2.1); });
   s.value=vdeg; applyView(); s.disabled=false;
   if(still){ render(0.8,2.1); } else { requestAnimationFrame(frame); }
-})();</script><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+})();</script>
+<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];

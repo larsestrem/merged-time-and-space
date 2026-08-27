@@ -14,8 +14,8 @@
         "label": "Day and night map"
       },
       {
-        "href": "/sun-moon-earth-movement-simulator/",
-        "label": "Sun–Earth–Moon simulator"
+        "href": "/earth-sun-moon-orbit-simulator/",
+        "label": "Earth–Sun–Moon orbit simulator"
       }
     ],
     "relatedSlugs": [
@@ -66,7 +66,7 @@
         "label": "Watch the yellow dot stop at {tilt}° N"
       },
       {
-        "href": "/sun-moon-earth-movement-simulator/",
+        "href": "/earth-sun-moon-orbit-simulator/",
         "label": "See the tilt hold still for a whole orbit"
       }
     ]
@@ -228,6 +228,10 @@
       {
         "href": "/day-night-map/#tilt",
         "label": "Day and night map"
+      },
+      {
+        "href": "/earth-sun-moon-orbit-simulator/",
+        "label": "Earth–Sun–Moon orbit simulator"
       }
     ],
     "relatedSlugs": [
@@ -262,7 +266,7 @@
         "label": "See the terminator lean with the year"
       },
       {
-        "href": "/sun-moon-earth-movement-simulator/",
+        "href": "/earth-sun-moon-orbit-simulator/",
         "label": "Watch the axis hold still for an orbit"
       }
     ]
@@ -527,8 +531,8 @@
         "label": "Day and night map"
       },
       {
-        "href": "/sun-moon-earth-movement-simulator/",
-        "label": "Sun–Earth–Moon simulator"
+        "href": "/earth-sun-moon-orbit-simulator/",
+        "label": "Earth–Sun–Moon orbit simulator"
       },
       {
         "href": "/questions/#seasons",
@@ -1016,8 +1020,8 @@
     "cluster": "simulator",
     "hubUrls": [
       {
-        "href": "/sun-moon-earth-movement-simulator/",
-        "label": "Sun–Earth–Moon simulator"
+        "href": "/earth-sun-moon-orbit-simulator/",
+        "label": "Earth–Sun–Moon orbit simulator"
       },
       {
         "href": "/moon/",
@@ -1050,7 +1054,7 @@
     ],
     "seeItLive": [
       {
-        "href": "/sun-moon-earth-movement-simulator/",
+        "href": "/earth-sun-moon-orbit-simulator/",
         "label": "See why the shadow is left undrawn"
       }
     ]

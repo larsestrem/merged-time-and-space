@@ -37,6 +37,15 @@ function mnMoonPos(d){
         +104755*Math.cos(Ms+M)+10321*Math.cos(2*D-2*F)+79661*Math.cos(M-2*F))/1000;
   return { ra:mnRa(l,b), dec:mnDec(l,b), dist:dt };
 }
+/* the one place the moon is straight overhead — same job as dnSub for the sun.
+   Latitude is the moon's declination; longitude is RA minus Greenwich sidereal
+   time, using THIS file's sidereal so a marker cannot disagree with mnPos. */
+function mnSub(ms){
+  var d=mnDays(ms), m=mnMoonPos(d);
+  var lo=m.ra/MN_RAD-(280.16+360.9856235*d);
+  lo=((lo%360)+540)%360-180;
+  return {dec:m.dec/MN_RAD, lon:lo};
+}
 
 /* Illuminated fraction, cycle position and limb angle.
  *   fraction 0..1, phase 0=new .5=full (rises 0->1 across the cycle),
@@ -221,13 +230,13 @@ function mnCompass(bearing){ return MN_COMPASS[Math.round(((bearing%360)+360)%36
  *
  * `south` flips it: the phase is identical everywhere on Earth, but below the
  * equator the lit limb — and the whole face with it — appears rotated 180°. */
-function mnGlyph(fraction,waxing,r,south){
+function mnGlyph(fraction,waxing,r,south,plain){
   var f=fraction<0?0:(fraction>1?1:fraction), d=2*r, cx=r, cy=r;
   var rx=(r*Math.abs(1-2*f)).toFixed(2), litRight=(waxing!==!!south);
   var s1=litRight?0:1, s2=litRight?(f<0.5?0:1):(f<0.5?1:0);
   var shadow='M'+cx+' '+(cy-r)+'A'+r+' '+r+' 0 0 '+s1+' '+cx+' '+(cy+r)
     +'A'+rx+' '+r+' 0 0 '+s2+' '+cx+' '+(cy-r)+'Z';
-  return '<svg viewBox="0 0 '+d+' '+d+'" width="'+d+'" height="'+d+'" aria-hidden="true" class="mn-moon">'
+  return '<svg viewBox="0 0 '+d+' '+d+'" width="'+d+'" height="'+d+'" aria-hidden="true" class="mn-moon"'+(plain?' overflow="visible"':'')+'>'
     /* plain disc underneath: if the sprite is ever missing the glyph still
        reads as a moon in the right phase rather than vanishing */
     +'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="#efe3c2"/>'
@@ -242,10 +251,12 @@ function mnGlyph(fraction,waxing,r,south){
        /moon/ city page is a single instance and keeps the vector, which stays
        crisp at any size. See make-moon-face-raster.mjs.
        "#ac-moon-raster" is rewritten to the hashed .webp by build-inline, the
-       same way "#ac-moon-face" is pointed at the hashed sprite. */
-    +(r<=32
+       same way "#ac-moon-face" is pointed at the hashed sprite.
+       `plain` skips the face: the day/night map marker is too small to read it,
+       and that page does not carry the sprite. */
+    +(plain?'':(r<=32
       ? '<image href="#ac-moon-raster" x="0" y="0" width="'+d+'" height="'+d+'"'+(south?' transform="rotate(180 '+cx+' '+cy+')"':'')+'/>'
-      : '<g transform="scale('+(r/100)+')'+(south?' rotate(180 100 100)':'')+'"><use href="#ac-moon-face"/></g>')
+      : '<g transform="scale('+(r/100)+')'+(south?' rotate(180 100 100)':'')+'"><use href="#ac-moon-face"/></g>'))
     /* Earthshine: the shadow is not equally opaque at every phase. Sunlight
        bounced off the Earth genuinely lights the moon's dark side, and it is
        most obvious on a thin crescent (a big, bright Earth in the moon's sky)

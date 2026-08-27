@@ -21,6 +21,16 @@
 /solar-system-simulator/neptune  /neptune-and-moons-simulator/  301
 /solar-system-simulator/pluto/*  /pluto-and-moons-simulator/  301
 /solar-system-simulator/pluto  /pluto-and-moons-simulator/  301
+
+# The Earth-around-the-sun view moved out from under the town simulator so it
+# can rank as its own page (seasons, tilt, the year) rather than as a sub-page
+# of "the sky from your town". Splat keeps ?tilt= share links resolving.
+/sun-moon-earth-movement-simulator/system/*  /earth-sun-moon-orbit-simulator/  301
+/sun-moon-earth-movement-simulator/system  /earth-sun-moon-orbit-simulator/  301
+
+# /rocket-launches/ became /rocket-launch-simulator/ when it gained a page per
+# destination — one page could only ever rank for one of "launch window to Mars",
+# "...to Jupiter", "...to Saturn". The splat keeps its ?to= share links working.
 /rocket-launches/*  /rocket-launch-simulator/  301
 /rocket-launches  /rocket-launch-simulator/  301
 

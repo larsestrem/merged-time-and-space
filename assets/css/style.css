@@ -2030,6 +2030,8 @@ body.mt-fs-open{overflow:hidden}
    Base .hub-qs / .hub-kicker / .hub-blurb live in 23-concept.css so simulator
    pages don't get pulled into the home section. Home-only layout stays here. */
 .home-hero .hub-qs{margin-top:16px}
+.home-board .hub-qs,.tc .hub-qs,.hub-sim .hub-qs{margin-top:12px;gap:8px}
+.home-board .hub-qs p,.tc .hub-qs p{font-size:14px}
 .home-hero > h2{margin:0 0 10px;font-size:1.35rem}
 .home-hero > h2 a{color:inherit;text-decoration:none}
 .home-hero > h2 a:hover{color:var(--accent)}
@@ -2813,6 +2815,8 @@ h2:has(> .sun-hdate){display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .orr{margin:16px 0 0}
 .orr-fig{max-width:440px;margin:0 auto;line-height:0}
 .orr-fig svg{display:block;width:100%;height:auto}
+.orr-phase .mn-moon{overflow:visible}
+.orr-phase-lab{font-variant-numeric:tabular-nums}
 /* WHILE PLAY IS RUNNING, the city's NAME and its leader line come off, leaving
    the marker and the daily circle it rides. The name is pinned to a spot on a
    turning Earth, so at 25 frames a second it swings right round the globe
@@ -3672,36 +3676,25 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 
 /* ---- /day-night-map/ ------------------------------------------------------
    The map is the page, so the layout's only job is not to steal height from
-   it. The two buttons sit ON the picture along its bottom edge (Now hard
-   left, Play hard right) rather than in a row underneath, which is worth
-   about 44px of map on a phone. Everything else stacks below. */
+   it. Now sits left of the seven-day slider and Play sits right of it —
+   not overlaid on the picture. Location is a pin in the season-chip row. */
 .dn-card{padding-top:14px}
 .dn-figwrap{position:relative;line-height:0;border-radius:12px;overflow:hidden;
   border:1px solid var(--border);background:#12304f}
 .dn-svg{display:block;width:100%;height:auto}
 #dn-moon .mn-moon{overflow:visible}
-.dn-overlay{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;
-  align-items:flex-end;gap:8px;padding:10px 12px;pointer-events:none;
-  background:linear-gradient(to top,rgba(2,6,23,.55),rgba(2,6,23,0))}
-/* Now and My location travel together on the left; Play holds the right. */
-.dn-oleft{display:flex;align-items:center;gap:8px}
-/* TALLER THAN A CHIP. These are pressed on a phone, over a picture, often at
-   arm's length on a projector — 40px is the smallest target worth aiming at. */
-.dn-overlay .dn-obtn{pointer-events:auto;background:rgba(2,6,23,.72);border-color:rgba(255,255,255,.28);
-  backdrop-filter:blur(2px);font-weight:700;min-height:40px;padding:10px 18px;font-size:14px;line-height:1}
-.dn-overlay .dn-obtn:hover{background:rgba(2,6,23,.9)}
-/* the location button: glyph plus its label, and glyph alone where the map is
-   too narrow to spend the width on the words */
-.dn-oicon{display:inline-flex;align-items:center;gap:7px}
-.dn-oicon .dn-pin{flex:0 0 auto}
-@media(max-width:520px){.dn-oicon{padding:10px 13px}.dn-oicon-t{display:none}}
 .dn-play[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
 /* the parallels that mean something — thin, so they never compete with the
    terminator, which is what the picture is actually of */
 .dn-par{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:5 6}
 .dn-parlab{fill:rgba(226,232,240,.55);font-size:10px;font-weight:600}
-.dn-slider-row{margin:14px 0 4px}
+.dn-slider-row{display:flex;align-items:center;gap:10px;margin:14px 0 4px}
+.dn-slider-mid{flex:1;min-width:0}
 .dn-slider-row .orr-slider{width:100%}
+.dn-slider-row .dn-obtn{flex:0 0 auto;min-height:40px;padding:10px 16px;font-weight:700}
+.dn-loc-chip{min-width:40px;min-height:40px;padding:8px;display:inline-flex;
+  align-items:center;justify-content:center}
+.dn-loc-chip .dn-pin{display:block}
 .dn-span{color:var(--muted);font-weight:600}
 .dn-when{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:6px 0 12px}
 .dn-when b{font-size:17px}
@@ -3757,6 +3750,8 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 /* the one line the card is about — the only thing here drawn solid and thick */
 .dns-ctr{stroke:#fde68a;stroke-width:2.5}
 .dns-hit{fill:#fde68a;stroke:#b45309;stroke-width:2}
+.dns-you{fill:#f472b6;stroke:#0b0e1c;stroke-width:1.6}
+.dns-you-lab{fill:#f9a8d4;font-size:11px;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3}
 .dns-lab{fill:#e2e8f0;font-size:12px;font-weight:600;paint-order:stroke;stroke:#050a16;stroke-width:3.5}
 .dns-lab-d{fill:#fcd34d;font-weight:700}
 .dns-lab-t{fill:var(--accent)}

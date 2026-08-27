@@ -10,21 +10,1306 @@
 <meta property="og:title" content="Why Does Jupiter Have So Many Moons?">
 <meta property="og:description" content="Jupiter’s mass gives it a huge gravitational reach, so dozens of small bodies stay bound to it instead of orbiting the Sun alone.">
 <meta property="og:type" content="article">
-<link rel="stylesheet" href="/assets/css/style.css">
+<style data-ac="css">:root{
+--bg:linear-gradient(#0b0e1c,#0b0e1c);
+--bg-solid:#0b0e1c;
+--accent:#fcd34d; --text:#f8fafc;
+--card: rgba(255,255,255,.08); --border: rgba(255,255,255,.16);
+--muted: rgba(255,255,255,.65);
+--accent-text:#1e1b4b;
+--menu-bg:#141a3a; --menu-text:#f8fafc;
+}
+html.pj{
+--bg:linear-gradient(#000308,#000308);
+--bg-solid:#000308;
+--text:#ffffff;
+--muted:rgba(255,255,255,.92);
+--card:rgba(255,255,255,.16);
+--border:rgba(255,255,255,.55);
+--accent:#ffd83d;
+}
+html.pj .card{border-width:1.5px}
+html.pj .hint,html.pj .sub{color:rgba(255,255,255,.88)}
+html.pj body{font-size:107%}
+html.pj a{text-decoration-thickness:2px}
+.skip-link{position:fixed;top:-48px;left:12px;z-index:200;padding:10px 16px;border-radius:0 0 10px 10px;
+background:var(--accent);color:var(--accent-text);font-weight:700;text-decoration:none;transition:top .15s}
+.skip-link:focus{top:0;outline:2px solid var(--text);outline-offset:2px}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{margin:0;padding:0}
+body{
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+background-image:var(--motif,none),var(--bg);
+background-size:var(--motif-size,200px),cover;
+background-repeat:repeat,no-repeat; background-attachment:fixed;
+color:var(--text); min-height:100vh; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent)}
+.wrap{max-width:1400px;margin:0 auto;padding:12px 18px 64px}
+.wrap-wide{max-width:1400px}
+.site-notice{display:flex;align-items:center;gap:10px;
+padding:7px 0 8px;margin:0 0 4px;border-bottom:1px solid var(--border);
+font-size:13px;line-height:1.35;color:var(--muted)}
+.site-notice p{margin:0;flex:1;min-width:0}
+.site-notice b{color:var(--text);font-weight:600}
+.site-notice-x{flex:none;display:inline-flex;align-items:center;justify-content:center;
+width:26px;height:26px;padding:0;border:0;border-radius:6px;
+background:none;color:var(--muted);cursor:pointer}
+.site-notice-x:hover{background:rgba(255,255,255,.07);color:var(--text)}
+.site-notice-x:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+html.nb-off .site-notice{display:none}
+@media (max-width:560px){.site-notice-sub{display:none}}
+.brand{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;padding:2px 0 8px}
+.brand-titled{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;flex-wrap:nowrap}
+.brand-titled .crumbs{justify-self:start}
+.brand-titled .menu-dd{justify-self:end;margin-left:0}
+.brand-h1{justify-self:center;margin:0;text-align:center;line-height:1.1;
+font-size:clamp(19px,4.6vw,32px)}
+.brand-titled{min-height:45px}
+.brand-titled .crumbs,.brand-titled .brand-h1,.brand-titled .menu-dd{align-self:center}
+.brand-h1{min-width:0}
+@media (max-width:429px){
+.brand-h1{font-size:clamp(17px,5.1vw,22px)}
+.brand-titled{gap:4px}
+}
+.topnav{display:none}
+.menu-dd{margin-left:auto}
+.nav-dd{position:relative}
+.nav-dd summary{list-style:none;cursor:pointer;user-select:none;font-size:14px;font-weight:600;
+padding:8px 10px;border-radius:10px;color:var(--text);display:flex;align-items:center;gap:5px}
+.nav-dd summary::-webkit-details-marker{display:none}
+.nav-dd summary::after{content:"▾";font-size:10px;opacity:.7}
+.nav-dd summary:hover,.nav-dd[open] summary{background:var(--card)}
+.menu-dd summary{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;padding:0;font-size:30px;line-height:1;border-radius:10px;gap:0}
+.menu-dd summary::after{content:none}
+.nav-dd .menu{position:absolute;right:0;top:calc(100% + 6px);min-width:215px;z-index:60;
+background:var(--menu-bg);border:1px solid var(--border);border-radius:14px;padding:6px;
+box-shadow:0 12px 32px rgba(0,0,0,.35);list-style:none;margin:0}
+.nav-dd .menu a{display:block;padding:7px 13px;border-radius:9px;font-size:15px;font-weight:600;
+color:var(--menu-text);text-decoration:none;white-space:nowrap}
+.nav-dd .menu a:hover{background:rgba(125,125,125,.16)}
+.nav-dd .menu .sep{height:1px;background:var(--border);margin:5px 8px}
+.nav-dd .menu .nav-leaf{width:24px;height:24px;vertical-align:-7px;margin-right:-1px}
+.flag{display:inline-block;width:20px;height:14px;border-radius:2px;vertical-align:-2px;
+margin-right:6px;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.h1-flag .flag{width:30px;height:20px;vertical-align:-3px;margin-right:4px}
+.crumbs{display:inline-flex;align-items:center;gap:1px;flex-wrap:wrap;min-width:0}
+.brand-name{font-weight:800;font-size:18px;color:var(--text);text-decoration:none;display:inline-flex;align-items:center}
+.brand-name .logo{display:block;height:45px;width:auto}
+.brand-name:hover{color:var(--accent)}
+.brand-dd .menu{left:0;right:auto}
+.brand-dd summary{padding:2px 4px;gap:3px}
+.brand-dd .logo{display:block;height:45px;width:auto}
+.brand-menu a{display:flex;align-items:center;gap:9px}
+.brand-menu .nav-ico{flex:0 0 auto;opacity:.85}
+.brand{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.crumbs{display:contents}
+.brand-dd{justify-self:start}
+.brand-word{justify-self:center}
+.menu-dd{justify-self:end;margin-left:0}
+.brand-dd summary::after{content:none}
+.brand-word{display:inline-flex;align-items:baseline;margin:0;text-decoration:none;
+font-weight:800;letter-spacing:-.005em;line-height:1.1;white-space:nowrap;
+font-size:clamp(19px,4.2vw,30px)}
+.brand-word>*+*{margin-left:.1em}
+.wm-w{color:var(--text)}
+.wm-j{color:var(--muted)}
+.wm-tld{margin-left:0}
+a.brand-word:hover .wm-w{color:var(--accent)}
+a.brand-word:hover .wm-j{color:var(--accent);opacity:.55}
+@media (max-width:380px){.brand-word{font-size:17px}}
+.brand-cat{font-weight:600;font-size:18px;color:var(--muted);text-decoration:none;word-break:break-all}
+.brand-cat:hover{color:var(--text)}
+.copy-dd summary{padding:6px;color:var(--muted)}
+.copy-dd summary::after{content:none}
+.copy-dd summary svg{display:block}
+.copy-dd[open] summary,.copy-dd summary:hover{color:var(--text)}
+.copy-dd .menu{left:0;right:auto;min-width:200px}
+.copy-menu .menu-h{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);
+padding:4px 12px 6px;font-weight:700}
+.copy-item{display:block;width:100%;text-align:left;background:none;border:0;cursor:pointer;
+padding:9px 12px;border-radius:9px;font-size:14px;font-weight:600;color:var(--menu-text);
+white-space:nowrap;font-family:inherit}
+.copy-item:hover{background:rgba(125,125,125,.16)}
+.copy-item.copied{color:var(--accent)}
+@media (max-width:600px){
+.brand{position:relative}
+.nav-dd{position:static}
+.nav-dd .menu,.copy-dd .menu{left:12px;right:12px;top:calc(100% + 4px);min-width:0;
+max-height:72vh;overflow-y:auto}
+.copy-item,.nav-dd .menu a{white-space:normal}
+}
+@media (min-width:680px){
+.menu-dd summary{width:38px;height:38px;font-size:27px}
+}
+h1{font-size:26px;line-height:1.2;margin:2px 0 4px}
+.sub{color:var(--muted);margin:0 0 22px}
+.home-tagline{margin:0 0 14px;font-size:14px;color:var(--muted)}
+.home-tagline a{color:var(--accent);text-decoration:none;font-weight:600}
+.home-tagline a:hover{text-decoration:underline}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;margin:16px 0;backdrop-filter:blur(8px)}
+.duo{margin:16px 0;display:grid;grid-template-columns:1fr;gap:16px}
+.duo>.card{margin:0;min-width:0}
+@media (min-width:980px){
+.duo{grid-template-columns:1fr 1fr}
+.duo-23{grid-template-columns:2fr 1fr}
+}
+.duo-m{grid-template-columns:1fr 1fr}
+@media (max-width:560px){.duo-m{gap:10px}}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 6px}
+input,select,textarea{
+width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
+background:rgba(0,0,0,.25);color:var(--text);font-size:16px;font-family:inherit
+}
+select option{background-color:#171327;color:#f8fafc}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.4)}
+textarea{resize:vertical;min-height:64px}
+.row{display:flex;gap:12px}
+.row>*{flex:1}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+.tool-warn{text-align:center;margin:10px auto 0}
+.tool-warn a{color:var(--muted)}
+.duration-equivalent{margin:14px auto 0;width:max-content;max-width:100%;padding:7px 15px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.03);text-align:center;font-size:14px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+.timer-illus{float:right;width:160px;height:160px;margin:0 0 10px 16px;border-radius:14px}
+@media (max-width:480px){.timer-illus{float:none;display:block;margin:0 auto 12px}}
+.clock-illus{float:right;width:150px;height:150px;margin:0 0 8px 16px}
+@media (max-width:480px){.clock-illus{float:none;display:block;margin:0 auto 10px}}
+.more-times{margin-top:12px}
+.more-times>summary{list-style:none;cursor:pointer;display:inline-block;font-size:13px;font-weight:700;color:var(--accent)}
+.more-times>summary::-webkit-details-marker{display:none}
+.more-times>summary::after{content:" ▾"}
+.more-times[open]>summary::after{content:" ▴"}
+.more-times>summary:hover{text-decoration:underline}
+.tide-figure{margin:12px 0 0;text-align:center}
+.tide-curve{display:block;width:100%;max-width:340px;height:auto;margin:0 auto}
+.tide-figure figcaption{font-size:11px;color:var(--muted);margin-top:4px}
+.td-nearme{border:1.5px solid var(--accent);box-shadow:0 0 0 4px rgba(125,211,252,.06)}
+.td-nearme .btn{margin-top:4px}
+.nm-status{margin:0 0 10px;color:var(--muted)}
+.nm-statusrow{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.nm-statusrow .nm-status{margin:0}
+.nm-spinner{flex:0 0 18px;width:18px;height:18px;border-radius:50%;border:2px solid var(--border);border-top-color:var(--accent);animation:nm-spin .7s linear infinite}
+.nm-spinner[hidden]{display:none}
+@keyframes nm-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.nm-spinner{animation-duration:2.4s}}
+.nm-list:not(:empty){margin-bottom:12px}
+.nm-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.nm-item{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;padding:10px 14px;border:1px solid var(--border);border-radius:12px;background:var(--card2,#171a26);text-decoration:none;color:inherit}
+.nm-item:hover{border-color:var(--accent);background:rgba(125,211,252,.08)}
+.nm-city{font-weight:600}
+.nm-mi{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.td-sunline{font-size:16px;margin:2px 0 8px;font-variant-numeric:tabular-nums}
+.td-sunline b{color:var(--accent);font-weight:700}
+.tide-today{width:100%;border-collapse:collapse;margin-top:4px}
+.tide-today th,.tide-today td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+.tide-today th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.tide-today td{font-variant-numeric:tabular-nums}
+.tide-today tr:last-child td{border-bottom:none}
+.theme-preview{margin:12px 0 4px;height:128px;border:1px solid var(--border);border-radius:14px;
+background-image:var(--motif,none),var(--bg);background-size:var(--motif-size,auto),cover;
+background-position:center;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.theme-preview svg{width:88px;height:88px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.45))}
+.art-row{align-items:stretch}
+.art-row .theme-preview{margin:14px 0 0;height:auto;min-height:74px}
+.art-row .theme-preview svg{width:60px;height:60px}
+.msg-suggest{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.msg-suggest button{cursor:pointer;border:1px solid var(--border);border-radius:999px;padding:5px 11px;
+font-size:12px;font-weight:600;color:var(--text);background:rgba(0,0,0,.18);font-family:inherit;width:auto}
+.msg-suggest button:hover{border-color:var(--accent)}
+.presets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.preset{
+display:block;cursor:pointer;border:1px solid var(--border);border-radius:14px;padding:12px 6px;text-align:center;
+background:rgba(0,0,0,.18);transition:.15s;font-size:13px;color:var(--text);text-decoration:none
+}
+.preset:hover{transform:translateY(-2px)}
+.preset.active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset;background:rgba(56,189,248,.12)}
+.preset .em{font-size:26px;display:block;margin-bottom:4px}
+.more-cta{display:block;text-align:center;margin-top:12px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none}
+.more-cta:hover{text-decoration:underline}
+.card h2{font-size:17px;margin:0 0 10px}
+.cat-link{color:var(--text);text-decoration:none}
+.cat-link:hover{text-decoration:underline}
+.facts{margin:0;padding-left:20px}
+.facts li{margin:7px 0}
+.tl-list{display:flex;flex-direction:column;gap:2px}
+.tl-row{display:flex;gap:14px;padding:9px 2px;border-bottom:1px solid var(--border)}
+.tl-row:last-child{border-bottom:none}
+.tl-year{flex:0 0 auto;min-width:64px;max-width:42%;font-weight:800;color:var(--accent);overflow-wrap:break-word}
+.tl-text{flex:1;min-width:0;line-height:1.4}
+.champ-note{color:var(--muted);font-weight:400}
+.rec-list{display:flex;flex-direction:column;gap:2px}
+.rec-row{display:flex;gap:14px;padding:9px 2px;border-bottom:1px solid var(--border)}
+.rec-row:last-child{border-bottom:none}
+.rec-label{flex:0 0 auto;min-width:160px;max-width:42%;font-weight:700;color:var(--muted);overflow-wrap:break-word}
+.rec-value{flex:1;min-width:0;line-height:1.4;font-weight:600}
+@media (max-width:560px){
+.tl-row,.rec-row{flex-direction:column;gap:3px}
+.tl-year,.rec-label{max-width:100%}
+}
+.list-head{display:flex;justify-content:space-between;gap:10px;padding:0 0 8px;margin-bottom:4px;border-bottom:1px solid var(--border)}
+.sortbtn{background:none;border:0;cursor:pointer;font:inherit;font-size:12px;font-weight:700;
+text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:2px}
+.sortbtn:hover{color:var(--text)}
+.sortbtn[data-dir]{color:var(--accent)}
+.sortbtn[data-dir="asc"]::after{content:" ▲";font-size:9px}
+.sortbtn[data-dir="desc"]::after{content:" ▼";font-size:9px}
+.toplist{list-style:none;margin:0;padding:0}
+.toplist li{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+padding:9px 2px;border-bottom:1px solid var(--border)}
+.toplist li:last-child{border-bottom:none}
+.toplist a{font-weight:600;text-decoration:none}
+.toplist a:hover{text-decoration:underline}
+.toplist .when{font-size:12px;color:var(--muted);white-space:nowrap}
+.btn{
+display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;
+border:none;border-radius:12px;padding:13px 18px;font-size:16px;font-weight:700;
+background:var(--accent);color:var(--accent-text);width:100%;font-family:inherit;text-decoration:none
+}
+.btn.secondary{background:rgba(255,255,255,.12);color:var(--text);border:1px solid var(--border)}
+.btn:active{transform:scale(.99)}
+.btn:disabled,.btn[disabled]{opacity:.45;cursor:default}
+.btn:disabled:active,.btn[disabled]:active{transform:none}
+.btn.small{padding:9px 12px;font-size:14px;width:auto}
+.share{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.share .btn{flex:1;min-width:120px}
+.share-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:16px}
+.cal-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:12px 0 22px}
+.share-label{font-weight:700;font-size:14px;color:var(--text)}
+.share-row .share-label{flex-basis:100%;font-weight:800;margin-bottom:2px}
+.ico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;
+border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;transition:.15s}
+.ico svg{width:20px;height:20px;fill:currentColor}
+.ico:hover{transform:translateY(-2px)}
+.ico.wa{background:#25d366;color:#fff;border-color:transparent}
+.ico.fb{background:#1877f2;color:#fff;border-color:transparent}
+.ico.x{background:#000;color:#fff;border-color:transparent}
+.ico.tg{background:#229ed9;color:#fff;border-color:transparent}
+.ico.sms{background:#34c759;color:#fff;border-color:transparent}
+.ico.em{background:#5b6472;color:#fff;border-color:transparent}
+.linkbox{display:flex;gap:8px;margin-top:8px}
+.linkbox input{font-size:13px}
+.notice{font-size:12px;color:var(--muted);border-left:3px solid var(--accent);padding:8px 12px;margin-top:14px;background:rgba(0,0,0,.18);border-radius:0 10px 10px 0}
+.notice-warn{margin-top:0;border-left-color:#f87171;background:rgba(248,113,113,.14);font-size:13px;color:var(--text)}
+.steps{margin:0 0 18px;padding:0;list-style:none;display:grid;gap:6px;font-size:14px;color:var(--muted)}
+.steps strong{color:var(--text)}
+.menu-sep{border-top:1px solid var(--border);margin-top:6px;padding-top:6px}
+.menu-units{border-top:1px solid var(--border);margin-top:6px;padding:6px 10px 2px;
+display:flex;align-items:center;justify-content:space-between;gap:10px}
+.menu-ulab{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px;white-space:nowrap}
+.menu-useg{display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden}
+.menu-ubtn{appearance:none;background:none;border:0;color:var(--muted);cursor:pointer;
+padding:4px 10px;font:inherit;font-size:12.5px;line-height:1.6}
+.menu-ubtn+.menu-ubtn{border-left:1px solid var(--border)}
+.menu-ubtn:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.menu-ubtn[aria-pressed="true"]{background:rgba(252,211,77,.16);color:var(--accent)}
+.menu-pj{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;
+padding:9px 12px;font:inherit;font-size:14px;color:var(--menu-text);cursor:pointer;
+text-align:left;border-radius:8px}
+.menu-pj:hover{background:rgba(255,255,255,.1)}
+.menu-pj[aria-pressed="true"]{color:var(--accent)}
+.menu-pj[aria-pressed="true"] span::after{content:" · on";opacity:.8}
+@media print{
+:root{--bg:#fff;--bg-solid:#fff;--text:#111;--muted:#444;--card:#fff;--border:#bbb;--accent:#111;--accent-text:#fff}
+body{background:#fff;color:#111}
+.topnav,.brand-dd,.menu-dd,.skip-link,.site-notice,.suggest-box,.cr-ask,.lp-actions,
+.privacy-notice,.footer.sitelinks,.report-link,button{display:none !important}
+.card{border:1px solid #bbb;box-shadow:none;break-inside:avoid}
+a{color:#111;text-decoration:underline}
+.lp-blank,.lp-blank-wide{border-color:#111}
+.lp-blank-wide{background:repeating-linear-gradient(to bottom,transparent,transparent 1.5em,#777 1.55em)}
+}
+.celebrate-list li{margin:7px 0}
+.faq-card summary{cursor:pointer;font-weight:700;padding:12px 0;list-style:none;position:relative;padding-right:26px}
+.faq-card summary::-webkit-details-marker{display:none}
+.faq-card summary::after{content:"+";position:absolute;right:4px;top:9px;font-size:22px;line-height:1;color:var(--muted)}
+.faq-card details[open] summary::after{content:"\2013"}
+.faq-card details{border-top:1px solid var(--border)}
+.faq-card details:first-of-type{border-top:0}
+.faq-card .faq-a{padding:0 0 12px;margin:0;color:var(--muted)}
+.tool-msg{color:var(--accent);font-weight:700;min-height:20px;margin:4px 0 0}
+.tool-msg-warn{color:#fca5a5;font-weight:600}
+.tool-msg-warn a,.set-err a{color:inherit;text-decoration:underline}
+.set-err{margin:12px 0 0;color:#fca5a5;font-size:14px;font-weight:600;line-height:1.5;text-align:center}
+.t-fs-note{position:fixed;left:0;right:0;bottom:0;z-index:2;margin:0;padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom));background:rgba(0,0,0,.55);color:#cbd5e1;font-size:13px;font-weight:500;line-height:1.45;text-align:center}
+.tool-uses{color:var(--muted);margin:-12px 0 22px}
+.tool-about{margin-top:10px}
+.timer-presets{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 0}
+.chip{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--text);text-decoration:none;background:rgba(0,0,0,.18);cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--accent)}
+.chip.chip-alt{border-color:var(--accent);color:var(--accent)}
+.chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.ac-dialog{border:1px solid var(--border);border-radius:16px;background:var(--menu-bg,#15151b);color:var(--text);padding:0;max-width:380px;width:92%;max-height:92vh;max-height:92dvh;overflow-y:auto}
+.ac-dialog::backdrop{background:rgba(0,0,0,.55)}
+#mt-dlg{margin-top:14px;margin-bottom:auto}
+.ac-form{padding:18px}
+@media (max-height:560px){
+.ac-form{padding:12px 14px}
+.ac-form h2{margin:0 0 6px}
+.ac-form label{margin:8px 0 3px}
+.ac-form input,.ac-form select,.ac-form textarea{padding:7px 10px;font-size:15px}
+.ac-vol-hint{margin:8px 0 2px}
+.ac-form-btns{margin-top:8px}
+}
+.ac-form h2{margin:0 0 14px}
+.ac-form label{display:block;font-size:14px;font-weight:600;margin:0 0 12px}
+.ac-form input[type=time],.ac-form input[type=text],.ac-form input[type=number],.ac-form select{width:100%;margin-top:5px;padding:9px 10px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:15px}
+.ac-form input[readonly]{color:var(--muted);cursor:default}
+.ac-f-days{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.ac-f-days label{margin:0}
+.ac-f-days input{position:absolute;opacity:0;pointer-events:none}
+.ac-f-days span{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border);border-radius:9px;cursor:pointer;font-size:13px;font-weight:600}
+.ac-f-days input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
+.ac-f-mw{display:flex;gap:8px}
+.ac-form-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
+.ac-btns-3 .btn{flex:1 1 0;min-width:0;white-space:nowrap;padding:11px 8px}
+.ac-vol-hint{font-size:12px;color:var(--muted);line-height:1.5;margin:14px 0 4px}
+.ac-label-hint{font-size:12px;color:var(--muted);line-height:1.5;margin:-8px 0 4px}
+.views{text-align:center;color:var(--muted);font-size:13px;margin:10px 0;min-height:19px}
+.cta{text-align:center;margin:26px 0 10px}
+.more{margin:18px auto 4px;max-width:520px;text-align:center}
+.more-label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
+.more-links{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.more-links a{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:7px 14px;
+font-size:13px;font-weight:600;color:var(--text);text-decoration:none;background:rgba(0,0,0,.18)}
+.card .works-links{justify-content:flex-start;margin-top:4px}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+.footer a{color:var(--muted)}
+.footer.copyright{margin-top:6px}
+.footer.sitelinks,.footer.trademark{margin-top:6px}
+.suggest-box{max-width:560px;margin:40px auto 0;border:1px solid var(--border);border-radius:16px;background:var(--card);overflow:hidden}
+.suggest-box>summary{list-style:none;cursor:pointer;padding:14px 18px;font-size:14px;font-weight:600;color:var(--text);text-align:center;line-height:1.5}
+.suggest-box>summary::-webkit-details-marker{display:none}
+.suggest-box>summary:hover{background:rgba(255,255,255,.05)}
+.suggest-box .arrow{color:var(--accent);white-space:nowrap}
+.suggest-form{padding:0 18px 18px;text-align:left}
+.suggest-form .btn{margin-top:16px}
+.suggest-form .hp{position:absolute!important;left:-9999px;width:1px;height:1px}
+.suggest-note{margin-top:10px;min-height:14px}
+.privacy-notice{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;flex-wrap:wrap;
+align-items:center;justify-content:center;gap:6px 12px;padding:8px 36px 8px 12px;
+background:#11141f;border-top:1px solid var(--border);font-size:12px}
+.privacy-notice[hidden]{display:none}
+.privacy-text{flex:0 1 auto;margin:0;line-height:1.4;color:var(--muted)}
+.privacy-actions{flex:0 0 auto;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.privacy-actions a{color:var(--accent);font-size:12px}
+.privacy-actions button{font:inherit;font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px;
+border:1px solid var(--border);background:var(--accent);color:#111;cursor:pointer}
+.privacy-actions button.plain{background:transparent;color:var(--text)}
+.privacy-close{position:absolute;right:2px;top:50%;transform:translateY(-50%);background:none;border:0;
+color:var(--muted);font-size:17px;line-height:1;cursor:pointer;padding:8px 10px}
+.privacy-close:hover{color:var(--text)}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.card ul.bullets{margin:8px 0 0;padding:0 0 0 20px;list-style:disc}
+.card ul.bullets li{margin:0 0 7px;padding:0}
+.card ul.bullets li::marker{color:var(--muted)}
+.lt-line{font-size:14px;color:var(--muted);margin:6px 0 12px}
+.lt-line .lt-now{color:var(--text);font-variant-numeric:tabular-nums}
+.home-search{position:relative;max-width:640px;margin:6px 0 26px;padding:14px 16px 16px;background:var(--card);border:1.5px solid var(--accent);border-radius:14px;box-shadow:0 0 0 4px rgba(252,211,77,.08)}
+.hs-label{display:block;font-weight:800;font-size:15px;margin:0 0 9px}
+.hs-row{display:flex;gap:8px}
+.hs-row input{flex:1;min-width:0}
+.hs-btn{flex:0 0 auto;width:auto;font-weight:700}
+.pullquote{margin:14px 0;padding:12px 16px;border-left:3px solid var(--accent);
+background:rgba(252,211,77,.07);border-radius:0 12px 12px 0;font-size:15.5px;line-height:1.55;font-weight:600}
+.byline{margin:16px 0 0;font-size:15px;font-weight:700;color:var(--muted)}
+.home-suggest{margin:0 0 12px;font-size:14px;color:var(--muted)}
+.home-suggest:last-child{margin-bottom:22px}
+.tc-ico{vertical-align:-4px}
+.nav-ico{vertical-align:-4px;margin-right:2px;color:var(--accent)}
+h1,h2,.tc-head,.hs-label{font-family:ui-rounded,"SF Pro Rounded","Hiragino Maru Gothic ProN",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{letter-spacing:-.015em}
+.tc{transition:border-color .15s ease,transform .15s ease}
+.tc[data-href]:hover,a.tc:hover{border-color:rgba(252,211,77,.45);transform:translateY(-1px)}
+.updated{font-size:12px;color:var(--muted);text-align:center;margin:14px 0 0;font-style:italic}
+.nav-dd .menu .nav-ico{color:var(--accent)}
+.trend-sub{font-size:13px;color:var(--muted);margin:-4px 0 10px}
+.cr-door{transition:border-color .15s ease,transform .15s ease}
+.cr-door:hover{border-color:rgba(252,211,77,.45);transform:translateY(-1px)}
+.cr-door h2{margin-top:0}
+.cr-door h2 a{text-decoration:none}
+.cr-door h2 a:hover{text-decoration:underline}
+.cr-door-min{background:transparent}
+.cr-door-min h2{font-size:19px}
+.cr-more{font-weight:600;white-space:nowrap}
+.cr-cta{display:inline-block;width:auto;padding:11px 24px}
+.cr-ctarow{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:18px}
+.cr-plaque{margin:16px 0;padding:12px 14px;border-left:3px solid var(--accent);
+background:rgba(252,211,77,.07);border-radius:0 8px 8px 0;font-size:15px}
+.cr-lead{border-color:rgba(252,211,77,.4)}
+.cr-fs{margin:16px 0 0;padding:12px 14px;border:1px solid var(--border);border-radius:10px}
+.cr-fs legend{padding:0 6px;font-weight:600;font-size:14px}
+.cr-fs .cr-check{margin-top:6px}
+.cr-check span{font-weight:400}
+.cr-ok{color:#4ade80;font-weight:600}
+.cr-err{color:#fca5a5;font-weight:600}
+.cr-safety{margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
+.lg-fgroups{display:flex;flex-direction:column;gap:10px}
+.lg-fgroup{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.lg-flab{flex:0 0 52px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.lg-fgroup .chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+box-shadow:0 0 0 1px var(--accent) inset}
+.lg-count{min-height:18px;margin:10px 0 0}
+.cr-ask h3{margin:20px 0 4px;font-size:16px}
+.cr-ask h3+p{margin-top:0}
+.cr-ask form{margin-top:18px}
+.cr-ask label{display:block;margin-top:14px;font-weight:600;font-size:14px}
+.cr-opt{font-weight:400;color:var(--muted)}
+.cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
+.cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
+.cr-ask .btn{width:auto;padding:11px 24px}
+.xl-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:4px}
+.xl-tile{display:flex;flex-direction:column;gap:2px;padding:12px 13px;border:1px solid var(--border);
+border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
+.xl-tile:hover{border-color:var(--accent)}
+.xl-lab{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.xl-val{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.25}
+.xl-sub{font-size:13px;color:var(--muted)}
+.xl-cta{margin-top:6px;font-size:12.5px;font-weight:700;color:var(--accent)}
+.orr{margin:16px 0 0}
+.orr-fig{max-width:440px;margin:0 auto;line-height:0}
+.orr-fig svg{display:block;width:100%;height:auto}
+.orr-phase .mn-moon{overflow:visible}
+.orr-phase-lab{font-variant-numeric:tabular-nums}
+.orr-spin .orr-cityname,.orr-spin .orr-citytick{display:none}
+.orr-note{margin-top:12px;font-variant-numeric:tabular-nums}
+.orr-stamp{max-width:440px;margin:8px auto 0;display:flex;align-items:center;justify-content:center;
+flex-wrap:wrap;gap:6px 8px;font-size:12px;color:var(--muted)}
+.orr-at{flex:0 1 auto;min-width:0;width:auto;margin:0;padding:3px 6px;font-size:11.5px;
+font-variant-numeric:tabular-nums;color:var(--text);background:rgba(0,0,0,.18);
+border:1px solid var(--border);border-radius:8px}
+.orr-at:hover:enabled{border-color:var(--accent)}
+.orr-at:disabled{opacity:.75}
+.orr-now{flex:0 0 auto;padding:3px 10px;font-size:11.5px}
+.orr-play{min-width:6ch;justify-content:center}
+.orr-play[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.orr-tide{margin-top:10px}
+.orr-scrub{max-width:440px;margin:8px auto 0;text-align:center}
+.orr-slider{display:block;width:100%;margin:0;padding:0;accent-color:var(--accent);cursor:pointer}
+.orr-slider:disabled{opacity:.5;cursor:default}
+.orr-scrub-lab{display:block;margin-top:3px;font-size:11px;color:var(--muted)}
+.ov-stage{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:1000px){.ov-stage{grid-template-columns:minmax(0,1fr) minmax(300px,380px);align-items:start}}
+.ov-figwrap{min-width:0}
+.ov-fig{display:block;width:100%;max-width:min(100%,68vh);margin:0 auto;height:auto;border-radius:16px}
+.ov-panel{min-width:0}
+.ov-status{margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em}
+.ov-status.is-good{color:#4ade80}
+.ov-status.is-warn{color:#fbbf24}
+.ov-status.is-bad{color:#f87171}
+.ov-shape{margin:4px 0 14px;font-size:13px;line-height:1.5;color:var(--muted);min-height:2.6em}
+.ov-ctl{display:grid;gap:2px}
+.ov-ctl .sim-flab{margin:10px 0 2px}
+.ov-ctl .sim-flab:first-child{margin-top:0}
+.ov-row{display:flex;align-items:center;gap:10px;margin:0}
+.ov-row input[type=range]{flex:1 1 auto;min-width:70px;margin:0}
+.ov-row output{flex:0 0 auto;min-width:8.5ch;text-align:right;font-size:13px;font-weight:700;
+font-variant-numeric:tabular-nums;color:var(--text)}
+.ov-sub{margin:2px 0 0;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.ov-btns{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.ov-btns .chip{width:auto}
+#ov-play{min-width:7ch;justify-content:center}
+.ov-facts{display:grid;gap:6px;margin:14px 0 0}
+.ov-jump{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:14px 0 0;font-size:12.5px;color:var(--muted)}
+.ov-preset{width:auto;font-size:12.5px;padding:5px 11px}
+.ov-key{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;margin:8px 0 0;font-size:12px}
+.ov-k{display:inline-flex;align-items:center;gap:6px;color:var(--muted)}
+.ov-k::before{content:"";width:14px;height:3px;border-radius:2px;flex:0 0 auto}
+.ov-k-v::before{background:#4ade80}
+.ov-k-g::before{background:#fbbf24}
+.ov-ink-v{color:#4ade80}
+.ov-ink-g{color:#fbbf24}
+.ov-tablewrap{overflow-x:auto;margin-top:10px}
+.ov-table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+.ov-table th{text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+color:var(--muted);padding:6px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
+.ov-table th:first-child{text-align:left}
+.ov-table td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.06);text-align:right;white-space:nowrap}
+.ov-table td:first-child{text-align:left;font-weight:700}
+.ov-table .ov-hi{background:rgba(252,211,77,.09)}
+.ov-table .ov-hi td:first-child{color:var(--accent)}
+.ov-pull{margin:14px 0 0;padding:12px 16px;border-left:3px solid var(--accent);
+background:rgba(252,211,77,.07);border-radius:0 12px 12px 0;font-size:15.5px;line-height:1.55;font-weight:600}
+.ov-eq{margin:12px 0;text-align:center;font-size:22px;font-weight:700;color:var(--accent);
+font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.sys-vlad{margin:14px 0}
+.sys-vlad-lead{margin:0 0 8px;font-size:14px;font-weight:800;color:var(--text);
+letter-spacing:.01em;line-height:1.4}
+.sys-vlad-row{display:grid;grid-template-columns:1fr;gap:8px}
+@media (min-width:760px){.sys-vlad-row{grid-template-columns:1fr 1fr 1fr}}
+.sys-vlad-tile{position:relative;display:flex;flex-direction:column;gap:3px;min-width:0;
+padding:10px 12px;border:1px solid var(--border);border-radius:12px;
+background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
+a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
+.sys-vlad-k{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+.sys-vlad-tile b{font-size:14.5px;line-height:1.3}
+.sys-vlad-what{font-size:12px;color:var(--muted);line-height:1.45}
+.sys-vlad-tile.is-here{border-color:rgba(252,211,77,.55);background:rgba(252,211,77,.07)}
+.sys-vlad-here{position:absolute;top:8px;right:10px;font-size:10px;font-weight:700;
+text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+@media (max-width:759px){
+.sys-vlad-row{gap:6px}
+.sys-vlad-tile{flex-direction:row;align-items:center;flex-wrap:nowrap;gap:9px;padding:8px 11px}
+.sys-vlad-what,.sys-vlad-k{display:none}
+.sys-vlad-n{display:flex}
+.sys-vlad-tile b{font-size:13.5px;line-height:1.25;min-width:0}
+.sys-vlad-here{position:static;margin-left:auto;flex:0 0 auto}
+}
+@media (min-width:760px){.sys-vlad-note{display:none}}
+.sys-vlad-n{display:none;flex:0 0 auto;width:20px;height:20px;border-radius:50%;
+align-items:center;justify-content:center;font-size:11px;font-weight:800;
+background:rgba(252,211,77,.16);color:var(--accent)}
+.sim-title{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px}
+.sim-geo{font-size:13px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums;
+text-decoration:none;border-bottom:1px dotted currentColor}
+.sim-geo:hover,.sim-geo:focus-visible{color:var(--accent)}
+.sim-stage{margin-top:14px}
+.sim-figwrap{max-width:640px;margin:0 auto}
+.sim-fig{max-width:none;margin:0}
+.sim-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;
+max-width:640px;margin:10px auto 0}
+.sim-bar{display:flex;align-items:center;gap:12px;min-width:0}
+.sim-row .sim-ctl{margin:0 0 0 auto;max-width:none}
+.sim-when{margin:0;text-align:center;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.sim-ctl{display:flex;flex-wrap:nowrap;gap:8px;align-items:center;justify-content:center;
+margin:10px auto 0;max-width:640px}
+.sim-icobtn{display:inline-flex;align-items:center;gap:6px}
+@media (max-width:599px){
+.sim-icobtn span{display:none}
+.sim-ctl{gap:6px}
+.sim-ctl .chip{padding-left:9px;padding-right:9px}
+.sim-row{gap:6px 10px}
+.sim-row .sim-when{font-size:13.5px}
+}
+@media (max-width:399px){
+.sim-ctl{gap:5px}
+.sim-ctl .chip{padding-left:7px;padding-right:7px}
+.sim-row{gap:6px 8px}
+}
+#sim-play{min-width:8ch;justify-content:center}
+@media (min-width:600px){#sim-play{min-width:10ch}}
+@media (max-height:540px){
+.sim-stage:fullscreen .sim-icobtn span{display:none}
+.sim-stage:fullscreen .sim-ctl{gap:6px}
+.sim-stage:fullscreen .sim-ctl .chip{padding-left:9px;padding-right:9px}
+}
+.sim-icobtn svg{flex:0 0 auto}
+.sim-span{width:auto;margin:0;padding:3px 6px;font-size:11.5px}
+.sim-scrub{max-width:640px;margin-left:auto;margin-right:auto}
+.sim-q{width:100%;margin:0;padding:7px 10px;font-size:13px}
+.sim-dlg form{padding:16px}
+.sim-dlg h3{margin:0 0 12px;font-size:16px}
+.sim-flab{display:block;margin:12px 0 4px;font-size:11px;font-weight:700;
+text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sim-flab:first-of-type{margin-top:0}
+.sim-dlg .orr-at,.sim-dlg .sim-span{width:100%;margin:0;padding:7px 9px;font-size:13px}
+.sim-check{display:flex;align-items:center;gap:8px;margin:12px 0 0;font-size:13px;color:var(--muted)}
+.sim-check input{width:auto;margin:0;flex:none;accent-color:var(--accent)}
+.sim-pickrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 0;font-size:13px;color:var(--muted)}
+.sim-pickrow b{color:var(--text)}
+.sim-dlgbtns{display:flex;justify-content:flex-end;gap:8px;margin:18px 0 0;padding:0}
+.sim-dlg .hs-results{position:static;margin-top:4px}
+.sim-qhint{margin:5px 0 0;font-size:11.5px;color:var(--muted)}
+.sim-fields{display:grid;grid-template-columns:1fr}
+.sim-field .sim-flab{margin-top:12px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-fields{grid-template-columns:1fr 1fr;gap:0 12px}
+.sim-stage:fullscreen~.sim-dlg[open] form{padding:12px 16px}
+.sim-stage:fullscreen~.sim-dlg[open] h3{margin-bottom:8px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-flab{margin-top:9px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-qhint{margin-top:4px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-check{margin-top:9px}
+.sim-stage:fullscreen~.sim-dlg[open] .sim-dlgbtns{margin-top:12px}
+.sim-noresult{padding:9px 11px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.sim-stage:fullscreen{display:flex;align-items:center;justify-content:center;
+background:var(--bg,#0b0b10);margin:0}
+.sim-stage:fullscreen .sim-inner{display:flex;flex-direction:column;justify-content:center;
+gap:6px;width:100%;height:100%;padding:10px 16px;box-sizing:border-box}
+.sim-stage:fullscreen .sim-figwrap,.sim-stage:fullscreen .sim-row,.sim-stage:fullscreen .sim-scrub{
+max-width:none;width:100%;margin-left:0;margin-right:0}
+.sim-stage:fullscreen .sim-figwrap{min-height:0;flex:1 1 auto;display:flex;flex-direction:column}
+.sim-stage:fullscreen .sim-fig{min-height:0;flex:1 1 auto}
+.sim-stage:fullscreen .sim-fig svg{width:100%;height:100%}
+.sim-stage:fullscreen .sim-when{margin:0;font-size:clamp(12px,3vh,15px)}
+.sim-stage:fullscreen .sim-row{margin-top:0}
+.sim-fsmoon{display:none}
+.sim-stage:fullscreen .sim-bar{gap:12px;flex-wrap:wrap}
+.sim-stage:fullscreen .sim-fsmoon{display:flex;align-items:center;gap:8px;margin:0}
+.sim-fsglyph{line-height:0;flex:0 0 auto;width:clamp(41px,13.2vh,77px)}
+.sim-fsglyph svg{display:block;width:100%;height:auto}
+.sim-fslab{font-size:clamp(11px,2.6vh,14px);color:var(--muted)}
+.sim-fslab b{color:var(--text)}
+.sim-stage:fullscreen #sim-fsphase{display:inline-block;min-width:15ch}
+.sim-stage:fullscreen #sim-fslit{display:inline-block;min-width:4ch;text-align:right}
+.sim-stage:fullscreen .sim-fslab{font-variant-numeric:tabular-nums;white-space:nowrap}
+.sim-stage:fullscreen .sim-when{min-width:17ch;text-align:left;white-space:nowrap}
+.sim-stage:fullscreen.sim-timed .sim-when{min-width:26ch}
+.sim-stage:fullscreen .sim-ends span{min-width:7ch}
+.sim-stage:fullscreen.sim-timed .sim-ends span{min-width:15ch}
+.sim-stage:fullscreen .sim-ends span:last-child{text-align:right}
+@media (orientation:portrait){
+.sim-stage:fullscreen .sim-inner{flex:0 0 auto;width:100vh;height:100vw;transform:rotate(90deg)}
+.sim-stage:fullscreen ~ .sim-dlg[open]{transform:rotate(90deg);
+width:min(420px,86vh);max-width:none;max-height:96vw}
+}
+.sim-ends{display:flex;justify-content:space-between;margin-top:3px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sim-read{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
+@media (min-width:620px){.sim-read{grid-template-columns:150px 1fr;align-items:start}}
+.sim-moonbox{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.sim-moonbox b{font-size:15px}
+@media (max-width:619px){
+.sim-moonbox{display:grid;grid-template-columns:auto auto;gap:2px 14px;
+align-items:center;justify-content:center;justify-items:start;text-align:left}
+.sim-moonbox .sim-glyph{grid-row:1/4}
+.sim-glyph svg{width:68px;height:68px}
+}
+.sim-moonlab{font-size:11px;line-height:1.35}
+.sim-glyph{line-height:0}
+.sim-rows{display:grid;grid-template-columns:1fr;gap:6px;max-width:760px}
+@media (min-width:520px){.sim-rows{grid-template-columns:1fr 1fr}}
+@media (min-width:1080px){
+.sim-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,340px);
+gap:20px;align-items:center}
+.sim-top .sim-figwrap,.sim-top .sim-row,.sim-top .sim-scrub{max-width:none}
+.sim-top .sim-read{grid-template-columns:1fr;gap:10px;margin-top:0}
+.sim-top .sim-rows{grid-template-columns:1fr;max-width:none}
+}
+.sim-jump{margin:14px 0 0;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.sim-links{display:flex;flex-wrap:wrap;gap:8px}
+.sim-urlrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 14px}
+.sim-url{flex:1 1 260px;min-width:0;margin:0;padding:7px 10px;font-size:12.5px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.sim-teach h3{margin:18px 0 4px;font-size:15px}
+.sim-teach h3:first-of-type{margin-top:10px}
+.sim-form{display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0 10px}
+@media (min-width:520px){.sim-form{grid-template-columns:1fr 1fr}}
+@media (min-width:820px){.sim-form{grid-template-columns:2fr 1fr 1fr 1fr}}
+.sim-fld{display:flex;flex-direction:column;gap:3px;min-width:0}
+.sim-fld > span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sim-fld select,.sim-fld input{width:100%;margin:0;padding:7px 9px;font-size:13px}
+.sim-formrow{margin:0 0 12px}
+.sim-sum{margin:8px 0 0;padding:10px 12px;border:1px solid var(--border);border-radius:10px;
+background:rgba(255,255,255,.03);font-size:13px;line-height:1.55;color:var(--muted)}
+.sim-sum b{color:var(--text);font-variant-numeric:tabular-nums}
+.sim-params{margin-top:14px}
+.sim-params summary{cursor:pointer;font-size:13px;color:var(--muted)}
+.sim-params summary:hover{color:var(--accent)}
+.sol-stage:fullscreen{background:var(--bg,#0b0b10);padding:10px 14px;margin:0;
+align-items:stretch;gap:10px 14px;height:100%;box-sizing:border-box}
+.sol-stage:fullscreen .sol-panel{min-height:0;max-height:none;overflow-y:auto;overscroll-behavior:contain}
+.sol-stage:fullscreen .sol-rows{margin-top:8px}
+.sol-stage:fullscreen .sol-note{margin-top:8px}
+.sol-stage:fullscreen .sol-jump{display:none}
+.sol-stage:fullscreen .sol-scrub{max-width:none;width:100%}
+.sol-stage:fullscreen .sol-slider,.sol-stage:fullscreen #sol-slider{height:26px}
+.sol-stage:fullscreen .sim-when{font-size:clamp(14px,2.2vh,19px);margin:0}
+.sol-stage:fullscreen .sol-fig{min-height:0;flex:1 1 auto;display:flex;align-items:center;justify-content:center}
+@media (orientation:landscape){
+.sol-stage:fullscreen{grid-template-columns:minmax(0,1fr) minmax(230px,clamp(230px,24vw,360px));
+grid-template-rows:minmax(0,1fr) auto auto auto}
+.sol-stage:fullscreen .sol-figwrap{display:contents}
+.sol-stage:fullscreen .sol-figbox{grid-column:1;grid-row:1/-1;height:100%;width:auto;
+aspect-ratio:1;max-width:100%;justify-self:center;align-self:center;margin:0;min-height:0;
+display:flex;flex-direction:column}
+.sol-stage:fullscreen .sol-panel{grid-column:2;grid-row:1}
+.sol-stage:fullscreen .sim-when{grid-column:2;grid-row:2;text-align:left}
+.sol-stage:fullscreen .sol-scrub{grid-column:2;grid-row:3}
+.sol-stage:fullscreen .sol-destrow{grid-column:2;grid-row:4}
+.sol-stage:fullscreen .sol-fig svg{width:auto;height:100%;max-width:100%}
+}
+@media (orientation:portrait){
+.sol-stage:fullscreen{grid-template-columns:minmax(0,1fr);grid-template-rows:auto;
+align-content:start;overflow-y:auto}
+.sol-stage:fullscreen .sol-figwrap{display:flex;flex-direction:column;gap:8px;min-height:0}
+.sol-stage:fullscreen .sol-figbox{width:100%;max-width:100%;height:auto;aspect-ratio:auto;
+margin:0;flex:0 0 auto;display:block}
+.sol-stage:fullscreen .sol-fig{display:block;flex:none;min-height:0}
+.sol-stage:fullscreen .sol-fig svg{width:100%;height:auto}
+}
+.sol-stage{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:1080px){.sol-stage{grid-template-columns:minmax(0,1fr) 340px;align-items:start}}
+.sol-figwrap{min-width:0}
+.sol-fig{width:100%;max-width:min(100%,70vh);margin:4px auto 0;line-height:0}
+.sol-fig svg{display:block;width:100%;height:auto;border-radius:16px}
+.sys-figwrap{width:100%;max-width:620px;margin:4px auto 0;line-height:0}
+.sys-fig{display:block;width:100%;height:auto;border-radius:16px}
+.sys-eorbit,.sys-mo,.sys-rev{transform-box:view-box;transform-origin:var(--sys-o);animation-name:sys-spin;animation-timing-function:linear;animation-iteration-count:infinite}
+.sys-rev{animation-direction:reverse}
+@keyframes sys-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.sys-eorbit,.sys-mo,.sys-rev{animation:none}}
+.sys-tiltrow{display:flex;align-items:center;gap:10px;max-width:620px;margin:12px auto 0}
+.sys-tiltrow label{margin:0;flex:0 0 auto;font-size:11px;font-weight:700;
+text-transform:uppercase;letter-spacing:.05em;color:var(--muted);white-space:nowrap}
+.sys-tiltrow input[type=range]{flex:1 1 auto;width:auto;min-width:80px;margin:0;padding:0;
+accent-color:var(--accent);cursor:pointer}
+.sys-tiltrow input[type=range]:disabled{opacity:.5;cursor:default}
+#sys-tilt-v{flex:0 0 auto;min-width:5.5ch;text-align:right;font-size:13px;font-weight:700;
+font-variant-numeric:tabular-nums}
+.sys-tiltrow .chip{flex:0 0 auto;padding:3px 10px;font-size:11.5px}
+.sys-tiltnote{max-width:620px;margin:8px auto 0;line-height:1.5}
+.sol-scrub{max-width:none}
+.sol-panel{min-width:0}
+.sol-sel{max-width:100%}
+.sol-figbox{position:relative;width:100%;max-width:min(100%,70vh);margin:4px auto 0}
+.sol-figbox .sol-fig{max-width:none;margin:0}
+.sol-overlay{position:absolute;right:8px;bottom:8px;z-index:2;
+display:flex;gap:8px;align-items:center;padding:8px 8px 6px;border-radius:14px;
+background:radial-gradient(120% 160% at 80% 100%,rgba(5,10,22,.82) 40%,rgba(5,10,22,0))}
+.sol-overlay .chip{box-shadow:0 2px 10px rgba(0,0,0,.45)}
+[data-sol-planet]{cursor:pointer}
+[data-sol-planet].sol-hoverlit{filter:brightness(1.5)}
+.sol-ptip{position:fixed;z-index:80;pointer-events:none;transform:translate(-50%,-135%);
+padding:5px 10px;font-size:12px;line-height:1.3;white-space:nowrap;
+background:var(--menu-bg);border:1px solid var(--border);border-radius:8px;
+color:var(--text);box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.sol-fields{display:grid;grid-template-columns:1fr;gap:10px 14px;margin:2px 0 4px}
+.sol-field-wide{grid-column:1/-1}
+@media (min-width:520px){
+.sol-fields{grid-template-columns:1fr 1fr}
+}
+.sol-fields{grid-template-columns:1fr 1fr}
+@media (max-width:379px){.sol-fields{grid-template-columns:1fr}}
+.sol-sliders{display:grid;gap:10px;grid-column:1/-1;min-width:0}
+.sol-field{min-width:0}
+.sol-field .sim-flab{margin-top:0}
+.sol-field .orr-at,.sol-field .sim-span{width:100%;margin:0;padding:7px 9px;font-size:13px}
+.sol-rows{margin-top:14px;grid-template-columns:1fr;max-height:min(56vh,470px);
+overflow-y:auto;overscroll-behavior:contain}
+@media (min-width:520px){.sol-rows{grid-template-columns:1fr 1fr}}
+@media (min-width:1080px){.sol-rows{grid-template-columns:1fr}}
+.sol-mission:not(:empty){margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.sol-note{margin:12px 0 0;font-size:12px;line-height:1.45;color:var(--muted)}
+.sol-speedrow{display:flex;flex-direction:column;align-items:stretch;gap:3px;margin:0}
+.sol-speed{width:100%;min-width:80px}
+.sol-speedout{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sol-zoomline{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px 16px}
+@media (max-width:699px){
+.sol-zoomline{display:block}
+.sol-zoomline .sol-toggles{margin-top:8px}
+}
+.sol-toggles{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;
+flex:0 1 auto;font-size:12.5px}
+.sol-togbtn{width:auto;font-size:13px;padding:6px 12px}
+.sol-togbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.sol-togbtn[disabled]{opacity:.38;cursor:not-allowed}
+.sol-togbtn[disabled][aria-pressed="true"]{border-color:var(--border);color:var(--muted);
+background:transparent}
+.sol-off{opacity:.42}
+.sol-off label{cursor:default}
+.sol-torow{margin:8px 0 0}
+.sol-jump{margin-top:16px;font-size:12.5px}
+.sol-facts{margin:8px 0 0;padding-left:20px}
+.sol-facts li{margin:0 0 10px;line-height:1.55}
+.sol-open h3{margin:18px 0 4px;font-size:15px}
+.sol-open h3:first-of-type{margin-top:10px}
+.sol-table th,.sol-table td{font-variant-numeric:tabular-nums;white-space:nowrap}
+.sol-table td:last-child{white-space:normal;min-width:15rem}
+.sol-tiltrow{display:flex;flex-direction:column;align-items:stretch;gap:3px;margin:0}
+.sol-tiltslider{flex:1 1 auto;min-width:80px}
+.sol-tiltout{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sol-setrow{margin:12px 0 0}
+.sol-setrow .chip{width:auto}
+.sol-cfg-on{border-color:var(--accent);color:var(--accent)}
+.sol-settings{margin-top:10px;padding-top:12px;border-top:1px solid var(--border);
+display:grid;gap:10px}
+.sol-settings>p{margin:0}
+.sol-launchrow{margin-top:2px}
+.sol-overlay-l{left:8px;right:auto;
+background:radial-gradient(120% 160% at 20% 100%,rgba(5,10,22,.82) 40%,rgba(5,10,22,0))}
+@media (min-width:1080px){.sol-overlay-l{display:none}}
+.sol-torow{display:flex;align-items:center;gap:10px;margin:0}
+.sol-tolab{margin:0;flex:0 0 auto}
+.sol-tosel{flex:1 1 auto;min-width:0;font-size:15px;padding:7px 9px}
+.sol-toglab{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+color:var(--muted);flex:0 0 auto}
+.sol-zooms{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px;flex:1 1 auto;
+justify-content:flex-start}
+.sol-zoombtn{width:auto;font-size:13px;padding:6px 12px}
+.sol-zoombtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.sol-toglab{margin-right:2px}
+.sol-moons{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.sol-moonbtn{width:auto;font-size:13px;padding:6px 12px}
+.sol-moonbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.sol-moonbtn[hidden]{display:none}
+.sol-moonsout{margin:6px 0 0;font-size:11.5px;line-height:1.5;color:var(--muted)}
+.sol-moonsout b{color:var(--text);font-variant-numeric:tabular-nums}
+.sol-globewrap{display:grid;grid-template-columns:1fr;gap:16px;align-items:center;margin-top:6px}
+@media (min-width:620px){.sol-globewrap{grid-template-columns:minmax(0,1fr) minmax(200px,1fr)}}
+.sol-globe{line-height:0;max-width:400px;margin:0 auto;width:100%}
+.sol-globe svg{display:block;width:100%;height:auto;border-radius:16px}
+.sol-globefacts{display:grid;gap:8px;min-width:0}
+.sol-moonlead{margin-bottom:6px}
+.sol-moon{border-left:3px solid var(--accent);padding-left:18px}
+.sol-moon h2{margin-bottom:2px}
+.sol-moon .sub{margin-top:0}
+.sol-moonfacts{margin:10px 0 4px}
+.sol-moon .sol-facts{margin-top:10px}
+.sol-moon h3{margin:16px 0 4px;font-size:15px}
+.sol-moon h3+p{margin-top:0}
+.sol-scrub{position:relative}
+.sol-flight{position:absolute;left:0;right:0;top:0;height:26px;pointer-events:none;z-index:0}
+.sol-flight-bar{position:absolute;top:50%;transform:translateY(-50%);height:10px;border-radius:5px;
+background:linear-gradient(90deg,#38bdf8,#a78bfa);opacity:.85;
+box-shadow:0 0 0 1px rgba(10,16,32,.6)}
+.sol-flight-cutl{border-top-left-radius:0;border-bottom-left-radius:0}
+.sol-flight-cutr{border-top-right-radius:0;border-bottom-right-radius:0}
+.sol-scrub .orr-slider{position:relative;z-index:1;background:transparent}
+.sol-destbtn{width:auto;font-size:14px;padding:8px 16px}
+.sol-destbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.sol-destlink{margin:8px 0 0;font-size:13.5px;color:var(--muted)}
+.sol-destlink b{color:var(--text)}
+.sol-destrow{margin-top:14px;display:grid;gap:10px}
+@media (min-width:640px){
+.sol-destrow{grid-template-columns:minmax(0,1fr) minmax(200px,260px);align-items:start}
+.sol-destrow .sol-destlink{grid-column:1/-1;margin-top:0}
+}
+.sol-crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:-6px 0 12px;font-size:13.5px}
+.sol-crumb{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent}
+.sol-crumb:hover{color:var(--text);border-bottom-color:var(--border)}
+.sol-crumb-sep{color:var(--muted);opacity:.5}
+.sol-crumb-here{color:var(--text)}
+.sol-plan{scroll-margin-top:12px}
+.sol-planrow{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
+@media (min-width:760px){
+.sol-planrow{grid-template-columns:minmax(0,290px) minmax(0,1fr);gap:26px}
+}
+.sol-planart{line-height:0;max-width:340px;width:100%;margin:0 auto}
+.sol-planart a{display:block;border-radius:16px}
+.sol-planart svg{display:block;width:100%;height:auto;border-radius:16px}
+.sol-planbelt{display:block;line-height:0}
+.sol-planbelt svg{display:block;width:100%;height:auto;border-radius:16px}
+.sol-plankind{margin:0 0 2px;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.sol-planbody h2{margin:0 0 4px}
+.sol-planbody h2 a{color:inherit;text-decoration:none}
+.sol-planbody h2 a:hover{color:var(--accent)}
+.sol-planbody>p{margin:0 0 10px}
+.sol-planfacts{margin:14px 0 0}
+.sol-planmore{margin:14px 0 0}
+.sol-planjump{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.dn-card{padding-top:14px}
+.dn-figwrap{position:relative;line-height:0;border-radius:12px;overflow:hidden;
+border:1px solid var(--border);background:#12304f}
+.dn-svg{display:block;width:100%;height:auto}
+#dn-moon .mn-moon{overflow:visible}
+.dn-play[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.dn-par{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:5 6}
+.dn-parlab{fill:rgba(226,232,240,.55);font-size:10px;font-weight:600}
+.dn-slider-row{display:flex;align-items:center;gap:10px;margin:14px 0 4px}
+.dn-slider-mid{flex:1;min-width:0}
+.dn-slider-row .orr-slider{width:100%}
+.dn-slider-row .dn-obtn{flex:0 0 auto;min-height:40px;padding:10px 16px;font-weight:700}
+.dn-loc-chip{min-width:40px;min-height:40px;padding:8px;display:inline-flex;
+align-items:center;justify-content:center}
+.dn-loc-chip .dn-pin{display:block}
+.dn-span{color:var(--muted);font-weight:600}
+.dn-when{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:6px 0 12px}
+.dn-when b{font-size:17px}
+.dn-when span{color:var(--muted);font-size:13px}
+.dn-sunline{margin:0 0 14px;font-size:15px;line-height:1.55;max-width:62em}
+.dn-sunline b{color:var(--accent);font-variant-numeric:tabular-nums}
+.dn-sunline a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.dn-sunline a:hover{color:var(--accent)}
+.dn-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 12px}
+@media(min-width:560px){.dn-strip{grid-template-columns:repeat(4,1fr)}}
+.dn-city{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
+border:1px solid var(--border);background:rgba(0,0,0,.18);text-decoration:none;color:var(--text)}
+.dn-city:hover{border-color:var(--accent);text-decoration:none}
+.dn-city-n{font-size:12px;color:var(--muted);font-weight:600}
+.dn-city b{font-size:16px;font-variant-numeric:tabular-nums}
+.dn-city-s{font-size:11.5px;color:var(--muted)}
+.dn-city.is-day{background:rgba(253,224,71,.10);border-color:rgba(253,224,71,.35)}
+.dn-city.is-night{background:rgba(15,23,42,.55)}
+.dn-city.is-civil,.dn-city.is-twi{background:rgba(129,140,248,.12);border-color:rgba(129,140,248,.3)}
+.dn-readout{display:grid;grid-template-columns:1fr;gap:8px;margin:0 0 12px}
+@media(min-width:560px){.dn-readout{grid-template-columns:repeat(2,1fr)}}
+.dn-ro{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
+border:1px solid var(--border);background:rgba(0,0,0,.18)}
+.dn-ro span{font-size:12px;color:var(--muted);font-weight:600}
+.dn-ro b{font-size:15px;font-variant-numeric:tabular-nums}
+.dn-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
+.dn-me-line{margin:4px 0 10px;font-size:14.5px}
+.dns-wrap{margin:14px 0 4px;border:1px solid var(--border);border-radius:12px;
+background:#0a1428;padding:4px 4px 0;line-height:0;overflow:hidden}
+.dns-svg{display:block;width:100%;height:auto}
+.dns-glow{fill:#fde68a;fill-opacity:.13}
+.dns-sun{fill:#fde68a;stroke:#b45309;stroke-width:2}
+.dns-ray{stroke:#fde68a;stroke-opacity:.4;stroke-width:2;stroke-dasharray:2 7;stroke-linecap:round}
+.dns-earth{fill:#2f5d3a;stroke:rgba(226,232,240,.35);stroke-width:1}
+.dns-night{fill:#050a16;fill-opacity:.62}
+.dns-term{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:4 5}
+.dns-axis{stroke:rgba(226,232,240,.72);stroke-width:2;stroke-dasharray:7 5}
+.dns-par{stroke-width:1.5}
+.dns-eq{stroke:rgba(255,255,255,.85)}
+.dns-trop{stroke:var(--accent);stroke-opacity:.95;stroke-dasharray:6 5}
+.dns-ctr{stroke:#fde68a;stroke-width:2.5}
+.dns-hit{fill:#fde68a;stroke:#b45309;stroke-width:2}
+.dns-you{fill:#f472b6;stroke:#0b0e1c;stroke-width:1.6}
+.dns-you-lab{fill:#f9a8d4;font-size:11px;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3}
+.dns-lab{fill:#e2e8f0;font-size:12px;font-weight:600;paint-order:stroke;stroke:#050a16;stroke-width:3.5}
+.dns-lab-d{fill:#fcd34d;font-weight:700}
+.dns-lab-t{fill:var(--accent)}
+.dns-cap{margin:10px 0 12px;font-size:14.5px;line-height:1.55}
+.dns-cap a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.dns-cap a:hover{color:var(--accent)}
+.so-wrap{margin:12px 0 8px;border:1px solid var(--border);border-radius:12px;
+background:#0a1428;padding:4px;line-height:0;overflow:hidden}
+.so-svg{display:block;width:100%;height:auto}
+.so-orbit{fill:none}
+.so-ray{stroke:#fde68a;stroke-width:1.15;stroke-opacity:.45}
+.so-day{fill:#fde68a;fill-opacity:.42}
+.so-eq{stroke:rgba(253,230,138,.7);stroke-width:1.15}
+.so-axis{stroke:rgba(226,232,240,.85);stroke-width:1.6;stroke-dasharray:5 4}
+.so-n,.so-elab,.so-season,.so-today,.so-sunlab{
+fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
+.so-n{font-size:11px}
+.so-elab{font-size:13px}
+.so-season{font-size:14px;fill:#fcd34d;stroke-width:4}
+.so-today{font-size:11px;fill:#fde68a}
+.so-sunlab{font-size:12px;fill:#fde68a}
+.so-earth{cursor:pointer}
+.so-earth:hover circle{stroke:#fde68a;stroke-width:2}
+@media(max-width:620px){
+.so-elab{font-size:11px}
+.so-season{font-size:13px}
+}
+@media(max-width:620px){
+.dns-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.dns-svg{min-width:520px}
+.dns-lab{font-size:13px}
+}
+* contexts — same fix as the tides admin card) */
+.card:has(#sun-mypanel:not([hidden])),.card:has(#sun-results:not([hidden])){position:relative;z-index:40}
+.hs-results{list-style:none;margin:6px 0 0;padding:6px;position:absolute;left:0;right:0;z-index:30;background:var(--menu-bg);border:1px solid var(--border);border-radius:12px;max-height:340px;overflow:auto;box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.hs-results li{margin:0}
+.hs-results a{display:block;padding:10px 12px;border-radius:8px;color:var(--menu-text);text-decoration:none;font-weight:600}
+.hs-results a:hover,.hs-results a.active{background:var(--card);color:var(--accent)}
+.hs-results li.is-sel>a{background:var(--card);color:var(--accent)}
+.hs-results a b{color:var(--accent);font-weight:800}
+.hs-results li.is-sel>a b,.hs-results a:hover b{color:inherit}
+.hs-empty{padding:10px 12px;color:var(--muted);font-size:13px}
+.rail-head{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:6px 0 10px}
+.soon-rail{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 12px;margin:0 0 18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.soon-card{flex:0 0 auto;width:150px;scroll-snap-align:start;display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--border);border-radius:14px;background:var(--card);text-decoration:none;color:var(--text)}
+.soon-card:hover{border-color:var(--accent)}
+.soon-days{font-size:12px;font-weight:700;color:var(--accent)}
+.soon-label{font-weight:600;line-height:1.25}
+.soon-date{font-size:12px;color:var(--muted)}
+.cal-filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.chip{cursor:pointer;font:inherit;font-size:13px;font-weight:600;padding:7px 13px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--text)}
+.chip.active{background:var(--accent);color:var(--accent-text);border-color:transparent}
+.cal-day{display:inline-block;min-width:1.6em;margin-right:8px;font-weight:700;color:var(--accent)}
+.cal-badge{text-transform:none}
+.cal-md{display:inline-block;min-width:3.6em;margin-right:10px;font-weight:700;color:var(--accent);white-space:nowrap}
+.rank-list li{gap:8px}
+.rank-list .rank{min-width:1.6em;font-weight:700;color:var(--accent);text-align:right}
+.rank-list .rank:empty{display:none}
+.rank-list .views{font-size:12px;color:var(--muted);white-space:nowrap}
+.ico.copy{cursor:pointer;font:inherit;background:rgba(255,255,255,.12);color:var(--text);border-color:var(--border)}
+.ico.copy.ok{background:var(--accent);color:var(--accent-text);border-color:transparent}
+.give-line{margin:6px 0 0;font-size:15px;line-height:1.5}
+.give-line a{font-weight:700}
+.tool-faq .faq-item{border-bottom:1px solid var(--border);padding:4px 0}
+.tool-faq .faq-item:last-child{border-bottom:none}
+.tool-faq summary{cursor:pointer;font-weight:700;padding:8px 2px;list-style:none}
+.tool-faq summary::-webkit-details-marker{display:none}
+.tool-faq summary::after{content:" +";color:var(--muted);float:right}
+.tool-faq .faq-item[open] summary::after{content:" –"}
+.tool-faq .faq-item p{margin:2px 2px 10px;color:var(--muted);line-height:1.5}
+@media (max-width:420px){
+.unit{min-width:62px;padding:12px 4px}
+.unit .num{font-size:32px}
+.presets{grid-template-columns:repeat(3,1fr)}
+}
+@media (min-width:560px){ h1{font-size:32px} }
+.pl-facts .wc-frow>span{flex:0 0 42%}
+@media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}
+.kicker {
+text-transform: uppercase;
+letter-spacing: 0.12em;
+font-size: 0.72rem;
+color: var(--muted);
+margin: 0 0 8px;
+font-weight: 600;
+}
+.answer {
+font-size: 1.125rem;
+max-width: 62ch;
+line-height: 1.55;
+}
+.answer a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
+.concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
+.band-deeper h2::after {
+content: " Further down";
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--muted);
+margin-left: 8px;
+font-weight: 600;
+}
+.hub-teaser, .related p, .see-live p {
+margin: 0 0 16px;
+color: var(--muted);
+max-width: 66ch;
+}
+.hub-teaser a, .related p a, .glossary-item a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.hub-teaser a:hover, .related p a:hover, .glossary-item a:hover { text-decoration: underline; }
+.hub-teaser a.hub-more, .related p a.hub-more, .glossary-item a.hub-more {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+white-space: nowrap;
+margin-left: 0.35em;
+}
+.see-live ul, .related ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: grid;
+gap: 12px;
+}
+.graphic-block {
+margin: 24px 0;
+}
+.graphic-block figcaption, figcaption {
+margin-top: 10px;
+color: var(--muted);
+font-size: 0.9rem;
+max-width: 70ch;
+}
+.more-info {
+margin: 24px 0;
+border: 1px solid var(--border);
+border-radius: 12px;
+background: var(--card);
+padding: 4px 16px 16px;
+}
+.more-info > summary {
+cursor: pointer;
+font-weight: 650;
+padding: 14px 0;
+list-style: none;
+color: var(--text);
+}
+.more-info > summary::-webkit-details-marker { display: none; }
+.more-info > summary::after {
+content: " +";
+color: var(--accent);
+font-weight: 700;
+}
+.more-info[open] > summary::after { content: " −"; }
+.search {
+width: 100%;
+height: 48px;
+border-radius: 10px;
+border: 1px solid var(--border);
+background: var(--card);
+color: var(--text);
+padding: 0 14px;
+font-size: 1rem;
+margin: 16px 0 28px;
+font-variant-numeric: tabular-nums;
+}
+.search:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.glossary-list {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.glossary-item {
+padding: 16px 0;
+border-bottom: 1px solid var(--border);
+}
+.glossary-item h2 {
+font-size: 1.05rem;
+margin: 0 0 6px;
+letter-spacing: 0;
+font-weight: 650;
+}
+.glossary-item p { max-width: 66ch; margin: 0; color: var(--muted); }
+.letter {
+font-size: 1.5rem;
+margin: 28px 0 0;
+color: var(--muted);
+}
+.glossary-item[hidden], .letter[hidden] { display: none; }
+.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
+.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
+.hub-qs a:hover { text-decoration: underline; }
+.hub-kicker {
+margin: 0 0 4px;
+font-size: 0.72rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--muted);
+font-weight: 700;
+}
+.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Glossary","item":"https://timeandspace.science/glossary/"},{"@type":"ListItem","position":3,"name":"Jupiter’s moons","item":"https://timeandspace.science/concepts/why-does-jupiter-have-so-many-moons/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Why does Jupiter have so many moons?","url":"https://timeandspace.science/concepts/why-does-jupiter-have-so-many-moons/","description":"Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun. A wide region around it is a place where a small body stays with Jupiter instead of orbiting the Sun on its own.","learningResourceType":"explanation","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"student"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does Jupiter have so many moons?","acceptedAnswer":{"@type":"Answer","text":"Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun. A wide region around it is a place where a small body stays with Jupiter instead of orbiting the Sun on its own."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Jupiter’s moons","description":"Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun. A wide region around it is a place where a small body stays with Jupiter instead of orbiting the Sun on its own.","url":"https://timeandspace.science/concepts/why-does-jupiter-have-so-many-moons/","inDefinedTermSet":"https://timeandspace.science/glossary/"}</script>
 
+<!-- build e5fe2cf46226 · generated 2026-08-27T20:26:58.037Z -->
+<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:site_name" content="Time and Space Science">
+
+<meta property="og:image" content="https://timeandspace.science/api/og?name=Why%20Does%20Jupiter%20Have%20So%20Many%20Moons%3F&amp;theme=generic">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Why%20Does%20Jupiter%20Have%20So%20Many%20Moons%3F&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
 </head>
 <body>
-<div class="wrap">
-  <div class="brand"><span class="crumbs"><a class="brand-name" href="/">Time and Space Science</a><a class="brand-cat" href="/glossary/">/concepts</a></span></div>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="wrap" id="main" role="main">
+  <div class="brand"><span class="crumbs"><!--bd--><details class="nav-dd brand-dd"><summary aria-label="Site sections"><svg class="logo" viewBox="0 0 200 200" width="48" height="48" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#2A3B4C" stroke-width="6" stroke-linecap="round"/><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#D6AF5C" stroke-width="2" stroke-linecap="round"/><path d="M 97 40 V 30 H 90 C 88 30, 88 22, 90 22 H 110 C 112 22, 112 30, 110 30 H 103 V 40 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 60 160 L 50 185 L 60 185 L 75 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 140 160 L 150 185 L 140 185 L 125 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><circle cx="100" cy="105" r="65" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/><circle cx="100" cy="105" r="57" fill="#F4EED1" stroke="#2A3B4C" stroke-width="2.5"/><g transform="translate(54.5, 54.5) rotate(-42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g transform="translate(145.5, 54.5) rotate(42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g fill="#2A3B4C"><circle cx="100" cy="63" r="3.4"/><circle cx="121" cy="69" r="3"/><circle cx="136.4" cy="84" r="3"/><circle cx="142" cy="105" r="3"/><circle cx="136.4" cy="126" r="3"/><circle cx="121" cy="141" r="3"/><circle cx="100" cy="147" r="3"/><circle cx="79" cy="141" r="3"/><circle cx="63.6" cy="126" r="3"/><circle cx="58" cy="105" r="3"/><circle cx="63.6" cy="84" r="3"/><circle cx="79" cy="69" r="3"/></g><line x1="100" y1="105" x2="130" y2="75" stroke="#C04A41" stroke-width="4" stroke-linecap="round"/><line x1="100" y1="105" x2="73" y2="90" stroke="#C04A41" stroke-width="5" stroke-linecap="round"/><circle cx="100" cy="105" r="5" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/></svg><span class="visually-hidden">Time and Space Science — sections</span></summary><ul class="menu brand-menu"><li><a href="/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M3.4 11.2 12 3.6l8.6 7.6-1.2 1.4-1.4-1.2V20a1 1 0 0 1-1 1h-4v-5.4h-2V21H7a1 1 0 0 1-1-1v-8.6l-1.4 1.2z" fill="#fcd34d"/><path d="M6 11.4V20h4v-5.4h4V20h4v-8.6L12 6.2z" fill="#b45309"/><rect x="10" y="14.6" width="4" height="6.4" fill="#7c2d12"/><path d="M12 6.2l6 5.2V20h-2v-6.4h-8V20H6v-8.6z" fill="#f59e0b"/></g></svg> Home</a></li><li><a href="/time/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="6" y="2" width="12" height="2.4" rx="1.2" fill="#92400e"/><rect x="6" y="19.6" width="12" height="2.4" rx="1.2" fill="#92400e"/><path d="M7.4 4.4h9.2c0 3.2-2 4.6-3.4 5.8-.5.4-.5 1.2 0 1.6 1.4 1.2 3.4 2.6 3.4 5.8H7.4c0-3.2 2-4.6 3.4-5.8.5-.4.5-1.2 0-1.6C9.4 9 7.4 7.6 7.4 4.4z" fill="#bae6fd" opacity=".5"/><path d="M9.2 6h5.6c-.5 1.6-1.6 2.4-2.8 3.4C10.8 8.4 9.7 7.6 9.2 6z" fill="#f59e0b"/><path d="M12 13.4c1.6 1.2 3 2.2 3.4 4.2H8.6c.4-2 1.8-3 3.4-4.2z" fill="#f59e0b"/></g></svg> Time</a></li><li><a href="/earth/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> Earth</a></li><li><a href="/space/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Space</a></li><li><a href="/classroom/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> Classroom</a></li></ul></details><a class="brand-word" href="/" aria-label="Time and Space Science home"><span class="wm-w">Time</span><span class="wm-j">And</span><span class="wm-w">Space</span><span class="wm-j wm-dot">.</span><span class="wm-w wm-tld">Science</span></a><!--/bd--></span><nav class="topnav"><script>document.addEventListener("click",function(e){document.querySelectorAll(".nav-dd[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})})</script></nav><details class="nav-dd menu-dd"><summary class="hamburger" aria-label="Menu">☰</summary><ul class="menu"><li><a href="/alarm-clock/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M4.5 3.2 2.4 5.6a3 3 0 0 1 4-4z" fill="#fbbf24"/><path d="M19.5 3.2l2.1 2.4a3 3 0 0 0-4-4z" fill="#fbbf24"/><circle cx="12" cy="13" r="8.6" fill="#dc2626"/><circle cx="12" cy="13" r="6.6" fill="#fff7ed"/><path d="M12 8.9v4.1l3 1.8" stroke="#1e293b" stroke-width="1.7" stroke-linecap="round" fill="none"/><circle cx="12" cy="13" r="0.9" fill="#1e293b"/><path d="M6.2 20.2 4.8 22M17.8 20.2 19.2 22" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/><ellipse cx="9.4" cy="9.6" rx="2.4" ry="1.4" fill="#ffffff" opacity=".55" transform="rotate(-25 9.4 9.6)"/></g></svg> Alarm Clock</a></li><li><a href="/world-clock/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> World Clock</a></li><li><a href="/timer/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="6" y="2" width="12" height="2.4" rx="1.2" fill="#92400e"/><rect x="6" y="19.6" width="12" height="2.4" rx="1.2" fill="#92400e"/><path d="M7.4 4.4h9.2c0 3.2-2 4.6-3.4 5.8-.5.4-.5 1.2 0 1.6 1.4 1.2 3.4 2.6 3.4 5.8H7.4c0-3.2 2-4.6 3.4-5.8.5-.4.5-1.2 0-1.6C9.4 9 7.4 7.6 7.4 4.4z" fill="#bae6fd" opacity=".5"/><path d="M9.2 6h5.6c-.5 1.6-1.6 2.4-2.8 3.4C10.8 8.4 9.7 7.6 9.2 6z" fill="#f59e0b"/><path d="M12 13.4c1.6 1.2 3 2.2 3.4 4.2H8.6c.4-2 1.8-3 3.4-4.2z" fill="#f59e0b"/></g></svg> Timer</a></li><li><a href="/stopwatch/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="10.6" y="1.6" width="2.8" height="2.6" rx="0.8" fill="#64748b"/><path d="M17.6 4.8l1.8 1.8-1.4 1.4-1.8-1.8z" fill="#64748b"/><circle cx="12" cy="13.4" r="8.4" fill="#475569"/><circle cx="12" cy="13.4" r="6.6" fill="#0f172a"/><path d="M12 13.4 15 9.6" stroke="#fcd34d" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="13.4" r="1" fill="#fcd34d"/><path d="M12 7.4v1.4M18 13.4h-1.4M12 19.4V18M6 13.4h1.4" stroke="#94a3b8" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="9.4" cy="9.9" rx="2.2" ry="1.3" fill="#ffffff" opacity=".25" transform="rotate(-30 9.4 9.9)"/></g></svg> Stopwatch</a></li><li><a href="/countdown/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M3 21 8.2 9.6l6.2 6.2z" fill="#f59e0b"/><path d="M3 21l7.6-4.6-3.4-3.4z" fill="#fbbf24"/><circle cx="13.6" cy="4.4" r="1.3" fill="#f472b6"/><circle cx="19.6" cy="8.2" r="1.3" fill="#38bdf8"/><circle cx="17" cy="14.8" r="1.2" fill="#a78bfa"/><path d="M15.4 8.8c1.6-1.6 3.2-1.6 4.8-3.2" stroke="#34d399" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="15.8" y="1.8" width="2" height="2" rx="0.4" fill="#fde047" transform="rotate(25 16.8 2.8)"/></g></svg> Countdowns</a></li><li><a href="/sun/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="2" y="17.4" width="20" height="1.8" rx="0.9" fill="#94a3b8"/><path d="M5.4 17.4a6.6 6.6 0 0 1 13.2 0z" fill="#fbbf24"/><path d="M8 17.4a4 4 0 0 1 8 0z" fill="#fde047"/><g stroke="#fbbf24" stroke-width="1.9" stroke-linecap="round"><path d="M12 2.6v3M4.9 5.9l2.1 2.1M19.1 5.9 17 8M2.6 12.4h3M18.4 12.4h3"/></g></g></svg> Sunrise &amp; Sunset</a></li><li><a href="/moon/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#1e293b"/><path d="M12 2.6a9.4 9.4 0 0 0 0 18.8 9.4 9.4 0 0 1 0-18.8z" fill="#334155"/><path d="M12 2.6a9.4 9.4 0 0 1 0 18.8c-3.2-3.4-3.2-15.4 0-18.8z" fill="#e2e8f0"/><circle cx="15.4" cy="7.6" r="1.5" fill="#cbd5e1"/><circle cx="17.2" cy="13.4" r="2.1" fill="#cbd5e1"/><circle cx="14.2" cy="17.2" r="1.1" fill="#cbd5e1"/><ellipse cx="13.6" cy="6.2" rx="1.6" ry="1" fill="#ffffff" opacity=".6" transform="rotate(-30 13.6 6.2)"/></g></svg> Moon</a></li><li><a href="/tides/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M2 20c0-7 3.4-13.6 9.6-15.4 4.6-1.3 8.8.8 10 4.2-2.2-1.4-5-1.2-6.6.4 2.8.2 4.4 2 4.6 4-1.6-1.2-3.8-1.2-5 0-1.6 1.6-.4 4.4 1.6 4.6-1.2 1.4-3.4 1.8-5.2 1L2 20z" fill="#0ea5e9"/><path d="M2 20c0-7 3.4-13.6 9.6-15.4-3.8 2.6-5.8 6.6-5.4 10.6.3 2.4 1.8 4 4.2 4.6L2 20z" fill="#7dd3fc"/><circle cx="18.9" cy="7.2" r="1.1" fill="#e0f2fe"/><circle cx="16.4" cy="12.4" r="0.9" fill="#e0f2fe"/></g></svg> Tides</a></li><li><a href="/questions/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#7c3aed"/><path d="M8.8 9.2c.2-1.9 1.6-3 3.3-3 1.8 0 3.2 1.2 3.2 2.9 0 1.3-.7 2-1.7 2.7-.9.6-1.4 1.1-1.4 2.2v.4" fill="none" stroke="#fdf4ff" stroke-width="1.9" stroke-linecap="round"/><circle cx="12.1" cy="17.6" r="1.25" fill="#fdf4ff"/><ellipse cx="8.9" cy="7.6" rx="2.4" ry="1.4" fill="#ffffff" opacity=".25" transform="rotate(-28 8.9 7.6)"/></g></svg> Big Questions</a></li><li><a href="/glossary/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M5.2 3.4h9.2A2.2 2.2 0 0 1 16.6 5.6v13.2c0 .9-.8 1.4-1.6.9l-2.2-1.4-2.2 1.4c-.5.3-1.1.3-1.6 0l-2.2-1.4-2.2 1.4c-.8.5-1.6 0-1.6-.9V5.6A2.2 2.2 0 0 1 5.2 3.4z" fill="#f8fafc"/><path d="M5.2 3.4h9.2A2.2 2.2 0 0 1 16.6 5.6v2.2H3V5.6A2.2 2.2 0 0 1 5.2 3.4z" fill="#dc2626"/><path d="M6.4 9.6h6.8M6.4 12.2h6.8M6.4 14.8h4.6" stroke="#64748b" stroke-width="1.4" stroke-linecap="round"/><rect x="17.2" y="4.8" width="3.6" height="15.2" rx="0.8" fill="#fbbf24"/><path d="M17.2 7.2h3.6" stroke="#b45309" stroke-width="1"/></g></svg> Glossary</a></li><li><a href="/sun-moon-earth-movement-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="9.4" cy="13.6" r="7.2" fill="#2563eb"/><path d="M5.2 8.2c1.8.6 1.4 2.4 0 2.9-1.5.5-1.6 1.9-.6 2.9 1.1 1.1.2 2.6-1.2 2.2-.8-1.9-.7-5.3 1.8-8z" fill="#34d399"/><path d="M11.6 7.1c2 .4 3.7 1.7 4.7 3.4-.8 1.2-2.2 1.1-2.8.2-.5-.8-1.7-.6-2.2-1.5-.4-.8-.6-1.8.3-2.1z" fill="#34d399"/><path d="M9 14.6c1.4-.3 2.8.6 2.6 2-.1 1.2.9 1.7.6 2.9-.3 1.1-1.9 1.5-2.9 1.1-1.2-.5-.8-1.8-1.5-2.6-.8-.8-.3-3.1 1.2-3.4z" fill="#34d399"/><ellipse cx="6.8" cy="9.2" rx="2.3" ry="1.3" fill="#ffffff" opacity=".3" transform="rotate(-28 6.8 9.2)"/><circle cx="19" cy="5.6" r="3.3" fill="#475569"/><path d="M19 2.3a3.3 3.3 0 0 1 0 6.6z" fill="#e2e8f0"/><circle cx="20.1" cy="4.6" r=".6" fill="#cbd5e1"/></g></svg> Sun, Earth &amp; Moon</a></li><li><a href="/planets/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> The Planets</a></li><li><a href="/solar-system-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Solar System</a></li><li><a href="/orbital-velocity-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Orbits &amp; Gravity</a></li><li><a href="/rocket-launch-simulator/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g transform="rotate(45 12 12)"><path d="M12 1.6c3 2.6 4.6 6.4 4.6 10.6 0 1.6-.3 3.1-.8 4.5H8.2a13.6 13.6 0 0 1-.8-4.5C7.4 8 9 4.2 12 1.6z" fill="#e2e8f0"/><path d="M12 1.6c3 2.6 4.6 6.4 4.6 10.6 0 1.6-.3 3.1-.8 4.5H12z" fill="#cbd5e1"/><path d="M12 1.6c1.5 1.3 2.6 2.9 3.4 4.7H8.6c.8-1.8 1.9-3.4 3.4-4.7z" fill="#dc2626"/><circle cx="12" cy="10.2" r="2.3" fill="#0ea5e9"/><circle cx="12" cy="10.2" r="1.3" fill="#bae6fd"/><path d="M8.2 12.4c-1.8 1.2-2.8 3-3 5.2l3.6-1.6zM15.8 12.4c1.8 1.2 2.8 3 3 5.2l-3.6-1.6z" fill="#dc2626"/><path d="M10.2 17.6h3.6c-.3 2.2-1.1 3.9-1.8 4.8-.7-.9-1.5-2.6-1.8-4.8z" fill="#f97316"/><path d="M11.2 17.6h1.6c-.1 1.6-.4 2.9-.8 3.7-.4-.8-.7-2.1-.8-3.7z" fill="#fde047"/><ellipse cx="10.4" cy="8.4" rx="1" ry="2.4" fill="#ffffff" opacity=".5" transform="rotate(-12 10.4 8.4)"/></g></svg> Rocket Launches</a></li><li><a href="/classroom/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> For Teachers</a></li><li><a href="/classroom/submit-a-lesson/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.6" fill="#16a34a"/><circle cx="12" cy="12" r="9.6" fill="none" stroke="#15803d" stroke-width="1"/><path d="M12 7.2v9.6M7.2 12h9.6" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="8.8" cy="7.6" rx="2.6" ry="1.5" fill="#ffffff" opacity=".28" transform="rotate(-30 8.8 7.6)"/></g></svg> Submit a Lesson Plan</a></li><li class="menu-units"><span class="menu-ulab"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="1.6" y="13.4" width="13.6" height="5" rx="1.2" fill="#d4a373" transform="rotate(-14 8.4 15.9)"/><rect x="9.4" y="8.2" width="13.6" height="5" rx="1.2" fill="#e8c39e" transform="rotate(22 16.2 10.7)"/><g stroke="#8a5a33" stroke-width="1" stroke-linecap="round" opacity=".8"><path d="M4.2 14.6v1.8M6.9 13.9v2.6M9.6 13.2v1.8M12.3 12.6v2.6"/><path d="M12.6 10.9l.6 1.7M15.2 9.8l.9 2.4M17.8 8.7l.6 1.7M20.4 7.6l.9 2.4"/></g><circle cx="10.6" cy="12.6" r="1.15" fill="#8a5a33"/></g></svg> <span>Units</span></span><span class="menu-useg" role="group" aria-label="Measurement units"><button type="button" class="menu-ubtn" data-uset="metric" aria-pressed="false">Metric</button><button type="button" class="menu-ubtn" data-uset="imperial" aria-pressed="false">Imperial</button></span></li><li><button type="button" class="menu-pj" id="ac-pj" aria-pressed="false"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="2.4" y="7.6" width="15.4" height="10.2" rx="2" fill="#475569"/><rect x="2.4" y="7.6" width="15.4" height="3.4" rx="2" fill="#64748b"/><circle cx="7.4" cy="13.4" r="3.1" fill="#0f172a"/><circle cx="7.4" cy="13.4" r="1.7" fill="#93c5fd"/><circle cx="14.4" cy="10.4" r="1" fill="#fbbf24"/><path d="M17.8 10.4 22.6 6.6v12.4l-4.8-3.8z" fill="#fde68a" opacity=".75"/><path d="M4.6 17.8v2.2M15.4 17.8v2.2" stroke="#334155" stroke-width="1.8" stroke-linecap="round"/></g></svg> <span>Projector mode</span></button></li></ul></details><script>(function(){var b=document.getElementById("ac-pj");if(!b)return;
+function sync(){var on=document.documentElement.classList.contains("pj");b.setAttribute("aria-pressed",on?"true":"false");}
+sync();b.addEventListener("click",function(){var on=document.documentElement.classList.toggle("pj");
+try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(e){}sync();});})();</script><script>(function(){
+  var KEY='ac_units';
+  var IMP=["US","LR","MM"];
+  /* WHAT THE READER HAS CHOSEN, or what their locale implies. A stored value
+     always wins: it is an explicit answer to the question the guess is making. */
+  function guess(){
+    try{
+      var ls=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'']);
+      for(var i=0;i<ls.length;i++){
+        var m=/-([A-Za-z]{2})\b/.exec(ls[i]||'');
+        if(m){ var r=m[1].toUpperCase();
+          /* the first tag that names a country decides it — a reader with
+             en-US then en-GB is being told they are in the US */
+          for(var j=0;j<IMP.length;j++) if(IMP[j]===r) return 'imperial';
+          return 'metric';
+        }
+      }
+      /* no region anywhere in the list: fall back to the time zone, which is
+         the other thing every browser knows about where it is */
+      var tz=(Intl.DateTimeFormat().resolvedOptions()||{}).timeZone||'';
+      if(/^America\/(New_York|Chicago|Denver|Phoenix|Los_Angeles|Anchorage|Detroit|Indiana|Kentucky|Boise|Juneau|Nome|Adak|Menominee|North_Dakota|Sitka|Yakutat)/.test(tz)
+         || tz==='Pacific/Honolulu' || tz==='America/Monrovia' || tz==='Asia/Yangon') return 'imperial';
+    }catch(e){}
+    return 'metric';
+  }
+  function get(){
+    var v=null; try{ v=localStorage.getItem(KEY); }catch(e){}
+    return (v==='imperial'||v==='metric')?v:guess();
+  }
+  function set(v){
+    try{ localStorage.setItem(KEY,v); }catch(e){}
+    apply(v); mark(v);
+    /* pages that draw their own figures listen for this — the simulators, the
+       tide chart, the nearby-city dropdown. Fired AFTER the spans are done, so
+       a listener sees a consistent page. */
+    try{ document.dispatchEvent(new Event('ac:units')); }catch(e){}
+  }
+  window.acUnits=get;
+
+  /* ---- the conversions -------------------------------------------------
+     Each entry: the imperial unit's name, how many of it there are in one
+     metric unit, and how to write it. Nothing here is approximate — these are
+     the defining ratios, so a converted figure is exact before it is rounded. */
+  var C={
+    km:   { u:'miles', f:0.621371192237334, one:'mile' },
+    m:    { u:'ft',    f:3.280839895013123 },
+    cm:   { u:'in',    f:0.393700787401575 },
+    mm:   { u:'in',    f:0.0393700787401575 },
+    'km/h':{ u:'mph',  f:0.621371192237334 },
+    'km/s':{ u:'mi/s', f:0.621371192237334 },
+    kg:   { u:'lb',    f:2.204622621848776 },
+    C:    { u:'\u00b0F', f:1.8, off:32, pre:'' }
+  };
+  /* Round the converted value to the same PRECISION the source was written
+     with: sig is the number of significant figures the page chose, or a
+     negative number meaning "this many decimal places". */
+  function round(v,sig){
+    if(sig==null) return v;
+    if(sig<0){ var d=-sig; return +v.toFixed(d); }
+    if(v===0) return 0;
+    var mag=Math.floor(Math.log(Math.abs(v))/Math.LN10)+1;
+    var p=Math.max(0,sig-mag);
+    return +v.toFixed(p);
+  }
+  function fmt(v){
+    var d=0, a=Math.abs(v);
+    if(a<10) d=(a<1?3:2); else if(a<100) d=1;
+    var s=v.toFixed(d);
+    if(d) s=s.replace(/\.?0+$/,'');
+    return (+s).toLocaleString('en-US',{maximumFractionDigits:d});
+  }
+  function apply(sys){
+    var ns=document.querySelectorAll('[data-u]'), i;
+    for(i=0;i<ns.length;i++){
+      var el=ns[i], u=el.getAttribute('data-u'), c=C[u];
+      var raw=parseFloat(el.getAttribute('data-v'));
+      if(!c||isNaN(raw)) continue;
+      /* the metric text is what the page shipped with — kept verbatim, so
+         switching back is exact rather than re-formatted */
+      if(el.getAttribute('data-m')==null) el.setAttribute('data-m',el.textContent);
+      if(sys!=='imperial'){ el.textContent=el.getAttribute('data-m'); continue; }
+      var sig=el.getAttribute('data-s'); sig=(sig==null||sig==='')?null:+sig;
+      var v=round(raw*c.f+(c.off||0),sig);
+      var unit=(c.one&&Math.abs(v)===1)?c.one:c.u;
+      el.textContent=fmt(v)+(u==='C'?'':' ')+unit;
+    }
+  }
+  /* the control in the menu */
+  function mark(sys){
+    var bs=document.querySelectorAll('[data-uset]'), i;
+    for(i=0;i<bs.length;i++)
+      bs[i].setAttribute('aria-pressed', bs[i].getAttribute('data-uset')===sys?'true':'false');
+  }
+  var bs=document.querySelectorAll('[data-uset]');
+  for(var i=0;i<bs.length;i++) bs[i].addEventListener('click',function(){ set(this.getAttribute('data-uset')); });
+  /* ---- FOR FIGURES THE PAGE DRAWS ITSELF ---------------------------------
+     A span works for anything baked into the HTML. It cannot work for a number
+     a script writes every frame — the orbital simulator's speed read-out, a
+     tide height fetched from NOAA, an <option> in a dropdown (which can hold
+     no markup at all). Those call this instead: give it a metric value, its
+     unit and the precision, and it returns the string in the reader's system.
+     One conversion table, one rounding rule, both halves of the site. */
+  /* written to the SAME number of decimals the caller asked for, in either
+     system: a tide height is quoted to a tenth whether it is feet or metres,
+     and fmt()'s own rules would print 0.85 m against 2.8 ft. */
+  function fmtAs(v,sig){
+    if(sig!=null&&sig<0) return (+v).toLocaleString('en-US',{minimumFractionDigits:-sig,maximumFractionDigits:-sig});
+    return fmt(v);
+  }
+  window.acFmt=function(v,unit,sig){
+    var c=C[unit];
+    if(!c||v==null||isNaN(v)) return '';
+    if(get()!=='imperial') return fmtAs(round(v,sig),sig)+(unit==='C'?' °C':' '+unit);
+    var iv=round(v*c.f+(c.off||0),sig);
+    return fmtAs(iv,sig)+(unit==='C'?'':' ')+((c.one&&Math.abs(iv)===1)?c.one:c.u);
+  };
+  /* the inverse, for data that arrives IMPERIAL: NOAA publishes tide heights in
+     feet, so the page holds feet and asks for the reader's version of them. */
+  window.acFromFt=function(ft,sig){ return window.acFmt(ft/3.280839895013123,'m',sig==null?-1:sig); };
+  window.acUnitFt=function(){ return get()==='imperial'?'ft':'m'; };
+  window.acFtVal=function(ft){ return get()==='imperial'?ft:ft/3.280839895013123; };
+  var now=get(); mark(now); if(now==='imperial') apply(now);
+  /* pages that draw figures after load (the sun and moon cards repaint every
+     minute, the simulators every frame) tell us to run again */
+  document.addEventListener('ac:units',function(){ apply(get()); });
+})();</script></div>
   <p class="kicker">Jupiter’s moons</p>
   <h1>Why does Jupiter have so many moons?</h1>
   <p class="answer">Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun. A wide region around it is a place where a small body stays with Jupiter instead of orbiting the Sun on its own.</p>
   <figure class="graphic-block dn">
-  <svg viewBox="0 0 400 400" width="100%" role="img" aria-label="Jupiter with four nested circular moon orbits, labelled as not to scale."><rect width="400" height="400" rx="16" fill="#080d1a"/><defs><radialGradient id="gJupiterf0"><stop offset="0" stop-color="#c9502f" stop-opacity="1"/><stop offset=".55" stop-color="#c9502f" stop-opacity=".85"/><stop offset="1" stop-color="#c9502f" stop-opacity="0"/></radialGradient><radialGradient id="gJupiterf1"><stop offset="0" stop-color="#e8d3ae" stop-opacity="1"/><stop offset=".55" stop-color="#e8d3ae" stop-opacity=".85"/><stop offset="1" stop-color="#e8d3ae" stop-opacity="0"/></radialGradient><radialGradient id="gJupiterf2"><stop offset="0" stop-color="#f2e6cc" stop-opacity="1"/><stop offset=".55" stop-color="#f2e6cc" stop-opacity=".85"/><stop offset="1" stop-color="#f2e6cc" stop-opacity="0"/></radialGradient><radialGradient id="gJupiterf3"><stop offset="0" stop-color="#8a6242" stop-opacity="1"/><stop offset=".55" stop-color="#8a6242" stop-opacity=".85"/><stop offset="1" stop-color="#8a6242" stop-opacity="0"/></radialGradient><radialGradient id="gJupiterf4"><stop offset="0" stop-color="#6f7f96" stop-opacity="1"/><stop offset=".55" stop-color="#6f7f96" stop-opacity=".85"/><stop offset="1" stop-color="#6f7f96" stop-opacity="0"/></radialGradient><radialGradient id="gJupiterl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#dfbf93"/><stop offset=".62" stop-color="#dfbf93"/><stop offset=".88" stop-color="#a8815a"/><stop offset="1" stop-color="#a8815a"/></radialGradient><linearGradient id="gJupitern" gradientUnits="objectBoundingBox" x1="0.19" y1="0.89" x2="0.81" y2="0.11"><stop offset=".3" stop-color="#000000" stop-opacity="0"/><stop offset=".72" stop-color="#04060e" stop-opacity=".2"/><stop offset="1" stop-color="#04060e" stop-opacity=".5"/></linearGradient><radialGradient id="gJupiters" cx="0.34" cy="0.7" r=".7"><stop offset="0" stop-color="#ffffff" stop-opacity="0.14"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient><clipPath id="gJupiterc"><ellipse cx="0" cy="0" rx="157.38" ry="147.16"/></clipPath></defs><g transform="translate(200 200) rotate(-3.13)"><ellipse cx="0" cy="0" rx="157.38" ry="147.16" fill="url(#gJupiterl)"/><g clip-path="url(#gJupiterc)"><path d="M-0.4 -147.16L-0.32 -147.16L-0.27 -147.16L-0.35 -147.16L-0.55 -147.16L-0.72 -147.16L-0.71 -147.16L-0.48 -147.16L-0.12 -147.16L0.22 -147.16L0.4 -147.16L0.39 -147.16L0.28 -147.16L0.19 -147.16L0.17 -147.16L0.19 -147.16L0.2 -147.16L0.15 -147.16L0.06 -147.16L0 -147.16L0 -147.16L0.06 -147.16L0.12 -147.16L0.14 -147.16L0.12 -147.16L0.12 -147.16L0.17 -147.16L0.24 -147.16L0.26 -147.16L0.13 -147.16L-0.14 -147.16L-0.47 -147.16L-0.7 -147.16L-0.73 -147.16L-0.56 -147.16L-0.33 -147.16L-0.18 -147.16L-0.18 -147.16L-0.24 -147.16L-0.23 -147.16L-0.02 -147.16L7.69 -146.99L15.36 -146.46L22.99 -145.58L30.57 -144.36L38.07 -142.79L45.49 -140.88L52.79 -138.64L59.97 -136.06L67.01 -133.16L74.2 -129.78L74.31 -129.61L73.76 -129.54L72.53 -129.58L70.72 -129.7L68.49 -129.82L65.95 -129.87L63.13 -129.86L59.93 -129.84L56.29 -129.87L52.18 -129.98L47.7 -130.15L43 -130.3L38.16 -130.36L33.22 -130.29L28.11 -130.15L22.79 -130.01L17.25 -129.92L11.57 -129.91L5.8 -129.94L0 -129.92L-5.81 -129.83L-11.64 -129.69L-17.42 -129.56L-23.09 -129.52L-28.53 -129.6L-33.7 -129.77L-38.6 -129.94L-43.3 -130.04L-47.82 -130.06L-52.11 -130.03L-56.05 -130.03L-59.53 -130.08L-62.55 -130.2L-65.18 -130.3L-67.55 -130.32L-69.72 -130.22L-71.64 -130.04L-73.13 -129.86L-74.05 -129.74L-74.32 -129.72L-67.01 -133.16L-59.97 -136.06L-52.79 -138.64L-45.49 -140.88L-38.07 -142.79L-30.57 -144.36L-22.99 -145.58L-15.36 -146.46L-7.69 -146.99Z" fill="#93867e" fill-opacity="0.5"/><path d="M-73.41 -130.17L-73.19 -130.17L-72.28 -130.28L-71.02 -130.35L-69.72 -130.22L-68.33 -129.9L-66.48 -129.57L-63.83 -129.45L-60.41 -129.55L-56.54 -129.7L-52.52 -129.74L-48.33 -129.67L-43.77 -129.65L-38.72 -129.82L-33.35 -130.15L-27.89 -130.43L-22.49 -130.48L-17.07 -130.32L-11.5 -130.12L-5.78 -130.04L0 -130.09L5.78 -130.08L11.57 -129.88L17.42 -129.58L23.19 -129.35L28.69 -129.39L33.83 -129.62L38.68 -129.87L43.41 -129.96L48 -129.93L52.23 -129.95L55.89 -130.13L59.03 -130.39L61.97 -130.53L64.97 -130.42L67.91 -130.12L70.41 -129.86L72.16 -129.78L73.21 -129.82L73.91 -129.81L74.45 -129.65L77.26 -128.21L80.58 -126.41L83.86 -124.53L87.09 -122.58L90.27 -120.55L93.39 -118.45L96.46 -116.28L99.47 -114.04L102.42 -111.74L104.94 -109.67L105.21 -109.17L104.62 -108.84L103.01 -108.83L100.58 -108.98L97.63 -109.05L94.29 -108.93L90.37 -108.79L85.64 -108.9L80.13 -109.31L74.09 -109.8L67.85 -110.06L61.46 -109.98L54.78 -109.75L47.67 -109.63L40.15 -109.69L32.39 -109.76L24.52 -109.6L16.51 -109.17L8.32 -108.72L0 -108.55L-8.32 -108.74L-16.53 -109.05L-24.62 -109.22L-32.6 -109.2L-40.39 -109.17L-47.81 -109.36L-54.77 -109.77L-61.35 -110.14L-67.75 -110.19L-74.01 -109.9L-79.93 -109.52L-85.23 -109.32L-89.82 -109.34L-93.84 -109.35L-97.51 -109.16L-100.78 -108.8L-103.35 -108.53L-104.89 -108.6L-105.42 -108.99L-105.24 -109.42L-102.42 -111.74L-99.47 -114.04L-96.46 -116.28L-93.39 -118.45L-90.27 -120.55L-87.09 -122.58L-83.86 -124.53L-80.58 -126.41L-77.26 -128.21Z" fill="#c9ab84" fill-opacity="0.4"/><path d="M-104.92 -109.68L-105.05 -109.31L-105.05 -108.47L-103.73 -108.19L-100.78 -108.8L-97.3 -109.36L-93.84 -109.35L-89.69 -109.46L-84.46 -110.12L-78.99 -110.55L-73.89 -110.04L-68.48 -109.25L-62.11 -109.05L-55.16 -109.14L-48.14 -108.75L-40.8 -108.26L-32.82 -108.59L-24.54 -109.51L-16.36 -109.96L-8.22 -109.79L0 -109.85L8.18 -110.27L16.33 -110.15L24.61 -109.25L32.83 -108.56L40.61 -108.68L48.04 -108.93L55.42 -108.71L62.38 -108.66L68.36 -109.4L73.71 -110.25L79.24 -110.28L84.76 -109.82L89.41 -109.74L93.3 -109.86L97.28 -109.37L101.14 -108.48L103.67 -108.25L104.65 -108.81L105.15 -109.22L105.57 -109.14L106.93 -107.98L108.53 -106.57L110.11 -105.14L111.67 -103.7L113.21 -102.23L114.72 -100.74L116.22 -99.23L117.69 -97.71L119.13 -96.16L119.44 -95.83L119.36 -95.51L118.76 -94.95L116.91 -94.96L114.36 -94.95L111.73 -94.17L108.43 -93.31L103.65 -93.46L97.78 -94.26L91.69 -94.57L85.31 -94.49L78.1 -94.94L70.23 -95.77L62.4 -95.85L54.57 -94.99L46.23 -94.33L37.32 -94.37L28.21 -94.26L19 -93.59L9.55 -93.32L0 -94.1L-9.43 -95.04L-18.78 -95.17L-28.06 -95.01L-37.04 -95.37L-45.74 -95.74L-54.49 -95.18L-63.23 -94.09L-71.34 -93.69L-78.64 -94.01L-85.61 -94.03L-92.29 -93.69L-97.97 -93.99L-102.43 -95.07L-106.51 -95.72L-110.7 -95.41L-114.29 -95.02L-116.72 -95.17L-118.62 -95.1L-120.53 -94.21L-121.66 -93.35L-119.13 -96.16L-117.69 -97.71L-116.22 -99.23L-114.72 -100.74L-113.21 -102.23L-111.67 -103.7L-110.11 -105.14L-108.53 -106.57L-106.93 -107.98Z" fill="#8d6a4c" fill-opacity="0.55"/><path d="M-120.92 -94.18L-120.7 -94.02L-119.42 -94.21L-116.94 -94.92L-113.81 -95.58L-110.53 -95.61L-106.98 -95.14L-102.62 -94.82L-97.33 -94.87L-91.5 -94.85L-85.4 -94.35L-78.85 -93.64L-71.47 -93.44L-63.31 -93.91L-54.78 -94.48L-46.12 -94.63L-37.26 -94.56L-28.1 -94.81L-18.74 -95.42L-9.38 -95.76L0 -95.41L9.45 -94.69L18.9 -94.3L28.2 -94.35L37.33 -94.34L46.36 -93.93L55.17 -93.52L63.41 -93.7L70.94 -94.45L78.01 -95.08L84.9 -95.15L91.41 -94.98L97.16 -95.11L102.12 -95.47L106.72 -95.46L111.2 -94.81L115.14 -94.03L117.94 -93.77L119.58 -94.02L120.57 -94.17L121.11 -93.97L122.13 -92.81L123.68 -91.01L125.19 -89.18L126.67 -87.33L128.12 -85.46L129.54 -83.57L130.93 -81.65L132.29 -79.72L133.61 -77.77L134.13 -76.98L134.18 -76.27L133.34 -75.63L131.34 -75.52L128.41 -75.61L124.92 -75.3L120.8 -74.72L115.68 -74.58L109.44 -75.21L102.45 -76.05L95.12 -76.39L87.42 -76.24L79.12 -76.24L70.2 -76.63L60.92 -76.89L51.46 -76.45L41.74 -75.54L31.62 -74.96L21.18 -75.04L10.61 -75.3L0 -75.19L-10.63 -74.92L-21.17 -75.14L-31.46 -75.98L-41.49 -76.75L-51.37 -76.82L-61.06 -76.41L-70.35 -76.2L-79.08 -76.36L-87.39 -76.33L-95.44 -75.68L-103.04 -74.83L-109.77 -74.56L-115.45 -75L-120.36 -75.5L-124.77 -75.57L-128.48 -75.49L-131.12 -75.87L-132.69 -76.65L-133.63 -77.1L-134.27 -76.77L-133.61 -77.77L-132.29 -79.72L-130.93 -81.65L-129.54 -83.57L-128.12 -85.46L-126.67 -87.33L-125.19 -89.18L-123.68 -91.01L-122.13 -92.81Z" fill="#ead2ab" fill-opacity="0.6"/><path d="M-134.65 -76.19L-133.47 -77.35L-132.32 -77.22L-131.13 -75.86L-128.58 -75.33L-124.83 -75.46L-120.8 -74.73L-115.9 -74.17L-109.4 -75.28L-102.2 -76.56L-95.07 -76.5L-87.33 -76.46L-78.78 -77.13L-70.16 -76.77L-61.42 -75.19L-51.92 -74.58L-41.82 -75.09L-31.62 -74.96L-21.21 -74.72L-10.58 -75.91L0 -77.21L10.53 -76.93L21.05 -76.3L31.38 -76.51L41.63 -76.09L51.91 -74.62L61.71 -74.18L70.7 -75.16L79.37 -75.59L87.73 -75.5L95.08 -76.46L101.72 -77.52L108.55 -76.9L115.04 -75.76L120.26 -75.67L124.82 -75.48L129.15 -74.38L132.13 -74.24L133.35 -75.61L134.09 -76.4L134.63 -76.21L135.88 -74.25L136.84 -72.69L137.78 -71.12L138.7 -69.54L139.6 -67.95L140.47 -66.35L141.33 -64.74L142.16 -63.12L142.98 -61.49L143.42 -60.59L142.83 -60.89L141.69 -60.52L139.26 -61L136.19 -61.05L132.97 -59.53L128.71 -58.41L122.97 -58.89L116.57 -59.19L109.69 -58.84L101.73 -59.65L92.94 -61.25L84.08 -61.36L74.98 -60.43L65.16 -60.34L54.94 -60.28L44.56 -58.93L33.76 -58L22.56 -58.89L11.28 -59.8L0 -59.71L-11.26 -60.28L-22.36 -61.55L-33.39 -61.35L-44.42 -59.93L-55.09 -59.46L-65.34 -59.55L-75.41 -58.67L-84.99 -58.1L-93.53 -59.33L-101.4 -60.62L-109.08 -60.52L-116.03 -60.59L-121.97 -61.35L-127.66 -60.89L-133.11 -59.21L-137.28 -58.65L-140.13 -59.14L-142.45 -58.89L-143.89 -58.67L-143.7 -60L-142.98 -61.49L-142.16 -63.12L-141.33 -64.74L-140.47 -66.35L-139.6 -67.95L-138.7 -69.54L-137.78 -71.12L-136.84 -72.69L-135.88 -74.25Z" fill="#96704f" fill-opacity="0.6"/><path d="M-143.56 -60.29L-143.36 -59.78L-142.57 -58.63L-140.52 -58.26L-137.08 -59.09L-132.83 -59.85L-128.11 -59.84L-122.53 -59.99L-115.91 -60.9L-108.73 -61.48L-101.35 -60.79L-93.42 -59.7L-84.62 -59.44L-75.2 -59.55L-65.45 -59.02L-55.29 -58.35L-44.58 -58.8L-33.54 -60.06L-22.43 -60.67L-11.26 -60.44L0 -60.52L11.23 -61.09L22.41 -60.93L33.58 -59.71L44.59 -58.76L55.19 -58.93L65.4 -59.27L75.34 -58.97L84.77 -58.9L93.35 -59.91L101.25 -61.08L108.86 -61.12L116.07 -60.48L122.38 -60.37L127.81 -60.54L132.82 -59.87L137.27 -58.65L140.49 -58.34L142.35 -59.11L143.42 -59.66L143.91 -59.56L144.54 -58.21L145.29 -56.55L146.02 -54.89L146.73 -53.22L147.41 -51.54L148.07 -49.85L148.71 -48.15L149.33 -46.45L149.93 -44.74L149.99 -44.57L149.66 -44.17L148.5 -43.47L146.2 -43.48L143 -43.47L139.2 -42.5L134.55 -41.43L128.71 -41.62L121.87 -42.61L114.45 -43L106.45 -42.9L97.65 -43.45L88.17 -44.5L78.36 -44.59L68.25 -43.52L57.63 -42.7L46.54 -42.75L35.17 -42.61L23.61 -41.78L11.85 -41.44L0 -42.41L-11.79 -43.58L-23.51 -43.75L-35.09 -43.54L-46.41 -43.99L-57.41 -44.46L-68.22 -43.75L-78.74 -42.39L-88.68 -41.9L-97.9 -42.29L-106.58 -42.32L-114.72 -41.89L-121.95 -42.28L-128.16 -43.62L-133.68 -44.44L-138.73 -44.05L-142.97 -43.56L-146.11 -43.75L-148.44 -43.66L-150.19 -42.54L-151 -41.48L-149.93 -44.74L-149.33 -46.45L-148.71 -48.15L-148.07 -49.85L-147.41 -51.54L-146.73 -53.22L-146.02 -54.89L-145.29 -56.55L-144.54 -58.21Z" fill="#f0dcb8" fill-opacity="0.6"/><path d="M-151.21 -40.8L-150.63 -41.18L-148.42 -43.74L-145.95 -44.23L-142.83 -43.99L-138.4 -45.11L-133.76 -44.18L-128.72 -41.57L-122.17 -41.45L-114.69 -42.03L-106.81 -41.32L-97.82 -42.66L-88.05 -45.12L-78.34 -44.72L-68.21 -43.79L-57.45 -44.16L-46.55 -42.6L-35.32 -40.49L-23.62 -41.48L-11.82 -42.71L0 -42.54L11.78 -44.13L23.4 -45.72L35.05 -44.14L46.54 -42.74L57.61 -42.89L68.56 -41.45L79.06 -40.44L88.55 -42.54L97.54 -43.96L106.27 -43.67L113.99 -44.81L121.17 -45.2L128.4 -42.74L134.53 -41.51L139.32 -42.09L143.66 -41.3L146.83 -41.46L148.29 -44.1L149.39 -44.96L150.18 -44L151.28 -40.56L152.01 -38.09L152.7 -35.6L153.34 -33.1L153.94 -30.6L154.49 -28.08L154.99 -25.55L155.44 -23.02L155.85 -20.48L156.3 -17.21L155.67 -18.33L154.24 -18.24L151.62 -19.92L148.23 -20.4L144.31 -17.95L139.3 -16.9L133.27 -17.16L126.58 -15.84L118.96 -16.01L110.38 -18.73L101.31 -19.5L91.74 -18.93L81.48 -19.84L70.84 -19.13L59.85 -16.36L48.34 -16.03L36.49 -16.99L24.46 -16.46L12.26 -17.55L0 -20.16L-12.23 -19.9L-24.42 -18.57L-36.44 -18.81L-48.29 -17.53L-59.9 -15.28L-71.01 -16.19L-81.62 -17.84L-91.83 -17.72L-101.35 -18.99L-110.17 -20.72L-118.65 -19.19L-126.43 -17.37L-133.23 -17.54L-139.35 -16.44L-144.61 -15.3L-148.63 -17.39L-151.72 -19.18L-154.17 -18.79L-155.5 -19.58L-155.9 -20.12L-155.85 -20.48L-155.44 -23.02L-154.99 -25.55L-154.49 -28.08L-153.94 -30.6L-153.34 -33.1L-152.7 -35.6L-152.01 -38.09L-151.28 -40.56Z" fill="#8f6039" fill-opacity="0.75"/><path d="M-156.27 -17.4L-155.82 -17.19L-154.35 -17.43L-151.83 -18.35L-148.39 -19.22L-144.15 -19.25L-139.09 -18.65L-133.15 -18.23L-126.33 -18.29L-118.74 -18.27L-110.48 -17.61L-101.55 -16.71L-91.92 -16.44L-81.68 -17.04L-70.92 -17.78L-59.77 -17.98L-48.27 -17.89L-36.46 -18.22L-24.41 -19L-12.24 -19.45L0 -18.99L12.25 -18.06L24.44 -17.55L36.47 -17.61L48.28 -17.6L59.82 -17.08L70.99 -16.54L81.69 -16.78L91.83 -17.75L101.39 -18.56L110.39 -18.65L118.73 -18.43L126.3 -18.6L133.05 -19.07L139.04 -19.05L144.28 -18.21L148.65 -17.21L152.02 -16.87L154.38 -17.19L155.79 -17.38L156.31 -17.13L156.63 -14.36L156.95 -10.78L157.19 -7.19L157.33 -3.6L157.38 0L157.33 3.6L157.19 7.19L156.95 10.78L156.63 14.36L156.38 16.56L155.79 17.38L154.26 18.13L151.85 18.25L148.53 18.15L144.24 18.5L139.03 19.17L133.02 19.33L126.3 18.61L118.81 17.64L110.52 17.24L101.49 17.41L91.85 17.42L81.68 16.96L70.99 16.66L59.81 17.17L48.26 18.23L36.43 18.9L24.42 18.8L12.25 18.5L0 18.63L-12.24 18.95L-24.42 18.69L-36.47 17.72L-48.31 16.83L-59.83 16.74L-70.96 17.22L-81.65 17.46L-91.86 17.28L-101.5 17.32L-110.44 18.06L-118.66 19.04L-126.21 19.36L-133.08 18.85L-139.14 18.27L-144.28 18.2L-148.51 18.29L-151.9 17.85L-154.41 16.94L-155.91 16.41L-156.35 16.81L-156.63 14.36L-156.95 10.78L-157.19 7.19L-157.33 3.6L-157.38 0L-157.33 -3.6L-157.19 -7.19L-156.95 -10.78L-156.63 -14.36Z" fill="#f6e9cd" fill-opacity="0.7"/><path d="M-155.88 20.23L-155.46 19.85L-154.37 17.19L-152.04 16.68L-148.68 16.93L-144.56 15.77L-139.31 16.73L-133.01 19.45L-126.19 19.57L-118.67 18.97L-110.28 19.7L-101.41 18.31L-91.97 15.76L-81.73 16.17L-70.96 17.14L-59.83 16.75L-48.25 18.37L-36.38 20.56L-24.4 19.53L-12.25 18.26L0 18.44L12.27 16.79L24.49 15.13L36.5 16.77L48.26 18.23L59.77 18.08L70.81 19.57L81.42 20.61L91.78 18.44L101.53 16.97L110.51 17.27L118.95 16.08L126.6 15.67L133.15 18.23L138.99 19.51L144.19 18.91L148.32 19.72L151.67 19.56L154.42 16.81L155.97 15.92L156.33 16.93L155.69 21.5L155.08 25.05L154.38 28.58L153.59 32.1L152.7 35.6L151.73 39.08L150.66 42.53L149.5 45.96L148.26 49.37L146.64 53.42L146.62 52.37L145.23 52.45L143.6 50.86L140.62 50.41L135.74 52.73L130.55 53.71L125.02 53.46L118.2 54.7L111.15 54.55L104.11 51.99L95.81 51.26L86.58 51.8L77.15 50.94L66.91 51.61L55.99 54.22L45.17 54.52L34.21 53.63L22.89 54.13L11.52 53.1L0 50.64L-11.59 50.88L-23.02 52.14L-34.38 51.91L-45.35 53.12L-55.82 55.22L-66.39 54.38L-76.75 52.83L-86.31 52.94L-95.68 51.74L-104.63 50.11L-112.09 51.56L-118.69 53.27L-125.14 53.11L-130.39 54.14L-134.78 55.2L-139.53 53.25L-143.33 51.56L-145.44 51.94L-147.1 51.18L-147.75 50.67L-148.26 49.37L-149.5 45.96L-150.66 42.53L-151.73 39.08L-152.7 35.6L-153.59 32.1L-154.38 28.58L-155.08 25.05L-155.69 21.5Z" fill="#93613b" fill-opacity="0.72"/><path d="M-147.11 52.29L-146.44 52.82L-144.6 53.98L-142.21 54.36L-139.43 53.52L-135.74 52.75L-130.9 52.76L-125.32 52.61L-119.21 51.67L-112.23 51.07L-104.16 51.79L-95.38 52.9L-86.26 53.17L-76.7 53.05L-66.54 53.59L-55.98 54.27L-45.26 53.82L-34.32 52.53L-23.04 51.91L-11.55 52.14L0 52.06L11.57 51.47L23.05 51.64L34.28 52.89L45.26 53.85L56.08 53.68L66.59 53.34L76.57 53.64L86.12 53.71L95.43 52.68L104.25 51.49L112.12 51.45L119.07 52.1L125.46 52.21L131.16 52.04L135.75 52.72L139.25 53.97L142.24 54.29L144.8 53.5L146.39 52.94L146.8 53.04L146.33 54.17L145.71 55.6L145.08 57.03L144.43 58.45L143.77 59.86L143.09 61.26L142.4 62.66L141.69 64.05L140.96 65.43L141 65.37L140.37 65.74L138.72 66.4L136.57 66.39L133.57 66.4L129.3 67.3L124.21 68.29L118.95 68.12L113.27 67.2L106.62 66.83L99.11 66.93L91.21 66.41L82.86 65.43L73.68 65.34L63.77 66.35L53.6 67.12L43.29 67.07L32.69 67.2L21.84 67.97L10.94 68.29L0 67.39L-11.02 66.3L-21.99 66.14L-32.8 66.33L-43.48 65.91L-53.94 65.47L-63.83 66.13L-73.1 67.4L-82.08 67.86L-90.83 67.49L-98.9 67.47L-106.19 67.86L-113.13 67.51L-119.82 66.26L-125.57 65.49L-130.03 65.86L-133.62 66.31L-136.71 66.13L-138.82 66.22L-139.55 67.26L-139.43 68.24L-140.96 65.43L-141.69 64.05L-142.4 62.66L-143.09 61.26L-143.77 59.86L-144.43 58.45L-145.08 57.03L-145.71 55.6L-146.33 54.17Z" fill="#eddcb8" fill-opacity="0.6"/><path d="M-139.88 67.44L-139.3 67.71L-138.17 67.41L-136.61 66.31L-134.15 65.27L-130.34 65.23L-125.35 65.95L-119.72 66.46L-113.63 66.38L-106.79 66.41L-99 67.2L-90.54 68.28L-81.84 68.59L-72.96 67.87L-63.61 67L-53.67 66.76L-43.32 66.87L-32.78 66.47L-22.04 65.53L-11.08 64.99L0 65.54L11.01 66.66L21.9 67.27L32.69 67.2L43.26 67.21L53.45 67.84L63.24 68.47L72.87 68.18L82.35 67.03L91.33 66.06L99.48 65.95L106.87 66.21L113.79 66.01L120.19 65.45L125.58 65.47L129.72 66.48L132.91 67.68L135.67 68.08L138.01 67.71L139.43 67.47L139.69 67.77L138.96 69.09L137.65 71.35L136.29 73.58L134.9 75.79L133.46 77.98L131.99 80.15L130.47 82.29L128.92 84.41L127.32 86.5L126.86 87.08L125.77 87.97L123.97 88.77L121.95 88.9L119.36 88.8L115.66 89.17L111.03 89.89L106.12 90.06L101.21 89.29L95.77 88.24L89.29 87.82L81.92 88L74.14 88.01L66.11 87.52L57.56 87.19L48.35 87.74L38.76 88.88L29.14 89.6L19.54 89.49L9.82 89.17L0 89.31L-9.79 89.65L-19.56 89.37L-29.38 88.33L-39.13 87.37L-48.49 87.28L-57.34 87.8L-65.88 88.06L-74.21 87.86L-81.97 87.9L-88.8 88.7L-94.84 89.75L-100.68 90.09L-106.48 89.55L-111.73 88.93L-115.91 88.85L-119.24 88.94L-122.29 88.47L-124.99 87.49L-126.6 86.93L-126.66 87.35L-127.32 86.5L-128.92 84.41L-130.47 82.29L-131.99 80.15L-133.46 77.98L-134.9 75.79L-136.29 73.58L-137.65 71.35L-138.96 69.09Z" fill="#8d6a4c" fill-opacity="0.6"/><path d="M-126.07 88.08L-125.68 88.09L-124.7 87.85L-122.88 87.71L-119.98 87.98L-116.06 88.65L-111.45 89.3L-106.48 89.55L-101.16 89.36L-95.28 89.05L-88.64 88.97L-81.34 89.11L-73.6 89.15L-65.57 88.8L-57.22 88.12L-48.41 87.55L-39.12 87.44L-29.49 87.78L-19.71 88.2L-9.88 88.35L0 88.26L9.88 88.28L19.65 88.67L29.2 89.3L38.54 89.74L47.75 89.68L56.83 89.2L65.61 88.71L73.9 88.53L81.62 88.59L88.88 88.55L95.81 88.17L102.29 87.63L108 87.34L112.69 87.58L116.4 88.18L119.42 88.72L121.96 88.89L123.94 88.81L125.09 88.83L125.22 89.14L123.85 90.81L121.96 93.01L120.03 95.18L118.05 97.32L116.03 99.42L113.97 101.49L111.86 103.51L109.72 105.5L107.53 107.45L105.75 108.99L104.71 109.59L103.27 109.99L101.65 110.01L99.64 109.82L96.88 109.74L93.28 109.88L89.09 110.05L84.65 109.92L80.01 109.43L74.9 108.84L69.04 108.52L62.42 108.61L55.31 108.9L47.98 109.05L40.48 108.97L32.72 108.88L24.66 109.08L16.43 109.6L8.19 110.13L0 110.33L-8.19 110.11L-16.4 109.74L-24.54 109.53L-32.47 109.56L-40.19 109.6L-47.81 109.36L-55.33 108.87L-62.55 108.42L-69.15 108.36L-75 108.72L-80.25 109.17L-85.15 109.41L-89.76 109.4L-93.82 109.37L-97.03 109.6L-99.39 110.04L-101.24 110.35L-102.94 110.27L-104.45 109.81L-105.38 109.3L-107.53 107.45L-109.72 105.5L-111.86 103.51L-113.97 101.49L-116.03 99.42L-118.05 97.32L-120.03 95.18L-121.96 93.01L-123.85 90.81Z" fill="#dcc399" fill-opacity="0.5"/><path d="M-105.66 109.06L-105.34 109.06L-104.53 108.92L-103.02 108.82L-100.56 109L-97.23 109.42L-93.33 109.83L-89.15 109.99L-84.71 109.86L-79.8 109.67L-74.25 109.62L-68.13 109.71L-61.64 109.73L-54.93 109.51L-47.96 109.09L-40.59 108.72L-32.8 108.66L-24.72 108.87L-16.52 109.13L-8.28 109.23L0 109.17L8.28 109.19L16.46 109.43L24.45 109.82L32.27 110.1L39.98 110.06L47.59 109.76L54.97 109.45L61.91 109.34L68.38 109.38L74.47 109.35L80.3 109.12L85.76 108.78L90.56 108.59L94.48 108.74L97.55 109.12L100.04 109.46L102.16 109.57L103.83 109.52L104.79 109.53L104.87 109.73L102.42 111.74L99.47 114.04L96.46 116.28L93.39 118.45L90.27 120.55L87.09 122.58L83.86 124.53L80.58 126.41L77.26 128.21L74.28 129.74L73.41 130.06L72.32 130.27L71.18 130.27L69.81 130.18L67.89 130.13L65.34 130.21L62.38 130.3L59.29 130.23L56.13 129.97L52.64 129.66L48.56 129.49L43.89 129.54L38.86 129.69L33.69 129.77L28.43 129.73L22.99 129.68L17.32 129.79L11.52 130.06L5.73 130.34L0 130.44L-5.73 130.33L-11.5 130.13L-17.21 130.03L-22.77 130.04L-28.18 130.06L-33.54 129.94L-38.88 129.68L-44.01 129.44L-48.67 129.41L-52.73 129.6L-56.33 129.84L-59.73 129.96L-62.97 129.95L-65.82 129.94L-68.03 130.06L-69.59 130.29L-70.82 130.46L-72.02 130.41L-73.19 130.17L-73.95 129.9L-77.26 128.21L-80.58 126.41L-83.86 124.53L-87.09 122.58L-90.27 120.55L-93.39 118.45L-96.46 116.28L-99.47 114.04L-102.42 111.74Z" fill="#c9ab84" fill-opacity="0.4"/><path d="M-73.53 130.11L-73.37 130.08L-72.74 130.06L-71.53 130.1L-69.78 130.19L-67.62 130.28L-65.2 130.29L-62.57 130.18L-59.67 130L-56.38 129.81L-52.59 129.69L-48.33 129.67L-43.68 129.73L-38.77 129.78L-33.69 129.78L-28.44 129.72L-23.01 129.65L-17.38 129.66L-11.61 129.76L-5.79 129.95L0 130.14L5.75 130.26L11.45 130.27L17.13 130.19L22.73 130.11L28.17 130.07L33.4 130.1L38.39 130.14L43.2 130.13L47.87 130.03L52.37 129.85L56.6 129.66L60.39 129.55L63.64 129.56L66.32 129.66L68.55 129.78L70.43 129.85L72 129.86L73.19 129.83L73.86 129.84L73.9 129.93L67.01 133.16L59.97 136.06L52.79 138.64L45.49 140.88L38.07 142.79L30.57 144.36L22.99 145.58L15.36 146.46L7.69 146.99L-0.36 147.16L-0.74 147.16L-0.89 147.16L-0.78 147.16L-0.51 147.16L-0.26 147.16L-0.14 147.16L-0.15 147.16L-0.18 147.16L-0.12 147.16L0.07 147.16L0.32 147.16L0.49 147.16L0.5 147.16L0.37 147.16L0.19 147.16L0.05 147.16L-0.01 147.16L-0.01 147.16L0 147.16L0 147.16L0.02 147.16L0.09 147.16L0.2 147.16L0.29 147.16L0.29 147.16L0.18 147.16L0 147.16L-0.14 147.16L-0.18 147.16L-0.15 147.16L-0.15 147.16L-0.27 147.16L-0.5 147.16L-0.73 147.16L-0.8 147.16L-0.62 147.16L-0.23 147.16L0.18 147.16L0.45 147.16L0.5 147.16L-7.69 146.99L-15.36 146.46L-22.99 145.58L-30.57 144.36L-38.07 142.79L-45.49 140.88L-52.79 138.64L-59.97 136.06L-67.01 133.16Z" fill="#93867e" fill-opacity="0.5"/><ellipse cx="0" cy="0" rx="2.01" ry="6.6" fill="url(#gJupiterf2)" opacity="0.2" transform="translate(-116.31 94.59) rotate(140.88)"/><ellipse cx="0" cy="0" rx="3.36" ry="6.6" fill="url(#gJupiterf4)" opacity="0.4" transform="translate(134.25 -17.93) rotate(-7.61)"/><ellipse cx="0" cy="0" rx="0.54" ry="5.5" fill="url(#gJupiterf4)" opacity="0.07" transform="translate(-155.86 -15.38) rotate(-174.36)"/><ellipse cx="0" cy="0" rx="4.63" ry="6.16" fill="url(#gJupiterf4)" opacity="0.32" transform="translate(-101.71 -20.48) rotate(-168.61)"/><ellipse cx="0" cy="0" rx="5.03" ry="5.06" fill="url(#gJupiterf4)" opacity="0.3" transform="translate(8.9 -15.38) rotate(-59.96)"/><ellipse cx="0" cy="0" rx="7.06" ry="7.15" fill="url(#gJupiterf2)" opacity="0.26" transform="translate(25.31 -5.14) rotate(-11.47)"/></g><ellipse cx="0" cy="0" rx="157.38" ry="147.16" fill="url(#gJupiters)"/><ellipse cx="0" cy="0" rx="157.38" ry="147.16" fill="url(#gJupitern)"/><g stroke="#e2e8f0" stroke-opacity=".33" stroke-dasharray="4 5"><line x1="0" y1="-188.85" x2="0" y2="188.85"/></g><ellipse cx="0" cy="0" rx="157.38" ry="147.16" fill="none" stroke="#0a1020" stroke-opacity=".4"/></g></svg>
+  <svg viewBox="0 0 400 400" width="100%" role="img" aria-label="Jupiter with four nested circular moon orbits, labelled as not to scale."><rect width="400" height="400" rx="16" fill="#080d1a"/><defs><radialGradient id="gJupiterf0"><stop offset="0" stop-color="#c9502f" stop-opacity="1"/><stop offset=".55" stop-color="#c9502f" stop-opacity=".85"/><stop offset="1" stop-color="#c9502f" stop-opacity="0"/></radialGradient><radialGradient id="gJupiterf1"><stop offset="0" stop-color="#e8d3ae" stop-opacity="1"/><stop offset=".55" stop-color="#e8d3ae" stop-opacity=".85"/><stop offset="1" stop-color="#e8d3ae" stop-opacity="0"/></radialGradient><radialGradient id="gJupiterf2"><stop offset="0" stop-color="#f2e6cc" stop-opacity="1"/><stop offset=".55" stop-color="#f2e6cc" stop-opacity=".85"/><stop offset="1" stop-color="#f2e6cc" stop-opacity="0"/></radialGradient><radialGradient id="gJupiterf3"><stop offset="0" stop-color="#8a6242" stop-opacity="1"/><stop offset=".55" stop-color="#8a6242" stop-opacity=".85"/><stop offset="1" stop-color="#8a6242" stop-opacity="0"/></radialGradient><radialGradient id="gJupiterf4"><stop offset="0" stop-color="#6f7f96" stop-opacity="1"/><stop offset=".55" stop-color="#6f7f96" stop-opacity=".85"/><stop offset="1" stop-color="#6f7f96" stop-opacity="0"/></radialGradient><radialGradient id="gJupiterl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#dfbf93"/><stop offset=".62" stop-color="#dfbf93"/><stop offset=".88" stop-color="#a8815a"/><stop offset="1" stop-color="#a8815a"/></radialGradient><linearGradient id="gJupitern" gradientUnits="objectBoundingBox" x1="0.19" y1="0.89" x2="0.81" y2="0.11"><stop offset=".3" stop-color="#000000" stop-opacity="0"/><stop offset=".72" stop-color="#04060e" stop-opacity=".2"/><stop offset="1" stop-color="#04060e" stop-opacity=".5"/></linearGradient><radialGradient id="gJupiters" cx="0.34" cy="0.7" r=".7"><stop offset="0" stop-color="#ffffff" stop-opacity="0.14"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient><clipPath id="gJupiterc"><ellipse cx="0" cy="0" rx="157.38" ry="147.16"/></clipPath></defs><g transform="translate(200 200) rotate(-3.13)"><ellipse cx="0" cy="0" rx="157.38" ry="147.16" fill="url(#gJupiterl)"/><g clip-path="url(#gJupiterc)"><path d="M-0.13 -147.16L-0.56 -147.16L-0.81 -147.16L-0.81 -147.16L-0.6 -147.16L-0.35 -147.16L-0.21 -147.16L-0.21 -147.16L-0.26 -147.16L-0.23 -147.16L-0.07 -147.16L0.19 -147.16L0.4 -147.16L0.48 -147.16L0.4 -147.16L0.24 -147.16L0.1 -147.16L0.02 -147.16L0.01 -147.16L0.01 -147.16L0 -147.16L0.01 -147.16L0.06 -147.16L0.18 -147.16L0.29 -147.16L0.34 -147.16L0.26 -147.16L0.1 -147.16L-0.05 -147.16L-0.12 -147.16L-0.1 -147.16L-0.08 -147.16L-0.18 -147.16L-0.41 -147.16L-0.69 -147.16L-0.85 -147.16L-0.77 -147.16L-0.45 -147.16L-0.04 -147.16L0.29 -147.16L0.4 -147.16L7.69 -146.99L15.36 -146.46L22.99 -145.58L30.57 -144.36L38.07 -142.79L45.49 -140.88L52.79 -138.64L59.97 -136.06L67.01 -133.16L74.3 -129.73L73.98 -129.78L73.25 -129.8L72.21 -129.75L70.79 -129.66L68.87 -129.61L66.36 -129.64L63.26 -129.78L59.7 -129.98L55.85 -130.15L51.82 -130.24L47.62 -130.22L43.18 -130.15L38.44 -130.09L33.39 -130.1L28.11 -130.15L22.67 -130.19L17.15 -130.15L11.53 -130.01L5.82 -129.82L0 -129.65L-5.85 -129.57L-11.66 -129.61L-17.36 -129.71L-22.92 -129.8L-28.36 -129.83L-33.67 -129.8L-38.78 -129.77L-43.58 -129.81L-47.98 -129.94L-51.98 -130.12L-55.65 -130.28L-59.11 -130.34L-62.39 -130.29L-65.43 -130.16L-68.07 -130.04L-70.19 -129.98L-71.75 -129.98L-72.84 -130L-73.58 -129.97L-74.03 -129.86L-67.01 -133.16L-59.97 -136.06L-52.79 -138.64L-45.49 -140.88L-38.07 -142.79L-30.57 -144.36L-22.99 -145.58L-15.36 -146.46L-7.69 -146.99Z" fill="#93867e" fill-opacity="0.5"/><path d="M-74.96 -129.4L-74.46 -129.54L-73.39 -129.73L-72.12 -129.8L-70.63 -129.75L-68.62 -129.75L-65.85 -129.93L-62.47 -130.24L-58.87 -130.49L-55.32 -130.49L-51.74 -130.29L-47.83 -130.06L-43.4 -129.96L-38.55 -129.99L-33.5 -129.98L-28.38 -129.8L-23.09 -129.51L-17.53 -129.34L-11.72 -129.42L-5.84 -129.69L0 -129.95L5.78 -130.05L11.53 -130.02L17.21 -130.03L22.68 -130.19L27.9 -130.41L33.02 -130.51L38.16 -130.35L43.32 -130.03L48.21 -129.76L52.6 -129.68L56.48 -129.74L60.07 -129.76L63.52 -129.63L66.68 -129.46L69.18 -129.44L70.78 -129.67L71.68 -130.02L72.31 -130.27L72.91 -130.31L73.34 -130.21L77.26 -128.21L80.58 -126.41L83.86 -124.53L87.09 -122.58L90.27 -120.55L93.39 -118.45L96.46 -116.28L99.47 -114.04L102.42 -111.74L105.12 -109.52L104.68 -109.62L103.79 -109.55L102.15 -109.57L99.65 -109.8L96.5 -110.08L93.02 -110.12L89.33 -109.81L85.23 -109.32L80.42 -108.98L74.83 -108.93L68.64 -109.04L62.11 -109.06L55.31 -108.89L48.16 -108.7L40.57 -108.76L32.62 -109.15L24.5 -109.66L16.36 -109.95L8.21 -109.93L0 -109.75L-8.23 -109.67L-16.4 -109.78L-24.44 -109.88L-32.4 -109.74L-40.32 -109.31L-48.09 -108.84L-55.48 -108.61L-62.33 -108.74L-68.67 -109L-74.65 -109.13L-80.33 -109.08L-85.51 -109.03L-89.93 -109.22L-93.52 -109.66L-96.51 -110.07L-99.22 -110.18L-101.71 -109.95L-103.71 -109.62L-104.88 -109.45L-105.18 -109.47L-102.42 -111.74L-99.47 -114.04L-96.46 -116.28L-93.39 -118.45L-90.27 -120.55L-87.09 -122.58L-83.86 -124.53L-80.58 -126.41L-77.26 -128.21Z" fill="#c9ab84" fill-opacity="0.4"/><path d="M-105.79 -108.95L-105.15 -109.22L-103.18 -110.07L-101.03 -110.53L-99.34 -110.08L-97.15 -109.49L-93.73 -109.46L-89.74 -109.41L-85.76 -108.77L-81.14 -108.17L-75.19 -108.5L-68.44 -109.3L-61.74 -109.59L-54.94 -109.5L-47.55 -109.84L-39.81 -110.43L-32.19 -110.31L-24.56 -109.45L-16.56 -108.87L-8.3 -108.97L0 -108.94L8.34 -108.48L16.65 -108.41L24.62 -109.22L32.3 -110.02L39.99 -110.04L47.57 -109.8L54.62 -110L61.32 -110.18L68.23 -109.58L75.06 -108.64L80.92 -108.42L85.7 -108.83L90.2 -108.95L94.46 -108.77L97.55 -109.13L99.38 -110.05L101.1 -110.47L103.21 -110.04L104.7 -109.6L104.95 -109.66L106.93 -107.98L108.53 -106.57L110.11 -105.14L111.67 -103.7L113.21 -102.23L114.72 -100.74L116.22 -99.23L117.69 -97.71L119.13 -96.16L121.71 -93.29L120.89 -93.8L119.29 -94.35L117.48 -94.3L114.81 -94.42L110.83 -95.26L106.33 -95.94L102.04 -95.57L97.42 -94.75L91.73 -94.52L85.26 -94.58L78.61 -94.05L71.53 -93.31L63.51 -93.48L54.79 -94.44L46 -95L37.17 -94.89L28.05 -95.06L18.7 -95.68L9.38 -95.74L0 -94.81L-9.5 -93.96L-18.95 -93.97L-28.24 -94.13L-37.49 -93.75L-46.5 -93.53L-54.86 -94.29L-62.64 -95.34L-70.36 -95.54L-77.97 -95.15L-84.88 -95.17L-91.1 -95.43L-97.28 -94.94L-103.35 -93.85L-108.37 -93.4L-111.98 -93.86L-114.97 -94.23L-117.68 -94.08L-119.35 -94.29L-119.6 -95.24L-119.36 -95.91L-119.13 -96.16L-117.69 -97.71L-116.22 -99.23L-114.72 -100.74L-113.21 -102.23L-111.67 -103.7L-110.11 -105.14L-108.53 -106.57L-106.93 -107.98Z" fill="#8d6a4c" fill-opacity="0.55"/><path d="M-120.89 -94.23L-120.45 -94.29L-119.43 -94.19L-117.34 -94.46L-114.16 -95.18L-110.44 -95.71L-106.64 -95.56L-102.48 -95L-97.49 -94.66L-91.6 -94.7L-85.22 -94.64L-78.57 -94.12L-71.43 -93.52L-63.5 -93.5L-54.93 -94.1L-46.1 -94.69L-37.2 -94.81L-28.12 -94.73L-18.8 -94.99L-9.39 -95.52L0 -95.7L9.42 -95.19L18.88 -94.43L28.25 -94.1L37.36 -94.21L46.26 -94.22L55.03 -93.86L63.46 -93.58L71.21 -93.93L78.21 -94.74L84.8 -95.29L91.22 -95.25L97.22 -95.03L102.38 -95.13L106.77 -95.39L110.84 -95.24L114.73 -94.51L117.92 -93.79L119.88 -93.68L120.69 -94.02L120.9 -94.22L122.13 -92.81L123.68 -91.01L125.19 -89.18L126.67 -87.33L128.12 -85.46L129.54 -83.57L130.93 -81.65L132.29 -79.72L133.61 -77.77L134.44 -76.5L134.43 -75.87L133.29 -75.72L131.17 -75.8L128.48 -75.49L125.2 -74.82L120.93 -74.49L115.48 -74.95L109.15 -75.76L102.39 -76.18L95.25 -76.1L87.47 -76.12L79 -76.57L70.08 -76.99L60.97 -76.72L51.61 -75.87L41.8 -75.19L31.59 -75.15L21.15 -75.35L10.61 -75.2L0 -74.82L-10.63 -74.88L-21.12 -75.65L-31.39 -76.5L-41.5 -76.73L-51.47 -76.43L-61.1 -76.27L-70.25 -76.48L-79 -76.56L-87.52 -76L-95.7 -75.1L-103.13 -74.64L-109.59 -74.92L-115.26 -75.36L-120.41 -75.41L-124.94 -75.28L-128.42 -75.59L-130.79 -76.4L-132.45 -77.02L-133.78 -76.88L-134.59 -76.27L-133.61 -77.77L-132.29 -79.72L-130.93 -81.65L-129.54 -83.57L-128.12 -85.46L-126.67 -87.33L-125.19 -89.18L-123.68 -91.01L-122.13 -92.81Z" fill="#ead2ab" fill-opacity="0.6"/><path d="M-134.61 -76.24L-133.41 -77.45L-132.46 -77.01L-131.05 -75.99L-128.2 -75.95L-124.69 -75.69L-120.95 -74.46L-115.91 -74.14L-109.35 -75.38L-102.42 -76.12L-95.3 -76L-87.26 -76.62L-78.65 -77.46L-70.17 -76.71L-61.38 -75.31L-51.79 -75.13L-41.8 -75.24L-31.68 -74.51L-21.23 -74.5L-10.57 -75.97L0 -76.9L10.55 -76.54L21.02 -76.58L31.31 -77.02L41.62 -76.13L51.91 -74.62L61.6 -74.55L70.68 -75.2L79.58 -75.02L87.87 -75.16L95.02 -76.59L101.77 -77.42L108.68 -76.67L114.85 -76.11L119.93 -76.26L124.81 -75.5L129.26 -74.19L132.03 -74.4L133.38 -75.57L134.47 -75.81L134.85 -75.88L135.88 -74.25L136.84 -72.69L137.78 -71.12L138.7 -69.54L139.6 -67.95L140.47 -66.35L141.33 -64.74L142.16 -63.12L142.98 -61.49L143.39 -60.65L142.59 -61.39L141.61 -60.69L139.5 -60.49L136.35 -60.7L132.94 -59.61L128.79 -58.19L123.13 -58.51L116.46 -59.47L109.47 -59.46L101.7 -59.74L92.97 -61.15L84 -61.65L74.96 -60.49L65.3 -59.74L55.02 -59.86L44.54 -59.1L33.76 -58.03L22.58 -58.69L11.27 -60.13L0 -60.36L-11.26 -60.33L-22.39 -61.24L-33.39 -61.41L-44.42 -59.92L-55.19 -58.88L-65.42 -59.17L-75.33 -58.99L-84.91 -58.38L-93.56 -59.25L-101.31 -60.88L-108.88 -61.08L-116.05 -60.53L-122.18 -60.84L-127.71 -60.77L-133.1 -59.24L-137.46 -58.22L-140.25 -58.87L-142.24 -59.35L-143.67 -59.12L-143.73 -59.94L-142.98 -61.49L-142.16 -63.12L-141.33 -64.74L-140.47 -66.35L-139.6 -67.95L-138.7 -69.54L-137.78 -71.12L-136.84 -72.69L-135.88 -74.25Z" fill="#96704f" fill-opacity="0.6"/><path d="M-144.04 -59.3L-143.42 -59.66L-141.54 -60.82L-139.05 -61.46L-136.29 -60.84L-132.75 -60.03L-128.05 -59.98L-122.56 -59.92L-116.62 -59.05L-109.9 -58.23L-102.05 -58.67L-93.4 -59.77L-84.42 -60.16L-75.07 -60.04L-65.13 -60.51L-54.75 -61.32L-44.23 -61.15L-33.55 -59.97L-22.54 -59.19L-11.3 -59.32L0 -59.28L11.32 -58.65L22.59 -58.56L33.58 -59.66L44.29 -60.75L54.85 -60.78L65.14 -60.45L74.9 -60.73L84.19 -60.98L93.28 -60.15L101.99 -58.87L109.78 -58.58L116.59 -59.14L122.81 -59.3L128.44 -59.04L132.97 -59.54L136.31 -60.79L139.09 -61.37L141.56 -60.78L143.18 -60.18L143.58 -60.26L144.54 -58.21L145.29 -56.55L146.02 -54.89L146.73 -53.22L147.41 -51.54L148.07 -49.85L148.71 -48.15L149.33 -46.45L149.93 -44.74L151.02 -41.41L150.36 -42.04L148.75 -42.72L146.46 -42.66L143.2 -42.81L138.79 -43.86L133.59 -44.72L127.98 -44.24L121.71 -43.22L114.47 -42.93L106.42 -43.01L97.89 -42.35L88.76 -41.42L78.87 -41.63L68.35 -42.84L57.53 -43.53L46.47 -43.4L35.09 -43.6L23.47 -44.39L11.77 -44.46L0 -43.3L-11.83 -42.24L-23.58 -42.24L-35.18 -42.45L-46.61 -41.98L-57.76 -41.7L-68.38 -42.65L-78.48 -43.95L-88.23 -44.21L-97.59 -43.72L-106.25 -43.75L-114.18 -44.07L-121.64 -43.46L-128.58 -42.1L-134.52 -41.53L-139.32 -42.12L-143.28 -42.57L-146.55 -42.38L-148.77 -42.64L-149.77 -43.84L-149.95 -44.67L-149.93 -44.74L-149.33 -46.45L-148.71 -48.15L-148.07 -49.85L-147.41 -51.54L-146.73 -53.22L-146.02 -54.89L-145.29 -56.55L-144.54 -58.21Z" fill="#f0dcb8" fill-opacity="0.6"/><path d="M-149.62 -45.64L-149.71 -44.01L-148.61 -43.16L-146.3 -43.16L-143.68 -41.23L-139.79 -40.48L-134.22 -42.61L-128.19 -43.52L-121.64 -43.48L-113.91 -45.1L-105.9 -45.2L-97.81 -42.73L-88.67 -41.94L-78.78 -42.18L-68.63 -40.94L-57.79 -41.44L-46.4 -44.09L-35.01 -44.56L-23.49 -44.01L-11.76 -44.84L0 -43.86L11.85 -41.24L23.63 -41.24L35.2 -42.16L46.64 -41.69L57.6 -42.99L67.97 -45.35L78.33 -44.78L88.37 -43.52L97.59 -43.75L106.58 -42.33L115.08 -40.37L122.14 -41.57L128.31 -43.08L134.12 -42.95L138.65 -44.3L142.28 -45.69L146.05 -43.93L148.87 -42.32L150.19 -42.54L151.02 -41.41L151.28 -40.56L152.01 -38.09L152.7 -35.6L153.34 -33.1L153.94 -30.6L154.49 -28.08L154.99 -25.55L155.44 -23.02L155.85 -20.48L155.99 -19.46L155.88 -16.71L154.48 -16.29L152.02 -16.91L148.78 -16.1L144.4 -17.2L138.94 -19.88L132.97 -19.79L126.28 -18.79L118.64 -19.24L110.46 -17.85L101.64 -15.44L91.95 -16.15L81.65 -17.49L70.95 -17.28L59.73 -18.77L48.15 -20.7L36.42 -19.37L24.44 -17.79L12.26 -17.93L0 -16.53L-12.28 -15.18L-24.45 -17.1L-36.44 -18.76L-48.25 -18.5L-59.69 -19.65L-70.76 -20.38L-81.61 -18L-91.92 -16.46L-101.52 -17L-110.61 -16.2L-118.96 -16.05L-126.29 -18.71L-132.95 -19.91L-139.05 -18.99L-144.13 -19.42L-148.41 -19.09L-152.08 -16.38L-154.56 -15.67L-155.84 -17.04L-156.33 -16.92L-155.85 -20.48L-155.44 -23.02L-154.99 -25.55L-154.49 -28.08L-153.94 -30.6L-153.34 -33.1L-152.7 -35.6L-152.01 -38.09L-151.28 -40.56Z" fill="#8f6039" fill-opacity="0.75"/><path d="M-156.27 -17.46L-155.77 -17.55L-154.35 -17.41L-151.91 -17.76L-148.46 -18.69L-144.13 -19.39L-139.03 -19.2L-133.13 -18.46L-126.36 -18.02L-118.76 -18.08L-110.45 -17.99L-101.5 -17.31L-91.92 -16.54L-81.71 -16.52L-70.95 -17.3L-59.77 -18.06L-48.26 -18.21L-36.46 -18.11L-24.42 -18.45L-12.24 -19.14L0 -19.37L12.25 -18.7L24.44 -17.73L36.48 -17.29L48.29 -17.44L59.8 -17.45L70.97 -16.98L81.7 -16.63L91.88 -17.08L101.43 -18.12L110.37 -18.84L118.69 -18.79L126.31 -18.5L133.11 -18.63L139.05 -18.97L144.21 -18.77L148.57 -17.82L152.02 -16.9L154.43 -16.75L155.82 -17.2L156.27 -17.44L156.63 -14.36L156.95 -10.78L157.19 -7.19L157.33 -3.6L157.38 0L157.33 3.6L157.19 7.19L156.95 10.78L156.63 14.36L156.31 17.11L155.73 17.85L154.27 18.02L151.89 17.93L148.51 18.28L144.17 19.06L138.99 19.44L133.07 18.92L126.37 17.98L118.82 17.49L110.49 17.58L101.48 17.56L91.88 17.03L81.71 16.55L70.98 16.86L59.78 17.85L48.24 18.63L36.44 18.68L24.42 18.45L12.25 18.63L0 19.07L-12.24 18.99L-24.43 18.11L-36.49 17.12L-48.31 16.85L-59.81 17.19L-70.95 17.39L-81.67 17.14L-91.88 17.04L-101.47 17.69L-110.38 18.74L-118.64 19.26L-126.26 18.95L-133.13 18.44L-139.13 18.38L-144.24 18.53L-148.53 18.17L-151.98 17.23L-154.46 16.51L-155.88 16.67L-156.28 17.38L-156.63 14.36L-156.95 10.78L-157.19 7.19L-157.33 3.6L-157.38 0L-157.33 -3.6L-157.19 -7.19L-156.95 -10.78L-156.63 -14.36Z" fill="#f6e9cd" fill-opacity="0.7"/><path d="M-156.53 15.22L-155.85 16.92L-154.3 17.8L-151.91 17.8L-148.31 19.79L-143.97 20.57L-139.13 18.37L-133.24 17.43L-126.42 17.47L-118.98 15.78L-110.65 15.67L-101.42 18.25L-91.73 19.06L-81.55 18.81L-70.78 20.09L-59.69 19.57L-48.31 16.82L-36.51 16.33L-24.46 16.91L-12.27 16.05L0 17.07L12.24 19.78L24.4 19.78L36.44 18.83L48.21 19.32L59.77 17.97L71.05 15.51L81.74 16.11L91.85 17.42L101.51 17.19L110.38 18.66L118.48 20.68L126.2 19.44L133.19 17.88L139.17 18.02L144.47 16.61L148.88 15.15L152.01 16.99L154.18 18.67L155.66 18.44L155.97 19.61L155.69 21.5L155.08 25.05L154.38 28.58L153.59 32.1L152.7 35.6L151.73 39.08L150.66 42.53L149.5 45.96L148.26 49.37L147.51 51.3L145.99 53.89L144.48 54.28L142.48 53.7L139.05 54.46L135.48 53.43L131.57 50.9L125.87 50.99L119.13 51.93L112.1 51.51L103.87 52.82L94.78 55.07L85.95 54.42L76.68 53.16L66.59 53.36L56.35 51.95L45.72 50.12L34.43 51.39L22.98 52.88L11.53 52.74L0 54.05L-11.44 55.32L-22.93 53.52L-34.37 51.96L-45.47 52.2L-56.47 51.13L-67.12 50.43L-76.78 52.68L-86.02 54.12L-95.18 53.62L-103.41 54.37L-111.16 54.51L-119.1 52.01L-125.91 50.87L-131.27 51.75L-136.26 51.34L-140.15 51.65L-142.27 54.2L-144.24 54.86L-146.13 53.57L-146.53 53.69L-148.26 49.37L-149.5 45.96L-150.66 42.53L-151.73 39.08L-152.7 35.6L-153.59 32.1L-154.38 28.58L-155.08 25.05L-155.69 21.5Z" fill="#93613b" fill-opacity="0.72"/><path d="M-146.69 53.31L-146.39 52.94L-145.51 51.75L-143.51 51.09L-140.12 51.73L-135.81 52.56L-130.96 52.61L-125.3 52.67L-118.59 53.56L-111.2 54.39L-103.54 53.94L-95.39 52.83L-86.44 52.42L-76.81 52.55L-66.83 52.07L-56.46 51.23L-45.57 51.41L-34.31 52.62L-22.94 53.42L-11.51 53.29L0 53.32L11.49 53.96L22.9 54.05L34.28 52.94L45.52 51.82L56.37 51.79L66.81 52.13L76.96 51.85L86.63 51.59L95.5 52.44L103.6 53.74L111.31 54.04L118.62 53.47L125.07 53.31L130.6 53.57L135.62 53.06L140.1 51.78L143.48 51.18L145.5 51.79L146.61 52.41L147.09 52.33L146.33 54.17L145.71 55.6L145.08 57.03L144.43 58.45L143.77 59.86L143.09 61.26L142.4 62.66L141.69 64.05L140.96 65.43L139.39 68.31L139.29 67.73L138.34 67.1L136.17 67.15L133.26 67.01L129.94 66.03L125.7 65.23L120.08 65.67L113.52 66.63L106.59 66.9L99.15 66.83L90.84 67.44L81.94 68.3L72.89 68.1L63.62 66.99L53.76 66.34L43.39 66.46L32.8 66.27L22.04 65.54L11.06 65.47L0 66.55L-10.97 67.54L-21.87 67.54L-32.67 67.35L-43.17 67.79L-53.4 68.04L-63.57 67.16L-73.51 65.95L-82.77 65.71L-91.3 66.16L-99.41 66.14L-107.03 65.84L-113.62 66.41L-119.16 67.67L-124.26 68.19L-129.12 67.66L-133.14 67.24L-136.03 67.41L-138.3 67.17L-140.2 66.05L-141.05 65.27L-140.96 65.43L-141.69 64.05L-142.4 62.66L-143.09 61.26L-143.77 59.86L-144.43 58.45L-145.08 57.03L-145.71 55.6L-146.33 54.17Z" fill="#eddcb8" fill-opacity="0.6"/><path d="M-139.91 67.38L-139.54 67.27L-138.16 67.44L-136.24 67.02L-133.83 65.9L-130.42 65.06L-125.67 65.3L-119.85 66.19L-113.49 66.71L-106.7 66.64L-99.18 66.74L-90.8 67.55L-81.88 68.47L-72.78 68.5L-63.47 67.57L-53.69 66.66L-43.39 66.48L-32.76 66.6L-21.99 66.19L-11.06 65.36L0 65.09L11.04 65.89L21.91 67.06L32.64 67.58L43.23 67.41L53.54 67.39L63.38 67.95L72.82 68.37L82.09 67.83L91.15 66.58L99.57 65.72L107.05 65.78L113.74 66.13L119.94 65.98L125.54 65.57L130.05 65.81L133.29 66.94L135.68 68.05L137.73 68.22L139.31 67.69L139.9 67.4L138.96 69.09L137.65 71.35L136.29 73.58L134.9 75.79L133.46 77.98L131.99 80.15L130.47 82.29L128.92 84.41L127.32 86.5L126.39 87.68L125.38 88.47L124.07 88.66L122.21 88.56L119.25 88.94L115.22 89.76L110.82 90.17L106.44 89.61L101.65 88.61L95.86 88.09L89.09 88.18L81.84 88.16L74.33 87.59L66.29 87.07L57.48 87.41L48.13 88.47L38.65 89.31L29.19 89.36L19.59 89.12L9.81 89.3L0 89.77L-9.79 89.69L-19.64 88.75L-29.5 87.69L-39.13 87.39L-48.34 87.77L-57.27 87.98L-66.03 87.71L-74.33 87.6L-81.76 88.3L-88.38 89.43L-94.69 89.98L-100.97 89.65L-106.8 89.1L-111.64 89.04L-115.64 89.21L-119.34 88.82L-122.81 87.8L-125.35 87.02L-126.38 87.2L-126.17 87.97L-127.32 86.5L-128.92 84.41L-130.47 82.29L-131.99 80.15L-133.46 77.98L-134.9 75.79L-136.29 73.58L-137.65 71.35L-138.96 69.09Z" fill="#8d6a4c" fill-opacity="0.6"/><path d="M-124.8 89.65L-124.64 89.38L-123.8 89L-121.99 88.85L-119.24 88.95L-115.83 88.96L-111.97 88.59L-107.59 87.94L-102.41 87.43L-96.27 87.42L-89.28 87.85L-81.75 88.32L-73.9 88.51L-65.72 88.45L-57.09 88.48L-48.01 88.85L-38.62 89.42L-29.11 89.78L-19.53 89.62L-9.83 89.07L0 88.53L9.88 88.33L19.68 88.4L29.38 88.38L38.97 88.05L48.4 87.58L57.49 87.39L66.03 87.71L73.97 88.37L81.44 88.92L88.58 89.08L95.33 88.96L101.44 88.93L106.74 89.19L111.29 89.53L115.37 89.57L119.11 89.11L122.34 88.4L124.68 87.88L125.9 87.81L126.13 88.01L123.85 90.81L121.96 93.01L120.03 95.18L118.05 97.32L116.03 99.42L113.97 101.49L111.86 103.51L109.72 105.5L107.53 107.45L105.53 109.17L105.34 109.06L104.27 109.14L102.69 109.11L100.75 108.83L98.23 108.5L94.79 108.45L90.33 108.82L85.15 109.41L79.66 109.83L74.02 109.89L68.09 109.75L61.65 109.72L54.67 109.93L47.38 110.15L39.97 110.08L32.45 109.61L24.68 109.01L16.61 108.65L8.33 108.68L0 108.9L-8.3 109L-16.57 108.87L-24.76 108.74L-32.71 108.91L-40.27 109.42L-47.47 109.99L-54.46 110.25L-61.37 110.11L-68.05 109.8L-74.23 109.64L-79.77 109.7L-84.81 109.76L-89.62 109.53L-94.2 109.01L-98.22 108.51L-101.26 108.37L-103.22 108.65L-104.37 109.05L-105.1 109.27L-105.46 109.24L-107.53 107.45L-109.72 105.5L-111.86 103.51L-113.97 101.49L-116.03 99.42L-118.05 97.32L-120.03 95.18L-121.96 93.01L-123.85 90.81Z" fill="#dcc399" fill-opacity="0.5"/><path d="M-104.49 110.05L-104.37 109.87L-103.69 109.63L-102.19 109.55L-99.88 109.61L-97.02 109.61L-93.81 109.38L-90.18 108.97L-85.87 108.65L-80.72 108.64L-74.84 108.91L-68.51 109.21L-61.92 109.33L-55.07 109.29L-47.84 109.31L-40.22 109.54L-32.34 109.9L-24.37 110.13L-16.35 110.03L-8.23 109.68L0 109.34L8.28 109.22L16.49 109.26L24.61 109.25L32.66 109.04L40.58 108.75L48.2 108.62L55.35 108.83L61.98 109.24L68.22 109.59L74.19 109.69L79.85 109.61L84.97 109.59L89.39 109.75L93.18 109.97L96.59 109.99L99.76 109.71L102.52 109.26L104.51 108.93L105.54 108.89L105.72 109.02L102.42 111.74L99.47 114.04L96.46 116.28L93.39 118.45L90.27 120.55L87.09 122.58L83.86 124.53L80.58 126.41L77.26 128.21L74.09 129.84L73.98 129.78L73.21 129.82L72.1 129.8L70.8 129.66L69.1 129.48L66.69 129.45L63.48 129.65L59.73 129.96L55.81 130.18L51.85 130.21L47.72 130.14L43.2 130.13L38.29 130.23L33.16 130.35L27.98 130.31L22.75 130.07L17.33 129.75L11.68 129.56L5.85 129.58L0 129.69L-5.83 129.74L-11.64 129.68L-17.4 129.61L-22.98 129.7L-28.25 129.97L-33.24 130.27L-38.11 130.41L-42.96 130.33L-47.68 130.17L-52.04 130.08L-55.91 130.12L-59.43 130.15L-62.84 130.03L-66.16 129.75L-69.09 129.49L-71.26 129.41L-72.57 129.56L-73.3 129.77L-73.76 129.89L-74.02 129.87L-77.26 128.21L-80.58 126.41L-83.86 124.53L-87.09 122.58L-90.27 120.55L-93.39 118.45L-96.46 116.28L-99.47 114.04L-102.42 111.74Z" fill="#c9ab84" fill-opacity="0.4"/><path d="M-73.77 129.99L-73.16 130.18L-72.25 130.3L-71.13 130.3L-69.74 130.21L-67.95 130.1L-65.64 130.04L-62.81 130.05L-59.55 130.08L-55.98 130.07L-52.19 129.98L-48.15 129.81L-43.78 129.64L-39.03 129.53L-33.9 129.55L-28.49 129.66L-22.92 129.8L-17.27 129.9L-11.56 129.92L-5.8 129.9L0 129.9L5.79 129.97L11.5 130.12L17.09 130.27L22.57 130.35L27.98 130.32L33.31 130.19L38.51 130.02L43.47 129.9L48.09 129.86L52.33 129.88L56.26 129.89L59.93 129.84L63.36 129.73L66.44 129.6L69.01 129.53L70.95 129.58L72.24 129.73L73.01 129.92L73.4 130.06L73.53 130.11L67.01 133.16L59.97 136.06L52.79 138.64L45.49 140.88L38.07 142.79L30.57 144.36L22.99 145.58L15.36 146.46L7.69 146.99L-0.47 147.16L-0.36 147.16L-0.32 147.16L-0.41 147.16L-0.59 147.16L-0.69 147.16L-0.6 147.16L-0.3 147.16L0.08 147.16L0.38 147.16L0.48 147.16L0.42 147.16L0.28 147.16L0.18 147.16L0.17 147.16L0.19 147.16L0.18 147.16L0.11 147.16L0.03 147.16L-0.02 147.16L0 147.16L0.07 147.16L0.12 147.16L0.12 147.16L0.1 147.16L0.1 147.16L0.14 147.16L0.2 147.16L0.17 147.16L0 147.16L-0.3 147.16L-0.6 147.16L-0.75 147.16L-0.69 147.16L-0.46 147.16L-0.22 147.16L-0.09 147.16L-0.1 147.16L-0.15 147.16L-0.08 147.16L0.17 147.16L-7.69 146.99L-15.36 146.46L-22.99 145.58L-30.57 144.36L-38.07 142.79L-45.49 140.88L-52.79 138.64L-59.97 136.06L-67.01 133.16Z" fill="#93867e" fill-opacity="0.5"/><ellipse cx="0" cy="0" rx="3.45" ry="17.61" fill="url(#gJupiterf0)" opacity="0.28" transform="translate(-144.15 55.13) rotate(159.07)"/><ellipse cx="0" cy="0" rx="1.94" ry="9.91" fill="url(#gJupiterf0)" opacity="0.17" transform="translate(-144.15 55.13) rotate(159.07)"/><ellipse cx="0" cy="0" rx="0.8" ry="5.5" fill="url(#gJupiterf3)" opacity="0.05" transform="translate(-147.34 50.33) rotate(161.14)"/><ellipse cx="0" cy="0" rx="8.42" ry="9.91" fill="url(#gJupiterf2)" opacity="0.5" transform="translate(-20.8 80.15) rotate(104.55)"/><ellipse cx="0" cy="0" rx="3.83" ry="7.7" fill="url(#gJupiterf2)" opacity="0.42" transform="translate(110.61 80.15) rotate(35.93)"/><ellipse cx="0" cy="0" rx="1.29" ry="5.72" fill="url(#gJupiterf4)" opacity="0.21" transform="translate(-152.54 -15.38) rotate(-174.24)"/><ellipse cx="0" cy="0" rx="5.01" ry="6.16" fill="url(#gJupiterf4)" opacity="0.34" transform="translate(-89.54 -20.48) rotate(-167.12)"/><ellipse cx="0" cy="0" rx="5.19" ry="5.28" fill="url(#gJupiterf4)" opacity="0.32" transform="translate(24.3 -15.38) rotate(-32.33)"/><ellipse cx="0" cy="0" rx="3.57" ry="5.94" fill="url(#gJupiterf4)" opacity="0.34" transform="translate(124.64 -17.93) rotate(-8.19)"/><ellipse cx="0" cy="0" rx="5.05" ry="7.7" fill="url(#gJupiterf2)" opacity="0.28" transform="translate(-118.88 -2.57) rotate(-178.76)"/><ellipse cx="0" cy="0" rx="2.16" ry="6.6" fill="url(#gJupiterf2)" opacity="0.2" transform="translate(148.65 5.14) rotate(1.98)"/></g><ellipse cx="0" cy="0" rx="157.38" ry="147.16" fill="url(#gJupiters)"/><ellipse cx="0" cy="0" rx="157.38" ry="147.16" fill="url(#gJupitern)"/><g stroke="#e2e8f0" stroke-opacity=".33" stroke-dasharray="4 5"><line x1="0" y1="-188.85" x2="0" y2="188.85"/></g><ellipse cx="0" cy="0" rx="157.38" ry="147.16" fill="none" stroke="#0a1020" stroke-opacity=".4"/></g></svg>
   <figcaption>Four large inner moons — Io, Europa, Ganymede, Callisto — on nested paths. The picture is not to scale in distance; it is a family portrait.</figcaption>
 </figure>
   <section data-band="5-12">
@@ -48,7 +1333,84 @@
     <p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> At every instant a planet has a velocity — where it is already going — and gravity adds a small pull straight toward the Sun. Bend a path by the same small amount at every step and it closes. That closed path is the orbit.</p>
 <p><a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a> They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up.</p>
   </div>
-  <p class="footer"><a href="/glossary/">Glossary</a> · <a href="/questions/">All questions</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
+  <details class="suggest-box" data-ac="suggest">
+    <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
+    <form class="suggest-form" autocomplete="off">
+      <p class="hint" style="margin:0 0 14px">Ask us anything about the tools, tell us what's broken or confusing, or suggest something we're missing. Every message is read by a person.</p>
+      <p class="notice">If you are under 13, do not send us your name, email, or any other personal information. If you are under 18, please get a parent or guardian's permission before using this form.</p>
+      <label class="cr-check" for="sg-age"><input id="sg-age" name="age_ok" type="checkbox" required> <span>I am 13 or older, and if I am under 18 I have a parent or guardian's permission to send this.</span></label>
+      <label for="sg-email">Email <span class="hint" style="display:inline;font-weight:400">(so we can reply — leave blank if you'd rather not)</span></label>
+      <input id="sg-email" type="email" placeholder="Your email address">
+      <label for="sg-idea">Your question or idea</label>
+      <textarea id="sg-idea" maxlength="1000" required placeholder="How do I…? · Something isn't working · A countdown or feature we're missing…"></textarea>
+      <input id="sg-hp" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn" id="sg-send" type="submit">Send message</button>
+      <p id="sg-note" class="hint suggest-note" role="status"></p>
+      <p class="hint" style="margin-top:12px">If you leave an email we'll reply to questions. We can't promise to build every suggestion, but they directly shape what we work on next.</p>
+    </form>
+  </details>
+  <script data-ac="suggest">(function(){var b=document.querySelector('.suggest-box[data-ac="suggest"]');if(!b)return;var f=b.querySelector('.suggest-form'),note=b.querySelector('#sg-note'),btn=b.querySelector('#sg-send');f.addEventListener('submit',function(e){e.preventDefault();if(b.querySelector('#sg-hp').value)return;var idea=b.querySelector('#sg-idea').value.trim();if(!idea){note.textContent='Please add a quick note first.';return;}var age=b.querySelector('#sg-age');if(age&&!age.checked){note.textContent='Please confirm the age notice.';return;}var em=b.querySelector('#sg-email').value.trim();btn.disabled=true;note.textContent='Sending…';fetch('/api/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:location.href,reason:'Site idea',details:idea,email:em,website:''})}).then(function(r){return r.json().catch(function(){return{};});}).then(function(d){if(d&&!d.error){f.reset();note.textContent=em?'Thanks — got it. A reply will go to '+em+'. 🙌':'Thanks — got it. 🙌 (No email given, so this one cannot be answered.)';}else{note.textContent='Sorry, that did not send. Please try again.';btn.disabled=false;}}).catch(function(){note.textContent='Network hiccup — please try again.';btn.disabled=false;});});})();</script>
+  <p class="footer"><a href="/glossary/">Glossary</a> · <a href="/questions/">All questions</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/suggest-event/">Suggest an event</a> · <a class="report-link" href="/report/?url=https%3A%2F%2Ftimeandspace.science%2Fconcepts%2Fwhy-does-jupiter-have-so-many-moons%2F">Report abuse</a></p>
+  <p class="footer copyright">© 2026 Time and Space Science. All rights reserved.</p>
+  <p class="footer sitelinks">Gravity, motion, time and space — one set of rules, seen from different sides: <a href="/questions/">the big questions</a> · <a href="/glossary/">the glossary</a> · <a href="/sun-moon-earth-movement-simulator/">the Sun, Earth &amp; Moon</a> · <a href="/day-night-map/">day &amp; night on Earth</a> · <a href="/solar-system-simulator/">the solar system</a> · <a href="/planets/">the planets</a> · <a href="/orbital-velocity-simulator/">gravity &amp; orbits</a> · <a href="/sun/">sunrise &amp; sunset</a> · <a href="/moon/">moon phases</a> · <a href="/world-clock/">time zones</a></p>
+  <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. Teachers: <a href="/classroom/submit-a-lesson/">send us the lesson you already run</a> and we will build it into a page here, with your name on it — or <a href="/classroom/#ask">ask us to build a simulator</a> your class has thought of. <a href="/classroom/">Classroom</a> · <a href="/about/">About this site</a>.</p>
 </div>
+<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+<script data-ac="privacy">(function(){
+  try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
+  var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];
+  /* "dismissed" stores the choice-not-to-choose: the strip stops nagging, no
+   * consent is recorded (so under GDPR analytics consent stays not-granted). */
+  function setConsent(v){
+    try{localStorage.setItem("ac_consent",v);}catch(_){}
+    try{if(v!=="dismissed"&&window.zaraz&&zaraz.consent){zaraz.consent.set({analytics:v==="granted"});zaraz.consent.sendQueuedEvents&&zaraz.consent.sendQueuedEvents();}}catch(_){}
+    var el=document.getElementById("ac-privacy");if(el)el.hidden=true;
+  }
+  function show(g){
+    if(!g||!g.country)return;
+    var isGdpr=GDPR.indexOf(g.country)>-1, isCcpa=g.country==="US"&&g.region==="CA";
+    if(!isGdpr&&!isCcpa)return;
+    var el=document.getElementById("ac-privacy"),txt=document.getElementById("ac-privacy-text"),act=document.getElementById("ac-privacy-actions");
+    if(!el)return;
+    if(isGdpr){
+      txt.textContent="Allow Google Analytics? EU/UK law requires consent for analytics.";
+      act.innerHTML='<button type="button" id="ac-priv-a">Accept</button><button type="button" class="plain" id="ac-priv-r">Reject</button><a href="/privacy">Privacy</a>';
+      document.getElementById("ac-priv-a").onclick=function(){setConsent("granted");};
+      document.getElementById("ac-priv-r").onclick=function(){setConsent("denied");};
+    }else{
+      txt.textContent="This site uses Google Analytics.";
+      act.innerHTML='<a href="#" id="ac-priv-o">Do Not Sell or Share My Personal Information</a><a href="/privacy">Privacy</a>';
+      document.getElementById("ac-priv-o").onclick=function(ev){ev.preventDefault();setConsent("denied");};
+    }
+    document.getElementById("ac-privacy-x").onclick=function(){setConsent("dismissed");};
+    el.hidden=false;
+  }
+  /* ONE lookup per visitor, not one per page view. This notice is site-wide, so
+     the fetch was firing on every page — including /timer/ and /stopwatch/,
+     which have nothing regional about them. The visitor's country does not
+     change between two page views, so it is cached and reused; only a visitor
+     who has neither answered the notice nor been looked up yet costs a request.
+     Deferred to idle as well, so even that one never sits in the load timeline
+     (it decides whether to show a banner, nothing above the fold waits on it).
+     The cache carries a 7-day expiry rather than living forever: this signal
+     decides whether a consent gate is legally required, and someone who first
+     visited from outside the EEA and has since travelled into it must not be
+     held to a stale answer. Seven days keeps it one request per visitor per
+     week, which is already ~zero. */
+  var cached=null;
+  try{
+    var raw=JSON.parse(localStorage.getItem("ac_geo")||"null");
+    if(raw&&raw.t&&(Date.now()-raw.t)<6048e5) cached=raw;
+  }catch(_){}
+  function go(){
+    if(cached&&cached.country){show(cached);return;}
+    fetch("/api/geo").then(function(r){return r.ok?r.json():null;}).then(function(g){
+      if(!g||!g.country)return;
+      try{localStorage.setItem("ac_geo",JSON.stringify({country:g.country,region:g.region,t:Date.now()}));}catch(_){}
+      show(g);
+    })["catch"](function(){});
+  }
+  if(window.requestIdleCallback)requestIdleCallback(go,{timeout:2500});else setTimeout(go,700);
+})();</script>
 </body>
 </html>
