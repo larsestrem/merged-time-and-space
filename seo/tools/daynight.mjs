@@ -67,7 +67,7 @@ function dnEcl(ms){
 /* the season-orbit figure: sun at the centre, Earth on a circle. Spring
    equinox at the top, then counterclockwise: summer right, fall bottom,
    winter left. soXY is shared with the live "today" marker. */
-var SO_CX=320,SO_CY=288,SO_R=172;
+var SO_CX=320,SO_CY=320,SO_R=248;
 function soXY(L){
   var a=L*Math.PI/180;
   return {x:SO_CX+SO_R*Math.sin(a), y:SO_CY-SO_R*Math.cos(a)};
@@ -353,27 +353,41 @@ export function seasonSunHtml(dec, lon, laterDec, tilt) {
 
 /* ---- Earth around the sun, with the four season corners ------------------
  * Spring equinox at the top, then counterclockwise: summer solstice (right),
- * fall equinox (bottom), winter solstice (left). The season names sit on the
- * ARCS BETWEEN those four, because each named Earth is the start of a season
- * and the stop of the one before. The axis on every Earth points the same
- * way in space (left, toward the summer-solstice sun), which is the whole
- * lesson: the lean does not turn with the year.
+ * fall equinox (bottom), winter solstice (left). Season names sit on the
+ * ARCS BETWEEN those four, rotated to follow the orbit, because each named
+ * Earth is the start of a season and the stop of the one before.
+ *
+ * THE LEAN IS THE POINT. Every Earth's axis points the same way in space —
+ * up and a little toward the summer-solstice sun, by the real tilt — so the
+ * north end leans into the sunlight in June and out of it in December. Night
+ * is the half facing away from the Sun; a gold wash is the half facing it.
+ * The equator is drawn across each globe so the tilt is a line you can see
+ * against the incoming rays, not only an N label.
+ *
+ * Equinox/solstice names sit INSIDE the orbit, stacked two lines, so the
+ * circle can be large and the words do not fight the Earths on the rim.
  *
  * `opts.attr` / `opts.values` stamp data-dn-jump or data-wk-at on the four
  * Earths so a click is the same as the chip row. `opts.id` prefixes the
- * live "today" marker. */
+ * live "today" marker. `opts.tilt` is Earth's axial tilt in degrees. */
 export function seasonOrbitSvg(ms, opts) {
   const o = opts || {};
   const id = o.id || "so";
   const attr = o.attr || "";
   const values = o.values || {};
+  const tilt = o.tilt != null ? o.tilt : 23.4;
   const f = (n) => Math.round(n * 10) / 10;
-  const CX = 320, CY = 288, R = 172, ER = 20;
+  const CX = 320, CY = 320, R = 248, ER = 26;
+  const tRad = tilt * Math.PI / 180;
+  /* north pole of every Earth: same direction in space. Up, and a little
+     toward summer (left on this page), so June's north leans into the Sun. */
+  const ax = -Math.sin(tRad), ay = -Math.cos(tRad);
+  const qx = -ay, qy = ax; /* equator, perpendicular to the axis */
   const xy = (L) => {
     const a = L * Math.PI / 180;
     return { x: CX + R * Math.sin(a), y: CY - R * Math.cos(a) };
   };
-  const earth = (L, label, key) => {
+  const earth = (L, word1, word2, key) => {
     const p = xy(L);
     const dx = CX - p.x, dy = CY - p.y;
     const len = Math.hypot(dx, dy) || 1;
@@ -383,39 +397,57 @@ export function seasonOrbitSvg(ms, opts) {
     const x2 = f(p.x - px * ER), y2 = f(p.y - py * ER);
     const jump = attr && values[key] !== undefined ? ` ${attr}="${values[key]}"` : "";
     const a = L * Math.PI / 180;
-    const lx = f(CX + (R + 50) * Math.sin(a));
-    const ly = f(CY - (R + 50) * Math.cos(a));
-    const anc = L === 90 ? "start" : L === 270 ? "end" : "middle";
-    const ty = L === 0 ? ly - 2 : L === 180 ? ly + 12 : ly + 4;
+    const lr = R - ER - 36;
+    const lx = f(CX + lr * Math.sin(a));
+    const ly = f(CY - lr * Math.cos(a));
+    const nx = f(p.x + ax * ER * 1.62);
+    const ny = f(p.y + ay * ER * 1.62);
+    const label = `${word1} ${word2}`;
     return `<g class="so-earth"${jump}>
       <title>${label} \u2014 the start of the next season</title>
       <circle cx="${f(p.x)}" cy="${f(p.y)}" r="${ER}" fill="#2f5d3a" stroke="rgba(226,232,240,.45)" stroke-width="1.2"/>
+      <path class="so-day" d="M${x1} ${y1}A${ER} ${ER} 0 0 0 ${x2} ${y2}Z"/>
       <path d="M${x1} ${y1}A${ER} ${ER} 0 0 1 ${x2} ${y2}Z" fill="#050a16" fill-opacity=".62"/>
-      <line class="so-axis" x1="${f(p.x + ER * 1.45)}" y1="${f(p.y)}" x2="${f(p.x - ER * 1.45)}" y2="${f(p.y)}"/>
-      <text class="so-n" text-anchor="end" x="${f(p.x - ER * 1.55)}" y="${f(p.y + 3.5)}">N</text>
-      <text class="so-elab" text-anchor="${anc}" x="${lx}" y="${f(ty)}">${label}</text>
+      <line class="so-eq" x1="${f(p.x + qx * ER)}" y1="${f(p.y + qy * ER)}" x2="${f(p.x - qx * ER)}" y2="${f(p.y - qy * ER)}"/>
+      <line class="so-axis" x1="${f(p.x + ax * ER * 1.48)}" y1="${f(p.y + ay * ER * 1.48)}" x2="${f(p.x - ax * ER * 1.48)}" y2="${f(p.y - ay * ER * 1.48)}"/>
+      <text class="so-n" text-anchor="middle" x="${nx}" y="${f(ny + 3.5)}">N</text>
+      <text class="so-elab" text-anchor="middle" x="${lx}" y="${ly}">
+        <tspan x="${lx}" dy="-0.55em">${word1}</tspan>
+        <tspan x="${lx}" dy="1.15em">${word2}</tspan>
+      </text>
     </g>`;
   };
   const season = (L, name) => {
-    const a = L * Math.PI / 180, rr = R * 0.62;
-    return `<text class="so-season" text-anchor="middle" x="${f(CX + rr * Math.sin(a))}" y="${f(CY - rr * Math.cos(a) + 4)}">${name}</text>`;
+    const a = L * Math.PI / 180, rr = R - 32;
+    const x = f(CX + rr * Math.sin(a)), y = f(CY - rr * Math.cos(a));
+    let rot = L;
+    if (rot > 90 && rot < 270) rot -= 180;
+    return `<text class="so-season" text-anchor="middle" dominant-baseline="middle" transform="rotate(${f(rot)} ${x} ${y})" x="${x}" y="${y}">${name}</text>`;
   };
-  const L = ((eclipticLon(ms) % 360) + 360) % 360;
-  const now = xy(L);
-  return `<svg class="so-svg" viewBox="0 0 640 560" width="100%" role="img" aria-label="Earth going around the Sun. The four marked positions are the spring equinox, summer solstice, fall equinox and winter solstice, and the season names sit on the orbit between them.">
-    <rect width="640" height="560" rx="12" fill="#0a1428"/>
-    <circle class="so-orbit" cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="rgba(226,232,240,.3)" stroke-width="1.6"/>
+  const rays = [0, 90, 180, 270].map((L) => {
+    const p = xy(L);
+    const dx = p.x - CX, dy = p.y - CY;
+    const len = Math.hypot(dx, dy) || 1;
+    const ux = dx / len, uy = dy / len;
+    return `<line class="so-ray" x1="${f(CX + ux * 40)}" y1="${f(CY + uy * 40)}" x2="${f(CX + ux * (R - ER - 8))}" y2="${f(CY + uy * (R - ER - 8))}"/>`;
+  }).join("");
+  const Lnow = ((eclipticLon(ms) % 360) + 360) % 360;
+  const now = xy(Lnow);
+  return `<svg class="so-svg" viewBox="0 0 640 640" width="100%" role="img" aria-label="Earth going around the Sun. Four Earths mark the spring equinox, summer solstice, fall equinox and winter solstice. Each Earth leans the same way, so sunlight falls on the north in June and the south in December. Season names sit on the orbit between them.">
+    <rect width="640" height="640" rx="12" fill="#0a1428"/>
+    ${rays}
+    <circle class="so-orbit" cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="rgba(226,232,240,.4)" stroke-width="2"/>
     <circle cx="${CX}" cy="${CY}" r="38" fill="#fde68a" fill-opacity=".15"/>
     <circle cx="${CX}" cy="${CY}" r="22" fill="#fde68a" stroke="#b45309" stroke-width="1.6"/>
-    <text class="so-sunlab" text-anchor="middle" x="${CX}" y="${CY + 40}">Sun</text>
+    <text class="so-sunlab" text-anchor="middle" x="${CX}" y="${CY + 42}">Sun</text>
     ${season(45, "Spring")}
     ${season(135, "Summer")}
     ${season(225, "Fall")}
     ${season(315, "Winter")}
-    ${earth(0, "Spring equinox", "mar")}
-    ${earth(90, "Summer solstice", "jun")}
-    ${earth(180, "Fall equinox", "sep")}
-    ${earth(270, "Winter solstice", "dec")}
+    ${earth(0, "Spring", "equinox", "mar")}
+    ${earth(90, "Summer", "solstice", "jun")}
+    ${earth(180, "Fall", "equinox", "sep")}
+    ${earth(270, "Winter", "solstice", "dec")}
     <g id="${id}-orbit-now" transform="translate(${f(now.x)} ${f(now.y)})">
       <circle r="7.5" fill="#fde68a" stroke="#b45309" stroke-width="1.5"/>
       <text class="so-today" text-anchor="middle" y="-14">today</text>

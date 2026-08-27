@@ -541,8 +541,8 @@
       "what-are-the-polar-circles"
     ],
     "graphicId": "season-orbit",
-    "graphicCaption": "Earth goes around the Sun. The four marked positions are the start of each season. Spring sits on the orbit between the spring equinox and the summer solstice; summer, fall and winter follow the same way. The north end of the axis points the same way the whole year.",
-    "graphicAlt": "The Sun in the centre of Earth’s orbit. Four Earths mark the spring equinox, summer solstice, fall equinox and winter solstice. Season names sit on the orbit between them. A yellow marker shows today’s place on the year.",
+    "graphicCaption": "Earth goes around the Sun. The four marked positions are the start of each season. Spring sits on the orbit between the spring equinox and the summer solstice; summer, fall and winter follow the same way. Every Earth leans the same way, so sunlight falls on the north in June and the south in December. A yellow marker shows today’s place on the year.",
+    "graphicAlt": "The Sun in the centre of Earth’s orbit. Four Earths mark the spring equinox, summer solstice, fall equinox and winter solstice, each leaning the same way so sunlight hits the north in June and the south in December. Season names sit on the orbit between them. A yellow marker shows today’s place on the year.",
     "sections": [
       {
         "heading": "The test that kills the distance story",

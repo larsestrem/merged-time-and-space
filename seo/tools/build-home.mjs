@@ -31,7 +31,7 @@ import { SIDEREAL } from "./build-simulator.mjs";
 /* the same coastline rings the planet globes are drawn from — imported, not
    copied, because two coastline tables would drift apart */
 import { WC_CITY_LIST } from "./wc-cities.mjs";
-import { DAYNIGHT_PATH, seasonPoints, DN_CORE, DN_W, DN_TOP, DN_BOT, dnX, dnY, dnF, subsolar, nightPath, landPath, cityMark, DN_MAP_EXTRA, DN_MAP_BIG, seasonSunHtml, seasonOrbitSvg } from "./daynight.mjs";
+import { DAYNIGHT_PATH, seasonPoints, DN_CORE, DN_W, DN_TOP, DN_BOT, dnX, dnY, dnF, subsolar, nightPath, landPath, cityMark, DN_MAP_EXTRA, DN_MAP_BIG, seasonSunHtml } from "./daynight.mjs";
 /* the simulator URLs, imported rather than typed: the planet pages are flat
    (/jupiter-and-moons-simulator/) and the launch hub moved, and a second copy
    of either rule here would rot the first time one changed */
@@ -1555,10 +1555,12 @@ ${switcher("/")}
        two, and the links. On a phone it stacks back to map-first. */""
   }<div class="card home-hero">
     <p class="hub-kicker">Earth</p>
-    <h2>Where is the Sun right now?</h2>
+    <h2><a href="${DAYNIGHT_PATH}">Where is the Sun right now?</a></h2>
     <div class="home-hero-grid">
       <div class="home-hero-map">
+        <a class="home-dn-link" href="${DAYNIGHT_PATH}" aria-label="Open the day and night map">
         ${WK.svg}
+        </a>
         ${/* the invitation, ON the picture (owner's call: no modal, no panel —
              a button in the map's top-right corner; the browser's own
              permission prompt only appears after a deliberate press). Hidden
@@ -1587,7 +1589,7 @@ ${switcher("/")}
       <div class="home-hero-side">
         <p class="home-hero-line"><strong>Half the Earth is always in daylight, and the other half is night.</strong></p>
         <p class="wk-sunline" id="wk-sunline">${seasonSunHtml(subsolar(+_hbNow).dec, subsolar(+_hbNow).lon, subsolar(+_hbNow + 7 * 86400000).dec, WK_TILT)}</p>
-        <div class="so-wrap so-wrap-home">${seasonOrbitSvg(+_hbNow, { id: "wk", attr: "data-wk-at", values: { mar: WK_YEAR.up, jun: WK_YEAR.maxMs, sep: WK_YEAR.down, dec: WK_YEAR.minMs } })}</div>
+        <a class="wk-all" href="${DAYNIGHT_PATH}">Open the day and night map →</a>
       </div>
     </div>
     ${hubQs(["what-is-the-tropic-of-cancer", "why-do-we-have-seasons", "what-is-the-terminator", "why-can-the-moon-be-up-in-the-daytime"])}

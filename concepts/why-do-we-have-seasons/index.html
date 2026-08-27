@@ -24,54 +24,75 @@
   <h1>Why do we have seasons?</h1>
   <p class="answer">Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year.</p>
   <figure class="graphic-block dn">
-  <div class="so-wrap"><svg class="so-svg" viewBox="0 0 640 560" width="100%" role="img" aria-label="Earth going around the Sun. The four marked positions are the spring equinox, summer solstice, fall equinox and winter solstice, and the season names sit on the orbit between them.">
-    <rect width="640" height="560" rx="12" fill="#0a1428"/>
-    <circle class="so-orbit" cx="320" cy="288" r="172" fill="none" stroke="rgba(226,232,240,.3)" stroke-width="1.6"/>
-    <circle cx="320" cy="288" r="38" fill="#fde68a" fill-opacity=".15"/>
-    <circle cx="320" cy="288" r="22" fill="#fde68a" stroke="#b45309" stroke-width="1.6"/>
-    <text class="so-sunlab" text-anchor="middle" x="320" y="328">Sun</text>
-    <text class="so-season" text-anchor="middle" x="395.4" y="216.6">Spring</text>
-    <text class="so-season" text-anchor="middle" x="395.4" y="367.4">Summer</text>
-    <text class="so-season" text-anchor="middle" x="244.6" y="367.4">Fall</text>
-    <text class="so-season" text-anchor="middle" x="244.6" y="216.6">Winter</text>
+  <div class="so-wrap"><svg class="so-svg" viewBox="0 0 640 640" width="100%" role="img" aria-label="Earth going around the Sun. Four Earths mark the spring equinox, summer solstice, fall equinox and winter solstice. Each Earth leans the same way, so sunlight falls on the north in June and the south in December. Season names sit on the orbit between them.">
+    <rect width="640" height="640" rx="12" fill="#0a1428"/>
+    <line class="so-ray" x1="320" y1="280" x2="320" y2="106"/><line class="so-ray" x1="360" y1="320" x2="534" y2="320"/><line class="so-ray" x1="320" y1="360" x2="320" y2="534"/><line class="so-ray" x1="280" y1="320" x2="106" y2="320"/>
+    <circle class="so-orbit" cx="320" cy="320" r="248" fill="none" stroke="rgba(226,232,240,.4)" stroke-width="2"/>
+    <circle cx="320" cy="320" r="38" fill="#fde68a" fill-opacity=".15"/>
+    <circle cx="320" cy="320" r="22" fill="#fde68a" stroke="#b45309" stroke-width="1.6"/>
+    <text class="so-sunlab" text-anchor="middle" x="320" y="362">Sun</text>
+    <text class="so-season" text-anchor="middle" dominant-baseline="middle" transform="rotate(45 472.7 167.3)" x="472.7" y="167.3">Spring</text>
+    <text class="so-season" text-anchor="middle" dominant-baseline="middle" transform="rotate(-45 472.7 472.7)" x="472.7" y="472.7">Summer</text>
+    <text class="so-season" text-anchor="middle" dominant-baseline="middle" transform="rotate(45 167.3 472.7)" x="167.3" y="472.7">Fall</text>
+    <text class="so-season" text-anchor="middle" dominant-baseline="middle" transform="rotate(315 167.3 167.3)" x="167.3" y="167.3">Winter</text>
     <g class="so-earth">
       <title>Spring equinox — the start of the next season</title>
-      <circle cx="320" cy="116" r="20" fill="#2f5d3a" stroke="rgba(226,232,240,.45)" stroke-width="1.2"/>
-      <path d="M300 116A20 20 0 0 1 340 116Z" fill="#050a16" fill-opacity=".62"/>
-      <line class="so-axis" x1="349" y1="116" x2="291" y2="116"/>
-      <text class="so-n" text-anchor="end" x="289" y="119.5">N</text>
-      <text class="so-elab" text-anchor="middle" x="320" y="64">Spring equinox</text>
+      <circle cx="320" cy="72" r="26" fill="#2f5d3a" stroke="rgba(226,232,240,.45)" stroke-width="1.2"/>
+      <path class="so-day" d="M294 72A26 26 0 0 0 346 72Z"/>
+      <path d="M294 72A26 26 0 0 1 346 72Z" fill="#050a16" fill-opacity=".62"/>
+      <line class="so-eq" x1="343.9" y1="61.7" x2="296.1" y2="82.3"/>
+      <line class="so-axis" x1="304.7" y1="36.7" x2="335.3" y2="107.3"/>
+      <text class="so-n" text-anchor="middle" x="303.2" y="36.9">N</text>
+      <text class="so-elab" text-anchor="middle" x="320" y="134">
+        <tspan x="320" dy="-0.55em">Spring</tspan>
+        <tspan x="320" dy="1.15em">equinox</tspan>
+      </text>
     </g>
     <g class="so-earth">
       <title>Summer solstice — the start of the next season</title>
-      <circle cx="492" cy="288" r="20" fill="#2f5d3a" stroke="rgba(226,232,240,.45)" stroke-width="1.2"/>
-      <path d="M492 268A20 20 0 0 1 492 308Z" fill="#050a16" fill-opacity=".62"/>
-      <line class="so-axis" x1="521" y1="288" x2="463" y2="288"/>
-      <text class="so-n" text-anchor="end" x="461" y="291.5">N</text>
-      <text class="so-elab" text-anchor="start" x="542" y="292">Summer solstice</text>
+      <circle cx="568" cy="320" r="26" fill="#2f5d3a" stroke="rgba(226,232,240,.45)" stroke-width="1.2"/>
+      <path class="so-day" d="M568 294A26 26 0 0 0 568 346Z"/>
+      <path d="M568 294A26 26 0 0 1 568 346Z" fill="#050a16" fill-opacity=".62"/>
+      <line class="so-eq" x1="591.9" y1="309.7" x2="544.1" y2="330.3"/>
+      <line class="so-axis" x1="552.7" y1="284.7" x2="583.3" y2="355.3"/>
+      <text class="so-n" text-anchor="middle" x="551.2" y="284.9">N</text>
+      <text class="so-elab" text-anchor="middle" x="506" y="320">
+        <tspan x="506" dy="-0.55em">Summer</tspan>
+        <tspan x="506" dy="1.15em">solstice</tspan>
+      </text>
     </g>
     <g class="so-earth">
       <title>Fall equinox — the start of the next season</title>
-      <circle cx="320" cy="460" r="20" fill="#2f5d3a" stroke="rgba(226,232,240,.45)" stroke-width="1.2"/>
-      <path d="M340 460A20 20 0 0 1 300 460Z" fill="#050a16" fill-opacity=".62"/>
-      <line class="so-axis" x1="349" y1="460" x2="291" y2="460"/>
-      <text class="so-n" text-anchor="end" x="289" y="463.5">N</text>
-      <text class="so-elab" text-anchor="middle" x="320" y="522">Fall equinox</text>
+      <circle cx="320" cy="568" r="26" fill="#2f5d3a" stroke="rgba(226,232,240,.45)" stroke-width="1.2"/>
+      <path class="so-day" d="M346 568A26 26 0 0 0 294 568Z"/>
+      <path d="M346 568A26 26 0 0 1 294 568Z" fill="#050a16" fill-opacity=".62"/>
+      <line class="so-eq" x1="343.9" y1="557.7" x2="296.1" y2="578.3"/>
+      <line class="so-axis" x1="304.7" y1="532.7" x2="335.3" y2="603.3"/>
+      <text class="so-n" text-anchor="middle" x="303.2" y="532.9">N</text>
+      <text class="so-elab" text-anchor="middle" x="320" y="506">
+        <tspan x="320" dy="-0.55em">Fall</tspan>
+        <tspan x="320" dy="1.15em">equinox</tspan>
+      </text>
     </g>
     <g class="so-earth">
       <title>Winter solstice — the start of the next season</title>
-      <circle cx="148" cy="288" r="20" fill="#2f5d3a" stroke="rgba(226,232,240,.45)" stroke-width="1.2"/>
-      <path d="M148 308A20 20 0 0 1 148 268Z" fill="#050a16" fill-opacity=".62"/>
-      <line class="so-axis" x1="177" y1="288" x2="119" y2="288"/>
-      <text class="so-n" text-anchor="end" x="117" y="291.5">N</text>
-      <text class="so-elab" text-anchor="end" x="98" y="292">Winter solstice</text>
+      <circle cx="72" cy="320" r="26" fill="#2f5d3a" stroke="rgba(226,232,240,.45)" stroke-width="1.2"/>
+      <path class="so-day" d="M72 346A26 26 0 0 0 72 294Z"/>
+      <path d="M72 346A26 26 0 0 1 72 294Z" fill="#050a16" fill-opacity=".62"/>
+      <line class="so-eq" x1="95.9" y1="309.7" x2="48.1" y2="330.3"/>
+      <line class="so-axis" x1="56.7" y1="284.7" x2="87.3" y2="355.3"/>
+      <text class="so-n" text-anchor="middle" x="55.2" y="284.9">N</text>
+      <text class="so-elab" text-anchor="middle" x="134" y="320">
+        <tspan x="134" dy="-0.55em">Winter</tspan>
+        <tspan x="134" dy="1.15em">solstice</tspan>
+      </text>
     </g>
-    <g id="concept-orbit-now" transform="translate(394.9 442.8)">
+    <g id="concept-orbit-now" transform="translate(427.2 543.6)">
       <circle r="7.5" fill="#fde68a" stroke="#b45309" stroke-width="1.5"/>
       <text class="so-today" text-anchor="middle" y="-14">today</text>
     </g>
   </svg></div>
-  <figcaption>Earth goes around the Sun. The four marked positions are the start of each season. Spring sits on the orbit between the spring equinox and the summer solstice; summer, fall and winter follow the same way. The north end of the axis points the same way the whole year.</figcaption>
+  <figcaption>Earth goes around the Sun. The four marked positions are the start of each season. Spring sits on the orbit between the spring equinox and the summer solstice; summer, fall and winter follow the same way. Every Earth leans the same way, so sunlight falls on the north in June and the south in December. A yellow marker shows today’s place on the year.</figcaption>
 </figure>
   <section data-band="5-12">
 <h2>The test that kills the distance story</h2>

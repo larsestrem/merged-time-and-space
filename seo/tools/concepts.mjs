@@ -237,7 +237,7 @@ export function graphicHtml(c) {
       inner = olbersDiagram();
       break;
     case "season-orbit":
-      inner = `<div class="so-wrap">${seasonOrbitSvg(NOW, { id: "concept" })}</div>`;
+      inner = `<div class="so-wrap">${seasonOrbitSvg(NOW, { id: "concept", tilt: YEAR.tilt })}</div>`;
       break;
     default:
       inner = `<p>${esc(c.graphicAlt)}</p>`;

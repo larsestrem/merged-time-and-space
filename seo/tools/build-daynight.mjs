@@ -387,8 +387,8 @@ ${jumpRow("dn-tools")}
 
 const orbitCard = `  <div class="card" id="seasons">
     <h2>The start and stop of each season</h2>
-    <p>Each marked Earth is the <strong>start</strong> of a season, and the stop of the one before. Spring starts at the spring equinox and runs until the summer solstice; summer, fall and winter follow the same way around. The axis on every Earth points the same way — that unmoving lean is <a href="/concepts/why-do-we-have-seasons/">why we have seasons</a>.</p>
-    <div class="so-wrap">${seasonOrbitSvg(NOW, { id: "dn", attr: "data-dn-jump", values: { mar: "mar", jun: "jun", sep: "sep", dec: "dec" } })}</div>
+    <p>Each marked Earth is the <strong>start</strong> of a season, and the stop of the one before. Spring starts at the spring equinox and runs until the summer solstice; summer, fall and winter follow the same way around. Every Earth leans the same ${n1(TILT)}° — that unmoving tilt is <a href="/concepts/why-do-we-have-seasons/">why we have seasons</a>. The gold half is sunlight; the north end leans into it in June and out of it in December.</p>
+    <div class="so-wrap">${seasonOrbitSvg(NOW, { id: "dn", tilt: TILT, attr: "data-dn-jump", values: { mar: "mar", jun: "jun", sep: "sep", dec: "dec" } })}</div>
     <p class="dns-cap">The yellow dot is today on the year. Press a season name, or tap an Earth, to jump the map to that start.</p>
 ${jumpRow("dn-tools")}
   </div>
