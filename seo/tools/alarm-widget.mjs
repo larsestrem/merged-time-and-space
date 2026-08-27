@@ -43,7 +43,7 @@ export const PANEL_HTML = `<div id="ac-panel" data-c="purple">
       <button class="btn ac-icon" id="ac-close" type="button" aria-label="Close" title="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
   </div>
-    <div class="ac-brand"><a href="/alarm-clock/" target="_blank" rel="noopener">Time and Space Science</a><a href="/alarm-clock/about/" target="_blank" rel="noopener">How it works</a></div>
+    <div class="ac-brand"><a href="/" target="_blank" rel="noopener">Time and Space Science</a><a href="/alarm-clock/about/" target="_blank" rel="noopener">How it works</a></div>
     <p class="ac-fs-legal"><a href="/browser-limitations/" target="_blank" rel="noopener">Browser Limitations</a> · <a href="/alarm-clock/warnings/" target="_blank" rel="noopener">Warnings</a></p>
   </div>`;
 

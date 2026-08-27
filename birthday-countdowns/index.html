@@ -338,6 +338,9 @@ a{color:#111;text-decoration:underline}
 .chip:hover{border-color:var(--accent)}
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .ac-dialog{border:1px solid var(--border);border-radius:16px;background:var(--menu-bg,#15151b);color:var(--text);padding:0;max-width:380px;width:92%;max-height:92vh;max-height:92dvh;overflow-y:auto}
 .ac-dialog::backdrop{background:rgba(0,0,0,.55)}
 #mt-dlg{margin-top:14px;margin-bottom:auto}
@@ -457,6 +460,8 @@ box-shadow:0 0 0 1px var(--accent) inset}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 .xl-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:4px}
 .xl-tile{display:flex;flex-direction:column;gap:2px;padding:12px 13px;border:1px solid var(--border);
 border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
@@ -517,7 +522,7 @@ border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:v
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=Popular%20Celebrity%20Birthday%20Countdowns&amp;theme=generic">
 <meta name="robots" content="max-image-preview:large">
-<!-- build 6dbbc644f55a · generated 2026-08-27T20:42:45.420Z -->
+<!-- build 8c0f60ef6756 · generated 2026-08-27T23:36:33.832Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/confetti.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -744,23 +749,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <a href="/calendar/">Full calendar</a>
     </div>
   </div>
-  <details class="suggest-box" data-ac="suggest">
-    <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
-    <form class="suggest-form" autocomplete="off">
-      <p class="hint" style="margin:0 0 14px">Ask us anything about the tools, tell us what's broken or confusing, or suggest something we're missing. Every message is read by a person.</p>
-      <p class="notice">If you are under 13, do not send us your name, email, or any other personal information. If you are under 18, please get a parent or guardian's permission before using this form.</p>
-      <label class="cr-check" for="sg-age"><input id="sg-age" name="age_ok" type="checkbox" required> <span>I am 13 or older, and if I am under 18 I have a parent or guardian's permission to send this.</span></label>
-      <label for="sg-email">Email <span class="hint" style="display:inline;font-weight:400">(so we can reply — leave blank if you'd rather not)</span></label>
-      <input id="sg-email" type="email" placeholder="Your email address">
-      <label for="sg-idea">Your question or idea</label>
-      <textarea id="sg-idea" maxlength="1000" required placeholder="How do I…? · Something isn't working · A countdown or feature we're missing…"></textarea>
-      <input id="sg-hp" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn" id="sg-send" type="submit">Send message</button>
-      <p id="sg-note" class="hint suggest-note" role="status"></p>
-      <p class="hint" style="margin-top:12px">If you leave an email we'll reply to questions. We can't promise to build every suggestion, but they directly shape what we work on next.</p>
-    </form>
-  </details>
-  <script data-ac="suggest">(function(){var b=document.querySelector('.suggest-box[data-ac="suggest"]');if(!b)return;var f=b.querySelector('.suggest-form'),note=b.querySelector('#sg-note'),btn=b.querySelector('#sg-send');f.addEventListener('submit',function(e){e.preventDefault();if(b.querySelector('#sg-hp').value)return;var idea=b.querySelector('#sg-idea').value.trim();if(!idea){note.textContent='Please add a quick note first.';return;}var age=b.querySelector('#sg-age');if(age&&!age.checked){note.textContent='Please confirm the age notice.';return;}var em=b.querySelector('#sg-email').value.trim();btn.disabled=true;note.textContent='Sending…';fetch('/api/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:location.href,reason:'Site idea',details:idea,email:em,website:''})}).then(function(r){return r.json().catch(function(){return{};});}).then(function(d){if(d&&!d.error){f.reset();note.textContent=em?'Thanks — got it. A reply will go to '+em+'. 🙌':'Thanks — got it. 🙌 (No email given, so this one cannot be answered.)';}else{note.textContent='Sorry, that did not send. Please try again.';btn.disabled=false;}}).catch(function(){note.textContent='Network hiccup — please try again.';btn.disabled=false;});});})();</script>
+  <p class="suggest-link" data-ac="suggest"><a href="/report/">Question, problem or idea? Tell us.</a></p>
   <p class="footer"><a href="/wrong-date/?url=https%3A%2F%2Ftimeandspace.science%2Fbirthday-countdowns%2F">Wrong date?</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/suggest-event/">Suggest an event</a> · <a class="report-link" href="/report/?url=https%3A%2F%2Ftimeandspace.science%2Fbirthday-countdowns%2F">Report abuse</a></p>
   <p class="footer copyright">© 2026 Time and Space Science. All rights reserved.</p>
   <p class="footer sitelinks">Gravity, motion, time and space — one set of rules, seen from different sides: <a href="/questions/">the big questions</a> · <a href="/glossary/">the glossary</a> · <a href="/sun-moon-earth-movement-simulator/">the Sun, Earth &amp; Moon</a> · <a href="/day-night-map/">day &amp; night on Earth</a> · <a href="/solar-system-simulator/">the solar system</a> · <a href="/planets/">the planets</a> · <a href="/orbital-velocity-simulator/">gravity &amp; orbits</a> · <a href="/sun/">sunrise &amp; sunset</a> · <a href="/moon/">moon phases</a> · <a href="/world-clock/">time zones</a> · <a href="/countdown/">event countdowns</a></p>

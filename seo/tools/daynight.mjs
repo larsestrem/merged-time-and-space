@@ -185,7 +185,7 @@ function dnSide(dec,tilt,youLat){
   var PX=function(u,v){return dnF(cx+ax*u+ex*v)};
   var PY=function(u,v){return dnF(cy+ay*u+ey*v)};
   var o=r*Math.sin(t),h=r*Math.cos(t);          /* tropic offset, and its half-chord */
-  var s='<svg class="dns-svg" viewBox="0 0 700 276" width="100%" role="img" aria-label="The Earth seen from the side, lit from the left, with the line from the centre of the sun to the centre of the Earth landing between the Tropic of Cancer and the Tropic of Capricorn">';
+  var s='<svg class="dns-svg" viewBox="0 0 600 276" width="100%" role="img" aria-label="The Earth seen from the side, lit from the left, with the line from the centre of the sun to the centre of the Earth landing between the Tropic of Cancer and the Tropic of Capricorn">';
   s+='<circle class="dns-glow" cx="54" cy="'+cy+'" r="54"/><circle class="dns-sun" cx="54" cy="'+cy+'" r="34"/>';
   for(i=-2;i<=2;i++){ if(!i) continue; y=cy+i*46;
     s+='<line class="dns-ray" x1="98" y1="'+y+'" x2="'+(cx-r-8)+'" y2="'+y+'"/>'; }

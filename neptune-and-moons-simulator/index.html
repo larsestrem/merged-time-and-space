@@ -338,6 +338,9 @@ a{color:#111;text-decoration:underline}
 .chip:hover{border-color:var(--accent)}
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .wc-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
 .wc-grid{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:560px){.wc-grid{grid-template-columns:1fr 1fr}}
@@ -522,6 +525,8 @@ box-shadow:0 0 0 1px var(--accent) inset}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 .sun-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .sun-tile{border:1px solid var(--border);border-radius:12px;padding:12px 10px;text-align:center;background:rgba(255,255,255,.03)}
 .sun-tile .sun-lab{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
@@ -1217,6 +1222,164 @@ fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
 @media (min-width:560px){ h1{font-size:32px} }
 .pl-facts .wc-frow>span{flex:0 0 42%}
 @media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}
+.kicker {
+text-transform: uppercase;
+letter-spacing: 0.12em;
+font-size: 0.72rem;
+color: var(--muted);
+margin: 0 0 8px;
+font-weight: 600;
+}
+.answer {
+font-size: 1.125rem;
+line-height: 1.55;
+}
+.answer a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
+.concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
+.band-deeper h2::after {
+content: " Further down";
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--muted);
+margin-left: 8px;
+font-weight: 600;
+}
+.hub-teaser, .related p, .see-live p {
+margin: 0 0 16px;
+color: var(--muted);
+}
+.hub-teaser a, .related p a, .glossary-item a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.hub-teaser a:hover, .related p a:hover, .glossary-item a:hover { text-decoration: underline; }
+.hub-teaser a.hub-more, .related p a.hub-more, .glossary-item a.hub-more {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+white-space: nowrap;
+margin-left: 0.35em;
+}
+.see-live ul, .related ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: grid;
+gap: 12px;
+}
+.graphic-block {
+margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
+}
+.graphic-block figcaption, figcaption {
+margin-top: 10px;
+color: var(--muted);
+font-size: 0.9rem;
+}
+.more-info {
+margin: 24px 0;
+border: 1px solid var(--border);
+border-radius: 12px;
+background: var(--card);
+padding: 4px 16px 16px;
+}
+.more-info > summary {
+cursor: pointer;
+font-weight: 650;
+padding: 14px 0;
+list-style: none;
+color: var(--text);
+}
+.more-info > summary::-webkit-details-marker { display: none; }
+.more-info > summary::after {
+content: " +";
+color: var(--accent);
+font-weight: 700;
+}
+.more-info[open] > summary::after { content: " −"; }
+.search {
+width: 100%;
+height: 48px;
+border-radius: 10px;
+border: 1px solid var(--border);
+background: var(--card);
+color: var(--text);
+padding: 0 14px;
+font-size: 1rem;
+margin: 16px 0 28px;
+font-variant-numeric: tabular-nums;
+}
+.search:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.glossary-list {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.glossary-item {
+padding: 16px 0;
+border-bottom: 1px solid var(--border);
+}
+.glossary-item h2 {
+font-size: 1.05rem;
+margin: 0 0 6px;
+letter-spacing: 0;
+font-weight: 650;
+}
+.glossary-item p { margin: 0; color: var(--muted); }
+.letter {
+font-size: 1.5rem;
+margin: 28px 0 0;
+color: var(--muted);
+}
+.glossary-item[hidden], .letter[hidden] { display: none; }
+.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
+.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
+.hub-qs a:hover { text-decoration: underline; }
+.hub-kicker {
+margin: 0 0 4px;
+font-size: 0.72rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--muted);
+font-weight: 700;
+}
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }
 .mn-hero{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .mn-hero-art{flex:0 0 auto;line-height:0;filter:drop-shadow(0 6px 20px rgba(0,0,0,.5))}
 .mn-hero-art svg{width:136px;height:136px}
@@ -1339,7 +1502,7 @@ font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Planets","item":"https://timeandspace.science/planets/"},{"@type":"ListItem","position":3,"name":"Neptune","item":"https://timeandspace.science/neptune-and-moons-simulator/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why is Neptune so much warmer inside than Uranus?","acceptedAnswer":{"@type":"Answer","text":"Same size, same composition, same era — and one has an internal heat engine while the other does not. Every explanation offered (a different impact history, layered convection, helium raining out of the interior) is a hypothesis without a decisive measurement, and only a mission to one or both of them would change that."}},{"@type":"Question","name":"What powers those winds?","acceptedAnswer":{"@type":"Answer","text":"Neptune receives about 0.1% of the sunlight Earth does, and generates the strongest winds anywhere. Internal heat is the presumed engine, but the mechanism that turns it into 2,000 km/h zonal jets has not been demonstrated."}},{"@type":"Question","name":"How was Triton captured without wrecking the system?","acceptedAnswer":{"@type":"Answer","text":"Capturing a body that large normally requires shedding an enormous amount of energy. The favoured route is that Triton arrived as half of a binary and its partner was flung away, leaving Triton bound. Whatever happened, it would have destroyed Neptune's original moons — which is consistent with the odd, sparse system that is there now."}}]}</script>
 
-<!-- build 6dbbc644f55a · generated 2026-08-27T20:42:45.420Z -->
+<!-- build 8c0f60ef6756 · generated 2026-08-27T23:36:33.832Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/solar.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1489,7 +1652,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <h2>Neptune on its axis</h2>
     <div class="sol-globewrap">
       <div class="sol-globe" id="pl-globe" data-hours="16.11" data-retro="0" data-name="Neptune" data-sec="12">
-        <svg viewBox="0 0 400 400" width="100%" aria-hidden="true"><rect width="400" height="400" rx="16" fill="#080d1a"/><defs><radialGradient id="gNeptunef0"><stop offset="0" stop-color="#1f3a78" stop-opacity="1"/><stop offset=".55" stop-color="#1f3a78" stop-opacity=".85"/><stop offset="1" stop-color="#1f3a78" stop-opacity="0"/></radialGradient><radialGradient id="gNeptunef1"><stop offset="0" stop-color="#e6eefc" stop-opacity="1"/><stop offset=".55" stop-color="#e6eefc" stop-opacity=".85"/><stop offset="1" stop-color="#e6eefc" stop-opacity="0"/></radialGradient><radialGradient id="gNeptunef2"><stop offset="0" stop-color="#5b83d4" stop-opacity="1"/><stop offset=".55" stop-color="#5b83d4" stop-opacity=".85"/><stop offset="1" stop-color="#5b83d4" stop-opacity="0"/></radialGradient><radialGradient id="gNeptunel" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#3f6fc4"/><stop offset=".62" stop-color="#3f6fc4"/><stop offset=".88" stop-color="#254a8e"/><stop offset="1" stop-color="#254a8e"/></radialGradient><linearGradient id="gNeptunen" gradientUnits="objectBoundingBox" x1="0.19" y1="0.89" x2="0.81" y2="0.11"><stop offset=".3" stop-color="#000000" stop-opacity="0"/><stop offset=".72" stop-color="#04060e" stop-opacity=".2"/><stop offset="1" stop-color="#04060e" stop-opacity=".5"/></linearGradient><radialGradient id="gNeptunes" cx="0.34" cy="0.7" r=".7"><stop offset="0" stop-color="#ffffff" stop-opacity="0.2"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient><clipPath id="gNeptunec"><ellipse cx="0" cy="0" rx="157.38" ry="154.69"/></clipPath></defs><g transform="translate(200 200) rotate(-28.32)"><ellipse cx="0" cy="0" rx="157.38" ry="154.69" fill="url(#gNeptunel)"/><g clip-path="url(#gNeptunec)"><path d="M0.2 -154.69L0.31 -154.69L0.51 -154.69L0.68 -154.68L0.68 -154.68L0.47 -154.69L0.13 -154.69L-0.18 -154.69L-0.35 -154.69L-0.35 -154.69L-0.26 -154.69L-0.19 -154.69L-0.19 -154.69L-0.24 -154.69L-0.27 -154.68L-0.23 -154.68L-0.12 -154.69L0 -154.69L0.06 -154.69L0.05 -154.68L0 -154.68L-0.04 -154.69L-0.05 -154.69L-0.07 -154.69L-0.11 -154.69L-0.17 -154.69L-0.2 -154.69L-0.11 -154.69L0.09 -154.69L0.33 -154.69L0.51 -154.68L0.53 -154.68L0.42 -154.69L0.27 -154.69L0.18 -154.69L0.2 -154.69L0.26 -154.69L0.24 -154.69L0.05 -154.69L-0.28 -154.69L-0.61 -154.68L10.98 -154.31L21.9 -153.18L32.72 -151.31L43.38 -148.69L53.83 -145.36L64.01 -141.31L73.88 -136.58L83.4 -131.18L92.5 -125.14L101.36 -118.33L100.87 -118.48L99.66 -118.7L97.88 -118.91L95.63 -119L92.96 -118.94L89.82 -118.79L86.11 -118.63L81.79 -118.55L76.87 -118.55L71.46 -118.58L65.66 -118.55L59.51 -118.42L53.03 -118.22L46.17 -118.04L38.95 -117.97L31.43 -118.05L23.69 -118.24L15.84 -118.43L7.93 -118.55L0 -118.57L-7.93 -118.54L-15.82 -118.55L-23.57 -118.64L-31.15 -118.8L-38.5 -118.95L-45.65 -119L-52.6 -118.9L-59.32 -118.69L-65.72 -118.47L-71.67 -118.33L-77.1 -118.3L-81.99 -118.34L-86.39 -118.36L-90.34 -118.31L-93.8 -118.19L-96.7 -118.07L-98.9 -118.04L-100.32 -118.16L-100.99 -118.38L-101.01 -118.62L-92.5 -125.14L-83.4 -131.18L-73.88 -136.58L-64.01 -141.31L-53.83 -145.36L-43.38 -148.69L-32.72 -151.31L-21.9 -153.18L-10.98 -154.31Z" fill="#4f74c2" fill-opacity="0.4"/><path d="M-101.19 -118.47L-100.56 -118.73L-99.61 -118.75L-98.15 -118.68L-95.91 -118.75L-92.91 -118.99L-89.39 -119.18L-85.62 -119.1L-81.61 -118.73L-77.11 -118.3L-71.9 -118.07L-66.01 -118.1L-59.66 -118.21L-53.05 -118.19L-46.19 -118.01L-38.98 -117.91L-31.42 -118.07L-23.62 -118.49L-15.75 -118.91L-7.88 -119.08L0 -118.98L7.91 -118.8L15.77 -118.78L23.5 -118.89L31.1 -118.93L38.62 -118.7L46.05 -118.27L53.24 -117.89L59.95 -117.81L66.09 -118L71.75 -118.24L77.09 -118.31L82.09 -118.24L86.5 -118.26L90.11 -118.51L92.97 -118.93L95.36 -119.22L97.53 -119.2L99.41 -118.92L100.69 -118.63L101.12 -118.53L107.33 -113.13L113.21 -107.45L118.77 -101.48L124.01 -95.23L128.92 -88.72L133.46 -81.97L137.65 -74.99L141.45 -67.81L144.87 -60.44L148.2 -52.05L147.62 -52.39L146.18 -52.6L143.93 -52.54L140.8 -52.46L136.71 -52.68L131.66 -53.24L125.81 -53.81L119.31 -54L112.22 -53.73L104.47 -53.28L96.02 -53.02L86.9 -53.04L77.24 -53.08L67.15 -52.83L56.68 -52.31L45.82 -51.85L34.62 -51.81L23.17 -52.22L11.61 -52.76L0 -53.05L-11.6 -53.03L-23.13 -53L-34.5 -53.22L-45.61 -53.67L-56.44 -53.99L-66.97 -53.87L-77.19 -53.34L-86.96 -52.76L-96.15 -52.49L-104.67 -52.54L-112.54 -52.61L-119.78 -52.44L-126.35 -52.09L-132.1 -51.9L-136.88 -52.17L-140.69 -52.79L-143.63 -53.37L-145.82 -53.58L-147.23 -53.45L-147.74 -53.31L-144.87 -60.44L-141.45 -67.81L-137.65 -74.99L-133.46 -81.97L-128.92 -88.72L-124.01 -95.23L-118.77 -101.48L-113.21 -107.45L-107.33 -113.13Z" fill="#33559f" fill-opacity="0.42"/><path d="M-147.79 -53.15L-147.29 -53.29L-145.83 -53.54L-143.49 -53.77L-140.33 -53.79L-136.41 -53.53L-131.71 -53.09L-126.18 -52.64L-119.8 -52.38L-112.61 -52.34L-104.69 -52.46L-96.13 -52.55L-87.01 -52.51L-77.38 -52.33L-67.26 -52.16L-56.7 -52.18L-45.75 -52.45L-34.52 -52.9L-23.11 -53.36L-11.58 -53.63L0 -53.65L11.59 -53.48L23.11 -53.31L34.49 -53.26L45.65 -53.35L56.51 -53.47L67.05 -53.44L77.22 -53.17L86.96 -52.73L96.19 -52.28L104.8 -52.02L112.69 -52.04L119.83 -52.26L126.21 -52.52L131.85 -52.66L136.72 -52.64L140.77 -52.56L143.91 -52.6L146.09 -52.84L147.3 -53.25L147.6 -53.66L151.28 -42.64L153.94 -32.16L155.85 -21.53L156.99 -10.79L157.38 0L156.99 10.79L155.85 21.53L153.94 32.16L151.28 42.64L147.77 53.23L147.42 52.94L146.21 52.5L144.09 52.1L140.99 51.93L136.92 52.03L131.96 52.33L126.18 52.64L119.67 52.8L112.48 52.8L104.61 52.75L96.07 52.8L86.89 53.05L77.17 53.43L66.99 53.78L56.45 53.92L45.6 53.77L34.48 53.41L23.13 53.04L11.61 52.81L0 52.77L-11.61 52.82L-23.14 52.81L-34.55 52.63L-45.77 52.31L-56.72 52.02L-67.3 51.92L-77.42 52.12L-87.01 52.52L-96.03 52.95L-104.49 53.22L-112.35 53.28L-119.55 53.21L-126.01 53.17L-131.65 53.27L-136.42 53.51L-140.35 53.74L-143.48 53.78L-145.82 53.56L-147.35 53.13L-147.97 52.67L-151.28 42.64L-153.94 32.16L-155.85 21.53L-156.99 10.79L-157.38 0L-156.99 -10.79L-155.85 -21.53L-153.94 -32.16L-151.28 -42.64Z" fill="#5a80cc" fill-opacity="0.35"/><path d="M-147.87 52.94L-147.56 52.56L-146.2 52.54L-143.9 52.63L-140.78 52.53L-136.87 52.19L-132.1 51.9L-126.37 52.02L-119.74 52.56L-112.37 53.2L-104.41 53.53L-95.9 53.48L-86.83 53.32L-77.18 53.36L-67.02 53.61L-56.47 53.77L-45.63 53.52L-34.52 52.91L-23.17 52.29L-11.63 52.04L0 52.2L11.62 52.45L23.16 52.49L34.57 52.33L45.77 52.28L56.64 52.61L67.08 53.24L77.1 53.79L86.7 53.91L95.87 53.63L104.47 53.28L112.38 53.18L119.53 53.27L125.98 53.25L131.78 52.88L136.84 52.27L141.02 51.84L144.17 51.87L146.29 52.28L147.5 52.71L147.9 52.86L144.87 60.44L141.45 67.81L137.65 74.99L133.46 81.97L128.92 88.72L124.01 95.23L118.77 101.48L113.21 107.45L107.33 113.13L100.45 119.08L100.42 118.85L99.66 118.71L98.07 118.75L95.86 118.8L93.29 118.65L90.38 118.27L86.89 117.88L82.58 117.74L77.44 117.93L71.75 118.24L65.76 118.42L59.53 118.41L52.93 118.38L45.9 118.55L38.52 118.9L30.99 119.22L23.4 119.24L15.74 118.96L7.93 118.6L0 118.4L-7.95 118.41L-15.84 118.43L-23.68 118.28L-31.46 117.97L-39.06 117.75L-46.29 117.83L-53.04 118.2L-59.39 118.6L-65.47 118.78L-71.31 118.75L-76.74 118.7L-81.53 118.81L-85.67 119.05L-89.39 119.18L-92.89 119L-96.12 118.57L-98.74 118.18L-100.47 118.03L-101.3 118.12L-101.5 118.22L-107.33 113.13L-113.21 107.45L-118.77 101.48L-124.01 95.23L-128.92 88.72L-133.46 81.97L-137.65 74.99L-141.45 67.81L-144.87 60.44Z" fill="#31549e" fill-opacity="0.45"/><path d="M-101.31 118.37L-101.08 118.3L-100.31 118.17L-98.89 118.05L-96.73 118.04L-93.82 118.17L-90.24 118.4L-86.11 118.63L-81.57 118.77L-76.66 118.78L-71.33 118.73L-65.55 118.68L-59.31 118.7L-52.67 118.79L-45.72 118.88L-38.54 118.87L-31.17 118.73L-23.61 118.5L-15.87 118.26L-7.97 118.12L0 118.12L7.97 118.2L15.86 118.29L23.67 118.31L31.35 118.27L38.85 118.21L46.08 118.22L52.94 118.36L59.39 118.59L65.44 118.82L71.14 118.95L76.51 118.94L81.52 118.82L86.05 118.69L90 118.62L93.31 118.63L96.01 118.67L98.18 118.65L99.87 118.53L101.06 118.32L101.63 118.11L92.5 125.14L83.4 131.18L73.88 136.58L64.01 141.31L53.83 145.36L43.38 148.69L32.72 151.31L21.9 153.18L10.98 154.31L-0.26 154.69L-0.02 154.69L0.33 154.69L0.63 154.68L0.76 154.68L0.65 154.68L0.42 154.69L0.19 154.69L0.07 154.69L0.06 154.69L0.09 154.69L0.05 154.69L-0.07 154.69L-0.22 154.69L-0.32 154.68L-0.32 154.68L-0.22 154.68L-0.1 154.69L-0.02 154.69L0.01 154.69L0 154.69L-0.01 154.69L-0.01 154.69L-0.05 154.69L-0.15 154.69L-0.28 154.68L-0.36 154.68L-0.33 154.68L-0.18 154.69L0.02 154.69L0.18 154.69L0.23 154.69L0.2 154.69L0.18 154.69L0.26 154.69L0.45 154.69L0.64 154.68L0.69 154.68L0.53 154.69L0.18 154.69L-0.19 154.69L-10.98 154.31L-21.9 153.18L-32.72 151.31L-43.38 148.69L-53.83 145.36L-64.01 141.31L-73.88 136.58L-83.4 131.18L-92.5 125.14Z" fill="#4f74c2" fill-opacity="0.4"/><ellipse cx="0" cy="0" rx="8.37" ry="19.07" fill="url(#gNeptunef1)" opacity="0.35" transform="translate(-96.36 103.51) rotate(132.95)"/><ellipse cx="0" cy="0" rx="8.57" ry="12.71" fill="url(#gNeptunef1)" opacity="0.2" transform="translate(111.7 32.16) rotate(16.06)"/></g><ellipse cx="0" cy="0" rx="157.38" ry="154.69" fill="url(#gNeptunes)"/><ellipse cx="0" cy="0" rx="157.38" ry="154.69" fill="url(#gNeptunen)"/><g stroke="#e2e8f0" stroke-opacity=".33" stroke-dasharray="4 5"><line x1="0" y1="-188.85" x2="0" y2="188.85"/></g><ellipse cx="0" cy="0" rx="157.38" ry="154.69" fill="none" stroke="#0a1020" stroke-opacity=".4"/></g></svg>
+        <svg viewBox="0 0 400 400" width="100%" aria-hidden="true"><rect width="400" height="400" rx="16" fill="#080d1a"/><defs><radialGradient id="gNeptunef0"><stop offset="0" stop-color="#1f3a78" stop-opacity="1"/><stop offset=".55" stop-color="#1f3a78" stop-opacity=".85"/><stop offset="1" stop-color="#1f3a78" stop-opacity="0"/></radialGradient><radialGradient id="gNeptunef1"><stop offset="0" stop-color="#e6eefc" stop-opacity="1"/><stop offset=".55" stop-color="#e6eefc" stop-opacity=".85"/><stop offset="1" stop-color="#e6eefc" stop-opacity="0"/></radialGradient><radialGradient id="gNeptunef2"><stop offset="0" stop-color="#5b83d4" stop-opacity="1"/><stop offset=".55" stop-color="#5b83d4" stop-opacity=".85"/><stop offset="1" stop-color="#5b83d4" stop-opacity="0"/></radialGradient><radialGradient id="gNeptunel" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#3f6fc4"/><stop offset=".62" stop-color="#3f6fc4"/><stop offset=".88" stop-color="#254a8e"/><stop offset="1" stop-color="#254a8e"/></radialGradient><linearGradient id="gNeptunen" gradientUnits="objectBoundingBox" x1="0.19" y1="0.89" x2="0.81" y2="0.11"><stop offset=".3" stop-color="#000000" stop-opacity="0"/><stop offset=".72" stop-color="#04060e" stop-opacity=".2"/><stop offset="1" stop-color="#04060e" stop-opacity=".5"/></linearGradient><radialGradient id="gNeptunes" cx="0.34" cy="0.7" r=".7"><stop offset="0" stop-color="#ffffff" stop-opacity="0.2"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient><clipPath id="gNeptunec"><ellipse cx="0" cy="0" rx="157.38" ry="154.69"/></clipPath></defs><g transform="translate(200 200) rotate(-28.32)"><ellipse cx="0" cy="0" rx="157.38" ry="154.69" fill="url(#gNeptunel)"/><g clip-path="url(#gNeptunec)"><path d="M-0.62 -154.68L-0.53 -154.69L-0.24 -154.69L0.15 -154.69L0.45 -154.69L0.57 -154.68L0.5 -154.68L0.35 -154.69L0.24 -154.69L0.23 -154.69L0.29 -154.69L0.3 -154.69L0.22 -154.69L0.05 -154.69L-0.13 -154.69L-0.23 -154.68L-0.23 -154.68L-0.15 -154.68L-0.07 -154.69L-0.02 -154.69L0 -154.69L0.02 -154.69L0.04 -154.69L0.05 -154.69L-0.02 -154.69L-0.16 -154.69L-0.32 -154.68L-0.42 -154.68L-0.4 -154.68L-0.27 -154.69L-0.11 -154.69L-0.03 -154.69L-0.04 -154.69L-0.08 -154.69L-0.02 -154.69L0.18 -154.69L0.48 -154.69L0.73 -154.68L0.81 -154.68L0.65 -154.68L0.34 -154.69L10.98 -154.31L21.9 -153.18L32.72 -151.31L43.38 -148.69L53.83 -145.36L64.01 -141.31L73.88 -136.58L83.4 -131.18L92.5 -125.14L100.93 -118.68L100.57 -118.73L99.55 -118.8L98 -118.8L95.99 -118.69L93.49 -118.47L90.42 -118.23L86.69 -118.07L82.27 -118.05L77.24 -118.15L71.72 -118.28L65.81 -118.35L59.57 -118.35L52.98 -118.3L46.03 -118.3L38.75 -118.41L31.22 -118.62L23.52 -118.84L15.73 -118.98L7.89 -118.98L0 -118.86L-7.92 -118.69L-15.81 -118.57L-23.6 -118.54L-31.23 -118.57L-38.68 -118.57L-45.93 -118.48L-52.98 -118.3L-59.74 -118.1L-66.1 -117.98L-71.95 -118.01L-77.23 -118.16L-81.97 -118.36L-86.24 -118.51L-90.06 -118.57L-93.4 -118.55L-96.16 -118.53L-98.25 -118.59L-99.63 -118.74L-100.36 -118.9L-100.55 -119L-92.5 -125.14L-83.4 -131.18L-73.88 -136.58L-64.01 -141.31L-53.83 -145.36L-43.38 -148.69L-32.72 -151.31L-21.9 -153.18L-10.98 -154.31Z" fill="#4f74c2" fill-opacity="0.4"/><path d="M-101.82 -117.95L-101.53 -117.93L-100.25 -118.22L-98.16 -118.67L-95.61 -119.02L-92.82 -119.07L-89.69 -118.9L-85.97 -118.77L-81.53 -118.81L-76.52 -118.93L-71.21 -118.87L-65.66 -118.55L-59.74 -118.1L-53.28 -117.82L-46.27 -117.86L-38.89 -118.1L-31.34 -118.29L-23.67 -118.29L-15.88 -118.23L-7.95 -118.33L0 -118.67L7.88 -119.07L15.68 -119.26L23.44 -119.11L31.15 -118.79L38.68 -118.57L45.9 -118.54L52.8 -118.58L59.48 -118.47L65.98 -118.14L72.12 -117.81L77.63 -117.73L82.35 -117.97L86.39 -118.36L90.01 -118.61L93.31 -118.63L96.11 -118.58L98.14 -118.69L99.35 -118.96L99.98 -119.21L100.32 -119.18L107.33 -113.13L113.21 -107.45L118.77 -101.48L124.01 -95.23L128.92 -88.72L133.46 -81.97L137.65 -74.99L141.45 -67.81L144.87 -60.44L148.17 -52.13L147.76 -52.02L146.27 -52.34L143.77 -52.99L140.42 -53.56L136.35 -53.72L131.56 -53.54L125.96 -53.33L119.5 -53.37L112.27 -53.55L104.4 -53.55L95.99 -53.15L87.02 -52.49L77.45 -51.99L67.3 -51.95L56.68 -52.26L45.74 -52.55L34.55 -52.58L23.16 -52.47L11.61 -52.55L0 -53L-11.58 -53.61L-23.07 -53.99L-34.44 -53.88L-45.64 -53.45L-56.57 -53.09L-67.12 -53.01L-77.24 -53.08L-86.91 -52.97L-96.13 -52.53L-104.81 -51.99L-112.77 -51.76L-119.9 -52.03L-126.2 -52.57L-131.74 -52.98L-136.58 -53.06L-140.62 -52.99L-143.73 -53.1L-145.85 -53.49L-147.06 -53.91L-147.48 -53.98L-144.87 -60.44L-141.45 -67.81L-137.65 -74.99L-133.46 -81.97L-128.92 -88.72L-124.01 -95.23L-118.77 -101.48L-113.21 -107.45L-107.33 -113.13Z" fill="#33559f" fill-opacity="0.42"/><path d="M-148.17 -52.14L-147.67 -52.25L-146.17 -52.61L-143.73 -53.09L-140.44 -53.49L-136.37 -53.67L-131.54 -53.6L-125.93 -53.41L-119.53 -53.27L-112.35 -53.28L-104.44 -53.4L-95.91 -53.48L-86.83 -53.36L-77.25 -53.01L-67.2 -52.54L-56.7 -52.15L-45.8 -52L-34.59 -52.11L-23.17 -52.37L-11.61 -52.59L0 -52.67L11.61 -52.61L23.15 -52.56L34.54 -52.66L45.69 -52.98L56.52 -53.42L66.99 -53.78L77.08 -53.9L86.74 -53.73L95.92 -53.41L104.52 -53.11L112.44 -52.96L119.62 -52.97L126.06 -53.02L131.76 -52.94L136.71 -52.67L140.86 -52.29L144.13 -51.98L146.43 -51.9L147.72 -52.11L148.04 -52.49L151.28 -42.64L153.94 -32.16L155.85 -21.53L156.99 -10.79L157.38 0L156.99 10.79L155.85 21.53L153.94 32.16L151.28 42.64L148.02 52.54L147.6 52.45L146.28 52.32L144.01 52.31L140.78 52.54L136.61 52.96L131.59 53.43L125.83 53.73L119.38 53.77L112.26 53.58L104.46 53.33L95.98 53.19L86.86 53.2L77.2 53.28L67.08 53.28L56.57 53.07L45.73 52.67L34.58 52.24L23.19 51.96L11.63 51.96L0 52.2L-11.61 52.53L-23.14 52.76L-34.53 52.82L-45.72 52.77L-56.61 52.76L-67.13 52.93L-77.2 53.28L-86.76 53.67L-95.8 53.9L-104.32 53.86L-112.27 53.56L-119.56 53.17L-126.1 52.87L-131.81 52.76L-136.66 52.8L-140.67 52.83L-143.87 52.72L-146.24 52.44L-147.72 52.11L-148.24 51.93L-151.28 42.64L-153.94 32.16L-155.85 21.53L-156.99 10.79L-157.38 0L-156.99 -10.79L-155.85 -21.53L-153.94 -32.16L-151.28 -42.64Z" fill="#5a80cc" fill-opacity="0.35"/><path d="M-147.59 53.7L-147.12 53.73L-145.91 53.32L-143.89 52.65L-140.92 52.14L-136.91 52.07L-131.96 52.31L-126.22 52.5L-119.78 52.44L-112.63 52.27L-104.72 52.35L-96.06 52.83L-86.8 53.49L-77.08 53.89L-66.98 53.83L-56.51 53.48L-45.66 53.21L-34.5 53.2L-23.11 53.3L-11.6 53.15L0 52.65L11.63 52.06L23.2 51.79L34.6 52L45.75 52.47L56.61 52.8L67.15 52.84L77.29 52.78L86.92 52.95L95.92 53.42L104.31 53.91L112.13 54.03L119.41 53.67L126.03 53.11L131.82 52.74L136.7 52.71L140.69 52.78L143.9 52.63L146.31 52.22L147.81 51.86L148.26 51.9L144.87 60.44L141.45 67.81L137.65 74.99L133.46 81.97L128.92 88.72L124.01 95.23L118.77 101.48L113.21 107.45L107.33 113.13L100.51 119.03L100.11 119.1L99.45 118.88L98.43 118.44L96.72 118.05L94.09 117.93L90.6 118.06L86.55 118.21L82.15 118.18L77.33 118.05L71.91 118.05L65.83 118.33L59.26 118.78L52.46 119.12L45.57 119.15L38.51 118.94L31.17 118.74L23.55 118.72L15.77 118.79L7.91 118.74L0 118.43L-7.98 118.01L-15.97 117.75L-23.8 117.83L-31.4 118.12L-38.77 118.37L-45.97 118.42L-52.93 118.38L-59.49 118.45L-65.49 118.75L-70.99 119.12L-76.2 119.27L-81.25 119.09L-86.01 118.73L-90.19 118.45L-93.58 118.39L-96.28 118.44L-98.52 118.37L-100.39 118.1L-101.68 117.81L-102.05 117.76L-107.33 113.13L-113.21 107.45L-118.77 101.48L-124.01 95.23L-128.92 88.72L-133.46 81.97L-137.65 74.99L-141.45 67.81L-144.87 60.44Z" fill="#31549e" fill-opacity="0.45"/><path d="M-100.68 118.89L-100.44 118.83L-99.73 118.65L-98.48 118.4L-96.56 118.19L-93.9 118.1L-90.52 118.14L-86.52 118.24L-82.02 118.31L-77.1 118.3L-71.75 118.24L-65.93 118.2L-59.63 118.26L-52.89 118.44L-45.82 118.68L-38.53 118.88L-31.09 118.96L-23.5 118.9L-15.77 118.77L-7.92 118.66L0 118.62L7.92 118.65L15.79 118.68L23.58 118.62L31.28 118.46L38.83 118.23L46.17 118.05L53.18 117.99L59.76 118.07L65.9 118.24L71.62 118.39L76.95 118.47L81.87 118.46L86.31 118.44L90.15 118.48L93.32 118.62L95.84 118.81L97.8 118.97L99.3 119.01L100.35 118.9L100.9 118.71L92.5 125.14L83.4 131.18L73.88 136.58L64.01 141.31L53.83 145.36L43.38 148.69L32.72 151.31L21.9 153.18L10.98 154.31L0.29 154.69L0.37 154.69L0.47 154.69L0.47 154.69L0.28 154.69L-0.04 154.69L-0.38 154.69L-0.57 154.68L-0.57 154.68L-0.42 154.68L-0.25 154.69L-0.15 154.69L-0.14 154.69L-0.16 154.69L-0.14 154.69L-0.05 154.69L0.06 154.69L0.13 154.68L0.12 154.68L0.06 154.68L0 154.68L-0.02 154.69L-0.02 154.69L-0.02 154.69L-0.04 154.69L-0.05 154.69L0.01 154.69L0.16 154.69L0.36 154.68L0.53 154.68L0.55 154.68L0.41 154.69L0.17 154.69L-0.02 154.69L-0.1 154.69L-0.08 154.69L-0.06 154.69L-0.15 154.69L-0.37 154.69L-0.64 154.68L-0.79 154.68L-10.98 154.31L-21.9 153.18L-32.72 151.31L-43.38 148.69L-53.83 145.36L-64.01 141.31L-73.88 136.58L-83.4 131.18L-92.5 125.14Z" fill="#4f74c2" fill-opacity="0.4"/><ellipse cx="0" cy="0" rx="9.02" ry="15.89" fill="url(#gNeptunef1)" opacity="0.3" transform="translate(77.94 -103.51) rotate(-53.02)"/><ellipse cx="0" cy="0" rx="11.82" ry="12.71" fill="url(#gNeptunef1)" opacity="0.2" transform="translate(-48.11 32.16) rotate(146.24)"/></g><ellipse cx="0" cy="0" rx="157.38" ry="154.69" fill="url(#gNeptunes)"/><ellipse cx="0" cy="0" rx="157.38" ry="154.69" fill="url(#gNeptunen)"/><g stroke="#e2e8f0" stroke-opacity=".33" stroke-dasharray="4 5"><line x1="0" y1="-188.85" x2="0" y2="188.85"/></g><ellipse cx="0" cy="0" rx="157.38" ry="154.69" fill="none" stroke="#0a1020" stroke-opacity=".4"/></g></svg>
       </div>
       <div class="sol-globefacts">
         <div class="sun-srow sun-main"><span>One turn takes</span><b>16.1 hours</b></div>
@@ -1504,7 +1667,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <div class="sol-stage">
       <div class="sol-figwrap">
         <div class="sol-figbox">
-        <div class="sol-fig" id="sol-fig"><svg viewBox="0 0 900 900" width="100%" aria-hidden="true"><rect width="900" height="900" rx="16" fill="#080d1a"/><ellipse cx="450" cy="450" rx="55.5" ry="35.7" fill="none" stroke="#cbd5e1" stroke-opacity=".33" stroke-width="22.3"/><circle cx="450" cy="450" r="26.2" fill="#6b8fd8"/><text x="450" y="494.2" text-anchor="middle" font-size="13" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Neptune</text><ellipse cx="450" cy="450" rx="77.8" ry="50" fill="none" stroke="#8fb3d9" stroke-opacity=".32" stroke-width="1"/><circle cx="424.3" cy="497.2" r="1.5" fill="#e8eef7"/><text x="424.3" y="488.7" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Larissa</text><ellipse cx="450" cy="450" rx="124.5" ry="80" fill="none" stroke="#8fb3d9" stroke-opacity=".32" stroke-width="1"/><circle cx="570.1" cy="428.9" r="1.5" fill="#e8eef7"/><text x="570.1" y="420.4" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Proteus</text><ellipse cx="450" cy="450" rx="375.5" ry="241.3" fill="none" stroke="#f0a5a5" stroke-opacity=".5" stroke-width="1" stroke-dasharray="4 4"/><circle cx="302.3" cy="671.9" r="8.6" fill="#e8b4b4"/><text x="302.3" y="656.3" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Triton</text><text x="26" y="42" font-size="12" fill="#94a3b8">Off frame: Nereid 16x further out</text><text x="26" y="60" font-size="12" fill="#94a3b8">Orbit sizes, orbit speeds and the planet’s own disc are to scale; the moons are drawn 6x oversize to be visible at all.</text><text x="26" y="76" font-size="12" fill="#94a3b8">Where each moon sits on its orbit is not solved for here — watch the motion, not the position.</text></svg></div>
+        <div class="sol-fig" id="sol-fig"><svg viewBox="0 0 900 900" width="100%" aria-hidden="true"><rect width="900" height="900" rx="16" fill="#080d1a"/><ellipse cx="450" cy="450" rx="55.5" ry="35.7" fill="none" stroke="#cbd5e1" stroke-opacity=".33" stroke-width="22.3"/><circle cx="450" cy="450" r="26.2" fill="#6b8fd8"/><text x="450" y="494.2" text-anchor="middle" font-size="13" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Neptune</text><ellipse cx="450" cy="450" rx="77.8" ry="50" fill="none" stroke="#8fb3d9" stroke-opacity=".32" stroke-width="1"/><circle cx="516.7" cy="475.7" r="1.5" fill="#e8eef7"/><text x="516.7" y="467.2" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Larissa</text><ellipse cx="450" cy="450" rx="124.5" ry="80" fill="none" stroke="#8fb3d9" stroke-opacity=".32" stroke-width="1"/><circle cx="523.1" cy="385.2" r="1.5" fill="#e8eef7"/><text x="523.1" y="376.7" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Proteus</text><ellipse cx="450" cy="450" rx="375.5" ry="241.3" fill="none" stroke="#f0a5a5" stroke-opacity=".5" stroke-width="1" stroke-dasharray="4 4"/><circle cx="259.1" cy="657.8" r="8.6" fill="#e8b4b4"/><text x="259.1" y="642.2" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Triton</text><text x="26" y="42" font-size="12" fill="#94a3b8">Off frame: Nereid 16x further out</text><text x="26" y="60" font-size="12" fill="#94a3b8">Orbit sizes, orbit speeds and the planet’s own disc are to scale; the moons are drawn 6x oversize to be visible at all.</text><text x="26" y="76" font-size="12" fill="#94a3b8">Where each moon sits on its orbit is not solved for here — watch the motion, not the position.</text></svg></div>
         <div class="sol-ptip" id="sol-ptip" role="status" hidden></div>
 
         <div class="sol-overlay">
@@ -1565,6 +1728,13 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       </div>
     </div>
     <p class="hint">Distances from the sun are in <strong>AU</strong> — one AU is the Earth’s average distance, <span data-u="km" data-v="149597870" data-s="6">149,597,870 km</span> — and the angle is where the body sits around its orbit, measured from the March equinox direction.</p>
+  </div>
+  <div class="card hub-teasers">
+    <h2>Questions this page answers</h2>
+    <p class="sub">The question is the link. A short answer sits here; tap through for the drawing and the deeper pass.</p>
+    <ul class="hub-qs">
+    <li id="why-does-triton-orbit-backwards"><p><a href="/concepts/why-does-triton-orbit-backwards/">Why does one of Neptune’s moons go the other way?</a> Most moons travel the same way their planet spins, because they formed from the same spinning disc. Triton goes the other way, so it did not form next to Neptune. It was captured, almost certainly from the Kuiper belt.</p></li>
+    </ul>
   </div>
   <div class="card">
     <h2>Neptune by the numbers</h2>

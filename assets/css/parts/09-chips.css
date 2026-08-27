@@ -8,3 +8,8 @@
    it reads as "and anything else" without shouting. */
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+/* section switcher (Home / Time / Earth / Space / Classroom). Lives here so
+   /classroom/ gets the same chips without pulling the whole home stylesheet. */
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}

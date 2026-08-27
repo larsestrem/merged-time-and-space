@@ -126,6 +126,7 @@
     "question": "What is the subsolar point?",
     "term": "Subsolar point",
     "shortAnswer": "It is the one place on Earth where the Sun is straight overhead right now — where a flagpole casts no shadow. It is the yellow dot on the day/night map, and it is where the Sun-centre to Earth-centre line hits the surface.",
+    "ledeHtml": "It is the one place on Earth where the Sun is straight overhead right now — where a flagpole casts no shadow. It is the yellow dot on the <a href=\"/day-night-map/#subsolar\">day/night map</a>, and it is where the Sun-centre to Earth-centre line hits the surface.",
     "title": "What Is the Subsolar Point?",
     "description": "The subsolar point is where the Sun stands straight overhead. It races west once a day and drifts north and south once a year, never leaving the tropics.",
     "cluster": "day-night",
@@ -157,7 +158,7 @@
         "band": "deeper",
         "body": [
           "The map does not look up a table of “where the Sun is.” It solves a low-precision solar series (the same one used for sunrise on this site): the Sun’s apparent ecliptic longitude, the obliquity, then declination and right ascension. Declination is the latitude of the subsolar point. Greenwich sidereal time turns right ascension into longitude.",
-          "That is why the yellow dot and the side-view hit are the same number. One series, two pictures."
+          "That is why the yellow dot on the <a href=\"/day-night-map/#subsolar\">day/night map</a> and the side-view hit are the same number. One series, two pictures."
         ]
       }
     ],
@@ -173,6 +174,7 @@
     "question": "What is the terminator?",
     "term": "Terminator",
     "shortAnswer": "The terminator is the line between day and night — the circle on Earth where the Sun sits on the horizon. Sunrise is where you cross it going into the light; sunset is where you cross it going out.",
+    "ledeHtml": "The terminator is the line between day and night — the circle on Earth where the Sun sits on the horizon. Sunrise is where you cross it going into the light; sunset is where you cross it going out. On the <a href=\"/day-night-map/#terminator\">day/night map</a> it is the edge of the dark half.",
     "title": "What Is the Terminator?",
     "description": "The terminator is the day/night line: the circle where the Sun is on the horizon. It sweeps west as Earth turns, and it leans with the seasons.",
     "cluster": "day-night",
@@ -248,7 +250,7 @@
         "band": "5-12",
         "body": [
           "Hold a tilted spinning top and walk it around a lamp without twisting the tilt to follow the lamp. For half the walk the top’s north end points toward the light. For the other half it points away. That is the year.",
-          "The size of the lean is about 23.4° right now. This page does not type that number. It takes the largest declination in a year of the solar series — the same series that places the yellow dot."
+          "The size of the lean is about 23.4° right now. This page does not type that number. It takes the largest declination in a year of the solar series — the same series that places the yellow dot on the <a href=\"/day-night-map/#subsolar\">day/night map</a>."
         ]
       },
       {
@@ -367,8 +369,9 @@
   {
     "slug": "why-is-this-map-flat",
     "question": "Why is this map flat?",
-    "term": "Equirectangular projection",
+    "term": "Flat map",
     "shortAnswer": "This map gives every degree of latitude and longitude the same length on the page, so meridians are straight and the terminator is honest. The cost is size: land near the poles is stretched. The picture says so, in numbers from the drawing.",
+    "ledeHtml": "This <a href=\"/day-night-map/\">day/night map</a> gives every degree of latitude and longitude the same length on the page, so meridians are straight and the terminator is honest. The cost is size: land near the poles is stretched. The picture says so, in numbers from the drawing.",
     "title": "Why Is This Day/Night Map Flat?",
     "description": "The day/night map is equirectangular so meridians stay straight and the terminator can be solved per longitude. Continents near the poles are stretched on purpose.",
     "cluster": "day-night",
@@ -589,6 +592,7 @@
     "question": "Can the moon be up in the daytime?",
     "term": "Daytime moon",
     "shortAnswer": "Yes. The moon is above the horizon about half of every day, and those hours drift through daylight as the month goes by. It is simply bright enough to beat the blue sky. On the day/night map the pale marker is where the moon stands overhead — watch it ride through the lit half.",
+    "ledeHtml": "Yes. The moon is above the horizon about half of every day, and those hours drift through daylight as the month goes by. It is simply bright enough to beat the blue sky. On the <a href=\"/day-night-map/#daytime-moon\">day/night map</a> the pale marker is where the moon stands overhead — watch it ride through the lit half.",
     "title": "Can the Moon Be Up in the Daytime?",
     "description": "The moon is up in daylight about as often as at night. It does not belong to the night; it just happens to be easier to notice then.",
     "cluster": "day-night",
@@ -623,7 +627,7 @@
         "heading": "Where the map puts it",
         "band": "deeper",
         "body": [
-          "The pale marker on the day/night map is the sublunar point: the one place the moon stands straight overhead at the instant on the slider. It is the same idea as the yellow subsolar point, solved from the moon’s position rather than the sun’s.",
+          "The pale marker on the <a href=\"/day-night-map/#daytime-moon\">day/night map</a> is the sublunar point: the one place the moon stands straight overhead at the instant on the slider. It is the same idea as the yellow subsolar point, solved from the moon’s position rather than the sun’s.",
           "Near new moon the two markers sit close together, both in the lit half — that is a daytime moon. Near full moon they sit on opposite sides of the world, so the moon is overhead at night. Press Play and watch the pale marker sweep; it will cross into daylight and back out again."
         ]
       }
@@ -1062,7 +1066,7 @@
         "heading": "Why this site’s orrery does not draw the shadow",
         "band": "deeper",
         "body": [
-          "A top-down Sun–Earth–Moon picture flattens the 5°. If it also drew Earth’s umbra as a geometric cone in that plane, the full Moon would sit in the shadow every month and the picture would teach the wrong eclipse. The live simulator says so, and this page is the reason."
+          "A top-down Sun–Earth–Moon picture flattens the 5°. If it also drew Earth’s umbra as a geometric cone in that plane, the full Moon would sit in the shadow every month and the picture would teach the wrong eclipse. The <a href=\"/earth-sun-moon-orbit-simulator/\">Earth–Sun–Moon orbit simulator</a> says so, and this page is the reason."
         ]
       }
     ],
@@ -1149,7 +1153,7 @@
         "heading": "Rubble that never became a world",
         "band": "5-12",
         "body": [
-          "The belt’s total mass is about 3% of the Moon’s. Ceres, the largest body in it, is itself a dwarf planet. Switch the belt on in the solar system simulator and you are looking at leftover building material, not a destroyed planet."
+          "The belt’s total mass is about 3% of the Moon’s. Ceres, the largest body in it, is itself a dwarf planet. Switch the belt on in the <a href=\"/solar-system-simulator/asteroid-belt/\">solar system simulator</a> and you are looking at leftover building material, not a destroyed planet."
         ]
       },
       {
@@ -1172,6 +1176,7 @@
     "question": "Why are the planets drawn so close together?",
     "term": "Solar system scale",
     "shortAnswer": "Because the real solar system will not fit on a screen. Neptune is about 78 times farther from the Sun than Mercury. Drawn honestly at one scale, the inner four sit in the innermost tenth of the picture. This simulator climbs a zoom ladder so something is always legible, and it tells you what is compressed.",
+    "ledeHtml": "Because the real solar system will not fit on a screen. Neptune is about 78 times farther from the Sun than Mercury. Drawn honestly at one scale, the inner four sit in the innermost tenth of the picture. The <a href=\"/solar-system-simulator/\">solar system simulator</a> climbs a zoom ladder so something is always legible, and it tells you what is compressed.",
     "title": "Why Are the Planets Drawn So Close?",
     "description": "Solar system pictures compress distance so the planets fit. Orbits are to scale within each zoom; the planet dots cannot be, or they would be smaller than a pixel.",
     "cluster": "solar",
@@ -1209,6 +1214,1078 @@
       {
         "href": "/solar-system-simulator/",
         "label": "Climb the zoom ladder"
+      }
+    ]
+  },
+  {
+    "slug": "why-is-mars-red",
+    "question": "Why is Mars red?",
+    "term": "Mars’s colour",
+    "shortAnswer": "The dust is rust. Iron in Martian rock has oxidised, and that red-brown powder is blown across the whole planet, so even the sky looks butterscotch. The rocks underneath can be darker; the colour you see from Earth is a planet wearing its rust.",
+    "ledeHtml": "The dust is rust. Iron in Martian rock has oxidised, and that red-brown powder is blown across the whole planet, so even the sky looks butterscotch. The rocks underneath can be darker; the colour you see from Earth is a planet wearing its rust. Open <a href=\"/mars-and-moons-simulator/\">Mars and its moons</a> to look at the globe.",
+    "title": "Why Is Mars Red?",
+    "description": "Mars is red because iron in its dust has rusted. The whole planet is coated in that powder, which is why it looks rust-coloured from Earth.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/mars-and-moons-simulator/",
+        "label": "Mars and its moons"
+      },
+      {
+        "href": "/space/",
+        "label": "Space"
+      }
+    ],
+    "relatedSlugs": [
+      "why-do-other-planets-have-seasons",
+      "why-arent-the-inner-planets-gas-giants"
+    ],
+    "graphicId": "globe",
+    "graphicPlanet": "Mars",
+    "graphicCaption": "Mars drawn from its real features. The rust is in the dust that coats the disc, not a paint job on the rock.",
+    "graphicAlt": "Mars as a globe, butterscotch with darker patches.",
+    "sections": [
+      {
+        "heading": "Rust, then wind",
+        "band": "5-12",
+        "body": [
+          "Early Mars had water and a thicker air. Iron in the rock rusted — the same chemistry that turns a bicycle orange, just much slower and across a whole world. When the water went, the rust stayed as dust.",
+          "Mars’s air is thin, but it is enough to lift that dust. Storms can wrap the planet. What you see through a telescope is not bare rock. It is a coat of iron oxide, grain by grain."
+        ]
+      },
+      {
+        "heading": "Not every rock is red",
+        "band": "deeper",
+        "body": [
+          "Rovers have found grey-blue rock under the dust, and dark volcanic plains that only look red when the powder sits on them. The colour is a surface story. The planet underneath is a mix, like Earth, just drier and rustier on top."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/mars-and-moons-simulator/",
+        "label": "Turn the globe of Mars"
+      }
+    ]
+  },
+  {
+    "slug": "why-does-triton-orbit-backwards",
+    "question": "Why does one of Neptune’s moons go the other way?",
+    "term": "Triton’s retrograde orbit",
+    "shortAnswer": "Most moons travel the same way their planet spins, because they formed from the same spinning disc. Triton goes the other way, so it did not form next to Neptune. It was captured, almost certainly from the Kuiper belt.",
+    "ledeHtml": "Most moons travel the same way their planet spins, because they formed from the same spinning disc. Triton goes the other way, so it did not form next to Neptune. It was captured, almost certainly from the Kuiper belt. On <a href=\"/neptune-and-moons-simulator/\">Neptune’s moons</a> it is the one that runs backwards.",
+    "title": "Why Does Triton Orbit Backwards?",
+    "description": "Triton orbits Neptune the wrong way, so it was captured — almost certainly from the Kuiper belt — rather than born beside the planet.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/neptune-and-moons-simulator/",
+        "label": "Neptune and its moons"
+      },
+      {
+        "href": "/space/",
+        "label": "Space"
+      }
+    ],
+    "relatedSlugs": [
+      "why-do-planets-have-moons",
+      "why-does-jupiter-have-so-many-moons"
+    ],
+    "graphicId": "globe",
+    "graphicPlanet": "Neptune",
+    "graphicCaption": "Neptune with Triton going the opposite way to the planet’s spin. A moon born in the same disc would not do that.",
+    "graphicAlt": "Neptune as a globe. Its large moon Triton orbits backwards.",
+    "sections": [
+      {
+        "heading": "Backwards means captured",
+        "band": "5-12",
+        "body": [
+          "If a moon forms beside its planet, it inherits the spin of the disc. Clockwise with clockwise, or the other way around — but matching. Triton does not match. That is the giveaway: it arrived later.",
+          "The favoured picture is that Triton was one of a pair, like Pluto and Charon. Neptune grabbed one and flung the other away. The leftover is bound, and going the wrong way."
+        ]
+      },
+      {
+        "heading": "It is spiralling in",
+        "band": "deeper",
+        "body": [
+          "A backward orbit is also a decaying one. Tides are dragging Triton inward. In some billions of years it will cross Neptune’s Roche limit and break into a ring — unless it hits first. Either way, the system we see is not finished."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/neptune-and-moons-simulator/",
+        "label": "Watch Triton go the other way"
+      }
+    ]
+  },
+  {
+    "slug": "why-does-saturn-have-so-many-moons",
+    "question": "Why do Saturn and Jupiter have so many moons?",
+    "term": "Giant-planet moons",
+    "shortAnswer": "Gravity’s reach grows with mass. Jupiter and Saturn are the two heaviest planets, so a huge volume of space around each one is a place where a small body stays with the planet instead of orbiting the Sun on its own. Some of those moons formed there. Many more were captured.",
+    "ledeHtml": "Gravity’s reach grows with mass. Jupiter and Saturn are the two heaviest planets, so a huge volume of space around each one is a place where a small body stays with the planet instead of orbiting the Sun on its own. Some of those moons formed there. Many more were captured. See <a href=\"/jupiter-and-moons-simulator/\">Jupiter’s moons</a> and <a href=\"/saturn-and-moons-simulator/\">Saturn’s moons</a>.",
+    "title": "Why Do Saturn and Jupiter Have So Many Moons?",
+    "description": "Jupiter and Saturn keep huge crowds of moons because they are so massive. Some moons formed with them; many small ones were captured later.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/saturn-and-moons-simulator/",
+        "label": "Saturn and its moons"
+      },
+      {
+        "href": "/jupiter-and-moons-simulator/",
+        "label": "Jupiter and its moons"
+      }
+    ],
+    "relatedSlugs": [
+      "why-does-jupiter-have-so-many-moons",
+      "why-do-planets-have-moons",
+      "why-doesnt-earth-have-a-ring"
+    ],
+    "graphicId": "globe",
+    "graphicPlanet": "Saturn",
+    "graphicCaption": "Saturn, rings and all. The rings sit inside the region where a moon would be torn apart. The moons sit outside it.",
+    "graphicAlt": "Saturn as a globe with its ring system.",
+    "sections": [
+      {
+        "heading": "A planet that acts like a small system",
+        "band": "5-12",
+        "body": [
+          "The four big inner moons of Jupiter — Io, Europa, Ganymede, Callisto — formed from a disc around Jupiter, the way the planets formed from a disc around the Sun. Titan did the same around Saturn. Those are worlds.",
+          "The rest of the census is mostly captured ice-rocks on long, often tilted orbits. Telescopes keep finding smaller ones, so the count is still going up. It is a crowd, not a closed set."
+        ]
+      },
+      {
+        "heading": "Why the rocky planets keep almost none",
+        "band": "deeper",
+        "body": [
+          "Earth has one large moon from a giant impact. Mars has two tiny ones. Mercury and Venus have none. Close to the Sun the region where a planet’s gravity beats the Sun’s is small, so there is little room to keep a captured body, and less leftover ice to build one. Mass and distance both decide the guest list."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/saturn-and-moons-simulator/",
+        "label": "Saturn’s moons"
+      },
+      {
+        "href": "/jupiter-and-moons-simulator/",
+        "label": "Jupiter’s moons"
+      }
+    ]
+  },
+  {
+    "slug": "why-do-planets-have-moons",
+    "question": "Why do planets have moons, and how are they made?",
+    "term": "How moons form",
+    "shortAnswer": "Three ways, and you can tell them apart. Some moons form from the same disc as their planet. Some form from the debris of a giant impact. Some are captured — they were going past and got stuck. Triton’s backward orbit is the capture giveaway. Earth’s Moon is the impact story.",
+    "ledeHtml": "Three ways, and you can tell them apart. Some moons form from the same disc as their planet. Some form from the debris of a giant impact. Some are captured — they were going past and got stuck. Triton’s backward orbit on <a href=\"/neptune-and-moons-simulator/\">Neptune</a> is the capture giveaway. Earth’s Moon on the <a href=\"/earth-and-moon-simulator/\">Earth and Moon view</a> is the impact story.",
+    "title": "Why Do Planets Have Moons?",
+    "description": "Moons form in three ways: from a disc around the planet, from a giant impact, or by capture. The orbit usually tells you which.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/jupiter-and-moons-simulator/",
+        "label": "Jupiter and its moons"
+      },
+      {
+        "href": "/earth-and-moon-simulator/",
+        "label": "Earth and Moon"
+      }
+    ],
+    "relatedSlugs": [
+      "why-does-triton-orbit-backwards",
+      "why-does-jupiter-have-so-many-moons",
+      "why-does-the-moon-change-shape"
+    ],
+    "graphicId": "jupiter",
+    "graphicCaption": "Jupiter’s four large inner moons formed from a disc around the planet. That is one of the three ways. The tiny outer ones were mostly captured later.",
+    "graphicAlt": "Jupiter as a globe with nested inner moon orbits.",
+    "sections": [
+      {
+        "heading": "Disc, smash, or grab",
+        "band": "5-12",
+        "body": [
+          "A disc moon sits on a tidy, forward, nearly circular orbit near the equator — Io, Europa, Titan. An impact moon can be huge compared with its planet: our Moon is a quarter of Earth’s width; Charon is half of Pluto’s. A captured moon often comes in on a tilted or backward path, like Triton.",
+          "The same falling-and-missing that keeps a planet beside the Sun keeps a moon beside a planet. More mass, a larger volume of space where “beside the planet” wins."
+        ]
+      },
+      {
+        "heading": "Earth’s Moon is the odd one in the inner system",
+        "band": "deeper",
+        "body": [
+          "A Mars-sized body hit the young Earth. Debris went into orbit and became the Moon. That much is broadly agreed. The puzzle is that the Moon’s rocks look almost identical to Earth’s, while most impact models make a moon out of the impactor. Getting a Moon that looks like Earth’s mantle out of a collision with something else is still an unsolved modelling problem."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/jupiter-and-moons-simulator/",
+        "label": "A disc of moons around Jupiter"
+      },
+      {
+        "href": "/earth-and-moon-simulator/",
+        "label": "Earth and Moon to scale"
+      }
+    ]
+  },
+  {
+    "slug": "how-are-the-planets-formed",
+    "question": "How were the planets formed?",
+    "term": "Planet formation",
+    "shortAnswer": "From a spinning disc of gas and dust around the young Sun. Dust stuck, then pebbles, then worlds. Close in it was too warm for ice, so the inner four stayed small and rocky. Farther out, ice and gas stayed put, gravity grabbed hydrogen, and the giants grew huge.",
+    "ledeHtml": "From a spinning disc of gas and dust around the young Sun. Dust stuck, then pebbles, then worlds. Close in it was too warm for ice, so the inner four stayed small and rocky. Farther out, ice and gas stayed put, gravity grabbed hydrogen, and the giants grew huge. The <a href=\"/solar-system-simulator/\">solar system simulator</a> is that disc, later: everything still going the same way, in nearly the same plane.",
+    "title": "How Were the Planets Formed?",
+    "description": "The planets grew from a spinning disc around the young Sun. Inside the snow line they stayed rocky; outside it they could grab ice and gas and become giants.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/solar-system-simulator/",
+        "label": "Solar system simulator"
+      },
+      {
+        "href": "/space/",
+        "label": "Space"
+      }
+    ],
+    "relatedSlugs": [
+      "why-arent-the-inner-planets-gas-giants",
+      "why-didnt-the-asteroid-belt-become-a-planet",
+      "why-dont-planets-fall-into-the-sun"
+    ],
+    "graphicId": "orbit",
+    "graphicCaption": "One disc, one direction. That is why the planets still orbit the same way, in nearly the same plane, billions of years later.",
+    "graphicAlt": "Planets on nested orbits around the Sun, all travelling the same way.",
+    "sections": [
+      {
+        "heading": "A disc, then worlds",
+        "band": "5-12",
+        "body": [
+          "The young Sun was surrounded by a flat cloud of gas and dust, spinning. Grains stuck. Pebbles stuck. After a few million years there were bodies the size of towns, then of moons, then of planets. Leftover gas either got blown out or got pulled onto the biggest worlds.",
+          "You can still see the disc in the finished system: almost everything goes the same way, and almost everything sits in the same thin plane. The exceptions — Venus spinning backwards, Uranus on its side, Triton going the wrong way — each need an extra event."
+        ]
+      },
+      {
+        "heading": "They did not finish where they sit",
+        "band": "deeper",
+        "body": [
+          "Models in which the giant planets drifted inward and back out — dragging small bodies, emptying part of the asteroid belt, scattering the Kuiper belt — reproduce a great deal of what we see. Which version happened, and when, is not agreed. The <a href=\"/solar-system-simulator/\">zoom ladder</a> shows where they are now, not the road they took."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/solar-system-simulator/",
+        "label": "The finished disc, as it is today"
+      }
+    ]
+  },
+  {
+    "slug": "why-doesnt-earth-have-a-ring",
+    "question": "Why doesn’t Earth have a ring?",
+    "term": "Planetary rings",
+    "shortAnswer": "A ring is ice or rock that orbits inside a limit where a moon would be pulled apart. Earth could wear one if a moon broke up that close. Our Moon is too far out and too well stuck together. Saturn’s rings are the famous leftover — ice that never quite made a moon, or a moon that came too close.",
+    "ledeHtml": "A ring is ice or rock that orbits inside a limit where a moon would be pulled apart. Earth could wear one if a moon broke up that close. Our Moon is too far out and too well stuck together. Saturn’s rings on <a href=\"/saturn-and-moons-simulator/\">Saturn and its moons</a> are the famous leftover — ice that never quite made a moon, or a moon that came too close.",
+    "title": "Why Doesn’t Earth Have a Ring?",
+    "description": "Earth has no ring because its Moon sits well outside the distance where a moon would be torn into one. Saturn’s rings live inside that limit.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/saturn-and-moons-simulator/",
+        "label": "Saturn and its moons"
+      },
+      {
+        "href": "/earth-and-moon-simulator/",
+        "label": "Earth and Moon"
+      }
+    ],
+    "relatedSlugs": [
+      "why-do-planets-have-moons",
+      "why-does-saturn-have-so-many-moons",
+      "what-is-tidal-locking"
+    ],
+    "graphicId": "globe",
+    "graphicPlanet": "Saturn",
+    "graphicCaption": "Saturn’s rings sit inside the region where a moon would be torn apart. Outside that line, moons survive. Earth’s Moon is far outside Earth’s equivalent line.",
+    "graphicAlt": "Saturn as a globe with its broad ring system.",
+    "sections": [
+      {
+        "heading": "The Roche limit",
+        "band": "5-12",
+        "body": [
+          "Too close to a planet, tides across a moon are stronger than the moon’s own gravity. The moon comes apart and the pieces spread into a ring. That distance is the Roche limit. Saturn’s bright rings live inside it. Titan lives outside it.",
+          "Earth has a Roche limit too, only a few Earth-radii up. Our Moon is about 60 Earth-radii away. It is in no danger of becoming a ring. If something ice-rich wandered in that close, Earth could wear a faint ring for a while — but nothing that size is on that path now."
+        ]
+      },
+      {
+        "heading": "The giants all have some kind of ring",
+        "band": "deeper",
+        "body": [
+          "Jupiter, Uranus and Neptune have faint dusty rings as well as Saturn’s ice boulders. One idea is that a ring is a phase every giant goes through: moons grind down, dust is replaced, the show fades. Saturn’s would then be a bright snapshot of something the others have already finished. Earth never had the leftover ice at the right distance, and its one large moon formed much farther out."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/saturn-and-moons-simulator/",
+        "label": "Saturn’s rings and moons"
+      },
+      {
+        "href": "/earth-and-moon-simulator/",
+        "label": "Earth and Moon, no ring"
+      }
+    ]
+  },
+  {
+    "slug": "why-does-pluto-have-so-many-moons",
+    "question": "Why does Pluto, such a small world, have so many moons?",
+    "term": "Pluto’s moons",
+    "shortAnswer": "A giant impact likely made Charon and left a debris disc that became Styx, Nix, Kerberos and Hydra. Charon is half Pluto’s width, so the two of them are a double world — and the four small moons sit in the gravity of the pair, not of a single point.",
+    "ledeHtml": "A giant impact likely made Charon and left a debris disc that became Styx, Nix, Kerberos and Hydra. Charon is half Pluto’s width, so the two of them are a double world — and the four small moons sit in the gravity of the pair, not of a single point. See them on <a href=\"/pluto-and-moons-simulator/\">Pluto and its moons</a>.",
+    "title": "Why Does Pluto Have So Many Moons?",
+    "description": "Pluto’s five moons likely come from one giant impact: Charon is the big leftover, and four small moons condensed from the debris.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/pluto-and-moons-simulator/",
+        "label": "Pluto and its moons"
+      },
+      {
+        "href": "/space/",
+        "label": "Space"
+      }
+    ],
+    "relatedSlugs": [
+      "why-is-pluto-a-dwarf-planet",
+      "why-do-planets-have-moons"
+    ],
+    "graphicId": "globe",
+    "graphicPlanet": "Pluto",
+    "graphicCaption": "Pluto and Charon are a pair. The four small moons orbit both of them. A body this small keeps a crowd because of that one smash, not because it is massive like Jupiter.",
+    "graphicAlt": "Pluto as a globe.",
+    "sections": [
+      {
+        "heading": "One smash, five moons",
+        "band": "5-12",
+        "body": [
+          "Charon is so big that the point Pluto and Charon both orbit sits outside Pluto’s surface. No other named pair in the solar system does that. The four small moons — Styx, Nix, Kerberos, Hydra — go round the pair on tidy, nearly circular paths, which is what you expect from leftover debris after an impact, not from random captures.",
+          "Small does not mean moonless. It means the moons, if they exist, probably share one origin story rather than a billion years of capture."
+        ]
+      },
+      {
+        "heading": "The little four tumble",
+        "band": "deeper",
+        "body": [
+          "Styx, Nix, Kerberos and Hydra do not keep one face to Pluto. They sit in the gravity of a rotating pair rather than a single point, so their day lengths change in a way that looks random from month to month. New Horizons watched that tumble on one afternoon in 2015. Nobody has been back."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/pluto-and-moons-simulator/",
+        "label": "Pluto, Charon and the small four"
+      }
+    ]
+  },
+  {
+    "slug": "why-is-pluto-a-dwarf-planet",
+    "question": "Why is Pluto a dwarf planet and not a planet?",
+    "term": "Dwarf planet",
+    "shortAnswer": "A planet has to clear its neighbourhood. Pluto shares the Kuiper belt with a great many other bodies, one of them — Eris — more massive than Pluto. The world itself did not get smaller in 2006. The rule about the neighbourhood did.",
+    "ledeHtml": "A planet has to clear its neighbourhood. Pluto shares the Kuiper belt with a great many other bodies, one of them — Eris — more massive than Pluto. The world itself did not get smaller in 2006. The rule about the neighbourhood did. <a href=\"/pluto-and-moons-simulator/\">Pluto and its moons</a> is still a place: ice mountains, a nitrogen glacier, five moons.",
+    "title": "Why Is Pluto a Dwarf Planet?",
+    "description": "Pluto is a dwarf planet because it has not cleared its orbital neighbourhood. It shares the Kuiper belt with many other worlds, including Eris.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/pluto-and-moons-simulator/",
+        "label": "Pluto and its moons"
+      },
+      {
+        "href": "/planets/",
+        "label": "The planets"
+      }
+    ],
+    "relatedSlugs": [
+      "why-does-pluto-have-so-many-moons",
+      "what-is-the-asteroid-belt"
+    ],
+    "graphicId": "globe",
+    "graphicPlanet": "Pluto",
+    "graphicCaption": "The label is about the neighbourhood, not the world. Pluto is still 2,377 km across, with weather, ice mountains and a large companion.",
+    "graphicAlt": "Pluto as a globe.",
+    "sections": [
+      {
+        "heading": "Three tests, and Pluto fails the third",
+        "band": "5-12",
+        "body": [
+          "In 2006 the IAU asked three things of a planet: it orbits the Sun, it is round because of its own gravity, and it has cleared the other things on its path. Pluto does the first two. It fails the third. The Kuiper belt is full of leftover worlds on similar orbits. Ceres, in the asteroid belt, fails the same test.",
+          "Calling it a dwarf planet is a statement about the region, not an insult to the ice. New Horizons found mountains, a heart-shaped glacier with no craters on it, and a blue haze in dozens of layers."
+        ]
+      },
+      {
+        "heading": "Why the rule exists",
+        "band": "deeper",
+        "body": [
+          "If roundness alone made a planet, the solar system would have dozens, and more every time a telescope found another round Kuiper belt object. The neighbourhood test keeps “planet” for the eight that dominate their paths. It is a census rule. It does not change what Pluto is made of, or that Charon makes it a double world."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/pluto-and-moons-simulator/",
+        "label": "Pluto as a world"
+      },
+      {
+        "href": "/planets/",
+        "label": "Where it sits in the list"
+      }
+    ]
+  },
+  {
+    "slug": "why-do-other-planets-have-seasons",
+    "question": "Do other planets have seasons?",
+    "term": "Seasons on other planets",
+    "shortAnswer": "Yes, if they tilt. Seasons come from a lean, not from being closer to the Sun. Mars tilts about 25°, like Earth, so it has seasons — just longer, because its year is longer. Uranus tilts 98°, so each pole sits in sunlight for 42 years and then in darkness for 42. Jupiter barely tilts, so its seasons are weak.",
+    "ledeHtml": "Yes, if they tilt. Seasons come from a lean, not from being closer to the Sun. Mars tilts about 25°, like Earth, so it has seasons — just longer, because its year is longer. Uranus tilts 98°, so each pole sits in sunlight for 42 years and then in darkness for 42. See the lean on <a href=\"/uranus-and-moons-simulator/\">Uranus</a>, and Earth’s own year on the <a href=\"/earth-sun-moon-orbit-simulator/\">Earth–Sun–Moon orbit simulator</a>.",
+    "title": "Do Other Planets Have Seasons?",
+    "description": "Seasons come from axial tilt. Mars has Earth-like seasons on a longer year. Uranus, tipped on its side, gives each pole 42 years of day then 42 of night.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/uranus-and-moons-simulator/",
+        "label": "Uranus and its moons"
+      },
+      {
+        "href": "/earth-sun-moon-orbit-simulator/",
+        "label": "Earth–Sun–Moon orbit simulator"
+      }
+    ],
+    "relatedSlugs": [
+      "why-do-we-have-seasons",
+      "what-is-earths-axial-tilt",
+      "why-is-mars-red"
+    ],
+    "graphicId": "globe",
+    "graphicPlanet": "Uranus",
+    "graphicCaption": "Uranus lies on its side. That 98° tilt is the most extreme season in the solar system: each pole, 42 years of sun, then 42 years of night.",
+    "graphicAlt": "Uranus as a globe, axis nearly in the plane of its orbit.",
+    "sections": [
+      {
+        "heading": "Tilt, not distance",
+        "band": "5-12",
+        "body": [
+          "Earth is closest to the Sun in January, which is northern winter. Distance is the wrong story. The axis leans, so for half the year the north end points toward the Sun and for the other half it points away. Any planet with a lean gets a version of that.",
+          "Mars’s year is about 687 Earth days, so each season lasts about twice as long as ours. Its ice caps grow and shrink. Dust storms prefer the warmer half. Uranus rolls: one pole then the other takes a 42-year polar day."
+        ]
+      },
+      {
+        "heading": "Jupiter almost does not bother",
+        "band": "deeper",
+        "body": [
+          "Jupiter’s tilt is only about 3°. The Sun’s height in its sky barely changes over a year, so there is little seasonal contrast. Neptune tilts about 28°, similar to Earth, but one Neptune year is 165 of ours — a “season” there is measured in decades. The rule is the same on every world: the lean sets the pattern, the year sets the clock."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/uranus-and-moons-simulator/",
+        "label": "Uranus on its side"
+      },
+      {
+        "href": "/earth-sun-moon-orbit-simulator/",
+        "label": "Earth’s tilt through a year"
+      }
+    ]
+  },
+  {
+    "slug": "why-arent-the-inner-planets-gas-giants",
+    "question": "Why aren’t the inner planets gas giants?",
+    "term": "Snow line",
+    "shortAnswer": "Close to the Sun it was too warm for ice and light gas to stick. The inner four could only build from rock and metal, so they stayed small. Past a line called the snow line, ice piled on, gravity grabbed hydrogen and helium, and the giants grew huge.",
+    "ledeHtml": "Close to the Sun it was too warm for ice and light gas to stick. The inner four could only build from rock and metal, so they stayed small. Past a line called the snow line, ice piled on, gravity grabbed hydrogen and helium, and the giants grew huge. The <a href=\"/solar-system-simulator/\">solar system simulator</a> still shows that split: four small inner worlds, then a jump.",
+    "title": "Why Aren’t the Inner Planets Gas Giants?",
+    "description": "The inner planets are rocky because they formed inside the snow line, where ice and gas could not stick. The giants formed farther out, where they could.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/solar-system-simulator/",
+        "label": "Solar system simulator"
+      },
+      {
+        "href": "/space/",
+        "label": "Space"
+      }
+    ],
+    "relatedSlugs": [
+      "how-are-the-planets-formed",
+      "why-didnt-the-asteroid-belt-become-a-planet",
+      "why-dont-planets-fall-into-the-sun"
+    ],
+    "graphicId": "orbit",
+    "graphicCaption": "Inside the snow line: rock. Outside it: ice and gas, and the mass to hold them. The jump between Mars and Jupiter is that line, later.",
+    "graphicAlt": "Nested orbits around the Sun, inner planets close in, giants farther out.",
+    "sections": [
+      {
+        "heading": "A temperature line in the disc",
+        "band": "5-12",
+        "body": [
+          "In the disc around the young Sun, water was vapour close in and ice farther out. Rock could stick either side of that line. Ice could not stick inside it. So the inner four grew from rock and metal only, and never got massive enough to hold a thick envelope of hydrogen.",
+          "Outside the line, ice was extra building material. More mass, more gravity, and those worlds could pull in the leftover gas before the Sun blew it away. Jupiter and Saturn won that race. Uranus and Neptune got there later and grabbed less gas, which is why they are ice giants rather than hydrogen balls."
+        ]
+      },
+      {
+        "heading": "The missing super-Earth",
+        "band": "deeper",
+        "body": [
+          "Planets between the size of Earth and Neptune are the commonest kind found around other stars, and our system does not have one. There is a gap between Earth and Neptune where most systems put their most typical planet. Jupiter’s early drift is the usual explanation. It is a model, not a photograph of the past."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/solar-system-simulator/",
+        "label": "Four small, then the jump to Jupiter"
+      }
+    ]
+  },
+  {
+    "slug": "why-didnt-the-asteroid-belt-become-a-planet",
+    "question": "Why didn’t the asteroid belt turn into a planet?",
+    "term": "Why the belt is rubble",
+    "shortAnswer": "There was never enough rock, and Jupiter never let it gather. Everything in the belt together is about 3% of the Moon’s mass. Collisions smashed rather than stuck, because Jupiter’s gravity stirred the region. It is leftover building material, not a planet that broke.",
+    "ledeHtml": "There was never enough rock, and Jupiter never let it gather. Everything in the belt together is about 3% of the Moon’s mass. Collisions smashed rather than stuck, because Jupiter’s gravity stirred the region. It is leftover building material, not a planet that broke. Switch it on in the <a href=\"/solar-system-simulator/asteroid-belt/\">asteroid belt view</a>.",
+    "title": "Why Didn’t the Asteroid Belt Become a Planet?",
+    "description": "The asteroid belt never became a planet: too little mass, and Jupiter’s gravity made collisions destructive instead of constructive.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/solar-system-simulator/asteroid-belt/",
+        "label": "Asteroid belt"
+      },
+      {
+        "href": "/space/",
+        "label": "Space"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-the-asteroid-belt",
+      "why-do-asteroids-collide",
+      "how-are-the-planets-formed"
+    ],
+    "graphicId": "orbit",
+    "graphicCaption": "A ring of leftovers between Mars and Jupiter. Not the wreckage of a world — a world that was never allowed to finish.",
+    "graphicAlt": "Orbits around the Sun with a band of small bodies between Mars and Jupiter.",
+    "sections": [
+      {
+        "heading": "Not enough, and too stirred",
+        "band": "5-12",
+        "body": [
+          "Add up every asteroid and you still do not have a planet. Ceres, the largest, is itself a dwarf planet and only about a third of the belt’s mass. A planet needs material and quiet. The belt had little of the first and none of the second.",
+          "Jupiter is next door. Its tugs sped things up and changed their paths, so when two bodies met they tended to shatter instead of stick. The same gravity still carves empty lanes in the belt today."
+        ]
+      },
+      {
+        "heading": "The belt used to be heavier",
+        "band": "deeper",
+        "body": [
+          "Models in which the giant planets migrated throw most of the original belt away and mix in bodies from elsewhere. That would explain why the belt holds both dry inner-system rock and water-rich outer-system material. How much was thrown, and when, is not settled. What is left is the quiet remnant."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/solar-system-simulator/asteroid-belt/",
+        "label": "Switch the belt on"
+      }
+    ]
+  },
+  {
+    "slug": "why-do-asteroids-collide",
+    "question": "Do the asteroids in the belt crash together?",
+    "term": "Asteroid collisions",
+    "shortAnswer": "Yes, but rarely. Typical named bodies sit about a million kilometres apart, so the belt is empty, not a pinball table. When two do hit, they make a family of fragments on similar orbits. Spacecraft fly through without dodging.",
+    "ledeHtml": "Yes, but rarely. Typical named bodies sit about a million kilometres apart, so the belt is empty, not a pinball table. When two do hit, they make a family of fragments on similar orbits. Spacecraft fly through without dodging. The <a href=\"/solar-system-simulator/asteroid-belt/\">asteroid belt view</a> is honest about how spread out they are.",
+    "title": "Do Asteroids in the Belt Crash Together?",
+    "description": "Asteroids do collide, but the belt is so spread out that hits are rare. Films pack it; the real gap between named bodies is about a million kilometres.",
+    "cluster": "solar",
+    "hubUrls": [
+      {
+        "href": "/solar-system-simulator/asteroid-belt/",
+        "label": "Asteroid belt"
+      },
+      {
+        "href": "/space/",
+        "label": "Space"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-the-asteroid-belt",
+      "why-didnt-the-asteroid-belt-become-a-planet"
+    ],
+    "graphicId": "orbit",
+    "graphicCaption": "Every spacecraft sent to the outer solar system has flown through the belt without a course change for debris. That is how empty it is.",
+    "graphicAlt": "A sparse band of small bodies between Mars and Jupiter.",
+    "sections": [
+      {
+        "heading": "Empty, with occasional smash-ups",
+        "band": "5-12",
+        "body": [
+          "Films pack the belt so the hero has to dodge. The real thing is the opposite. The typical gap between objects large enough to name is on the order of a million kilometres. You could sit in a ship for a long time and see nothing.",
+          "Over millions of years, some of them do meet. A hit can make a family: fragments that still share a similar orbit, which is how we know a collision happened. Most of the belt, most of the time, just goes around."
+        ]
+      },
+      {
+        "heading": "Jupiter still picks the fights",
+        "band": "deeper",
+        "body": [
+          "Resonances with Jupiter pump some asteroids onto crossing paths, which is when a collision — or a path toward Earth — becomes more likely. The Kirkwood gaps are those pumped lanes, emptied. The belt is not a closed box. It leaks, slowly, because Jupiter never stopped stirring."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/solar-system-simulator/asteroid-belt/",
+        "label": "See how spread out the belt is"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-a-time-zone",
+    "question": "What is a time zone?",
+    "term": "Time zone",
+    "shortAnswer": "A political stripe painted on a rotating ball. Noon is where the Sun is overhead. A zone is an argument about how far from that line a country is willing to sit, so clocks in that stripe all say the same hour.",
+    "ledeHtml": "A political stripe painted on a rotating ball. Noon is where the Sun is overhead. A zone is an argument about how far from that line a country is willing to sit, so clocks in that stripe all say the same hour. See it on the <a href=\"/world-clock/\">world clock</a> and the <a href=\"/day-night-map/\">day/night map</a>.",
+    "title": "What Is a Time Zone?",
+    "description": "A time zone is a political stripe on a rotating Earth. Noon is where the Sun is overhead; the zone is how far from that a country is willing to sit.",
+    "cluster": "time",
+    "hubUrls": [
+      {
+        "href": "/world-clock/",
+        "label": "World clock"
+      },
+      {
+        "href": "/day-night-map/",
+        "label": "Day and night map"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-utc",
+      "what-is-the-international-date-line",
+      "what-is-daylight-saving-time"
+    ],
+    "graphicId": "day-night-map",
+    "graphicCaption": "The Sun is overhead along one meridian. Everything east of it is already later. The stripes we call zones are cut into that.",
+    "graphicAlt": "Day and night world map, the lit half showing where it is day right now.",
+    "sections": [
+      {
+        "heading": "Noon is a place",
+        "band": "5-12",
+        "body": [
+          "If Earth had one clock, noon would travel west around the planet every day and the date would never know where to jump. Zones freeze a whole stripe at one hour so neighbours can agree.",
+          "The stripes are not honest meridians. China is one zone. India is a half-hour off everyone. Those are political choices, visible on the <a href=\"/world-clock/\">world clock</a>."
+        ]
+      },
+      {
+        "heading": "The map is the reason",
+        "band": "deeper",
+        "body": [
+          "The <a href=\"/day-night-map/\">day/night map</a> is why zones exist: the terminator is a moving line, and every zone is a bet about how far from the overhead Sun a country will let its clocks sit."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/world-clock/",
+        "label": "Who is awake right now"
+      },
+      {
+        "href": "/day-night-map/",
+        "label": "The Sun overhead, as a place"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-utc",
+    "question": "What is UTC?",
+    "term": "UTC",
+    "shortAnswer": "Coordinated Universal Time — the one clock the rest are offsets from. It tracks atomic time, steered to stay close to the Earth’s spin. Every zone on this site is written as hours ahead of or behind UTC.",
+    "title": "What Is UTC?",
+    "description": "UTC is the one clock every time zone is an offset from. This site computes in UTC, then shows you your own zone.",
+    "cluster": "time",
+    "hubUrls": [
+      {
+        "href": "/world-clock/",
+        "label": "World clock"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-a-time-zone",
+      "what-is-the-24-hour-clock"
+    ],
+    "graphicId": "none",
+    "graphicCaption": "No picture needed: UTC is an agreement, not a place. The 0 on every offset.",
+    "graphicAlt": "UTC is the zero offset every time zone is counted from.",
+    "sections": [
+      {
+        "heading": "The zero the others are counted from",
+        "band": "5-12",
+        "body": [
+          "New York is UTC−5 in winter, UTC−4 in summer. Tokyo is UTC+9 all year. The number is the difference from this one clock.",
+          "This site solves the sky in UTC, then writes the result in your zone. That is why a full moon is one instant worldwide and a different clock reading in each city."
+        ]
+      },
+      {
+        "heading": "Atomic time, steered to Earth",
+        "band": "deeper",
+        "body": [
+          "UTC is kept by atomic clocks and occasionally a leap second is added so it does not drift far from the Earth’s actual spin. The difference is tiny. For anything on this site, UTC is the honest now."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/world-clock/",
+        "label": "Every zone as an offset from UTC"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-daylight-saving-time",
+    "question": "What is daylight saving time?",
+    "term": "Daylight saving time",
+    "shortAnswer": "A twice-a-year decision to shift the clock one hour so evening daylight lasts longer in summer. Not every place does it. When they do, the offset from UTC changes, and so does the sunrise time on the clock — not the sunrise in the sky.",
+    "ledeHtml": "A twice-a-year decision to shift the clock one hour so evening daylight lasts longer in summer. Not every place does it. When they do, the offset from UTC changes, and so does the sunrise time on the clock — not the sunrise in the sky. The <a href=\"/sun/\">sunrise pages</a> follow the zone’s real rules.",
+    "title": "What Is Daylight Saving Time?",
+    "description": "Daylight saving time shifts the clock one hour. The Sun does not move. Sunrise on the clock changes; sunrise in the sky does not.",
+    "cluster": "time",
+    "hubUrls": [
+      {
+        "href": "/world-clock/",
+        "label": "World clock"
+      },
+      {
+        "href": "/sun/",
+        "label": "Sunrise and sunset"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-a-time-zone",
+      "what-is-utc"
+    ],
+    "graphicId": "none",
+    "graphicCaption": "The sky does not spring forward. The labels on the clock do.",
+    "graphicAlt": "Daylight saving time is a clock shift, not a change in the Sun.",
+    "sections": [
+      {
+        "heading": "The sky does not change",
+        "band": "5-12",
+        "body": [
+          "On the spring-forward night, 2:00 a.m. becomes 3:00 a.m. You lose an hour of sleep. The Sun still rises when the Earth has turned far enough. Only the number on the clock jumped.",
+          "Arizona (mostly) and Hawaii do not do this. Most of Europe does. That is why a world clock has to know the rules, not just a fixed offset."
+        ]
+      },
+      {
+        "heading": "Why the clock, not the Sun",
+        "band": "deeper",
+        "body": [
+          "The original pitch was to move an hour of daylight from the morning, when fewer people are out, to the evening. Whether it saves energy is argued. What it definitely does is change every offset from UTC for a few months, which is why a sunrise table that ignored DST would be an hour wrong all summer."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/sun/",
+        "label": "Sunrise in a zone that actually shifts"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-a-solar-day",
+    "question": "What is a solar day?",
+    "term": "Solar day",
+    "shortAnswer": "Sunrise to sunrise — the day you actually live. On Earth that averages 24 hours. A full spin relative to the stars is about 4 minutes shorter, because Earth also moved along its orbit and has to turn a little extra to face the Sun again.",
+    "title": "What Is a Solar Day?",
+    "description": "A solar day is sunrise to sunrise. On Earth it averages 24 hours, a few minutes longer than one full spin relative to the stars.",
+    "cluster": "time",
+    "hubUrls": [
+      {
+        "href": "/planets/",
+        "label": "The planets"
+      },
+      {
+        "href": "/sun/",
+        "label": "Sunrise and sunset"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-a-sidereal-day",
+      "what-is-the-equation-of-time"
+    ],
+    "graphicId": "none",
+    "graphicCaption": "Earth has to turn a little extra each day to catch the Sun, because it also moved along its orbit.",
+    "graphicAlt": "A solar day is sunrise to sunrise, a few minutes longer than one spin.",
+    "sections": [
+      {
+        "heading": "The day the Sun makes",
+        "band": "5-12",
+        "body": [
+          "If you watch a sundial, noon is when the shadow is shortest. That interval — noon to noon — is a solar day. We split it into 24 hours.",
+          "Mars does this too: a Martian solar day (a sol) is about 24 hours 40 minutes. The <a href=\"/planets/\">planets page</a> lists the spin; this is the other number."
+        ]
+      },
+      {
+        "heading": "Why it is not exactly 24 hours every day",
+        "band": "deeper",
+        "body": [
+          "Earth’s orbit is a slight ellipse and its axis is tilted, so the true solar day wanders by a quarter-hour over the year. That wander is the equation of time. Clocks ignore it and run a mean 24 hours."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/sun/",
+        "label": "Noon as a shadow, for your town"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-a-sidereal-day",
+    "question": "What is a sidereal day?",
+    "term": "Sidereal day",
+    "shortAnswer": "One full turn relative to the stars, not the Sun. On Earth that is 23 hours 56 minutes. A star rises about four minutes earlier each night because of that difference — which is the orbit showing up in the clock.",
+    "title": "What Is a Sidereal Day?",
+    "description": "A sidereal day is one full turn relative to the stars: 23 hours 56 minutes on Earth. That is why a star rises four minutes earlier each night.",
+    "cluster": "time",
+    "hubUrls": [
+      {
+        "href": "/planets/",
+        "label": "The planets"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-a-solar-day",
+      "what-is-the-equation-of-time"
+    ],
+    "graphicId": "none",
+    "graphicCaption": "The planets page lists this number as “one full turn.” It is the spin, not sunrise to sunrise.",
+    "graphicAlt": "A sidereal day is one spin relative to the stars.",
+    "sections": [
+      {
+        "heading": "Why stars rise earlier",
+        "band": "5-12",
+        "body": [
+          "Face a star at 9 p.m. Tomorrow the same star is up at 8:56 p.m. Earth spun once relative to the stars in 23 h 56 m, then kept turning a little more to face the Sun. That extra is why the night sky shifts through the year."
+        ]
+      },
+      {
+        "heading": "The number on the planets page",
+        "band": "deeper",
+        "body": [
+          "When <a href=\"/planets/\">the planets page</a> says Earth’s day is 23.9 hours, it means this: one full turn. Mars 24.6 hours is the same kind of number. Sunrise to sunrise is the solar day, a few minutes longer."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/planets/",
+        "label": "One full turn, for every world"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-a-leap-year",
+    "question": "What is a leap year?",
+    "term": "Leap year",
+    "shortAnswer": "A year with 29 February. The Earth takes about 365.242 days to go around the Sun, so a 365-day calendar drifts. Adding a day most years that divide by 4 — but not most centuries — keeps the seasons from walking off the months.",
+    "ledeHtml": "A year with 29 February. The Earth takes about 365.242 days to go around the Sun, so a 365-day calendar drifts. Adding a day most years that divide by 4 — but not most centuries — keeps the seasons from walking off the months. There is a <a href=\"/classroom/lessons/leap-year-grades-5-6/\">leap-year lesson</a> that runs this as a class.",
+    "title": "What Is a Leap Year?",
+    "description": "A leap year adds 29 February because Earth takes about 365.242 days to orbit the Sun. The extra day keeps the calendar lined up with the seasons.",
+    "cluster": "time",
+    "hubUrls": [
+      {
+        "href": "/classroom/lessons/leap-year-grades-5-6/",
+        "label": "Leap-year lesson"
+      },
+      {
+        "href": "/classroom/time/",
+        "label": "Time in the classroom"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-a-solar-day",
+      "why-do-we-have-seasons"
+    ],
+    "graphicId": "none",
+    "graphicCaption": "The extra day is a correction for a year that is not a whole number of days.",
+    "graphicAlt": "A leap year adds one day because Earth’s year is not a whole number of days.",
+    "sections": [
+      {
+        "heading": "The leftover quarter-day",
+        "band": "5-12",
+        "body": [
+          "If every year were 365 days, the calendar would lose about a quarter-day a year — a day every four years, a month every 120, a season every 700. Spring would slide into December.",
+          "Most years that divide by 4 get 29 February. 1900 did not. 2000 did. That is the century rule, and it is why the calendar still matches the seasons."
+        ]
+      },
+      {
+        "heading": "The year is not 365.25 either",
+        "band": "deeper",
+        "body": [
+          "365.2422, more nearly. The Gregorian skip-three-centuries-in-four rule approximates that. The remaining error is about a day in a few thousand years. Good enough that the <a href=\"/concepts/why-do-we-have-seasons/\">seasons</a> stay put on the months we named for them."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/classroom/lessons/leap-year-grades-5-6/",
+        "label": "Run the leap-year lesson"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-the-international-date-line",
+    "question": "What is the International Date Line?",
+    "term": "International Date Line",
+    "shortAnswer": "The seam where the calendar jumps a day. Noon travels west around a round Earth forever, so somewhere the date has to tear. We cut the seam in the Pacific, as far from most people as we could, and kink it around islands that did not want to be split.",
+    "ledeHtml": "The seam where the calendar jumps a day. Noon travels west around a round Earth forever, so somewhere the date has to tear. We cut the seam in the Pacific, as far from most people as we could, and kink it around islands that did not want to be split. On the <a href=\"/world-clock/\">world clock</a>, Auckland and Honolulu are often on two different dates at the same moment.",
+    "title": "What Is the International Date Line?",
+    "description": "The International Date Line is the seam where the calendar jumps a day, cut through the Pacific so noon can travel west around a round Earth forever.",
+    "cluster": "time",
+    "hubUrls": [
+      {
+        "href": "/world-clock/",
+        "label": "World clock"
+      },
+      {
+        "href": "/classroom/time/",
+        "label": "Time in the classroom"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-a-time-zone",
+      "what-is-utc"
+    ],
+    "graphicId": "day-night-map",
+    "graphicCaption": "Same moment, two dates. The line is not magic. It is the cut you are forced to make on a round Earth with a calendar.",
+    "graphicAlt": "A world map. Somewhere on it the calendar has to jump a day.",
+    "sections": [
+      {
+        "heading": "The forced cut",
+        "band": "5-12",
+        "body": [
+          "If you fly west around the world, you keep setting your watch back. When you get home, a day has gone missing unless you add one somewhere. That somewhere is this line.",
+          "It kinks around Kiribati, around eastern Russia, around a few islands that picked a side. The kinks are politics. The need for a seam is geometry."
+        ]
+      },
+      {
+        "heading": "Two cities, two dates",
+        "band": "deeper",
+        "body": [
+          "Open the <a href=\"/world-clock/\">world clock</a> and find a pair — Auckland and Honolulu usually work. Same instant, different date. There is no moment when the whole world shares one calendar day."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/world-clock/",
+        "label": "Find two cities on two dates"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-the-equation-of-time",
+    "question": "What is the equation of time?",
+    "term": "Equation of time",
+    "shortAnswer": "The difference between clock noon and sundial noon. The Earth’s orbit is a slight ellipse and its axis is tilted, so the true solar day wanders by up to about 16 minutes through the year. Clocks run a mean 24 hours and ignore it.",
+    "title": "What Is the Equation of Time?",
+    "description": "The equation of time is the difference between clock noon and sundial noon, up to about 16 minutes, caused by Earth’s elliptical orbit and tilt.",
+    "cluster": "time",
+    "hubUrls": [
+      {
+        "href": "/sun/",
+        "label": "Sunrise and sunset"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-a-solar-day",
+      "what-is-earths-axial-tilt"
+    ],
+    "graphicId": "none",
+    "graphicCaption": "A sundial and a clock disagree by up to 16 minutes, and they disagree on a schedule.",
+    "graphicAlt": "Clock noon and sundial noon are not the same time of day.",
+    "sections": [
+      {
+        "heading": "Why a sundial is 'wrong'",
+        "band": "5-12",
+        "body": [
+          "In November a sundial can run a quarter-hour fast. In February it can run slow. The clock is the one that is smoothed. The sundial is following the real Sun.",
+          "Two effects add up: the orbit is not a circle, so Earth speeds up and slows down, and the axis is tilted, so the Sun’s path along the equator is not even. Together they are this equation."
+        ]
+      },
+      {
+        "heading": "The analemma",
+        "band": "deeper",
+        "body": [
+          "Photograph the Sun at the same clock time every few days for a year and the spots make a figure-8. That shape is the equation of time plotted against the Sun’s changing height. It is the tilt and the ellipse, drawn in the sky."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/sun/",
+        "label": "Sunrise and noon for your town"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-the-24-hour-clock",
+    "question": "What is the 24-hour clock?",
+    "term": "24-hour clock",
+    "shortAnswer": "The clock that does not hide the afternoon. 07:00 is morning; 19:00 is evening. Science, airlines, hospitals and most of the world use it because 7:00 on a 12-hour clock throws away the answer to breakfast or dinner.",
+    "ledeHtml": "The clock that does not hide the afternoon. 07:00 is morning; 19:00 is evening. Science, airlines, hospitals and most of the world use it because 7:00 on a 12-hour clock throws away the answer to breakfast or dinner. Convert any time on the <a href=\"/24-hour-clock-converter/\">12- and 24-hour converter</a>.",
+    "title": "What Is the 24-Hour Clock?",
+    "description": "The 24-hour clock numbers the whole day 00:00 to 23:59, so 19:00 cannot be confused with 7:00 in the morning.",
+    "cluster": "time",
+    "hubUrls": [
+      {
+        "href": "/24-hour-clock-converter/",
+        "label": "12- and 24-hour converter"
+      },
+      {
+        "href": "/classroom/time/",
+        "label": "Time in the classroom"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-a-time-zone",
+      "what-is-utc"
+    ],
+    "graphicId": "none",
+    "graphicCaption": "One trip around the clock face is one day, not half of one.",
+    "graphicAlt": "The 24-hour clock numbers the whole day from 00:00 to 23:59.",
+    "sections": [
+      {
+        "heading": "Who cannot afford the ambiguity",
+        "band": "5-12",
+        "body": [
+          "Write 7:00 on a board and ask: breakfast or dinner? You cannot know. Pilots, doctors, train drivers, armies, scientists: everyone whose mistake would matter uses the clock that keeps the afternoon.",
+          "This site’s timers and alarms can show either. The converter is the lesson: have a class write their day in 24-hour time and check it."
+        ]
+      },
+      {
+        "heading": "Midnight is 00:00, not 24:00",
+        "band": "deeper",
+        "body": [
+          "24:00 is sometimes written for the end of a day, but civil time starts the new day at 00:00. UTC uses 00:00. So does this site."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/24-hour-clock-converter/",
+        "label": "Convert a time"
       }
     ]
   }

@@ -133,3 +133,6 @@ h1{letter-spacing:-.015em}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}

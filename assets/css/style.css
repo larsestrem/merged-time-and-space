@@ -1215,6 +1215,11 @@ body.t-fs-open{overflow:hidden}
    it reads as "and anything else" without shouting. */
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+/* section switcher (Home / Time / Earth / Space / Classroom). Lives here so
+   /classroom/ gets the same chips without pulling the whole home stylesheet. */
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 
 /* ---- multi-timer board (timer hub): up to three independent countdowns ---- */
 .mt-board{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 12px}
@@ -2022,10 +2027,6 @@ body.mt-fs-open{overflow:hidden}
 .wk-scrub-lab b{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
 .wk-nowbtn{margin:0;padding:5px 12px}
 
-/* the section pages' switcher — the old tab row as real links */
-.sec-switch{margin:2px 0 14px}
-.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
-
 /* questions sit under a picture, not in a second essay.
    Base .hub-qs / .hub-kicker / .hub-blurb live in 23-concept.css so simulator
    pages don't get pulled into the home section. Home-only layout stays here. */
@@ -2583,6 +2584,9 @@ h1{letter-spacing:-.015em}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 
 /* /sun/ pages: stat tiles + 7-day table */
 .sun-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
@@ -4000,7 +4004,6 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 }
 .answer {
   font-size: 1.125rem;
-  max-width: 62ch;
   line-height: 1.55;
 }
 .answer a {
@@ -4022,7 +4025,6 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .hub-teaser, .related p, .see-live p {
   margin: 0 0 16px;
   color: var(--muted);
-  max-width: 66ch;
 }
 .hub-teaser a, .related p a, .glossary-item a {
   font-weight: 600;
@@ -4046,12 +4048,23 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 }
 .graphic-block {
   margin: 24px 0;
+  width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+  display: block;
+  width: 100%;
+  max-width: none;
 }
 .graphic-block figcaption, figcaption {
   margin-top: 10px;
   color: var(--muted);
   font-size: 0.9rem;
-  max-width: 70ch;
 }
 .more-info {
   margin: 24px 0;
@@ -4102,7 +4115,7 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
   letter-spacing: 0;
   font-weight: 650;
 }
-.glossary-item p { max-width: 66ch; margin: 0; color: var(--muted); }
+.glossary-item p { margin: 0; color: var(--muted); }
 .letter {
   font-size: 1.5rem;
   margin: 28px 0 0;
@@ -4110,7 +4123,7 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 }
 .glossary-item[hidden], .letter[hidden] { display: none; }
 .hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
-.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
 .hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
 .hub-qs a:hover { text-decoration: underline; }
 .hub-kicker {
@@ -4121,7 +4134,7 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
   color: var(--muted);
   font-weight: 700;
 }
-.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
 
 /* interactive orbit lesson on /concepts/how-does-an-orbit-work/ */
 .ol-lesson { margin: 0; }
@@ -4140,7 +4153,7 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .ol-status.is-good { color: #4ade80; }
 .ol-status.is-warn { color: #fbbf24; }
 .ol-status.is-bad { color: #f87171; }
-.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); max-width: 70ch; min-height: 3.2em; font-variant-numeric: tabular-nums; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }
 
 
 /*TOOLCSS-START*/

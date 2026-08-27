@@ -339,6 +339,9 @@ a{color:#111;text-decoration:underline}
 .chip:hover{border-color:var(--accent)}
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .ac-dialog{border:1px solid var(--border);border-radius:16px;background:var(--menu-bg,#15151b);color:var(--text);padding:0;max-width:380px;width:92%;max-height:92vh;max-height:92dvh;overflow-y:auto}
 .ac-dialog::backdrop{background:rgba(0,0,0,.55)}
 #mt-dlg{margin-top:14px;margin-bottom:auto}
@@ -458,6 +461,8 @@ box-shadow:0 0 0 1px var(--accent) inset}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 .xl-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:4px}
 .xl-tile{display:flex;flex-direction:column;gap:2px;padding:12px 13px;border:1px solid var(--border);
 border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
@@ -1036,7 +1041,6 @@ font-weight: 600;
 }
 .answer {
 font-size: 1.125rem;
-max-width: 62ch;
 line-height: 1.55;
 }
 .answer a {
@@ -1058,7 +1062,6 @@ font-weight: 600;
 .hub-teaser, .related p, .see-live p {
 margin: 0 0 16px;
 color: var(--muted);
-max-width: 66ch;
 }
 .hub-teaser a, .related p a, .glossary-item a {
 font-weight: 600;
@@ -1082,12 +1085,23 @@ gap: 12px;
 }
 .graphic-block {
 margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
 }
 .graphic-block figcaption, figcaption {
 margin-top: 10px;
 color: var(--muted);
 font-size: 0.9rem;
-max-width: 70ch;
 }
 .more-info {
 margin: 24px 0;
@@ -1138,7 +1152,7 @@ margin: 0 0 6px;
 letter-spacing: 0;
 font-weight: 650;
 }
-.glossary-item p { max-width: 66ch; margin: 0; color: var(--muted); }
+.glossary-item p { margin: 0; color: var(--muted); }
 .letter {
 font-size: 1.5rem;
 margin: 28px 0 0;
@@ -1146,7 +1160,7 @@ color: var(--muted);
 }
 .glossary-item[hidden], .letter[hidden] { display: none; }
 .hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
-.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
 .hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
 .hub-qs a:hover { text-decoration: underline; }
 .hub-kicker {
@@ -1157,7 +1171,7 @@ text-transform: uppercase;
 color: var(--muted);
 font-weight: 700;
 }
-.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
 .ol-lesson { margin: 0; }
 .ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
 .ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
@@ -1174,21 +1188,21 @@ font-weight: 700;
 .ol-status.is-good { color: #4ade80; }
 .ol-status.is-warn { color: #fbbf24; }
 .ol-status.is-bad { color: #f87171; }
-.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); max-width: 70ch; min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Glossary","item":"https://timeandspace.science/glossary/"},{"@type":"ListItem","position":3,"name":"Axial tilt","item":"https://timeandspace.science/concepts/what-is-earths-axial-tilt/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"What is Earth’s axial tilt?","url":"https://timeandspace.science/concepts/what-is-earths-axial-tilt/","description":"Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.","learningResourceType":"explanation","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"student"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Earth’s axial tilt?","acceptedAnswer":{"@type":"Answer","text":"Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Axial tilt","description":"Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.","url":"https://timeandspace.science/concepts/what-is-earths-axial-tilt/","inDefinedTermSet":"https://timeandspace.science/glossary/"}</script>
 
-<!-- build ec1107a3b908 · generated 2026-08-27T23:00:41.096Z -->
-<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:site_name" content="Time and Space Science">
-
 <meta property="og:image" content="https://timeandspace.science/api/og?name=What%20Is%20Earth%E2%80%99s%20Axial%20Tilt%3F&amp;theme=generic">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=What%20Is%20Earth%E2%80%99s%20Axial%20Tilt%3F&amp;theme=generic">
 <meta name="robots" content="max-image-preview:large">
+<!-- build 8c0f60ef6756 · generated 2026-08-27T23:36:33.832Z -->
+<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:site_name" content="Time and Space Science">
+
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -1326,13 +1340,13 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <h1>What is Earth’s axial tilt?</h1>
   <p class="answer">Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.</p>
   <figure class="graphic-block dn">
-  <svg class="dns-svg" viewBox="0 0 700 276" width="100%" role="img" aria-label="Earth seen from the side of its orbit, axis leaning, tropics as dashed chords at the tilt angle."><circle class="dns-glow" cx="54" cy="138" r="54"/><circle class="dns-sun" cx="54" cy="138" r="34"/><line class="dns-ray" x1="98" y1="46" x2="278" y2="46"/><line class="dns-ray" x1="98" y1="92" x2="278" y2="92"/><line class="dns-ray" x1="98" y1="184" x2="278" y2="184"/><line class="dns-ray" x1="98" y1="230" x2="278" y2="230"/><text class="dns-lab" x="98" y="26">Sunlight, arriving parallel</text><circle class="dns-earth" cx="372" cy="138" r="86"/><path class="dns-night" d="M372 52A86 86 0 0 1 372 224Z"/><line class="dns-term" x1="372" y1="40" x2="372" y2="236"/><line class="dns-axis" x1="390.4" y1="244.8" x2="353.6" y2="31.2"/><text class="dns-lab" text-anchor="middle" x="351.5" y="19.4">N</text><text class="dns-lab" text-anchor="middle" x="392.5" y="256.6">S</text><line class="dns-par dns-trop" x1="288.4" y1="117.7" x2="443.9" y2="90.9"/><line class="dns-par dns-trop" x1="300.1" y1="185.1" x2="455.6" y2="158.3"/><line class="dns-par dns-eq" x1="287.3" y1="152.6" x2="456.7" y2="123.4"/><line class="dns-ctr" x1="54" y1="138" x2="372" y2="138"/><circle class="dns-hit" cx="286" cy="138" r="6"/><text class="dns-lab dns-lab-d" text-anchor="end" x="278" y="120">sun overhead here</text><text class="dns-lab dns-lab-t" x="453.9" y="94.9">Tropic of Cancer</text><text class="dns-lab" x="466.7" y="127.4">Equator</text><text class="dns-lab dns-lab-t" x="465.6" y="162.3">Tropic of Capricorn</text></svg>
+  <div class="dns-wrap"><svg class="dns-svg" viewBox="0 0 600 276" width="100%" role="img" aria-label="Earth seen from the side of its orbit, axis leaning, tropics as dashed chords at the tilt angle."><circle class="dns-glow" cx="54" cy="138" r="54"/><circle class="dns-sun" cx="54" cy="138" r="34"/><line class="dns-ray" x1="98" y1="46" x2="278" y2="46"/><line class="dns-ray" x1="98" y1="92" x2="278" y2="92"/><line class="dns-ray" x1="98" y1="184" x2="278" y2="184"/><line class="dns-ray" x1="98" y1="230" x2="278" y2="230"/><text class="dns-lab" x="98" y="26">Sunlight, arriving parallel</text><circle class="dns-earth" cx="372" cy="138" r="86"/><path class="dns-night" d="M372 52A86 86 0 0 1 372 224Z"/><line class="dns-term" x1="372" y1="40" x2="372" y2="236"/><line class="dns-axis" x1="390.4" y1="244.8" x2="353.6" y2="31.2"/><text class="dns-lab" text-anchor="middle" x="351.5" y="19.4">N</text><text class="dns-lab" text-anchor="middle" x="392.5" y="256.6">S</text><line class="dns-par dns-trop" x1="288.4" y1="117.7" x2="443.9" y2="90.9"/><line class="dns-par dns-trop" x1="300.1" y1="185.1" x2="455.6" y2="158.3"/><line class="dns-par dns-eq" x1="287.3" y1="152.6" x2="456.7" y2="123.4"/><line class="dns-ctr" x1="54" y1="138" x2="372" y2="138"/><circle class="dns-hit" cx="286" cy="138" r="6"/><text class="dns-lab dns-lab-d" text-anchor="end" x="278" y="120">sun overhead here</text><text class="dns-lab dns-lab-t" x="453.9" y="94.9">Tropic of Cancer</text><text class="dns-lab" x="466.7" y="127.4">Equator</text><text class="dns-lab dns-lab-t" x="465.6" y="162.3">Tropic of Capricorn</text></svg></div>
   <figcaption>The axis is drawn leaning by the Sun’s declination. That is not a sketch of the seasons. Seen from the orbital plane, that component of the tilt is what the seasons are.</figcaption>
 </figure>
   <section data-band="5-12">
 <h2>A lean that holds still</h2>
 <p>Hold a tilted spinning top and walk it around a lamp without twisting the tilt to follow the lamp. For half the walk the top’s north end points toward the light. For the other half it points away. That is the year.</p>
-<p>The size of the lean is about 23.4° right now. This page does not type that number. It takes the largest declination in a year of the solar series — the same series that places the yellow dot.</p>
+<p>The size of the lean is about 23.4° right now. This page does not type that number. It takes the largest declination in a year of the solar series — the same series that places the yellow dot on the <a href="/day-night-map/#subsolar">day/night map</a>.</p>
 </section>
   <details class="more-info">
 <summary>Get more on this</summary>
@@ -1374,9 +1388,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <p class="footer copyright">© 2026 Time and Space Science. All rights reserved.</p>
   <p class="footer sitelinks">Gravity, motion, time and space — one set of rules, seen from different sides: <a href="/questions/">the big questions</a> · <a href="/glossary/">the glossary</a> · <a href="/sun-moon-earth-movement-simulator/">the Sun, Earth &amp; Moon</a> · <a href="/day-night-map/">day &amp; night on Earth</a> · <a href="/solar-system-simulator/">the solar system</a> · <a href="/planets/">the planets</a> · <a href="/orbital-velocity-simulator/">gravity &amp; orbits</a> · <a href="/sun/">sunrise &amp; sunset</a> · <a href="/moon/">moon phases</a> · <a href="/world-clock/">time zones</a></p>
   <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. Teachers: <a href="/classroom/submit-a-lesson/">send us the lesson you already run</a> and we will build it into a page here, with your name on it — or <a href="/classroom/#ask">ask us to build a simulator</a> your class has thought of. <a href="/classroom/">Classroom</a> · <a href="/about/">About this site</a>.</p>
-</div>
-
-<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+</div><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];

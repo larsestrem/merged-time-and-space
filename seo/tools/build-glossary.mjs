@@ -17,8 +17,8 @@ const items = rows.map((c) => {
   const L = c.term[0].toUpperCase();
   const head = L !== letter ? ((letter = L), `<h2 class="letter" id="${L}">${L}</h2>\n`) : "";
   return `${head}<li class="glossary-item" id="${esc(c.slug)}">
-<h2><a href="/concepts/${esc(c.slug)}/">${esc(c.term)}</a></h2>
-<p><a href="/concepts/${esc(c.slug)}/">${esc(c.question)}</a> ${esc(fillConcept(c.shortAnswer))}</p>
+<h2>${esc(c.term)}</h2>
+<p>${esc(fillConcept(c.shortAnswer))} <a href="/concepts/${esc(c.slug)}/">${esc(c.question)}</a></p>
 </li>`;
 }).join("\n");
 
@@ -41,7 +41,7 @@ const html = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glossary of Time, Earth and Space</title>
-<meta name="description" content="Short definitions for tropics, terminator, tilt, phases, tides and orbits, each linking to the full concept page.">
+<meta name="description" content="Short definitions for time zones, UTC, tropics, terminator, tilt, phases, tides and orbits, each linking to the full concept page.">
 <link rel="canonical" href="${SITE}/glossary/">
 <link rel="alternate" hreflang="en" href="${SITE}/glossary/">
 <meta property="og:title" content="Glossary of Time, Earth and Space">
@@ -59,7 +59,7 @@ ${GA_SNIPPET}
 <div class="wrap">
   ${brand({ crumb: { slug: "glossary", url: "/glossary/" } })}
   <h1>Glossary</h1>
-  <p class="sub">Every concept as a short definition. <strong>The question is the link</strong> — tap through for the drawing and a deeper pass. Filter the list, or jump A–Z.</p>
+  <p class="sub">Every concept as a short definition — time, Earth and space. The question at the end of each entry is the link through to the drawing and a deeper pass. Filter the list.</p>
   <label class="sr-only visually-hidden" for="glossary-q">Filter glossary</label>
   <input class="search" id="glossary-q" type="search" placeholder="Filter by term or question" aria-controls="glossary-list">
   <ul class="glossary-list" id="glossary-list">${items}</ul>

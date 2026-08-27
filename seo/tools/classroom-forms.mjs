@@ -48,8 +48,8 @@ const SUBJECTS = ["Astronomy", "Earth science", "Time", "Other"];
  * argues against itself. */
 export function plaque(n = 0, credit = "") {
   if (!n) {
-    return `    <p class="cr-plaque"><strong>This is a new program. Your submission would be the first.</strong>
-      We rewrite it for the site, credit you the way you ask, and email you when it is live.</p>`;
+    return `    <p class="cr-plaque"><strong>Yours would be the first teacher-written lesson on the site.</strong>
+      The timed plans already here were written in-house. We rewrite what you send, credit you the way you ask, and email you when it is live.</p>`;
   }
   return `    <p class="cr-plaque"><strong>${n} teacher-written lesson${n === 1 ? "" : "s"}</strong> on the site${credit ? ` — ${esc(credit)}` : ""}. Send the next one.</p>`;
 }

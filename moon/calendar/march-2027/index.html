@@ -338,6 +338,9 @@ a{color:#111;text-decoration:underline}
 .chip:hover{border-color:var(--accent)}
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .ac-dialog{border:1px solid var(--border);border-radius:16px;background:var(--menu-bg,#15151b);color:var(--text);padding:0;max-width:380px;width:92%;max-height:92vh;max-height:92dvh;overflow-y:auto}
 .ac-dialog::backdrop{background:rgba(0,0,0,.55)}
 #mt-dlg{margin-top:14px;margin-bottom:auto}
@@ -457,6 +460,8 @@ box-shadow:0 0 0 1px var(--accent) inset}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 .xl-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:4px}
 .xl-tile{display:flex;flex-direction:column;gap:2px;padding:12px 13px;border:1px solid var(--border);
 border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
@@ -637,7 +642,7 @@ font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=Moon%20Phase%20Calendar%20March%202027&amp;theme=generic">
 <meta name="robots" content="max-image-preview:large">
-<!-- build 6dbbc644f55a · generated 2026-08-27T20:42:45.420Z -->
+<!-- build 8c0f60ef6756 · generated 2026-08-27T23:36:33.832Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/moon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -983,6 +988,40 @@ function mnPrevPhase(ms,kind){
 }
 /* Days since the last new moon — the real elapsed time, not a mean cycle. */
 function mnAge(ms){ return (ms-mnPrevPhase(ms,0))/MN_DAY; }
+
+/* ONE snapshot of the moon at an instant. Age, cycle position, waxing flag
+ * and the phase name all come from the Meeus primary-phase instants. The
+ * illuminated fraction still comes from the sun–moon elongation, because that
+ * is the geometry of the lit disc. Mixing the two sources was how a page
+ * could say "full, waxing, 15.1 days old, 49% through" at once. */
+function mnSnap(ms){
+  var lastNew=mnPrevPhase(ms,0), nextNew=mnNextPhase(ms,0);
+  var nextFull=mnNextPhase(ms,2);
+  var ill=mnIllum(ms);
+  var lun=nextNew-lastNew;
+  var age=(ms-lastNew)/MN_DAY;
+  var cycle=lun>0?(ms-lastNew)/lun:ill.phase;
+  var waxing=nextFull<nextNew;
+  var name=mnNameFromInstants(ms, cycle);
+  return { fraction:ill.fraction, phase:cycle, waxing:waxing, dist:ill.dist,
+           angle:ill.angle, age:age, name:name, primary:mnNearestPrimary(ms) };
+}
+/* Within 12 hours of a primary instant, use that name so "full moon" means
+ * the day of full moon. Otherwise name the cycle position. */
+function mnNearestPrimary(ms){
+  var best=null, bestAbs=12*3600000, i, prev, next, d;
+  for(i=0;i<4;i++){
+    prev=mnPrevPhase(ms,i); next=mnNextPhase(ms,i);
+    d=Math.min(ms-prev, next-ms);
+    if(d<bestAbs){ bestAbs=d; best=i; }
+  }
+  return best;
+}
+function mnNameFromInstants(ms, cycle){
+  var k=mnNearestPrimary(ms);
+  if(k!==null) return mnPrimaryName(k);
+  return mnName(cycle);
+}
 
 /* Every primary phase whose instant falls inside [from,to). */
 function mnPhasesBetween(from,to){

@@ -25,6 +25,7 @@ import { dirname, join } from "node:path";
 import { esc, GA_SNIPPET, brand, breadcrumbLD, appLd, faqLd } from "./lib.mjs";
 import { clockFace } from "./clock-face.mjs";
 import { CONV_TIMES, CONV_SLUGS, convForm, CONV_JS, hourChart, spoken24, spoken12, partOfDay } from "./clock-convert.mjs";
+import { hubQuestionsCard } from "./concepts.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -162,6 +163,7 @@ ${HUB_FAQ.map(([q, a]) => `    <p><strong>${esc(q)}</strong><br>${esc(a)}</p>`).
     </div>
   </div>
 
+${hubQuestionsCard(HUB)}
 ${FOOTER}
 </div>
 ${SCRIPT}

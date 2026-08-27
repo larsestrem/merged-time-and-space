@@ -58,6 +58,14 @@ export function fillConcept(text) {
     .replace(/\{decSolstice\}/g, t.decSolstice);
 }
 
+/** Editorial HTML from concepts.json (ledeHtml, or a body sentence with an
+ *  <a href>). Plain strings still go through esc(). */
+export function conceptHtml(text) {
+  const t = fillConcept(text);
+  if (!t) return "";
+  return /<a\s/i.test(t) ? t : esc(t);
+}
+
 export const CONCEPT_SLUGS = () => loadConcepts().map((c) => c.slug);
 
 export function relatedPartial(slugs, bySlug = conceptBySlug()) {
@@ -398,7 +406,7 @@ export function graphicHtml(c) {
       let dec = SS.dec;
       if (c.slug === "what-is-the-tropic-of-cancer") dec = YEAR.tilt;
       else if (c.slug === "what-is-the-tropic-of-capricorn") dec = -YEAR.tilt;
-      inner = sideView(dec, YEAR.tilt).replace(/aria-label="[^"]*"/, `aria-label="${esc(c.graphicAlt)}"`);
+      inner = `<div class="dns-wrap">${sideView(dec, YEAR.tilt).replace(/aria-label="[^"]*"/, `aria-label="${esc(c.graphicAlt)}"`)}</div>`;
       break;
     }
     case "day-night-map":
@@ -421,12 +429,19 @@ export function graphicHtml(c) {
       inner = `<svg viewBox="0 0 400 400" width="100%" role="img" aria-label="${esc(c.graphicAlt)}"><rect width="400" height="400" rx="16" fill="#080d1a"/>${globeSvg(nm, NOW, 200, 200, globeRadius(nm, 192), 24, 0.9)}</svg>`;
       break;
     }
+    case "globe": {
+      const nm = c.graphicPlanet || "Earth";
+      inner = `<svg viewBox="0 0 400 400" width="100%" role="img" aria-label="${esc(c.graphicAlt)}"><rect width="400" height="400" rx="16" fill="#080d1a"/>${globeSvg(nm, NOW, 200, 200, globeRadius(nm, 192), 24, 0.9)}</svg>`;
+      break;
+    }
     case "olbers":
       inner = olbersDiagram();
       break;
     case "season-orbit":
       inner = `<div class="so-wrap">${seasonOrbitSvg(NOW, { id: "concept", tilt: YEAR.tilt })}</div>`;
       break;
+    case "none":
+      return "";
     default:
       inner = `<p>${esc(c.graphicAlt)}</p>`;
   }

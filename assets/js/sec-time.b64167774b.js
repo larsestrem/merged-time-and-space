@@ -1,4 +1,45 @@
 (function(){
+var timeEl=document.getElementById('ac-time'); if(!timeEl) return;
+var ampmEl=document.getElementById('ac-ampm'), dateEl=document.getElementById('ac-date'), alarmsEl=document.getElementById('ac-alarms');
+var SEG={'0':'abcdef','1':'bc','2':'abdeg','3':'abcdg','4':'bcfg','5':'acdfg','6':'acdefg','7':'abc','8':'abcdefg','9':'abcdfg','':''}, SEGL='abcdefg', digs={};
+[].slice.call(timeEl.querySelectorAll('.dig')).forEach(function(el){ if(!el.children.length){ 'abcdefg'.split('').forEach(function(s){ var i=document.createElement('i'); i.className='seg seg-'+s; el.appendChild(i); }); } digs[el.getAttribute('data-d')]=el; });
+function setDigit(el,ch){ el.style.visibility=(ch===''?'hidden':'visible'); var on=SEG[ch]||''; for(var i=0;i<7;i++) el.children[i].classList.toggle('on', on.indexOf(SEGL.charAt(i))>-1); }
+function pad(n){ return n<10?'0'+n:''+n; }
+function fmt12(t){ var p=t.split(':'),h=+p[0],m=+p[1],ap=h<12?'AM':'PM',hh=h%12; if(hh===0)hh=12; return hh+':'+pad(m)+' '+ap; }
+function ymd(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+var WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function matches(a,now){
+if(a.type==='daily') return true;
+if(a.type==='weekly') return (a.days||[]).indexOf(now.getDay())>-1;
+if(a.type==='monthdate'){ var dim=new Date(now.getFullYear(),now.getMonth()+1,0).getDate(); return now.getDate()===Math.min(a.dom,dim); }
+if(a.type==='monthweekday'){ if(now.getDay()!==a.wd) return false; if(a.week==='last'){ var dim=new Date(now.getFullYear(),now.getMonth()+1,0).getDate(); return now.getDate()+7>dim; } return (Math.floor((now.getDate()-1)/7)+1)===parseInt(a.week,10); }
+if(a.type==='once') return ymd(now)===a.date;
+return false;
+}
+function nextFire(a){ var p=String(a.time||'0:0').split(':'), hh=parseInt(p[0],10)||0, mm=parseInt(p[1],10)||0, now=new Date();
+for(var i=0;i<367;i++){ var d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i,hh,mm,0,0); if(d.getTime()<=now.getTime()) continue; if(matches(a,d)) return d.getTime(); }
+return Infinity; }
+function tick(){
+var now=new Date(),h=now.getHours(),m=now.getMinutes(),ap=h<12?'AM':'PM',hh=h%12; if(hh===0)hh=12;
+setDigit(digs.h1, hh>=10?'1':''); setDigit(digs.h2, String(hh%10)); setDigit(digs.m1, String(Math.floor(m/10))); setDigit(digs.m2, String(m%10));
+if(ampmEl) ampmEl.textContent=ap;
+if(dateEl) dateEl.textContent=WD[now.getDay()].toUpperCase()+'  '+(now.getMonth()+1)+'/'+now.getDate();
+if(alarmsEl){ var on=[]; try{ on=(JSON.parse(localStorage.getItem('ac_alarms'))||[]).filter(function(a){return a&&a.on&&a.time;}); }catch(e){} on.sort(function(x,y){return nextFire(x)-nextFire(y);}); alarmsEl.innerHTML = on.length ? on.slice(0,4).map(function(a){ var nf=nextFire(a), tm=fmt12(a.time); if(!isFinite(nf)) return '<div class="ac-alarm-row">'+tm+'</div>'; var d=new Date(nf); return '<div class="ac-alarm-row">'+(d.getMonth()+1)+'/'+d.getDate()+' - '+tm+'</div>'; }).join('') : '<div class="ac-alarm-row ac-dim">no alarms</div>'; }
+}
+tick();
+function sched(){ var n=new Date(); setTimeout(function(){ tick(); sched(); }, (60-n.getSeconds())*1000-n.getMilliseconds()+20); }
+sched();
+document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='visible') tick(); });
+})();(function(){
+var panel=document.getElementById('ac-panel'), btn=document.getElementById('home-ac-color');
+if(!panel) return;
+var AC_COLORS=['red','purple','blue','green','yellow','orange'], AC_DEFAULT='purple';
+function apply(c){ if(AC_COLORS.indexOf(c)<0) c=AC_DEFAULT; if(c==='red'){ panel.removeAttribute('data-c'); document.body.removeAttribute('data-c'); } else { panel.setAttribute('data-c',c); document.body.setAttribute('data-c',c); } }
+var saved=AC_DEFAULT; try{ saved=localStorage.getItem('ac_color')||AC_DEFAULT; }catch(e){}
+apply(saved);
+if(btn) btn.addEventListener('click',function(){ var cur=AC_DEFAULT; try{ cur=localStorage.getItem('ac_color')||AC_DEFAULT; }catch(e){} var next=AC_COLORS[(AC_COLORS.indexOf(cur)+1)%AC_COLORS.length]; apply(next); try{ localStorage.setItem('ac_color',next); }catch(e){} });
+})();
+(function(){
 var DN_W=720,DN_H=360;
 function dnX(lon){return (lon+180)/360*DN_W}
 function dnY(lat){return (90-lat)/180*DN_H}
@@ -147,7 +188,7 @@ function dnSide(dec,tilt,youLat){
   var PX=function(u,v){return dnF(cx+ax*u+ex*v)};
   var PY=function(u,v){return dnF(cy+ay*u+ey*v)};
   var o=r*Math.sin(t),h=r*Math.cos(t);          /* tropic offset, and its half-chord */
-  var s='<svg class="dns-svg" viewBox="0 0 700 276" width="100%" role="img" aria-label="The Earth seen from the side, lit from the left, with the line from the centre of the sun to the centre of the Earth landing between the Tropic of Cancer and the Tropic of Capricorn">';
+  var s='<svg class="dns-svg" viewBox="0 0 600 276" width="100%" role="img" aria-label="The Earth seen from the side, lit from the left, with the line from the centre of the sun to the centre of the Earth landing between the Tropic of Cancer and the Tropic of Capricorn">';
   s+='<circle class="dns-glow" cx="54" cy="'+cy+'" r="54"/><circle class="dns-sun" cx="54" cy="'+cy+'" r="34"/>';
   for(i=-2;i<=2;i++){ if(!i) continue; y=cy+i*46;
     s+='<line class="dns-ray" x1="98" y1="'+y+'" x2="'+(cx-r-8)+'" y2="'+y+'"/>'; }
@@ -200,6 +241,178 @@ function dnSide(dec,tilt,youLat){
     }
   }
   clocks(); setInterval(clocks,30000);
+})();
+
+(function(){
+  var s1=document.getElementById('tdiff-start'), s2=document.getElementById('tdiff-end');
+  if(!s1||!s2) return;
+  var z1=document.getElementById('tdiff-tz1'), z2=document.getElementById('tdiff-tz2');
+  var out=document.getElementById('tdiff-result'), minsEl=document.getElementById('tdiff-mins'),
+      sumEl=document.getElementById('tdiff-summary'), crossEl=document.getElementById('tdiff-cross'),
+      noteEl=document.getElementById('tdiff-note'),
+      timerLink=document.getElementById('tdiff-timer-link'), wcLink=document.getElementById('tdiff-wc-link');
+  function pad(n){ return (n<10?'0':'')+n; }
+  /* how far tz is from UTC at a given instant, in ms — the same
+     double-formatting technique the "Where the sun will be" card uses
+     (orrery.mjs orrOffset). Omitting timeZone reads the device's own zone, so
+     tz='' (the default option) needs no special case. */
+  function offsetAt(ms,tz){
+    try{
+      var o={year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'};
+      if(tz) o.timeZone=tz;
+      var ps=new Intl.DateTimeFormat('en-GB',o).formatToParts(new Date(ms));
+      function g(t){ for(var i=0;i<ps.length;i++) if(ps[i].type===t) return +ps[i].value; return 0; }
+      return Date.UTC(g('year'),g('month')-1,g('day'),g('hour'),g('minute'),g('second'))-ms;
+    }catch(e){ return 0; }
+  }
+  /* a wall-clock reading in tz -> epoch. Two passes, because the offset has to
+     be measured somewhere and the first guess can land on the far side of a
+     daylight-saving change from the real answer. */
+  function zonedToUtc(y,mo,d,h,mi,tz){
+    var guess=Date.UTC(y,mo-1,d,h,mi), o1=offsetAt(guess,tz), t=guess-o1, o2=offsetAt(t,tz);
+    if(o2!==o1) t=guess-o2;
+    return t;
+  }
+  function todayIn(tz){
+    try{
+      var o={year:'numeric',month:'2-digit',day:'2-digit'};
+      if(tz) o.timeZone=tz;
+      var ps=new Intl.DateTimeFormat('en-CA',o).formatToParts(new Date());
+      function g(t){ for(var i=0;i<ps.length;i++) if(ps[i].type===t) return +ps[i].value; return 0; }
+      return [g('year'),g('month'),g('day')];
+    }catch(e){ var n=new Date(); return [n.getFullYear(),n.getMonth()+1,n.getDate()]; }
+  }
+  /* step a calendar date by whole days — NOT by adding ms, so a 23- or 25-hour
+     day keeps its real length once the date is turned back into an instant */
+  function shiftDay(ymd,n){ var dt=new Date(Date.UTC(ymd[0],ymd[1]-1,ymd[2]+n)); return [dt.getUTCFullYear(),dt.getUTCMonth()+1,dt.getUTCDate()]; }
+  function fmt12(h,m){ var ap=h<12?'AM':'PM', t=h%12; if(!t) t=12; return t+':'+pad(m)+' '+ap; }
+  /* the same instant, read off a clock in tz */
+  function clockIn(ms,tz){
+    try{
+      var o={hour:'numeric',minute:'2-digit',hour12:true};
+      if(tz) o.timeZone=tz;
+      return new Intl.DateTimeFormat('en-US',o).format(new Date(ms));
+    }catch(e){ return ''; }
+  }
+  function dayIn(ms,tz){
+    try{
+      var o={weekday:'long'};
+      if(tz) o.timeZone=tz;
+      return new Intl.DateTimeFormat('en-US',o).format(new Date(ms));
+    }catch(e){ return ''; }
+  }
+  function fmtDur(totalMin){ var m=Math.max(0,totalMin), h=Math.floor(m/60); return h+'h '+pad(m%60)+'m'; }
+  function labelOf(sel){ var o=sel.selectedOptions[0]; return sel.value?o.getAttribute('data-label'):'your time zone'; }
+
+  function calc(){
+    var sv=s1.value, ev=s2.value;
+    if(!sv||!ev) return;
+    var tzA=z1.value, tzB=z2.value;
+    var sh=+sv.slice(0,2), sm=+sv.slice(3,5), eh=+ev.slice(0,2), em=+ev.slice(3,5);
+    var dA=todayIn(tzA), startMs=zonedToUtc(dA[0],dA[1],dA[2],sh,sm,tzA);
+    /* the end time on whichever day in ITS zone lands within 24h after the
+       start — which is what "between these two times" means, and what keeps a
+       date-line pair from coming out a day out */
+    var dB=todayIn(tzB), endMs=zonedToUtc(dB[0],dB[1],dB[2],eh,em,tzB), guard=0;
+    while(endMs<startMs && guard++<3){ dB=shiftDay(dB,1); endMs=zonedToUtc(dB[0],dB[1],dB[2],eh,em,tzB); }
+    guard=0;
+    while(endMs-startMs>=86400000 && guard++<3){ dB=shiftDay(dB,-1); endMs=zonedToUtc(dB[0],dB[1],dB[2],eh,em,tzB); }
+    var totalMin=Math.round((endMs-startMs)/60000);
+    out.textContent=fmtDur(totalMin);
+    if(minsEl) minsEl.textContent=Math.max(0,totalMin)+' minutes';
+
+    var labA=labelOf(z1), labB=labelOf(z2), sameZone=(tzA===tzB);
+    /* "the next day" is a fact about the END zone's calendar, so it is read
+       off that zone rather than assumed from the clock faces */
+    var nextDay=dayIn(startMs,tzB)!==dayIn(endMs,tzB);
+    sumEl.textContent='From '+fmt12(sh,sm)+' in '+labA+' to '+fmt12(eh,em)+(nextDay?' the next day':'')+' in '+labB+' is '+fmtDur(totalMin)+'.';
+
+    /* the other question the same two zones answer: what that first moment
+       reads on the second clock. Meaningless when both sides are one zone. */
+    if(sameZone){ crossEl.hidden=true; crossEl.textContent=''; }
+    else{
+      var there=clockIn(startMs,tzB), gapMin=Math.round((offsetAt(startMs,tzB)-offsetAt(startMs,tzA))/60000);
+      var ah=Math.floor(Math.abs(gapMin)/60), am=Math.abs(gapMin)%60;
+      /* half- and quarter-hour zones exist (India, Nepal, Chatham), so the gap
+         has to carry minutes — but "0 hours 30 minutes" is not how anyone says
+         it, so a sub-hour gap drops the hours entirely */
+      var span=ah?(ah+' hour'+(ah===1?'':'s')+(am?' '+am+' minutes':'')):(am+' minutes');
+      var gapTxt=gapMin===0?'those two clocks read the same':(span+' '+(gapMin>0?'ahead':'behind'));
+      crossEl.hidden=false;
+      crossEl.textContent='Put another way: '+fmt12(sh,sm)+' in '+labA+' is '+there+' in '+labB+' — '+
+        (gapMin===0?gapTxt+'.':labB+' is '+gapTxt+'.');
+    }
+
+    /* A clock-face subtraction is only a meaningful comparison inside ONE
+       zone; across two it is not wrong so much as not a quantity. So the
+       daylight-saving callout is same-zone only. */
+    if(sameZone){
+      var clockMin=(eh*60+em)-(sh*60+sm); if(clockMin<0) clockMin+=1440;
+      if(clockMin!==totalMin){
+        noteEl.hidden=false;
+        noteEl.textContent='This span crosses a daylight-saving change: the clock reads '+fmtDur(clockMin)+', but '+fmtDur(totalMin)+' of real time passes.';
+      } else noteEl.hidden=true;
+    } else noteEl.hidden=true;
+
+    if(timerLink){ var mm=Math.max(0,totalMin); timerLink.href='/timer/?h='+Math.floor(mm/60)+'&m='+(mm%60); }
+    if(wcLink){
+      /* the onward world-clock link follows the END zone: the "what time is it
+         there" question is about where you are going, not where you left */
+      var o2=z2.selectedOptions[0], slug=z2.value?o2.getAttribute('data-slug'):'';
+      if(slug){ wcLink.hidden=false; wcLink.href='/world-clock/'+slug+'/'; wcLink.textContent='See '+labB+' on the world clock →'; }
+      else wcLink.hidden=true;
+    }
+  }
+  z1.addEventListener('change',calc); z2.addEventListener('change',calc);
+  s1.addEventListener('input',calc); s2.addEventListener('input',calc);
+  calc();
+})();
+
+(function(){
+  var h24=document.getElementById('cv-h24'), m24=document.getElementById('cv-m24'),
+      h12=document.getElementById('cv-h12'), m12=document.getElementById('cv-m12'),
+      ap=document.getElementById('cv-ap');
+  if(!h24||!m24||!h12||!m12||!ap) return;
+  var out24=document.getElementById('cv-out24'), out12=document.getElementById('cv-out12'),
+      say=document.getElementById('cv-say'), nowBtn=document.getElementById('cv-now');
+  var ONES=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+  var TENS=['','','twenty','thirty','forty','fifty'];
+  function pad(n){ return (n<10?'0':'')+n; }
+  function word(n){ return n<20?ONES[n]:TENS[Math.floor(n/10)]+(n%10?'-'+ONES[n%10]:''); }
+  function pairWord(n){ return n<10?'zero '+ONES[n]:word(n); }
+  function part(h){ return h<5?'at night':h<12?'in the morning':h<18?'in the afternoon':h<21?'in the evening':'at night'; }
+  function say24(h,m){ return m===0?pairWord(h)+' hundred hours':pairWord(h)+' '+pairWord(m); }
+  function say12(h,m){
+    if(h===0&&m===0) return 'twelve midnight';
+    if(h===12&&m===0) return 'twelve noon';
+    var t=h%12||12, p=part(h);
+    if(m===0) return word(t)+" o'clock "+p;
+    if(m===30) return 'half past '+word(t)+' '+p;
+    return word(t)+' '+(m<10?'oh '+ONES[m]:word(m))+' '+p;
+  }
+  /* h,m are the one truth; both sides and both read-outs are drawn from them */
+  function render(h,m){
+    var t=h%12||12, a=h<12?'AM':'PM';
+    h24.value=String(h); m24.value=String(m);
+    h12.value=String(t); m12.value=String(m); ap.value=a;
+    out24.textContent=pad(h)+':'+pad(m);
+    out12.textContent=t+':'+pad(m)+'\u00a0'+a;
+    /* guarded: a compact instance may leave pieces out */
+    if(say) say.textContent='Said aloud: \u201c'+say24(h,m)+'\u201d on the 24-hour clock, \u201c'+say12(h,m)+'\u201d on the 12-hour one.';
+  }
+  function from24(){ render(+h24.value, +m24.value); }
+  function from12(){
+    var t=+h12.value%12, h=ap.value==='PM'?t+12:t;
+    render(h, +m12.value);
+  }
+  h24.addEventListener('change',from24); m24.addEventListener('change',from24);
+  h12.addEventListener('change',from12); m12.addEventListener('change',from12);
+  ap.addEventListener('change',from12);
+  if(nowBtn){
+    nowBtn.hidden=false;
+    nowBtn.addEventListener('click',function(){ var n=new Date(); render(n.getHours(), n.getMinutes()); });
+  }
+  from24();
 })();
 
 (function(){

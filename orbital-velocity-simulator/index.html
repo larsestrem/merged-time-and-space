@@ -338,6 +338,9 @@ a{color:#111;text-decoration:underline}
 .chip:hover{border-color:var(--accent)}
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .ac-dialog{border:1px solid var(--border);border-radius:16px;background:var(--menu-bg,#15151b);color:var(--text);padding:0;max-width:380px;width:92%;max-height:92vh;max-height:92dvh;overflow-y:auto}
 .ac-dialog::backdrop{background:rgba(0,0,0,.55)}
 #mt-dlg{margin-top:14px;margin-bottom:auto}
@@ -457,6 +460,8 @@ box-shadow:0 0 0 1px var(--accent) inset}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 .sun-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .sun-tile{border:1px solid var(--border);border-radius:12px;padding:12px 10px;text-align:center;background:rgba(255,255,255,.03)}
 .sun-tile .sun-lab{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
@@ -1162,7 +1167,6 @@ font-weight: 600;
 }
 .answer {
 font-size: 1.125rem;
-max-width: 62ch;
 line-height: 1.55;
 }
 .answer a {
@@ -1184,7 +1188,6 @@ font-weight: 600;
 .hub-teaser, .related p, .see-live p {
 margin: 0 0 16px;
 color: var(--muted);
-max-width: 66ch;
 }
 .hub-teaser a, .related p a, .glossary-item a {
 font-weight: 600;
@@ -1208,12 +1211,23 @@ gap: 12px;
 }
 .graphic-block {
 margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
 }
 .graphic-block figcaption, figcaption {
 margin-top: 10px;
 color: var(--muted);
 font-size: 0.9rem;
-max-width: 70ch;
 }
 .more-info {
 margin: 24px 0;
@@ -1264,7 +1278,7 @@ margin: 0 0 6px;
 letter-spacing: 0;
 font-weight: 650;
 }
-.glossary-item p { max-width: 66ch; margin: 0; color: var(--muted); }
+.glossary-item p { margin: 0; color: var(--muted); }
 .letter {
 font-size: 1.5rem;
 margin: 28px 0 0;
@@ -1272,7 +1286,7 @@ color: var(--muted);
 }
 .glossary-item[hidden], .letter[hidden] { display: none; }
 .hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
-.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
 .hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
 .hub-qs a:hover { text-decoration: underline; }
 .hub-kicker {
@@ -1283,21 +1297,38 @@ text-transform: uppercase;
 color: var(--muted);
 font-weight: 700;
 }
-.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }</style>
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Orbital Velocity Simulator — Why Planets Don't Fall Into the Sun","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/orbital-velocity-simulator/","description":"Change a planet's distance and speed and watch the orbit answer: circle, ellipse, escape, or a fall into the sun. Shows the sun's pull per kilogram at every distance, and why Mercury must travel 47.9 km/s while Neptune needs only 5.4.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Orbital velocity simulator","item":"https://timeandspace.science/orbital-velocity-simulator/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Orbital Velocity Simulator","url":"https://timeandspace.science/orbital-velocity-simulator/","description":"An interactive model of orbital velocity and gravity: set a distance and a sideways speed and watch whether the result is a circle, an ellipse, an escape or a fall into the sun.","learningResourceType":"simulation","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"student"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why doesn't the sun's gravity pull the planets into it?","acceptedAnswer":{"@type":"Answer","text":"It does pull them — every planet is falling toward the sun at every moment. They miss because they are also moving sideways fast enough that the sun is no longer directly ahead by the time they have fallen. An orbit is a continuous fall that keeps missing, not a balance between gravity and some outward force."}},{"@type":"Question","name":"Does Mercury have to travel faster than the other planets?","acceptedAnswer":{"@type":"Answer","text":"Yes. The sun's pull on each kilogram at Mercury's distance is about 6.7 times what it is at Earth and about 181 times what it is at Jupiter, because gravity falls off as the square of distance. To keep missing a pull that strong, Mercury must move sideways at about 47.9 km/s, against Earth's 29.8 and Jupiter's 13.1. Closer in means pulled harder and moving faster — the speed goes as one over the square root of the distance."}},{"@type":"Question","name":"Does a heavier planet orbit differently from a lighter one?","acceptedAnswer":{"@type":"Answer","text":"No. The planet's mass cancels out completely: it is pulled harder in exact proportion to how much harder it is to turn. At a given distance every object needs the same orbital speed, whether it is Jupiter, a satellite or a speck of dust. That is why the simulator has no mass control."}},{"@type":"Question","name":"What would actually happen if a planet slowed down?","acceptedAnswer":{"@type":"Answer","text":"It would not spiral in. It would drop onto a more elongated ellipse — swinging closer to the sun, speeding up as it fell, then climbing back out to where it started. To actually hit the sun from Earth's distance you would have to cut the speed from 29.8 km/s to roughly 2.9 km/s, because anything faster still has enough sideways motion to miss."}},{"@type":"Question","name":"What if a planet sped up instead?","acceptedAnswer":{"@type":"Answer","text":"It swings further out and slows down as it climbs, then falls back — a longer ellipse. Past 42.1 km/s at Earth's distance (the circular speed times the square root of two) it never comes back at all: that is escape velocity, and the orbit stops being a closed loop."}},{"@type":"Question","name":"Why don't the planets gradually slow down and fall in?","acceptedAnswer":{"@type":"Answer","text":"Because there is nothing to slow them. Space has no meaningful air resistance, and gravity — being always at right angles to the motion on a circular orbit — does no work on them. With no friction there is nothing to bleed away the sideways speed, so the fall keeps missing indefinitely."}},{"@type":"Question","name":"Where did the sideways motion come from in the first place?","acceptedAnswer":{"@type":"Answer","text":"From the cloud of gas and dust the solar system condensed out of, which was already turning slightly. As it collapsed it spun faster, for the same reason a skater speeds up when they pull their arms in, and it flattened into a disc. The planets formed inside that already-orbiting disc, and inherited its motion."}},{"@type":"Question","name":"Is this simulator accurate?","acceptedAnswer":{"@type":"Answer","text":"The physics is exact for the case it models: one body orbiting a much heavier one, with the sun's real gravitational parameter and no other planets pulling. Closed orbits are solved rather than stepped, so they do not drift. What it does not include is the pull of the other planets on each other, or the tiny relativistic effect that shifts Mercury's orbit; the drawing's sun is also far larger than scale, which the caption states."}}]}</script>
 
-<!-- build 6dbbc644f55a · generated 2026-08-27T20:42:45.420Z -->
-<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
-<link rel="icon" type="image/svg+xml" href="/assets/favicon/solar.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:site_name" content="Time and Space Science">
-
 <meta property="og:image" content="https://timeandspace.science/api/og?name=Orbital%20Velocity%20Simulator&amp;theme=generic">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=Orbital%20Velocity%20Simulator&amp;theme=generic">
 <meta name="robots" content="max-image-preview:large">
+<!-- build 8c0f60ef6756 · generated 2026-08-27T23:36:33.832Z -->
+<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon/solar.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:site_name" content="Time and Space Science">
+
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -1494,7 +1525,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <p class="sub">The question is the link. A short answer sits here; tap through for the drawing and the deeper pass.</p>
     <ul class="hub-qs">
     <li id="why-dont-planets-fall-into-the-sun"><p><a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a> They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up.</p></li>
-    <li id="how-does-an-orbit-work"><p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> At every instant a planet has a velocity — where it is already going — and gravity adds a small pull straight toward the Sun. Bend a path by the same small amount at every step and it closes. That closed path is the orbit.</p></li>
+    <li id="how-does-an-orbit-work"><p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> A planet is always falling toward the Sun, and it is already moving sideways. Gravity only pulls inward — it never pushes the planet along. Those two together bend a straight line into a closed curve. That closed path is the orbit.</p></li>
     <li id="slow-down"><p><a href="/concepts/how-does-an-orbit-change/">What happens when you change one part of an orbit?</a> The shape changes, not just the speed. Slow a planet at one point and it drops onto a longer ellipse that swings closer in and climbs back out. Speed it up and the far side lifts away. It does not spiral into the Sun unless almost all of the sideways speed is gone.</p></li>
     </ul>
   </div>
@@ -1837,8 +1868,7 @@ play.disabled=false; reset.disabled=false; circ.disabled=false;
 build();
 if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){ running=false; play.textContent='Play'; play.setAttribute('aria-pressed','false'); }
 requestAnimationFrame(frame);
-})();</script>
-<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+})();</script><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];

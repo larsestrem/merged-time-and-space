@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glossary of Time, Earth and Space</title>
-<meta name="description" content="Short definitions for tropics, terminator, tilt, phases, tides and orbits, each linking to the full concept page.">
+<meta name="description" content="Short definitions for time zones, UTC, tropics, terminator, tilt, phases, tides and orbits, each linking to the full concept page.">
 <link rel="canonical" href="https://timeandspace.science/glossary/">
 <link rel="alternate" hreflang="en" href="https://timeandspace.science/glossary/">
 <meta property="og:title" content="Glossary of Time, Earth and Space">
@@ -339,6 +339,9 @@ a{color:#111;text-decoration:underline}
 .chip:hover{border-color:var(--accent)}
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .ac-dialog{border:1px solid var(--border);border-radius:16px;background:var(--menu-bg,#15151b);color:var(--text);padding:0;max-width:380px;width:92%;max-height:92vh;max-height:92dvh;overflow-y:auto}
 .ac-dialog::backdrop{background:rgba(0,0,0,.55)}
 #mt-dlg{margin-top:14px;margin-bottom:auto}
@@ -458,6 +461,8 @@ box-shadow:0 0 0 1px var(--accent) inset}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 .xl-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:4px}
 .xl-tile{display:flex;flex-direction:column;gap:2px;padding:12px 13px;border:1px solid var(--border);
 border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
@@ -522,7 +527,6 @@ font-weight: 600;
 }
 .answer {
 font-size: 1.125rem;
-max-width: 62ch;
 line-height: 1.55;
 }
 .answer a {
@@ -544,7 +548,6 @@ font-weight: 600;
 .hub-teaser, .related p, .see-live p {
 margin: 0 0 16px;
 color: var(--muted);
-max-width: 66ch;
 }
 .hub-teaser a, .related p a, .glossary-item a {
 font-weight: 600;
@@ -568,12 +571,23 @@ gap: 12px;
 }
 .graphic-block {
 margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
 }
 .graphic-block figcaption, figcaption {
 margin-top: 10px;
 color: var(--muted);
 font-size: 0.9rem;
-max-width: 70ch;
 }
 .more-info {
 margin: 24px 0;
@@ -624,7 +638,7 @@ margin: 0 0 6px;
 letter-spacing: 0;
 font-weight: 650;
 }
-.glossary-item p { max-width: 66ch; margin: 0; color: var(--muted); }
+.glossary-item p { margin: 0; color: var(--muted); }
 .letter {
 font-size: 1.5rem;
 margin: 28px 0 0;
@@ -632,7 +646,7 @@ color: var(--muted);
 }
 .glossary-item[hidden], .letter[hidden] { display: none; }
 .hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
-.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
 .hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
 .hub-qs a:hover { text-decoration: underline; }
 .hub-kicker {
@@ -643,7 +657,7 @@ text-transform: uppercase;
 color: var(--muted);
 font-weight: 700;
 }
-.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
 .ol-lesson { margin: 0; }
 .ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
 .ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
@@ -660,19 +674,19 @@ font-weight: 700;
 .ol-status.is-good { color: #4ade80; }
 .ol-status.is-warn { color: #fbbf24; }
 .ol-status.is-bad { color: #f87171; }
-.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); max-width: 70ch; min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Glossary","item":"https://timeandspace.science/glossary/"}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTermSet","name":"Time and Space Science glossary","url":"https://timeandspace.science/glossary/","hasDefinedTerm":[{"@type":"DefinedTerm","name":"Asteroid belt","description":"A ring of leftover rock between Mars and Jupiter. It is not the wreckage of a planet. Jupiter’s gravity never let the rubble gather into one world. The dark gaps in it are resonances — the same tug, at the same point, over and over.","url":"https://timeandspace.science/concepts/what-is-the-asteroid-belt/"},{"@type":"DefinedTerm","name":"Axial tilt","description":"Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.","url":"https://timeandspace.science/concepts/what-is-earths-axial-tilt/"},{"@type":"DefinedTerm","name":"Daytime moon","description":"Yes. The moon is above the horizon about half of every day, and those hours drift through daylight as the month goes by. It is simply bright enough to beat the blue sky. On the day/night map the pale marker is where the moon stands overhead — watch it ride through the lit half.","url":"https://timeandspace.science/concepts/why-can-the-moon-be-up-in-the-daytime/"},{"@type":"DefinedTerm","name":"Equirectangular projection","description":"This map gives every degree of latitude and longitude the same length on the page, so meridians are straight and the terminator is honest. The cost is size: land near the poles is stretched. The picture says so, in numbers from the drawing.","url":"https://timeandspace.science/concepts/why-is-this-map-flat/"},{"@type":"DefinedTerm","name":"Jupiter’s moons","description":"Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun. A wide region around it is a place where a small body stays with Jupiter instead of orbiting the Sun on its own.","url":"https://timeandspace.science/concepts/why-does-jupiter-have-so-many-moons/"},{"@type":"DefinedTerm","name":"Libration","description":"Libration is a small wobble in the Moon’s facing. We still have one near side, but over time we see about 59% of the surface, not 50%. The extra is a peek around the edges.","url":"https://timeandspace.science/concepts/what-is-libration/"},{"@type":"DefinedTerm","name":"Moon phases","description":"The Moon makes no light of its own. One half is always lit by the Sun. Phases are your changing view of that lit half as the Moon goes around Earth — about 29.5 days from full moon to full moon.","url":"https://timeandspace.science/concepts/why-does-the-moon-change-shape/"},{"@type":"DefinedTerm","name":"Moonrise delay","description":"The Moon moves east along its orbit while Earth turns. Earth has to spin extra — about 50 minutes — to bring the Moon back to the same place on your sky. That extra is why moonrise (and moonset) slip later day by day.","url":"https://timeandspace.science/concepts/why-does-moonrise-get-later/"},{"@type":"DefinedTerm","name":"Olbers’ paradox","description":"If stars went on forever, every line of sight would hit a star and the night would be as bright as a surface of suns. It is not. The dark is a clue that the universe is not an infinite, unchanging hall of lights.","url":"https://timeandspace.science/concepts/why-is-the-night-sky-dark/"},{"@type":"DefinedTerm","name":"Orbit","description":"They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up.","url":"https://timeandspace.science/concepts/why-dont-planets-fall-into-the-sun/"},{"@type":"DefinedTerm","name":"Orbit change","description":"The shape changes, not just the speed. Slow a planet at one point and it drops onto a longer ellipse that swings closer in and climbs back out. Speed it up and the far side lifts away. It does not spiral into the Sun unless almost all of the sideways speed is gone.","url":"https://timeandspace.science/concepts/how-does-an-orbit-change/"},{"@type":"DefinedTerm","name":"Orbital motion","description":"A planet is always falling toward the Sun, and it is already moving sideways. Gravity only pulls inward — it never pushes the planet along. Those two together bend a straight line into a closed curve. That closed path is the orbit.","url":"https://timeandspace.science/concepts/how-does-an-orbit-work/"},{"@type":"DefinedTerm","name":"Orbital tilt of the Moon","description":"The Moon’s path around Earth is tipped about 5° to Earth’s path around the Sun. Most months the full Moon rides above or below Earth’s shadow, and the new Moon rides above or below the Sun. An eclipse needs the Moon at a crossing, not just at a phase.","url":"https://timeandspace.science/concepts/why-isnt-there-an-eclipse-every-month/"},{"@type":"DefinedTerm","name":"Polar circles","description":"The Arctic Circle and Antarctic Circle sit at 66.6° north and south — 90° minus Earth’s tilt. Inside them the Sun can stay up all day in summer, or stay down all day in winter.","url":"https://timeandspace.science/concepts/what-are-the-polar-circles/"},{"@type":"DefinedTerm","name":"Seasons","description":"Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year.","url":"https://timeandspace.science/concepts/why-do-we-have-seasons/"},{"@type":"DefinedTerm","name":"Solar system scale","description":"Because the real solar system will not fit on a screen. Neptune is about 78 times farther from the Sun than Mercury. Drawn honestly at one scale, the inner four sit in the innermost tenth of the picture. This simulator climbs a zoom ladder so something is always legible, and it tells you what is compressed.","url":"https://timeandspace.science/concepts/why-are-the-planets-drawn-so-close/"},{"@type":"DefinedTerm","name":"Subsolar point","description":"It is the one place on Earth where the Sun is straight overhead right now — where a flagpole casts no shadow. It is the yellow dot on the day/night map, and it is where the Sun-centre to Earth-centre line hits the surface.","url":"https://timeandspace.science/concepts/what-is-the-subsolar-point/"},{"@type":"DefinedTerm","name":"Synodic month","description":"A synodic month is the time from one full moon to the next, about 29.5 days. It is longer than the Moon’s trip around Earth relative to the stars, because Earth has moved and the Moon must catch up to the same angle with the Sun.","url":"https://timeandspace.science/concepts/what-is-a-synodic-month/"},{"@type":"DefinedTerm","name":"Terminator","description":"The terminator is the line between day and night — the circle on Earth where the Sun sits on the horizon. Sunrise is where you cross it going into the light; sunset is where you cross it going out.","url":"https://timeandspace.science/concepts/what-is-the-terminator/"},{"@type":"DefinedTerm","name":"Tidal locking","description":"The Moon keeps the same face toward Earth because it turns once in the same time it goes around us. That match is tidal locking — not a dark side that never sees the Sun.","url":"https://timeandspace.science/concepts/what-is-tidal-locking/"},{"@type":"DefinedTerm","name":"Tides","description":"The Moon’s gravity pulls harder on the water nearer to it than on the Earth’s centre, and harder on the centre than on the far-side water. The ocean stretches into two bulges. Earth then turns under those bulges, so most coasts see two high tides a day.","url":"https://timeandspace.science/concepts/what-causes-tides/"},{"@type":"DefinedTerm","name":"Tropic of Cancer","description":"The Tropic of Cancer is the circle at 23.4° north. On one day each year — the summer solstice, around June 21 — the Sun stands straight overhead on this line. North of it, the Sun is never straight overhead.","url":"https://timeandspace.science/concepts/what-is-the-tropic-of-cancer/"},{"@type":"DefinedTerm","name":"Tropic of Capricorn","description":"The Tropic of Capricorn is the circle at 23.4° south. On one day each year — the winter solstice, around December 21 — the Sun stands straight overhead on this line. South of it, the Sun is never straight overhead. It is the southern twin of the Tropic of Cancer.","url":"https://timeandspace.science/concepts/what-is-the-tropic-of-capricorn/"},{"@type":"DefinedTerm","name":"Twilight","description":"Twilight is the time when the Sun is below the horizon but still lighting the sky. This map draws it as a soft band: from the terminator down to where the Sun is 18° below — the edge of astronomical night.","url":"https://timeandspace.science/concepts/what-is-twilight/"}]}</script>
-
-<!-- build ec1107a3b908 · generated 2026-08-27T23:00:41.096Z -->
-<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:site_name" content="Time and Space Science">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTermSet","name":"Time and Space Science glossary","url":"https://timeandspace.science/glossary/","hasDefinedTerm":[{"@type":"DefinedTerm","name":"24-hour clock","description":"The clock that does not hide the afternoon. 07:00 is morning; 19:00 is evening. Science, airlines, hospitals and most of the world use it because 7:00 on a 12-hour clock throws away the answer to breakfast or dinner.","url":"https://timeandspace.science/concepts/what-is-the-24-hour-clock/"},{"@type":"DefinedTerm","name":"Asteroid belt","description":"A ring of leftover rock between Mars and Jupiter. It is not the wreckage of a planet. Jupiter’s gravity never let the rubble gather into one world. The dark gaps in it are resonances — the same tug, at the same point, over and over.","url":"https://timeandspace.science/concepts/what-is-the-asteroid-belt/"},{"@type":"DefinedTerm","name":"Asteroid collisions","description":"Yes, but rarely. Typical named bodies sit about a million kilometres apart, so the belt is empty, not a pinball table. When two do hit, they make a family of fragments on similar orbits. Spacecraft fly through without dodging.","url":"https://timeandspace.science/concepts/why-do-asteroids-collide/"},{"@type":"DefinedTerm","name":"Axial tilt","description":"Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.","url":"https://timeandspace.science/concepts/what-is-earths-axial-tilt/"},{"@type":"DefinedTerm","name":"Daylight saving time","description":"A twice-a-year decision to shift the clock one hour so evening daylight lasts longer in summer. Not every place does it. When they do, the offset from UTC changes, and so does the sunrise time on the clock — not the sunrise in the sky.","url":"https://timeandspace.science/concepts/what-is-daylight-saving-time/"},{"@type":"DefinedTerm","name":"Daytime moon","description":"Yes. The moon is above the horizon about half of every day, and those hours drift through daylight as the month goes by. It is simply bright enough to beat the blue sky. On the day/night map the pale marker is where the moon stands overhead — watch it ride through the lit half.","url":"https://timeandspace.science/concepts/why-can-the-moon-be-up-in-the-daytime/"},{"@type":"DefinedTerm","name":"Dwarf planet","description":"A planet has to clear its neighbourhood. Pluto shares the Kuiper belt with a great many other bodies, one of them — Eris — more massive than Pluto. The world itself did not get smaller in 2006. The rule about the neighbourhood did.","url":"https://timeandspace.science/concepts/why-is-pluto-a-dwarf-planet/"},{"@type":"DefinedTerm","name":"Equation of time","description":"The difference between clock noon and sundial noon. The Earth’s orbit is a slight ellipse and its axis is tilted, so the true solar day wanders by up to about 16 minutes through the year. Clocks run a mean 24 hours and ignore it.","url":"https://timeandspace.science/concepts/what-is-the-equation-of-time/"},{"@type":"DefinedTerm","name":"Flat map","description":"This map gives every degree of latitude and longitude the same length on the page, so meridians are straight and the terminator is honest. The cost is size: land near the poles is stretched. The picture says so, in numbers from the drawing.","url":"https://timeandspace.science/concepts/why-is-this-map-flat/"},{"@type":"DefinedTerm","name":"Giant-planet moons","description":"Gravity’s reach grows with mass. Jupiter and Saturn are the two heaviest planets, so a huge volume of space around each one is a place where a small body stays with the planet instead of orbiting the Sun on its own. Some of those moons formed there. Many more were captured.","url":"https://timeandspace.science/concepts/why-does-saturn-have-so-many-moons/"},{"@type":"DefinedTerm","name":"How moons form","description":"Three ways, and you can tell them apart. Some moons form from the same disc as their planet. Some form from the debris of a giant impact. Some are captured — they were going past and got stuck. Triton’s backward orbit is the capture giveaway. Earth’s Moon is the impact story.","url":"https://timeandspace.science/concepts/why-do-planets-have-moons/"},{"@type":"DefinedTerm","name":"International Date Line","description":"The seam where the calendar jumps a day. Noon travels west around a round Earth forever, so somewhere the date has to tear. We cut the seam in the Pacific, as far from most people as we could, and kink it around islands that did not want to be split.","url":"https://timeandspace.science/concepts/what-is-the-international-date-line/"},{"@type":"DefinedTerm","name":"Jupiter’s moons","description":"Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun. A wide region around it is a place where a small body stays with Jupiter instead of orbiting the Sun on its own.","url":"https://timeandspace.science/concepts/why-does-jupiter-have-so-many-moons/"},{"@type":"DefinedTerm","name":"Leap year","description":"A year with 29 February. The Earth takes about 365.242 days to go around the Sun, so a 365-day calendar drifts. Adding a day most years that divide by 4 — but not most centuries — keeps the seasons from walking off the months.","url":"https://timeandspace.science/concepts/what-is-a-leap-year/"},{"@type":"DefinedTerm","name":"Libration","description":"Libration is a small wobble in the Moon’s facing. We still have one near side, but over time we see about 59% of the surface, not 50%. The extra is a peek around the edges.","url":"https://timeandspace.science/concepts/what-is-libration/"},{"@type":"DefinedTerm","name":"Mars’s colour","description":"The dust is rust. Iron in Martian rock has oxidised, and that red-brown powder is blown across the whole planet, so even the sky looks butterscotch. The rocks underneath can be darker; the colour you see from Earth is a planet wearing its rust.","url":"https://timeandspace.science/concepts/why-is-mars-red/"},{"@type":"DefinedTerm","name":"Moon phases","description":"The Moon makes no light of its own. One half is always lit by the Sun. Phases are your changing view of that lit half as the Moon goes around Earth — about 29.5 days from full moon to full moon.","url":"https://timeandspace.science/concepts/why-does-the-moon-change-shape/"},{"@type":"DefinedTerm","name":"Moonrise delay","description":"The Moon moves east along its orbit while Earth turns. Earth has to spin extra — about 50 minutes — to bring the Moon back to the same place on your sky. That extra is why moonrise (and moonset) slip later day by day.","url":"https://timeandspace.science/concepts/why-does-moonrise-get-later/"},{"@type":"DefinedTerm","name":"Olbers’ paradox","description":"If stars went on forever, every line of sight would hit a star and the night would be as bright as a surface of suns. It is not. The dark is a clue that the universe is not an infinite, unchanging hall of lights.","url":"https://timeandspace.science/concepts/why-is-the-night-sky-dark/"},{"@type":"DefinedTerm","name":"Orbit","description":"They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up.","url":"https://timeandspace.science/concepts/why-dont-planets-fall-into-the-sun/"},{"@type":"DefinedTerm","name":"Orbit change","description":"The shape changes, not just the speed. Slow a planet at one point and it drops onto a longer ellipse that swings closer in and climbs back out. Speed it up and the far side lifts away. It does not spiral into the Sun unless almost all of the sideways speed is gone.","url":"https://timeandspace.science/concepts/how-does-an-orbit-change/"},{"@type":"DefinedTerm","name":"Orbital motion","description":"A planet is always falling toward the Sun, and it is already moving sideways. Gravity only pulls inward — it never pushes the planet along. Those two together bend a straight line into a closed curve. That closed path is the orbit.","url":"https://timeandspace.science/concepts/how-does-an-orbit-work/"},{"@type":"DefinedTerm","name":"Orbital tilt of the Moon","description":"The Moon’s path around Earth is tipped about 5° to Earth’s path around the Sun. Most months the full Moon rides above or below Earth’s shadow, and the new Moon rides above or below the Sun. An eclipse needs the Moon at a crossing, not just at a phase.","url":"https://timeandspace.science/concepts/why-isnt-there-an-eclipse-every-month/"},{"@type":"DefinedTerm","name":"Planet formation","description":"From a spinning disc of gas and dust around the young Sun. Dust stuck, then pebbles, then worlds. Close in it was too warm for ice, so the inner four stayed small and rocky. Farther out, ice and gas stayed put, gravity grabbed hydrogen, and the giants grew huge.","url":"https://timeandspace.science/concepts/how-are-the-planets-formed/"},{"@type":"DefinedTerm","name":"Planetary rings","description":"A ring is ice or rock that orbits inside a limit where a moon would be pulled apart. Earth could wear one if a moon broke up that close. Our Moon is too far out and too well stuck together. Saturn’s rings are the famous leftover — ice that never quite made a moon, or a moon that came too close.","url":"https://timeandspace.science/concepts/why-doesnt-earth-have-a-ring/"},{"@type":"DefinedTerm","name":"Pluto’s moons","description":"A giant impact likely made Charon and left a debris disc that became Styx, Nix, Kerberos and Hydra. Charon is half Pluto’s width, so the two of them are a double world — and the four small moons sit in the gravity of the pair, not of a single point.","url":"https://timeandspace.science/concepts/why-does-pluto-have-so-many-moons/"},{"@type":"DefinedTerm","name":"Polar circles","description":"The Arctic Circle and Antarctic Circle sit at 66.6° north and south — 90° minus Earth’s tilt. Inside them the Sun can stay up all day in summer, or stay down all day in winter.","url":"https://timeandspace.science/concepts/what-are-the-polar-circles/"},{"@type":"DefinedTerm","name":"Seasons","description":"Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year.","url":"https://timeandspace.science/concepts/why-do-we-have-seasons/"},{"@type":"DefinedTerm","name":"Seasons on other planets","description":"Yes, if they tilt. Seasons come from a lean, not from being closer to the Sun. Mars tilts about 25°, like Earth, so it has seasons — just longer, because its year is longer. Uranus tilts 98°, so each pole sits in sunlight for 42 years and then in darkness for 42. Jupiter barely tilts, so its seasons are weak.","url":"https://timeandspace.science/concepts/why-do-other-planets-have-seasons/"},{"@type":"DefinedTerm","name":"Sidereal day","description":"One full turn relative to the stars, not the Sun. On Earth that is 23 hours 56 minutes. A star rises about four minutes earlier each night because of that difference — which is the orbit showing up in the clock.","url":"https://timeandspace.science/concepts/what-is-a-sidereal-day/"},{"@type":"DefinedTerm","name":"Snow line","description":"Close to the Sun it was too warm for ice and light gas to stick. The inner four could only build from rock and metal, so they stayed small. Past a line called the snow line, ice piled on, gravity grabbed hydrogen and helium, and the giants grew huge.","url":"https://timeandspace.science/concepts/why-arent-the-inner-planets-gas-giants/"},{"@type":"DefinedTerm","name":"Solar day","description":"Sunrise to sunrise — the day you actually live. On Earth that averages 24 hours. A full spin relative to the stars is about 4 minutes shorter, because Earth also moved along its orbit and has to turn a little extra to face the Sun again.","url":"https://timeandspace.science/concepts/what-is-a-solar-day/"},{"@type":"DefinedTerm","name":"Solar system scale","description":"Because the real solar system will not fit on a screen. Neptune is about 78 times farther from the Sun than Mercury. Drawn honestly at one scale, the inner four sit in the innermost tenth of the picture. This simulator climbs a zoom ladder so something is always legible, and it tells you what is compressed.","url":"https://timeandspace.science/concepts/why-are-the-planets-drawn-so-close/"},{"@type":"DefinedTerm","name":"Subsolar point","description":"It is the one place on Earth where the Sun is straight overhead right now — where a flagpole casts no shadow. It is the yellow dot on the day/night map, and it is where the Sun-centre to Earth-centre line hits the surface.","url":"https://timeandspace.science/concepts/what-is-the-subsolar-point/"},{"@type":"DefinedTerm","name":"Synodic month","description":"A synodic month is the time from one full moon to the next, about 29.5 days. It is longer than the Moon’s trip around Earth relative to the stars, because Earth has moved and the Moon must catch up to the same angle with the Sun.","url":"https://timeandspace.science/concepts/what-is-a-synodic-month/"},{"@type":"DefinedTerm","name":"Terminator","description":"The terminator is the line between day and night — the circle on Earth where the Sun sits on the horizon. Sunrise is where you cross it going into the light; sunset is where you cross it going out.","url":"https://timeandspace.science/concepts/what-is-the-terminator/"},{"@type":"DefinedTerm","name":"Tidal locking","description":"The Moon keeps the same face toward Earth because it turns once in the same time it goes around us. That match is tidal locking — not a dark side that never sees the Sun.","url":"https://timeandspace.science/concepts/what-is-tidal-locking/"},{"@type":"DefinedTerm","name":"Tides","description":"The Moon’s gravity pulls harder on the water nearer to it than on the Earth’s centre, and harder on the centre than on the far-side water. The ocean stretches into two bulges. Earth then turns under those bulges, so most coasts see two high tides a day.","url":"https://timeandspace.science/concepts/what-causes-tides/"},{"@type":"DefinedTerm","name":"Time zone","description":"A political stripe painted on a rotating ball. Noon is where the Sun is overhead. A zone is an argument about how far from that line a country is willing to sit, so clocks in that stripe all say the same hour.","url":"https://timeandspace.science/concepts/what-is-a-time-zone/"},{"@type":"DefinedTerm","name":"Triton’s retrograde orbit","description":"Most moons travel the same way their planet spins, because they formed from the same spinning disc. Triton goes the other way, so it did not form next to Neptune. It was captured, almost certainly from the Kuiper belt.","url":"https://timeandspace.science/concepts/why-does-triton-orbit-backwards/"},{"@type":"DefinedTerm","name":"Tropic of Cancer","description":"The Tropic of Cancer is the circle at 23.4° north. On one day each year — the summer solstice, around June 21 — the Sun stands straight overhead on this line. North of it, the Sun is never straight overhead.","url":"https://timeandspace.science/concepts/what-is-the-tropic-of-cancer/"},{"@type":"DefinedTerm","name":"Tropic of Capricorn","description":"The Tropic of Capricorn is the circle at 23.4° south. On one day each year — the winter solstice, around December 21 — the Sun stands straight overhead on this line. South of it, the Sun is never straight overhead. It is the southern twin of the Tropic of Cancer.","url":"https://timeandspace.science/concepts/what-is-the-tropic-of-capricorn/"},{"@type":"DefinedTerm","name":"Twilight","description":"Twilight is the time when the Sun is below the horizon but still lighting the sky. This map draws it as a soft band: from the terminator down to where the Sun is 18° below — the edge of astronomical night.","url":"https://timeandspace.science/concepts/what-is-twilight/"},{"@type":"DefinedTerm","name":"UTC","description":"Coordinated Universal Time — the one clock the rest are offsets from. It tracks atomic time, steered to stay close to the Earth’s spin. Every zone on this site is written as hours ahead of or behind UTC.","url":"https://timeandspace.science/concepts/what-is-utc/"},{"@type":"DefinedTerm","name":"Why the belt is rubble","description":"There was never enough rock, and Jupiter never let it gather. Everything in the belt together is about 3% of the Moon’s mass. Collisions smashed rather than stuck, because Jupiter’s gravity stirred the region. It is leftover building material, not a planet that broke.","url":"https://timeandspace.science/concepts/why-didnt-the-asteroid-belt-become-a-planet/"}]}</script>
 
 <meta property="og:image" content="https://timeandspace.science/api/og?name=Glossary%20of%20Time%2C%20Earth%20and%20Space&amp;theme=generic">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=Glossary%20of%20Time%2C%20Earth%20and%20Space&amp;theme=generic">
 <meta name="robots" content="max-image-preview:large">
+<!-- build 8c0f60ef6756 · generated 2026-08-27T23:36:33.832Z -->
+<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:site_name" content="Time and Space Science">
+
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -807,114 +821,205 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   document.addEventListener('ac:units',function(){ apply(get()); });
 })();</script></div>
   <h1>Glossary</h1>
-  <p class="sub">Every concept as a short definition. <strong>The question is the link</strong> — tap through for the drawing and a deeper pass. Filter the list, or jump A–Z.</p>
+  <p class="sub">Every concept as a short definition — time, Earth and space. The question at the end of each entry is the link through to the drawing and a deeper pass. Filter the list.</p>
   <label class="sr-only visually-hidden" for="glossary-q">Filter glossary</label>
   <input class="search" id="glossary-q" type="search" placeholder="Filter by term or question" aria-controls="glossary-list">
-  <ul class="glossary-list" id="glossary-list"><h2 class="letter" id="A">A</h2>
+  <ul class="glossary-list" id="glossary-list"><h2 class="letter" id="2">2</h2>
+<li class="glossary-item" id="what-is-the-24-hour-clock">
+<h2>24-hour clock</h2>
+<p>The clock that does not hide the afternoon. 07:00 is morning; 19:00 is evening. Science, airlines, hospitals and most of the world use it because 7:00 on a 12-hour clock throws away the answer to breakfast or dinner. <a href="/concepts/what-is-the-24-hour-clock/">What is the 24-hour clock?</a></p>
+</li>
+<h2 class="letter" id="A">A</h2>
 <li class="glossary-item" id="what-is-the-asteroid-belt">
-<h2><a href="/concepts/what-is-the-asteroid-belt/">Asteroid belt</a></h2>
-<p><a href="/concepts/what-is-the-asteroid-belt/">What is the asteroid belt?</a> A ring of leftover rock between Mars and Jupiter. It is not the wreckage of a planet. Jupiter’s gravity never let the rubble gather into one world. The dark gaps in it are resonances — the same tug, at the same point, over and over.</p>
+<h2>Asteroid belt</h2>
+<p>A ring of leftover rock between Mars and Jupiter. It is not the wreckage of a planet. Jupiter’s gravity never let the rubble gather into one world. The dark gaps in it are resonances — the same tug, at the same point, over and over. <a href="/concepts/what-is-the-asteroid-belt/">What is the asteroid belt?</a></p>
+</li>
+<li class="glossary-item" id="why-do-asteroids-collide">
+<h2>Asteroid collisions</h2>
+<p>Yes, but rarely. Typical named bodies sit about a million kilometres apart, so the belt is empty, not a pinball table. When two do hit, they make a family of fragments on similar orbits. Spacecraft fly through without dodging. <a href="/concepts/why-do-asteroids-collide/">Do the asteroids in the belt crash together?</a></p>
 </li>
 <li class="glossary-item" id="what-is-earths-axial-tilt">
-<h2><a href="/concepts/what-is-earths-axial-tilt/">Axial tilt</a></h2>
-<p><a href="/concepts/what-is-earths-axial-tilt/">What is Earth’s axial tilt?</a> Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.</p>
+<h2>Axial tilt</h2>
+<p>Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next. <a href="/concepts/what-is-earths-axial-tilt/">What is Earth’s axial tilt?</a></p>
 </li>
 <h2 class="letter" id="D">D</h2>
+<li class="glossary-item" id="what-is-daylight-saving-time">
+<h2>Daylight saving time</h2>
+<p>A twice-a-year decision to shift the clock one hour so evening daylight lasts longer in summer. Not every place does it. When they do, the offset from UTC changes, and so does the sunrise time on the clock — not the sunrise in the sky. <a href="/concepts/what-is-daylight-saving-time/">What is daylight saving time?</a></p>
+</li>
 <li class="glossary-item" id="why-can-the-moon-be-up-in-the-daytime">
-<h2><a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">Daytime moon</a></h2>
-<p><a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">Can the moon be up in the daytime?</a> Yes. The moon is above the horizon about half of every day, and those hours drift through daylight as the month goes by. It is simply bright enough to beat the blue sky. On the day/night map the pale marker is where the moon stands overhead — watch it ride through the lit half.</p>
+<h2>Daytime moon</h2>
+<p>Yes. The moon is above the horizon about half of every day, and those hours drift through daylight as the month goes by. It is simply bright enough to beat the blue sky. On the day/night map the pale marker is where the moon stands overhead — watch it ride through the lit half. <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">Can the moon be up in the daytime?</a></p>
+</li>
+<li class="glossary-item" id="why-is-pluto-a-dwarf-planet">
+<h2>Dwarf planet</h2>
+<p>A planet has to clear its neighbourhood. Pluto shares the Kuiper belt with a great many other bodies, one of them — Eris — more massive than Pluto. The world itself did not get smaller in 2006. The rule about the neighbourhood did. <a href="/concepts/why-is-pluto-a-dwarf-planet/">Why is Pluto a dwarf planet and not a planet?</a></p>
 </li>
 <h2 class="letter" id="E">E</h2>
+<li class="glossary-item" id="what-is-the-equation-of-time">
+<h2>Equation of time</h2>
+<p>The difference between clock noon and sundial noon. The Earth’s orbit is a slight ellipse and its axis is tilted, so the true solar day wanders by up to about 16 minutes through the year. Clocks run a mean 24 hours and ignore it. <a href="/concepts/what-is-the-equation-of-time/">What is the equation of time?</a></p>
+</li>
+<h2 class="letter" id="F">F</h2>
 <li class="glossary-item" id="why-is-this-map-flat">
-<h2><a href="/concepts/why-is-this-map-flat/">Equirectangular projection</a></h2>
-<p><a href="/concepts/why-is-this-map-flat/">Why is this map flat?</a> This map gives every degree of latitude and longitude the same length on the page, so meridians are straight and the terminator is honest. The cost is size: land near the poles is stretched. The picture says so, in numbers from the drawing.</p>
+<h2>Flat map</h2>
+<p>This map gives every degree of latitude and longitude the same length on the page, so meridians are straight and the terminator is honest. The cost is size: land near the poles is stretched. The picture says so, in numbers from the drawing. <a href="/concepts/why-is-this-map-flat/">Why is this map flat?</a></p>
+</li>
+<h2 class="letter" id="G">G</h2>
+<li class="glossary-item" id="why-does-saturn-have-so-many-moons">
+<h2>Giant-planet moons</h2>
+<p>Gravity’s reach grows with mass. Jupiter and Saturn are the two heaviest planets, so a huge volume of space around each one is a place where a small body stays with the planet instead of orbiting the Sun on its own. Some of those moons formed there. Many more were captured. <a href="/concepts/why-does-saturn-have-so-many-moons/">Why do Saturn and Jupiter have so many moons?</a></p>
+</li>
+<h2 class="letter" id="H">H</h2>
+<li class="glossary-item" id="why-do-planets-have-moons">
+<h2>How moons form</h2>
+<p>Three ways, and you can tell them apart. Some moons form from the same disc as their planet. Some form from the debris of a giant impact. Some are captured — they were going past and got stuck. Triton’s backward orbit is the capture giveaway. Earth’s Moon is the impact story. <a href="/concepts/why-do-planets-have-moons/">Why do planets have moons, and how are they made?</a></p>
+</li>
+<h2 class="letter" id="I">I</h2>
+<li class="glossary-item" id="what-is-the-international-date-line">
+<h2>International Date Line</h2>
+<p>The seam where the calendar jumps a day. Noon travels west around a round Earth forever, so somewhere the date has to tear. We cut the seam in the Pacific, as far from most people as we could, and kink it around islands that did not want to be split. <a href="/concepts/what-is-the-international-date-line/">What is the International Date Line?</a></p>
 </li>
 <h2 class="letter" id="J">J</h2>
 <li class="glossary-item" id="why-does-jupiter-have-so-many-moons">
-<h2><a href="/concepts/why-does-jupiter-have-so-many-moons/">Jupiter’s moons</a></h2>
-<p><a href="/concepts/why-does-jupiter-have-so-many-moons/">Why does Jupiter have so many moons?</a> Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun. A wide region around it is a place where a small body stays with Jupiter instead of orbiting the Sun on its own.</p>
+<h2>Jupiter’s moons</h2>
+<p>Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun. A wide region around it is a place where a small body stays with Jupiter instead of orbiting the Sun on its own. <a href="/concepts/why-does-jupiter-have-so-many-moons/">Why does Jupiter have so many moons?</a></p>
 </li>
 <h2 class="letter" id="L">L</h2>
+<li class="glossary-item" id="what-is-a-leap-year">
+<h2>Leap year</h2>
+<p>A year with 29 February. The Earth takes about 365.242 days to go around the Sun, so a 365-day calendar drifts. Adding a day most years that divide by 4 — but not most centuries — keeps the seasons from walking off the months. <a href="/concepts/what-is-a-leap-year/">What is a leap year?</a></p>
+</li>
 <li class="glossary-item" id="what-is-libration">
-<h2><a href="/concepts/what-is-libration/">Libration</a></h2>
-<p><a href="/concepts/what-is-libration/">What is libration?</a> Libration is a small wobble in the Moon’s facing. We still have one near side, but over time we see about 59% of the surface, not 50%. The extra is a peek around the edges.</p>
+<h2>Libration</h2>
+<p>Libration is a small wobble in the Moon’s facing. We still have one near side, but over time we see about 59% of the surface, not 50%. The extra is a peek around the edges. <a href="/concepts/what-is-libration/">What is libration?</a></p>
 </li>
 <h2 class="letter" id="M">M</h2>
+<li class="glossary-item" id="why-is-mars-red">
+<h2>Mars’s colour</h2>
+<p>The dust is rust. Iron in Martian rock has oxidised, and that red-brown powder is blown across the whole planet, so even the sky looks butterscotch. The rocks underneath can be darker; the colour you see from Earth is a planet wearing its rust. <a href="/concepts/why-is-mars-red/">Why is Mars red?</a></p>
+</li>
 <li class="glossary-item" id="why-does-the-moon-change-shape">
-<h2><a href="/concepts/why-does-the-moon-change-shape/">Moon phases</a></h2>
-<p><a href="/concepts/why-does-the-moon-change-shape/">Why does the Moon change shape?</a> The Moon makes no light of its own. One half is always lit by the Sun. Phases are your changing view of that lit half as the Moon goes around Earth — about 29.5 days from full moon to full moon.</p>
+<h2>Moon phases</h2>
+<p>The Moon makes no light of its own. One half is always lit by the Sun. Phases are your changing view of that lit half as the Moon goes around Earth — about 29.5 days from full moon to full moon. <a href="/concepts/why-does-the-moon-change-shape/">Why does the Moon change shape?</a></p>
 </li>
 <li class="glossary-item" id="why-does-moonrise-get-later">
-<h2><a href="/concepts/why-does-moonrise-get-later/">Moonrise delay</a></h2>
-<p><a href="/concepts/why-does-moonrise-get-later/">Why does moonrise get later each night?</a> The Moon moves east along its orbit while Earth turns. Earth has to spin extra — about 50 minutes — to bring the Moon back to the same place on your sky. That extra is why moonrise (and moonset) slip later day by day.</p>
+<h2>Moonrise delay</h2>
+<p>The Moon moves east along its orbit while Earth turns. Earth has to spin extra — about 50 minutes — to bring the Moon back to the same place on your sky. That extra is why moonrise (and moonset) slip later day by day. <a href="/concepts/why-does-moonrise-get-later/">Why does moonrise get later each night?</a></p>
 </li>
 <h2 class="letter" id="O">O</h2>
 <li class="glossary-item" id="why-is-the-night-sky-dark">
-<h2><a href="/concepts/why-is-the-night-sky-dark/">Olbers’ paradox</a></h2>
-<p><a href="/concepts/why-is-the-night-sky-dark/">Why is the night sky dark?</a> If stars went on forever, every line of sight would hit a star and the night would be as bright as a surface of suns. It is not. The dark is a clue that the universe is not an infinite, unchanging hall of lights.</p>
+<h2>Olbers’ paradox</h2>
+<p>If stars went on forever, every line of sight would hit a star and the night would be as bright as a surface of suns. It is not. The dark is a clue that the universe is not an infinite, unchanging hall of lights. <a href="/concepts/why-is-the-night-sky-dark/">Why is the night sky dark?</a></p>
 </li>
 <li class="glossary-item" id="why-dont-planets-fall-into-the-sun">
-<h2><a href="/concepts/why-dont-planets-fall-into-the-sun/">Orbit</a></h2>
-<p><a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a> They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up.</p>
+<h2>Orbit</h2>
+<p>They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up. <a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a></p>
 </li>
 <li class="glossary-item" id="how-does-an-orbit-change">
-<h2><a href="/concepts/how-does-an-orbit-change/">Orbit change</a></h2>
-<p><a href="/concepts/how-does-an-orbit-change/">What happens when you change one part of an orbit?</a> The shape changes, not just the speed. Slow a planet at one point and it drops onto a longer ellipse that swings closer in and climbs back out. Speed it up and the far side lifts away. It does not spiral into the Sun unless almost all of the sideways speed is gone.</p>
+<h2>Orbit change</h2>
+<p>The shape changes, not just the speed. Slow a planet at one point and it drops onto a longer ellipse that swings closer in and climbs back out. Speed it up and the far side lifts away. It does not spiral into the Sun unless almost all of the sideways speed is gone. <a href="/concepts/how-does-an-orbit-change/">What happens when you change one part of an orbit?</a></p>
 </li>
 <li class="glossary-item" id="how-does-an-orbit-work">
-<h2><a href="/concepts/how-does-an-orbit-work/">Orbital motion</a></h2>
-<p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> A planet is always falling toward the Sun, and it is already moving sideways. Gravity only pulls inward — it never pushes the planet along. Those two together bend a straight line into a closed curve. That closed path is the orbit.</p>
+<h2>Orbital motion</h2>
+<p>A planet is always falling toward the Sun, and it is already moving sideways. Gravity only pulls inward — it never pushes the planet along. Those two together bend a straight line into a closed curve. That closed path is the orbit. <a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a></p>
 </li>
 <li class="glossary-item" id="why-isnt-there-an-eclipse-every-month">
-<h2><a href="/concepts/why-isnt-there-an-eclipse-every-month/">Orbital tilt of the Moon</a></h2>
-<p><a href="/concepts/why-isnt-there-an-eclipse-every-month/">Why isn’t there an eclipse every month?</a> The Moon’s path around Earth is tipped about 5° to Earth’s path around the Sun. Most months the full Moon rides above or below Earth’s shadow, and the new Moon rides above or below the Sun. An eclipse needs the Moon at a crossing, not just at a phase.</p>
+<h2>Orbital tilt of the Moon</h2>
+<p>The Moon’s path around Earth is tipped about 5° to Earth’s path around the Sun. Most months the full Moon rides above or below Earth’s shadow, and the new Moon rides above or below the Sun. An eclipse needs the Moon at a crossing, not just at a phase. <a href="/concepts/why-isnt-there-an-eclipse-every-month/">Why isn’t there an eclipse every month?</a></p>
 </li>
 <h2 class="letter" id="P">P</h2>
+<li class="glossary-item" id="how-are-the-planets-formed">
+<h2>Planet formation</h2>
+<p>From a spinning disc of gas and dust around the young Sun. Dust stuck, then pebbles, then worlds. Close in it was too warm for ice, so the inner four stayed small and rocky. Farther out, ice and gas stayed put, gravity grabbed hydrogen, and the giants grew huge. <a href="/concepts/how-are-the-planets-formed/">How were the planets formed?</a></p>
+</li>
+<li class="glossary-item" id="why-doesnt-earth-have-a-ring">
+<h2>Planetary rings</h2>
+<p>A ring is ice or rock that orbits inside a limit where a moon would be pulled apart. Earth could wear one if a moon broke up that close. Our Moon is too far out and too well stuck together. Saturn’s rings are the famous leftover — ice that never quite made a moon, or a moon that came too close. <a href="/concepts/why-doesnt-earth-have-a-ring/">Why doesn’t Earth have a ring?</a></p>
+</li>
+<li class="glossary-item" id="why-does-pluto-have-so-many-moons">
+<h2>Pluto’s moons</h2>
+<p>A giant impact likely made Charon and left a debris disc that became Styx, Nix, Kerberos and Hydra. Charon is half Pluto’s width, so the two of them are a double world — and the four small moons sit in the gravity of the pair, not of a single point. <a href="/concepts/why-does-pluto-have-so-many-moons/">Why does Pluto, such a small world, have so many moons?</a></p>
+</li>
 <li class="glossary-item" id="what-are-the-polar-circles">
-<h2><a href="/concepts/what-are-the-polar-circles/">Polar circles</a></h2>
-<p><a href="/concepts/what-are-the-polar-circles/">What are the polar circles?</a> The Arctic Circle and Antarctic Circle sit at 66.6° north and south — 90° minus Earth’s tilt. Inside them the Sun can stay up all day in summer, or stay down all day in winter.</p>
+<h2>Polar circles</h2>
+<p>The Arctic Circle and Antarctic Circle sit at 66.6° north and south — 90° minus Earth’s tilt. Inside them the Sun can stay up all day in summer, or stay down all day in winter. <a href="/concepts/what-are-the-polar-circles/">What are the polar circles?</a></p>
 </li>
 <h2 class="letter" id="S">S</h2>
 <li class="glossary-item" id="why-do-we-have-seasons">
-<h2><a href="/concepts/why-do-we-have-seasons/">Seasons</a></h2>
-<p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year.</p>
+<h2>Seasons</h2>
+<p>Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year. <a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a></p>
+</li>
+<li class="glossary-item" id="why-do-other-planets-have-seasons">
+<h2>Seasons on other planets</h2>
+<p>Yes, if they tilt. Seasons come from a lean, not from being closer to the Sun. Mars tilts about 25°, like Earth, so it has seasons — just longer, because its year is longer. Uranus tilts 98°, so each pole sits in sunlight for 42 years and then in darkness for 42. Jupiter barely tilts, so its seasons are weak. <a href="/concepts/why-do-other-planets-have-seasons/">Do other planets have seasons?</a></p>
+</li>
+<li class="glossary-item" id="what-is-a-sidereal-day">
+<h2>Sidereal day</h2>
+<p>One full turn relative to the stars, not the Sun. On Earth that is 23 hours 56 minutes. A star rises about four minutes earlier each night because of that difference — which is the orbit showing up in the clock. <a href="/concepts/what-is-a-sidereal-day/">What is a sidereal day?</a></p>
+</li>
+<li class="glossary-item" id="why-arent-the-inner-planets-gas-giants">
+<h2>Snow line</h2>
+<p>Close to the Sun it was too warm for ice and light gas to stick. The inner four could only build from rock and metal, so they stayed small. Past a line called the snow line, ice piled on, gravity grabbed hydrogen and helium, and the giants grew huge. <a href="/concepts/why-arent-the-inner-planets-gas-giants/">Why aren’t the inner planets gas giants?</a></p>
+</li>
+<li class="glossary-item" id="what-is-a-solar-day">
+<h2>Solar day</h2>
+<p>Sunrise to sunrise — the day you actually live. On Earth that averages 24 hours. A full spin relative to the stars is about 4 minutes shorter, because Earth also moved along its orbit and has to turn a little extra to face the Sun again. <a href="/concepts/what-is-a-solar-day/">What is a solar day?</a></p>
 </li>
 <li class="glossary-item" id="why-are-the-planets-drawn-so-close">
-<h2><a href="/concepts/why-are-the-planets-drawn-so-close/">Solar system scale</a></h2>
-<p><a href="/concepts/why-are-the-planets-drawn-so-close/">Why are the planets drawn so close together?</a> Because the real solar system will not fit on a screen. Neptune is about 78 times farther from the Sun than Mercury. Drawn honestly at one scale, the inner four sit in the innermost tenth of the picture. This simulator climbs a zoom ladder so something is always legible, and it tells you what is compressed.</p>
+<h2>Solar system scale</h2>
+<p>Because the real solar system will not fit on a screen. Neptune is about 78 times farther from the Sun than Mercury. Drawn honestly at one scale, the inner four sit in the innermost tenth of the picture. This simulator climbs a zoom ladder so something is always legible, and it tells you what is compressed. <a href="/concepts/why-are-the-planets-drawn-so-close/">Why are the planets drawn so close together?</a></p>
 </li>
 <li class="glossary-item" id="what-is-the-subsolar-point">
-<h2><a href="/concepts/what-is-the-subsolar-point/">Subsolar point</a></h2>
-<p><a href="/concepts/what-is-the-subsolar-point/">What is the subsolar point?</a> It is the one place on Earth where the Sun is straight overhead right now — where a flagpole casts no shadow. It is the yellow dot on the day/night map, and it is where the Sun-centre to Earth-centre line hits the surface.</p>
+<h2>Subsolar point</h2>
+<p>It is the one place on Earth where the Sun is straight overhead right now — where a flagpole casts no shadow. It is the yellow dot on the day/night map, and it is where the Sun-centre to Earth-centre line hits the surface. <a href="/concepts/what-is-the-subsolar-point/">What is the subsolar point?</a></p>
 </li>
 <li class="glossary-item" id="what-is-a-synodic-month">
-<h2><a href="/concepts/what-is-a-synodic-month/">Synodic month</a></h2>
-<p><a href="/concepts/what-is-a-synodic-month/">What is a synodic month?</a> A synodic month is the time from one full moon to the next, about 29.5 days. It is longer than the Moon’s trip around Earth relative to the stars, because Earth has moved and the Moon must catch up to the same angle with the Sun.</p>
+<h2>Synodic month</h2>
+<p>A synodic month is the time from one full moon to the next, about 29.5 days. It is longer than the Moon’s trip around Earth relative to the stars, because Earth has moved and the Moon must catch up to the same angle with the Sun. <a href="/concepts/what-is-a-synodic-month/">What is a synodic month?</a></p>
 </li>
 <h2 class="letter" id="T">T</h2>
 <li class="glossary-item" id="what-is-the-terminator">
-<h2><a href="/concepts/what-is-the-terminator/">Terminator</a></h2>
-<p><a href="/concepts/what-is-the-terminator/">What is the terminator?</a> The terminator is the line between day and night — the circle on Earth where the Sun sits on the horizon. Sunrise is where you cross it going into the light; sunset is where you cross it going out.</p>
+<h2>Terminator</h2>
+<p>The terminator is the line between day and night — the circle on Earth where the Sun sits on the horizon. Sunrise is where you cross it going into the light; sunset is where you cross it going out. <a href="/concepts/what-is-the-terminator/">What is the terminator?</a></p>
 </li>
 <li class="glossary-item" id="what-is-tidal-locking">
-<h2><a href="/concepts/what-is-tidal-locking/">Tidal locking</a></h2>
-<p><a href="/concepts/what-is-tidal-locking/">What is tidal locking?</a> The Moon keeps the same face toward Earth because it turns once in the same time it goes around us. That match is tidal locking — not a dark side that never sees the Sun.</p>
+<h2>Tidal locking</h2>
+<p>The Moon keeps the same face toward Earth because it turns once in the same time it goes around us. That match is tidal locking — not a dark side that never sees the Sun. <a href="/concepts/what-is-tidal-locking/">What is tidal locking?</a></p>
 </li>
 <li class="glossary-item" id="what-causes-tides">
-<h2><a href="/concepts/what-causes-tides/">Tides</a></h2>
-<p><a href="/concepts/what-causes-tides/">What causes tides?</a> The Moon’s gravity pulls harder on the water nearer to it than on the Earth’s centre, and harder on the centre than on the far-side water. The ocean stretches into two bulges. Earth then turns under those bulges, so most coasts see two high tides a day.</p>
+<h2>Tides</h2>
+<p>The Moon’s gravity pulls harder on the water nearer to it than on the Earth’s centre, and harder on the centre than on the far-side water. The ocean stretches into two bulges. Earth then turns under those bulges, so most coasts see two high tides a day. <a href="/concepts/what-causes-tides/">What causes tides?</a></p>
+</li>
+<li class="glossary-item" id="what-is-a-time-zone">
+<h2>Time zone</h2>
+<p>A political stripe painted on a rotating ball. Noon is where the Sun is overhead. A zone is an argument about how far from that line a country is willing to sit, so clocks in that stripe all say the same hour. <a href="/concepts/what-is-a-time-zone/">What is a time zone?</a></p>
+</li>
+<li class="glossary-item" id="why-does-triton-orbit-backwards">
+<h2>Triton’s retrograde orbit</h2>
+<p>Most moons travel the same way their planet spins, because they formed from the same spinning disc. Triton goes the other way, so it did not form next to Neptune. It was captured, almost certainly from the Kuiper belt. <a href="/concepts/why-does-triton-orbit-backwards/">Why does one of Neptune’s moons go the other way?</a></p>
 </li>
 <li class="glossary-item" id="what-is-the-tropic-of-cancer">
-<h2><a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a></h2>
-<p><a href="/concepts/what-is-the-tropic-of-cancer/">What is the Tropic of Cancer?</a> The Tropic of Cancer is the circle at 23.4° north. On one day each year — the summer solstice, around June 21 — the Sun stands straight overhead on this line. North of it, the Sun is never straight overhead.</p>
+<h2>Tropic of Cancer</h2>
+<p>The Tropic of Cancer is the circle at 23.4° north. On one day each year — the summer solstice, around June 21 — the Sun stands straight overhead on this line. North of it, the Sun is never straight overhead. <a href="/concepts/what-is-the-tropic-of-cancer/">What is the Tropic of Cancer?</a></p>
 </li>
 <li class="glossary-item" id="what-is-the-tropic-of-capricorn">
-<h2><a href="/concepts/what-is-the-tropic-of-capricorn/">Tropic of Capricorn</a></h2>
-<p><a href="/concepts/what-is-the-tropic-of-capricorn/">What is the Tropic of Capricorn?</a> The Tropic of Capricorn is the circle at 23.4° south. On one day each year — the winter solstice, around December 21 — the Sun stands straight overhead on this line. South of it, the Sun is never straight overhead. It is the southern twin of the Tropic of Cancer.</p>
+<h2>Tropic of Capricorn</h2>
+<p>The Tropic of Capricorn is the circle at 23.4° south. On one day each year — the winter solstice, around December 21 — the Sun stands straight overhead on this line. South of it, the Sun is never straight overhead. It is the southern twin of the Tropic of Cancer. <a href="/concepts/what-is-the-tropic-of-capricorn/">What is the Tropic of Capricorn?</a></p>
 </li>
 <li class="glossary-item" id="what-is-twilight">
-<h2><a href="/concepts/what-is-twilight/">Twilight</a></h2>
-<p><a href="/concepts/what-is-twilight/">What is twilight?</a> Twilight is the time when the Sun is below the horizon but still lighting the sky. This map draws it as a soft band: from the terminator down to where the Sun is 18° below — the edge of astronomical night.</p>
+<h2>Twilight</h2>
+<p>Twilight is the time when the Sun is below the horizon but still lighting the sky. This map draws it as a soft band: from the terminator down to where the Sun is 18° below — the edge of astronomical night. <a href="/concepts/what-is-twilight/">What is twilight?</a></p>
+</li>
+<h2 class="letter" id="U">U</h2>
+<li class="glossary-item" id="what-is-utc">
+<h2>UTC</h2>
+<p>Coordinated Universal Time — the one clock the rest are offsets from. It tracks atomic time, steered to stay close to the Earth’s spin. Every zone on this site is written as hours ahead of or behind UTC. <a href="/concepts/what-is-utc/">What is UTC?</a></p>
+</li>
+<h2 class="letter" id="W">W</h2>
+<li class="glossary-item" id="why-didnt-the-asteroid-belt-become-a-planet">
+<h2>Why the belt is rubble</h2>
+<p>There was never enough rock, and Jupiter never let it gather. Everything in the belt together is about 3% of the Moon’s mass. Collisions smashed rather than stuck, because Jupiter’s gravity stirred the region. It is leftover building material, not a planet that broke. <a href="/concepts/why-didnt-the-asteroid-belt-become-a-planet/">Why didn’t the asteroid belt turn into a planet?</a></p>
 </li></ul>
   <details class="suggest-box" data-ac="suggest">
     <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
@@ -961,8 +1066,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     });
   });
 })();
-</script>
-<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+</script><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];

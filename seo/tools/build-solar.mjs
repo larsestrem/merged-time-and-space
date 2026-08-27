@@ -1515,6 +1515,7 @@ function buildBody(b, prev, next) {
   /* the planet first, then the system it sits in the middle of */
   const cards = globeCard(b)
     + (hasSim ? simCard(rung, 0, path, 0, pageTilt) : systemLink(name))
+    + hubQuestionsCard(path)
     + statsCard(idx, b)
     + moonsCard(idx)
     + moonCards(idx)
@@ -1651,6 +1652,7 @@ ${bigRows}
   </div>
 `
     + factsCard("The belt: things worth knowing", b.facts)
+    + hubQuestionsCard(path)
     + questionsCard(b.questions, "the asteroid belt")
     + findingsCard(b.findings, "the asteroid belt")
     + shareCard(path) + elsewhereCard(`<a href="${SOLAR_PATH}comets/">Comets</a> · <a href="${planetUrl("jupiter")}">Jupiter, which made the belt what it is</a> · `)

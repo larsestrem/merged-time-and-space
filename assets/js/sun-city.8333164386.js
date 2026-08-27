@@ -73,6 +73,15 @@ function mnMoonPos(d){
         +104755*Math.cos(Ms+M)+10321*Math.cos(2*D-2*F)+79661*Math.cos(M-2*F))/1000;
   return { ra:mnRa(l,b), dec:mnDec(l,b), dist:dt };
 }
+/* the one place the moon is straight overhead — same job as dnSub for the sun.
+   Latitude is the moon's declination; longitude is RA minus Greenwich sidereal
+   time, using THIS file's sidereal so a marker cannot disagree with mnPos. */
+function mnSub(ms){
+  var d=mnDays(ms), m=mnMoonPos(d);
+  var lo=m.ra/MN_RAD-(280.16+360.9856235*d);
+  lo=((lo%360)+540)%360-180;
+  return {dec:m.dec/MN_RAD, lon:lo};
+}
 
 /* Illuminated fraction, cycle position and limb angle.
  *   fraction 0..1, phase 0=new .5=full (rises 0->1 across the cycle),
@@ -157,6 +166,40 @@ function mnPrevPhase(ms,kind){
 }
 /* Days since the last new moon — the real elapsed time, not a mean cycle. */
 function mnAge(ms){ return (ms-mnPrevPhase(ms,0))/MN_DAY; }
+
+/* ONE snapshot of the moon at an instant. Age, cycle position, waxing flag
+ * and the phase name all come from the Meeus primary-phase instants. The
+ * illuminated fraction still comes from the sun–moon elongation, because that
+ * is the geometry of the lit disc. Mixing the two sources was how a page
+ * could say "full, waxing, 15.1 days old, 49% through" at once. */
+function mnSnap(ms){
+  var lastNew=mnPrevPhase(ms,0), nextNew=mnNextPhase(ms,0);
+  var nextFull=mnNextPhase(ms,2);
+  var ill=mnIllum(ms);
+  var lun=nextNew-lastNew;
+  var age=(ms-lastNew)/MN_DAY;
+  var cycle=lun>0?(ms-lastNew)/lun:ill.phase;
+  var waxing=nextFull<nextNew;
+  var name=mnNameFromInstants(ms, cycle);
+  return { fraction:ill.fraction, phase:cycle, waxing:waxing, dist:ill.dist,
+           angle:ill.angle, age:age, name:name, primary:mnNearestPrimary(ms) };
+}
+/* Within 12 hours of a primary instant, use that name so "full moon" means
+ * the day of full moon. Otherwise name the cycle position. */
+function mnNearestPrimary(ms){
+  var best=null, bestAbs=12*3600000, i, prev, next, d;
+  for(i=0;i<4;i++){
+    prev=mnPrevPhase(ms,i); next=mnNextPhase(ms,i);
+    d=Math.min(ms-prev, next-ms);
+    if(d<bestAbs){ bestAbs=d; best=i; }
+  }
+  return best;
+}
+function mnNameFromInstants(ms, cycle){
+  var k=mnNearestPrimary(ms);
+  if(k!==null) return mnPrimaryName(k);
+  return mnName(cycle);
+}
 
 /* Every primary phase whose instant falls inside [from,to). */
 function mnPhasesBetween(from,to){
@@ -257,13 +300,13 @@ function mnCompass(bearing){ return MN_COMPASS[Math.round(((bearing%360)+360)%36
  *
  * `south` flips it: the phase is identical everywhere on Earth, but below the
  * equator the lit limb — and the whole face with it — appears rotated 180°. */
-function mnGlyph(fraction,waxing,r,south){
+function mnGlyph(fraction,waxing,r,south,plain){
   var f=fraction<0?0:(fraction>1?1:fraction), d=2*r, cx=r, cy=r;
   var rx=(r*Math.abs(1-2*f)).toFixed(2), litRight=(waxing!==!!south);
   var s1=litRight?0:1, s2=litRight?(f<0.5?0:1):(f<0.5?1:0);
   var shadow='M'+cx+' '+(cy-r)+'A'+r+' '+r+' 0 0 '+s1+' '+cx+' '+(cy+r)
     +'A'+rx+' '+r+' 0 0 '+s2+' '+cx+' '+(cy-r)+'Z';
-  return '<svg viewBox="0 0 '+d+' '+d+'" width="'+d+'" height="'+d+'" aria-hidden="true" class="mn-moon">'
+  return '<svg viewBox="0 0 '+d+' '+d+'" width="'+d+'" height="'+d+'" aria-hidden="true" class="mn-moon"'+(plain?' overflow="visible"':'')+'>'
     /* plain disc underneath: if the sprite is ever missing the glyph still
        reads as a moon in the right phase rather than vanishing */
     +'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="#efe3c2"/>'
@@ -278,10 +321,12 @@ function mnGlyph(fraction,waxing,r,south){
        /moon/ city page is a single instance and keeps the vector, which stays
        crisp at any size. See make-moon-face-raster.mjs.
        "/assets/img/moon-face.a952fb5bbe.webp" is rewritten to the hashed .webp by build-inline, the
-       same way "/assets/img/moon-face.b9e194850d.svg#ac-moon-face" is pointed at the hashed sprite. */
-    +(r<=32
+       same way "/assets/img/moon-face.b9e194850d.svg#ac-moon-face" is pointed at the hashed sprite.
+       `plain` skips the face: the day/night map marker is too small to read it,
+       and that page does not carry the sprite. */
+    +(plain?'':(r<=32
       ? '<image href="/assets/img/moon-face.a952fb5bbe.webp" x="0" y="0" width="'+d+'" height="'+d+'"'+(south?' transform="rotate(180 '+cx+' '+cy+')"':'')+'/>'
-      : '<g transform="scale('+(r/100)+')'+(south?' rotate(180 100 100)':'')+'"><use href="/assets/img/moon-face.b9e194850d.svg#ac-moon-face"/></g>')
+      : '<g transform="scale('+(r/100)+')'+(south?' rotate(180 100 100)':'')+'"><use href="/assets/img/moon-face.b9e194850d.svg#ac-moon-face"/></g>'))
     /* Earthshine: the shadow is not equally opaque at every phase. Sunlight
        bounced off the Earth genuinely lights the moon's dark side, and it is
        most obvious on a thin crescent (a big, bright Earth in the moon's sky)
@@ -555,6 +600,18 @@ function orrSvg(ms,lat,lon,name,fw){
      sides for the rare wide-frame case. */
   var mw=30, lby=my+mr+11;
   s+='<text x="'+orrF(orrClampX(mx,'middle',mw,W))+'" y="'+orrF(lby)+'" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text>';
+
+  /* the phase as seen from Earth, sitting in the sun–earth gap, low in the
+     frame. The moon on the ring is always half-lit from this vantage; this
+     disc is the face a person on Earth actually sees, and it updates as the
+     moon goes round. */
+  var il=mnIllum(ms);
+  var phR=14, gapL=ORR_SX+ORR_RS, gapR=CX-R;
+  var phx=(gapL+gapR)/2, phy=ORR_H-42;
+  s+='<g class="orr-phase" transform="translate('+orrF(phx-phR)+' '+orrF(phy-phR)+')">'
+   +mnGlyph(il.fraction,il.waxing,phR,lat<0,1)
+   +'</g>'
+   +'<text class="orr-phase-lab" x="'+orrF(phx)+'" y="'+orrF(phy+phR+12)+'" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">'+orrEsc(mnName(il.phase))+'</text>';
 
   return s+'</g></svg>';
 }

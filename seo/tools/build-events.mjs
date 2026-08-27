@@ -211,7 +211,7 @@ function page(e) {
    * (see the hydration script). JSON-LD keeps the plain `answer` string. */
   const answerHtml = daysAway === 0
     ? esc(answer)
-    : `${esc(e.name)} is on ${weekday}, ${dateLong}, which is <span id="cd-days-away">${daysAway} calendar ${dayWord}</span> away. The live countdown above ticks down to the exact moment, to the second.`;
+    : `${esc(e.name)} is on ${weekday}, ${dateLong}. From today’s calendar that is <span id="cd-days-away">${daysAway} calendar ${dayWord}</span>. The clock above is elapsed time to that moment — currently <span id="cd-elapsed"></span>.`;
 
   /* SEO snippet: lead the meta description with the fresh "N days until" count
    * (baked at build, refreshed every rebuild) so the search result shows the
@@ -746,10 +746,13 @@ ${faqSection}
   function tick(){var diff=target-new Date();
     if(diff<=0){document.getElementById('msg').textContent=diff>-86400000?${JSON.stringify(e.message || "🎉 It's today!")}:"This event has passed.";}
     if(diff<0)diff=0;var s=Math.floor(diff/1000);
-    document.getElementById('d').textContent=Math.floor(s/86400);
-    document.getElementById('h').textContent=p(Math.floor(s%86400/3600));
+    var dd=Math.floor(s/86400), hh=Math.floor(s%86400/3600);
+    document.getElementById('d').textContent=dd;
+    document.getElementById('h').textContent=p(hh);
     document.getElementById('m').textContent=p(Math.floor(s%3600/60));
-    document.getElementById('s').textContent=p(s%60);}
+    document.getElementById('s').textContent=p(s%60);
+    var E=document.getElementById('cd-elapsed');
+    if(E) E.textContent=dd+' day'+(dd===1?'':'s')+' '+hh+' hour'+(hh===1?'':'s');}
   tick();setInterval(tick,1000);
   /* small view counter (Cloudflare Function + KV). Degrades silently. */
   (function(){var V=document.getElementById('views');if(!V)return;

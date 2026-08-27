@@ -38,6 +38,7 @@ import { PLANETS_JS, SOLAR_JS, planetName, planetPeriodDays, PL_AU } from "./pla
 import { SMALL_JS, beltEdges } from "./smallbodies.mjs";
 import { GLOBE_JS, globeSvg, globeRadius, ringAspect } from "./globe.mjs";
 import { PLANETS_PATH, SOLAR_HUB, LAUNCH_PATH, planetPath, solarCrumbs, CRUMB_ROOT, bodyStats, lightTime } from "./solar-pages.mjs";
+import { hubQuestionsCard } from "./concepts.mjs";
 /* every distance here is emitted metric and converted in the browser for a
    reader whose units are imperial — see units.mjs */
 import { kmSig, temps } from "./units.mjs";
@@ -74,7 +75,7 @@ const statRows = (idx) => {
     ["Distance from the sun", `${num(s.axisAU, 2)} AU — light takes ${lightTime(s.axisAU)}`],
     ["Width", `${kmSig(s.dia)} — ${num(s.diaEarth, 2)}× Earth`],
     ["Its year", s.yearYears < 2 ? `${num(s.yearDays, 0)} Earth days` : `${num(s.yearYears, 1)} Earth years`],
-    ["Its day", `${day > 48 ? `${num(day / 24, 1)} Earth days` : `${num(day, 1)} hours`}${s.retrogradeSpin ? " — backwards" : ""}`],
+    ["Its day (one full turn)", `${day > 48 ? `${num(day / 24, 1)} Earth days` : `${num(day, 1)} hours`}${s.retrogradeSpin ? " — backwards" : ""}`],
     ["Moons", s.moons === 0 ? "None" : num(s.moons)],
   ];
 };
@@ -102,7 +103,7 @@ const planetCard = (b, place) => {
   return `  <div class="card sol-plan" id="${esc(b.slug)}">
     <div class="sol-planrow">
       <div class="sol-planart">
-        <a href="${url}" aria-label="${esc(b.name)}"><svg viewBox="0 0 400 400" width="100%" aria-hidden="true"><rect width="400" height="400" rx="16" fill="#080d1a"/>${art}</svg></a>
+        <a href="${url}" aria-label="${esc(b.name)}"><svg viewBox="0 0 400 400" width="100%" role="img" aria-label="${esc(b.name)} as a globe, drawn from its real features"><title>${esc(b.name)}</title><rect width="400" height="400" rx="16" fill="#080d1a"/>${art}</svg></a>
       </div>
       <div class="sol-planbody">
         <p class="sol-plankind">${dwarf ? "Dwarf planet" : "Planet"} · ${dwarf ? "beyond Neptune, in the Kuiper belt" : `${ordinals[place]} from the sun`}</p>
@@ -182,6 +183,7 @@ const scaleCard = () => {
     <h2>Why a list like this is misleading, and what to do about it</h2>
     <p>Ten cards down a page put the planets a screen apart, evenly. They are not. Neptune is <strong>${num(nep / mer, 0)} times</strong> further from the sun than Mercury, and the four rocky planets together occupy the innermost tenth of the system — so any picture that shows all of them at once has either squashed the outside or lost the inside. The <a href="${SOLAR_HUB}">solar system simulator</a> deals with that by climbing a ladder of views instead of pretending one frame can hold it, and the shape you see at the top of that ladder is the real one.</p>
     <p>The same goes for size. Jupiter is ${num(bodyStats(4).diaEarth, 1)} times Earth's width and Mercury ${num(bodyStats(0).diaEarth, 2)} of it; one AU — the Earth's own distance from the sun — is ${kmSig(PL_AU, 6)}, which is about ${num(PL_AU / 12742, 0)} Earths laid end to end. Every figure on this page comes from the same orbital elements and masses the simulator draws with, not from a table typed beside them.</p>
+    <p>“Its day (one full turn)” is a sidereal day: Earth 23.9 hours, Mars 24.6. Sunrise to sunrise is a few minutes longer — 24 hours on Earth, 24 hours 40 minutes on Mars. Mercury is the extreme: one spin is 59 Earth days, and sunrise to sunrise is 176.</p>
   </div>
 `;
 };
@@ -239,7 +241,7 @@ ${GA_SNIPPET}
   <h1>The Planets</h1>
 ${solarCrumbs(trail)}  <p class="sub">Eight planets, one dwarf planet and the belt of rubble between them — in the order they go round the sun. Every picture here is drawn from the real thing: real features at their real coordinates, real sizes against each other, and for Saturn the ring opening solved for today rather than assumed.</p>
 
-${openCard()}${cards}${scaleCard()}${elsewhereCard()}  <div class="card tool-about">
+${openCard()}${cards}${scaleCard()}${hubQuestionsCard(PLANETS_PATH)}${elsewhereCard()}  <div class="card tool-about">
     <h2>Questions people ask about the planets</h2>
     ${FAQ.map(([q, a]) => `<p><strong>${esc(q)}</strong> ${esc(a)}</p>`).join("\n    ")}
   </div>

@@ -9,7 +9,7 @@ import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { esc, GA_SNIPPET, brand, breadcrumbLD, faqLd, learningLd } from "./lib.mjs";
-import { loadConcepts, conceptBySlug, relatedPartial, graphicHtml, fillConcept, ORBIT_LESSON_JS } from "./concepts.mjs";
+import { loadConcepts, conceptBySlug, relatedPartial, graphicHtml, fillConcept, conceptHtml, ORBIT_LESSON_JS } from "./concepts.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -44,7 +44,7 @@ for (const raw of data) {
   const deeper = c.sections.filter((s) => s.band === "deeper");
   const sectionHtml = (list) => list.map((s) => `<section data-band="${esc(s.band)}"${s.band === "deeper" ? ' class="band-deeper"' : ""}>
 <h2>${esc(s.heading)}</h2>
-${s.body.map((p) => `<p>${esc(p)}</p>`).join("\n")}
+${s.body.map((p) => `<p>${conceptHtml(p)}</p>`).join("\n")}
 </section>`).join("\n");
   const see = c.seeItLive
     .map((h) => `<li><a href="${esc(h.href)}">${esc(h.label)}</a></li>`)

@@ -15,7 +15,7 @@ import { dirname, join } from "node:path";
 import { esc, GA_SNIPPET, brand, breadcrumbLD, hrefFor, when, richMap, loadEvents, nextOccurrence, iso, viewHash, webSiteLd, appLd, segMarkup, syncLabelYear, upcomingFederalHolidays, nSunCalc, sunHm, sunDialSvg } from "./lib.mjs";
 import { PANEL_HTML, HOME_CLOCK_JS, HOME_COLOR_JS, FS_ICON } from "./alarm-widget.mjs";
 import { ico } from "./icons.mjs";
-import { moonIllum, moonName, moonGlyph, nextPhase, MOON_CORE } from "./moon.mjs";
+import { moonIllum, moonName, moonGlyph, moonSnap, nextPhase, remainLabel, MOON_CORE } from "./moon.mjs";
 import { tideCurve } from "./tide-curve.mjs";
 /* the flagship lesson per grade band — imported so the home card can never
    drift from what the lessons pages actually offer */
@@ -37,6 +37,7 @@ import { DAYNIGHT_PATH, seasonPoints, DN_CORE, DN_W, DN_TOP, DN_BOT, dnX, dnY, d
    of either rule here would rot the first time one changed */
 import { planetPath, PLANETS_PATH, LAUNCH_PATH as ROCKET_PATH } from "./solar-pages.mjs";
 import { hubQs } from "./concepts.mjs";
+import { SECTION_LINKS, sectionSwitcher } from "./section-nav.mjs";
 /* the two-zone time-difference widget, shared with /time-difference-calculator/
    so the card and the page are one calculator rather than two */
 import { tdiffForm, TDIFF_JS } from "./time-diff.mjs";
@@ -1146,7 +1147,7 @@ const WORLD_CLOCK_CARD = `    <div class="tc tc-mini tc-world" data-href="${DAYN
  * moon. Baked at build (like the sun card next to it) — the rebuild cron runs
  * three times a day and a phase name is good for days, so it cannot drift
  * visibly, and the homepage stays free of the moon maths. */
-const _mnIll = moonIllum(_hbNow);
+const _mnIll = moonSnap(_hbNow);
 const _mnFull = nextPhase(_hbNow, 2);
 const MOON_CARD = `    <div class="tc tc-mini tc-moon" data-href="/moon/">
       <div class="tc-head">${ico("moon")} Moon Phase Today</div>
@@ -1159,9 +1160,9 @@ const MOON_CARD = `    <div class="tc tc-mini tc-moon" data-href="/moon/">
       <div class="home-moon">
         <span class="home-moon-g">${moonGlyph(_mnIll.fraction, _mnIll.waxing, 34)}</span>
         <div class="home-moon-t">
-          <b>${esc(moonName(_mnIll.phase))}</b>
+          <b>${esc(_mnIll.name)}</b>
           <span>${Math.round(_mnIll.fraction * 100)}% illuminated</span>
-          <span>Next full moon in ${Math.max(0, Math.round((_mnFull - _hbNow.getTime()) / 86400000))} days</span>
+          <span>Next full moon in ${remainLabel(+_hbNow, _mnFull)}</span>
         </div>
       </div>
       <div class="home-moon-foot"><a class="btn tc-open-btn" href="/moon/near-me/?geo=1">Moon times near me</a><a class="btn secondary tc-open-btn" href="/moon/">Search a city</a></div>
@@ -1341,13 +1342,6 @@ const HOME_MASONRY_JS = `
  * an ACTION rather than an audience. "Put it on a projector" self-selects a
  * teacher; "make a planet fall into the sun" self-selects the curious; nobody
  * gets labelled. */
-const SECTION_LINKS = [["/", "Home"], ["/time/", "Time"], ["/earth/", "Earth"], ["/space/", "Space"], ["/classroom/", "Classroom"]];
-const switcher = (here) => `  <nav class="home-tabs sec-switch" aria-label="Site sections">
-${SECTION_LINKS.map(([u, l]) => u === here
-    ? `    <span class="chip is-here" aria-current="page">${l}</span>`
-    : `    <a class="chip" href="${u}">${l}</a>`).join("\n")}
-  </nav>`;
-
 const PORTAL_SECTIONS = [
   { slug: "time", name: "Time", ico: "alarm",
     line: `Clocks, and what they are counting — all running in your browser, nothing to install, no sign-up.`,
@@ -1550,7 +1544,7 @@ const portalBody = `  ${/* ?tab= URLs from the tabbed era are shared and bookmar
        against rendering a page the visitor did not ask for. */""
   }<script>(function(){var m=/[?&]tab=(time|earth|space|class)(?:&|$)/.exec(location.search);if(m)location.replace(m[1]==="class"?"/classroom/":"/"+m[1]+"/");})();</script>
   ${brand({})}
-${switcher("/")}
+${sectionSwitcher("/")}
   ${/* THE INTRO, one short paragraph before anything else (owner's call): a
        first-time visitor gets told what this is before being shown it. It is
        the same line the old All tab led with, which every claim on the page
@@ -1761,8 +1755,9 @@ const SECTION_PAGES = [
     lede: LEDE.time,
     board: [
       [ALARM_CARD, 4], [TIMER_CARD, 4], [STOPWATCH_CARD, 4],
-      [withQs(WORLD_CLOCK_CARD, ["what-is-the-terminator", "what-is-twilight", "why-is-this-map-flat"]), 6],
-      [TIMEDIFF_CARD, 6], [CONVERT_CARD, 6], [COUNTDOWN_BLOCK, 6],
+      [withQs(WORLD_CLOCK_CARD, ["what-is-a-time-zone", "what-is-utc", "what-is-the-international-date-line"]), 6],
+      [withQs(TIMEDIFF_CARD, ["what-is-daylight-saving-time"]), 6],
+      [withQs(CONVERT_CARD, ["what-is-the-24-hour-clock"]), 6], [COUNTDOWN_BLOCK, 6],
     ],
     js: () => `<script data-ac="shared" data-name="sec-time">${HOME_CLOCK_JS}${HOME_COLOR_JS}${WORLD_MAP_JS}${TDIFF_JS}${CONV_JS}${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>`,
   },
@@ -1772,12 +1767,12 @@ const SECTION_PAGES = [
     desc: "Your own sky, computed for your own town: sunrise and sunset times, tonight's moon phase, NOAA tide predictions, the live day/night map and the Sun–Earth–Moon simulator — for more than a thousand cities, on any date.",
     lede: LEDE.earth,
     board: [
-      [withQs(WORLD_CLOCK_CARD, ["what-is-the-tropic-of-cancer", "what-is-the-terminator", "why-can-the-moon-be-up-in-the-daytime"]), 12],
       [withQs(MOON_CARD, ["why-does-the-moon-change-shape"]), 6],
       [withQs(SIM_CARD, ["what-is-a-synodic-month", "why-does-moonrise-get-later", "what-is-tidal-locking"]), 6],
       [withQs(SYSTEM_CARD, ["why-do-we-have-seasons", "what-is-earths-axial-tilt", "why-isnt-there-an-eclipse-every-month"]), 6],
       [SUN_HOME_CARD, 6],
       [withQs(TIDES_HOME_CARD, ["what-causes-tides"]), 12],
+      [withQs(WORLD_CLOCK_CARD, ["what-is-the-tropic-of-cancer", "what-is-the-terminator", "why-can-the-moon-be-up-in-the-daytime"]), 12],
     ],
     js: () => `<script data-ac="shared" data-name="sec-earth">${WORLD_MAP_JS}${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>`,
   },
@@ -1787,13 +1782,23 @@ const SECTION_PAGES = [
     desc: "Where everything actually is, right now: the solar system on its real orbits, every planet with its moons, gravity and orbital-velocity simulators, launch windows to Mars, and the moon systems of Jupiter, Saturn, Uranus and Neptune.",
     lede: LEDE.space,
     board: [
-      [withQs(SOLAR_CARD, ["why-dont-planets-fall-into-the-sun"]), 4],
+      [withQs(SOLAR_CARD, ["why-dont-planets-fall-into-the-sun", "how-are-the-planets-formed", "why-arent-the-inner-planets-gas-giants"]), 4],
       [withQs(ORBIT_CARD, ["how-does-an-orbit-work"]), 4],
-      [PLANETS_CARD, 4],
+      [withQs(PLANETS_CARD, ["why-didnt-the-asteroid-belt-become-a-planet", "why-do-asteroids-collide"]), 4],
       [withQs(SYSTEM_CARD, ["why-do-we-have-seasons"]), 4],
       [ROCKET_CARD, 4],
       [SIM_CARD, 4],
-      ...MOON_CARDS.map((c, i) => [i === 1 ? withQs(c, ["why-does-jupiter-have-so-many-moons"]) : c, 4]),
+      ...MOON_CARDS.map((c, i) => {
+        const qs = {
+          mars: ["why-is-mars-red"],
+          jupiter: ["why-does-jupiter-have-so-many-moons", "why-do-planets-have-moons"],
+          saturn: ["why-does-saturn-have-so-many-moons", "why-doesnt-earth-have-a-ring"],
+          uranus: ["why-do-other-planets-have-seasons"],
+          neptune: ["why-does-triton-orbit-backwards"],
+          pluto: ["why-does-pluto-have-so-many-moons", "why-is-pluto-a-dwarf-planet"],
+        }[MOON_PLANETS[i].slug];
+        return [qs ? withQs(c, qs) : c, 4];
+      }),
     ],
     js: () => `<script data-ac="shared" data-name="sec-space">${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>${ORBIT_JS}`,
   },
@@ -1802,13 +1807,13 @@ const SECTION_PAGES = [
 for (const S of SECTION_PAGES) {
   const body = `  ${brand({ crumb: { slug: S.slug, url: `/${S.slug}/` } })}
   <h1>${S.h1}</h1>
-${switcher(`/${S.slug}/`)}
+${sectionSwitcher(`/${S.slug}/`)}
   <p class="home-lede">${S.lede}</p>
   <div class="home-board">
 ${S.board.map(([card, n]) => sp(card, n, S.slug)).join("\n")}
   </div>
   <div class="home-foot">
-    <p class="home-suggest">Start with a question — <a href="/questions/">why don't the planets fall into the sun, and six more</a>. Or jump across: ${SECTION_LINKS.filter(([u]) => u !== `/${S.slug}/`).map(([u, l]) => `<a href="${u}">${l}</a>`).join(" · ")}.</p>
+    <p class="home-suggest">Start with a question — <a href="/questions/">why don't the planets fall into the sun, and the seven that follow</a>. Or jump across: ${SECTION_LINKS.filter(([u]) => u !== `/${S.slug}/`).map(([u, l]) => `<a href="${u}">${l}</a>`).join(" · ")}.</p>
   </div>`;
   mkdirSync(join(root, S.slug), { recursive: true });
   writeFileSync(join(root, `${S.slug}/index.html`), doc({

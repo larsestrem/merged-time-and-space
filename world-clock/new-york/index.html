@@ -338,6 +338,9 @@ a{color:#111;text-decoration:underline}
 .chip:hover{border-color:var(--accent)}
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .wc-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
 .wc-grid{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:560px){.wc-grid{grid-template-columns:1fr 1fr}}
@@ -522,6 +525,8 @@ box-shadow:0 0 0 1px var(--accent) inset}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 .xl-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:4px}
 .xl-tile{display:flex;flex-direction:column;gap:2px;padding:12px 13px;border:1px solid var(--border);
 border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
@@ -1235,15 +1240,15 @@ color:var(--muted);padding:7px 2px;border-top:1px solid var(--border)}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"New York","address":{"@type":"PostalAddress","addressLocality":"New York","addressCountry":"US"},"geo":{"@type":"GeoCoordinates","latitude":40.71,"longitude":-74.01},"containedInPlace":[{"@type":"Country","name":"United States"}],"url":"https://timeandspace.science/world-clock/new-york/"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What time is it in New York, NY right now?","acceptedAnswer":{"@type":"Answer","text":"The clock at the top of this page shows New York's current local time and updates every minute. New York is on Eastern Time (UTC-4). Clocks there are currently on the later of its two seasonal offsets."}},{"@type":"Question","name":"What time zone is New York in?","acceptedAnswer":{"@type":"Answer","text":"New York uses the America/New_York time zone, known as Eastern Time, currently UTC-4. Clocks there are currently on the later of its two seasonal offsets."}},{"@type":"Question","name":"How far ahead or behind is New York?","acceptedAnswer":{"@type":"Answer","text":"The table on this page compares New York with six major cities, and the line under the clock works out the difference from your own time zone as soon as the page loads."}}]}</script>
 
-<meta property="og:image" content="https://timeandspace.science/api/og?name=Current%20Time%20in%20New%20York&amp;theme=generic">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Current%20Time%20in%20New%20York&amp;theme=generic">
-<meta name="robots" content="max-image-preview:large">
-<!-- build 6dbbc644f55a · generated 2026-08-27T20:42:45.420Z -->
+<!-- build 8c0f60ef6756 · generated 2026-08-27T23:36:33.832Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/globe.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
+<meta property="og:image" content="https://timeandspace.science/api/og?name=Current%20Time%20in%20New%20York&amp;theme=generic">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Current%20Time%20in%20New%20York&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -1378,21 +1383,21 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   document.addEventListener('ac:units',function(){ apply(get()); });
 })();</script></div>
   <h1>Current Time in New York, NY</h1>
-  <p class="sub">New York is on Eastern Time, UTC−4. New York&#39;s clocks shift during the year, between UTC−5 and UTC−4. Right now it is on UTC−4, the later of the two. The sun rises there at 6:18 AM and sets at 7:40 PM today.</p>
+  <p class="sub">New York is on Eastern Time, UTC−4. New York&#39;s clocks shift during the year, between UTC−5 and UTC−4. Right now it is on UTC−4, the later of the two. The sun rises there at 6:19 AM and sets at 7:38 PM today.</p>
   <div class="card wc-nowcard" id="wcp" data-tz="America/New_York" data-city="New York">
-    <div class="wc-bigtime" id="wc-big">4:21 PM</div>
-    <div class="wc-bigdate" id="wc-bigdate">Wednesday, August 26, 2026</div>
+    <div class="wc-bigtime" id="wc-big">7:36 PM</div>
+    <div class="wc-bigdate" id="wc-bigdate">Thursday, August 27, 2026</div>
     <p class="wc-diff" id="wc-diff">The difference from your own time zone appears here when the page loads.</p>
     <button type="button" class="btn small secondary" id="wc-fmt">24-hour</button>
   </div>
   <div class="card">
     <h2>New York time zone</h2>
-    <div class="wc-facts"><div class="wc-frow"><span>Time zone</span><b>Eastern Time</b></div><div class="wc-frow"><span>Time zone ID</span><b>America/New_York</b></div><div class="wc-frow"><span>UTC offset</span><b>UTC−4</b></div><div class="wc-frow"><span>Clock changes</span><b>On the later offset now</b></div><div class="wc-frow"><span>Sunrise today</span><b>6:18 AM</b></div><div class="wc-frow"><span>Sunset today</span><b>7:40 PM</b></div></div>
+    <div class="wc-facts"><div class="wc-frow"><span>Time zone</span><b>Eastern Time</b></div><div class="wc-frow"><span>Time zone ID</span><b>America/New_York</b></div><div class="wc-frow"><span>UTC offset</span><b>UTC−4</b></div><div class="wc-frow"><span>Clock changes</span><b>On the later offset now</b></div><div class="wc-frow"><span>Sunrise today</span><b>6:19 AM</b></div><div class="wc-frow"><span>Sunset today</span><b>7:38 PM</b></div></div>
     <p class="hint">Sunrise and sunset are calculated for New York's coordinates and refresh on each rebuild; the clock above is live.</p>
   </div>
   <div class="card">
     <h2>New York time compared with other cities</h2>
-    <div class="td-tablewrap"><table class="wc-ptable"><thead><tr><th>City</th><th>Local time</th><th>Difference from New York</th></tr></thead><tbody><tr><td><a href="/world-clock/los-angeles/">Los Angeles, CA</a></td><td class="wc-ptime" data-tz="America/Los_Angeles">1:21 PM</td><td class="wc-pdiff" data-tz="America/Los_Angeles">3 hours behind</td></tr><tr><td><a href="/world-clock/london/">London, UK</a></td><td class="wc-ptime" data-tz="Europe/London">9:21 PM</td><td class="wc-pdiff" data-tz="Europe/London">5 hours ahead</td></tr><tr><td><a href="/world-clock/dubai/">Dubai, UAE</a></td><td class="wc-ptime" data-tz="Asia/Dubai">12:21 AM</td><td class="wc-pdiff" data-tz="Asia/Dubai">8 hours ahead</td></tr><tr><td><a href="/world-clock/shanghai/">Shanghai, China</a></td><td class="wc-ptime" data-tz="Asia/Shanghai">4:21 AM</td><td class="wc-pdiff" data-tz="Asia/Shanghai">12 hours ahead</td></tr><tr><td><a href="/world-clock/tokyo/">Tokyo, Japan</a></td><td class="wc-ptime" data-tz="Asia/Tokyo">5:21 AM</td><td class="wc-pdiff" data-tz="Asia/Tokyo">13 hours ahead</td></tr><tr><td><a href="/world-clock/sydney/">Sydney, Australia</a></td><td class="wc-ptime" data-tz="Australia/Sydney">6:21 AM</td><td class="wc-pdiff" data-tz="Australia/Sydney">14 hours ahead</td></tr></tbody></table></div>
+    <div class="td-tablewrap"><table class="wc-ptable"><thead><tr><th>City</th><th>Local time</th><th>Difference from New York</th></tr></thead><tbody><tr><td><a href="/world-clock/los-angeles/">Los Angeles, CA</a></td><td class="wc-ptime" data-tz="America/Los_Angeles">4:36 PM</td><td class="wc-pdiff" data-tz="America/Los_Angeles">3 hours behind</td></tr><tr><td><a href="/world-clock/london/">London, UK</a></td><td class="wc-ptime" data-tz="Europe/London">12:36 AM</td><td class="wc-pdiff" data-tz="Europe/London">5 hours ahead</td></tr><tr><td><a href="/world-clock/dubai/">Dubai, UAE</a></td><td class="wc-ptime" data-tz="Asia/Dubai">3:36 AM</td><td class="wc-pdiff" data-tz="Asia/Dubai">8 hours ahead</td></tr><tr><td><a href="/world-clock/shanghai/">Shanghai, China</a></td><td class="wc-ptime" data-tz="Asia/Shanghai">7:36 AM</td><td class="wc-pdiff" data-tz="Asia/Shanghai">12 hours ahead</td></tr><tr><td><a href="/world-clock/tokyo/">Tokyo, Japan</a></td><td class="wc-ptime" data-tz="Asia/Tokyo">8:36 AM</td><td class="wc-pdiff" data-tz="Asia/Tokyo">13 hours ahead</td></tr><tr><td><a href="/world-clock/sydney/">Sydney, Australia</a></td><td class="wc-ptime" data-tz="Australia/Sydney">9:36 AM</td><td class="wc-pdiff" data-tz="Australia/Sydney">14 hours ahead</td></tr></tbody></table></div>
     <p class="hint">Differences follow each region's daylight-saving rules, so they change when either city's clocks move.</p>
   </div>
   <div class="card xl-card">
@@ -1400,14 +1405,14 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <div class="xl-strip">
       <a class="xl-tile" href="/sun/new-york/" data-xlink="sun">
         <span class="xl-lab">Sunrise &amp; sunset in New York</span>
-        <b class="xl-val">6:18 AM – 7:40 PM</b>
-        <span class="xl-sub">13 h 22 m of daylight</span>
+        <b class="xl-val">6:19 AM – 7:38 PM</b>
+        <span class="xl-sub">13 h 19 m of daylight</span>
         <span class="xl-cta">Sun times, twilight &amp; the year →</span>
       </a>
       <a class="xl-tile" href="/moon/new-york/" data-xlink="moon">
         <span class="xl-lab">Moon phase in New York</span>
-        <b class="xl-val">Waxing gibbous · 98% lit</b>
-        <span class="xl-sub">rises 7:04 PM</span>
+        <b class="xl-val">Full moon · 100% lit</b>
+        <span class="xl-sub">rises 7:28 PM</span>
         <span class="xl-cta">Moonrise, moonset &amp; the phase calendar →</span>
       </a>
       <a class="xl-tile" href="/tides/new-york-ny/" data-xlink="tide">
@@ -1491,7 +1496,8 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   document.addEventListener('visibilitychange',function(){ if(document.hidden){ if(t){clearTimeout(t);t=null;} } else { tick(); schedule(); } });
   var fb=document.getElementById('wc-fmt');
   if(fb) fb.addEventListener('click',function(){ h12=!h12; fb.textContent=h12?'24-hour':'12-hour'; tick(); });
-})();</script><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+})();</script>
+<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];

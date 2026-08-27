@@ -51,7 +51,7 @@ ${see}
     </p>
 ${next
     ? `    <p class="pullquote">${esc(next.c.question)} <a href="#${next.id}">Next question ↓</a></p>`
-    : `    <p class="pullquote">The next question is yours.</p>`}
+    : `    <p class="pullquote">The next question is yours. <a href="#ninth">↓</a></p>`}
   </div>
 `;
 };
@@ -81,7 +81,7 @@ ${GA_SNIPPET}
   <h1>Big Questions</h1>
   <p class="sub">The questions this site is built around — the ones a curious person actually asks. <strong>The question is the link.</strong> A short answer sits here; tap through for the drawing, a deeper pass, and a simulator to test it on. Each answer hands you the next question.</p>
 
-${QUESTIONS.map(qCard).join("")}  <div class="card">
+${QUESTIONS.map(qCard).join("")}  <div class="card" id="ninth">
     <h2>${ico("classroom")} The ninth question is yours</h2>
     <p>These eight have answers. The best question is the one you ask next — the one that starts "but wait, what about…" halfway through a simulator. If it can be computed from real motions and real measurements, there is a good chance it can be built and shown.</p>
     <p>If a class asks it and we build it, <strong>the class is credited on the page</strong> — that is a standing offer, and <a href="/about/work-with-us/">how it works is written down</a>.</p>

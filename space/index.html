@@ -340,6 +340,9 @@ a{color:#111;text-decoration:underline}
 .chip:hover{border-color:var(--accent)}
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .tool-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 26px}
 @media(min-width:560px){.tool-grid{grid-template-columns:1fr 1fr}}
 @media(min-width:900px){.tool-grid{grid-template-columns:repeat(4,1fr)}}
@@ -627,8 +630,6 @@ background:rgba(2,6,23,.72);color:var(--text);font-size:12.5px;font-weight:700;b
 .wk-scrub-lab{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;white-space:nowrap;color:var(--muted)}
 .wk-scrub-lab b{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
 .wk-nowbtn{margin:0;padding:5px 12px}
-.sec-switch{margin:2px 0 14px}
-.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .home-hero .hub-qs{margin-top:16px}
 .home-board .hub-qs,.tc .hub-qs,.hub-sim .hub-qs{margin-top:12px;gap:8px}
 .home-board .hub-qs p,.tc .hub-qs p{font-size:14px}
@@ -774,6 +775,8 @@ box-shadow:0 0 0 1px var(--accent) inset}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 .xl-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:4px}
 .xl-tile{display:flex;flex-direction:column;gap:2px;padding:12px 13px;border:1px solid var(--border);
 border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
@@ -838,7 +841,6 @@ font-weight: 600;
 }
 .answer {
 font-size: 1.125rem;
-max-width: 62ch;
 line-height: 1.55;
 }
 .answer a {
@@ -860,7 +862,6 @@ font-weight: 600;
 .hub-teaser, .related p, .see-live p {
 margin: 0 0 16px;
 color: var(--muted);
-max-width: 66ch;
 }
 .hub-teaser a, .related p a, .glossary-item a {
 font-weight: 600;
@@ -884,12 +885,23 @@ gap: 12px;
 }
 .graphic-block {
 margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
 }
 .graphic-block figcaption, figcaption {
 margin-top: 10px;
 color: var(--muted);
 font-size: 0.9rem;
-max-width: 70ch;
 }
 .more-info {
 margin: 24px 0;
@@ -940,7 +952,7 @@ margin: 0 0 6px;
 letter-spacing: 0;
 font-weight: 650;
 }
-.glossary-item p { max-width: 66ch; margin: 0; color: var(--muted); }
+.glossary-item p { margin: 0; color: var(--muted); }
 .letter {
 font-size: 1.5rem;
 margin: 28px 0 0;
@@ -948,7 +960,7 @@ color: var(--muted);
 }
 .glossary-item[hidden], .letter[hidden] { display: none; }
 .hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
-.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
 .hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
 .hub-qs a:hover { text-decoration: underline; }
 .hub-kicker {
@@ -959,16 +971,33 @@ text-transform: uppercase;
 color: var(--muted);
 font-weight: 700;
 }
-.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }</style>
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Space","item":"https://timeandspace.science/space/"}]}</script>
 
-<!-- build 6dbbc644f55a · generated 2026-08-27T20:42:45.420Z -->
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Space&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
+<!-- build 8c0f60ef6756 · generated 2026-08-27T23:36:33.832Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
-<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Space&amp;theme=generic">
-<meta name="robots" content="max-image-preview:large">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -1123,6 +1152,8 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     
       <ul class="hub-qs">
 <li id="fall-in"><p><a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a> They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up.</p></li>
+<li id="how-are-the-planets-formed"><p><a href="/concepts/how-are-the-planets-formed/">How were the planets formed?</a> From a spinning disc of gas and dust around the young Sun. Dust stuck, then pebbles, then worlds. Close in it was too warm for ice, so the inner four stayed small and rocky. Farther out, ice and gas stayed put, gravity grabbed hydrogen, and the giants grew huge.</p></li>
+<li id="why-arent-the-inner-planets-gas-giants"><p><a href="/concepts/why-arent-the-inner-planets-gas-giants/">Why aren’t the inner planets gas giants?</a> Close to the Sun it was too warm for ice and light gas to stick. The inner four could only build from rock and metal, so they stayed small. Past a line called the snow line, ice piled on, gravity grabbed hydrogen and helium, and the giants grew huge.</p></li>
 </ul>
     </div>
     <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/orbital-velocity-simulator/">
@@ -1145,7 +1176,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <a class="wk-all" href="/orbital-velocity-simulator/">Why planets don't fall into the sun →</a>
     
       <ul class="hub-qs">
-<li id="how-does-an-orbit-work"><p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> At every instant a planet has a velocity — where it is already going — and gravity adds a small pull straight toward the Sun. Bend a path by the same small amount at every step and it closes. That closed path is the orbit.</p></li>
+<li id="how-does-an-orbit-work"><p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> A planet is always falling toward the Sun, and it is already moving sideways. Gravity only pulls inward — it never pushes the planet along. Those two together bend a straight line into a closed curve. That closed path is the orbit.</p></li>
 </ul>
     </div>
     <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/planets/">
@@ -1156,6 +1187,11 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
         <a class="chip" href="/solar-system-simulator/asteroid-belt/">Asteroid belt</a><a class="chip" href="/solar-system-simulator/comets/">Comets</a>
       </div>
       <a class="wk-all" href="/planets/">All the planets, side by side →</a>
+    
+      <ul class="hub-qs">
+<li id="why-didnt-the-asteroid-belt-become-a-planet"><p><a href="/concepts/why-didnt-the-asteroid-belt-become-a-planet/">Why didn’t the asteroid belt turn into a planet?</a> There was never enough rock, and Jupiter never let it gather. Everything in the belt together is about 3% of the Moon’s mass. Collisions smashed rather than stuck, because Jupiter’s gravity stirred the region. It is leftover building material, not a planet that broke.</p></li>
+<li id="why-do-asteroids-collide"><p><a href="/concepts/why-do-asteroids-collide/">Do the asteroids in the belt crash together?</a> Yes, but rarely. Typical named bodies sit about a million kilometres apart, so the belt is empty, not a pinball table. When two do hit, they make a family of fragments on similar orbits. Spacecraft fly through without dodging.</p></li>
+</ul>
     </div>
     <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/earth-sun-moon-orbit-simulator/">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="9.4" cy="13.6" r="7.2" fill="#2563eb"/><path d="M5.2 8.2c1.8.6 1.4 2.4 0 2.9-1.5.5-1.6 1.9-.6 2.9 1.1 1.1.2 2.6-1.2 2.2-.8-1.9-.7-5.3 1.8-8z" fill="#34d399"/><path d="M11.6 7.1c2 .4 3.7 1.7 4.7 3.4-.8 1.2-2.2 1.1-2.8.2-.5-.8-1.7-.6-2.2-1.5-.4-.8-.6-1.8.3-2.1z" fill="#34d399"/><path d="M9 14.6c1.4-.3 2.8.6 2.6 2-.1 1.2.9 1.7.6 2.9-.3 1.1-1.9 1.5-2.9 1.1-1.2-.5-.8-1.8-1.5-2.6-.8-.8-.3-3.1 1.2-3.4z" fill="#34d399"/><ellipse cx="6.8" cy="9.2" rx="2.3" ry="1.3" fill="#ffffff" opacity=".3" transform="rotate(-28 6.8 9.2)"/><circle cx="19" cy="5.6" r="3.3" fill="#475569"/><path d="M19 2.3a3.3 3.3 0 0 1 0 6.6z" fill="#e2e8f0"/><circle cx="20.1" cy="4.6" r=".6" fill="#cbd5e1"/></g></svg> Earth, Moon &amp; Sun Together</div>
@@ -1244,6 +1280,10 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <p class="home-simtxt">Phobos laps Deimos about 4.0 times over — 7.7 hours against 1.3 days. Orbits, periods and sizes are real; where each moon sits on its ring is not solved here.</p>
       <p class="home-moonline">2 confirmed moons · 2 drawn</p>
       <a class="wk-all" href="/mars-and-moons-simulator/">Mars and its moons →</a>
+    
+      <ul class="hub-qs">
+<li id="why-is-mars-red"><p><a href="/concepts/why-is-mars-red/">Why is Mars red?</a> The dust is rust. Iron in Martian rock has oxidised, and that red-brown powder is blown across the whole planet, so even the sky looks butterscotch. The rocks underneath can be darker; the colour you see from Earth is a planet wearing its rust.</p></li>
+</ul>
     </div>
     <div class="tc tc-mini tc-sim tc-moons sp-4" data-hg="space" data-href="/jupiter-and-moons-simulator/">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Jupiter&rsquo;s Moons</div>
@@ -1254,6 +1294,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     
       <ul class="hub-qs">
 <li id="why-does-jupiter-have-so-many-moons"><p><a href="/concepts/why-does-jupiter-have-so-many-moons/">Why does Jupiter have so many moons?</a> Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun. A wide region around it is a place where a small body stays with Jupiter instead of orbiting the Sun on its own.</p></li>
+<li id="why-do-planets-have-moons"><p><a href="/concepts/why-do-planets-have-moons/">Why do planets have moons, and how are they made?</a> Three ways, and you can tell them apart. Some moons form from the same disc as their planet. Some form from the debris of a giant impact. Some are captured — they were going past and got stuck. Triton’s backward orbit is the capture giveaway. Earth’s Moon is the impact story.</p></li>
 </ul>
     </div>
     <div class="tc tc-mini tc-sim tc-moons sp-4" data-hg="space" data-href="/saturn-and-moons-simulator/">
@@ -1262,6 +1303,11 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <p class="home-simtxt">Pan laps Hyperion about 37 times over — 14 hours against 21 days. Orbits, periods and sizes are real; where each moon sits on its ring is not solved here, and 8 further out are off the edge of this frame.</p>
       <p class="home-moonline">274 confirmed moons · 22 drawn</p>
       <a class="wk-all" href="/saturn-and-moons-simulator/">Saturn and its moons →</a>
+    
+      <ul class="hub-qs">
+<li id="why-does-saturn-have-so-many-moons"><p><a href="/concepts/why-does-saturn-have-so-many-moons/">Why do Saturn and Jupiter have so many moons?</a> Gravity’s reach grows with mass. Jupiter and Saturn are the two heaviest planets, so a huge volume of space around each one is a place where a small body stays with the planet instead of orbiting the Sun on its own. Some of those moons formed there. Many more were captured.</p></li>
+<li id="why-doesnt-earth-have-a-ring"><p><a href="/concepts/why-doesnt-earth-have-a-ring/">Why doesn’t Earth have a ring?</a> A ring is ice or rock that orbits inside a limit where a moon would be pulled apart. Earth could wear one if a moon broke up that close. Our Moon is too far out and too well stuck together. Saturn’s rings are the famous leftover — ice that never quite made a moon, or a moon that came too close.</p></li>
+</ul>
     </div>
     <div class="tc tc-mini tc-sim tc-moons sp-4" data-hg="space" data-href="/uranus-and-moons-simulator/">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Uranus&rsquo;s Moons</div>
@@ -1269,6 +1315,10 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <p class="home-simtxt">Cordelia laps Oberon about 40 times over — 8.0 hours against 13 days. Orbits, periods and sizes are real; where each moon sits on its ring is not solved here, and 5 further out are off the edge of this frame.</p>
       <p class="home-moonline">28 confirmed moons · 18 drawn</p>
       <a class="wk-all" href="/uranus-and-moons-simulator/">Uranus and its moons →</a>
+    
+      <ul class="hub-qs">
+<li id="why-do-other-planets-have-seasons"><p><a href="/concepts/why-do-other-planets-have-seasons/">Do other planets have seasons?</a> Yes, if they tilt. Seasons come from a lean, not from being closer to the Sun. Mars tilts about 25°, like Earth, so it has seasons — just longer, because its year is longer. Uranus tilts 98°, so each pole sits in sunlight for 42 years and then in darkness for 42. Jupiter barely tilts, so its seasons are weak.</p></li>
+</ul>
     </div>
     <div class="tc tc-mini tc-sim tc-moons sp-4" data-hg="space" data-href="/neptune-and-moons-simulator/">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Neptune&rsquo;s Moons</div>
@@ -1276,6 +1326,10 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <p class="home-simtxt">Naiad laps Triton about 20 times over — 7.1 hours against 5.9 days. Orbits, periods and sizes are real; where each moon sits on its ring is not solved here, and 4 further out are off the edge of this frame. Triton goes round backwards.</p>
       <p class="home-moonline">16 confirmed moons · 8 drawn</p>
       <a class="wk-all" href="/neptune-and-moons-simulator/">Neptune and its moons →</a>
+    
+      <ul class="hub-qs">
+<li id="why-does-triton-orbit-backwards"><p><a href="/concepts/why-does-triton-orbit-backwards/">Why does one of Neptune’s moons go the other way?</a> Most moons travel the same way their planet spins, because they formed from the same spinning disc. Triton goes the other way, so it did not form next to Neptune. It was captured, almost certainly from the Kuiper belt.</p></li>
+</ul>
     </div>
     <div class="tc tc-mini tc-sim tc-moons sp-4" data-hg="space" data-href="/pluto-and-moons-simulator/">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Pluto&rsquo;s Moons</div>
@@ -1283,10 +1337,15 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <p class="home-simtxt">Charon laps Hydra about 6.0 times over — 6.4 days against 38 days. Orbits, periods and sizes are real; where each moon sits on its ring is not solved here.</p>
       <p class="home-moonline">5 confirmed moons · 5 drawn</p>
       <a class="wk-all" href="/pluto-and-moons-simulator/">Pluto and its moons →</a>
+    
+      <ul class="hub-qs">
+<li id="why-does-pluto-have-so-many-moons"><p><a href="/concepts/why-does-pluto-have-so-many-moons/">Why does Pluto, such a small world, have so many moons?</a> A giant impact likely made Charon and left a debris disc that became Styx, Nix, Kerberos and Hydra. Charon is half Pluto’s width, so the two of them are a double world — and the four small moons sit in the gravity of the pair, not of a single point.</p></li>
+<li id="why-is-pluto-a-dwarf-planet"><p><a href="/concepts/why-is-pluto-a-dwarf-planet/">Why is Pluto a dwarf planet and not a planet?</a> A planet has to clear its neighbourhood. Pluto shares the Kuiper belt with a great many other bodies, one of them — Eris — more massive than Pluto. The world itself did not get smaller in 2006. The rule about the neighbourhood did.</p></li>
+</ul>
     </div>
   </div>
   <div class="home-foot">
-    <p class="home-suggest">Start with a question — <a href="/questions/">why don't the planets fall into the sun, and six more</a>. Or jump across: <a href="/">Home</a> · <a href="/time/">Time</a> · <a href="/earth/">Earth</a> · <a href="/classroom/">Classroom</a>.</p>
+    <p class="home-suggest">Start with a question — <a href="/questions/">why don't the planets fall into the sun, and the seven that follow</a>. Or jump across: <a href="/">Home</a> · <a href="/time/">Time</a> · <a href="/earth/">Earth</a> · <a href="/classroom/">Classroom</a>.</p>
   </div>
   <details class="suggest-box" data-ac="suggest">
     <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
@@ -1363,8 +1422,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   function run(on){ if(iv){ clearInterval(iv); iv=0; } if(on&&!reduce) iv=setInterval(step,45); }
   document.addEventListener('visibilitychange',function(){ run(!document.hidden); });
   draw(); run(!document.hidden);
-})();</script>
-<script data-pgv="1">(function(){try{if(localStorage.getItem("ac_notrack"))return;}catch(_){}
+})();</script><script data-pgv="1">(function(){try{if(localStorage.getItem("ac_notrack"))return;}catch(_){}
 var vid="";try{vid=localStorage.getItem("ac_vid")||"";if(!vid){vid=Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem("ac_vid",vid);}}catch(_){}
 /* sendBeacon, fired at idle: this is a fire-and-forget counter whose reply the
    page discards, so it has no business sitting in the load timeline. sendBeacon

@@ -130,6 +130,40 @@ function mnPrevPhase(ms,kind){
 /* Days since the last new moon — the real elapsed time, not a mean cycle. */
 function mnAge(ms){ return (ms-mnPrevPhase(ms,0))/MN_DAY; }
 
+/* ONE snapshot of the moon at an instant. Age, cycle position, waxing flag
+ * and the phase name all come from the Meeus primary-phase instants. The
+ * illuminated fraction still comes from the sun–moon elongation, because that
+ * is the geometry of the lit disc. Mixing the two sources was how a page
+ * could say "full, waxing, 15.1 days old, 49% through" at once. */
+function mnSnap(ms){
+  var lastNew=mnPrevPhase(ms,0), nextNew=mnNextPhase(ms,0);
+  var nextFull=mnNextPhase(ms,2);
+  var ill=mnIllum(ms);
+  var lun=nextNew-lastNew;
+  var age=(ms-lastNew)/MN_DAY;
+  var cycle=lun>0?(ms-lastNew)/lun:ill.phase;
+  var waxing=nextFull<nextNew;
+  var name=mnNameFromInstants(ms, cycle);
+  return { fraction:ill.fraction, phase:cycle, waxing:waxing, dist:ill.dist,
+           angle:ill.angle, age:age, name:name, primary:mnNearestPrimary(ms) };
+}
+/* Within 12 hours of a primary instant, use that name so "full moon" means
+ * the day of full moon. Otherwise name the cycle position. */
+function mnNearestPrimary(ms){
+  var best=null, bestAbs=12*3600000, i, prev, next, d;
+  for(i=0;i<4;i++){
+    prev=mnPrevPhase(ms,i); next=mnNextPhase(ms,i);
+    d=Math.min(ms-prev, next-ms);
+    if(d<bestAbs){ bestAbs=d; best=i; }
+  }
+  return best;
+}
+function mnNameFromInstants(ms, cycle){
+  var k=mnNearestPrimary(ms);
+  if(k!==null) return mnPrimaryName(k);
+  return mnName(cycle);
+}
+
 /* Every primary phase whose instant falls inside [from,to). */
 function mnPhasesBetween(from,to){
   var out=[], k=Math.floor(mnK(from))-1;

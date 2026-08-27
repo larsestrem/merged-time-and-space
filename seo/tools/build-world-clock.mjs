@@ -33,6 +33,7 @@ import { CITY_DB, citySlug } from "./cities.mjs";
 /* the city list itself lives in wc-cities.mjs — see the note there */
 import { WC_CITY_LIST as CITIES } from "./wc-cities.mjs";
 import { familyLinks } from "./city-registry.mjs";
+import { hubQuestionsCard } from "./concepts.mjs";
 import { astroStrip } from "./crosslinks.mjs";
 /* the same Place + geo node every other place family emits. World-clock city
    pages were the one family without it — breadcrumbs and an FAQ and nothing
@@ -350,6 +351,7 @@ ${cards}
     <p><strong>Does it show my time zone?</strong> Yes — the list starts just west of your own zone and wraps around the globe, with your zone highlighted.</p>
     <p><strong>Can I switch between 12- and 24-hour time?</strong> Yes — tap the 24-hour / 12-hour button to switch the whole list.</p>
   </div>
+${hubQuestionsCard("/world-clock/")}
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 <script>${JS}</script>

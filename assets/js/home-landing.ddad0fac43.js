@@ -147,7 +147,7 @@ function dnSide(dec,tilt,youLat){
   var PX=function(u,v){return dnF(cx+ax*u+ex*v)};
   var PY=function(u,v){return dnF(cy+ay*u+ey*v)};
   var o=r*Math.sin(t),h=r*Math.cos(t);          /* tropic offset, and its half-chord */
-  var s='<svg class="dns-svg" viewBox="0 0 700 276" width="100%" role="img" aria-label="The Earth seen from the side, lit from the left, with the line from the centre of the sun to the centre of the Earth landing between the Tropic of Cancer and the Tropic of Capricorn">';
+  var s='<svg class="dns-svg" viewBox="0 0 600 276" width="100%" role="img" aria-label="The Earth seen from the side, lit from the left, with the line from the centre of the sun to the centre of the Earth landing between the Tropic of Cancer and the Tropic of Capricorn">';
   s+='<circle class="dns-glow" cx="54" cy="'+cy+'" r="54"/><circle class="dns-sun" cx="54" cy="'+cy+'" r="34"/>';
   for(i=-2;i<=2;i++){ if(!i) continue; y=cy+i*46;
     s+='<line class="dns-ray" x1="98" y1="'+y+'" x2="'+(cx-r-8)+'" y2="'+y+'"/>'; }
@@ -351,7 +351,7 @@ function dnSide(dec,tilt,youLat){
   var PX=function(u,v){return dnF(cx+ax*u+ex*v)};
   var PY=function(u,v){return dnF(cy+ay*u+ey*v)};
   var o=r*Math.sin(t),h=r*Math.cos(t);          /* tropic offset, and its half-chord */
-  var s='<svg class="dns-svg" viewBox="0 0 700 276" width="100%" role="img" aria-label="The Earth seen from the side, lit from the left, with the line from the centre of the sun to the centre of the Earth landing between the Tropic of Cancer and the Tropic of Capricorn">';
+  var s='<svg class="dns-svg" viewBox="0 0 600 276" width="100%" role="img" aria-label="The Earth seen from the side, lit from the left, with the line from the centre of the sun to the centre of the Earth landing between the Tropic of Cancer and the Tropic of Capricorn">';
   s+='<circle class="dns-glow" cx="54" cy="'+cy+'" r="54"/><circle class="dns-sun" cx="54" cy="'+cy+'" r="34"/>';
   for(i=-2;i<=2;i++){ if(!i) continue; y=cy+i*46;
     s+='<line class="dns-ray" x1="98" y1="'+y+'" x2="'+(cx-r-8)+'" y2="'+y+'"/>'; }
@@ -392,7 +392,7 @@ function dnSide(dec,tilt,youLat){
   var cs=document.querySelectorAll('[data-wk-tz]');
   var sunline=document.getElementById('wk-sunline');
   var orbitNow=document.getElementById('wk-orbit-now');
-  var TILT=23.43538672743701;
+  var TILT=23.435387624995776;
   var seasonSun=function(dec,lon,laterDec){ return (function seasonSunHtml(dec, lon, laterDec, tilt) {
   var lat = Math.abs(dec).toFixed(1) + '\u00B0 ' + (dec >= 0 ? 'N' : 'S');
   var lo = Math.abs(lon).toFixed(1) + '\u00B0 ' + (lon >= 0 ? 'E' : 'W');
@@ -619,6 +619,40 @@ function mnPrevPhase(ms,kind){
 }
 /* Days since the last new moon — the real elapsed time, not a mean cycle. */
 function mnAge(ms){ return (ms-mnPrevPhase(ms,0))/MN_DAY; }
+
+/* ONE snapshot of the moon at an instant. Age, cycle position, waxing flag
+ * and the phase name all come from the Meeus primary-phase instants. The
+ * illuminated fraction still comes from the sun–moon elongation, because that
+ * is the geometry of the lit disc. Mixing the two sources was how a page
+ * could say "full, waxing, 15.1 days old, 49% through" at once. */
+function mnSnap(ms){
+  var lastNew=mnPrevPhase(ms,0), nextNew=mnNextPhase(ms,0);
+  var nextFull=mnNextPhase(ms,2);
+  var ill=mnIllum(ms);
+  var lun=nextNew-lastNew;
+  var age=(ms-lastNew)/MN_DAY;
+  var cycle=lun>0?(ms-lastNew)/lun:ill.phase;
+  var waxing=nextFull<nextNew;
+  var name=mnNameFromInstants(ms, cycle);
+  return { fraction:ill.fraction, phase:cycle, waxing:waxing, dist:ill.dist,
+           angle:ill.angle, age:age, name:name, primary:mnNearestPrimary(ms) };
+}
+/* Within 12 hours of a primary instant, use that name so "full moon" means
+ * the day of full moon. Otherwise name the cycle position. */
+function mnNearestPrimary(ms){
+  var best=null, bestAbs=12*3600000, i, prev, next, d;
+  for(i=0;i<4;i++){
+    prev=mnPrevPhase(ms,i); next=mnNextPhase(ms,i);
+    d=Math.min(ms-prev, next-ms);
+    if(d<bestAbs){ bestAbs=d; best=i; }
+  }
+  return best;
+}
+function mnNameFromInstants(ms, cycle){
+  var k=mnNearestPrimary(ms);
+  if(k!==null) return mnPrimaryName(k);
+  return mnName(cycle);
+}
 
 /* Every primary phase whose instant falls inside [from,to). */
 function mnPhasesBetween(from,to){

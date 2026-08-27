@@ -34,7 +34,7 @@
       },
       "title": { "type": "string" },
       "description": { "type": "string", "maxLength": 170 },
-      "cluster": { "enum": ["day-night", "questions", "simulator", "solar"] },
+      "cluster": { "enum": ["day-night", "questions", "simulator", "solar", "time"] },
       "hubUrls": {
         "type": "array",
         "items": {
@@ -56,10 +56,15 @@
           "moon-phase",
           "tides",
           "jupiter",
+          "globe",
           "olbers",
           "season-orbit",
           "none"
         ]
+      },
+      "graphicPlanet": {
+        "type": "string",
+        "description": "Planet name for graphicId globe, matching globe.mjs (Mars, Jupiter, …)."
       },
       "graphicCaption": { "type": "string" },
       "graphicAlt": { "type": "string" },

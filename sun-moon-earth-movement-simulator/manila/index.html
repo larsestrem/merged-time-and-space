@@ -338,6 +338,9 @@ a{color:#111;text-decoration:underline}
 .chip:hover{border-color:var(--accent)}
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .wc-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
 .wc-grid{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:560px){.wc-grid{grid-template-columns:1fr 1fr}}
@@ -522,6 +525,8 @@ box-shadow:0 0 0 1px var(--accent) inset}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 .sun-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .sun-tile{border:1px solid var(--border);border-radius:12px;padding:12px 10px;text-align:center;background:rgba(255,255,255,.03)}
 .sun-tile .sun-lab{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
@@ -1227,7 +1232,6 @@ font-weight: 600;
 }
 .answer {
 font-size: 1.125rem;
-max-width: 62ch;
 line-height: 1.55;
 }
 .answer a {
@@ -1249,7 +1253,6 @@ font-weight: 600;
 .hub-teaser, .related p, .see-live p {
 margin: 0 0 16px;
 color: var(--muted);
-max-width: 66ch;
 }
 .hub-teaser a, .related p a, .glossary-item a {
 font-weight: 600;
@@ -1273,12 +1276,23 @@ gap: 12px;
 }
 .graphic-block {
 margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
 }
 .graphic-block figcaption, figcaption {
 margin-top: 10px;
 color: var(--muted);
 font-size: 0.9rem;
-max-width: 70ch;
 }
 .more-info {
 margin: 24px 0;
@@ -1329,7 +1343,7 @@ margin: 0 0 6px;
 letter-spacing: 0;
 font-weight: 650;
 }
-.glossary-item p { max-width: 66ch; margin: 0; color: var(--muted); }
+.glossary-item p { margin: 0; color: var(--muted); }
 .letter {
 font-size: 1.5rem;
 margin: 28px 0 0;
@@ -1337,7 +1351,7 @@ color: var(--muted);
 }
 .glossary-item[hidden], .letter[hidden] { display: none; }
 .hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
-.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
 .hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
 .hub-qs a:hover { text-decoration: underline; }
 .hub-kicker {
@@ -1348,7 +1362,24 @@ text-transform: uppercase;
 color: var(--muted);
 font-weight: 700;
 }
-.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }</style>
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sun, Moon & Earth Simulator for Manila — Any Date or Time","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/sun-moon-earth-movement-simulator/manila/","description":"Watch the sun and moon move around the Earth as seen from Manila: scrub a day, a week or a month, see the phase, altitude and direction of both, sunrise 5:45 AM, sunset 6:12 PM and today's full moon moon.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Sun, Moon & Earth simulator","item":"https://timeandspace.science/sun-moon-earth-movement-simulator/"},{"@type":"ListItem","position":3,"name":"Manila","item":"https://timeandspace.science/sun-moon-earth-movement-simulator/manila/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Manila","address":{"@type":"PostalAddress","addressLocality":"Manila","addressCountry":"PH"},"geo":{"@type":"GeoCoordinates","latitude":14.6,"longitude":120.98},"containedInPlace":[{"@type":"Country","name":"Philippines"}],"url":"https://timeandspace.science/sun-moon-earth-movement-simulator/manila/"}</script>
@@ -1358,7 +1389,7 @@ font-weight: 700;
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=Sun%2C%20Moon%20%26%20Earth%20Simulator%20for%20Manila&amp;theme=generic">
 <meta name="robots" content="max-image-preview:large">
-<!-- build 6dbbc644f55a · generated 2026-08-27T20:42:45.420Z -->
+<!-- build 8c0f60ef6756 · generated 2026-08-27T23:36:33.832Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/earthmoon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1513,7 +1544,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <div class="sim-top">
     <div class="sim-stage" id="sim-stage"><div class="sim-inner">
     <div class="sim-figwrap">
-    <div class="orr-fig sim-fig" id="sim-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><polyline points="361.1,96.2 357.5,94.9 353.8,94 349.9,93.5 346.1,93.3 342.1,93.4 338.2,94 334.3,94.8 330.6,96.1 326.9,97.7 323.4,99.6 320.1,101.8 317,104.3 314.1,107 311.6,110 309.3,113.2 307.4,116.5 305.8,120 304.6,123.6" fill="none" stroke="#e8eef7" stroke-opacity=".13" stroke-width="1" stroke-dasharray="1 3"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="379.7,113.5 378,110.3 375.9,107.3 373.4,104.5 370.7,102 367.7,99.8 364.5,97.8" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><polyline points="303.7,127.3 303.2,131 303.1,134.8 303.4,138.4 304.1,142.1 305.2,145.6 306.6,148.9 308.4,152.1 310.5,155.2 312.9,157.9 315.6,160.4 318.6,162.7 321.8,164.6 325.2,166.2 328.8,167.5 332.5,168.4 336.4,169 340.3,169.2 344.2,169 348.1,168.5 352,167.6 355.8,166.3 359.4,164.8 362.9,162.9 366.3,160.7 369.3,158.2 372.2,155.4 374.8,152.4 377,149.3 378.9,145.9 380.5,142.4 381.8,138.8 382.6,135.1 383.1,131.4 383.2,127.7 382.9,124 382.2,120.4 381.2,116.8 379.7,113.5" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.7 120" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.7" cy="120" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="334.2" y="116.3" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M358.7 95.3L361.7 86.8" stroke="#fcd34d" stroke-opacity=".35" stroke-width="1.2" stroke-dasharray="2 2"/><circle cx="358.7" cy="95.3" r="3.4" fill="none" stroke="#fcd34d" stroke-opacity=".5" stroke-width="1.2"/><text class="orr-cityname" x="363" y="80" text-anchor="start" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Manila</text><circle cx="451.8" cy="141.2" r="11.45" fill="#4b5563"/><path d="M451.8 129.7A11.45 11.45 0 0 0 451.8 152.6Z" fill="#e8eef7"/><circle cx="451.8" cy="141.2" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="451.8" y="163.6" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Full moon</text></g></svg></div>
+    <div class="orr-fig sim-fig" id="sim-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><polyline points="361.2,96.3 357.6,95 353.9,94 350,93.5 346.1,93.3 342.2,93.4 338.3,93.9 334.4,94.8 330.6,96.1 327,97.6 323.5,99.5 320.1,101.7 317,104.2 314.2,106.9 311.6,109.9 309.4,113.1 307.4,116.4 305.8,119.9 304.6,123.5" fill="none" stroke="#e8eef7" stroke-opacity=".13" stroke-width="1" stroke-dasharray="1 3"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="379.8,113.6 378,110.3 375.9,107.3 373.5,104.6 370.8,102 367.8,99.8 364.6,97.9" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><polyline points="303.7,127.2 303.2,130.9 303.1,134.7 303.4,138.4 304.1,142 305.2,145.5 306.6,148.9 308.3,152.1 310.4,155.1 312.8,157.9 315.5,160.4 318.5,162.6 321.7,164.5 325.1,166.2 328.7,167.4 332.5,168.4 336.3,168.9 340.2,169.2 344.1,169 348,168.5 351.9,167.6 355.7,166.4 359.4,164.8 362.9,162.9 366.2,160.7 369.3,158.2 372.1,155.5 374.7,152.5 377,149.3 378.9,146 380.5,142.5 381.7,138.9 382.6,135.2 383.1,131.5 383.2,127.7 382.9,124.1 382.2,120.4 381.2,116.9 379.8,113.6" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.7 120" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.7" cy="120" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="334.3" y="116.2" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M327.2 97.5L323.1 88.9" stroke="#fcd34d" stroke-opacity=".35" stroke-width="1.2" stroke-dasharray="2 2"/><circle cx="327.2" cy="97.5" r="3.4" fill="none" stroke="#fcd34d" stroke-opacity=".5" stroke-width="1.2"/><text class="orr-cityname" x="321.4" y="82.3" text-anchor="end" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Manila</text><circle cx="451.9" cy="138.4" r="11.45" fill="#4b5563"/><path d="M451.9 126.9A11.45 11.45 0 0 0 451.9 149.8Z" fill="#e8eef7"/><circle cx="451.9" cy="138.4" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="451.9" y="160.8" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Full moon</text></g></svg></div>
     </div>
 
     <div class="sim-row">
@@ -1522,7 +1553,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <span class="sim-fsglyph" id="sim-fsglyph" aria-hidden="true"><svg viewBox="0 0 112 112" width="112" height="112" aria-hidden="true" class="mn-moon"><circle cx="56" cy="56" r="56" fill="#efe3c2"/><g transform="scale(0.56)"><use href="/assets/img/moon-face.b9e194850d.svg#ac-moon-face"/></g><circle cx="56" cy="56" r="56" fill="none" stroke="#57503a" stroke-width="1"/></svg></span>
       <span class="sim-fslab"><b id="sim-fsphase">Full moon</b> <span id="sim-fslit">100%</span> lit</span>
     </p>
-    <p class="sim-when" id="sim-when">Fri, Aug 28, 2026, 4:26 AM</p>
+    <p class="sim-when" id="sim-when">Fri, Aug 28, 2026, 7:32 AM</p>
     </div>
     <div class="sim-ctl">
       <button type="button" class="chip sim-icobtn" id="sim-cfg" data-sim-inert disabled hidden aria-haspopup="dialog" aria-label="Simulator settings"><svg class="nav-ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><g><path d="M12 8.4A3.6 3.6 0 1 0 12 15.6 3.6 3.6 0 0 0 12 8.4zm0 2.1a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" fill="#cbd5e1"/><path d="M10.6 2.2h2.8l.35 2.2a7.8 7.8 0 0 1 1.72.72l1.8-1.3 2 2-1.3 1.8c.3.54.54 1.12.72 1.72l2.2.35v2.8l-2.2.35a7.8 7.8 0 0 1-.72 1.72l1.3 1.8-2 2-1.8-1.3a7.8 7.8 0 0 1-1.72.72l-.35 2.2h-2.8l-.35-2.2a7.8 7.8 0 0 1-1.72-.72l-1.8 1.3-2-2 1.3-1.8a7.8 7.8 0 0 1-.72-1.72l-2.2-.35v-2.8l2.2-.35c.18-.6.42-1.18.72-1.72l-1.3-1.8 2-2 1.8 1.3c.54-.3 1.12-.54 1.72-.72zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z" fill="#94a3b8"/></g></svg><span>Settings</span></button>
@@ -1549,7 +1580,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
         <div class="sim-fields">
           <div class="sim-field">
             <label class="sim-flab" for="sim-start">Starting date and time</label>
-            <input type="datetime-local" class="orr-at" id="sim-start" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-28T04:26">
+            <input type="datetime-local" class="orr-at" id="sim-start" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-28T07:32">
           </div>
           <div class="sim-field">
             <label class="sim-flab" for="sim-span">The slider covers</label>
@@ -1572,11 +1603,11 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
         <span class="hint sim-moonlab">from the ground at <span id="sim-moonwhen">—</span></span>
       </div>
       <div class="sim-rows">
-        <div class="sun-srow sun-main"><span>Sun altitude</span><b id="sim-sun-alt">-19.1°</b></div>
-        <div class="sun-srow"><span>Sun direction</span><b id="sim-sun-az">ENE</b></div>
-        <div class="sun-srow sun-main"><span>Moon altitude</span><b id="sim-moon-alt">15.7°</b></div>
-        <div class="sun-srow"><span>Moon direction</span><b id="sim-moon-az">WSW</b></div>
-        <div class="sun-srow"><span>Moon–sun angle</span><b id="sim-elong">177°</b></div>
+        <div class="sun-srow sun-main"><span>Sun altitude</span><b id="sim-sun-alt">25.1°</b></div>
+        <div class="sun-srow"><span>Sun direction</span><b id="sim-sun-az">east</b></div>
+        <div class="sun-srow sun-main"><span>Moon altitude</span><b id="sim-moon-alt">-26.9°</b></div>
+        <div class="sun-srow"><span>Moon direction</span><b id="sim-moon-az">west</b></div>
+        <div class="sun-srow"><span>Moon–sun angle</span><b id="sim-elong">178°</b></div>
         <div class="sun-srow"><span>Daylight that day</span><b id="sim-len">12 h 28 m</b></div>
         <div class="sun-srow"><span>Sunrise · sunset</span><b><span id="sim-rise">5:45 AM</span> · <span id="sim-set">6:12 PM</span></b></div>
         <div class="sun-srow"><span>Moonrise · moonset</span><b><span id="sim-mrise">6:18 PM</span> · <span id="sim-mset">5:35 AM</span></b></div>
@@ -1591,7 +1622,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <button type="button" class="chip" data-sim-inert disabled data-sim-phase="3">last quarter</button>
     </p>
 
-    <p class="hint orr-note" id="sim-note"><b>Manila</b> is the marker on the globe — on the night half at the time shown, riding the dotted circle its spot traces as the Earth turns. The moon is <b>177°</b> from the sun in the sky then, and that angle is the phase: full moon. You are looking down on the Earth from far above its orbit, from the north — the side you are on — with sunlight arriving from the top left, so the half of the Earth facing that way is the half having its day. Sizes and distances are not to scale; the directions are.</p>
+    <p class="hint orr-note" id="sim-note"><b>Manila</b> is the marker on the globe — on the daylit half at the time shown, riding the dotted circle its spot traces as the Earth turns. The moon is <b>178°</b> from the sun in the sky then, and that angle is the phase: full moon. You are looking down on the Earth from far above its orbit, from the north — the side you are on — with sunlight arriving from the top left, so the half of the Earth facing that way is the half having its day. Sizes and distances are not to scale; the directions are.</p>
   </div>
   <div class="card">
     <h2>What Manila’s latitude does to the picture</h2>
@@ -1601,7 +1632,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <div class="wc-frow"><span>Daylight today</span><b>12 h 28 m</b></div>
       <div class="wc-frow"><span>Moonrise · moonset today</span><b>6:18 PM · 5:35 AM</b></div>
       <div class="wc-frow"><span>Moonrise tomorrow</span><b>6:55 PM — 37 min later</b></div>
-      <div class="wc-frow"><span>Moon–sun angle now</span><b>177° — full moon</b></div>
+      <div class="wc-frow"><span>Moon–sun angle now</span><b>178° — full moon</b></div>
       <div class="wc-frow"><span>Longest · shortest day of 2026</span><b>12 h 59 m · 11 h 16 m</b></div>
       <div class="wc-frow"><span>Time zone</span><b>Asia/Manila</b></div>
     </div>
@@ -1648,7 +1679,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 <script>window.AC_SIM_C={"slug":"manila","name":"Manila","tz":"Asia/Manila","lat":14.6,"lon":120.98};</script>
 <!-- ~60KB, byte-identical on the hub and all 1103 city pages but the
      config line above, so it is hoisted into one cached file (build-inline). -->
-<script defer src="/assets/js/simulator.5ec744239e.js"></script><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+<script defer src="/assets/js/simulator.a8f13041f7.js"></script><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];

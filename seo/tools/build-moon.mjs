@@ -29,7 +29,7 @@ import { dirname, join } from "node:path";
 import { esc, GA_SNIPPET, brand, appLd, faqLd, breadcrumbLD } from "./lib.mjs";
 import { CITY_DB, citySlug } from "./cities.mjs";
 import {
-  MOON_CORE, MOON_ASSET_JS, moonIllum, moonName, moonAge, nextPhase,
+  MOON_CORE, MOON_ASSET_JS, moonIllum, moonName, moonAge, moonSnap, nextPhase,
   moonGlyph, fullMoons, yearPhases, primaryName, moonDistance,
   moonTimes, moonPos, compass, SUPERMOON_KM_TEXT,
 } from "./moon.mjs";
@@ -396,10 +396,11 @@ const nearestCities = (c, n = 12) => SUN_ALL
  * The hub — /moon/
  * ========================================================================= */
 function buildHub() {
-  const ill = moonIllum(NOW);
-  const pct = Math.round(ill.fraction * 100);
-  const name = moonName(ill.phase);
-  const age = moonAge(NOW);
+  const snap = moonSnap(NOW);
+  const ill = snap;
+  const pct = Math.round(snap.fraction * 100);
+  const name = snap.name;
+  const age = snap.age;
   const next = PHASE_ORDER.map((kind) => ({ kind, t: nextPhase(NOW, kind), label: primaryName(kind) }));
   const nextFull = next.find((n) => n.kind === 2);
 
@@ -462,10 +463,10 @@ ${dateBox("Date")}${nearBox()}      </div>
     </div>
     <div class="mn-hero-facts">
       <p class="mn-phase" id="mn-phase">${esc(name)}</p>
-      <p class="mn-illum"><b id="mn-pct">${pct}%</b> illuminated · <span id="mn-trend">${ill.waxing ? "waxing" : "waning"}</span></p>
+      <p class="mn-illum"><b id="mn-pct">${pct}%</b> illuminated${snap.primary === null ? ` · <span id="mn-trend">${snap.waxing ? "waxing" : "waning"}</span>` : ` · <span id="mn-trend"></span>`}</p>
       <dl class="mn-stats">
         <div><dt>Moon age</dt><dd id="mn-age">${age.toFixed(1)} days</dd></div>
-        <div><dt>Cycle position</dt><dd id="mn-cycle">${Math.round(ill.phase * 100)}% through</dd></div>
+        <div><dt>Cycle position</dt><dd id="mn-cycle">${Math.round(snap.phase * 100)}% through</dd></div>
         <div><dt>Distance</dt><dd id="mn-dist">${Math.round(ill.dist).toLocaleString("en-US")} km</dd></div>
       </dl>
     </div>
@@ -1111,14 +1112,14 @@ function mnRepaint(){
 
 /* ---- current phase, recomputed client-side so it can never be stale ---- */
 function mnPaintNow(){
-  var now=mnRefMs(), il=mnIllum(now);
+  var now=mnRefMs(), snap=mnSnap(now), il=snap;
   var g=document.getElementById('mn-glyph');
   if(g) g.innerHTML=mnGlyph(il.fraction,il.waxing,68,mnSouth);
-  mnPut('mn-phase',mnName(il.phase));
+  mnPut('mn-phase',snap.name);
   mnPut('mn-pct',Math.round(il.fraction*100)+'%');
-  mnPut('mn-trend',il.waxing?'waxing':'waning');
-  mnPut('mn-age',mnAge(now).toFixed(1)+' days');
-  mnPut('mn-cycle',Math.round(il.phase*100)+'% through');
+  mnPut('mn-trend', snap.primary===null ? (il.waxing?'waxing':'waning') : '');
+  mnPut('mn-age',snap.age.toFixed(1)+' days');
+  mnPut('mn-cycle',Math.round(snap.phase*100)+'% through');
   mnPut('mn-dist',Math.round(il.dist).toLocaleString('en-US')+' km');
   var a=document.getElementById('mn-asof');
   if(a) a.textContent=mnIsToday()

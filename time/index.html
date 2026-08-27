@@ -587,6 +587,9 @@ body.t-fs-open{overflow:hidden}
 .chip:hover{border-color:var(--accent)}
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .tool-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 26px}
 @media(min-width:560px){.tool-grid{grid-template-columns:1fr 1fr}}
 @media(min-width:900px){.tool-grid{grid-template-columns:repeat(4,1fr)}}
@@ -874,8 +877,6 @@ background:rgba(2,6,23,.72);color:var(--text);font-size:12.5px;font-weight:700;b
 .wk-scrub-lab{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;white-space:nowrap;color:var(--muted)}
 .wk-scrub-lab b{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
 .wk-nowbtn{margin:0;padding:5px 12px}
-.sec-switch{margin:2px 0 14px}
-.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .home-hero .hub-qs{margin-top:16px}
 .home-board .hub-qs,.tc .hub-qs,.hub-sim .hub-qs{margin-top:12px;gap:8px}
 .home-board .hub-qs p,.tc .hub-qs p{font-size:14px}
@@ -1161,6 +1162,8 @@ box-shadow:0 0 0 1px var(--accent) inset}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 .xl-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:4px}
 .xl-tile{display:flex;flex-direction:column;gap:2px;padding:12px 13px;border:1px solid var(--border);
 border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
@@ -1777,7 +1780,6 @@ font-weight: 600;
 }
 .answer {
 font-size: 1.125rem;
-max-width: 62ch;
 line-height: 1.55;
 }
 .answer a {
@@ -1799,7 +1801,6 @@ font-weight: 600;
 .hub-teaser, .related p, .see-live p {
 margin: 0 0 16px;
 color: var(--muted);
-max-width: 66ch;
 }
 .hub-teaser a, .related p a, .glossary-item a {
 font-weight: 600;
@@ -1823,12 +1824,23 @@ gap: 12px;
 }
 .graphic-block {
 margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
 }
 .graphic-block figcaption, figcaption {
 margin-top: 10px;
 color: var(--muted);
 font-size: 0.9rem;
-max-width: 70ch;
 }
 .more-info {
 margin: 24px 0;
@@ -1879,7 +1891,7 @@ margin: 0 0 6px;
 letter-spacing: 0;
 font-weight: 650;
 }
-.glossary-item p { max-width: 66ch; margin: 0; color: var(--muted); }
+.glossary-item p { margin: 0; color: var(--muted); }
 .letter {
 font-size: 1.5rem;
 margin: 28px 0 0;
@@ -1887,7 +1899,7 @@ color: var(--muted);
 }
 .glossary-item[hidden], .letter[hidden] { display: none; }
 .hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
-.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
 .hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
 .hub-qs a:hover { text-decoration: underline; }
 .hub-kicker {
@@ -1898,16 +1910,33 @@ text-transform: uppercase;
 color: var(--muted);
 font-weight: 700;
 }
-.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }</style>
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Time","item":"https://timeandspace.science/time/"}]}</script>
 
-<!-- build 6dbbc644f55a · generated 2026-08-27T20:42:45.420Z -->
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Time&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
+<!-- build 8c0f60ef6756 · generated 2026-08-27T23:36:33.832Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
-<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Time&amp;theme=generic">
-<meta name="robots" content="max-image-preview:large">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -2077,7 +2106,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <button class="btn ac-icon" id="ac-close" type="button" aria-label="Close" title="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
   </div>
-    <div class="ac-brand"><a href="/alarm-clock/" target="_blank" rel="noopener">Time and Space Science</a><a href="/alarm-clock/about/" target="_blank" rel="noopener">How it works</a></div>
+    <div class="ac-brand"><a href="/" target="_blank" rel="noopener">Time and Space Science</a><a href="/alarm-clock/about/" target="_blank" rel="noopener">How it works</a></div>
     <p class="ac-fs-legal"><a href="/browser-limitations/" target="_blank" rel="noopener">Browser Limitations</a> · <a href="/alarm-clock/warnings/" target="_blank" rel="noopener">Warnings</a></p>
   </div>
       <div class="ac-controls">
@@ -2106,9 +2135,9 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
             <line class="wk-trop" x1="0" y1="226.9" x2="720" y2="226.9"/>
             <text x="6" y="222.9">Tropic of Capricorn</text>
           </g>
-          <path id="wk-night" d="M0 330L4 331.2L8 332.2L12 333.1L16 333.9L20 334.6L24 335.3L28 335.9L32 336.5L36 337L40 337.5L44 337.9L48 338.2L52 338.6L56 338.9L60 339.2L64 339.4L68 339.6L72 339.8L76 339.9L80 340.1L84 340.2L88 340.3L92 340.3L96 340.3L100 340.3L104 340.3L108 340.3L112 340.2L116 340.1L120 340L124 339.9L128 339.7L132 339.5L136 339.3L140 339.1L144 338.8L148 338.5L152 338.1L156 337.7L160 337.3L164 336.8L168 336.3L172 335.7L176 335.1L180 334.4L184 333.6L188 332.8L192 331.8L196 330.8L200 329.6L204 328.4L208 326.9L212 325.3L216 323.5L220 321.4L224 319.1L228 316.4L232 313.3L236 309.7L240 305.5L244 300.6L248 294.6L252 287.5L256 278.8L260 268.2L264 255.2L268 239.4L272 220.5L276 199.1L280 176.2L284 153.5L288 132.9L292 115L296 100.2L300 88L304 78.1L308 70L312 63.3L316 57.7L320 53L324 49L328 45.6L332 42.7L336 40.1L340 37.9L344 35.9L348 34.1L352 32.6L356 31.2L360 30L364 28.8L368 27.8L372 26.9L376 26.1L380 25.4L384 24.7L388 24.1L392 23.5L396 23L400 22.5L404 22.1L408 21.8L412 21.4L416 21.1L420 20.8L424 20.6L428 20.4L432 20.2L436 20.1L440 19.9L444 19.8L448 19.7L452 19.7L456 19.7L460 19.7L464 19.7L468 19.7L472 19.8L476 19.9L480 20L484 20.1L488 20.3L492 20.5L496 20.7L500 20.9L504 21.2L508 21.5L512 21.9L516 22.3L520 22.7L524 23.2L528 23.7L532 24.3L536 24.9L540 25.6L544 26.4L548 27.2L552 28.2L556 29.2L560 30.4L564 31.6L568 33.1L572 34.7L576 36.5L580 38.6L584 40.9L588 43.6L592 46.7L596 50.3L600 54.5L604 59.4L608 65.4L612 72.5L616 81.2L620 91.8L624 104.8L628 120.6L632 139.5L636 160.9L640 183.8L644 206.5L648 227.1L652 245L656 259.8L660 272L664 281.9L668 290L672 296.7L676 302.3L680 307L684 311L688 314.4L692 317.3L696 319.9L700 322.1L704 324.1L708 325.9L712 327.4L716 328.8L720 330L720 360L0 360Z" fill="#050a16" fill-opacity=".66"/>
+          <path id="wk-night" d="M0 340.3L4 340.3L8 340.4L12 340.4L16 340.4L20 340.4L24 340.4L28 340.3L32 340.2L36 340.1L40 340L44 339.8L48 339.6L52 339.4L56 339.2L60 338.9L64 338.6L68 338.2L72 337.8L76 337.4L80 336.9L84 336.4L88 335.8L92 335.2L96 334.5L100 333.7L104 332.9L108 331.9L112 330.9L116 329.7L120 328.5L124 327L128 325.4L132 323.6L136 321.6L140 319.2L144 316.5L148 313.5L152 309.9L156 305.7L160 300.7L164 294.8L168 287.7L172 279L176 268.3L180 255.3L184 239.4L188 220.4L192 198.9L196 175.9L200 153.2L204 132.4L208 114.6L212 99.7L216 87.6L220 77.7L224 69.6L228 63L232 57.4L236 52.7L240 48.8L244 45.4L248 42.5L252 39.9L256 37.7L260 35.7L264 34L268 32.4L272 31.1L276 29.8L280 28.7L284 27.7L288 26.8L292 26L296 25.2L300 24.6L304 24L308 23.4L312 22.9L316 22.4L320 22L324 21.7L328 21.3L332 21L336 20.8L340 20.5L344 20.3L348 20.1L352 20L356 19.8L360 19.7L364 19.7L368 19.6L372 19.6L376 19.6L380 19.6L384 19.6L388 19.7L392 19.8L396 19.9L400 20L404 20.2L408 20.4L412 20.6L416 20.8L420 21.1L424 21.4L428 21.8L432 22.2L436 22.6L440 23.1L444 23.6L448 24.2L452 24.8L456 25.5L460 26.3L464 27.1L468 28.1L472 29.1L476 30.3L480 31.5L484 33L488 34.6L492 36.4L496 38.4L500 40.8L504 43.5L508 46.5L512 50.1L516 54.3L520 59.3L524 65.2L528 72.3L532 81L536 91.7L540 104.7L544 120.6L548 139.6L552 161.1L556 184.1L560 206.8L564 227.6L568 245.4L572 260.3L576 272.4L580 282.3L584 290.4L588 297L592 302.6L596 307.3L600 311.2L604 314.6L608 317.5L612 320.1L616 322.3L620 324.3L624 326L628 327.6L632 328.9L636 330.2L640 331.3L644 332.3L648 333.2L652 334L656 334.8L660 335.4L664 336L668 336.6L672 337.1L676 337.6L680 338L684 338.3L688 338.7L692 339L696 339.2L700 339.5L704 339.7L708 339.9L712 340L716 340.2L720 340.3L720 360L0 360Z" fill="#050a16" fill-opacity=".66"/>
           <circle cx="123.5" cy="111.9" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="123.5" y="105.1" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Los Angeles</text><circle cx="161.7" cy="141.1" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="161.7" y="134.3" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Mexico City</text><circle cx="266.7" cy="227.1" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="266.7" y="220.3" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">São Paulo</text><circle cx="211.9" cy="170.6" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="211.9" y="163.8" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Bogotá</text><circle cx="60.2" cy="57.6" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="60.2" y="50.8" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Anchorage</text><circle cx="212" cy="98.6" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="212" y="91.8" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">New York</text><circle cx="359.7" cy="77" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="359.7" y="70.2" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">London</text><circle cx="435.2" cy="68.5" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="435.2" y="61.7" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Moscow</text><circle cx="352.6" cy="99.2" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="352.6" y="92.4" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Madrid</text><circle cx="366.8" cy="167" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="366.8" y="160.2" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Lagos</text><circle cx="422.5" cy="119.9" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="422.5" y="113.1" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Cairo</text><circle cx="416.1" cy="232.4" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="416.1" y="225.6" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Johannesburg</text><circle cx="433.6" cy="182.6" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="433.6" y="175.8" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Nairobi</text><circle cx="494" cy="130.3" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="494" y="123.5" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Karachi</text><circle cx="505.8" cy="141.8" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="505.8" y="135" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Mumbai</text><circle cx="561" cy="152.5" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="561" y="145.7" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Bangkok</text><circle cx="602.9" cy="117.5" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="602.9" y="110.7" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Shanghai</text><circle cx="567.6" cy="177.3" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="567.6" y="170.5" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Singapore</text><circle cx="573.7" cy="192.4" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="573.7" y="185.6" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Jakarta</text><circle cx="639.3" cy="108.6" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="639.3" y="101.8" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Tokyo</text><circle cx="709.5" cy="253.7" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="714.3" y="246.9" text-anchor="end" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Auckland</text><circle cx="591.7" cy="243.9" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="591.7" y="237.1" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Perth</text><circle cx="662.4" cy="247.7" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="662.4" y="240.9" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Sydney</text>
-          <g id="wk-sun" transform="translate(99.3 160.3)">
+          <g id="wk-sun" transform="translate(15.3 160.4)">
             <circle r="11" fill="#fde68a" fill-opacity=".25"/>
             <circle r="5.5" fill="#fde68a" stroke="#b45309" stroke-width="1.4"/>
           </g>
@@ -2120,10 +2149,10 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
         </svg>
       </div></a>
       <div class="wk-strip">
-        <a class="wk-city" href="/world-clock/new-york/"><span>New York</span><b data-wk-tz="America/New_York">4:42 PM</b></a>
-        <a class="wk-city" href="/world-clock/london/"><span>London</span><b data-wk-tz="Europe/London">9:42 PM</b></a>
-        <a class="wk-city" href="/world-clock/tokyo/"><span>Tokyo</span><b data-wk-tz="Asia/Tokyo">5:42 AM</b></a>
-        <a class="wk-city" href="/world-clock/sydney/"><span>Sydney</span><b data-wk-tz="Australia/Sydney">6:42 AM</b></a>
+        <a class="wk-city" href="/world-clock/new-york/"><span>New York</span><b data-wk-tz="America/New_York">7:30 PM</b></a>
+        <a class="wk-city" href="/world-clock/london/"><span>London</span><b data-wk-tz="Europe/London">12:30 AM</b></a>
+        <a class="wk-city" href="/world-clock/tokyo/"><span>Tokyo</span><b data-wk-tz="Asia/Tokyo">8:30 AM</b></a>
+        <a class="wk-city" href="/world-clock/sydney/"><span>Sydney</span><b data-wk-tz="Australia/Sydney">9:30 AM</b></a>
       </div>
       <div class="wk-links">
         <a class="wk-all" href="/world-clock/">World clock →</a>
@@ -2131,9 +2160,9 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       </div>
     
       <ul class="hub-qs">
-<li id="terminator"><p><a href="/concepts/what-is-the-terminator/">What is the terminator?</a> The terminator is the line between day and night — the circle on Earth where the Sun sits on the horizon. Sunrise is where you cross it going into the light; sunset is where you cross it going out.</p></li>
-<li id="twilight"><p><a href="/concepts/what-is-twilight/">What is twilight?</a> Twilight is the time when the Sun is below the horizon but still lighting the sky. This map draws it as a soft band: from the terminator down to where the Sun is 18° below — the edge of astronomical night.</p></li>
-<li id="projection"><p><a href="/concepts/why-is-this-map-flat/">Why is this map flat?</a> This map gives every degree of latitude and longitude the same length on the page, so meridians are straight and the terminator is honest. The cost is size: land near the poles is stretched. The picture says so, in numbers from the drawing.</p></li>
+<li id="what-is-a-time-zone"><p><a href="/concepts/what-is-a-time-zone/">What is a time zone?</a> A political stripe painted on a rotating ball. Noon is where the Sun is overhead. A zone is an argument about how far from that line a country is willing to sit, so clocks in that stripe all say the same hour.</p></li>
+<li id="what-is-utc"><p><a href="/concepts/what-is-utc/">What is UTC?</a> Coordinated Universal Time — the one clock the rest are offsets from. It tracks atomic time, steered to stay close to the Earth’s spin. Every zone on this site is written as hours ahead of or behind UTC.</p></li>
+<li id="what-is-the-international-date-line"><p><a href="/concepts/what-is-the-international-date-line/">What is the International Date Line?</a> The seam where the calendar jumps a day. Noon travels west around a round Earth forever, so somewhere the date has to tear. We cut the seam in the Pacific, as far from most people as we could, and kink it around islands that did not want to be split.</p></li>
 </ul>
     </div>
     <div class="tc tc-mini tc-tdiff sp-6" data-hg="time">
@@ -2163,6 +2192,10 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <p class="hint tdiff-cross" id="tdiff-cross" hidden></p>
     <p class="tool-msg-warn" id="tdiff-note" hidden></p>
       <a class="wk-all" href="/time-difference-calculator/">Full time difference calculator →</a>
+    
+      <ul class="hub-qs">
+<li id="what-is-daylight-saving-time"><p><a href="/concepts/what-is-daylight-saving-time/">What is daylight saving time?</a> A twice-a-year decision to shift the clock one hour so evening daylight lasts longer in summer. Not every place does it. When they do, the offset from UTC changes, and so does the sunrise time on the clock — not the sunrise in the sky.</p></li>
+</ul>
     </div>
     <div class="tc tc-mini tc-conv sp-6" data-hg="time">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="7.2" cy="12" r="5.6" fill="#fbbf24"/><circle cx="7.2" cy="12" r="4.4" fill="#fff7ed"/><path d="M7.2 8.9v3.1l2.1 1.3" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="7.2" cy="12" r="0.7" fill="#1e293b"/><circle cx="16.8" cy="12" r="5.6" fill="#94a3b8"/><circle cx="16.8" cy="12" r="4.4" fill="#0f172a"/><path d="M16.8 8.9v3.1l2.1 1.3" stroke="#e2e8f0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="16.8" cy="12" r="0.7" fill="#e2e8f0"/><ellipse cx="5.6" cy="9.8" rx="1.6" ry=".9" fill="#ffffff" opacity=".6" transform="rotate(-30 5.6 9.8)"/></g></svg> 12/24-Hour Converter</div>
@@ -2190,6 +2223,10 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     </div>
     <p class="cv-say" id="cv-say">Said aloud: &ldquo;eighteen forty&rdquo; on the 24-hour clock, &ldquo;six forty in the evening&rdquo; on the 12-hour one.</p>
       <a class="wk-all" href="/24-hour-clock-converter/">Full converter, chart &amp; every half hour →</a>
+    
+      <ul class="hub-qs">
+<li id="what-is-the-24-hour-clock"><p><a href="/concepts/what-is-the-24-hour-clock/">What is the 24-hour clock?</a> The clock that does not hide the afternoon. 07:00 is morning; 19:00 is evening. Science, airlines, hospitals and most of the world use it because 7:00 on a 12-hour clock throws away the answer to breakfast or dinner.</p></li>
+</ul>
     </div>
   <div class="card home-cd-block sp-6" data-hg="time">
     <h2><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M3 21 8.2 9.6l6.2 6.2z" fill="#f59e0b"/><path d="M3 21l7.6-4.6-3.4-3.4z" fill="#fbbf24"/><circle cx="13.6" cy="4.4" r="1.3" fill="#f472b6"/><circle cx="19.6" cy="8.2" r="1.3" fill="#38bdf8"/><circle cx="17" cy="14.8" r="1.2" fill="#a78bfa"/><path d="M15.4 8.8c1.6-1.6 3.2-1.6 4.8-3.2" stroke="#34d399" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="15.8" y="1.8" width="2" height="2" rx="0.4" fill="#fde047" transform="rotate(25 16.8 2.8)"/></g></svg> Event countdowns</h2>
@@ -2209,7 +2246,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   </div>
   </div>
   <div class="home-foot">
-    <p class="home-suggest">Start with a question — <a href="/questions/">why don't the planets fall into the sun, and six more</a>. Or jump across: <a href="/">Home</a> · <a href="/earth/">Earth</a> · <a href="/space/">Space</a> · <a href="/classroom/">Classroom</a>.</p>
+    <p class="home-suggest">Start with a question — <a href="/questions/">why don't the planets fall into the sun, and the seven that follow</a>. Or jump across: <a href="/">Home</a> · <a href="/earth/">Earth</a> · <a href="/space/">Space</a> · <a href="/classroom/">Classroom</a>.</p>
   </div>
   <details class="suggest-box" data-ac="suggest">
     <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
@@ -2236,8 +2273,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 
 
 <script defer src="/assets/js/home-search.8410a26d61.js"></script>
-<script defer src="/assets/js/sec-time.0670fb0c98.js"></script>
-<script data-pgv="1">(function(){try{if(localStorage.getItem("ac_notrack"))return;}catch(_){}
+<script defer src="/assets/js/sec-time.b64167774b.js"></script><script data-pgv="1">(function(){try{if(localStorage.getItem("ac_notrack"))return;}catch(_){}
 var vid="";try{vid=localStorage.getItem("ac_vid")||"";if(!vid){vid=Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem("ac_vid",vid);}}catch(_){}
 /* sendBeacon, fired at idle: this is a fire-and-forget counter whose reply the
    page discards, so it has no business sitting in the load timeline. sendBeacon

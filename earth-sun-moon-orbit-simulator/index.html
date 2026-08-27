@@ -338,6 +338,9 @@ a{color:#111;text-decoration:underline}
 .chip:hover{border-color:var(--accent)}
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .wc-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
 .wc-grid{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:560px){.wc-grid{grid-template-columns:1fr 1fr}}
@@ -522,6 +525,8 @@ box-shadow:0 0 0 1px var(--accent) inset}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 .xl-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:4px}
 .xl-tile{display:flex;flex-direction:column;gap:2px;padding:12px 13px;border:1px solid var(--border);
 border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:var(--text)}
@@ -1100,7 +1105,6 @@ font-weight: 600;
 }
 .answer {
 font-size: 1.125rem;
-max-width: 62ch;
 line-height: 1.55;
 }
 .answer a {
@@ -1122,7 +1126,6 @@ font-weight: 600;
 .hub-teaser, .related p, .see-live p {
 margin: 0 0 16px;
 color: var(--muted);
-max-width: 66ch;
 }
 .hub-teaser a, .related p a, .glossary-item a {
 font-weight: 600;
@@ -1146,12 +1149,23 @@ gap: 12px;
 }
 .graphic-block {
 margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
 }
 .graphic-block figcaption, figcaption {
 margin-top: 10px;
 color: var(--muted);
 font-size: 0.9rem;
-max-width: 70ch;
 }
 .more-info {
 margin: 24px 0;
@@ -1202,7 +1216,7 @@ margin: 0 0 6px;
 letter-spacing: 0;
 font-weight: 650;
 }
-.glossary-item p { max-width: 66ch; margin: 0; color: var(--muted); }
+.glossary-item p { margin: 0; color: var(--muted); }
 .letter {
 font-size: 1.5rem;
 margin: 28px 0 0;
@@ -1210,7 +1224,7 @@ color: var(--muted);
 }
 .glossary-item[hidden], .letter[hidden] { display: none; }
 .hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
-.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
 .hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
 .hub-qs a:hover { text-decoration: underline; }
 .hub-kicker {
@@ -1221,7 +1235,24 @@ text-transform: uppercase;
 color: var(--muted);
 font-weight: 700;
 }
-.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }</style>
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Earth, the Sun & the Moon — All Three Moving at Once","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/earth-sun-moon-orbit-simulator/","description":"A schematic of the Earth going round the sun while the moon goes round the Earth, drawn small enough to fit one screen. Not to scale — the page says by how much — but the real ratio between the two orbital periods.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Earth, Sun & Moon orbit simulator","item":"https://timeandspace.science/earth-sun-moon-orbit-simulator/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Earth, Sun & Moon: the whole system moving","url":"https://timeandspace.science/earth-sun-moon-orbit-simulator/","description":"A schematic showing the Earth orbiting the sun while the moon orbits the Earth, at the real ratio between the two periods and an openly invented scale.","learningResourceType":"simulation","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"student"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
@@ -1231,7 +1262,7 @@ font-weight: 700;
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=Earth%2C%20the%20Sun%20%26%20the%20Moon&amp;theme=generic">
 <meta name="robots" content="max-image-preview:large">
-<!-- build 6dbbc644f55a · generated 2026-08-27T20:42:45.420Z -->
+<!-- build 8c0f60ef6756 · generated 2026-08-27T23:36:33.832Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1439,6 +1470,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <li id="what-is-earths-axial-tilt"><p><a href="/concepts/what-is-earths-axial-tilt/">What is Earth’s axial tilt?</a> Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.</p></li>
     <li id="why-do-we-have-seasons"><p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year.</p></li>
     <li id="why-isnt-there-an-eclipse-every-month"><p><a href="/concepts/why-isnt-there-an-eclipse-every-month/">Why isn’t there an eclipse every month?</a> The Moon’s path around Earth is tipped about 5° to Earth’s path around the Sun. Most months the full Moon rides above or below Earth’s shadow, and the new Moon rides above or below the Sun. An eclipse needs the Moon at a crossing, not just at a phase.</p></li>
+    <li id="why-do-other-planets-have-seasons"><p><a href="/concepts/why-do-other-planets-have-seasons/">Do other planets have seasons?</a> Yes, if they tilt. Seasons come from a lean, not from being closer to the Sun. Mars tilts about 25°, like Earth, so it has seasons — just longer, because its year is longer. Uranus tilts 98°, so each pole sits in sunlight for 42 years and then in darkness for 42. Jupiter barely tilts, so its seasons are weak.</p></li>
     </ul>
   </div>
   <div class="card">

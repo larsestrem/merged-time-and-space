@@ -338,6 +338,9 @@ a{color:#111;text-decoration:underline}
 .chip:hover{border-color:var(--accent)}
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .wc-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
 .wc-grid{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:560px){.wc-grid{grid-template-columns:1fr 1fr}}
@@ -522,6 +525,8 @@ box-shadow:0 0 0 1px var(--accent) inset}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 .sun-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .sun-tile{border:1px solid var(--border);border-radius:12px;padding:12px 10px;text-align:center;background:rgba(255,255,255,.03)}
 .sun-tile .sun-lab{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
@@ -1227,7 +1232,6 @@ font-weight: 600;
 }
 .answer {
 font-size: 1.125rem;
-max-width: 62ch;
 line-height: 1.55;
 }
 .answer a {
@@ -1249,7 +1253,6 @@ font-weight: 600;
 .hub-teaser, .related p, .see-live p {
 margin: 0 0 16px;
 color: var(--muted);
-max-width: 66ch;
 }
 .hub-teaser a, .related p a, .glossary-item a {
 font-weight: 600;
@@ -1273,12 +1276,23 @@ gap: 12px;
 }
 .graphic-block {
 margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
 }
 .graphic-block figcaption, figcaption {
 margin-top: 10px;
 color: var(--muted);
 font-size: 0.9rem;
-max-width: 70ch;
 }
 .more-info {
 margin: 24px 0;
@@ -1329,7 +1343,7 @@ margin: 0 0 6px;
 letter-spacing: 0;
 font-weight: 650;
 }
-.glossary-item p { max-width: 66ch; margin: 0; color: var(--muted); }
+.glossary-item p { margin: 0; color: var(--muted); }
 .letter {
 font-size: 1.5rem;
 margin: 28px 0 0;
@@ -1337,7 +1351,7 @@ color: var(--muted);
 }
 .glossary-item[hidden], .letter[hidden] { display: none; }
 .hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
-.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); max-width: 70ch; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
 .hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
 .hub-qs a:hover { text-decoration: underline; }
 .hub-kicker {
@@ -1348,7 +1362,24 @@ text-transform: uppercase;
 color: var(--muted);
 font-weight: 700;
 }
-.hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }</style>
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sun, Moon & Earth Simulator for Jefferson City, MO — Any Date or Time","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/sun-moon-earth-movement-simulator/jefferson-city-mo/","description":"Watch the sun and moon move around the Earth as seen from Jefferson City, MO: scrub a day, a week or a month, see the phase, altitude and direction of both, sunrise 6:34 AM, sunset 7:48 PM and today's full moon moon.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Sun, Moon & Earth simulator","item":"https://timeandspace.science/sun-moon-earth-movement-simulator/"},{"@type":"ListItem","position":3,"name":"Jefferson City, MO","item":"https://timeandspace.science/sun-moon-earth-movement-simulator/jefferson-city-mo/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Jefferson City","address":{"@type":"PostalAddress","addressLocality":"Jefferson City","addressCountry":"US","addressRegion":"Missouri"},"geo":{"@type":"GeoCoordinates","latitude":38.5767,"longitude":-92.1735},"containedInPlace":[{"@type":"AdministrativeArea","name":"Missouri"},{"@type":"Country","name":"United States"}],"url":"https://timeandspace.science/sun-moon-earth-movement-simulator/jefferson-city-mo/"}</script>
@@ -1358,7 +1389,7 @@ font-weight: 700;
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=Sun%2C%20Moon%20%26%20Earth%20Simulator%20for%20Jefferson%20City%2C%20MO&amp;theme=generic">
 <meta name="robots" content="max-image-preview:large">
-<!-- build 6dbbc644f55a · generated 2026-08-27T20:42:45.420Z -->
+<!-- build 8c0f60ef6756 · generated 2026-08-27T23:36:33.832Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/earthmoon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1513,7 +1544,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <div class="sim-top">
     <div class="sim-stage" id="sim-stage"><div class="sim-inner">
     <div class="sim-figwrap">
-    <div class="orr-fig sim-fig" id="sim-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="370,111.3 368.6,108.7 366.9,106.3 364.9,104 362.7,102 360.3,100.2 357.7,98.7 355,97.4 352,96.3 349,95.6 345.9,95.1 342.8,95 339.6,95.1 336.5,95.5 333.3,96.2 330.3,97.2 327.3,98.5 324.5,100.1 321.8,101.8 319.3,103.8 317,106.1 314.9,108.5 313.1,111 311.6,113.8 310.3,116.6 309.3,119.5 308.6,122.5 308.2,125.5 308.1,128.5 308.4,131.5 308.9,134.4 309.8,137.2 310.9,140 312.3,142.5 314,145 316,147.2 318.2,149.2 320.6,151 323.2,152.6 326,153.9 328.9,154.9 331.9,155.7 335,156.1 338.1,156.3 341.3,156.2 344.5,155.7 347.6,155 350.6,154 353.6,152.7 356.4,151.2 359.1,149.4 361.6,147.4 363.9,145.2 366,142.8 367.8,140.2 369.4,137.5 370.6,134.7 371.6,131.7 372.3,128.8 372.7,125.8 372.8,122.8 372.5,119.8 372,116.9 371.1,114 370,111.3" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.7 120" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.7" cy="120" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="334.2" y="116.3" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M313.6 144.4L296.2 149.7" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="313.6" cy="144.4" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="292.3" y="154.9" text-anchor="end" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Jefferson City</text><circle cx="451.8" cy="141.2" r="11.45" fill="#4b5563"/><path d="M451.8 129.7A11.45 11.45 0 0 0 451.8 152.6Z" fill="#e8eef7"/><circle cx="451.8" cy="141.2" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="451.8" y="163.6" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Full moon</text></g></svg></div>
+    <div class="orr-fig sim-fig" id="sim-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="370,111.4 368.6,108.8 366.9,106.3 365,104.1 362.8,102.1 360.4,100.2 357.8,98.7 355,97.4 352.1,96.3 349.1,95.6 346,95.1 342.9,95 339.7,95.1 336.5,95.5 333.4,96.2 330.3,97.2 327.4,98.5 324.6,100 321.9,101.8 319.4,103.8 317.1,106 315,108.4 313.2,111 311.6,113.7 310.3,116.5 309.3,119.4 308.6,122.4 308.2,125.4 308.1,128.4 308.4,131.4 308.9,134.3 309.8,137.2 310.9,139.9 312.3,142.5 314,144.9 316,147.1 318.2,149.2 320.6,151 323.2,152.6 325.9,153.9 328.8,154.9 331.8,155.6 334.9,156.1 338.1,156.3 341.2,156.1 344.4,155.7 347.5,155 350.6,154 353.6,152.8 356.4,151.2 359.1,149.4 361.6,147.4 363.9,145.2 366,142.8 367.8,140.3 369.4,137.5 370.6,134.7 371.6,131.8 372.3,128.8 372.7,125.8 372.8,122.8 372.6,119.8 372,116.9 371.2,114.1 370,111.4" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.7 120" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.7" cy="120" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="334.3" y="116.2" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M335.1 156.1L323.3 181.2" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="335.1" cy="156.1" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="321.6" y="193.8" text-anchor="end" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Jefferson City</text><circle cx="451.9" cy="138.4" r="11.45" fill="#4b5563"/><path d="M451.9 126.9A11.45 11.45 0 0 0 451.9 149.8Z" fill="#e8eef7"/><circle cx="451.9" cy="138.4" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="451.9" y="160.8" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Full moon</text></g></svg></div>
     </div>
 
     <div class="sim-row">
@@ -1522,7 +1553,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <span class="sim-fsglyph" id="sim-fsglyph" aria-hidden="true"><svg viewBox="0 0 112 112" width="112" height="112" aria-hidden="true" class="mn-moon"><circle cx="56" cy="56" r="56" fill="#efe3c2"/><g transform="scale(0.56)"><use href="/assets/img/moon-face.b9e194850d.svg#ac-moon-face"/></g><circle cx="56" cy="56" r="56" fill="none" stroke="#57503a" stroke-width="1"/></svg></span>
       <span class="sim-fslab"><b id="sim-fsphase">Full moon</b> <span id="sim-fslit">100%</span> lit</span>
     </p>
-    <p class="sim-when" id="sim-when">Thu, Aug 27, 2026, 3:26 PM</p>
+    <p class="sim-when" id="sim-when">Thu, Aug 27, 2026, 6:32 PM</p>
     </div>
     <div class="sim-ctl">
       <button type="button" class="chip sim-icobtn" id="sim-cfg" data-sim-inert disabled hidden aria-haspopup="dialog" aria-label="Simulator settings"><svg class="nav-ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><g><path d="M12 8.4A3.6 3.6 0 1 0 12 15.6 3.6 3.6 0 0 0 12 8.4zm0 2.1a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" fill="#cbd5e1"/><path d="M10.6 2.2h2.8l.35 2.2a7.8 7.8 0 0 1 1.72.72l1.8-1.3 2 2-1.3 1.8c.3.54.54 1.12.72 1.72l2.2.35v2.8l-2.2.35a7.8 7.8 0 0 1-.72 1.72l1.3 1.8-2 2-1.8-1.3a7.8 7.8 0 0 1-1.72.72l-.35 2.2h-2.8l-.35-2.2a7.8 7.8 0 0 1-1.72-.72l-1.8 1.3-2-2 1.3-1.8a7.8 7.8 0 0 1-.72-1.72l-2.2-.35v-2.8l2.2-.35c.18-.6.42-1.18.72-1.72l-1.3-1.8 2-2 1.8 1.3c.54-.3 1.12-.54 1.72-.72zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z" fill="#94a3b8"/></g></svg><span>Settings</span></button>
@@ -1549,7 +1580,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
         <div class="sim-fields">
           <div class="sim-field">
             <label class="sim-flab" for="sim-start">Starting date and time</label>
-            <input type="datetime-local" class="orr-at" id="sim-start" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-27T15:26">
+            <input type="datetime-local" class="orr-at" id="sim-start" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-27T18:32">
           </div>
           <div class="sim-field">
             <label class="sim-flab" for="sim-span">The slider covers</label>
@@ -1572,11 +1603,11 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
         <span class="hint sim-moonlab">from the ground at <span id="sim-moonwhen">—</span></span>
       </div>
       <div class="sim-rows">
-        <div class="sun-srow sun-main"><span>Sun altitude</span><b id="sim-sun-alt">48.3°</b></div>
-        <div class="sun-srow"><span>Sun direction</span><b id="sim-sun-az">SW</b></div>
-        <div class="sun-srow sun-main"><span>Moon altitude</span><b id="sim-moon-alt">-47.1°</b></div>
-        <div class="sun-srow"><span>Moon direction</span><b id="sim-moon-az">ENE</b></div>
-        <div class="sun-srow"><span>Moon–sun angle</span><b id="sim-elong">177°</b></div>
+        <div class="sun-srow sun-main"><span>Sun altitude</span><b id="sim-sun-alt">13.7°</b></div>
+        <div class="sun-srow"><span>Sun direction</span><b id="sim-sun-az">west</b></div>
+        <div class="sun-srow sun-main"><span>Moon altitude</span><b id="sim-moon-alt">-12.6°</b></div>
+        <div class="sun-srow"><span>Moon direction</span><b id="sim-moon-az">east</b></div>
+        <div class="sun-srow"><span>Moon–sun angle</span><b id="sim-elong">178°</b></div>
         <div class="sun-srow"><span>Daylight that day</span><b id="sim-len">13 h 14 m</b></div>
         <div class="sun-srow"><span>Sunrise · sunset</span><b><span id="sim-rise">6:34 AM</span> · <span id="sim-set">7:48 PM</span></b></div>
         <div class="sun-srow"><span>Moonrise · moonset</span><b><span id="sim-mrise">7:39 PM</span> · <span id="sim-mset">5:56 AM</span></b></div>
@@ -1591,7 +1622,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <button type="button" class="chip" data-sim-inert disabled data-sim-phase="3">last quarter</button>
     </p>
 
-    <p class="hint orr-note" id="sim-note"><b>Jefferson City</b> is the marker on the globe — on the daylit half at the time shown, riding the dotted circle its spot traces as the Earth turns. The moon is <b>177°</b> from the sun in the sky then, and that angle is the phase: full moon. You are looking down on the Earth from far above its orbit, from the north — the side you are on — with sunlight arriving from the top left, so the half of the Earth facing that way is the half having its day. Sizes and distances are not to scale; the directions are.</p>
+    <p class="hint orr-note" id="sim-note"><b>Jefferson City</b> is the marker on the globe — on the daylit half at the time shown, riding the dotted circle its spot traces as the Earth turns. The moon is <b>178°</b> from the sun in the sky then, and that angle is the phase: full moon. You are looking down on the Earth from far above its orbit, from the north — the side you are on — with sunlight arriving from the top left, so the half of the Earth facing that way is the half having its day. Sizes and distances are not to scale; the directions are.</p>
   </div>
   <div class="card">
     <h2>What Jefferson City’s latitude does to the picture</h2>
@@ -1601,7 +1632,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <div class="wc-frow"><span>Daylight today</span><b>13 h 14 m</b></div>
       <div class="wc-frow"><span>Moonrise · moonset today</span><b>7:39 PM · 5:56 AM</b></div>
       <div class="wc-frow"><span>Moonrise tomorrow</span><b>8:02 PM — 23 min later</b></div>
-      <div class="wc-frow"><span>Moon–sun angle now</span><b>177° — full moon</b></div>
+      <div class="wc-frow"><span>Moon–sun angle now</span><b>178° — full moon</b></div>
       <div class="wc-frow"><span>Longest · shortest day of 2026</span><b>14 h 52 m · 9 h 28 m</b></div>
       <div class="wc-frow"><span>Time zone</span><b>America/Chicago</b></div>
     </div>
@@ -1647,7 +1678,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 <script>window.AC_SIM_C={"slug":"jefferson-city-mo","name":"Jefferson City, MO","tz":"America/Chicago","lat":38.5767,"lon":-92.1735};</script>
 <!-- ~60KB, byte-identical on the hub and all 1103 city pages but the
      config line above, so it is hoisted into one cached file (build-inline). -->
-<script defer src="/assets/js/simulator.5ec744239e.js"></script><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+<script defer src="/assets/js/simulator.a8f13041f7.js"></script><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];

@@ -580,10 +580,6 @@
 .wk-scrub-lab b{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
 .wk-nowbtn{margin:0;padding:5px 12px}
 
-/* the section pages' switcher — the old tab row as real links */
-.sec-switch{margin:2px 0 14px}
-.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
-
 /* questions sit under a picture, not in a second essay.
    Base .hub-qs / .hub-kicker / .hub-blurb live in 23-concept.css so simulator
    pages don't get pulled into the home section. Home-only layout stays here. */

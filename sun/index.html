@@ -351,6 +351,9 @@ a{color:#111;text-decoration:underline}
 .chip:hover{border-color:var(--accent)}
 .chip.chip-alt{border-color:var(--accent);color:var(--accent)}
 .chip.chip-alt:hover{background:var(--accent);color:#1a1a1a}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.sec-switch{margin:2px 0 14px}
+.sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
 .ac-dialog{border:1px solid var(--border);border-radius:16px;background:var(--menu-bg,#15151b);color:var(--text);padding:0;max-width:380px;width:92%;max-height:92vh;max-height:92dvh;overflow-y:auto}
 .ac-dialog::backdrop{background:rgba(0,0,0,.55)}
 #mt-dlg{margin-top:14px;margin-bottom:auto}
@@ -470,6 +473,8 @@ box-shadow:0 0 0 1px var(--accent) inset}
 .cr-check{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:400}
 .cr-check input{width:auto;flex:0 0 auto;margin:0;accent-color:var(--accent)}
 .cr-ask .btn{width:auto;padding:11px 24px}
+.suggest-link{margin:24px 0 8px;color:var(--muted)}
+.suggest-link a{font-weight:600}
 .sun-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .sun-tile{border:1px solid var(--border);border-radius:12px;padding:12px 10px;text-align:center;background:rgba(255,255,255,.03)}
 .sun-tile .sun-lab{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
@@ -649,19 +654,177 @@ h2:has(> .sun-hdate){display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 }
 @media (min-width:560px){ h1{font-size:32px} }
 .pl-facts .wc-frow>span{flex:0 0 42%}
-@media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}</style>
+@media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}
+.kicker {
+text-transform: uppercase;
+letter-spacing: 0.12em;
+font-size: 0.72rem;
+color: var(--muted);
+margin: 0 0 8px;
+font-weight: 600;
+}
+.answer {
+font-size: 1.125rem;
+line-height: 1.55;
+}
+.answer a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
+.concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
+.band-deeper h2::after {
+content: " Further down";
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--muted);
+margin-left: 8px;
+font-weight: 600;
+}
+.hub-teaser, .related p, .see-live p {
+margin: 0 0 16px;
+color: var(--muted);
+}
+.hub-teaser a, .related p a, .glossary-item a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.hub-teaser a:hover, .related p a:hover, .glossary-item a:hover { text-decoration: underline; }
+.hub-teaser a.hub-more, .related p a.hub-more, .glossary-item a.hub-more {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+white-space: nowrap;
+margin-left: 0.35em;
+}
+.see-live ul, .related ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: grid;
+gap: 12px;
+}
+.graphic-block {
+margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
+}
+.graphic-block figcaption, figcaption {
+margin-top: 10px;
+color: var(--muted);
+font-size: 0.9rem;
+}
+.more-info {
+margin: 24px 0;
+border: 1px solid var(--border);
+border-radius: 12px;
+background: var(--card);
+padding: 4px 16px 16px;
+}
+.more-info > summary {
+cursor: pointer;
+font-weight: 650;
+padding: 14px 0;
+list-style: none;
+color: var(--text);
+}
+.more-info > summary::-webkit-details-marker { display: none; }
+.more-info > summary::after {
+content: " +";
+color: var(--accent);
+font-weight: 700;
+}
+.more-info[open] > summary::after { content: " −"; }
+.search {
+width: 100%;
+height: 48px;
+border-radius: 10px;
+border: 1px solid var(--border);
+background: var(--card);
+color: var(--text);
+padding: 0 14px;
+font-size: 1rem;
+margin: 16px 0 28px;
+font-variant-numeric: tabular-nums;
+}
+.search:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.glossary-list {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.glossary-item {
+padding: 16px 0;
+border-bottom: 1px solid var(--border);
+}
+.glossary-item h2 {
+font-size: 1.05rem;
+margin: 0 0 6px;
+letter-spacing: 0;
+font-weight: 650;
+}
+.glossary-item p { margin: 0; color: var(--muted); }
+.letter {
+font-size: 1.5rem;
+margin: 28px 0 0;
+color: var(--muted);
+}
+.glossary-item[hidden], .letter[hidden] { display: none; }
+.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
+.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
+.hub-qs a:hover { text-decoration: underline; }
+.hub-kicker {
+margin: 0 0 4px;
+font-size: 0.72rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--muted);
+font-weight: 700;
+}
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sunrise and Sunset Times Today — Any Location","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/sun/","description":"Today's sunrise & sunset times plus first light, last light, solar noon, day length and a 7-day outlook.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How accurate are the times?","acceptedAnswer":{"@type":"Answer","text":"These are calculated estimates, computed live in your browser with a standard solar-position method (the SunCalc library) from each city's listed coordinates — so they're always for today's date and can't go stale. Actual observed sunrise and sunset can differ by a few minutes with terrain, elevation, weather, atmospheric refraction, and how far you are from the listed coordinates."}},{"@type":"Question","name":"Whose time zone are the times in?","acceptedAnswer":{"@type":"Answer","text":"Each city page shows times in that city's own local time zone, labelled on the page."}},{"@type":"Question","name":"What's the difference between sunrise and first light?","acceptedAnswer":{"@type":"Answer","text":"First light (civil dawn) is when the sun reaches 6° below the horizon — bright enough to see clearly. Sunrise is when the sun's upper edge crosses the horizon itself."}}]}</script>
+
+<!-- build 8c0f60ef6756 · generated 2026-08-27T23:36:33.832Z -->
+<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon/sunrise.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:site_name" content="Time and Space Science">
 
 <meta property="og:image" content="https://timeandspace.science/api/og?name=Sunrise%20and%20Sunset%20Times%20Today&amp;theme=generic">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=Sunrise%20and%20Sunset%20Times%20Today&amp;theme=generic">
 <meta name="robots" content="max-image-preview:large">
-<!-- build 6dbbc644f55a · generated 2026-08-27T20:42:45.420Z -->
-<script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
-<link rel="icon" type="image/svg+xml" href="/assets/favicon/sunrise.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:site_name" content="Time and Space Science">
-
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -856,6 +1019,16 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <h2>More sun &amp; time tools</h2>
     <p>The <a href="/world-clock/">world clock</a> shows live times and today's sunrise/sunset around the globe at a glance. Counting down to a season? Try the <a href="/holiday-countdowns/summer-solstice/">summer solstice countdown</a>. Want the maths? <a href="/methodology/sunrise-sunset/">How sunrise and sunset are calculated</a>.</p>
   </div>
+  <div class="card hub-teasers">
+    <h2>Questions this page answers</h2>
+    <p class="sub">The question is the link. A short answer sits here; tap through for the drawing and the deeper pass.</p>
+    <ul class="hub-qs">
+    <li id="what-is-daylight-saving-time"><p><a href="/concepts/what-is-daylight-saving-time/">What is daylight saving time?</a> A twice-a-year decision to shift the clock one hour so evening daylight lasts longer in summer. Not every place does it. When they do, the offset from UTC changes, and so does the sunrise time on the clock — not the sunrise in the sky.</p></li>
+    <li id="what-is-a-solar-day"><p><a href="/concepts/what-is-a-solar-day/">What is a solar day?</a> Sunrise to sunrise — the day you actually live. On Earth that averages 24 hours. A full spin relative to the stars is about 4 minutes shorter, because Earth also moved along its orbit and has to turn a little extra to face the Sun again.</p></li>
+    <li id="what-is-the-equation-of-time"><p><a href="/concepts/what-is-the-equation-of-time/">What is the equation of time?</a> The difference between clock noon and sundial noon. The Earth’s orbit is a slight ellipse and its axis is tilted, so the true solar day wanders by up to about 16 minutes through the year. Clocks run a mean 24 hours and ignore it.</p></li>
+    </ul>
+  </div>
+
   <details class="suggest-box" data-ac="suggest">
     <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
     <form class="suggest-form" autocomplete="off">

@@ -34,6 +34,8 @@ import { MARBLE } from "./build-simulator.mjs";
 import { mm, cm, metres } from "./units.mjs";
 import { LAUNCH_PATH as ROCKET_PATH, PLANETS_PATH, planetPath } from "./solar-pages.mjs";
 import { DAYNIGHT_PATH } from "./daynight.mjs";
+import { sectionSwitcher } from "./section-nav.mjs";
+import { hubQuestionsCard } from "./concepts.mjs";
 import {
   lessonForm, questionsForm, FORMS_JS, plaque, submitCta,
   SUBMIT_PATH, LESSON_FORM_HASH, QUESTIONS_HASH,
@@ -1164,7 +1166,7 @@ ${L.ext.map(([n, u, why]) => `      <li><a href="${u}" rel="noopener" target="_b
   </div>
 
 ${feedbackCard("this lesson")}
-
+${hubQuestionsCard(url)}
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 </body>
@@ -1579,7 +1581,7 @@ const SUBJECTS = [
     close: `The seasons lessons are the ones to start with, and the 7–8 band is deliberately a trap: it hands the class the "we are closer to the sun in summer" idea, which is <em>true in January and true in Australia</em>, and makes them break it themselves. A misconception a class dismantles with its own measurements does not come back.`,
   },
   {
-    s: "time", ico: "timer", lead: false,
+    s: "time", ico: "timer", lead: true,
     n: "Time in the classroom",
     door: "Time zones, 12- and 24-hour clocks, the line where the date jumps — time as geography, not as a countdown.",
     dek: "Time zones, the two clocks, and the seam in the calendar. Then, if you need a countdown, the timer is still here.",
@@ -1633,14 +1635,21 @@ const SUBJ = (s) => SUBJECTS.find((x) => x.s === s);
  * The lead pair get three named lessons; Time gets its one line and its link.
  * A door is a route, not a summary — anything it explains at length is
  * something the subject page then has to repeat. */
-const doorCard = (S) => `  <div class="card cr-door${S.lead ? "" : " cr-door-min"}">
+const doorCard = (S) => {
+  const lessonBits = S.lessons.slice(0, 3).map(([t, b]) => lessonRow(t, b)).join("\n");
+  const runBits = (S.run || []).slice(0, S.lessons.length >= 3 ? 0 : 3 - S.lessons.length)
+    .map(([title, meta]) => `      <div class="wc-frow"><span><a href="${subjectUrl(S.s)}">${esc(title)}</a></span><b>${esc(meta)}</b></div>`)
+    .join("\n");
+  return `  <div class="card cr-door${S.lead ? "" : " cr-door-min"}">
     <h2>${ico(S.ico)} <a href="${subjectUrl(S.s)}">${esc(S.n)}</a></h2>
     <p>${S.door}</p>
-${S.lead ? `    <div class="wc-facts lp-steps">
-${S.lessons.slice(0, 3).map(([t, b]) => lessonRow(t, b)).join("\n")}
+    <div class="wc-facts lp-steps">
+${lessonBits}
+${runBits}
     </div>
-` : ""}    <p><a class="cr-more" href="${subjectUrl(S.s)}">${esc(S.lead ? `Open ${S.n.replace(" in the classroom", "")}` : "Open Time")}</a></p>
+    <p><a class="cr-more" href="${subjectUrl(S.s)}">${esc(S.lead ? `Open ${S.n.replace(" in the classroom", "")}` : "Open Time")}</a></p>
   </div>`;
+};
 
 /* ---- a subject page ------------------------------------------------------ */
 const subjectPage = (S) => {
@@ -1765,6 +1774,7 @@ ${others.map((O) => `      <div class="wc-frow"><span><a href="${subjectUrl(O.s)
     </div>
   </div>
 
+${hubQuestionsCard(url)}
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 </body>
@@ -1809,6 +1819,7 @@ ${GA_SNIPPET}
 <div class="wrap">
   ${brand({ crumb: { slug: "classroom", url: PATH } })}
   <h1>Earth, sky and time — for the classroom</h1>
+${sectionSwitcher("/classroom/")}
   <p class="sub">Free simulators, projector-ready, no sign-up. Open a lesson. Or send us one.</p>
 
   ${""/* THREE DOORS AND NOTHING ELSE ABOVE THE FOLD. Every tool on the site

@@ -742,10 +742,16 @@ const SUGGEST =
   <script data-ac="suggest">(function(){var b=document.querySelector('.suggest-box[data-ac="suggest"]');if(!b)return;var f=b.querySelector('.suggest-form'),note=b.querySelector('#sg-note'),btn=b.querySelector('#sg-send');f.addEventListener('submit',function(e){e.preventDefault();if(b.querySelector('#sg-hp').value)return;var idea=b.querySelector('#sg-idea').value.trim();if(!idea){note.textContent='Please add a quick note first.';return;}var age=b.querySelector('#sg-age');if(age&&!age.checked){note.textContent='Please confirm the age notice.';return;}var em=b.querySelector('#sg-email').value.trim();btn.disabled=true;note.textContent='Sending…';fetch('/api/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:location.href,reason:'Site idea',details:idea,email:em,website:''})}).then(function(r){return r.json().catch(function(){return{};});}).then(function(d){if(d&&!d.error){f.reset();note.textContent=em?'Thanks — got it. A reply will go to '+em+'. 🙌':'Thanks — got it. 🙌 (No email given, so this one cannot be answered.)';}else{note.textContent='Sorry, that did not send. Please try again.';btn.disabled=false;}}).catch(function(){note.textContent='Network hiccup — please try again.';btn.disabled=false;});});})();</script>`;
 const stripSuggest = (h) => h
   .replace(/\s*<details class="suggest-box"[\s\S]*?<\/details>/, "")
-  .replace(/\s*<script data-ac="suggest">[\s\S]*?<\/script>/, "");
+  .replace(/\s*<script data-ac="suggest">[\s\S]*?<\/script>/, "")
+  .replace(/\s*<p class="suggest-link"[\s\S]*?<\/p>/, "");
 function injectSuggestBox(html, rel) {
   html = stripSuggest(html); /* idempotent: drop any previously injected box */
   if (rel.startsWith("report/") || rel.startsWith("suggest-event/")) return html;
+  /* Countdown/event pages: a child often opened these. Keep a link, not the
+     age-gated form. Content and classroom pages keep the full box. */
+  if (EVENT_PAGE.test(rel)) {
+    return html.replace(/(<p class="footer">)/, `<p class="suggest-link" data-ac="suggest"><a href="/report/">Question, problem or idea? Tell us.</a></p>\n  $1`);
+  }
   return html.replace(/(<p class="footer">)/, `${SUGGEST}\n  $1`);
 }
 
