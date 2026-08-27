@@ -20,11 +20,7 @@
  * import it, and a generator that imports a generator re-runs it (the same
  * trap CLAUDE.md documents for build-tides/build-sun). That is the whole
  * reason this is its own file.
- *
- * The class prefix is `sys-` ON PURPOSE: build-inline's orrery-section probe
- * is /class="[^"]*\b(orr|sol|sys)\b/, so any page that carries this strip
- * automatically ships the section of the stylesheet that styles it —
- * including a future page that carries nothing else from that section. */
+ */
 
 /* THE NAME IS THE WHOLE TILE on a phone (the description is hidden below
  * 760px), so each name has to say what the view actually SHOWS rather than
@@ -42,7 +38,7 @@ const VIEWS = [
   },
   {
     id: "system",
-    href: "/sun-moon-earth-movement-simulator/system/",
+    href: "/earth-sun-moon-orbit-simulator/",
     k: "2 · Step back",
     name: "Earth & the moon's orbit around the sun",
     what: "All three moving at once — the month, the seasons and the year on one screen.",
@@ -56,14 +52,7 @@ const VIEWS = [
   },
 ];
 
-/* One sentence of framing, then the three tiles. It leads with what the
- * ladder is FOR — the student's questions — not with the pages, because the
- * pages are the means. */
 export function viewLadder(current, { note = "" } = {}) {
-  /* the step number rides in its OWN element as well as inside the kicker.
-     On a phone the kicker's words are hidden (the names got longer and a
-     kicker plus a name wrapped every tile to two lines); the bare number
-     survives, so the three still read as an ordered journey outward. */
   const tiles = VIEWS.map((v, i) => {
     const inner = `<span class="sys-vlad-n" aria-hidden="true">${i + 1}</span>`
       + `<span class="sys-vlad-k">${v.k}</span><b>${v.name}</b><span class="sys-vlad-what">${v.what}</span>`;
@@ -71,11 +60,6 @@ export function viewLadder(current, { note = "" } = {}) {
       ? `      <span class="sys-vlad-tile is-here" aria-current="page">${inner}<span class="sys-vlad-here">You are here</span></span>`
       : `      <a class="sys-vlad-tile" href="${v.href}">${inner}</a>`;
   }).join("\n");
-  /* ONE LINE, not a paragraph — per the owner, whose constraint is that this
-     strip must not push the simulator below the fold. It names what the three
-     tiles are for (seeing where Earth sits in the wider system) and stops;
-     the teaching argument for holding the views together lives further down
-     each page, where there is room for it. */
   return `  <nav class="sys-vlad" aria-label="Three views of Earth in the solar system">
     <p class="sys-vlad-lead">Three views of Earth, and how it fits with the rest of the solar system</p>
     <div class="sys-vlad-row">
