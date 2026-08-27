@@ -2039,6 +2039,8 @@ body.mt-fs-open{overflow:hidden}
 .home-dn-link:hover .wk-map,.home-dn-link:focus-visible .wk-map{box-shadow:0 0 0 2px var(--accent)}
 .home-hero-side .wk-all{text-align:left;margin-top:4px}
 .hub-sim{margin:22px 0 0}
+.hub-sim .home-tides-charts{margin:10px 0 8px}
+.home-board>.sp-12{grid-column:span 12}
 .hub-live{margin:0 0 8px;line-height:0;border-radius:12px;overflow:hidden}
 .hub-live svg{display:block;width:100%;height:auto}
 .hub-live.pc-anim-sol{max-width:min(420px,100%);margin:0 auto 8px}

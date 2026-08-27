@@ -1636,7 +1636,38 @@ ${switcher("/")}
     <div class="hub-live pc-anim pc-anim-sol" id="home-sol">${solFirst}</div>
     <p class="home-moonprog-lab">A year every 24 seconds. Positions are real. Planet dots are not — they would be smaller than a pixel.</p>
     <a class="wk-all" href="/solar-system-simulator/">See the solar system simulator →</a>
-    ${hubQs(["why-dont-planets-fall-into-the-sun", "how-does-an-orbit-work"])}
+    ${hubQs(["why-dont-planets-fall-into-the-sun"])}
+  </div>
+  <div class="card hub-sim">
+    <p class="hub-kicker">Earth</p>
+    <h2>When the tide turns</h2>
+    <p class="hub-blurb">The Moon pulls harder on the water nearer to it than on Earth’s centre, and harder on the centre than on the far-side water. The ocean stretches into two bulges. Earth then turns under those bulges, so most coasts see two high tides a day.</p>
+    <div class="home-tides-charts">${_homeTideCharts.join("\n")}</div>
+    <a class="wk-all" href="/tides/">See the tide charts →</a>
+    ${hubQs(["what-causes-tides"])}
+  </div>
+  <div class="card hub-sim">
+    <p class="hub-kicker">Space</p>
+    <h2>What if a moon slowed down?</h2>
+    <p class="hub-blurb">Nothing spirals in. Take speed away and the far side of the orbit drops toward the planet; add speed and it climbs away — and either way the moon comes back through the point where you changed it.</p>
+    <div class="home-orb" id="ho-wrap">
+      <div class="hub-live">
+        <svg viewBox="0 0 320 200" width="100%" aria-hidden="true" id="ho-svg">
+          <rect width="320" height="200" rx="10" fill="#080d1a"/>
+          <ellipse id="ho-path" cx="160" cy="100" rx="70" ry="70" fill="none" stroke="#9dc2e0" stroke-opacity=".38" stroke-width="1" stroke-dasharray="3 4"/>
+          <circle cx="160" cy="100" r="13" fill="#2f74ad"/>
+          <circle id="ho-moon" cx="230" cy="100" r="4.5" fill="#e8eef7"/>
+        </svg>
+      </div>
+      <p class="home-orbtxt" id="ho-note">A circle: falling exactly as fast as the curve carries it away.</p>
+      <p class="home-orbbtns">
+        <button type="button" class="chip" id="ho-slow">Slow it down</button>
+        <button type="button" class="chip" id="ho-fast">Speed it up</button>
+        <button type="button" class="chip chip-alt" id="ho-reset">Circle</button>
+      </p>
+    </div>
+    <a class="wk-all" href="${OV_PATH}">See the orbital velocity simulator →</a>
+    ${hubQs(["how-does-an-orbit-work"])}
   </div>
   <div class="home-rest">
     <h2>The rest of the site</h2>
@@ -1741,12 +1772,12 @@ const SECTION_PAGES = [
     desc: "Your own sky, computed for your own town: sunrise and sunset times, tonight's moon phase, NOAA tide predictions, the live day/night map and the Sun–Earth–Moon simulator — for more than a thousand cities, on any date.",
     lede: LEDE.earth,
     board: [
-      [withQs(SUN_HOME_CARD, ["what-is-the-tropic-of-cancer"]), 6],
+      [withQs(WORLD_CLOCK_CARD, ["what-is-the-tropic-of-cancer", "what-is-the-terminator", "why-can-the-moon-be-up-in-the-daytime"]), 12],
       [withQs(MOON_CARD, ["why-does-the-moon-change-shape"]), 6],
-      [SIM_CARD, 4],
-      [withQs(SYSTEM_CARD, ["why-do-we-have-seasons", "what-is-earths-axial-tilt"]), 4],
-      [withQs(TIDES_HOME_CARD, ["what-causes-tides"]), 8],
-      [withQs(WORLD_CLOCK_CARD, ["what-is-the-terminator"]), 6],
+      [withQs(SIM_CARD, ["what-is-a-synodic-month", "why-does-moonrise-get-later", "what-is-tidal-locking"]), 6],
+      [withQs(SYSTEM_CARD, ["why-do-we-have-seasons", "what-is-earths-axial-tilt", "why-isnt-there-an-eclipse-every-month"]), 6],
+      [SUN_HOME_CARD, 6],
+      [withQs(TIDES_HOME_CARD, ["what-causes-tides"]), 12],
     ],
     js: () => `<script data-ac="shared" data-name="sec-earth">${WORLD_MAP_JS}${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>`,
   },
@@ -1756,11 +1787,12 @@ const SECTION_PAGES = [
     desc: "Where everything actually is, right now: the solar system on its real orbits, every planet with its moons, gravity and orbital-velocity simulators, launch windows to Mars, and the moon systems of Jupiter, Saturn, Uranus and Neptune.",
     lede: LEDE.space,
     board: [
-      [SIM_CARD, 4],
-      [withQs(SYSTEM_CARD, ["why-do-we-have-seasons"]), 4],
       [withQs(SOLAR_CARD, ["why-dont-planets-fall-into-the-sun"]), 4],
-      [PLANETS_CARD, 4], [ROCKET_CARD, 4],
       [withQs(ORBIT_CARD, ["how-does-an-orbit-work"]), 4],
+      [PLANETS_CARD, 4],
+      [withQs(SYSTEM_CARD, ["why-do-we-have-seasons"]), 4],
+      [ROCKET_CARD, 4],
+      [SIM_CARD, 4],
       ...MOON_CARDS.map((c, i) => [i === 1 ? withQs(c, ["why-does-jupiter-have-so-many-moons"]) : c, 4]),
     ],
     js: () => `<script data-ac="shared" data-name="sec-space">${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>${ORBIT_JS}`,
@@ -1796,7 +1828,7 @@ writeFileSync(join(root, "index.html"), doc({
   ogTitle: "TimeAndSpace.Science — Track, Record & Understand the Universe",
   body: portalBody,
   ld: webSiteLd(SITE) + appLd({ name: "Time and Space Science", url: SITE + "/", description: "Free online alarm clock, timer, stopwatch and shareable countdowns — no sign-up.", category: "UtilitiesApplication" }),
-  extraJs: `<script data-ac="shared" data-name="home-landing">${WORLD_MAP_JS}${HOME_HERO_JS}${LIVE_TILES_JS}</script>`,
+  extraJs: `<script data-ac="shared" data-name="home-landing">${WORLD_MAP_JS}${HOME_HERO_JS}${LIVE_TILES_JS}</script>${ORBIT_JS}`,
 }));
 
 /* ---- countdown hub (/countdown/) ---- */

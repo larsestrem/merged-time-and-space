@@ -10,6 +10,20 @@ output. See `CLAUDE.md` for the architecture and working rules. Deploy = push to
 `main` (Cloudflare auto-publishes).
 
 ---
+### 2026-08-27 — hub questions sit with the graphic they are about
+
+`/earth`, `/time` and `/space` no longer open with a question stack. Each
+question is under the card whose picture answers it (map → tropics/terminator;
+orbit view → seasons/tilt/eclipse; moon card → phase; tides → tides). Topics
+that are not on a page stay off that page. `/earth` now leads with the day/night
+map, the same way the homepage does.
+
+Homepage gained two more graphic cards so more questions have a home: tide
+charts, and “what if a moon slowed down” (orbital velocity).
+
+Files: `seo/tools/build-home.mjs`, `assets/css/parts/11-home.css`.
+
+---
 ### 2026-08-26 — merge: original simulators + question/concept content model
 
 Keep every live-site simulator and drawing (tilt, speed, Now, date/time slider,

@@ -639,6 +639,8 @@ background:rgba(2,6,23,.72);color:var(--text);font-size:12.5px;font-weight:700;b
 .home-dn-link:hover .wk-map,.home-dn-link:focus-visible .wk-map{box-shadow:0 0 0 2px var(--accent)}
 .home-hero-side .wk-all{text-align:left;margin-top:4px}
 .hub-sim{margin:22px 0 0}
+.hub-sim .home-tides-charts{margin:10px 0 8px}
+.home-board>.sp-12{grid-column:span 12}
 .hub-live{margin:0 0 8px;line-height:0;border-radius:12px;overflow:hidden}
 .hub-live svg{display:block;width:100%;height:auto}
 .hub-live.pc-anim-sol{max-width:min(420px,100%);margin:0 auto 8px}
@@ -960,7 +962,7 @@ font-weight: 700;
 .hub-blurb { margin: 0 0 14px; color: var(--muted); max-width: 70ch; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Space","item":"https://timeandspace.science/space/"}]}</script>
 
-<!-- build e5fe2cf46226 · generated 2026-08-27T20:26:58.037Z -->
+<!-- build 6dbbc644f55a · generated 2026-08-27T20:42:45.420Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1110,6 +1112,92 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   </nav>
   <p class="home-lede"><strong>Where everything actually is, right now.</strong> <a href="/planets/">Every planet</a>, a page each, turning on its own axis with its moons going round it — the <a href="/solar-system-simulator/">whole system on its real orbits</a>, and the <a href="/rocket-launch-simulator/">next launch window to Mars</a>. The positions are solved when the page loads, not drawn from memory.</p>
   <div class="home-board">
+    <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/solar-system-simulator/">
+      <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Solar System Simulator</div>
+      <div class="home-simwide" style="--hs-o:240px 135px"><svg viewBox="0 0 480 270" aria-hidden="true" class="home-simsvg"><rect width="480" height="270" rx="10" fill="#0a1020"/><defs><radialGradient id="hsg0" gradientUnits="objectBoundingBox" cx=".35" cy=".32" r=".75"><stop offset="0" stop-color="#dfddd9"/><stop offset=".55" stop-color="#b8b3ab"/><stop offset="1" stop-color="#78746f"/></radialGradient><radialGradient id="hsg1" gradientUnits="objectBoundingBox" cx=".35" cy=".32" r=".75"><stop offset="0" stop-color="#f4e7ca"/><stop offset=".55" stop-color="#e6c98a"/><stop offset="1" stop-color="#96835a"/></radialGradient><radialGradient id="hsg2" gradientUnits="objectBoundingBox" cx=".35" cy=".32" r=".75"><stop offset="0" stop-color="#aecde6"/><stop offset=".55" stop-color="#4a90c8"/><stop offset="1" stop-color="#305e82"/></radialGradient><radialGradient id="hsg3" gradientUnits="objectBoundingBox" cx=".35" cy=".32" r=".75"><stop offset="0" stop-color="#e6bcae"/><stop offset=".55" stop-color="#c86a4a"/><stop offset="1" stop-color="#824530"/></radialGradient></defs><g transform="translate(0 63) scale(1 0.5)"><circle cx="240" cy="135" r="82.1" fill="none" stroke="#b8b3ab" stroke-opacity=".45"/><circle cx="240" cy="135" r="129.8" fill="none" stroke="#e6c98a" stroke-opacity=".45"/><circle cx="240" cy="135" r="177.3" fill="none" stroke="#4a90c8" stroke-opacity=".5"/><circle cx="240" cy="135" r="225" fill="none" stroke="#c86a4a" stroke-opacity=".45"/><g class="hs-p1"><ellipse cx="302.9" cy="187.8" rx="2.4" ry="4.5" fill="url(#hsg0)"/></g><g class="hs-p2"><ellipse cx="122.3" cy="80.1" rx="3.4" ry="6.4" fill="url(#hsg1)"/></g><g class="hs-p3"><ellipse cx="365.4" cy="9.6" rx="3.4" ry="6.4" fill="url(#hsg2)"/></g><g class="hs-p4"><ellipse cx="95.4" cy="307.4" rx="2.8" ry="5.3" fill="url(#hsg3)"/></g></g><circle cx="240" cy="135" r="11" fill="#fcd34d" fill-opacity=".18"/><circle cx="240" cy="135" r="7" fill="#fcd34d"/></svg></div>
+      <p class="home-simtxt">The planets where they actually are today.</p>
+      <div class="home-simlinks">
+        <a class="wk-all" href="/solar-system-simulator/#learn">Educational info →</a>
+        <a class="wk-all" href="/solar-system-simulator/">Open the simulator →</a>
+      </div>
+    
+      <ul class="hub-qs">
+<li id="fall-in"><p><a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a> They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up.</p></li>
+</ul>
+    </div>
+    <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/orbital-velocity-simulator/">
+      <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> What if a moon slowed down?</div>
+      <div class="home-orb" id="ho-wrap">
+        <svg viewBox="0 0 320 200" width="100%" aria-hidden="true" id="ho-svg">
+          <rect width="320" height="200" rx="10" fill="#080d1a"/>
+          <ellipse id="ho-path" cx="160" cy="100" rx="70" ry="70" fill="none" stroke="#9dc2e0" stroke-opacity=".38" stroke-width="1" stroke-dasharray="3 4"/>
+          <circle cx="160" cy="100" r="13" fill="#2f74ad"/>
+          <circle id="ho-moon" cx="230" cy="100" r="4.5" fill="#e8eef7"/>
+        </svg>
+        <p class="home-orbtxt" id="ho-note">A circle: falling exactly as fast as the curve carries it away.</p>
+        <p class="home-orbbtns">
+          <button type="button" class="chip" id="ho-slow">Slow it down</button>
+          <button type="button" class="chip" id="ho-fast">Speed it up</button>
+          <button type="button" class="chip chip-alt" id="ho-reset">Circle</button>
+        </p>
+      </div>
+      <p class="home-simtxt">Nothing spirals in. Take speed away and the far side of the orbit drops toward the planet; add speed and it climbs away — and either way the moon comes back through the point where you changed it.</p>
+      <a class="wk-all" href="/orbital-velocity-simulator/">Why planets don't fall into the sun →</a>
+    
+      <ul class="hub-qs">
+<li id="how-does-an-orbit-work"><p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> At every instant a planet has a velocity — where it is already going — and gravity adds a small pull straight toward the Sun. Bend a path by the same small amount at every step and it closes. That closed path is the orbit.</p></li>
+</ul>
+    </div>
+    <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/planets/">
+      <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> The planets</div>
+      <p class="home-simtxt">A picture and a couple of paragraphs for each one, in orbital order, with the asteroid belt where it actually sits and Pluto labelled for what it is — and a page for every one of them, turning on its own axis with its moons going round it.</p>
+      <div class="tc-presets">
+        <a class="chip" href="/mercury-simulator/">Mercury</a>        <a class="chip" href="/venus-simulator/">Venus</a>        <a class="chip" href="/earth-and-moon-simulator/">Earth</a>        <a class="chip" href="/mars-and-moons-simulator/">Mars</a>        <a class="chip" href="/jupiter-and-moons-simulator/">Jupiter</a>        <a class="chip" href="/saturn-and-moons-simulator/">Saturn</a>        <a class="chip" href="/uranus-and-moons-simulator/">Uranus</a>        <a class="chip" href="/neptune-and-moons-simulator/">Neptune</a>        <a class="chip" href="/pluto-and-moons-simulator/">Pluto</a>
+        <a class="chip" href="/solar-system-simulator/asteroid-belt/">Asteroid belt</a><a class="chip" href="/solar-system-simulator/comets/">Comets</a>
+      </div>
+      <a class="wk-all" href="/planets/">All the planets, side by side →</a>
+    </div>
+    <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/earth-sun-moon-orbit-simulator/">
+      <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="9.4" cy="13.6" r="7.2" fill="#2563eb"/><path d="M5.2 8.2c1.8.6 1.4 2.4 0 2.9-1.5.5-1.6 1.9-.6 2.9 1.1 1.1.2 2.6-1.2 2.2-.8-1.9-.7-5.3 1.8-8z" fill="#34d399"/><path d="M11.6 7.1c2 .4 3.7 1.7 4.7 3.4-.8 1.2-2.2 1.1-2.8.2-.5-.8-1.7-.6-2.2-1.5-.4-.8-.6-1.8.3-2.1z" fill="#34d399"/><path d="M9 14.6c1.4-.3 2.8.6 2.6 2-.1 1.2.9 1.7.6 2.9-.3 1.1-1.9 1.5-2.9 1.1-1.2-.5-.8-1.8-1.5-2.6-.8-.8-.3-3.1 1.2-3.4z" fill="#34d399"/><ellipse cx="6.8" cy="9.2" rx="2.3" ry="1.3" fill="#ffffff" opacity=".3" transform="rotate(-28 6.8 9.2)"/><circle cx="19" cy="5.6" r="3.3" fill="#475569"/><path d="M19 2.3a3.3 3.3 0 0 1 0 6.6z" fill="#e2e8f0"/><circle cx="20.1" cy="4.6" r=".6" fill="#cbd5e1"/></g></svg> Earth, Moon &amp; Sun Together</div>
+      <div class="home-simwide"><svg viewBox="0 0 480 300" aria-hidden="true" class="home-simsvg">
+<defs><clipPath id="sy-clip"><rect width="480" height="300" rx="16"/></clipPath></defs>
+<g clip-path="url(#sy-clip)">
+<rect width="480" height="300" rx="16" fill="#0a1020"/>
+<circle cx="240" cy="150" r="112" fill="none" stroke="#94a3b8" stroke-opacity=".28" stroke-dasharray="3 5"/>
+<circle cx="240" cy="150" r="30" fill="#fcd34d" fill-opacity=".16"/>
+<circle cx="240" cy="150" r="19" fill="#fcd34d"/>
+<g class="hy-orbit" style="--hy-o:240px 150px;animation-duration:40s">
+  <circle cx="352" cy="150" r="8" fill="#2f74ad"/>
+  <path d="M352 142A8 8 0 0 1 352 158Z" fill="#050a16" fill-opacity=".84"/>
+  <circle cx="352" cy="150" r="8" fill="none" stroke="#9dc2e0" stroke-opacity=".45"/>
+  <circle cx="352" cy="150" r="20" fill="none" stroke="#cbd5e1" stroke-opacity=".3" stroke-dasharray="2 4"/>
+  <g class="hy-mo" style="--hy-o:352px 150px;animation-duration:2.99s">
+    <g class="hy-rev" style="--hy-o:372px 150px;animation-duration:2.99s">
+      <circle cx="372" cy="150" r="3" fill="#d8dee9"/>
+      <path d="M372 147A3 3 0 0 1 372 153Z" fill="#050a16" fill-opacity=".84"/>
+    </g>
+  </g>
+</g>
+</g>
+</svg></div>
+      <p class="home-simtxt">The year and the month running at once — and the moon lapping the Earth about thirteen times on the way round, which is the one ratio this picture keeps real. Tip the whole orbit edge-on and watch the Earth loop in front of the sun, then behind it.</p>
+      <div class="home-simlinks">
+        <a class="wk-all" href="/earth-sun-moon-orbit-simulator/#learn">Educational info →</a>
+        <a class="wk-all" href="/earth-sun-moon-orbit-simulator/">Open the view →</a>
+      </div>
+    
+      <ul class="hub-qs">
+<li id="why-do-we-have-seasons"><p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year.</p></li>
+</ul>
+    </div>
+    <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/rocket-launch-simulator/">
+      <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g transform="rotate(45 12 12)"><path d="M12 1.6c3 2.6 4.6 6.4 4.6 10.6 0 1.6-.3 3.1-.8 4.5H8.2a13.6 13.6 0 0 1-.8-4.5C7.4 8 9 4.2 12 1.6z" fill="#e2e8f0"/><path d="M12 1.6c3 2.6 4.6 6.4 4.6 10.6 0 1.6-.3 3.1-.8 4.5H12z" fill="#cbd5e1"/><path d="M12 1.6c1.5 1.3 2.6 2.9 3.4 4.7H8.6c.8-1.8 1.9-3.4 3.4-4.7z" fill="#dc2626"/><circle cx="12" cy="10.2" r="2.3" fill="#0ea5e9"/><circle cx="12" cy="10.2" r="1.3" fill="#bae6fd"/><path d="M8.2 12.4c-1.8 1.2-2.8 3-3 5.2l3.6-1.6zM15.8 12.4c1.8 1.2 2.8 3 3 5.2l-3.6-1.6z" fill="#dc2626"/><path d="M10.2 17.6h3.6c-.3 2.2-1.1 3.9-1.8 4.8-.7-.9-1.5-2.6-1.8-4.8z" fill="#f97316"/><path d="M11.2 17.6h1.6c-.1 1.6-.4 2.9-.8 3.7-.4-.8-.7-2.1-.8-3.7z" fill="#fde047"/><ellipse cx="10.4" cy="8.4" rx="1" ry="2.4" fill="#ffffff" opacity=".5" transform="rotate(-12 10.4 8.4)"/></g></svg> Rocket Launches</div>
+      <p class="home-simtxt">When the next window to Mars, Jupiter or Saturn opens, how long the flight takes and what it costs in speed — every date solved from the real orbits, and the path drawn so you can fly it.</p>
+      <div class="tc-presets">
+        <a class="chip" href="/rocket-launch-simulator/#windows">Next window to Mars</a><a class="chip" href="/rocket-launch-simulator/#learn">Why a flyby works</a><a class="chip" href="/rocket-launch-simulator/#missions">Cassini, Galileo, Juno</a>
+      </div>
+      <a class="wk-all" href="/rocket-launch-simulator/">Rocket launches &amp; launch windows →</a>
+    </div>
     <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/sun-moon-earth-movement-simulator/">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="9.4" cy="13.6" r="7.2" fill="#2563eb"/><path d="M5.2 8.2c1.8.6 1.4 2.4 0 2.9-1.5.5-1.6 1.9-.6 2.9 1.1 1.1.2 2.6-1.2 2.2-.8-1.9-.7-5.3 1.8-8z" fill="#34d399"/><path d="M11.6 7.1c2 .4 3.7 1.7 4.7 3.4-.8 1.2-2.2 1.1-2.8.2-.5-.8-1.7-.6-2.2-1.5-.4-.8-.6-1.8.3-2.1z" fill="#34d399"/><path d="M9 14.6c1.4-.3 2.8.6 2.6 2-.1 1.2.9 1.7.6 2.9-.3 1.1-1.9 1.5-2.9 1.1-1.2-.5-.8-1.8-1.5-2.6-.8-.8-.3-3.1 1.2-3.4z" fill="#34d399"/><ellipse cx="6.8" cy="9.2" rx="2.3" ry="1.3" fill="#ffffff" opacity=".3" transform="rotate(-28 6.8 9.2)"/><circle cx="19" cy="5.6" r="3.3" fill="#475569"/><path d="M19 2.3a3.3 3.3 0 0 1 0 6.6z" fill="#e2e8f0"/><circle cx="20.1" cy="4.6" r=".6" fill="#cbd5e1"/></g></svg> Sun, Earth &amp; Moon Simulator</div>
       <div class="home-simwide"><svg viewBox="0 0 480 270" aria-hidden="true" class="home-simsvg">
@@ -1149,92 +1237,6 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
         <a class="wk-all" href="/sun-moon-earth-movement-simulator/#learn">Educational info →</a>
         <a class="wk-all" href="/sun-moon-earth-movement-simulator/">Open the simulator →</a>
       </div>
-    </div>
-    <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/earth-sun-moon-orbit-simulator/">
-      <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="9.4" cy="13.6" r="7.2" fill="#2563eb"/><path d="M5.2 8.2c1.8.6 1.4 2.4 0 2.9-1.5.5-1.6 1.9-.6 2.9 1.1 1.1.2 2.6-1.2 2.2-.8-1.9-.7-5.3 1.8-8z" fill="#34d399"/><path d="M11.6 7.1c2 .4 3.7 1.7 4.7 3.4-.8 1.2-2.2 1.1-2.8.2-.5-.8-1.7-.6-2.2-1.5-.4-.8-.6-1.8.3-2.1z" fill="#34d399"/><path d="M9 14.6c1.4-.3 2.8.6 2.6 2-.1 1.2.9 1.7.6 2.9-.3 1.1-1.9 1.5-2.9 1.1-1.2-.5-.8-1.8-1.5-2.6-.8-.8-.3-3.1 1.2-3.4z" fill="#34d399"/><ellipse cx="6.8" cy="9.2" rx="2.3" ry="1.3" fill="#ffffff" opacity=".3" transform="rotate(-28 6.8 9.2)"/><circle cx="19" cy="5.6" r="3.3" fill="#475569"/><path d="M19 2.3a3.3 3.3 0 0 1 0 6.6z" fill="#e2e8f0"/><circle cx="20.1" cy="4.6" r=".6" fill="#cbd5e1"/></g></svg> Earth, Moon &amp; Sun Together</div>
-      <div class="home-simwide"><svg viewBox="0 0 480 300" aria-hidden="true" class="home-simsvg">
-<defs><clipPath id="sy-clip"><rect width="480" height="300" rx="16"/></clipPath></defs>
-<g clip-path="url(#sy-clip)">
-<rect width="480" height="300" rx="16" fill="#0a1020"/>
-<circle cx="240" cy="150" r="112" fill="none" stroke="#94a3b8" stroke-opacity=".28" stroke-dasharray="3 5"/>
-<circle cx="240" cy="150" r="30" fill="#fcd34d" fill-opacity=".16"/>
-<circle cx="240" cy="150" r="19" fill="#fcd34d"/>
-<g class="hy-orbit" style="--hy-o:240px 150px;animation-duration:40s">
-  <circle cx="352" cy="150" r="8" fill="#2f74ad"/>
-  <path d="M352 142A8 8 0 0 1 352 158Z" fill="#050a16" fill-opacity=".84"/>
-  <circle cx="352" cy="150" r="8" fill="none" stroke="#9dc2e0" stroke-opacity=".45"/>
-  <circle cx="352" cy="150" r="20" fill="none" stroke="#cbd5e1" stroke-opacity=".3" stroke-dasharray="2 4"/>
-  <g class="hy-mo" style="--hy-o:352px 150px;animation-duration:2.99s">
-    <g class="hy-rev" style="--hy-o:372px 150px;animation-duration:2.99s">
-      <circle cx="372" cy="150" r="3" fill="#d8dee9"/>
-      <path d="M372 147A3 3 0 0 1 372 153Z" fill="#050a16" fill-opacity=".84"/>
-    </g>
-  </g>
-</g>
-</g>
-</svg></div>
-      <p class="home-simtxt">The year and the month running at once — and the moon lapping the Earth about thirteen times on the way round, which is the one ratio this picture keeps real. Tip the whole orbit edge-on and watch the Earth loop in front of the sun, then behind it.</p>
-      <div class="home-simlinks">
-        <a class="wk-all" href="/earth-sun-moon-orbit-simulator/#learn">Educational info →</a>
-        <a class="wk-all" href="/earth-sun-moon-orbit-simulator/">Open the view →</a>
-      </div>
-    
-      <ul class="hub-qs">
-<li id="why-do-we-have-seasons"><p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year.</p></li>
-</ul>
-    </div>
-    <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/solar-system-simulator/">
-      <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Solar System Simulator</div>
-      <div class="home-simwide" style="--hs-o:240px 135px"><svg viewBox="0 0 480 270" aria-hidden="true" class="home-simsvg"><rect width="480" height="270" rx="10" fill="#0a1020"/><defs><radialGradient id="hsg0" gradientUnits="objectBoundingBox" cx=".35" cy=".32" r=".75"><stop offset="0" stop-color="#dfddd9"/><stop offset=".55" stop-color="#b8b3ab"/><stop offset="1" stop-color="#78746f"/></radialGradient><radialGradient id="hsg1" gradientUnits="objectBoundingBox" cx=".35" cy=".32" r=".75"><stop offset="0" stop-color="#f4e7ca"/><stop offset=".55" stop-color="#e6c98a"/><stop offset="1" stop-color="#96835a"/></radialGradient><radialGradient id="hsg2" gradientUnits="objectBoundingBox" cx=".35" cy=".32" r=".75"><stop offset="0" stop-color="#aecde6"/><stop offset=".55" stop-color="#4a90c8"/><stop offset="1" stop-color="#305e82"/></radialGradient><radialGradient id="hsg3" gradientUnits="objectBoundingBox" cx=".35" cy=".32" r=".75"><stop offset="0" stop-color="#e6bcae"/><stop offset=".55" stop-color="#c86a4a"/><stop offset="1" stop-color="#824530"/></radialGradient></defs><g transform="translate(0 63) scale(1 0.5)"><circle cx="240" cy="135" r="82.1" fill="none" stroke="#b8b3ab" stroke-opacity=".45"/><circle cx="240" cy="135" r="129.8" fill="none" stroke="#e6c98a" stroke-opacity=".45"/><circle cx="240" cy="135" r="177.3" fill="none" stroke="#4a90c8" stroke-opacity=".5"/><circle cx="240" cy="135" r="225" fill="none" stroke="#c86a4a" stroke-opacity=".45"/><g class="hs-p1"><ellipse cx="302.9" cy="187.8" rx="2.4" ry="4.5" fill="url(#hsg0)"/></g><g class="hs-p2"><ellipse cx="122.3" cy="80.1" rx="3.4" ry="6.4" fill="url(#hsg1)"/></g><g class="hs-p3"><ellipse cx="365.4" cy="9.6" rx="3.4" ry="6.4" fill="url(#hsg2)"/></g><g class="hs-p4"><ellipse cx="95.4" cy="307.4" rx="2.8" ry="5.3" fill="url(#hsg3)"/></g></g><circle cx="240" cy="135" r="11" fill="#fcd34d" fill-opacity=".18"/><circle cx="240" cy="135" r="7" fill="#fcd34d"/></svg></div>
-      <p class="home-simtxt">The planets where they actually are today.</p>
-      <div class="home-simlinks">
-        <a class="wk-all" href="/solar-system-simulator/#learn">Educational info →</a>
-        <a class="wk-all" href="/solar-system-simulator/">Open the simulator →</a>
-      </div>
-    
-      <ul class="hub-qs">
-<li id="fall-in"><p><a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a> They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up.</p></li>
-</ul>
-    </div>
-    <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/planets/">
-      <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> The planets</div>
-      <p class="home-simtxt">A picture and a couple of paragraphs for each one, in orbital order, with the asteroid belt where it actually sits and Pluto labelled for what it is — and a page for every one of them, turning on its own axis with its moons going round it.</p>
-      <div class="tc-presets">
-        <a class="chip" href="/mercury-simulator/">Mercury</a>        <a class="chip" href="/venus-simulator/">Venus</a>        <a class="chip" href="/earth-and-moon-simulator/">Earth</a>        <a class="chip" href="/mars-and-moons-simulator/">Mars</a>        <a class="chip" href="/jupiter-and-moons-simulator/">Jupiter</a>        <a class="chip" href="/saturn-and-moons-simulator/">Saturn</a>        <a class="chip" href="/uranus-and-moons-simulator/">Uranus</a>        <a class="chip" href="/neptune-and-moons-simulator/">Neptune</a>        <a class="chip" href="/pluto-and-moons-simulator/">Pluto</a>
-        <a class="chip" href="/solar-system-simulator/asteroid-belt/">Asteroid belt</a><a class="chip" href="/solar-system-simulator/comets/">Comets</a>
-      </div>
-      <a class="wk-all" href="/planets/">All the planets, side by side →</a>
-    </div>
-    <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/rocket-launch-simulator/">
-      <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g transform="rotate(45 12 12)"><path d="M12 1.6c3 2.6 4.6 6.4 4.6 10.6 0 1.6-.3 3.1-.8 4.5H8.2a13.6 13.6 0 0 1-.8-4.5C7.4 8 9 4.2 12 1.6z" fill="#e2e8f0"/><path d="M12 1.6c3 2.6 4.6 6.4 4.6 10.6 0 1.6-.3 3.1-.8 4.5H12z" fill="#cbd5e1"/><path d="M12 1.6c1.5 1.3 2.6 2.9 3.4 4.7H8.6c.8-1.8 1.9-3.4 3.4-4.7z" fill="#dc2626"/><circle cx="12" cy="10.2" r="2.3" fill="#0ea5e9"/><circle cx="12" cy="10.2" r="1.3" fill="#bae6fd"/><path d="M8.2 12.4c-1.8 1.2-2.8 3-3 5.2l3.6-1.6zM15.8 12.4c1.8 1.2 2.8 3 3 5.2l-3.6-1.6z" fill="#dc2626"/><path d="M10.2 17.6h3.6c-.3 2.2-1.1 3.9-1.8 4.8-.7-.9-1.5-2.6-1.8-4.8z" fill="#f97316"/><path d="M11.2 17.6h1.6c-.1 1.6-.4 2.9-.8 3.7-.4-.8-.7-2.1-.8-3.7z" fill="#fde047"/><ellipse cx="10.4" cy="8.4" rx="1" ry="2.4" fill="#ffffff" opacity=".5" transform="rotate(-12 10.4 8.4)"/></g></svg> Rocket Launches</div>
-      <p class="home-simtxt">When the next window to Mars, Jupiter or Saturn opens, how long the flight takes and what it costs in speed — every date solved from the real orbits, and the path drawn so you can fly it.</p>
-      <div class="tc-presets">
-        <a class="chip" href="/rocket-launch-simulator/#windows">Next window to Mars</a><a class="chip" href="/rocket-launch-simulator/#learn">Why a flyby works</a><a class="chip" href="/rocket-launch-simulator/#missions">Cassini, Galileo, Juno</a>
-      </div>
-      <a class="wk-all" href="/rocket-launch-simulator/">Rocket launches &amp; launch windows →</a>
-    </div>
-    <div class="tc tc-mini tc-sim sp-4" data-hg="space" data-href="/orbital-velocity-simulator/">
-      <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> What if a moon slowed down?</div>
-      <div class="home-orb" id="ho-wrap">
-        <svg viewBox="0 0 320 200" width="100%" aria-hidden="true" id="ho-svg">
-          <rect width="320" height="200" rx="10" fill="#080d1a"/>
-          <ellipse id="ho-path" cx="160" cy="100" rx="70" ry="70" fill="none" stroke="#9dc2e0" stroke-opacity=".38" stroke-width="1" stroke-dasharray="3 4"/>
-          <circle cx="160" cy="100" r="13" fill="#2f74ad"/>
-          <circle id="ho-moon" cx="230" cy="100" r="4.5" fill="#e8eef7"/>
-        </svg>
-        <p class="home-orbtxt" id="ho-note">A circle: falling exactly as fast as the curve carries it away.</p>
-        <p class="home-orbbtns">
-          <button type="button" class="chip" id="ho-slow">Slow it down</button>
-          <button type="button" class="chip" id="ho-fast">Speed it up</button>
-          <button type="button" class="chip chip-alt" id="ho-reset">Circle</button>
-        </p>
-      </div>
-      <p class="home-simtxt">Nothing spirals in. Take speed away and the far side of the orbit drops toward the planet; add speed and it climbs away — and either way the moon comes back through the point where you changed it.</p>
-      <a class="wk-all" href="/orbital-velocity-simulator/">Why planets don't fall into the sun →</a>
-    
-      <ul class="hub-qs">
-<li id="how-does-an-orbit-work"><p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> At every instant a planet has a velocity — where it is already going — and gravity adds a small pull straight toward the Sun. Bend a path by the same small amount at every step and it closes. That closed path is the orbit.</p></li>
-</ul>
     </div>
     <div class="tc tc-mini tc-sim tc-moons sp-4" data-hg="space" data-href="/mars-and-moons-simulator/">
       <div class="tc-head"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Mars&rsquo;s Moons</div>
