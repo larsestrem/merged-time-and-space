@@ -1551,7 +1551,7 @@ ${FACTS.extras.map((x) => `      <a class="chip" href="${SOLAR_PATH}${x.slug}/">
     /* raw "&" — head() escapes. See check-pages.mjs's double-escape gate. */
     title: `${simTitle} — Orbit, Facts & What We Still Don’t Know`,
     desc: hasSim
-      ? `Watch ${name} on its real orbit${nMoons ? `, zoom in on its ${num(s.drawn)} largest moons` : ""}, and see its size, mass, day, year and temperature worked out rather than copied — plus the questions about ${name} that science has not answered.`
+      ? `Watch ${name} on its real orbit${nMoons ? `, zoom in on ${s.drawn === 1 ? "the Moon" : `its ${num(s.drawn)} largest moons`}` : ""}, and see its size, mass, day, year and temperature worked out rather than copied — plus the questions about ${name} that science has not answered.`
       : `Watch ${name} turn on its axis at its real rate, and see its size, mass, day, year and temperature worked out rather than copied — plus the questions about ${name} that science has not answered.`,
     path,
     trail: solarTrail(name, path),

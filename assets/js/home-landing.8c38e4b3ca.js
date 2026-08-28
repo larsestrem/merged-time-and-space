@@ -392,7 +392,7 @@ function dnSide(dec,tilt,youLat){
   var cs=document.querySelectorAll('[data-wk-tz]');
   var sunline=document.getElementById('wk-sunline');
   var orbitNow=document.getElementById('wk-orbit-now');
-  var TILT=23.43538748417569;
+  var TILT=23.43538790227399;
   var seasonSun=function(dec,lon,laterDec){ return (function seasonSunHtml(dec, lon, laterDec, tilt) {
   var lat = Math.abs(dec).toFixed(1) + '\u00B0 ' + (dec >= 0 ? 'N' : 'S');
   var lo = Math.abs(lon).toFixed(1) + '\u00B0 ' + (lon >= 0 ? 'E' : 'W');

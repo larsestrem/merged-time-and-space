@@ -784,6 +784,16 @@ display: block;
 width: 100%;
 max-width: none;
 }
+.graphic-block:has(.sys-figwrap) {
+max-width: 620px;
+margin-left: auto;
+margin-right: auto;
+}
+.graphic-block .sys-figwrap,
+.graphic-block .sys-tiltrow,
+.graphic-block .sys-tiltnote {
+max-width: 620px;
+}
 .graphic-block figcaption, figcaption {
 margin-top: 10px;
 color: var(--muted);
@@ -878,15 +888,15 @@ font-weight: 700;
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sunrise and Sunset Times Today — Any Location","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/sun/","description":"Today's sunrise & sunset times plus first light, last light, solar noon, day length and a 7-day outlook.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How accurate are the times?","acceptedAnswer":{"@type":"Answer","text":"These are calculated estimates, computed live in your browser with a standard solar-position method (the SunCalc library) from each city's listed coordinates — so they're always for today's date and can't go stale. Actual observed sunrise and sunset can differ by a few minutes with terrain, elevation, weather, atmospheric refraction, and how far you are from the listed coordinates."}},{"@type":"Question","name":"Whose time zone are the times in?","acceptedAnswer":{"@type":"Answer","text":"Each city page shows times in that city's own local time zone, labelled on the page."}},{"@type":"Question","name":"What's the difference between sunrise and first light?","acceptedAnswer":{"@type":"Answer","text":"First light (civil dawn) is when the sun reaches 6° below the horizon — bright enough to see clearly. Sunrise is when the sun's upper edge crosses the horizon itself."}}]}</script>
 
-<meta property="og:image" content="https://timeandspace.science/api/og?name=Sunrise%20and%20Sunset%20Times%20Today&amp;theme=generic">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Sunrise%20and%20Sunset%20Times%20Today&amp;theme=generic">
-<meta name="robots" content="max-image-preview:large">
-<!-- build 05e5a95abe7e · generated 2026-08-28T00:55:14.730Z -->
+<!-- build e4906408e262 · generated 2026-08-28T04:04:25.217Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/sunrise.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
+<meta property="og:image" content="https://timeandspace.science/api/og?name=Sunrise%20and%20Sunset%20Times%20Today&amp;theme=generic">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Sunrise%20and%20Sunset%20Times%20Today&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -1085,11 +1095,12 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <h2>Questions this page answers</h2>
     <p class="sub">The question is the link. A short answer sits here; tap through for the drawing and the deeper pass.</p>
     <ul class="hub-qs">
-    <li id="what-is-daylight-saving-time"><p><a href="/concepts/what-is-daylight-saving-time/">What is daylight saving time?</a> A twice-a-year decision to shift the clock one hour so evening daylight lasts longer in summer. Not every place does it. When they do, the offset from UTC changes, and so does the sunrise time on the clock — not the sunrise in the sky.</p></li>
-    <li id="what-is-a-solar-day"><p><a href="/concepts/what-is-a-solar-day/">What is a solar day?</a> Sunrise to sunrise — the day you actually live. On Earth that averages 24 hours. A full spin relative to the stars is about 4 minutes shorter, because Earth also moved along its orbit and has to turn a little extra to face the Sun again.</p></li>
-    <li id="what-is-the-equation-of-time"><p><a href="/concepts/what-is-the-equation-of-time/">What is the equation of time?</a> The difference between clock noon and sundial noon. The Earth’s orbit is a slight ellipse and its axis is tilted, so the true solar day wanders by up to about 16 minutes through the year. Clocks run a mean 24 hours and ignore it.</p></li>
+    <li id="what-is-daylight-saving-time"><p><a href="/concepts/what-is-daylight-saving-time/">What is daylight saving time?</a> A twice-a-year decision to shift the clock one hour so evening daylight lasts longer in summer.</p></li>
+    <li id="what-is-a-solar-day"><p><a href="/concepts/what-is-a-solar-day/">What is a solar day?</a> Sunrise to sunrise — the day you actually live.</p></li>
+    <li id="what-is-the-equation-of-time"><p><a href="/concepts/what-is-the-equation-of-time/">What is the equation of time?</a> The difference between clock noon and sundial noon.</p></li>
     </ul>
   </div>
+
   <details class="suggest-box" data-ac="suggest">
     <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
     <form class="suggest-form" autocomplete="off">

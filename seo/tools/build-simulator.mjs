@@ -1168,7 +1168,7 @@ ${head({
        "Sun, Moon &amp;amp; Earth" into the title, og:title and the JSON-LD
        name on all 1,103 city pages. check-pages.mjs now gates the pattern. */
     title: `Sun, Moon & Earth Simulator for ${label} — Any Date or Time`,
-    desc: `Watch the sun and moon move around the Earth as seen from ${label}: scrub a day, a week or a month, see the phase, altitude and direction of both, sunrise ${f.rise}, sunset ${f.set} and today's ${f.moonName.toLowerCase()} moon.`,
+    desc: `Watch the sun and moon move around the Earth as seen from ${label}: scrub a day, a week or a month, see the phase, altitude and direction of both, sunrise ${f.rise}, sunset ${f.set} and today's ${f.moonName.toLowerCase().replace(/ moon$/, "")} moon.`,
     path,
     ld: `\n<script type="application/ld+json">${breadcrumbLD(SITE, [{ name: "Time and Space Science", url: "/" }, { name: "Sun, Moon & Earth simulator", url: SIM_PATH }, { name: label, url: path }])}</script>\n${placeLd({ ...resolvePlace(c), elevKey: c.slug, url: `${SITE}${path}` })}`,
   })}

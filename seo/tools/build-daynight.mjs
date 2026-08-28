@@ -490,7 +490,7 @@ ${GA_SNIPPET}
   <h1>Day and Night Map</h1>
   <p class="sub">Where it is light on Earth right now, where it is dark, and the twilight in between. Drag the slider to move through one ${SIDEREAL}-day orbit of the Moon, or press play and watch the line sweep round. The same picture as the <a href="/world-clock/">world clock</a>'s map, with time attached.</p>
 
-${simCard}${howCard}${sideCard}${hubQuestionsCard(PATH)}  <div class="card">
+${simCard}${howCard}${sideCard}${tryCard}${hubQuestionsCard(PATH)}  <div class="card">
     <h2>Keep going</h2>
     <p>This map answers "where", to the nearest few hundred kilometres. For "when", to the minute, in your own town:</p>
     <p class="timer-presets">

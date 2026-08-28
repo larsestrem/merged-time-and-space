@@ -666,6 +666,16 @@ display: block;
 width: 100%;
 max-width: none;
 }
+.graphic-block:has(.sys-figwrap) {
+max-width: 620px;
+margin-left: auto;
+margin-right: auto;
+}
+.graphic-block .sys-figwrap,
+.graphic-block .sys-tiltrow,
+.graphic-block .sys-tiltnote {
+max-width: 620px;
+}
 .graphic-block figcaption, figcaption {
 margin-top: 10px;
 color: var(--muted);
@@ -901,12 +911,12 @@ color:var(--muted);padding:7px 2px;border-top:1px solid var(--border)}
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Tide Charts & Tide Times","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/tides/","description":"NOAA tide predictions with an interactive chart and date-range high-tide finder.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where does the tide data come from?","acceptedAnswer":{"@type":"Answer","text":"Straight from NOAA CO-OPS, the official U.S. source for tide predictions. Heights are in feet above MLLW (mean lower low water, the standard chart datum) and times are shown in the station's own local time."}},{"@type":"Question","name":"How far ahead can I see the tides?","acceptedAnswer":{"@type":"Answer","text":"Tide predictions are computed from astronomy (the positions of the moon and sun), so they're available about a year ahead. Use the date-range finder to list every high tide between any two dates — for general reference and low-risk scheduling only. Before any marine or shoreline activity, confirm conditions with official local forecasts, alerts, harbor guidance, and NOAA."}},{"@type":"Question","name":"What is a king tide?","acceptedAnswer":{"@type":"Answer","text":"An informal name for the highest tides of the year, which happen when a new or full moon lines up with the moon's closest approach to Earth. In the finder, the top 10% highest tides in your range are marked with a crown — periods with some of the highest predicted astronomical tides of the year."}},{"@type":"Question","name":"What actually makes the tide bigger or smaller?","acceptedAnswer":{"@type":"Answer","text":"The engine is gravity: the moon and sun pull the ocean into bulges. When they line up at a new or full moon you get the biggest swings (spring tides); at quarter moons their pulls partly cancel (neap tides), and the moon's closest approach (perigee) super-sizes things further — that's a king tide. River flow, the shape of the bay, and long-term sea-level cycles can also affect the actual water level, which is why real conditions can differ from the astronomical prediction shown here."}},{"@type":"Question","name":"What are the highest tides in the world — and in the U.S.?","acceptedAnswer":{"@type":"Answer","text":"The world's largest tides are in Canada's Bay of Fundy, where the range between low and high can top 50 feet (it's outside NOAA's network, so it isn't listed here). In the U.S., the giants are Alaska's Cook Inlet — Anchorage sees swings around 26–30 feet — along with Southeast Alaska ports like Skagway, and on the East Coast, Eastport, Maine at roughly 18 feet. All of those have dedicated pages here."}},{"@type":"Question","name":"Can I save my home beach and other spots I follow?","acceptedAnswer":{"@type":"Answer","text":"Yes — tap ＋ Add to Saved Stations next to any station's name (it turns into a green Saved note), or ＋ Add nearest inside the Saved Stations dropdown to add the station closest to you (allow location access). Your saved spots appear as one-tap cards on the tides home page, the Default column's radio button picks your primary station, and Edit removes stations. Everything is stored on your device; no account needed."}},{"@type":"Question","name":"Is this free? Do I need an account?","acceptedAnswer":{"@type":"Answer","text":"Completely free, no sign-up. It's built on public NOAA data and works on any device."}}]}</script>
-<meta name="robots" content="max-image-preview:large">
-<!-- build 05e5a95abe7e · generated 2026-08-28T00:55:14.730Z -->
+<!-- build e4906408e262 · generated 2026-08-28T04:04:25.217Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/wave.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
+<meta name="robots" content="max-image-preview:large">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -1145,7 +1155,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <h2>Questions this page answers</h2>
     <p class="sub">The question is the link. A short answer sits here; tap through for the drawing and the deeper pass.</p>
     <ul class="hub-qs">
-    <li id="what-causes-tides"><p><a href="/concepts/what-causes-tides/">What causes tides?</a> The Moon’s gravity pulls harder on the water nearer to it than on the Earth’s centre, and harder on the centre than on the far-side water. The ocean stretches into two bulges. Earth then turns under those bulges, so most coasts see two high tides a day.</p></li>
+    <li id="what-causes-tides"><p><a href="/concepts/what-causes-tides/">What causes tides?</a> The Moon’s gravity pulls harder on the water nearer to it than on the Earth’s centre, and harder on the centre than on the far-side water.</p></li>
     </ul>
   </div>
 

@@ -710,6 +710,16 @@ display: block;
 width: 100%;
 max-width: none;
 }
+.graphic-block:has(.sys-figwrap) {
+max-width: 620px;
+margin-left: auto;
+margin-right: auto;
+}
+.graphic-block .sys-figwrap,
+.graphic-block .sys-tiltrow,
+.graphic-block .sys-tiltnote {
+max-width: 620px;
+}
 .graphic-block figcaption, figcaption {
 margin-top: 10px;
 color: var(--muted);
@@ -804,7 +814,7 @@ font-weight: 700;
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Classroom","item":"https://timeandspace.science/classroom/"},{"@type":"ListItem","position":3,"name":"Time in the classroom","item":"https://timeandspace.science/classroom/time/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Time in the classroom","url":"https://timeandspace.science/classroom/time/","description":"Free classroom tools for teaching time: a world clock and time zones, a 12- to 24-hour converter, the day and night map behind why zones exist, a leap year lesson — and a full-screen projector timer and stopwatch with CSV export.","learningResourceType":"guide","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"teacher"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
 
-<!-- build 05e5a95abe7e · generated 2026-08-28T00:55:14.730Z -->
+<!-- build e4906408e262 · generated 2026-08-28T04:04:25.217Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/classroom.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -971,10 +981,10 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <div class="card">
     <h2><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> Four lessons you can run tomorrow — no prep, no new tools</h2>
     <div class="wc-facts lp-steps">
-      <div class="wc-frow"><span>~20 min · grades 3–8</span><b><strong>A time zone is a political stripe on a rotating ball.</strong> Open <a href="/day-night-map/">the day and night map</a> and find the sun marker: noon is not a decision, it is a place. Then open <a href="/world-clock/">the world clock</a> beside it and ask why the stripes are not straight — why is all of China one zone? Why is India half an hour off from everyone? The answers are politics, and realising that the clock on the wall is a <em>negotiated settlement</em> is the best civics lesson hiding inside a science class.</b></div>
-      <div class="wc-frow"><span>~15 min · grades 3–6</span><b><strong>The clock that hides the afternoon.</strong> Write 7:00 on the board and ask: breakfast or dinner? You cannot know — the 12-hour clock throws away the answer. Have the class write their whole day in 24-hour time with <a href="/24-hour-clock-converter/">the converter</a> to check themselves, then ask who cannot afford that ambiguity. Pilots, doctors, train drivers, armies, scientists: everyone whose mistake would matter uses the clock that does not hide half the day.</b></div>
-      <div class="wc-frow"><span>~20 min · grades 5–8</span><b><strong>The seam where the date jumps.</strong> On <a href="/world-clock/">the world clock</a>, find two cities where it is <em>two different days right now</em> — Auckland and Honolulu usually do it. Same moment, different date. Then hand the class the puzzle the map solves: if noon travels west around a round Earth forever, somewhere the calendar has to tear. The International Date Line is not magic — it is the seam you are forced to cut, and they can work out for themselves roughly where you would put it (as far from everyone as possible).</b></div>
-      <div class="wc-frow"><span>~15 min · any grade</span><b><strong>Call a city without waking it up.</strong> Pick a city the class has a connection to and plan a phone call: what time is it there when school starts here? Zone conversion is just adding hours and then asking whether you crossed the seam — and <a href="/day-night-map/">the day and night map</a> shows the answer physically, as who is in daylight, before anyone touches arithmetic. End on the question that sticks: is there any moment when the whole world is having the same day?</b></div>
+      <div class="wc-frow" id="run-a-time-zone-is-a-political-stripe-on-a-rotating-ball"><span>~20 min · grades 3–8</span><b><strong>A time zone is a political stripe on a rotating ball.</strong> Open <a href="/day-night-map/">the day and night map</a> and find the sun marker: noon is not a decision, it is a place. Then open <a href="/world-clock/">the world clock</a> beside it and ask why the stripes are not straight — why is all of China one zone? Why is India half an hour off from everyone? The answers are politics, and realising that the clock on the wall is a <em>negotiated settlement</em> is the best civics lesson hiding inside a science class.</b></div>
+      <div class="wc-frow" id="run-the-clock-that-hides-the-afternoon"><span>~15 min · grades 3–6</span><b><strong>The clock that hides the afternoon.</strong> Write 7:00 on the board and ask: breakfast or dinner? You cannot know — the 12-hour clock throws away the answer. Have the class write their whole day in 24-hour time with <a href="/24-hour-clock-converter/">the converter</a> to check themselves, then ask who cannot afford that ambiguity. Pilots, doctors, train drivers, armies, scientists: everyone whose mistake would matter uses the clock that does not hide half the day.</b></div>
+      <div class="wc-frow" id="run-the-seam-where-the-date-jumps"><span>~20 min · grades 5–8</span><b><strong>The seam where the date jumps.</strong> On <a href="/world-clock/">the world clock</a>, find two cities where it is <em>two different days right now</em> — Auckland and Honolulu usually do it. Same moment, different date. Then hand the class the puzzle the map solves: if noon travels west around a round Earth forever, somewhere the calendar has to tear. The International Date Line is not magic — it is the seam you are forced to cut, and they can work out for themselves roughly where you would put it (as far from everyone as possible).</b></div>
+      <div class="wc-frow" id="run-call-a-city-without-waking-it-up"><span>~15 min · any grade</span><b><strong>Call a city without waking it up.</strong> Pick a city the class has a connection to and plan a phone call: what time is it there when school starts here? Zone conversion is just adding hours and then asking whether you crossed the seam — and <a href="/day-night-map/">the day and night map</a> shows the answer physically, as who is in daylight, before anyone touches arithmetic. End on the question that sticks: is there any moment when the whole world is having the same day?</b></div>
     </div>
     <p class="hint">Run one of these and it worked — or didn't? <a href="/classroom/submit-a-lesson/">Tell us, or send us your version</a>: the written-up plan that comes out of it carries your name.</p>
   </div>

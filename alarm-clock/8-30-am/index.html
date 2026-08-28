@@ -843,12 +843,12 @@ border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:v
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Alarm Clock","item":"https://timeandspace.science/alarm-clock/"},{"@type":"ListItem","position":2,"name":"Set alarm for 8:30 AM","item":"https://timeandspace.science/alarm-clock/8-30-am/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Set Alarm for 8:30 AM","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/alarm-clock/8-30-am/","description":"A free online alarm clock preset to 8:30 AM — set it in one tap, with a full-screen bedside view.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 
-<meta name="robots" content="max-image-preview:large">
-<!-- build 05e5a95abe7e · generated 2026-08-28T00:55:14.730Z -->
+<!-- build e4906408e262 · generated 2026-08-28T04:04:25.217Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
+<meta name="robots" content="max-image-preview:large">
 </head>
 <body class="ac-page">
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -1010,7 +1010,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <button class="btn ac-icon" id="ac-close" type="button" aria-label="Close" title="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
   </div>
-    <div class="ac-brand"><a href="/alarm-clock/" target="_blank" rel="noopener">Time and Space Science</a><a href="/alarm-clock/about/" target="_blank" rel="noopener">How it works</a></div>
+    <div class="ac-brand"><a href="/" target="_blank" rel="noopener">Time and Space Science</a><a href="/alarm-clock/about/" target="_blank" rel="noopener">How it works</a></div>
     <p class="ac-fs-legal"><a href="/browser-limitations/" target="_blank" rel="noopener">Browser Limitations</a> · <a href="/alarm-clock/warnings/" target="_blank" rel="noopener">Warnings</a></p>
   </div>
   <p class="ac-wake-note" id="ac-wake-note" hidden></p>
@@ -1384,7 +1384,8 @@ else { openDialog(); fTime.value=window.AC_SETTIME; fRepeat.value='once'; syncFi
 }
 if(/[?&]popout=1/.test(location.search) && pipOK){ var ph=document.createElement('div'); ph.className='ac-pohint'; ph.innerHTML='<div>⧉<br>Tap to open the floating clock</div>'; document.body.appendChild(ph); var go=function(){ if(ph.parentNode) ph.parentNode.removeChild(ph); document.removeEventListener('click',go); popTop(); }; setTimeout(function(){ document.addEventListener('click',go); },60); }
 if(/[?&]bedside=1/.test(location.search)){ var bh=document.createElement('div'); bh.className='ac-pohint'; bh.innerHTML='<div class="ac-pohint-box"><div class="ac-pohint-title">Ready for your bedside clock? Confirm to go full screen.</div><button type="button" class="btn ac-bedside-go">Open full screen</button><button type="button" class="btn secondary ac-bedside-skip">Return to alarm clock</button><p>Plug in your device so the screen can stay on overnight.</p></div>'; document.body.appendChild(bh); var bgo=bh.querySelector('.ac-bedside-go'), bskip=bh.querySelector('.ac-bedside-skip'); function closeBedsideHint(){ if(bh.parentNode) bh.parentNode.removeChild(bh); } bgo.addEventListener('click',function(){ closeBedsideHint(); enterFs(); }); bskip.addEventListener('click',function(){ location.href='/alarm-clock/'; }); }
-})();</script><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+})();</script>
+<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];

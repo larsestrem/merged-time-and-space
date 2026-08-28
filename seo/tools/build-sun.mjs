@@ -39,7 +39,6 @@ function mnDayStart(ms, tz) {
 }
 import { CITY_DB, citySlug } from "./cities.mjs";
 import { localTimeLine, LOCALTIME_JS } from "./localtime.mjs";
-import { sunToStation } from "./coastal.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");

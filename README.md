@@ -24,7 +24,7 @@ Formerly **alarm-clock.org** — same site, new domain.
   [NOAA tide charts](https://timeandspace.science/tides/).
 - **Space** — [Sun–Earth–Moon simulator](https://timeandspace.science/sun-moon-earth-movement-simulator/),
   [solar system simulator](https://timeandspace.science/solar-system-simulator/)
-  with a page per planet, [rocket launch windows](https://timeandspace.science/rocket-launches/),
+  with a page per planet, [rocket launch windows](https://timeandspace.science/rocket-launch-simulator/),
   [orbits & gravity](https://timeandspace.science/orbital-velocity-simulator/).
 - **Learn** — [glossary](https://timeandspace.science/glossary/),
   [concepts](https://timeandspace.science/glossary/) (one question per URL).

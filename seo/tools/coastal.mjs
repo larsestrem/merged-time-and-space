@@ -4,7 +4,8 @@
  * introduces no import cycle, and both sides link to the SAME pairs so the
  * relationship is always reciprocal.
  *   stationToSun: station slug -> pair   (for build-tides: tide page -> sun page)
- *   sunToStation: sun slug -> closest pair (for build-sun: sun page -> tide page) */
+ *   sunToStations: sun slug -> ALL pairs, nearest first (the strip and the
+ *   contextual links; [0] is the closest station) */
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -18,21 +19,13 @@ catch (e) { /* file absent -> no coastal links, cards simply omitted */ }
 
 export const stationToSun = new Map(pairs.map((p) => [p.station, p]));
 
-/* one sun city can be the nearest for several stations; the sun page links back
- * to the CLOSEST of them, keeping the pairing reciprocal for that closest pair. */
-export const sunToStation = (() => {
-  const m = new Map();
-  for (const p of pairs) { const ex = m.get(p.sun); if (!ex || p.mi < ex.mi) m.set(p.sun, p); }
-  return m;
-})();
-
 /* ALL stations that chose this sun city, nearest first. Four cities are the
  * nearest listed city for two stations each (Mobile AL, Jacksonville FL,
- * Hampton VA, Wilmington NC). Linking back only to the closest — which is what
- * sunToStation above does, and what the shared cross-link strip used at first —
- * left the other station pointing at a page that did not point back.
+ * Hampton VA, Wilmington NC). Linking back only to the closest — which an
+ * earlier sunToStation map did, and what the shared cross-link strip used at
+ * first — left the other station pointing at a page that did not point back.
  * check-crosslinks.mjs caught all four. The strip uses this map so every pair
- * is two-way. */
+ * is two-way; a caller that wants only the closest takes [0]. */
 export const sunToStations = (() => {
   const m = new Map();
   for (const p of pairs) { if (!m.has(p.sun)) m.set(p.sun, []); m.get(p.sun).push(p); }

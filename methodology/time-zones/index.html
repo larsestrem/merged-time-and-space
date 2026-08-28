@@ -646,15 +646,15 @@ border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:v
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Methodology","item":"https://timeandspace.science/methodology/"},{"@type":"ListItem","position":3,"name":"How time zones and daylight saving are handled","item":"https://timeandspace.science/methodology/time-zones/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where do the time zone rules come from?","acceptedAnswer":{"@type":"Answer","text":"From the IANA time zone database, through your own device. The site does not keep a table of UTC offsets — it names a zone, like America/Halifax, and asks the browser's internationalisation engine what that zone's offset is at a given instant. Your operating system's updates keep the rules current."}},{"@type":"Question","name":"How does the site know whether daylight saving is in effect?","acceptedAnswer":{"@type":"Answer","text":"By asking the zone for its offset on the 15th of every month of the current year. If all twelve match, the zone keeps one offset all year and the page says so. If they differ, the page names the offsets it actually takes and which one today is on. Twelve samples rather than two, because two dates six months apart miss any shift that is not a northern-summer one — Casablanca is UTC+1 in both January and July and drops to UTC for about five weeks around Ramadan, which a January-versus-July test declared impossible."}},{"@type":"Question","name":"Why does my city show another city's page?","acceptedAnswer":{"@type":"Answer","text":"Because it shares that city's time zone and has no page of its own. Detroit and New York keep the same clock, so Detroit's sunrise page links to the Eastern Time page rather than promising a Detroit page that does not exist. The link text names the zone in that case, not the city, so the destination matches the promise."}},{"@type":"Question","name":"Does the clock keep working if a country changes its rules?","acceptedAnswer":{"@type":"Answer","text":"Yes, as soon as your device gets the updated database — which is the reason for not keeping offsets on the site. Governments change daylight saving rules with little notice, and a hard-coded offset would be wrong until someone noticed and rebuilt."}}]}</script>
 
-<meta property="og:image" content="https://timeandspace.science/api/og?name=How%20Time%20Zones%20%26%20Daylight%20Saving%20Are%20Handled&amp;theme=generic">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://timeandspace.science/api/og?name=How%20Time%20Zones%20%26%20Daylight%20Saving%20Are%20Handled&amp;theme=generic">
-<meta name="robots" content="max-image-preview:large">
-<!-- build 05e5a95abe7e · generated 2026-08-28T00:55:14.730Z -->
+<!-- build e4906408e262 · generated 2026-08-28T04:04:25.217Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/gear.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
+<meta property="og:image" content="https://timeandspace.science/api/og?name=How%20Time%20Zones%20%26%20Daylight%20Saving%20Are%20Handled&amp;theme=generic">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=How%20Time%20Zones%20%26%20Daylight%20Saving%20Are%20Handled&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -858,7 +858,8 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <p class="footer copyright">© 2026 Time and Space Science. All rights reserved.</p>
   <p class="footer sitelinks">Gravity, motion, time and space — one set of rules, seen from different sides: <a href="/glossary/">the glossary</a> · <a href="/sun-moon-earth-movement-simulator/">the Sun, Earth &amp; Moon</a> · <a href="/day-night-map/">day &amp; night on Earth</a> · <a href="/solar-system-simulator/">the solar system</a> · <a href="/planets/">the planets</a> · <a href="/orbital-velocity-simulator/">gravity &amp; orbits</a> · <a href="/sun/">sunrise &amp; sunset</a> · <a href="/moon/">moon phases</a> · <a href="/world-clock/">time zones</a></p>
   <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. Teachers: <a href="/classroom/submit-a-lesson/">send us the lesson you already run</a> and we will build it into a page here, with your name on it — or <a href="/classroom/#ask">ask us to build a simulator</a> your class has thought of. <a href="/classroom/">Classroom</a> · <a href="/about/">About this site</a>.</p>
-</div><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+</div>
+<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];

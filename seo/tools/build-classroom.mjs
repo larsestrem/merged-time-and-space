@@ -1629,6 +1629,7 @@ const SUBJECTS = [
   },
 ];
 const subjectUrl = (s) => `${PATH}${s}/`;
+const runSlug = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const SUBJ = (s) => SUBJECTS.find((x) => x.s === s);
 
 /* ---- one door on the hub -------------------------------------------------
@@ -1637,8 +1638,11 @@ const SUBJ = (s) => SUBJECTS.find((x) => x.s === s);
  * something the subject page then has to repeat. */
 const doorCard = (S) => {
   const lessonBits = S.lessons.slice(0, 3).map(([t, b]) => lessonRow(t, b)).join("\n");
+  /* The hub row links to the sequence itself, not the bare subject page — a
+     row titled as a lesson that lands mid-scroll with no anchor reads as a
+     broken promise. */
   const runBits = (S.run || []).slice(0, S.lessons.length >= 3 ? 0 : 3 - S.lessons.length)
-    .map(([title, meta]) => `      <div class="wc-frow"><span><a href="${subjectUrl(S.s)}">${esc(title)}</a></span><b>${esc(meta)}</b></div>`)
+    .map(([title, meta]) => `      <div class="wc-frow"><span><a href="${subjectUrl(S.s)}#run-${runSlug(title)}">${esc(title)}</a></span><b>${esc(meta)}</b></div>`)
     .join("\n");
   return `  <div class="card cr-door${S.lead ? "" : " cr-door-min"}">
     <h2>${ico(S.ico)} <a href="${subjectUrl(S.s)}">${esc(S.n)}</a></h2>
@@ -1697,7 +1701,7 @@ ${S.run ? `  ${""/* RUNNABLE, NOT ADMIRABLE. These were one closing paragraph of
   <div class="card">
     <h2>${ico("classroom")} Four lessons you can run tomorrow — no prep, no new tools</h2>
     <div class="wc-facts lp-steps">
-${S.run.map(([t, meta, how]) => `      <div class="wc-frow"><span>${esc(meta)}</span><b><strong>${esc(t)}.</strong> ${how}</b></div>`).join("\n")}
+${S.run.map(([t, meta, how]) => `      <div class="wc-frow" id="run-${runSlug(t)}"><span>${esc(meta)}</span><b><strong>${esc(t)}.</strong> ${how}</b></div>`).join("\n")}
     </div>
     <p class="hint">Run one of these and it worked — or didn't? <a href="${SUBMIT_PATH}">Tell us, or send us your version</a>: the written-up plan that comes out of it carries your name.</p>
   </div>
