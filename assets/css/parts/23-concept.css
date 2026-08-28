@@ -66,6 +66,18 @@
   width: 100%;
   max-width: none;
 }
+/* the Earth–Sun–Moon orbit widget stays at the simulator's 620px — do not
+   stretch it to wrap width the way the other concept graphics fill. */
+.graphic-block:has(.sys-figwrap) {
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.graphic-block .sys-figwrap,
+.graphic-block .sys-tiltrow,
+.graphic-block .sys-tiltnote {
+  max-width: 620px;
+}
 .graphic-block figcaption, figcaption {
   margin-top: 10px;
   color: var(--muted);

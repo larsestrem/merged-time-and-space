@@ -10,6 +10,22 @@ output. See `CLAUDE.md` for the architecture and working rules. Deploy = push to
 `main` (Cloudflare auto-publishes).
 
 ---
+### 2026-08-27 — seasons page uses the orbit map, relabelled
+
+The seasons concept page was showing the four-Earths drawing, stretched
+to wrap width. It now shows the same Earth–Sun–Moon orbit map as the
+orbit simulator, capped at that map's 620px. Labels on both pages:
+
+- June - North / leans sunward (left)
+- December - North / leans away (right)
+- Sun is above the equator (top and bottom of the path)
+
+The figure lives in one module so the two pages cannot drift.
+
+Files: `system-orbit.mjs`, `build-simulator.mjs`, `concepts.mjs`,
+`concepts.json`, `concepts.schema.json`, `23-concept.css`.
+
+---
 ### 2026-08-27 — Earth cards fill the phone; menu grouped; teasers vary
 
 The Earth page on a phone was still painting four cards as thin

@@ -2,8 +2,8 @@
  * Shared concept helpers. Side-effect free so sitemap / inline / hub builders
  * can import the slug list without writing pages.
  *
- * Graphics reuse the live drawing modules (daynight, orrery, globe). Do not
- * invent a second illustration language.
+ * Graphics reuse the live drawing modules (daynight, orrery, globe,
+ * system-orbit). Do not invent a second illustration language.
  */
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -12,10 +12,11 @@ import { esc } from "./lib.mjs";
 import {
   DN_W, DN_VIEW_Y, DN_VIEW_H, DN_VIEWBOX, DN_TOP, DN_BOT,
   dnX, dnY, dnF, subsolar, nightPath, twilightPath, landPath, seasonPoints,
-  sideView, seasonOrbitSvg,
+  sideView,
 } from "./daynight.mjs";
 import { orrerySvg } from "./orrery.mjs";
 import { globeSvg, globeRadius } from "./globe.mjs";
+import { sysOrbitWidget } from "./system-orbit.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -454,8 +455,8 @@ export function graphicHtml(c) {
     case "olbers":
       inner = olbersDiagram();
       break;
-    case "season-orbit":
-      inner = `<div class="so-wrap">${seasonOrbitSvg(NOW, { id: "concept", tilt: YEAR.tilt })}</div>`;
+    case "system-orbit":
+      inner = sysOrbitWidget();
       break;
     case "none":
       return "";

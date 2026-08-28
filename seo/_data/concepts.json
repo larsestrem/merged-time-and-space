@@ -586,9 +586,9 @@
       "what-is-the-tropic-of-cancer",
       "what-are-the-polar-circles"
     ],
-    "graphicId": "season-orbit",
-    "graphicCaption": "Earth goes around the Sun. The four marked positions are the start of each season. Spring sits on the orbit between the spring equinox and the summer solstice; summer, fall and winter follow the same way. Every Earth leans the same way, so sunlight falls on the north in June and the south in December. A yellow marker shows today’s place on the year.",
-    "graphicAlt": "The Sun in the centre of Earth’s orbit. Four Earths mark the spring equinox, summer solstice, fall equinox and winter solstice, each leaning the same way so sunlight hits the north in June and the south in December. Season names sit on the orbit between them. A yellow marker shows today’s place on the year.",
+    "graphicId": "system-orbit",
+    "graphicCaption": "Earth goes around the Sun with its axis leaning one fixed way. June is on the left — the north pole leans sunward. December is on the right — it leans away. At the top and bottom of the path the Sun sits above the equator. Drag the slider to tip the whole orbit; the lean is easiest to see from the side.",
+    "graphicAlt": "Earth orbiting the Sun with a tilted axis, the Moon orbiting the Earth. June on the left, north pole leaning sunward; December on the right, north pole leaning away. Labels at the top and bottom of the path say the Sun is above the equator.",
     "sections": [
       {
         "heading": "The test that kills the distance story",
@@ -606,6 +606,10 @@
       }
     ],
     "seeItLive": [
+      {
+        "href": "/earth-sun-moon-orbit-simulator/",
+        "label": "The same orbit, with the scale card and what the picture is telling you"
+      },
       {
         "href": "/day-night-map/",
         "label": "Watch the day/night line lean with the year"

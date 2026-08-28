@@ -1224,6 +1224,16 @@ display: block;
 width: 100%;
 max-width: none;
 }
+.graphic-block:has(.sys-figwrap) {
+max-width: 620px;
+margin-left: auto;
+margin-right: auto;
+}
+.graphic-block .sys-figwrap,
+.graphic-block .sys-tiltrow,
+.graphic-block .sys-tiltnote {
+max-width: 620px;
+}
 .graphic-block figcaption, figcaption {
 margin-top: 10px;
 color: var(--muted);
@@ -1320,15 +1330,15 @@ font-weight: 700;
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Earth, Sun & Moon: the whole system moving","url":"https://timeandspace.science/earth-sun-moon-orbit-simulator/","description":"A schematic showing the Earth orbiting the sun while the moon orbits the Earth, at the real ratio between the two periods and an openly invented scale.","learningResourceType":"simulation","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"student"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this to scale?","acceptedAnswer":{"@type":"Answer","text":"No, and it says so on the page: every size and every distance here is invented so the Earth's orbit and the moon's orbit can both fit on one screen. What is real is the direction each body turns, the ratio between the two periods, the fixed lean of the Earth's axis, and which half of each body is lit."}},{"@type":"Question","name":"Why does the moon go round so much faster than the Earth does?","acceptedAnswer":{"@type":"Answer","text":"Because it really does: the moon completes an orbit in about 27.3 days against the stars, and the Earth takes 365.25 days to go once round the sun — about thirteen moon orbits to one Earth orbit, which is the speed this page's animation runs at."}},{"@type":"Question","name":"Does the same side of the moon always face the Earth?","acceptedAnswer":{"@type":"Answer","text":"Yes — the grey patch in the drawing marks it. The moon rotates exactly once per orbit, so one face points at us permanently. But the SUN lights whichever half faces it, so the face we see swings from fully dark (new moon) to fully lit (full moon) and back. Same face, changing light: that is what the phases are."}},{"@type":"Question","name":"Is the Earth's tilt really why we have seasons?","acceptedAnswer":{"@type":"Answer","text":"Yes. The axis leans 23.4 degrees and keeps pointing the same way in space all year — watch it hold its angle through the whole drawn orbit. When your hemisphere's pole leans sunward the days run long and the sun stands high; half an orbit later it leans away. Distance is not the cause — the Earth is actually closest to the sun in early January, in the middle of the northern winter."}},{"@type":"Question","name":"What does the tilt slider do?","acceptedAnswer":{"@type":"Answer","text":"It tips Earth's whole orbit away from you, from lying flat and face on to standing edge on. As it tips, the orbit flattens — wider and shorter — until it is a line. Edge on you can see the things a flat diagram cannot show: Earth passing in front of the sun and then behind it, which is the year, and the moon's tilted orbit carrying it above or below the sun-Earth line at most new and full moons, which is why eclipses are rare. Earth's axis keeps its 23.4-degree lean relative to the orbit throughout and tips along with it."}},{"@type":"Question","name":"Why isn't there an eclipse every month?","acceptedAnswer":{"@type":"Answer","text":"Because the moon's orbit is tilted about 5 degrees out of the plane of the Earth's, so at most new and full moons the moon passes above or below the exact sun-Earth line instead of through it. Tip the orbit edge on with the slider and you can watch it happen — the drawn tilt is exaggerated so it is visible at this size, but the miss is real: even 5 degrees carries the moon several times its own width off the line."}},{"@type":"Question","name":"Where can I see this to scale?","acceptedAnswer":{"@type":"Answer","text":"Nowhere on one screen, at both distances at once — that is the whole point of this page. The Earth and the Moon ARE drawn to real scale, in both size and distance, on the Earth & the Moon rung of the solar system simulator; that view has no room left to also show the sun."}}]}</script>
 
-<meta property="og:image" content="https://timeandspace.science/api/og?name=Earth%2C%20the%20Sun%20%26%20the%20Moon&amp;theme=generic">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Earth%2C%20the%20Sun%20%26%20the%20Moon&amp;theme=generic">
-<meta name="robots" content="max-image-preview:large">
-<!-- build 05e5a95abe7e · generated 2026-08-28T00:55:14.730Z -->
+<!-- build ac76c0b4c4ba · generated 2026-08-28T02:27:50.198Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
+<meta property="og:image" content="https://timeandspace.science/api/og?name=Earth%2C%20the%20Sun%20%26%20the%20Moon&amp;theme=generic">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Earth%2C%20the%20Sun%20%26%20the%20Moon&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -1475,12 +1485,14 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <p class="hint sys-vlad-note">Each view trades one kind of honesty for another. <a href="/sun-moon-earth-movement-simulator/">The single-location simulator</a> gets the sun and moon's real position from your own town, but only ever shows one place. This page adds the Earth's own orbit and keeps the real ratio between the two periods, but invents every size and distance to fit them both on a screen. <a href="/solar-system-simulator/">The solar system simulator</a> gets distance right — orbits drawn to actual scale — by giving up on size, since a to-scale Jupiter would be a fraction of a pixel.</p>
   </nav>
   <div class="card">
-    <div class="sys-figwrap"><svg viewBox="0 0 640 420" role="img" aria-label="Earth going round the sun with its axis leaning one fixed way, while the moon goes round the Earth keeping one face toward it; every lit side faces the sun. A view slider tips the whole scene from overhead to a side view, where the moon's tilted orbit visibly misses the sun-Earth line." class="sys-fig">
-  <rect width="640" height="420" rx="16" fill="#0a1020"/>
-  <text x="12" y="206" font-size="11" fill="#94a3b8">June</text>
-  <text x="12" y="222" font-size="10" fill="#64748b">pole leans sunward</text>
-  <text x="628" y="206" text-anchor="end" font-size="11" fill="#94a3b8">December</text>
-  <text x="628" y="222" text-anchor="end" font-size="10" fill="#64748b">pole leans away</text>
+    <div class="sys-figwrap"><svg viewBox="0 0 640 448" role="img" aria-label="Earth going round the sun with its axis leaning one fixed way, while the moon goes round the Earth keeping one face toward it; every lit side faces the sun. A view slider tips the whole scene from overhead to a side view, where the moon's tilted orbit visibly misses the sun-Earth line." class="sys-fig">
+  <rect width="640" height="448" rx="16" fill="#0a1020"/>
+  <text x="12" y="202" font-size="11" fill="#94a3b8">June - North</text>
+  <text x="12" y="218" font-size="10" fill="#64748b">leans sunward</text>
+  <text x="628" y="202" text-anchor="end" font-size="11" fill="#94a3b8">December - North</text>
+  <text x="628" y="218" text-anchor="end" font-size="10" fill="#64748b">leans away</text>
+  <text x="320" y="16" text-anchor="middle" font-size="11" fill="#94a3b8">Sun is above the equator</text>
+  <text x="320" y="436" text-anchor="middle" font-size="11" fill="#94a3b8">Sun is above the equator</text>
   <g id="sys-scene">
   <circle cx="320" cy="210" r="160" fill="none" stroke="#94a3b8" stroke-opacity=".28" stroke-width="1" stroke-dasharray="3 5"/>
   <circle cx="320" cy="210" r="40" fill="#fcd34d" fill-opacity=".16"/>
@@ -1515,72 +1527,6 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <button type="button" class="chip" id="sys-view-side" hidden>Edge on</button>
     </div>
     <p class="hint sys-tiltnote" id="sys-view-note">Drag to tip the whole orbit away from you. It flattens as it goes — wider and shorter — until you are looking along its edge, where the Earth loops in front of the sun and then behind it, and the moon&rsquo;s tilted orbit visibly misses the sun&ndash;Earth line.</p>
-    <p class="hint">The Earth crosses its own big ring once every drawn orbit; watch the Moon and it crosses its small one about <strong>thirteen times</strong> in that same span — the real ratio between a 27.3-day month and a 365.25-day year, kept even though neither ring is at the real distance. Every dark half faces away from the sun, the moon's grey patch keeps facing the Earth, and the Earth's axis keeps one fixed lean — the four cards below say why each of those is worth staring at.</p>
-  </div>
-  <div class="card" id="learn">
-    <h2>Four true things hiding in this toy drawing</h2>
-    <p><strong>1 · The lit sides always face the sun.</strong> Watch the Earth all the way round: its bright half tracks the sun the whole lap, because day and night are nothing but which half faces the light. The moon's bright half does the same — which leads directly to the strange part.</p>
-    <p><strong>2 · The moon shows us one face, but the sun lights whichever half it likes.</strong> The grey patch on the moon always points at the Earth — the moon genuinely turns exactly once per orbit, so we only ever see one side (that is tidal locking, and why the far side stayed unphotographed until 1959). But its <em>lit</em> half tracks the SUN, not us. Follow one lap: when the moon sits between Earth and sun, the face we see is all shadow (new moon); on the far side, all lit (full moon). <em>Same face, different lighting — that is the whole phase cycle</em>, and you can check tonight's result against <a href="/moon/">the real phase</a>. It is also why "the dark side of the moon" is a misnomer: the far side gets exactly as much sun as the near side.</p>
-    <p><strong>3 · The axis leans one fixed way — and that lean is the seasons.</strong> The Earth's pole is tilted 23.4° and keeps pointing at the same patch of sky all year (toward Polaris). It does NOT swivel to follow the sun — watch the little axis hold its angle through the whole orbit. So on one side of the orbit the north pole leans sunward (June — long days, high sun) and half a year later it leans away (December). Nothing about the Earth changed; only which end leans toward the light. The lean is easiest to see from the side — <strong>drag the tilt slider under the picture</strong> to tip the orbit edge on, and watch the axis stay parallel to itself all the way round the loop. <a href="/classroom/lessons/seasons-grades-7-8/">The seasons lesson</a> turns exactly this into a class period, including why "closer to the sun" cannot be the reason.</p>
-    <p><strong>4 · Why eclipses are rare — visible from the side.</strong> Seen from above, the moon crosses the sun–Earth line twice a month and you would expect an eclipse every crossing. Now <strong>tip the orbit edge on with the slider</strong>: the moon's orbit is tilted out of the Earth's, so at most new and full moons it slides <em>above</em> or <em>below</em> the sun–Earth line instead of through it. The tilt is drawn steeper than its real 5.1° so you can see it (the scale card below says by how much), but the miss is genuine — the real angle still carries the moon several times its own width off the exact line, which is why eclipses come in occasional seasons and <a href="/moon/eclipses/">the real list</a> is short. <a href="/classroom/lessons/moon-phases-grades-7-8/">The eclipse lesson</a> is built on exactly this.</p>
-  </div>
-  <div class="card hub-teasers" id="learn">
-    <h2>What this picture is telling you</h2>
-    <p class="sub">The question is the link. A short answer sits here; tap through for the drawing and the deeper pass.</p>
-    <ul class="hub-qs">
-    <li id="what-is-the-tropic-of-cancer"><p><a href="/concepts/what-is-the-tropic-of-cancer/">What is the Tropic of Cancer?</a> The Tropic of Cancer is the circle at 23.4° north. On one day each year — the summer solstice, around June 21 — the Sun stands straight overhead on this line. North of it, the Sun is never straight overhead.</p></li>
-    <li id="what-is-earths-axial-tilt"><p><a href="/concepts/what-is-earths-axial-tilt/">What is Earth’s axial tilt?</a> Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.</p></li>
-    <li id="why-do-we-have-seasons"><p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year.</p></li>
-    <li id="why-isnt-there-an-eclipse-every-month"><p><a href="/concepts/why-isnt-there-an-eclipse-every-month/">Why isn’t there an eclipse every month?</a> The Moon’s path around Earth is tipped about 5° to Earth’s path around the Sun. Most months the full Moon rides above or below Earth’s shadow, and the new Moon rides above or below the Sun. An eclipse needs the Moon at a crossing, not just at a phase.</p></li>
-    <li id="why-do-other-planets-have-seasons"><p><a href="/concepts/why-do-other-planets-have-seasons/">Do other planets have seasons?</a> Yes, if they tilt. Seasons come from a lean, not from being closer to the Sun. Mars tilts about 25°, like Earth, so it has seasons — just longer, because its year is longer. Uranus tilts 98°, so each pole sits in sunlight for 42 years and then in darkness for 42. Jupiter barely tilts, so its seasons are weak.</p></li>
-    </ul>
-  </div>
-  <div class="card">
-    <h2>This picture is not to scale — by how much</h2>
-    <p>The <em>directions</em> each body turns, and the <em>ratio</em> between the two periods, are real. Every <em>size</em> and every <em>distance</em> is invented, because a drawing that held the Earth's orbit AND the Moon's true distance at once has no room left to show the Moon at all — it would sit closer to the Earth than the line marking the Earth's own edge.</p>
-    <div class="wc-facts">
-      <div class="wc-frow"><span>The Earth's orbit is drawn</span><b>about 1,468× too close to the sun</b></div>
-      <div class="wc-frow"><span>The sun itself is drawn</span><b>about 42× too small</b></div>
-      <div class="wc-frow"><span>The moon's orbit is drawn</span><b>about 23× too close to the Earth</b></div>
-      <div class="wc-frow"><span>The moon itself is drawn</span><b>about 1.3× too big next to the Earth — it has to be, to still be visible at that distance</b></div>
-      <div class="wc-frow"><span>The moon's orbit tilt is drawn</span><b>at 18° — about 3.5× the real 5.1°, which at this orbit's drawn size would be a two-pixel wobble</b></div>
-    </div>
-    <p><strong>Try it in a corridor.</strong> Shrink the Earth to a 16 mm marble. The moon is then a <strong>4.4 mm bead</strong> — about a peppercorn — held <strong>48 cm away</strong>. The sun is a <strong>1.7 metre ball</strong>, taller than a person, standing <strong>188 metres</strong> down the road: nearly two football pitches. Nothing about that fits on a screen, so this picture keeps the angles honest and lets the distances go.</p>
-    <p class="hint">What you can trust here: which way each body turns and orbits, that the moon genuinely completes about thirteen trips round the Earth for every trip the Earth makes round the sun, and — with the orbit tipped edge on — that the moon's orbit really does carry it off the sun–Earth line at most new and full moons. What you cannot: any size, any distance, the drawn steepness of that tilt (exaggerated, as the table says), or the direction its crossing line points — a drawing choice, so nothing here says <em>when</em> in the year real eclipse seasons fall.</p>
-  </div>
-  <div class="card tool-about">
-    <h2>Common questions</h2>
-    <p><strong>Is this to scale?</strong> No, and it says so on the page: every size and every distance here is invented so the Earth&#39;s orbit and the moon&#39;s orbit can both fit on one screen. What is real is the direction each body turns, the ratio between the two periods, the fixed lean of the Earth&#39;s axis, and which half of each body is lit.</p>
-    <p><strong>Why does the moon go round so much faster than the Earth does?</strong> Because it really does: the moon completes an orbit in about 27.3 days against the stars, and the Earth takes 365.25 days to go once round the sun — about thirteen moon orbits to one Earth orbit, which is the speed this page&#39;s animation runs at.</p>
-    <p><strong>Does the same side of the moon always face the Earth?</strong> Yes — the grey patch in the drawing marks it. The moon rotates exactly once per orbit, so one face points at us permanently. But the SUN lights whichever half faces it, so the face we see swings from fully dark (new moon) to fully lit (full moon) and back. Same face, changing light: that is what the phases are.</p>
-    <p><strong>Is the Earth&#39;s tilt really why we have seasons?</strong> Yes. The axis leans 23.4 degrees and keeps pointing the same way in space all year — watch it hold its angle through the whole drawn orbit. When your hemisphere&#39;s pole leans sunward the days run long and the sun stands high; half an orbit later it leans away. Distance is not the cause — the Earth is actually closest to the sun in early January, in the middle of the northern winter.</p>
-    <p><strong>What does the tilt slider do?</strong> It tips Earth&#39;s whole orbit away from you, from lying flat and face on to standing edge on. As it tips, the orbit flattens — wider and shorter — until it is a line. Edge on you can see the things a flat diagram cannot show: Earth passing in front of the sun and then behind it, which is the year, and the moon&#39;s tilted orbit carrying it above or below the sun-Earth line at most new and full moons, which is why eclipses are rare. Earth&#39;s axis keeps its 23.4-degree lean relative to the orbit throughout and tips along with it.</p>
-    <p><strong>Why isn&#39;t there an eclipse every month?</strong> Because the moon&#39;s orbit is tilted about 5 degrees out of the plane of the Earth&#39;s, so at most new and full moons the moon passes above or below the exact sun-Earth line instead of through it. Tip the orbit edge on with the slider and you can watch it happen — the drawn tilt is exaggerated so it is visible at this size, but the miss is real: even 5 degrees carries the moon several times its own width off the line.</p>
-    <p><strong>Where can I see this to scale?</strong> Nowhere on one screen, at both distances at once — that is the whole point of this page. The Earth and the Moon ARE drawn to real scale, in both size and distance, on the Earth &amp; the Moon rung of the solar system simulator; that view has no room left to also show the sun.</p>
-    <p class="hint">How the positions are worked out, and where they stop being reliable: <a href="/methodology/sunrise-sunset/">sunrise &amp; sunset</a>, <a href="/methodology/moon-phase/">moon phase</a>.</p>
-  </div>
-  <details class="suggest-box" data-ac="suggest">
-    <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
-    <form class="suggest-form" autocomplete="off">
-      <p class="hint" style="margin:0 0 14px">Ask us anything about the tools, tell us what's broken or confusing, or suggest something we're missing. Every message is read by a person.</p>
-      <p class="notice">If you are under 13, do not send us your name, email, or any other personal information. If you are under 18, please get a parent or guardian's permission before using this form.</p>
-      <label class="cr-check" for="sg-age"><input id="sg-age" name="age_ok" type="checkbox" required> <span>I am 13 or older, and if I am under 18 I have a parent or guardian's permission to send this.</span></label>
-      <label for="sg-email">Email <span class="hint" style="display:inline;font-weight:400">(so we can reply — leave blank if you'd rather not)</span></label>
-      <input id="sg-email" type="email" placeholder="Your email address">
-      <label for="sg-idea">Your question or idea</label>
-      <textarea id="sg-idea" maxlength="1000" required placeholder="How do I…? · Something isn't working · A countdown or feature we're missing…"></textarea>
-      <input id="sg-hp" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn" id="sg-send" type="submit">Send message</button>
-      <p id="sg-note" class="hint suggest-note" role="status"></p>
-      <p class="hint" style="margin-top:12px">If you leave an email we'll reply to questions. We can't promise to build every suggestion, but they directly shape what we work on next.</p>
-    </form>
-  </details>
-  <script data-ac="suggest">(function(){var b=document.querySelector('.suggest-box[data-ac="suggest"]');if(!b)return;var f=b.querySelector('.suggest-form'),note=b.querySelector('#sg-note'),btn=b.querySelector('#sg-send');f.addEventListener('submit',function(e){e.preventDefault();if(b.querySelector('#sg-hp').value)return;var idea=b.querySelector('#sg-idea').value.trim();if(!idea){note.textContent='Please add a quick note first.';return;}var age=b.querySelector('#sg-age');if(age&&!age.checked){note.textContent='Please confirm the age notice.';return;}var em=b.querySelector('#sg-email').value.trim();btn.disabled=true;note.textContent='Sending…';fetch('/api/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:location.href,reason:'Site idea',details:idea,email:em,website:''})}).then(function(r){return r.json().catch(function(){return{};});}).then(function(d){if(d&&!d.error){f.reset();note.textContent=em?'Thanks — got it. A reply will go to '+em+'. 🙌':'Thanks — got it. 🙌 (No email given, so this one cannot be answered.)';}else{note.textContent='Sorry, that did not send. Please try again.';btn.disabled=false;}}).catch(function(){note.textContent='Network hiccup — please try again.';btn.disabled=false;});});})();</script>
-  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/suggest-event/">Suggest an event</a> · <a class="report-link" href="/report/?url=https%3A%2F%2Ftimeandspace.science%2Fearth-sun-moon-orbit-simulator%2F">Report abuse</a></p>
-  <p class="footer copyright">© 2026 Time and Space Science. All rights reserved.</p>
-  <p class="footer sitelinks">Gravity, motion, time and space — one set of rules, seen from different sides: <a href="/glossary/">the glossary</a> · <a href="/sun-moon-earth-movement-simulator/">the Sun, Earth &amp; Moon</a> · <a href="/day-night-map/">day &amp; night on Earth</a> · <a href="/solar-system-simulator/">the solar system</a> · <a href="/planets/">the planets</a> · <a href="/orbital-velocity-simulator/">gravity &amp; orbits</a> · <a href="/sun/">sunrise &amp; sunset</a> · <a href="/moon/">moon phases</a> · <a href="/world-clock/">time zones</a></p>
-  <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. Teachers: <a href="/classroom/submit-a-lesson/">send us the lesson you already run</a> and we will build it into a page here, with your name on it — or <a href="/classroom/#ask">ask us to build a simulator</a> your class has thought of. <a href="/classroom/">Classroom</a> · <a href="/about/">About this site</a>.</p>
-</div>
 <script>(function(){
   var scene=document.getElementById('sys-scene'), s=document.getElementById('sys-view'),
       out=document.getElementById('sys-view-v'), note=document.getElementById('sys-view-note'),
@@ -1711,7 +1657,74 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   side.addEventListener('click',function(){ s.value=90; vdeg=90; applyView(); if(still) render(0.8,2.1); });
   s.value=vdeg; applyView(); s.disabled=false;
   if(still){ render(0.8,2.1); } else { requestAnimationFrame(frame); }
-})();</script><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+})();</script>
+    <p class="hint">The Earth crosses its own big ring once every drawn orbit; watch the Moon and it crosses its small one about <strong>thirteen times</strong> in that same span — the real ratio between a 27.3-day month and a 365.25-day year, kept even though neither ring is at the real distance. Every dark half faces away from the sun, the moon's grey patch keeps facing the Earth, and the Earth's axis keeps one fixed lean — the four cards below say why each of those is worth staring at.</p>
+  </div>
+  <div class="card" id="learn">
+    <h2>Four true things hiding in this toy drawing</h2>
+    <p><strong>1 · The lit sides always face the sun.</strong> Watch the Earth all the way round: its bright half tracks the sun the whole lap, because day and night are nothing but which half faces the light. The moon's bright half does the same — which leads directly to the strange part.</p>
+    <p><strong>2 · The moon shows us one face, but the sun lights whichever half it likes.</strong> The grey patch on the moon always points at the Earth — the moon genuinely turns exactly once per orbit, so we only ever see one side (that is tidal locking, and why the far side stayed unphotographed until 1959). But its <em>lit</em> half tracks the SUN, not us. Follow one lap: when the moon sits between Earth and sun, the face we see is all shadow (new moon); on the far side, all lit (full moon). <em>Same face, different lighting — that is the whole phase cycle</em>, and you can check tonight's result against <a href="/moon/">the real phase</a>. It is also why "the dark side of the moon" is a misnomer: the far side gets exactly as much sun as the near side.</p>
+    <p><strong>3 · The axis leans one fixed way — and that lean is the seasons.</strong> The Earth's pole is tilted 23.4° and keeps pointing at the same patch of sky all year (toward Polaris). It does NOT swivel to follow the sun — watch the little axis hold its angle through the whole orbit. So on one side of the orbit the north pole leans sunward (June — long days, high sun) and half a year later it leans away (December). Nothing about the Earth changed; only which end leans toward the light. The lean is easiest to see from the side — <strong>drag the tilt slider under the picture</strong> to tip the orbit edge on, and watch the axis stay parallel to itself all the way round the loop. <a href="/classroom/lessons/seasons-grades-7-8/">The seasons lesson</a> turns exactly this into a class period, including why "closer to the sun" cannot be the reason.</p>
+    <p><strong>4 · Why eclipses are rare — visible from the side.</strong> Seen from above, the moon crosses the sun–Earth line twice a month and you would expect an eclipse every crossing. Now <strong>tip the orbit edge on with the slider</strong>: the moon's orbit is tilted out of the Earth's, so at most new and full moons it slides <em>above</em> or <em>below</em> the sun–Earth line instead of through it. The tilt is drawn steeper than its real 5.1° so you can see it (the scale card below says by how much), but the miss is genuine — the real angle still carries the moon several times its own width off the exact line, which is why eclipses come in occasional seasons and <a href="/moon/eclipses/">the real list</a> is short. <a href="/classroom/lessons/moon-phases-grades-7-8/">The eclipse lesson</a> is built on exactly this.</p>
+  </div>
+  <div class="card hub-teasers" id="learn">
+    <h2>What this picture is telling you</h2>
+    <p class="sub">The question is the link. A short answer sits here; tap through for the drawing and the deeper pass.</p>
+    <ul class="hub-qs">
+    <li id="what-is-the-tropic-of-cancer"><p><a href="/concepts/what-is-the-tropic-of-cancer/">What is the Tropic of Cancer?</a> The Tropic of Cancer is the circle at 23.4° north.</p></li>
+    <li id="what-is-earths-axial-tilt"><p><a href="/concepts/what-is-earths-axial-tilt/">What is Earth’s axial tilt?</a> Earth’s spin axis is not upright.</p></li>
+    <li id="why-do-we-have-seasons"><p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun.</p></li>
+    <li id="why-isnt-there-an-eclipse-every-month"><p><a href="/concepts/why-isnt-there-an-eclipse-every-month/">Why isn’t there an eclipse every month?</a> The Moon’s path around Earth is tipped about 5° to Earth’s path around the Sun.</p></li>
+    <li id="why-do-other-planets-have-seasons"><p><a href="/concepts/why-do-other-planets-have-seasons/">Do other planets have seasons?</a> Yes, if they tilt. Seasons come from a lean, not from being closer to the Sun. Mars tilts about 25°, like Earth, so it has seasons — just longer, because its year is longer. Uranus tilts 98°, so each pole sits in sunlight for 42 years and then in darkness for 42. Jupiter barely tilts, so its seasons are weak.</p></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>This picture is not to scale — by how much</h2>
+    <p>The <em>directions</em> each body turns, and the <em>ratio</em> between the two periods, are real. Every <em>size</em> and every <em>distance</em> is invented, because a drawing that held the Earth's orbit AND the Moon's true distance at once has no room left to show the Moon at all — it would sit closer to the Earth than the line marking the Earth's own edge.</p>
+    <div class="wc-facts">
+      <div class="wc-frow"><span>The Earth's orbit is drawn</span><b>about 1,468× too close to the sun</b></div>
+      <div class="wc-frow"><span>The sun itself is drawn</span><b>about 42× too small</b></div>
+      <div class="wc-frow"><span>The moon's orbit is drawn</span><b>about 23× too close to the Earth</b></div>
+      <div class="wc-frow"><span>The moon itself is drawn</span><b>about 1.3× too big next to the Earth — it has to be, to still be visible at that distance</b></div>
+      <div class="wc-frow"><span>The moon's orbit tilt is drawn</span><b>at 18° — about 3.5× the real 5.1°, which at this orbit's drawn size would be a two-pixel wobble</b></div>
+    </div>
+    <p><strong>Try it in a corridor.</strong> Shrink the Earth to a 16 mm marble. The moon is then a <strong>4.4 mm bead</strong> — about a peppercorn — held <strong>48 cm away</strong>. The sun is a <strong>1.7 metre ball</strong>, taller than a person, standing <strong>188 metres</strong> down the road: nearly two football pitches. Nothing about that fits on a screen, so this picture keeps the angles honest and lets the distances go.</p>
+    <p class="hint">What you can trust here: which way each body turns and orbits, that the moon genuinely completes about thirteen trips round the Earth for every trip the Earth makes round the sun, and — with the orbit tipped edge on — that the moon's orbit really does carry it off the sun–Earth line at most new and full moons. What you cannot: any size, any distance, the drawn steepness of that tilt (exaggerated, as the table says), or the direction its crossing line points — a drawing choice, so nothing here says <em>when</em> in the year real eclipse seasons fall.</p>
+  </div>
+  <div class="card tool-about">
+    <h2>Common questions</h2>
+    <p><strong>Is this to scale?</strong> No, and it says so on the page: every size and every distance here is invented so the Earth&#39;s orbit and the moon&#39;s orbit can both fit on one screen. What is real is the direction each body turns, the ratio between the two periods, the fixed lean of the Earth&#39;s axis, and which half of each body is lit.</p>
+    <p><strong>Why does the moon go round so much faster than the Earth does?</strong> Because it really does: the moon completes an orbit in about 27.3 days against the stars, and the Earth takes 365.25 days to go once round the sun — about thirteen moon orbits to one Earth orbit, which is the speed this page&#39;s animation runs at.</p>
+    <p><strong>Does the same side of the moon always face the Earth?</strong> Yes — the grey patch in the drawing marks it. The moon rotates exactly once per orbit, so one face points at us permanently. But the SUN lights whichever half faces it, so the face we see swings from fully dark (new moon) to fully lit (full moon) and back. Same face, changing light: that is what the phases are.</p>
+    <p><strong>Is the Earth&#39;s tilt really why we have seasons?</strong> Yes. The axis leans 23.4 degrees and keeps pointing the same way in space all year — watch it hold its angle through the whole drawn orbit. When your hemisphere&#39;s pole leans sunward the days run long and the sun stands high; half an orbit later it leans away. Distance is not the cause — the Earth is actually closest to the sun in early January, in the middle of the northern winter.</p>
+    <p><strong>What does the tilt slider do?</strong> It tips Earth&#39;s whole orbit away from you, from lying flat and face on to standing edge on. As it tips, the orbit flattens — wider and shorter — until it is a line. Edge on you can see the things a flat diagram cannot show: Earth passing in front of the sun and then behind it, which is the year, and the moon&#39;s tilted orbit carrying it above or below the sun-Earth line at most new and full moons, which is why eclipses are rare. Earth&#39;s axis keeps its 23.4-degree lean relative to the orbit throughout and tips along with it.</p>
+    <p><strong>Why isn&#39;t there an eclipse every month?</strong> Because the moon&#39;s orbit is tilted about 5 degrees out of the plane of the Earth&#39;s, so at most new and full moons the moon passes above or below the exact sun-Earth line instead of through it. Tip the orbit edge on with the slider and you can watch it happen — the drawn tilt is exaggerated so it is visible at this size, but the miss is real: even 5 degrees carries the moon several times its own width off the line.</p>
+    <p><strong>Where can I see this to scale?</strong> Nowhere on one screen, at both distances at once — that is the whole point of this page. The Earth and the Moon ARE drawn to real scale, in both size and distance, on the Earth &amp; the Moon rung of the solar system simulator; that view has no room left to also show the sun.</p>
+    <p class="hint">How the positions are worked out, and where they stop being reliable: <a href="/methodology/sunrise-sunset/">sunrise &amp; sunset</a>, <a href="/methodology/moon-phase/">moon phase</a>.</p>
+  </div>
+  <details class="suggest-box" data-ac="suggest">
+    <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
+    <form class="suggest-form" autocomplete="off">
+      <p class="hint" style="margin:0 0 14px">Ask us anything about the tools, tell us what's broken or confusing, or suggest something we're missing. Every message is read by a person.</p>
+      <p class="notice">If you are under 13, do not send us your name, email, or any other personal information. If you are under 18, please get a parent or guardian's permission before using this form.</p>
+      <label class="cr-check" for="sg-age"><input id="sg-age" name="age_ok" type="checkbox" required> <span>I am 13 or older, and if I am under 18 I have a parent or guardian's permission to send this.</span></label>
+      <label for="sg-email">Email <span class="hint" style="display:inline;font-weight:400">(so we can reply — leave blank if you'd rather not)</span></label>
+      <input id="sg-email" type="email" placeholder="Your email address">
+      <label for="sg-idea">Your question or idea</label>
+      <textarea id="sg-idea" maxlength="1000" required placeholder="How do I…? · Something isn't working · A countdown or feature we're missing…"></textarea>
+      <input id="sg-hp" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn" id="sg-send" type="submit">Send message</button>
+      <p id="sg-note" class="hint suggest-note" role="status"></p>
+      <p class="hint" style="margin-top:12px">If you leave an email we'll reply to questions. We can't promise to build every suggestion, but they directly shape what we work on next.</p>
+    </form>
+  </details>
+  <script data-ac="suggest">(function(){var b=document.querySelector('.suggest-box[data-ac="suggest"]');if(!b)return;var f=b.querySelector('.suggest-form'),note=b.querySelector('#sg-note'),btn=b.querySelector('#sg-send');f.addEventListener('submit',function(e){e.preventDefault();if(b.querySelector('#sg-hp').value)return;var idea=b.querySelector('#sg-idea').value.trim();if(!idea){note.textContent='Please add a quick note first.';return;}var age=b.querySelector('#sg-age');if(age&&!age.checked){note.textContent='Please confirm the age notice.';return;}var em=b.querySelector('#sg-email').value.trim();btn.disabled=true;note.textContent='Sending…';fetch('/api/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:location.href,reason:'Site idea',details:idea,email:em,website:''})}).then(function(r){return r.json().catch(function(){return{};});}).then(function(d){if(d&&!d.error){f.reset();note.textContent=em?'Thanks — got it. A reply will go to '+em+'. 🙌':'Thanks — got it. 🙌 (No email given, so this one cannot be answered.)';}else{note.textContent='Sorry, that did not send. Please try again.';btn.disabled=false;}}).catch(function(){note.textContent='Network hiccup — please try again.';btn.disabled=false;});});})();</script>
+  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/suggest-event/">Suggest an event</a> · <a class="report-link" href="/report/?url=https%3A%2F%2Ftimeandspace.science%2Fearth-sun-moon-orbit-simulator%2F">Report abuse</a></p>
+  <p class="footer copyright">© 2026 Time and Space Science. All rights reserved.</p>
+  <p class="footer sitelinks">Gravity, motion, time and space — one set of rules, seen from different sides: <a href="/glossary/">the glossary</a> · <a href="/sun-moon-earth-movement-simulator/">the Sun, Earth &amp; Moon</a> · <a href="/day-night-map/">day &amp; night on Earth</a> · <a href="/solar-system-simulator/">the solar system</a> · <a href="/planets/">the planets</a> · <a href="/orbital-velocity-simulator/">gravity &amp; orbits</a> · <a href="/sun/">sunrise &amp; sunset</a> · <a href="/moon/">moon phases</a> · <a href="/world-clock/">time zones</a></p>
+  <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. Teachers: <a href="/classroom/submit-a-lesson/">send us the lesson you already run</a> and we will build it into a page here, with your name on it — or <a href="/classroom/#ask">ask us to build a simulator</a> your class has thought of. <a href="/classroom/">Classroom</a> · <a href="/about/">About this site</a>.</p>
+</div>
+<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];
