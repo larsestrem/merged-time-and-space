@@ -433,7 +433,7 @@
    UP to a half rather than down — two cards on a 800px tablet are readable,
    three are not, and readable is the whole reason the spans exist. */
 .home-board{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 26px;align-items:start}
-.home-board>*{margin:0;min-width:0}
+.home-board>*{margin:0;min-width:0;width:100%;max-width:100%;grid-column:1/-1}
 @media(min-width:700px){
   .home-board{grid-template-columns:repeat(12,1fr)}
   .home-board>*{grid-column:span 12}
@@ -467,22 +467,12 @@
    viewport media query would give it a four-column inner grid in 450px. The
    card is the container the content actually has. */
 .home-board>*{container-type:inline-size}
-/* BELOW THE FIRST SCREEN, THE BROWSER CAN SKIP THE WORK, NOT THE MARKUP.
-   content-visibility:auto tells it to skip layout/style/paint for a card
-   until scroll brings it near — the SVGs (sun dials, tide charts, the moon
-   and simulator thumbnails) inside an off-screen card cost nothing until
-   then. Nothing is removed from the DOM or the accessibility tree: a
-   crawler, a screen reader and Ctrl+F still see the full card, same as
-   every card HOME_TABS_JS already hides on a filtered tab — this just adds
-   the same "not rendered right now" treatment to cards that stay in view on
-   the default "All" tab but start off-screen. contain-intrinsic-size gives a
-   skipped card a placeholder height so the page doesn't jump when it first
-   paints; the "auto" keyword makes the browser remember each card's REAL
-   height after its first real layout, so later skips reserve the true size
-   rather than this guess. Card heights vary a lot (a three-city tide chart
-   is much taller than a chip row), so this guess only has to hold until that
-   first real layout, not be exact. */
-.home-board>*{content-visibility:auto;contain-intrinsic-size:auto 520px}
+/* content-visibility on a 1-column phone board is how Chromium can
+   remember a 520px intrinsic WIDTH and paint the Earth cards as
+   skinny strips. Skip the work only once there are columns to pack. */
+@media(min-width:700px){
+  .home-board>*{content-visibility:auto;contain-intrinsic-size:auto 520px}
+}
 .home-classcard,.home-classlead,.home-classask{content-visibility:auto;contain-intrinsic-size:auto 420px}
 /* Six sun cities, so the column count has to DIVIDE six or the last row is a
    single dial with five dials' worth of space beside it. Three at half width,

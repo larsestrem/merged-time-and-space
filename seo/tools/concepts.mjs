@@ -116,23 +116,40 @@ export function hubQuestionsCard(hubPath, heading = "Questions this page answers
 `;
 }
 
-/** Compact list with no card chrome — sits under a picture, as on the home page. */
-export function hubQs(slugs) {
+/** Compact list with no card chrome — sits under a picture, as on the home page.
+ *  hubPath ("/", "/earth/", …) picks a one-line framing so the same question
+ *  does not repeat its paragraph on every hub. */
+export function hubQs(slugs, hubPath = "") {
   const by = conceptBySlug();
   const used = new Set();
   const items = slugs.map((slug) => {
     const c = by.get(slug);
     if (!c) throw new Error(`hubQs missing: ${slug}`);
-    return teaserLi(c, c.hubUrls[0]?.href?.split("#")[0] || "", used);
+    return teaserLi(c, hubPath || c.hubUrls[0]?.href?.split("#")[0] || "", used);
   }).join("\n");
   return `<ul class="hub-qs">\n${items}\n</ul>`;
+}
+
+function firstSentence(s) {
+  const m = String(s).match(/^.+?[.](?=\s|$)/);
+  return m ? m[0] : s;
+}
+
+function teaserFor(c, hubPath) {
+  const norm = hubPath ? (hubPath.endsWith("/") ? hubPath : hubPath + "/") : "";
+  const map = c.teasers || {};
+  if (norm && map[norm]) return fillConcept(map[norm]);
+  if (c.teaser) return fillConcept(c.teaser);
+  const full = fillConcept(c.shortAnswer) || "";
+  const first = firstSentence(full);
+  return first.length >= 24 ? first : full;
 }
 
 function teaserLi(c, hubPath, used) {
   let hid = teaserAnchor(c, hubPath);
   if (used.has(hid)) hid = c.slug;
   used.add(hid);
-  return `<li id="${esc(hid)}"><p><a href="/concepts/${esc(c.slug)}/">${esc(c.question)}</a> ${esc(fillConcept(c.shortAnswer))}</p></li>`;
+  return `<li id="${esc(hid)}"><p><a href="/concepts/${esc(c.slug)}/">${esc(c.question)}</a> ${esc(teaserFor(c, hubPath))}</p></li>`;
 }
 
 /* ---- graphics: the live-site drawings, baked at the current instant ------ */

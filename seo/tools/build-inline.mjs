@@ -394,21 +394,26 @@ const NOTICE_RE = /<!--nb-->[\s\S]*?<!--\/nb-->\s*/g;
 
 const MENU = `<details class="nav-dd menu-dd"><summary class="hamburger" aria-label="Menu">☰</summary><ul class="menu">` +
   /* SAME ORDER AS THE HOME PAGE: time, then earth, then space, then the
-     classroom. The menu and the page used to disagree about what came after
-     what, which is a small thing that makes a site feel like two sites. */
+     classroom. Labels group the flat list under the five-section nav so the
+     two navigations stop reading as two sites. Countdowns and the retired
+     Big Questions page stay off this list on purpose. */
+  `<li class="menu-lab">Time</li>` +
   `<li><a href="/alarm-clock/">${ico("alarm")} Alarm Clock</a></li>` +
   `<li><a href="/world-clock/">${ico("globe")} World Clock</a></li>` +
   `<li><a href="/timer/">${ico("timer")} Timer</a></li>` +
   `<li><a href="/stopwatch/">${ico("stopwatch")} Stopwatch</a></li>` +
+  `<li class="menu-lab">Earth</li>` +
   `<li><a href="/sun/">${ico("sunrise")} Sunrise &amp; Sunset</a></li>` +
   `<li><a href="/moon/">${ico("moon")} Moon</a></li>` +
   `<li><a href="/tides/">${ico("wave")} Tides</a></li>` +
-  `<li><a href="/glossary/">${ico("glossary")} Glossary</a></li>` +
   `<li><a href="/sun-moon-earth-movement-simulator/">${ico("earthmoon")} Sun, Earth &amp; Moon</a></li>` +
+  `<li class="menu-lab">Space</li>` +
+  `<li><a href="/glossary/">${ico("glossary")} Glossary</a></li>` +
   `<li><a href="/planets/">${ico("solar")} The Planets</a></li>` +
   `<li><a href="/solar-system-simulator/">${ico("solar")} Solar System</a></li>` +
   `<li><a href="/orbital-velocity-simulator/">${ico("solar")} Orbits &amp; Gravity</a></li>` +
   `<li><a href="/rocket-launch-simulator/">${ico("rocket")} Rocket Launches</a></li>` +
+  `<li class="menu-lab">Classroom</li>` +
   `<li><a href="/classroom/">${ico("classroom")} For Teachers</a></li>` +
   /* THE ONE ACTION IN A MENU OF PLACES, and in the nav on the owner's call:
      collaborating with teachers is a primary task of the site, and a task

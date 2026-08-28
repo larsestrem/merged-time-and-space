@@ -1770,7 +1770,7 @@ ${presetRows}
     <h2>The other two doors</h2>
     <div class="wc-facts">
 ${others.map((O) => `      <div class="wc-frow"><span><a href="${subjectUrl(O.s)}">${esc(O.n.replace(" in the classroom", ""))}</a></span><b>${O.door}</b></div>`).join("\n")}
-      <div class="wc-frow"><span><a href="${LPATH}">Every lesson</a></span><b>the full grid: five grade bands, seven topics, every one a timed sequence.</b></div>
+      <div class="wc-frow"><span><a href="${LPATH}">Every lesson</a></span><b>the full grid: ${BANDS.length} grade bands, ${TOPICS.length} topics${LESSON_PAGES.length === BANDS.length * TOPICS.length ? ", every one a timed sequence" : ` — ${LESSON_PAGES.length} of them written`}.</b></div>
     </div>
   </div>
 

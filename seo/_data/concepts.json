@@ -4,6 +4,10 @@
     "question": "What is the Tropic of Cancer?",
     "term": "Tropic of Cancer",
     "shortAnswer": "The Tropic of Cancer is the circle at {tilt}° north. On one day each year — the summer solstice, around {juneSolstice} — the Sun stands straight overhead on this line. North of it, the Sun is never straight overhead.",
+    "teasers": {
+      "/": "The dashed gold line north of the equator on the map above — the Sun never stands overhead north of it.",
+      "/earth/": "The northern edge of the band where a flagpole can have no shadow."
+},
     "ledeHtml": "The Tropic of Cancer is the circle at {tilt}° north. This circle is where the Sun stands <a href=\"/concepts/what-is-the-subsolar-point/\">straight overhead</a> — a flagpole there would cast no shadow — on the <a href=\"/concepts/why-do-we-have-seasons/\">summer solstice</a>, around {juneSolstice}. That is the longest day of the year in the north. The Sun is never straight overhead anywhere north of this line. The number {tilt}° is <a href=\"/concepts/what-is-earths-axial-tilt/\">Earth’s tilt</a>.",
     "title": "What Is the Tropic of Cancer?",
     "description": "The Tropic of Cancer is the circle at {tilt}° N. On the summer solstice, around {juneSolstice}, the Sun stands straight overhead there — and never north of it.",
@@ -174,6 +178,10 @@
     "question": "What is the terminator?",
     "term": "Terminator",
     "shortAnswer": "The terminator is the line between day and night — the circle on Earth where the Sun sits on the horizon. Sunrise is where you cross it going into the light; sunset is where you cross it going out.",
+    "teasers": {
+      "/": "The curve of night on the map — it leans because Earth does.",
+      "/earth/": "Sunrise and sunset are this line crossing your town."
+},
     "ledeHtml": "The terminator is the line between day and night — the circle on Earth where the Sun sits on the horizon. Sunrise is where you cross it going into the light; sunset is where you cross it going out. On the <a href=\"/day-night-map/#terminator\">day/night map</a> it is the edge of the dark half.",
     "title": "What Is the Terminator?",
     "description": "The terminator is the day/night line: the circle where the Sun is on the horizon. It sweeps west as Earth turns, and it leans with the seasons.",
@@ -223,6 +231,10 @@
     "question": "What is Earth’s axial tilt?",
     "term": "Axial tilt",
     "shortAnswer": "Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.",
+    "teasers": {
+      "/": "The axis is not upright. That lean is why the tropics and the polar circles sit where they do.",
+      "/earth/": "The same number that sets the tropics is the lean in the orbit drawing above."
+},
     "title": "What Is Earth’s Axial Tilt?",
     "description": "Earth’s axial tilt is about 23.4°. The tropics sit at that latitude, the polar circles at 90° minus it, and the seasons are that lean facing toward or away from the Sun.",
     "cluster": "day-night",
@@ -418,6 +430,10 @@
     "question": "Why don’t planets fall into the Sun?",
     "term": "Orbit",
     "shortAnswer": "They are falling. They are also moving sideways. By the time a planet has fallen, the Sun is no longer where it was falling toward. Falling and missing, without end, is an orbit. There is no outward force holding them up.",
+    "teasers": {
+      "/": "They are falling. Missing is the rest of the sentence — sideways speed is what keeps the miss going.",
+      "/space/": "Slow a planet in the gravity card and the miss gets smaller. That is this question as a picture."
+},
     "title": "Why Don’t Planets Fall Into the Sun?",
     "description": "Planets fall toward the Sun and miss, forever. Sideways motion plus gravity is an orbit — not a balance with an outward push.",
     "cluster": "questions",
@@ -472,6 +488,10 @@
     "question": "How does an orbit work?",
     "term": "Orbital motion",
     "shortAnswer": "A planet is always falling toward the Sun, and it is already moving sideways. Gravity only pulls inward — it never pushes the planet along. Those two together bend a straight line into a closed curve. That closed path is the orbit.",
+    "teasers": {
+      "/": "Falling toward, already moving sideways. Change the sideways and the far side of the path is what moves.",
+      "/space/": "The Slow down / Speed up buttons on this card are the sentence above, runnable."
+},
     "ledeHtml": "A planet is always <a href=\"/concepts/why-dont-planets-fall-into-the-sun/\">falling toward the Sun</a>, and it is already moving sideways. Gravity only pulls inward — it never pushes the planet along. In the picture, the <span class=\"ol-ink-v\">green arrow</span> is the way it is already going. The <span class=\"ol-ink-g\">gold arrow</span> is the pull, always straight at the Sun. Press Slow down: the other side of the path falls toward the Sun, and the planet still comes back. That closed path is the orbit.",
     "title": "How Does an Orbit Work?",
     "description": "An orbit is falling toward the Sun and missing. Gravity pulls inward; sideways speed keeps the path from hitting. One speed at each distance makes a circle.",
@@ -539,6 +559,11 @@
     "question": "Why do we have seasons?",
     "term": "Seasons",
     "shortAnswer": "Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year.",
+    "teasers": {
+      "/": "Not because Earth gets closer to the Sun. Because it leans, and the lean faces a different way as it goes around.",
+      "/earth/": "Summer is the hemisphere leaned into the light — the orbit view above is that lean, running.",
+      "/space/": "Earth is not the only world that leans. The tilt is the season machine, and it is drawn here too."
+},
     "title": "Why Do We Have Seasons?",
     "description": "Seasons are the tilt, not the distance. Earth’s axis leans 23.4° and holds still, so each hemisphere takes a turn leaning into the sunlight.",
     "cluster": "questions",
@@ -592,6 +617,10 @@
     "question": "Can the moon be up in the daytime?",
     "term": "Daytime moon",
     "shortAnswer": "Yes. The moon is above the horizon about half of every day, and those hours drift through daylight as the month goes by. It is simply bright enough to beat the blue sky. On the day/night map the pale marker is where the moon stands overhead — watch it ride through the lit half.",
+    "teasers": {
+      "/": "The Moon is up about twelve hours of every twenty-four, and those hours drift through the day.",
+      "/earth/": "Tonight's phase card above does not wait for dark."
+},
     "ledeHtml": "Yes. The moon is above the horizon about half of every day, and those hours drift through daylight as the month goes by. It is simply bright enough to beat the blue sky. On the <a href=\"/day-night-map/#daytime-moon\">day/night map</a> the pale marker is where the moon stands overhead — watch it ride through the lit half.",
     "title": "Can the Moon Be Up in the Daytime?",
     "description": "The moon is up in daylight about as often as at night. It does not belong to the night; it just happens to be easier to notice then.",
@@ -648,6 +677,10 @@
     "question": "Why does the Moon change shape?",
     "term": "Moon phases",
     "shortAnswer": "The Moon makes no light of its own. One half is always lit by the Sun. Phases are your changing view of that lit half as the Moon goes around Earth — about 29.5 days from full moon to full moon.",
+    "teasers": {
+      "/": "One half is always lit. The picture above is that lit half, seen from a different angle each night.",
+      "/earth/": "The phase over your house is the same Moon as the one in the simulator — only the view has moved."
+},
     "title": "Why Does the Moon Change Shape?",
     "description": "Moon phases are a changing view of a ball that is always half-lit. The Moon does not change; your angle on the lit half does.",
     "cluster": "questions",
@@ -702,6 +735,10 @@
     "question": "What causes tides?",
     "term": "Tides",
     "shortAnswer": "The Moon’s gravity pulls harder on the water nearer to it than on the Earth’s centre, and harder on the centre than on the far-side water. The ocean stretches into two bulges. Earth then turns under those bulges, so most coasts see two high tides a day.",
+    "teasers": {
+      "/": "Two bulges of water, Earth turning under them. Most coasts therefore see two highs a day.",
+      "/earth/": "The charts above are the pull of the Moon on a real harbour, hour by hour."
+},
     "title": "What Causes Tides?",
     "description": "Tides are two ocean bulges raised by the Moon’s gravity, with a smaller assist from the Sun. Earth turning under the bulges makes the daily rhythm.",
     "cluster": "questions",
@@ -846,6 +883,10 @@
     "question": "What is a synodic month?",
     "term": "Synodic month",
     "shortAnswer": "A synodic month is the time from one full moon to the next, about 29.5 days. It is longer than the Moon’s trip around Earth relative to the stars, because Earth has moved and the Moon must catch up to the same angle with the Sun.",
+    "teasers": {
+      "/": "Full moon to full moon is about 29.5 days, a little longer than one trip around Earth.",
+      "/earth/": "The simulator's month and the calendar month are not the same length, and that difference is this."
+},
     "title": "What Is a Synodic Month?",
     "description": "The synodic month is full moon to full moon, about 29.5 days — longer than the 27.3-day sidereal month.",
     "cluster": "simulator",
@@ -895,6 +936,10 @@
     "question": "What is tidal locking?",
     "term": "Tidal locking",
     "shortAnswer": "The Moon keeps the same face toward Earth because it turns once in the same time it goes around us. That match is tidal locking — not a dark side that never sees the Sun.",
+    "teasers": {
+      "/": "The same face stays toward us because the Moon turns once per orbit.",
+      "/earth/": "The near-side drawing on the moon card is not a choice of illustration. The far side never shows."
+},
     "title": "What Is Tidal Locking?",
     "description": "Tidal locking is a spin matching an orbit, so one face stays toward the planet. The Moon’s far side still has day and night.",
     "cluster": "simulator",

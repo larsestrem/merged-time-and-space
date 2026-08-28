@@ -51,9 +51,9 @@ import { SAT_SYS, SAT_COUNT } from "./satellites.mjs";
 import { PLANETS_JS, SOLAR_JS } from "./planets.mjs";
 
 /** Questions sit inside the matching card so the picture comes first. */
-function withQs(card, slugs) {
+function withQs(card, slugs, hub) {
   if (!slugs || !slugs.length) return card;
-  const qs = hubQs(slugs);
+  const qs = hubQs(slugs, hub);
   const i = card.lastIndexOf("</div>");
   if (i < 0) return card + qs;
   return `${card.slice(0, i)}\n      ${qs}\n    ${card.slice(i)}`;
@@ -1594,7 +1594,7 @@ ${sectionSwitcher("/")}
         <a class="wk-all" href="${DAYNIGHT_PATH}">Open the day and night map →</a>
       </div>
     </div>
-    ${hubQs(["what-is-the-tropic-of-cancer", "what-is-the-terminator", "why-can-the-moon-be-up-in-the-daytime"])}
+    ${hubQs(["what-is-the-tropic-of-cancer", "what-is-the-terminator", "why-can-the-moon-be-up-in-the-daytime"], "/")}
   </div>
   ${/* the curiosity door: real questions, no audience label */""
   }<div class="home-q">
@@ -1613,7 +1613,7 @@ ${sectionSwitcher("/")}
     <div class="hub-live pc-anim pc-anim-orr" id="home-orr">${orrFirst}</div>
     <p class="home-moonprog-lab">${SIDEREAL}-day orbit. This picture is the phases. A month passes in about 24 seconds.</p>
     <a class="wk-all" href="/sun-moon-earth-movement-simulator/">See the Sun, Earth & Moon simulator →</a>
-    ${hubQs(["why-does-the-moon-change-shape", "what-is-a-synodic-month", "what-is-tidal-locking"])}
+    ${hubQs(["why-does-the-moon-change-shape", "what-is-a-synodic-month", "what-is-tidal-locking"], "/")}
   </div>
   <div class="card hub-sim">
     <p class="hub-kicker">Earth</p>
@@ -1621,7 +1621,7 @@ ${sectionSwitcher("/")}
     <p class="hub-blurb">The year and the month running at once. The Moon laps Earth about thirteen times on the way round — that ratio is real. Every size and distance is invented so both orbits fit on one screen.</p>
     <div class="hub-live">${_systemThumb}</div>
     <a class="wk-all" href="${SYS_PATH}">See the Earth, Sun & Moon orbit simulator →</a>
-    ${hubQs(["why-do-we-have-seasons", "what-is-earths-axial-tilt"])}
+    ${hubQs(["why-do-we-have-seasons", "what-is-earths-axial-tilt"], "/")}
   </div>
   <div class="card hub-sim">
     <p class="hub-kicker">Space</p>
@@ -1630,7 +1630,7 @@ ${sectionSwitcher("/")}
     <div class="hub-live pc-anim pc-anim-sol" id="home-sol">${solFirst}</div>
     <p class="home-moonprog-lab">A year every 24 seconds. Positions are real. Planet dots are not — they would be smaller than a pixel.</p>
     <a class="wk-all" href="/solar-system-simulator/">See the solar system simulator →</a>
-    ${hubQs(["why-dont-planets-fall-into-the-sun"])}
+    ${hubQs(["why-dont-planets-fall-into-the-sun"], "/")}
   </div>
   <div class="card hub-sim">
     <p class="hub-kicker">Earth</p>
@@ -1638,7 +1638,7 @@ ${sectionSwitcher("/")}
     <p class="hub-blurb">The Moon pulls harder on the water nearer to it than on Earth’s centre, and harder on the centre than on the far-side water. The ocean stretches into two bulges. Earth then turns under those bulges, so most coasts see two high tides a day.</p>
     <div class="home-tides-charts">${_homeTideCharts.join("\n")}</div>
     <a class="wk-all" href="/tides/">See the tide charts →</a>
-    ${hubQs(["what-causes-tides"])}
+    ${hubQs(["what-causes-tides"], "/")}
   </div>
   <div class="card hub-sim">
     <p class="hub-kicker">Space</p>
@@ -1661,7 +1661,7 @@ ${sectionSwitcher("/")}
       </p>
     </div>
     <a class="wk-all" href="${OV_PATH}">See the orbital velocity simulator →</a>
-    ${hubQs(["how-does-an-orbit-work"])}
+    ${hubQs(["how-does-an-orbit-work"], "/")}
   </div>
   <div class="home-rest">
     <h2>The rest of the site</h2>
@@ -1755,9 +1755,9 @@ const SECTION_PAGES = [
     lede: LEDE.time,
     board: [
       [ALARM_CARD, 4], [TIMER_CARD, 4], [STOPWATCH_CARD, 4],
-      [withQs(WORLD_CLOCK_CARD, ["what-is-a-time-zone", "what-is-utc", "what-is-the-international-date-line"]), 6],
-      [withQs(TIMEDIFF_CARD, ["what-is-daylight-saving-time"]), 6],
-      [withQs(CONVERT_CARD, ["what-is-the-24-hour-clock"]), 6], [COUNTDOWN_BLOCK, 6],
+      [withQs(WORLD_CLOCK_CARD, ["what-is-a-time-zone", "what-is-utc", "what-is-the-international-date-line"], "/time/"), 6],
+      [withQs(TIMEDIFF_CARD, ["what-is-daylight-saving-time"], "/time/"), 6],
+      [withQs(CONVERT_CARD, ["what-is-the-24-hour-clock"], "/time/"), 6], [COUNTDOWN_BLOCK, 6],
     ],
     js: () => `<script data-ac="shared" data-name="sec-time">${HOME_CLOCK_JS}${HOME_COLOR_JS}${WORLD_MAP_JS}${TDIFF_JS}${CONV_JS}${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>`,
   },
@@ -1767,12 +1767,12 @@ const SECTION_PAGES = [
     desc: "Your own sky, computed for your own town: sunrise and sunset times, tonight's moon phase, NOAA tide predictions, the live day/night map and the Sun–Earth–Moon simulator — for more than a thousand cities, on any date.",
     lede: LEDE.earth,
     board: [
-      [withQs(MOON_CARD, ["why-does-the-moon-change-shape"]), 6],
-      [withQs(SIM_CARD, ["what-is-a-synodic-month", "why-does-moonrise-get-later", "what-is-tidal-locking"]), 6],
-      [withQs(SYSTEM_CARD, ["why-do-we-have-seasons", "what-is-earths-axial-tilt", "why-isnt-there-an-eclipse-every-month"]), 6],
+      [withQs(MOON_CARD, ["why-does-the-moon-change-shape"], "/earth/"), 6],
+      [withQs(SIM_CARD, ["what-is-a-synodic-month", "why-does-moonrise-get-later", "what-is-tidal-locking"], "/earth/"), 6],
+      [withQs(SYSTEM_CARD, ["why-do-we-have-seasons", "what-is-earths-axial-tilt", "why-isnt-there-an-eclipse-every-month"], "/earth/"), 6],
       [SUN_HOME_CARD, 6],
-      [withQs(TIDES_HOME_CARD, ["what-causes-tides"]), 12],
-      [withQs(WORLD_CLOCK_CARD, ["what-is-the-tropic-of-cancer", "what-is-the-terminator", "why-can-the-moon-be-up-in-the-daytime"]), 12],
+      [withQs(TIDES_HOME_CARD, ["what-causes-tides"], "/earth/"), 12],
+      [withQs(WORLD_CLOCK_CARD, ["what-is-the-tropic-of-cancer", "what-is-the-terminator", "why-can-the-moon-be-up-in-the-daytime"], "/earth/"), 12],
     ],
     js: () => `<script data-ac="shared" data-name="sec-earth">${WORLD_MAP_JS}${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>`,
   },
@@ -1782,10 +1782,10 @@ const SECTION_PAGES = [
     desc: "Where everything actually is, right now: the solar system on its real orbits, every planet with its moons, gravity and orbital-velocity simulators, launch windows to Mars, and the moon systems of Jupiter, Saturn, Uranus and Neptune.",
     lede: LEDE.space,
     board: [
-      [withQs(SOLAR_CARD, ["why-dont-planets-fall-into-the-sun", "how-are-the-planets-formed", "why-arent-the-inner-planets-gas-giants"]), 4],
-      [withQs(ORBIT_CARD, ["how-does-an-orbit-work"]), 4],
-      [withQs(PLANETS_CARD, ["why-didnt-the-asteroid-belt-become-a-planet", "why-do-asteroids-collide"]), 4],
-      [withQs(SYSTEM_CARD, ["why-do-we-have-seasons"]), 4],
+      [withQs(SOLAR_CARD, ["why-dont-planets-fall-into-the-sun", "how-are-the-planets-formed", "why-arent-the-inner-planets-gas-giants"], "/space/"), 4],
+      [withQs(ORBIT_CARD, ["how-does-an-orbit-work"], "/space/"), 4],
+      [withQs(PLANETS_CARD, ["why-didnt-the-asteroid-belt-become-a-planet", "why-do-asteroids-collide"], "/space/"), 4],
+      [withQs(SYSTEM_CARD, ["why-do-we-have-seasons"], "/space/"), 4],
       [ROCKET_CARD, 4],
       [SIM_CARD, 4],
       ...MOON_CARDS.map((c, i) => {
@@ -1797,7 +1797,7 @@ const SECTION_PAGES = [
           neptune: ["why-does-triton-orbit-backwards"],
           pluto: ["why-does-pluto-have-so-many-moons", "why-is-pluto-a-dwarf-planet"],
         }[MOON_PLANETS[i].slug];
-        return [qs ? withQs(c, qs) : c, 4];
+        return [qs ? withQs(c, qs, "/space/") : c, 4];
       }),
     ],
     js: () => `<script data-ac="shared" data-name="sec-space">${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>${ORBIT_JS}`,

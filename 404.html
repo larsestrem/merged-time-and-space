@@ -26,10 +26,67 @@ html.pj{
 --menu-bg:#000;
 --menu-text:#ffffff;
 }
-html.pj .card{border-width:1.5px;backdrop-filter:none}
+html.pj .card,html.pj .tc,html.pj .hub-sim,html.pj .pc-card,html.pj .hub-teasers{
+background:#000;backdrop-filter:none
+}
+html.pj .card{border-width:1.5px}
 html.pj .hint,html.pj .sub{color:rgba(255,255,255,.88)}
 html.pj body{font-size:107%}
 html.pj a{text-decoration-thickness:2px}
+html.pj .sol-fig,
+html.pj .sol-figbox,
+html.pj .sim-fig,
+html.pj .ov-fig,
+html.pj .ol-fig,
+html.pj .orr-fig,
+html.pj .so-wrap,
+html.pj .sol-stage:fullscreen,
+html.pj .sim-stage:fullscreen{background:#000}
+html.pj .sol-fig svg>rect,
+html.pj .sim-fig svg>rect,
+html.pj svg.ov-fig>rect,
+html.pj .ol-fig svg>rect,
+html.pj .orr-fig svg>rect,
+html.pj .so-svg>rect,
+html.pj .graphic-block svg>rect[fill="#080d1a"],
+html.pj .graphic-block svg>rect[fill="#0a1020"],
+html.pj .graphic-block svg>rect[fill="#0a1428"]{fill:#000}
+html.pj .sol-fig svg [fill="none"][stroke],
+html.pj .sim-fig svg [fill="none"][stroke],
+html.pj svg.ov-fig [fill="none"][stroke],
+html.pj .ol-fig svg [fill="none"][stroke],
+html.pj .orr-fig svg [fill="none"][stroke],
+html.pj .so-svg [fill="none"][stroke]{stroke-opacity:.95}
+html.pj .sol-fig svg [fill="none"][stroke-width="1"],
+html.pj .sim-fig svg [fill="none"][stroke-width="1"],
+html.pj svg.ov-fig [fill="none"][stroke-width="1"],
+html.pj .ol-fig svg [fill="none"][stroke-width="1"],
+html.pj .orr-fig svg [fill="none"][stroke-width="1"],
+html.pj .so-svg [fill="none"][stroke-width="1"]{stroke-width:1.8}
+html.pj .sol-fig svg [stroke="#5b7ba8"],
+html.pj .sim-fig svg [stroke="#5b7ba8"],
+html.pj svg.ov-fig [stroke="#5b7ba8"],
+html.pj .ol-fig svg [stroke="#5b7ba8"],
+html.pj .sol-fig svg [stroke="#94a3b8"],
+html.pj .sim-fig svg [stroke="#94a3b8"],
+html.pj svg.ov-fig [stroke="#94a3b8"],
+html.pj .orr-fig svg [stroke="#94a3b8"],
+html.pj .sol-fig svg [stroke="#a8b6c8"],
+html.pj .sim-fig svg [stroke="#a8b6c8"],
+html.pj .orr-fig svg [stroke="#a8b6c8"]{stroke:#e8eef7}
+html.pj .sol-fig svg [stroke="#9dc2e0"],
+html.pj .sim-fig svg [stroke="#9dc2e0"],
+html.pj .orr-fig svg [stroke="#9dc2e0"],
+html.pj .so-svg [stroke="#9dc2e0"],
+html.pj .sol-fig svg [stroke="#cbd5e1"],
+html.pj .sim-fig svg [stroke="#cbd5e1"],
+html.pj .orr-fig svg [stroke="#cbd5e1"],
+html.pj .sol-fig svg [stroke="#e8eef7"],
+html.pj .sim-fig svg [stroke="#e8eef7"],
+html.pj .orr-fig svg [stroke="#e8eef7"],
+html.pj .sol-fig svg [stroke="#e2e8f0"],
+html.pj .sim-fig svg [stroke="#e2e8f0"],
+html.pj svg.ov-fig [stroke="#e2e8f0"]{stroke:#f8fafc}
 .skip-link{position:fixed;top:-48px;left:12px;z-index:200;padding:10px 16px;border-radius:0 0 10px 10px;
 background:var(--accent);color:var(--accent-text);font-weight:700;text-decoration:none;transition:top .15s}
 .skip-link:focus{top:0;outline:2px solid var(--text);outline-offset:2px}
@@ -87,6 +144,9 @@ box-shadow:0 12px 32px rgba(0,0,0,.35);list-style:none;margin:0}
 .nav-dd .menu a{display:block;padding:7px 13px;border-radius:9px;font-size:15px;font-weight:600;
 color:var(--menu-text);text-decoration:none;white-space:nowrap}
 .nav-dd .menu a:hover{background:rgba(125,125,125,.16)}
+.nav-dd .menu .menu-lab{display:block;padding:8px 13px 2px;font-size:10.5px;font-weight:800;
+letter-spacing:.08em;text-transform:uppercase;color:var(--muted);pointer-events:none}
+.nav-dd .menu .menu-lab:not(:first-child){margin-top:4px;padding-top:8px;border-top:1px solid var(--border)}
 .nav-dd .menu .sep{height:1px;background:var(--border);margin:5px 8px}
 .nav-dd .menu .nav-leaf{width:24px;height:24px;vertical-align:-7px;margin-right:-1px}
 .flag{display:inline-block;width:20px;height:14px;border-radius:2px;vertical-align:-2px;
@@ -518,7 +578,7 @@ border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:v
 <meta property="og:image" content="https://timeandspace.science/api/og?name=Not%20found&amp;theme=generic">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=Not%20found&amp;theme=generic">
-<!-- build fe84ff8dbefb · generated 2026-08-28T00:35:37.525Z -->
+<!-- build 05e5a95abe7e · generated 2026-08-28T00:55:14.730Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">

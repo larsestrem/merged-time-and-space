@@ -10,7 +10,35 @@ output. See `CLAUDE.md` for the architecture and working rules. Deploy = push to
 `main` (Cloudflare auto-publishes).
 
 ---
+### 2026-08-27 — Earth cards fill the phone; menu grouped; teasers vary
+
+The Earth page on a phone was still painting four cards as thin
+vertical strips. `grid-column: span 12` was already inside the 700px
+query; Chromium's `content-visibility:auto` plus a 520px intrinsic
+width on a one-column board was the remaining cause. Phone cards now
+fill the row (`grid-column:1/-1; width:100%`) and content-visibility
+only runs once there are columns to pack. Verified at 390px (full
+width) and 800px (pairs).
+
+Hamburger is grouped under Time / Earth / Space / Classroom. Countdowns
+and Big Questions stay out. Projector mode paints `.tc` cards and the
+simulator canvases true black, not a lighter overlay.
+
+Claude 4.16: hub teasers are one line, and the eleven questions that
+appeared on more than one hub now have a distinct framing per hub so
+the same paragraph is not copied across `/`, `/earth/` and `/space/`.
+Classroom "seven topics, every one a timed sequence" is now computed:
+6 topics, 18 of 30 cells written.
+
+Still blocked: about rewrite (Batch 0), celebrity editorial (Batch 3),
+planet URL rename (4.9), classroom/time split (4.15, new URL).
+
+Files: `11-home.css`, `00-root.css`, `02-base.css`, `build-inline.mjs`,
+`concepts.mjs`, `concepts.json`, `build-home.mjs`, `build-classroom.mjs`.
+
+---
 ### 2026-08-27 — hamburger, projector, /questions/ retired
+
 
 Owner asked three things, then to keep going on the Claude audit.
 
