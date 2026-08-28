@@ -1885,12 +1885,13 @@ body.mt-fs-open{overflow:hidden}
   .home-board{grid-template-columns:repeat(12,1fr)}
   .home-board>*{grid-column:span 12}
   .home-board>.sp-4,.home-board>.sp-6{grid-column:span 6}
-  .home-board>.sp-8{grid-column:span 12}
+  .home-board>.sp-8,.home-board>.sp-12{grid-column:span 12}
 }
 @media(min-width:1080px){
   .home-board>.sp-4{grid-column:span 4}
   .home-board>.sp-6{grid-column:span 6}
   .home-board>.sp-8{grid-column:span 8}
+  .home-board>.sp-12{grid-column:span 12}
 }
 /* MASONRY PACKING (hb-mas, added by HOME_MASONRY_JS in build-home.mjs).
    A grid row is as tall as its tallest card, so a short card next to a tall
@@ -2041,7 +2042,10 @@ body.mt-fs-open{overflow:hidden}
 .home-hero-side .wk-all{text-align:left;margin-top:4px}
 .hub-sim{margin:22px 0 0}
 .hub-sim .home-tides-charts{margin:10px 0 8px}
-.home-board>.sp-12{grid-column:span 12}
+/* sp-12 is already the ≥700px default (every child spans 12, then
+   sp-4/sp-6/sp-8 override). Setting it unscoped made a 1-column phone
+   grid grow eleven implicit columns, and the Earth cards collapsed
+   into thin vertical strips. */
 .hub-live{margin:0 0 8px;line-height:0;border-radius:12px;overflow:hidden}
 .hub-live svg{display:block;width:100%;height:auto}
 .hub-live.pc-anim-sol{max-width:min(420px,100%);margin:0 auto 8px}
