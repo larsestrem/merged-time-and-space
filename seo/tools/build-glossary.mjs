@@ -63,7 +63,7 @@ ${GA_SNIPPET}
   <label class="sr-only visually-hidden" for="glossary-q">Filter glossary</label>
   <input class="search" id="glossary-q" type="search" placeholder="Filter by term or question" aria-controls="glossary-list">
   <ul class="glossary-list" id="glossary-list">${items}</ul>
-  <p class="footer"><a href="/questions/">All questions</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
+  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 <script>
 (function(){

@@ -524,7 +524,7 @@ ${head({
 ${simCard}${whyShort}${hubQuestionsCard(OV_PATH)}${tableCard}  <div class="card">
     <h2>Keep going</h2>
     <p class="timer-presets">
-      <a class="chip" href="/questions/">More big questions like this one</a>
+      <a class="chip" href="/glossary/">The glossary of every term</a>
       <a class="chip" href="/concepts/why-dont-planets-fall-into-the-sun/">Why planets don't fall into the sun</a>
       <a class="chip" href="${OV_WHY}">Newton's cannonball, with the tables</a>
       <a class="chip" href="/solar-system-simulator/">The whole solar system, moving</a>

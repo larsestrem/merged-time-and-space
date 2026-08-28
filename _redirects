@@ -1,3 +1,10 @@
+# /questions/ was a chain index of concept pages. Those pages remain the
+# one-intent URLs; the glossary is the remaining A–Z door. Hashes are not
+# sent to the server, so /questions/#fall-in lands on /glossary/.
+/questions  /glossary/  301
+/questions/  /glossary/  301
+/questions/*  /glossary/  301
+
 # Concept pages live at /concepts/<slug>/. The folder itself is not an essay.
 /concepts  /glossary/  301
 /concepts/  /glossary/  301

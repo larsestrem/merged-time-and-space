@@ -423,8 +423,8 @@
     "cluster": "questions",
     "hubUrls": [
       {
-        "href": "/questions/#fall-in",
-        "label": "Big questions"
+        "href": "/glossary/#why-dont-planets-fall-into-the-sun",
+        "label": "Glossary"
       },
       {
         "href": "/orbital-velocity-simulator/",
@@ -482,8 +482,8 @@
         "label": "Orbital velocity simulator"
       },
       {
-        "href": "/questions/#gravity-motion",
-        "label": "Big questions"
+        "href": "/glossary/#how-does-an-orbit-work",
+        "label": "Glossary"
       },
       {
         "href": "/solar-system-simulator/",
@@ -552,8 +552,8 @@
         "label": "Earth–Sun–Moon orbit simulator"
       },
       {
-        "href": "/questions/#seasons",
-        "label": "Big questions"
+        "href": "/glossary/#why-do-we-have-seasons",
+        "label": "Glossary"
       }
     ],
     "relatedSlugs": [
@@ -661,8 +661,8 @@
         "label": "Sun–Earth–Moon simulator"
       },
       {
-        "href": "/questions/#moon-phases",
-        "label": "Big questions"
+        "href": "/glossary/#why-does-the-moon-change-shape",
+        "label": "Glossary"
       }
     ],
     "relatedSlugs": [
@@ -715,8 +715,8 @@
         "label": "Sun–Earth–Moon simulator"
       },
       {
-        "href": "/questions/#tides",
-        "label": "Big questions"
+        "href": "/glossary/#what-causes-tides",
+        "label": "Glossary"
       }
     ],
     "relatedSlugs": [
@@ -764,8 +764,8 @@
         "label": "Solar system simulator"
       },
       {
-        "href": "/questions/#jupiter-moons",
-        "label": "Big questions"
+        "href": "/glossary/#why-does-jupiter-have-so-many-moons",
+        "label": "Glossary"
       }
     ],
     "relatedSlugs": [
@@ -808,8 +808,8 @@
     "cluster": "questions",
     "hubUrls": [
       {
-        "href": "/questions/#dark-sky",
-        "label": "Big questions"
+        "href": "/glossary/#why-is-the-night-sky-dark",
+        "label": "Glossary"
       }
     ],
     "relatedSlugs": [
@@ -836,8 +836,8 @@
     ],
     "seeItLive": [
       {
-        "href": "/questions/",
-        "label": "Back to the question index"
+        "href": "/glossary/",
+        "label": "The glossary"
       }
     ]
   },
@@ -1087,8 +1087,8 @@
     "cluster": "questions",
     "hubUrls": [
       {
-        "href": "/questions/#change-one-thing",
-        "label": "Big questions"
+        "href": "/glossary/#how-does-an-orbit-change",
+        "label": "Glossary"
       },
       {
         "href": "/orbital-velocity-simulator/#slow-down",

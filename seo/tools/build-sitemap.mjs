@@ -205,7 +205,6 @@ const families = {
     ...group([["/about/", "0.5"]], "about/index.html"),
     ...group([["/about/work-with-us/", "0.5"]], "about/work-with-us/index.html"),
     ...group([["/sponsors/", "0.4"]], "sponsors/index.html"),
-    ...group([["/questions/", "0.7"]], ...deps("seo/tools/build-questions.mjs")),
     ...group([["/glossary/", "0.7"]], ...deps("seo/tools/build-glossary.mjs"), "seo/_data/concepts.json"),
     ...group((await import("./concepts.mjs")).CONCEPT_SLUGS().map((s) => [`/concepts/${s}/`, "0.65"]),
              ...deps("seo/tools/build-concepts.mjs"), "seo/_data/concepts.json"),

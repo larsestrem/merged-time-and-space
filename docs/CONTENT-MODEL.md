@@ -80,7 +80,7 @@ See `_redirects` and `AGENTS.md`. Hubs never 301. Essay-only URLs 301 into `/con
 - `what-is-twilight`
 - `why-is-this-map-flat`
 
-**Questions index**
+**Questions (one concept page each; the glossary is the A–Z door)**
 
 - `why-dont-planets-fall-into-the-sun`
 - `how-does-an-orbit-work`

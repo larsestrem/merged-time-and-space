@@ -106,7 +106,7 @@ ${GA_SNIPPET}
     <h2>Related questions</h2>
     ${relatedPartial(c.relatedSlugs, bySlug)}
   </div>
-  <p class="footer"><a href="/glossary/">Glossary</a> · <a href="/questions/">All questions</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
+  <p class="footer"><a href="/glossary/">Glossary</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 ${c.slug === "how-does-an-orbit-work" ? `<script data-ac="js">${ORBIT_LESSON_JS}</script>` : ""}
 </body>

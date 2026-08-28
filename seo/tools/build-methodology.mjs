@@ -492,7 +492,7 @@ ${PAGES.map(([u, i, t, d]) => `    <p class="bullets"><em>${ico(i)} <a href="${u
   <div class="card">
     <h2>What none of this is for</h2>
     <p>These are consumer tools. The astronomy is good enough to plan an evening walk or a photograph; the tide predictions are NOAA's own, and NOAA excludes weather from them. Nothing here is suitable for navigation, aviation, safety-critical timing, scientific measurement, or any decision where being a few minutes out has consequences. Where that matters most — tides — the page says so at length.</p>
-    <p class="bullets"><a href="/how-it-works/">How the site works</a> · <a href="/browser-limitations/">Browser limitations</a> · <a href="/about/">About this site</a></p>
+    <p class="bullets"><a href="/how-it-works/">How countdowns work</a> · <a href="/browser-limitations/">Browser limitations</a> · <a href="/about/">About this site</a></p>
   </div>
 `,
 });

@@ -10,6 +10,42 @@ output. See `CLAUDE.md` for the architecture and working rules. Deploy = push to
 `main` (Cloudflare auto-publishes).
 
 ---
+### 2026-08-27 — hamburger, projector, /questions/ retired
+
+Owner asked three things, then to keep going on the Claude audit.
+
+**Hamburger:** Countdowns and Big Questions are out of the dropdown. The
+countdown pages stay; they are just not a peer nav row. Glossary heads the
+space block instead.
+
+**Projector mode:** card fill had been lifted to 16% white, so the field
+behind the words went lighter. Surfaces now go true black — page, card, menu
+— with the frosted blur off so it cannot re-lighten them. Borders stay
+strong so cards still read as cards. Text stays white.
+
+**/questions/ is gone.** 301 to `/glossary/`. Concept pages remain the
+one-intent URLs. Every inbound link retargeted (home chips, section
+footers, concept/glossary/orbital footers, about chips, sitemap, nav).
+Hashes are not sent to the server, so `/questions/#fall-in` lands on the
+glossary. The generator is deleted so it cannot recreate a file that
+would beat the redirect.
+
+**Claude, still in this pass:** inbound labels that said "how the site
+works" and pointed at `/how-it-works/` (a countdown/timer/stopwatch page)
+now say "how countdowns work". The "seven that follow" count on the
+section footers is gone with the page it pointed at.
+
+Still blocked on identity: about rewrite, countdown editorial, planet
+URL rename. Glossary time terms (4.10) are already on the site
+(45 entries). Next unblocked: de-duplicate hub teasers (4.16).
+
+Files: `build-inline.mjs`, `00-root.css`, `build-home.mjs`,
+`build-concepts.mjs`, `build-glossary.mjs`, `build-orbital.mjs`,
+`build-methodology.mjs`, `build-sitemap.mjs`, `concepts.json`,
+`_redirects`, `package.json`, about chips, `README.md`, `CLAUDE.md`.
+Deleted: `seo/tools/build-questions.mjs`, `questions/index.html`.
+
+---
 ### 2026-08-27 — /concepts/how-does-an-orbit-work/ is a Sun-centered lesson
 
 The live page drew an ellipse around empty space with the Sun parked off to

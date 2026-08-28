@@ -1377,7 +1377,7 @@ const PORTAL_SECTIONS = [
   { slug: "classroom", name: "Teach it — with us", ico: "classroom", href: "/classroom/",
     line: `A diagram has to be believed. A simulator can be <em>asked</em>: slow the planet down, drag the month, tilt the axis — and children see WHY it happens, not just that it does. Everything runs on a projector or a school Chromebook, free, with nothing collected from anyone.`,
     cards: [
-      ["question", "Questions that open the door", "Why is the night sky so dark? Why do the planets orbit the sun instead of falling in? Each answered honestly, each answer handing you the next.", "/questions/"],
+      ["question", "Questions that open the door", "Why is the night sky so dark? Why do the planets orbit the sun instead of falling in? Each answered honestly, each answer handing you the next.", "/glossary/"],
       ["classroom", "Lesson plans", "Timed and ready to project, K–2 to high school — every step a link that opens the exact view, with a printable student sheet.", "/classroom/lessons/"],
       ["projector", "Classroom guide", "Projector mode, keyboard shortcuts, and what a browser timer can and cannot be trusted with.", "/classroom/"],
     ] },
@@ -1604,7 +1604,7 @@ ${sectionSwitcher("/")}
     <a class="chip" href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a>
     <a class="chip" href="/concepts/why-can-the-moon-be-up-in-the-daytime/">Can the moon be up in the daytime?</a>
     <a class="chip" href="/concepts/why-does-the-moon-change-shape/">Why does the moon change shape?</a>
-    <a class="chip chip-alt" href="/questions/">More questions →</a>
+    <a class="chip chip-alt" href="/glossary/">More questions →</a>
   </div>
   <div class="card hub-sim">
     <p class="hub-kicker">Earth</p>
@@ -1736,7 +1736,7 @@ ${sectionSwitcher("/")}
     </div>
   </div>
   <div class="home-foot">
-    <p class="home-suggest">Guides: <a href="/classroom/">using this in a classroom</a> · <a href="/methodology/">how these numbers are worked out</a> · <a href="/how-it-works/">how the site works</a> · <a href="/browser-limitations/">browser limitations</a> · <a href="/about/">about this site</a>.</p>
+    <p class="home-suggest">Guides: <a href="/classroom/">using this in a classroom</a> · <a href="/methodology/">how these numbers are worked out</a> · <a href="/how-it-works/">how countdowns work</a> · <a href="/browser-limitations/">browser limitations</a> · <a href="/about/">about this site</a>.</p>
   </div>`;
 
 /* ---------------------------------------------------------------------------
@@ -1813,7 +1813,7 @@ ${sectionSwitcher(`/${S.slug}/`)}
 ${S.board.map(([card, n]) => sp(card, n, S.slug)).join("\n")}
   </div>
   <div class="home-foot">
-    <p class="home-suggest">Start with a question — <a href="/questions/">why don't the planets fall into the sun, and the seven that follow</a>. Or jump across: ${SECTION_LINKS.filter(([u]) => u !== `/${S.slug}/`).map(([u, l]) => `<a href="${u}">${l}</a>`).join(" · ")}.</p>
+    <p class="home-suggest">Start with a question — <a href="/concepts/why-dont-planets-fall-into-the-sun/">why don't the planets fall into the sun</a>, or <a href="/glossary/">any of the others</a>. Or jump across: ${SECTION_LINKS.filter(([u]) => u !== `/${S.slug}/`).map(([u, l]) => `<a href="${u}">${l}</a>`).join(" · ")}.</p>
   </div>`;
   mkdirSync(join(root, S.slug), { recursive: true });
   writeFileSync(join(root, `${S.slug}/index.html`), doc({

@@ -24,27 +24,30 @@
  * text collapse into the background, and a page that reads perfectly on a
  * laptop is unreadable from the back of a lit room.
  *
- * This does not restyle anything. It moves five tokens — and only those five —
- * to the top of their range, so every rule on the site that was already using
- * them gets the contrast for free and nothing can drift out of step. The
- * background goes flat black rather than near-black, because a projector's
- * black IS the ambient light in the room and there is nothing to be gained by
- * aiming below it.
+ * This does not restyle anything. It moves the tokens every rule already uses.
+ * Text goes to full white. Surfaces go the other way: true black, not a
+ * milkier white overlay. A projector's black IS the ambient light in the room,
+ * and lifting the card fill (the old 16% white) made the field behind the
+ * words lighter — the opposite of what a wall needs. Borders stay strong so
+ * cards still read as cards on a black page; the frosted blur comes off so it
+ * cannot re-lighten that black.
  *
  * The class is set on <html> by an inline script before first paint, so
  * switching it on does not flash the low-contrast version first.
  * ------------------------------------------------------------------------ */
 html.pj{
-  --bg:linear-gradient(#000308,#000308);
-  --bg-solid:#000308;
+  --bg:linear-gradient(#000,#000);
+  --bg-solid:#000;
   --text:#ffffff;
   --muted:rgba(255,255,255,.92);
-  --card:rgba(255,255,255,.16);
+  --card:#000;
   --border:rgba(255,255,255,.55);
   --accent:#ffd83d;
+  --menu-bg:#000;
+  --menu-text:#ffffff;
 }
 /* thin hairlines survive a laptop screen and not a projector */
-html.pj .card{border-width:1.5px}
+html.pj .card{border-width:1.5px;backdrop-filter:none}
 html.pj .hint,html.pj .sub{color:rgba(255,255,255,.88)}
 html.pj body{font-size:107%}
 html.pj a{text-decoration-thickness:2px}

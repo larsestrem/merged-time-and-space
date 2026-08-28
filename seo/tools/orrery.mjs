@@ -617,7 +617,7 @@ return { orrSvg: orrSvg, orrNote: orrNote, orrLocalValue: orrLocalValue, orrMinO
    drives it cannot disagree about how long the bar is */
 const ORR_SPAN_MIN = O.spanMin;
 /* the same length as days — the synodic month the slider is built from,
-   exported so /questions/ can quote the moon's cycle without a second copy */
+   exported so concept pages can quote the moon's cycle without a second copy */
 export const orrSpanDays = ORR_SPAN_MIN / 1440;
 
 export const orrerySvg = (ms, lat, lon, name, w) => O.orrSvg(+ms, lat, lon, name || "", w || 0);

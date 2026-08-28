@@ -49,7 +49,7 @@ const setHtmlOrigin = (html) => html
 const HTML = [
   "index.html", "countdown/index.html", "c.html", "terms.html", "privacy.html", "404.html", "not-found.html",
   "time/index.html", "earth/index.html", "space/index.html",
-  "how-it-works/index.html", "about/index.html", "about/work-with-us/index.html", "sponsors/index.html", "questions/index.html", "browser-limitations/index.html", "report/index.html", "wrong-date/index.html",
+  "how-it-works/index.html", "about/index.html", "about/work-with-us/index.html", "sponsors/index.html", "browser-limitations/index.html", "report/index.html", "wrong-date/index.html",
   "suggest-event/index.html",
   "calendar/index.html", "popular/index.html", "trending/index.html", "widget/index.html",
   "classroom/index.html", "classroom/lessons/index.html", "classroom/distance-units/index.html",
@@ -400,13 +400,9 @@ const MENU = `<details class="nav-dd menu-dd"><summary class="hamburger" aria-la
   `<li><a href="/world-clock/">${ico("globe")} World Clock</a></li>` +
   `<li><a href="/timer/">${ico("timer")} Timer</a></li>` +
   `<li><a href="/stopwatch/">${ico("stopwatch")} Stopwatch</a></li>` +
-  `<li><a href="/countdown/">${ico("confetti")} Countdowns</a></li>` +
   `<li><a href="/sun/">${ico("sunrise")} Sunrise &amp; Sunset</a></li>` +
   `<li><a href="/moon/">${ico("moon")} Moon</a></li>` +
   `<li><a href="/tides/">${ico("wave")} Tides</a></li>` +
-  /* the questions-first door leads the space block: it is the page that
-     routes a curious reader to every one of the entries below it */
-  `<li><a href="/questions/">${ico("question")} Big Questions</a></li>` +
   `<li><a href="/glossary/">${ico("glossary")} Glossary</a></li>` +
   `<li><a href="/sun-moon-earth-movement-simulator/">${ico("earthmoon")} Sun, Earth &amp; Moon</a></li>` +
   `<li><a href="/planets/">${ico("solar")} The Planets</a></li>` +
@@ -667,7 +663,6 @@ function injectCopyright(html) {
  * build, so a change here reaches every page that already exists.
  * ------------------------------------------------------------------------- */
 const TOPIC_LINKS = [
-  ["/questions/", "the big questions"],
   ["/glossary/", "the glossary"],
   ["/sun-moon-earth-movement-simulator/", "the Sun, Earth &amp; Moon"],
   ["/day-night-map/", "day &amp; night on Earth"],
