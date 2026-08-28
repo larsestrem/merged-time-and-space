@@ -5,7 +5,7 @@
  * WHY IT EXISTS. The card on the front page answers one question — who is in
  * daylight right now — and raises three it has no room for: why the line is
  * curved, why it leans, and where it will be tonight. This page is the same
- * picture with time attached: a slider across the next seven days, a Play
+ * picture with time attached: a slider across one 27.3-day orbit of the Moon, a Play
  * button, and the explanation underneath.
  *
  * THE DRAWING IS daynight.mjs, shared with the home card, so the two cannot
@@ -28,7 +28,7 @@ import { esc, GA_SNIPPET, brand, faqLd, breadcrumbLD, appLd, learningLd } from "
 import { ico } from "./icons.mjs";
 import { WC_CITY_LIST } from "./wc-cities.mjs";
 import { hubQuestionsCard } from "./concepts.mjs";
-import { SYS_PATH } from "./build-simulator.mjs";
+import { SYS_PATH, SIDEREAL } from "./build-simulator.mjs";
 import {
   DAYNIGHT_PATH, DN_CORE, DN_W, DN_VIEW_Y, DN_VIEW_H, DN_VIEWBOX,
   DN_TOP, DN_BOT, dnX, dnY, dnF, subsolar, sunAltitude, nightPath, twilightPath, landPath, seasonPoints,
@@ -41,6 +41,20 @@ const root = join(here, "..", "..");
 const SITE = JSON.parse(readFileSync(join(root, "seo/_data/site.json"), "utf8")).origin;
 const PATH = DAYNIGHT_PATH;
 const NOW = Date.now();
+
+/* ONE SIDEREAL MONTH. The moon marker on this map is the point the moon stands
+   overhead, and that point takes 27.3 days to go once around the Earth — one
+   real orbit, the same SIDEREAL the rest of the site uses, not the 29.53-day
+   cycle of phases. The home card covers a day because that card is "right
+   now"; this page has room to show the moon finish a lap. */
+const SPAN_DAYS = +SIDEREAL;
+const SPAN_MIN = Math.round(SPAN_DAYS * 24 * 60);
+const PLAY_RATE = 21600;                          /* six hours of map time per real second */
+const PLAY_TURN_S = Math.round(86400 / PLAY_RATE);
+const PLAY_SPAN_S = SPAN_MIN * 60 / PLAY_RATE;
+const playSpanWords = PLAY_SPAN_S < 90
+  ? `about ${Math.round(PLAY_SPAN_S)} seconds`
+  : `about ${Math.round(PLAY_SPAN_S / 60)} minutes`;
 
 /* ---- what the sun actually does over a year, solved rather than typed -----
  * Walk a year of declinations at one-hour steps and keep the extremes and the
@@ -167,8 +181,8 @@ var TILT=${TILT};                 /* solved at build from the same series */
 var sideBox=document.getElementById('dn-side'), sideCapEl=document.getElementById('dn-side-cap'),
     sunline=document.getElementById('dn-sunline'),
     orbitNow=document.getElementById('dn-orbit-now');
-var SPAN=7*24*60;                 /* minutes the slider covers */
-var RATE=21600;                   /* six hours of map time per real second */
+var SPAN=${SPAN_MIN};             /* minutes: one ${SIDEREAL}-day orbit of the Moon */
+var RATE=${PLAY_RATE};            /* six hours of map time per real second */
 var T0=${NOW}, AT=${NOW}, PLAY=0, RAF=0, LAST=0, HOME=null;
 
 function $(id){return document.getElementById(id)}
@@ -238,7 +252,7 @@ function frame(ts){
   if(!PLAY) return;
   if(!LAST) LAST=ts;
   AT+=(ts-LAST)*RATE; LAST=ts;
-  if(AT>T0+SPAN*60000) AT=T0;      /* round again from the start of the week */
+  if(AT>T0+SPAN*60000) AT=T0;      /* round again from the start of the orbit */
   paint(); RAF=requestAnimationFrame(frame);
 }
 function start(){ PLAY=1; LAST=0; play.textContent='Pause'; play.setAttribute('aria-pressed','true');
@@ -250,7 +264,7 @@ if(slider){
   slider.disabled=false;
   slider.addEventListener('input',function(){ stop(); AT=T0+(+slider.value)*60000; paint(); });
 }
-/* the label beside the slider: which week it is showing */
+/* the label beside the slider: which stretch of days it is showing */
 function spanLab(){
   var a=new Date(T0), b=new Date(T0+SPAN*60000);
   var f=function(d){ try{ return new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric'}).format(d); }catch(e){ return ''; } };
@@ -365,8 +379,8 @@ const simCard = `  <div class="card dn-card">
     <div class="dn-slider-row">
       <button type="button" class="chip dn-obtn" id="dn-now" hidden>Now</button>
       <div class="dn-slider-mid">
-        <label class="sim-flab" for="dn-slider">Time — seven days, hour by hour <span class="dn-span" id="dn-span"></span></label>
-        <input type="range" class="orr-slider" id="dn-slider" min="0" max="10080" step="10" value="0" disabled aria-label="Move through the next seven days">
+        <label class="sim-flab" for="dn-slider">Time — ${SIDEREAL} days, one orbit of the Moon <span class="dn-span" id="dn-span"></span></label>
+        <input type="range" class="orr-slider" id="dn-slider" min="0" max="${SPAN_MIN}" step="10" value="0" disabled aria-label="Move through one ${SIDEREAL}-day orbit of the Moon">
       </div>
       <button type="button" class="chip dn-obtn dn-play" id="dn-play" aria-pressed="false" hidden>Play</button>
     </div>
@@ -375,7 +389,7 @@ const simCard = `  <div class="card dn-card">
 ${jumpRow("dn-tools", true)}
     <p class="hint" id="dn-loc-msg"></p>
     <p class="dn-me-line" id="dn-mewrap" hidden><b id="dn-o-me">&nbsp;</b> <a id="dn-me-sun" href="/sun/near-me/?geo=1">Your sunrise and sunset →</a></p>
-    <p class="hint">Play runs at about six hours a second: one full turn of the Earth takes four seconds, and the whole week about half a minute. Nothing on the map slides sideways while it runs — the shaded shape is re-solved for each moment, meridian by meridian — so the picture never runs off the edge and jumps back. The one thing that does cross the edge is the sun marker, and that is honest: this map is a cylinder cut open at the date line, so the point the sun stands over leaves at one side and arrives at the other.</p>
+    <p class="hint">Play runs at about six hours a second: one full turn of the Earth takes ${PLAY_TURN_S} seconds, and one ${SIDEREAL}-day orbit of the Moon ${playSpanWords}. Nothing on the map slides sideways while it runs — the shaded shape is re-solved for each moment, meridian by meridian — so the picture never runs off the edge and jumps back. The one thing that does cross the edge is the sun marker, and that is honest: this map is a cylinder cut open at the date line, so the point the sun stands over leaves at one side and arrives at the other.</p>
   </div>
 `;
 
@@ -383,10 +397,10 @@ ${jumpRow("dn-tools", true)}
 const howCard = `  <div class="card" id="how">
     <h2>What this is, and how it works</h2>
     <p>This is a live map of day and night on Earth, solved for this moment. Half the planet is in sunlight at every instant. The bright half is where the sun is above the horizon, the dark half is below, and the <strong>soft band</strong> is twilight — the sun has set but the sky is still lit, out to 18° down.</p>
-    <p>The <strong>yellow marker</strong> is the one place the sun stands <a href="/concepts/what-is-the-subsolar-point/">straight overhead</a>. The <strong>moon marker</strong> is where the moon stands overhead at the time on the slider, drawn in its current phase. It can sit in daylight or in night; that is <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">a daytime moon</a>. The <strong>dashed gold lines</strong> are the tropics. The <strong>curve</strong> is the <a href="/concepts/what-is-the-terminator/">terminator</a>. <strong>Play</strong> watches both markers sweep west. Jump to a season start to see the shadow lean.</p>
+    <p>The <strong>yellow marker</strong> is the one place the sun stands <a href="/concepts/what-is-the-subsolar-point/">straight overhead</a>. The <strong>moon marker</strong> is where the moon stands overhead at the time on the slider, drawn in its current phase. It can sit in daylight or in night; that is <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">a daytime moon</a>. Drag the slider end to end and that marker completes one ${SIDEREAL}-day orbit of the Moon around Earth. The <strong>dashed gold lines</strong> are the tropics. The <strong>curve</strong> is the <a href="/concepts/what-is-the-terminator/">terminator</a>. <strong>Play</strong> watches both markers sweep west. Jump to a season start to see the shadow lean.</p>
     <div class="wc-facts">
       <div class="wc-frow"><span>Yellow marker</span><b>Subsolar point — a flagpole there casts no shadow.</b></div>
-      <div class="wc-frow"><span>Moon marker</span><b>Overhead, in the phase of that moment.</b></div>
+      <div class="wc-frow"><span>Moon marker</span><b>Overhead, in the phase of that moment. One orbit around Earth takes ${SIDEREAL} days.</b></div>
       <div class="wc-frow"><span>Soft band</span><b>Twilight, widest toward the poles.</b></div>
       <div class="wc-frow"><span>Dark half</span><b>Night, solved per meridian, not stamped on.</b></div>
     </div>
@@ -433,6 +447,7 @@ const tryCard = `  <div class="card">
     <h2>${ico("classroom")} Things to try</h2>
     <ul class="facts">
       <li><strong>Find your own bedtime.</strong> The map marks where you are as soon as your browser shares it — if it did not, there is a pin in the season-button row. Then drag the slider to tonight and watch the shading arrive over your dot: that is your sunset, to the minute the sun goes down where you are standing.</li>
+      <li><strong>Watch the moon go round.</strong> Drag the slider from one end to the other. That is ${SIDEREAL} days — one real orbit of the Moon around Earth — and the moon marker comes back to nearly the same place it started. The phase will not match: a <a href="/concepts/what-is-a-synodic-month/">full cycle of phases</a> takes two days longer.</li>
       <li><strong>Who is asleep right now?</strong> Press <strong>Now</strong> and look at which continents sit in the dark half. Then pick a country the class has a connection to and check whether anyone there would answer the phone.</li>
       <li><strong>Race the line.</strong> Press <strong>Play</strong> and follow the terminator west. It crosses the whole map in 24 hours, which at the equator is about 1,670 km/h — faster than an airliner. Ask which way you would have to fly to keep the sun from setting.</li>
       <li><strong>Break the tilt.</strong> Jump to the <strong>summer solstice</strong>, then to the <strong>winter solstice</strong>, and watch the top of the map swap from all-light to all-dark. Ask what would happen to seasons if the tilt were zero — the answer is on the map, because the line would simply stand up straight.</li>
@@ -444,11 +459,11 @@ const tryCard = `  <div class="card">
 
 const FAQ = [
   ["Is the map showing real time?",
-    "Yes. It opens at the current moment and repaints every minute while it is left alone. The slider moves it forward through the next seven days, and Now brings it back. Everything is computed in your browser from the sun's position — nothing is fetched from a server, and there is nothing to sign up for."],
+    `Yes. It opens at the current moment and repaints every minute while it is left alone. The slider moves it forward through one ${SIDEREAL}-day orbit of the Moon, and Now brings it back. Everything is computed in your browser from the sun's position — nothing is fetched from a server, and there is nothing to sign up for.`],
   ["Where can I see the exact sunrise and sunset time for my town?",
     "On the sun pages: they give sunrise, sunset, day length, twilight and a seven-day outlook for more than a thousand cities, or for any location you name. This map is the shape of the thing; those pages are the numbers."],
   ["What do Play, Now and the season buttons do?",
-    "Play runs about six hours a second so one turn of the Earth takes four seconds. Now jumps back to this moment. The four season buttons — spring equinox, summer solstice, fall equinox, winter solstice — jump to the start of each season so you can see the slow lean of the year."],
+    `Play runs about six hours a second so one turn of the Earth takes ${PLAY_TURN_S} seconds, and one ${SIDEREAL}-day orbit of the Moon ${playSpanWords}. Now jumps back to this moment. The four season buttons — spring equinox, summer solstice, fall equinox, winter solstice — jump to the start of each season so you can see the slow lean of the year.`],
 ];
 
 const page = `<!DOCTYPE html>
@@ -457,13 +472,13 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Day and Night Map — Where It's Light on Earth Right Now</title>
-<meta name="description" content="A live world map of day and night: where the sun is up right now, where it is dark, and the twilight band between. Play the next seven days, jump to a solstice, and see why the line leans.">
+<meta name="description" content="A live world map of day and night: where the sun is up right now, where it is dark, and the twilight band between. Play one ${SIDEREAL}-day orbit of the Moon, jump to a solstice, and see why the line leans.">
 <link rel="canonical" href="${SITE}${PATH}">
 <meta property="og:title" content="Day and Night Map — Where It's Light on Earth Right Now">
-<meta property="og:description" content="A live world map of day and night, with a seven-day slider, a Play button and the explanation underneath.">
+<meta property="og:description" content="A live world map of day and night, with a ${SIDEREAL}-day slider, a Play button and the explanation underneath.">
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="/assets/css/style.css">
-${appLd({ name: "Day and Night Map", url: `${SITE}${PATH}`, description: "A live world map showing which half of the Earth is in daylight, the twilight band, and the point the sun is directly overhead, with a seven-day time slider." })}
+${appLd({ name: "Day and Night Map", url: `${SITE}${PATH}`, description: `A live world map showing which half of the Earth is in daylight, the twilight band, and the point the sun is directly overhead, with a ${SIDEREAL}-day time slider.` })}
 <script type="application/ld+json">${breadcrumbLD(SITE, [{ name: "Time and Space Science", url: "/" }, { name: "Day/night map", url: PATH }])}</script>
 ${learningLd({ name: "Day and Night Map", url: `${SITE}${PATH}`, description: "How the day/night line works: the terminator, the subsolar point, twilight, the effect of the Earth's axial tilt, and what a flat equirectangular map does to the size of the continents." })}
 ${faqLd(FAQ)}
@@ -473,7 +488,7 @@ ${GA_SNIPPET}
 <div class="wrap wrap-wide">
   ${brand({ crumb: { slug: "day-night-map", url: PATH } })}
   <h1>Day and Night Map</h1>
-  <p class="sub">Where it is light on Earth right now, where it is dark, and the twilight in between. Drag the slider to move through the next seven days, or press play and watch the line sweep round. The same picture as the <a href="/world-clock/">world clock</a>'s map, with time attached.</p>
+  <p class="sub">Where it is light on Earth right now, where it is dark, and the twilight in between. Drag the slider to move through one ${SIDEREAL}-day orbit of the Moon, or press play and watch the line sweep round. The same picture as the <a href="/world-clock/">world clock</a>'s map, with time attached.</p>
 
 ${simCard}${howCard}${sideCard}${hubQuestionsCard(PATH)}  <div class="card">
     <h2>Keep going</h2>
@@ -482,6 +497,7 @@ ${simCard}${howCard}${sideCard}${hubQuestionsCard(PATH)}  <div class="card">
       <a class="chip" href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a>
       <a class="chip" href="${SYS_PATH}">Earth’s orbit with the tilt</a>
       <a class="chip" href="/concepts/why-is-this-map-flat/">Why is this map flat?</a>
+      <a class="chip" href="/concepts/what-is-a-synodic-month/">Why a month is longer than an orbit</a>
       <a class="chip" href="/glossary/">Glossary</a>
       <a class="chip" href="/sun/">Sunrise &amp; sunset for your city</a>
       <a class="chip" href="/moon/">Tonight's moon phase</a>

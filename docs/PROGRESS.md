@@ -12349,3 +12349,18 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
   topic and time filters each correct alone and combined; re-press clears;
   deep link ?grade=grades-k-2 opens filtered with the chip pressed; no page
   errors. Full build passes both gates.
+
+## 2026-08-28 — Day/night map slider covers one 27.3-day lunar orbit
+
+- /day-night-map/ slider was seven days. The moon marker on that map is the
+  overhead point, and that point takes one SIDEREAL month to go once around
+  Earth, so the bar is now that length: 27.3 days, imported from system-orbit
+  rather than typed, same number as the rest of the site.
+- Play still runs at six hours a second (one Earth turn in four seconds); the
+  full orbit takes about two minutes and then wraps. Copy, FAQ, meta and the
+  date span all follow the constant. Home card stays one day — that card is
+  "right now".
+- Files: seo/tools/build-daynight.mjs, day-night-map/index.html.
+- Verified in Chromium: max=39312 minutes, label "27.3 days, one orbit of the
+  Moon", span Aug 28 – Sep 24, thumb at the far end lands 27.3 days later.
+
