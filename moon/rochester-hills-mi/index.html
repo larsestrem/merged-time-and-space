@@ -1175,6 +1175,174 @@ fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
 @media (min-width:560px){ h1{font-size:32px} }
 .pl-facts .wc-frow>span{flex:0 0 42%}
 @media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}
+.kicker {
+text-transform: uppercase;
+letter-spacing: 0.12em;
+font-size: 0.72rem;
+color: var(--muted);
+margin: 0 0 8px;
+font-weight: 600;
+}
+.answer {
+font-size: 1.125rem;
+line-height: 1.55;
+}
+.answer a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
+.concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
+.band-deeper h2::after {
+content: " Further down";
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--muted);
+margin-left: 8px;
+font-weight: 600;
+}
+.hub-teaser, .related p, .see-live p {
+margin: 0 0 16px;
+color: var(--muted);
+}
+.hub-teaser a, .related p a, .glossary-item a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.hub-teaser a:hover, .related p a:hover, .glossary-item a:hover { text-decoration: underline; }
+.hub-teaser a.hub-more, .related p a.hub-more, .glossary-item a.hub-more {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+white-space: nowrap;
+margin-left: 0.35em;
+}
+.see-live ul, .related ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: grid;
+gap: 12px;
+}
+.graphic-block {
+margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
+}
+.graphic-block:has(.sys-figwrap) {
+max-width: 620px;
+margin-left: auto;
+margin-right: auto;
+}
+.graphic-block .sys-figwrap,
+.graphic-block .sys-tiltrow,
+.graphic-block .sys-tiltnote {
+max-width: 620px;
+}
+.graphic-block figcaption, figcaption {
+margin-top: 10px;
+color: var(--muted);
+font-size: 0.9rem;
+}
+.more-info {
+margin: 24px 0;
+border: 1px solid var(--border);
+border-radius: 12px;
+background: var(--card);
+padding: 4px 16px 16px;
+}
+.more-info > summary {
+cursor: pointer;
+font-weight: 650;
+padding: 14px 0;
+list-style: none;
+color: var(--text);
+}
+.more-info > summary::-webkit-details-marker { display: none; }
+.more-info > summary::after {
+content: " +";
+color: var(--accent);
+font-weight: 700;
+}
+.more-info[open] > summary::after { content: " −"; }
+.search {
+width: 100%;
+height: 48px;
+border-radius: 10px;
+border: 1px solid var(--border);
+background: var(--card);
+color: var(--text);
+padding: 0 14px;
+font-size: 1rem;
+margin: 16px 0 28px;
+font-variant-numeric: tabular-nums;
+}
+.search:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.glossary-list {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.glossary-item {
+padding: 16px 0;
+border-bottom: 1px solid var(--border);
+}
+.glossary-item h2 {
+font-size: 1.05rem;
+margin: 0 0 6px;
+letter-spacing: 0;
+font-weight: 650;
+}
+.glossary-item p { margin: 0; color: var(--muted); }
+.letter {
+font-size: 1.5rem;
+margin: 28px 0 0;
+color: var(--muted);
+}
+.glossary-item[hidden], .letter[hidden] { display: none; }
+.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
+.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
+.hub-qs a:hover { text-decoration: underline; }
+.hub-kicker {
+margin: 0 0 4px;
+font-size: 0.72rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--muted);
+font-weight: 700;
+}
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }
 .mn-hero{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .mn-hero-art{flex:0 0 auto;line-height:0;filter:drop-shadow(0 6px 20px rgba(0,0,0,.5))}
 .mn-hero-art svg{width:136px;height:136px}
@@ -1294,11 +1462,11 @@ font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .mn-cities{justify-content:flex-start;margin-top:12px}
 .mn-cities+.mn-states{margin-top:16px;display:block}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Moonrise and Moonset in Rochester Hills, MI — Times & Phase","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/moon/rochester-hills-mi/","description":"Tonight's moonrise (8:28 PM) and moonset (7:19 AM) in Rochester Hills, MI, with compass direction, the current phase, a 7-day table and the next full moon — in Rochester Hills, MI local time.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What time does the moon rise in Rochester Hills, MI tonight?","acceptedAnswer":{"@type":"Answer","text":"Moonrise is at 8:28 PM in the east tonight (August 28, 2026, Rochester Hills, MI local time). The time shifts by roughly 30–70 minutes from one night to the next, so check the 7-day table for the rest of the week."}},{"@type":"Question","name":"Is the moon visible in Rochester Hills, MI right now?","acceptedAnswer":{"@type":"Answer","text":"Yes — as of the last update it was about 35° above the horizon in the SSE. The page recomputes this live when you open it. Whether you can actually see it also depends on cloud cover and how bright the sky is."}},{"@type":"Question","name":"Which direction should I look for the moon in Rochester Hills, MI?","acceptedAnswer":{"@type":"Answer","text":"Tonight it rises in the east and sets in the west. Like the sun, the moon rises on the eastern side of the sky and sets on the western side, drifting between northeast and southeast (and northwest to southwest) through the month."}},{"@type":"Question","name":"When is the next full moon in Rochester Hills, MI?","acceptedAnswer":{"@type":"Answer","text":"September 26, 2026 at 12:48 PM Rochester Hills, MI local time. The full moon happens at one instant worldwide — only the clock reading is local."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What time does the moon rise in Rochester Hills, MI tonight?","acceptedAnswer":{"@type":"Answer","text":"Moonrise is at 8:28 PM in the east tonight (August 28, 2026, Rochester Hills, MI local time). The time shifts by roughly 30–70 minutes from one night to the next, so check the 7-day table for the rest of the week."}},{"@type":"Question","name":"Is the moon visible in Rochester Hills, MI right now?","acceptedAnswer":{"@type":"Answer","text":"Yes — as of the last update it was about 36° above the horizon in the SSE. The page recomputes this live when you open it. Whether you can actually see it also depends on cloud cover and how bright the sky is."}},{"@type":"Question","name":"Which direction should I look for the moon in Rochester Hills, MI?","acceptedAnswer":{"@type":"Answer","text":"Tonight it rises in the east and sets in the west. Like the sun, the moon rises on the eastern side of the sky and sets on the western side, drifting between northeast and southeast (and northwest to southwest) through the month."}},{"@type":"Question","name":"When is the next full moon in Rochester Hills, MI?","acceptedAnswer":{"@type":"Answer","text":"September 26, 2026 at 12:48 PM Rochester Hills, MI local time. The full moon happens at one instant worldwide — only the clock reading is local."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Moon","item":"https://timeandspace.science/moon/"},{"@type":"ListItem","position":3,"name":"Rochester Hills, MI","item":"https://timeandspace.science/moon/rochester-hills-mi/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Rochester Hills","address":{"@type":"PostalAddress","addressLocality":"Rochester Hills","addressCountry":"US","addressRegion":"Michigan"},"geo":{"@type":"GeoCoordinates","latitude":42.6584,"longitude":-83.1499},"containedInPlace":[{"@type":"AdministrativeArea","name":"Michigan"},{"@type":"Country","name":"United States"}],"url":"https://timeandspace.science/moon/rochester-hills-mi/"}</script>
 
-<!-- build fef91f6f2976 · generated 2026-08-28T04:20:18.726Z -->
+<!-- build 02e78b8c4933 · generated 2026-08-28T04:26:15.812Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/moon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1442,7 +1610,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 })();</script></div>
   <h1>Moonrise &amp; Moonset in Rochester Hills, MI</h1>
   <p class="sub" id="mnc-answer">Tonight in Rochester Hills, MI the moon rises at <b id="mnc-a-rise">8:28 PM</b> in the <span id="mnc-a-rdir">east</span> and sets at <b id="mnc-a-set">7:19 AM</b> in the <span id="mnc-a-sdir">west</span>. It is a <span id="mnc-a-phase">full moon</span>, <span id="mnc-a-pct">100%</span> illuminated.</p>
-  <p class="lt-line" data-lt-tz="America/Detroit">It's <a href="/world-clock/detroit/"><b class="lt-now">12:20 AM</b> Eastern Daylight Time</a> in Rochester Hills.</p>
+  <p class="lt-line" data-lt-tz="America/Detroit">It's <a href="/world-clock/detroit/"><b class="lt-now">12:25 AM</b> Eastern Daylight Time</a> in Rochester Hills.</p>
 
 
   <div class="card mn-hero">
@@ -1477,7 +1645,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <dl class="mn-stats">
         <div><dt>Moonrise</dt><dd id="mnc-rise">8:28 PM <span class="mn-dir">east</span></dd></div>
         <div><dt>Moonset</dt><dd id="mnc-set">7:19 AM <span class="mn-dir">west</span></dd></div>
-        <div><dt>Up right now</dt><dd id="mnc-up">Yes — 35° up, look SSE</dd></div>
+        <div><dt>Up right now</dt><dd id="mnc-up">Yes — 36° up, look SSE</dd></div>
       </dl>
     </div>
   </div>
@@ -1486,14 +1654,14 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <div class="card">
     <h2 id="mn-orr-h2">Where the moon is right now</h2>
     <figure class="orr" aria-describedby="orr-note">
-      <div class="orr-fig" id="orr-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="368,111.5 366.6,109 365.1,106.7 363.2,104.6 361.2,102.7 358.9,101 356.5,99.5 353.9,98.3 351.2,97.3 348.3,96.6 345.4,96.1 342.5,96 339.5,96.1 336.5,96.5 333.6,97.1 330.7,98 327.9,99.2 325.2,100.6 322.7,102.3 320.3,104.2 318.2,106.3 316.2,108.5 314.5,110.9 313,113.5 311.8,116.1 310.8,118.9 310.2,121.7 309.8,124.5 309.7,127.3 309.9,130.1 310.4,132.9 311.2,135.5 312.3,138.1 313.6,140.6 315.2,142.8 317,145 319.1,146.9 321.3,148.6 323.7,150.1 326.3,151.3 329.1,152.3 331.9,153 334.8,153.4 337.8,153.6 340.7,153.5 343.7,153.1 346.7,152.5 349.6,151.5 352.3,150.4 355,148.9 357.5,147.3 359.9,145.4 362.1,143.3 364,141.1 365.8,138.6 367.2,136.1 368.5,133.4 369.4,130.7 370.1,127.9 370.5,125.1 370.5,122.3 370.3,119.5 369.8,116.7 369,114 368,111.5" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.8 119.9" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.8" cy="119.9" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="334.3" y="116.2" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M369 132.1L395.6 128.9" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="369" cy="132.1" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="380" y="132.4" text-anchor="start" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Rochester Hills</text><circle cx="452" cy="134" r="11.45" fill="#4b5563"/><path d="M452 122.5A11.45 11.45 0 0 0 452 145.4Z" fill="#e8eef7"/><circle cx="452" cy="134" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="452" y="156.4" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Full moon</text></g></svg></div>
+      <div class="orr-fig" id="orr-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="368,111.5 366.7,109 365.1,106.7 363.2,104.6 361.2,102.7 358.9,101 356.5,99.5 353.9,98.3 351.2,97.3 348.3,96.6 345.4,96.1 342.5,96 339.5,96.1 336.5,96.5 333.6,97.1 330.7,98 327.9,99.2 325.2,100.6 322.7,102.3 320.3,104.2 318.2,106.3 316.2,108.5 314.5,110.9 313,113.5 311.8,116.1 310.8,118.9 310.2,121.7 309.8,124.5 309.7,127.3 309.9,130.1 310.4,132.9 311.2,135.5 312.3,138.1 313.6,140.5 315.2,142.8 317,145 319,146.9 321.3,148.6 323.7,150.1 326.3,151.3 329.1,152.3 331.9,153 334.8,153.4 337.8,153.6 340.7,153.5 343.7,153.1 346.7,152.5 349.5,151.5 352.3,150.4 355,148.9 357.5,147.3 359.9,145.4 362.1,143.3 364,141.1 365.8,138.6 367.2,136.1 368.5,133.4 369.4,130.7 370.1,127.9 370.5,125.1 370.5,122.3 370.3,119.5 369.8,116.7 369,114 368,111.5" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.8 119.9" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.8" cy="119.9" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="334.3" y="116.2" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M369.2 131.4L395.4 127.5" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="369.2" cy="131.4" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="380" y="130.9" text-anchor="start" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Rochester Hills</text><circle cx="452" cy="133.9" r="11.45" fill="#4b5563"/><path d="M452 122.4A11.45 11.45 0 0 0 452 145.3Z" fill="#e8eef7"/><circle cx="452" cy="133.9" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="452" y="156.3" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Full moon</text></g></svg></div>
       <p class="orr-stamp">
-        <input type="datetime-local" class="orr-at" id="orr-at" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-28T00:20" disabled aria-label="Date and time to draw the sun and moon for">
+        <input type="datetime-local" class="orr-at" id="orr-at" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-28T00:25" disabled aria-label="Date and time to draw the sun and moon for">
         <button type="button" class="chip orr-now orr-play" id="orr-play" hidden aria-pressed="false">Play</button>
         <button type="button" class="chip orr-now" id="orr-now" hidden>Now</button>
       </p>
       <p class="orr-scrub">
-        <input type="range" class="orr-slider" id="orr-slider" min="0" max="42524" step="5" value="20" disabled aria-label="Move through one full cycle of the moon">
+        <input type="range" class="orr-slider" id="orr-slider" min="0" max="42524" step="5" value="25" disabled aria-label="Move through one full cycle of the moon">
         <span class="orr-scrub-lab" id="orr-scrub-lab">Press Play, or drag: end to end is one full turn of the moon round the Earth — 29 days and 13 hours</span>
       </p>
     </figure>
@@ -1646,6 +1814,14 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     </div>
     <p class="hint">Calculated astronomical positions for these coordinates. Local weather and conditions are not modelled.</p>
   </div>
+  <div class="card hub-teasers">
+    <h2>Questions this page answers</h2>
+    <ul class="hub-qs">
+<li id="why-does-the-moon-change-shape"><p><a href="/concepts/why-does-the-moon-change-shape/">Why does the Moon change shape?</a> The Moon makes no light of its own.</p></li>
+<li id="why-does-moonrise-get-later"><p><a href="/concepts/why-does-moonrise-get-later/">Why does moonrise get later each night?</a> The Moon moves east along its orbit while Earth turns.</p></li>
+<li id="why-can-the-moon-be-up-in-the-daytime"><p><a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">Can the moon be up in the daytime?</a> Yes. The moon is above the horizon about half of every day, and those hours drift through daylight as the month goes by. It is simply bright enough to beat the blue sky. On the day/night map the pale marker is where the moon stands overhead — watch it ride through the lit half.</p></li>
+</ul>
+  </div>
   <div class="card tool-about">
     <h2>More moon</h2>
     <p>The phase itself is worldwide: <a href="/moon/">today's moon phase</a> · <a href="/moon/calendar/">moon phase calendar</a> · <a href="/moon/full-moon-calendar/">full moon calendar</a> · <a href="/moon/eclipses/">lunar eclipses</a> · <a href="/moon/supermoons/">supermoons</a> · <a href="/moon/blue-moons/">blue moons</a> · <a href="/moon/state/michigan/">moonrise across Michigan</a>.</p>
@@ -1654,7 +1830,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <div class="card tool-about">
     <h2>Moonrise in Rochester Hills, MI FAQ</h2>
     <p><strong>What time does the moon rise in Rochester Hills, MI tonight?</strong> Moonrise is at 8:28 PM in the east tonight (August 28, 2026, Rochester Hills, MI local time). The time shifts by roughly 30–70 minutes from one night to the next, so check the 7-day table for the rest of the week.</p>
-    <p><strong>Is the moon visible in Rochester Hills, MI right now?</strong> Yes — as of the last update it was about 35° above the horizon in the SSE. The page recomputes this live when you open it. Whether you can actually see it also depends on cloud cover and how bright the sky is.</p>
+    <p><strong>Is the moon visible in Rochester Hills, MI right now?</strong> Yes — as of the last update it was about 36° above the horizon in the SSE. The page recomputes this live when you open it. Whether you can actually see it also depends on cloud cover and how bright the sky is.</p>
     <p><strong>Which direction should I look for the moon in Rochester Hills, MI?</strong> Tonight it rises in the east and sets in the west. Like the sun, the moon rises on the eastern side of the sky and sets on the western side, drifting between northeast and southeast (and northwest to southwest) through the month.</p>
     <p><strong>When is the next full moon in Rochester Hills, MI?</strong> September 26, 2026 at 12:48 PM Rochester Hills, MI local time. The full moon happens at one instant worldwide — only the clock reading is local.</p>
   </div>

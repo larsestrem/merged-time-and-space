@@ -1290,6 +1290,174 @@ fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
 @media (min-width:560px){ h1{font-size:32px} }
 .pl-facts .wc-frow>span{flex:0 0 42%}
 @media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}
+.kicker {
+text-transform: uppercase;
+letter-spacing: 0.12em;
+font-size: 0.72rem;
+color: var(--muted);
+margin: 0 0 8px;
+font-weight: 600;
+}
+.answer {
+font-size: 1.125rem;
+line-height: 1.55;
+}
+.answer a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
+.concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
+.band-deeper h2::after {
+content: " Further down";
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--muted);
+margin-left: 8px;
+font-weight: 600;
+}
+.hub-teaser, .related p, .see-live p {
+margin: 0 0 16px;
+color: var(--muted);
+}
+.hub-teaser a, .related p a, .glossary-item a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.hub-teaser a:hover, .related p a:hover, .glossary-item a:hover { text-decoration: underline; }
+.hub-teaser a.hub-more, .related p a.hub-more, .glossary-item a.hub-more {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+white-space: nowrap;
+margin-left: 0.35em;
+}
+.see-live ul, .related ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: grid;
+gap: 12px;
+}
+.graphic-block {
+margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
+}
+.graphic-block:has(.sys-figwrap) {
+max-width: 620px;
+margin-left: auto;
+margin-right: auto;
+}
+.graphic-block .sys-figwrap,
+.graphic-block .sys-tiltrow,
+.graphic-block .sys-tiltnote {
+max-width: 620px;
+}
+.graphic-block figcaption, figcaption {
+margin-top: 10px;
+color: var(--muted);
+font-size: 0.9rem;
+}
+.more-info {
+margin: 24px 0;
+border: 1px solid var(--border);
+border-radius: 12px;
+background: var(--card);
+padding: 4px 16px 16px;
+}
+.more-info > summary {
+cursor: pointer;
+font-weight: 650;
+padding: 14px 0;
+list-style: none;
+color: var(--text);
+}
+.more-info > summary::-webkit-details-marker { display: none; }
+.more-info > summary::after {
+content: " +";
+color: var(--accent);
+font-weight: 700;
+}
+.more-info[open] > summary::after { content: " −"; }
+.search {
+width: 100%;
+height: 48px;
+border-radius: 10px;
+border: 1px solid var(--border);
+background: var(--card);
+color: var(--text);
+padding: 0 14px;
+font-size: 1rem;
+margin: 16px 0 28px;
+font-variant-numeric: tabular-nums;
+}
+.search:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.glossary-list {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.glossary-item {
+padding: 16px 0;
+border-bottom: 1px solid var(--border);
+}
+.glossary-item h2 {
+font-size: 1.05rem;
+margin: 0 0 6px;
+letter-spacing: 0;
+font-weight: 650;
+}
+.glossary-item p { margin: 0; color: var(--muted); }
+.letter {
+font-size: 1.5rem;
+margin: 28px 0 0;
+color: var(--muted);
+}
+.glossary-item[hidden], .letter[hidden] { display: none; }
+.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
+.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
+.hub-qs a:hover { text-decoration: underline; }
+.hub-kicker {
+margin: 0 0 4px;
+font-size: 0.72rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--muted);
+font-weight: 700;
+}
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }
 .card:has(#td-results:not([hidden])),.card:has(#nm-results:not([hidden])),.card:has(#td-mypanel:not([hidden])){position:relative;z-index:40}
 .td-search{position:relative;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 #td-mypanel{min-width:280px}
@@ -1436,7 +1604,7 @@ color:var(--muted);padding:7px 2px;border-top:1px solid var(--border)}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Sunrise & Sunset","item":"https://timeandspace.science/sun/"},{"@type":"ListItem","position":3,"name":"Fargo, ND","item":"https://timeandspace.science/sun/fargo-nd/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Fargo","address":{"@type":"PostalAddress","addressLocality":"Fargo","addressCountry":"US","addressRegion":"North Dakota"},"geo":{"@type":"GeoCoordinates","latitude":46.8772,"longitude":-96.7898},"containedInPlace":[{"@type":"AdministrativeArea","name":"North Dakota"},{"@type":"Country","name":"United States"}],"url":"https://timeandspace.science/sun/fargo-nd/"}</script>
 
-<!-- build fef91f6f2976 · generated 2026-08-28T04:20:18.726Z -->
+<!-- build 02e78b8c4933 · generated 2026-08-28T04:26:15.812Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/sunrise.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1580,14 +1748,14 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 })();</script></div>
   <h1>Sunrise &amp; Sunset in Fargo, ND</h1>
   <p class="sub" id="sun-answer">The sun rises in Fargo today at <b id="sun-a-rise">6:41 AM</b> and sets at <b id="sun-a-set">8:18 PM</b>, giving <b id="sun-a-len">13 hours 37 minutes</b> of daylight — <span id="sun-a-delta">3 minutes less than yesterday</span>. First light is at <b id="sun-a-dawn">6:09 AM</b>, last light at <b id="sun-a-dusk">8:50 PM</b>, and solar noon at <b id="sun-a-noon">1:30 PM</b>.</p>
-    <p class="lt-line" data-lt-tz="America/Chicago">It's <a href="/world-clock/chicago/"><b class="lt-now">11:19 PM</b> Central Daylight Time</a> in Fargo.</p>
+    <p class="lt-line" data-lt-tz="America/Chicago">It's <a href="/world-clock/chicago/"><b class="lt-now">11:25 PM</b> Central Daylight Time</a> in Fargo.</p>
 <p class="hint sun-tzline">Central Daylight Time · <span id="sun-today">Thursday, August 27, 2026</span> · Calculated for central Fargo — recomputed live in your browser for today's date.</p>
   <div class="card sun-arccard">
     <h2>Daylight in Fargo <input type="date" class="sun-hdate" id="sun-date2" aria-label="Pick any date" value="2026-08-27"></h2>
     <p class="sun-arcbar"><b id="sun-arc-len">13 hours 37 minutes</b> of daylight</p>
     <p class="sun-next" id="sun-next">Next: Sunrise tomorrow at 6:42 AM</p>
     <p class="sun-arctimes">Sunrise <b id="sun-arc-rise">6:41 AM</b> <span class="sun-arcsep">·</span> Sunset <b id="sun-arc-set">8:18 PM</b></p>
-    <svg id="sun-arc" viewBox="0 0 640 216" role="img" aria-label="The sun's path through the day: sunrise, solar noon, sunset, and the first-light to last-light band"><defs><linearGradient id="sunArcG" x1="0" y1="20" x2="0" y2="132" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fcd34d" stop-opacity=".40"/><stop offset="1" stop-color="#fcd34d" stop-opacity=".04"/></linearGradient><linearGradient id="sunTwA" x1="0" x2="1"><stop offset="0" stop-color="#141c3a"/><stop offset="1" stop-color="#f59e0b"/></linearGradient><linearGradient id="sunTwB" x1="0" x2="1"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#141c3a"/></linearGradient><clipPath id="sunRailC"><rect x="32" y="172" width="576" height="18" rx="9"/></clipPath></defs><rect x="32" y="20" width="576" height="132" rx="10" fill="#12172b"/><rect x="32" y="132" width="576" height="20" fill="#0a0f22"/><line x1="176" y1="20" x2="176" y2="152" stroke="rgba(148,163,184,.13)" stroke-width="1"/><line x1="320" y1="20" x2="320" y2="152" stroke="rgba(148,163,184,.13)" stroke-width="1"/><line x1="464" y1="20" x2="464" y2="152" stroke="rgba(148,163,184,.13)" stroke-width="1"/><path d="M32 152 L38 152 L44 152 L50 152 L56 152 L62 152 L68 152 L74 152 L80 152 L86 152 L92 152 L98 152 L104 152 L110 152 L116 152 L122 152 L128 152 L134 152 L140 152 L146 152 L152 150.4 L158 148 L164 145.6 L170 143 L176 140.5 L182 137.8 L188 135.1 L194 132.4 " fill="none" stroke="#64748b" stroke-width="1.6" stroke-dasharray="4 5" opacity=".6" stroke-linecap="round"/><path d="M194 132.4 L200 129.9 L206 127.4 L212 125 L218 122.5 L224 120 L230 117.5 L236 115 L242 112.5 L248 110 L254 107.5 L260 105.1 L266 102.7 L272 100.4 L278 98.1 L284 95.8 L290 93.7 L296 91.7 L302 89.7 L308 87.9 L314 86.2 L320 84.7 L326 83.4 L332 82.3 L338 81.4 L344 80.7 L350 80.3 L356 80.2 L362 80.3 L368 80.7 L374 81.4 L380 82.3 L386 83.4 L392 84.7 L398 86.2 L404 87.9 L410 89.7 L416 91.7 L422 93.7 L428 95.8 L434 98.1 L440 100.4 L446 102.7 L452 105.1 L458 107.5 L464 110 L470 112.5 L476 115 L482 117.5 L488 120 L494 122.5 L500 125 L506 127.4 L512 129.9 " fill="url(#sunArcG)" stroke="#fcd34d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M512 129.9 L518 132.4 L524 135.1 L530 137.8 L536 140.5 L542 143 L548 145.6 L554 148 L560 150.4 L566 152 L572 152 L578 152 L584 152 L590 152 L596 152 L602 152 L608 152 " fill="none" stroke="#64748b" stroke-width="1.6" stroke-dasharray="4 5" opacity=".6" stroke-linecap="round"/><line x1="32" y1="132" x2="608" y2="132" stroke="rgba(148,163,184,.5)" stroke-width="1"/><circle cx="192.4" cy="132" r="4.5" fill="#fcd34d" stroke="#12172b" stroke-width="1.5"/><circle cx="519.2" cy="132" r="4.5" fill="#fcd34d" stroke="#12172b" stroke-width="1.5"/><text x="183.4" y="121" text-anchor="end" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">Sunrise </tspan><tspan class="sun-aS"></tspan>6:41 AM</text><text x="528.2" y="121" text-anchor="start" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">Sunset </tspan><tspan class="sun-aS"></tspan>8:18 PM</text><g transform="translate(356 80.2)"><circle r="5" fill="#fcd34d"/><line x1="6.8" y1="0.0" x2="9.4" y2="0.0" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="4.8" y1="4.8" x2="6.6" y2="6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="0.0" y1="6.8" x2="0.0" y2="9.4" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-4.8" y1="4.8" x2="-6.6" y2="6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-6.8" y1="0.0" x2="-9.4" y2="0.0" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-4.8" y1="-4.8" x2="-6.6" y2="-6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-0.0" y1="-6.8" x2="-0.0" y2="-9.4" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="4.8" y1="-4.8" x2="6.6" y2="-6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/></g><text x="356" y="63.2" text-anchor="middle" font-size="11" fill="#94a3b8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-pk"><tspan class="sun-aL">Solar noon </tspan><tspan class="sun-aS">Noon </tspan>1:30 PM · <tspan class="sun-aL">sun </tspan><tspan class="sun-aS"></tspan>53° high</text><rect x="32" y="172" width="576" height="18" rx="9" fill="#0a0f22" stroke="rgba(148,163,184,.25)"/><rect x="179.6" y="172" width="12.8" height="18" fill="url(#sunTwA)" clip-path="url(#sunRailC)"/><rect x="192.4" y="172" width="326.8" height="18" fill="#fbbf24" clip-path="url(#sunRailC)"/><rect x="519.2" y="172" width="12.8" height="18" fill="url(#sunTwB)" clip-path="url(#sunRailC)"/><line x1="179.6" y1="168" x2="179.6" y2="194" stroke="#93c5fd" stroke-width="1.4"/><text x="170.6" y="163" text-anchor="end" font-size="11" fill="#93c5fd" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">First light </tspan><tspan class="sun-aS">First </tspan>6:09 AM</text><line x1="532" y1="168" x2="532" y2="194" stroke="#93c5fd" stroke-width="1.4"/><text x="523.0" y="163" text-anchor="end" font-size="11" fill="#93c5fd" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">Last light </tspan><tspan class="sun-aS">Last </tspan>8:50 PM</text><text x="32" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">12 AM</text><text x="176" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">6 AM</text><text x="320" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">12 PM</text><text x="464" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">6 PM</text><text x="608" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">12 AM</text></svg>
+    <svg id="sun-arc" viewBox="0 0 640 216" role="img" aria-label="The sun's path through the day: sunrise, solar noon, sunset, and the first-light to last-light band"><defs><linearGradient id="sunArcG" x1="0" y1="20" x2="0" y2="132" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fcd34d" stop-opacity=".40"/><stop offset="1" stop-color="#fcd34d" stop-opacity=".04"/></linearGradient><linearGradient id="sunTwA" x1="0" x2="1"><stop offset="0" stop-color="#141c3a"/><stop offset="1" stop-color="#f59e0b"/></linearGradient><linearGradient id="sunTwB" x1="0" x2="1"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#141c3a"/></linearGradient><clipPath id="sunRailC"><rect x="32" y="172" width="576" height="18" rx="9"/></clipPath></defs><rect x="32" y="20" width="576" height="132" rx="10" fill="#12172b"/><rect x="32" y="132" width="576" height="20" fill="#0a0f22"/><line x1="176" y1="20" x2="176" y2="152" stroke="rgba(148,163,184,.13)" stroke-width="1"/><line x1="320" y1="20" x2="320" y2="152" stroke="rgba(148,163,184,.13)" stroke-width="1"/><line x1="464" y1="20" x2="464" y2="152" stroke="rgba(148,163,184,.13)" stroke-width="1"/><path d="M32 152 L38 152 L44 152 L50 152 L56 152 L62 152 L68 152 L74 152 L80 152 L86 152 L92 152 L98 152 L104 152 L110 152 L116 152 L122 152 L128 152 L134 152 L140 152 L146 152 L152 150.4 L158 148 L164 145.6 L170 143 L176 140.5 L182 137.8 L188 135.1 L194 132.4 " fill="none" stroke="#64748b" stroke-width="1.6" stroke-dasharray="4 5" opacity=".6" stroke-linecap="round"/><path d="M194 132.4 L200 129.9 L206 127.4 L212 125 L218 122.5 L224 120 L230 117.5 L236 115 L242 112.5 L248 110 L254 107.5 L260 105.1 L266 102.7 L272 100.4 L278 98.1 L284 95.9 L290 93.7 L296 91.7 L302 89.7 L308 87.9 L314 86.2 L320 84.7 L326 83.4 L332 82.3 L338 81.4 L344 80.7 L350 80.3 L356 80.2 L362 80.3 L368 80.7 L374 81.4 L380 82.3 L386 83.4 L392 84.7 L398 86.2 L404 87.9 L410 89.7 L416 91.7 L422 93.7 L428 95.9 L434 98.1 L440 100.4 L446 102.7 L452 105.1 L458 107.5 L464 110 L470 112.5 L476 115 L482 117.5 L488 120 L494 122.5 L500 125 L506 127.4 L512 129.9 " fill="url(#sunArcG)" stroke="#fcd34d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M512 129.9 L518 132.4 L524 135.1 L530 137.8 L536 140.5 L542 143 L548 145.6 L554 148 L560 150.4 L566 152 L572 152 L578 152 L584 152 L590 152 L596 152 L602 152 L608 152 " fill="none" stroke="#64748b" stroke-width="1.6" stroke-dasharray="4 5" opacity=".6" stroke-linecap="round"/><line x1="32" y1="132" x2="608" y2="132" stroke="rgba(148,163,184,.5)" stroke-width="1"/><circle cx="192.4" cy="132" r="4.5" fill="#fcd34d" stroke="#12172b" stroke-width="1.5"/><circle cx="519.2" cy="132" r="4.5" fill="#fcd34d" stroke="#12172b" stroke-width="1.5"/><text x="183.4" y="121" text-anchor="end" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">Sunrise </tspan><tspan class="sun-aS"></tspan>6:41 AM</text><text x="528.2" y="121" text-anchor="start" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">Sunset </tspan><tspan class="sun-aS"></tspan>8:18 PM</text><g transform="translate(356 80.2)"><circle r="5" fill="#fcd34d"/><line x1="6.8" y1="0.0" x2="9.4" y2="0.0" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="4.8" y1="4.8" x2="6.6" y2="6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="0.0" y1="6.8" x2="0.0" y2="9.4" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-4.8" y1="4.8" x2="-6.6" y2="6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-6.8" y1="0.0" x2="-9.4" y2="0.0" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-4.8" y1="-4.8" x2="-6.6" y2="-6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-0.0" y1="-6.8" x2="-0.0" y2="-9.4" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="4.8" y1="-4.8" x2="6.6" y2="-6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/></g><text x="356" y="63.2" text-anchor="middle" font-size="11" fill="#94a3b8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-pk"><tspan class="sun-aL">Solar noon </tspan><tspan class="sun-aS">Noon </tspan>1:30 PM · <tspan class="sun-aL">sun </tspan><tspan class="sun-aS"></tspan>53° high</text><rect x="32" y="172" width="576" height="18" rx="9" fill="#0a0f22" stroke="rgba(148,163,184,.25)"/><rect x="179.6" y="172" width="12.8" height="18" fill="url(#sunTwA)" clip-path="url(#sunRailC)"/><rect x="192.4" y="172" width="326.8" height="18" fill="#fbbf24" clip-path="url(#sunRailC)"/><rect x="519.2" y="172" width="12.8" height="18" fill="url(#sunTwB)" clip-path="url(#sunRailC)"/><line x1="179.6" y1="168" x2="179.6" y2="194" stroke="#93c5fd" stroke-width="1.4"/><text x="170.6" y="163" text-anchor="end" font-size="11" fill="#93c5fd" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">First light </tspan><tspan class="sun-aS">First </tspan>6:09 AM</text><line x1="532" y1="168" x2="532" y2="194" stroke="#93c5fd" stroke-width="1.4"/><text x="523.0" y="163" text-anchor="end" font-size="11" fill="#93c5fd" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">Last light </tspan><tspan class="sun-aS">Last </tspan>8:50 PM</text><text x="32" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">12 AM</text><text x="176" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">6 AM</text><text x="320" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">12 PM</text><text x="464" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">6 PM</text><text x="608" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">12 AM</text></svg>
     <p class="hint">The curve is how high the sun climbs through the day; the band beneath it runs from first light to last light.</p>
     <p class="sun-tmwlink"><a href="/sun/fargo-nd/?date=2026-08-28" id="sun-tmwlink-a" data-sun-base="/sun/fargo-nd/">Tomorrow's sunrise in Fargo &middot; <b id="sun-tmwlink-rise">6:42 AM</b> &rarr;</a></p>
   </div>
@@ -1609,21 +1777,21 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <h2 id="sun-now-h2">Where the sun is right now</h2>
     <div class="sun-nowgrid">
         <figure class="orr" aria-describedby="orr-note">
-      <div class="orr-fig" id="orr-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="365.6,111.6 364.4,109.3 362.9,107.2 361.2,105.2 359.3,103.5 357.2,101.9 355,100.5 352.6,99.3 350,98.4 347.4,97.8 344.7,97.4 341.9,97.2 339.2,97.3 336.4,97.7 333.6,98.3 331,99.1 328.4,100.2 325.9,101.6 323.5,103.1 321.3,104.9 319.3,106.8 317.5,108.9 315.9,111.1 314.5,113.5 313.4,116 312.5,118.5 311.9,121.1 311.5,123.7 311.5,126.3 311.7,129 312.1,131.5 312.8,134 313.8,136.4 315.1,138.7 316.6,140.8 318.3,142.7 320.2,144.5 322.3,146.1 324.5,147.5 326.9,148.6 329.5,149.6 332.1,150.2 334.8,150.6 337.6,150.8 340.3,150.7 343.1,150.3 345.8,149.7 348.5,148.9 351.1,147.8 353.6,146.4 355.9,144.9 358.1,143.1 360.1,141.2 362,139.1 363.6,136.9 365,134.5 366.1,132 367,129.5 367.6,126.9 367.9,124.3 368,121.7 367.8,119 367.4,116.5 366.6,114 365.6,111.6" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.8 119.9" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.8" cy="119.9" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="334.3" y="116.2" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M363.7 136.8L395.8 139.8" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="363.7" cy="136.8" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="399.8" y="144.2" text-anchor="start" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Fargo</text><circle cx="452" cy="134" r="11.45" fill="#4b5563"/><path d="M452 122.5A11.45 11.45 0 0 0 452 145.4Z" fill="#e8eef7"/><circle cx="452" cy="134" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="452" y="156.4" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Full moon</text></g></svg></div>
+      <div class="orr-fig" id="orr-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="365.6,111.6 364.4,109.3 362.9,107.2 361.2,105.3 359.3,103.5 357.2,101.9 355,100.5 352.6,99.4 350,98.4 347.4,97.8 344.7,97.4 341.9,97.2 339.2,97.3 336.4,97.7 333.7,98.3 331,99.1 328.4,100.2 325.9,101.6 323.5,103.1 321.3,104.9 319.3,106.8 317.5,108.9 315.9,111.1 314.5,113.5 313.4,116 312.5,118.5 311.9,121.1 311.5,123.7 311.5,126.3 311.7,128.9 312.1,131.5 312.8,134 313.8,136.4 315.1,138.7 316.6,140.8 318.3,142.7 320.2,144.5 322.3,146.1 324.5,147.5 326.9,148.6 329.5,149.6 332.1,150.2 334.8,150.6 337.5,150.8 340.3,150.7 343.1,150.3 345.8,149.7 348.5,148.9 351.1,147.8 353.6,146.4 355.9,144.9 358.1,143.1 360.1,141.2 362,139.1 363.6,136.9 365,134.5 366.1,132 367,129.5 367.6,126.9 367.9,124.3 368,121.7 367.8,119 367.4,116.5 366.6,114 365.6,111.6" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.8 119.9" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.8" cy="119.9" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="334.3" y="116.2" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M364 136.2L395.9 138.1" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="364" cy="136.2" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="399.9" y="142.4" text-anchor="start" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Fargo</text><circle cx="452" cy="133.9" r="11.45" fill="#4b5563"/><path d="M452 122.4A11.45 11.45 0 0 0 452 145.3Z" fill="#e8eef7"/><circle cx="452" cy="133.9" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="452" y="156.3" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Full moon</text></g></svg></div>
       <p class="orr-stamp">
-        <input type="datetime-local" class="orr-at" id="orr-at" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-27T23:19" disabled aria-label="Date and time to draw the sun and moon for">
+        <input type="datetime-local" class="orr-at" id="orr-at" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-27T23:25" disabled aria-label="Date and time to draw the sun and moon for">
         <button type="button" class="chip orr-now orr-play" id="orr-play" hidden aria-pressed="false">Play</button>
         <button type="button" class="chip orr-now" id="orr-now" hidden>Now</button>
       </p>
       <p class="orr-scrub">
-        <input type="range" class="orr-slider" id="orr-slider" min="0" max="42524" step="5" value="1399" disabled aria-label="Move through one full cycle of the moon">
+        <input type="range" class="orr-slider" id="orr-slider" min="0" max="42524" step="5" value="1405" disabled aria-label="Move through one full cycle of the moon">
         <span class="orr-scrub-lab" id="orr-scrub-lab">Press Play, or drag: end to end is one full turn of the moon round the Earth — 29 days and 13 hours</span>
       </p>
     </figure>
     <div class="sun-nowstats">
-      <div class="sun-srow sun-main"><span>Altitude</span><b id="sun-now-alt">-26.4°</b></div>
+      <div class="sun-srow sun-main"><span>Altitude</span><b id="sun-now-alt">-26.9°</b></div>
       <div class="sun-srow sun-main"><span>Direction</span><b id="sun-now-dir">northwest</b></div>
-      <div class="sun-srow"><span>Azimuth</span><b id="sun-now-az">324.1°</b></div>
+      <div class="sun-srow"><span>Azimuth</span><b id="sun-now-az">325.5°</b></div>
       <div class="sun-srow"><span id="sun-now-rowlab">Right now</span><b id="sun-now-phase">Night</b></div>
     </div>
     </div>
@@ -1631,8 +1799,8 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 <p class="hint orr-tide">That angle sets the tides, too. The moon does most of the pulling and the sun about half as much, so when the two line up — new moon and full moon — their pulls add and the tide runs to its biggest (spring tides); when they sit square on at the quarters the pulls fight and it runs to its smallest (neaps). The coast follows a day or two behind, and the shape of the shore matters as much as the sky does.</p>
     <p class="hint orr-sim">Also see the <a href="/sun-moon-earth-movement-simulator/fargo-nd/" data-xlink="sim">Sun, Earth &amp; Moon movement simulator for Fargo</a>, to watch how the three move together over a day, a week or a month.</p>
 
-    <p class="sun-nowmoon" id="sun-nowmoon">The moon is up too — <b>26.7°</b> above the horizon in the <b>southeast</b>. <a href="/moon/fargo-nd/">Moonrise, moonset and tonight's phase &rarr;</a></p>
-    <p class="hint"><span id="sun-now-note">The sun is far below the horizon — full astronomical darkness.</span> Altitude is how far above the horizon the sun sits; azimuth is the compass bearing to look along, measured clockwise from north. <span id="sun-now-stamp">Shown for 11:19 PM; this updates to the live position when the page loads.</span></p>
+    <p class="sun-nowmoon" id="sun-nowmoon">The moon is up too — <b>27.3°</b> above the horizon in the <b>southeast</b>. <a href="/moon/fargo-nd/">Moonrise, moonset and tonight's phase &rarr;</a></p>
+    <p class="hint"><span id="sun-now-note">The sun is far below the horizon — full astronomical darkness.</span> Altitude is how far above the horizon the sun sits; azimuth is the compass bearing to look along, measured clockwise from north. <span id="sun-now-stamp">Shown for 11:25 PM; this updates to the live position when the page loads.</span></p>
   </div>
 <div class="duo">  <div class="card sun-tmwcard" id="sun-tomorrow">
     <h2>Sunrise &amp; sunset tomorrow in Fargo</h2>
@@ -1719,6 +1887,14 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       </a>
     </div>
     <p class="hint">Calculated astronomical positions for these coordinates. Local weather and conditions are not modelled.</p>
+  </div>
+  <div class="card hub-teasers">
+    <h2>Questions this page answers</h2>
+    <ul class="hub-qs">
+<li id="why-do-we-have-seasons"><p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun.</p></li>
+<li id="what-is-twilight"><p><a href="/concepts/what-is-twilight/">What is twilight?</a> Twilight is the time when the Sun is below the horizon but still lighting the sky.</p></li>
+<li id="what-is-daylight-saving-time"><p><a href="/concepts/what-is-daylight-saving-time/">What is daylight saving time?</a> A twice-a-year decision to shift the clock one hour so evening daylight lasts longer in summer.</p></li>
+</ul>
   </div>
 
   <div class="card">

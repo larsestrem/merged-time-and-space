@@ -37,7 +37,7 @@ import { SUN_ALL, SUN_STATES } from "./build-sun.mjs";
 import { localTimeLine, LOCALTIME_JS } from "./localtime.mjs";
 import { SUN_JS, AC_JS } from "./lib.mjs";
 import { astroStrip, tideNote, simLink } from "./crosslinks.mjs";
-import { hubQuestionsCard } from "./concepts.mjs";
+import { hubQuestionsCard, placeQuestionsCard } from "./concepts.mjs";
 import { placeFacts, placeLd, resolvePlace, nearestMajor, cityLabel } from "./place.mjs";
 import { sunToStations } from "./coastal.mjs";
 import { ORRERY_JS, orreryFigure, orreryCaption } from "./orrery.mjs";
@@ -1410,7 +1410,7 @@ ${rows.join("\n")}
     <p class="hint">Rise and set drift later by roughly 30–70 minutes a night. A "—" means that event skips the calendar day (the moon can rise late tonight and set tomorrow).</p>
   </div>
 
-${placeFacts({ ...resolvePlace(c), nearby: nearestMajor(c, SUN_ALL), kind: "moon" , elevKey: c.slug })}${astroStrip({ from: "moon", slug: c.slug, city: c.city, lat: c.lat, lon: c.lon, tz: c.tz })}  <div class="card tool-about">
+${placeFacts({ ...resolvePlace(c), nearby: nearestMajor(c, SUN_ALL), kind: "moon" , elevKey: c.slug })}${astroStrip({ from: "moon", slug: c.slug, city: c.city, lat: c.lat, lon: c.lon, tz: c.tz })}${placeQuestionsCard(["why-does-the-moon-change-shape", "why-does-moonrise-get-later", "why-can-the-moon-be-up-in-the-daytime"], "/moon/")}  <div class="card tool-about">
     <h2>More moon</h2>
     <p>The phase itself is worldwide: <a href="/moon/">today's moon phase</a> · <a href="/moon/calendar/">moon phase calendar</a> · <a href="/moon/full-moon-calendar/">full moon calendar</a> · <a href="/moon/eclipses/">lunar eclipses</a> · <a href="/moon/supermoons/">supermoons</a> · <a href="/moon/blue-moons/">blue moons</a>${stateHub ? ` · <a href="/moon/state/${stateHub.slug}/">moonrise across ${esc(stateHub.state)}</a>` : ""}.</p>
   </div>

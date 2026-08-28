@@ -31,7 +31,7 @@ import { astroStrip, tideNote, simLink } from "./crosslinks.mjs";
 import { placeFacts, placeLd, resolvePlace, nearestMajor, cityLabel, milesBetween } from "./place.mjs";
 import { tideStatePages } from "./tide-stations.mjs";
 import { MOON_CORE, moonIllum, moonName, moonGlyph, moonTimes, moonPos } from "./moon.mjs";
-import { hubQuestionsCard } from "./concepts.mjs";
+import { hubQuestionsCard, placeQuestionsCard } from "./concepts.mjs";
 /* epoch of the city's local midnight (minute precision — moonTimes samples hourly) */
 function mnDayStart(ms, tz) {
   const p = new Intl.DateTimeFormat("en-GB", { timeZone: tz, hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date(ms)).split(":");
@@ -1400,7 +1400,7 @@ ${/* the two prose cards — why the day length moves here, then the direct
   </div>` : `  <div class="card">
     ${faqHtml}
   </div>`}
-${placeFacts({ ...resolvePlace(c), nearby: nearestMajor(c, SUN_ALL), kind: "sun" , elevKey: c.slug })}${astroStrip({ from: "sun", slug: c.slug, city: c.city, lat: c.lat, lon: c.lon, tz: c.tz })}${neighbors.length ? `
+${placeFacts({ ...resolvePlace(c), nearby: nearestMajor(c, SUN_ALL), kind: "sun" , elevKey: c.slug })}${astroStrip({ from: "sun", slug: c.slug, city: c.city, lat: c.lat, lon: c.lon, tz: c.tz })}${placeQuestionsCard(["why-do-we-have-seasons", "what-is-twilight", "what-is-daylight-saving-time"], "/sun/")}${neighbors.length ? `
   <div class="card">
     <h2>Nearby &amp; related</h2>
     <div class="timer-presets">${neighbors.map((n) => `<a class="chip" href="/sun/${n.slug}/">${esc(cityLabel(n))}</a>`).join("")}${stateHub ? `<a class="chip" href="/sun/state/${stateHub.slug}/">All ${esc(stateHub.state)} cities →</a>` : ""}<a class="chip" href="/sun/">All cities →</a></div>

@@ -1163,6 +1163,174 @@ fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
 @media (min-width:560px){ h1{font-size:32px} }
 .pl-facts .wc-frow>span{flex:0 0 42%}
 @media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}
+.kicker {
+text-transform: uppercase;
+letter-spacing: 0.12em;
+font-size: 0.72rem;
+color: var(--muted);
+margin: 0 0 8px;
+font-weight: 600;
+}
+.answer {
+font-size: 1.125rem;
+line-height: 1.55;
+}
+.answer a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
+.concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
+.band-deeper h2::after {
+content: " Further down";
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--muted);
+margin-left: 8px;
+font-weight: 600;
+}
+.hub-teaser, .related p, .see-live p {
+margin: 0 0 16px;
+color: var(--muted);
+}
+.hub-teaser a, .related p a, .glossary-item a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.hub-teaser a:hover, .related p a:hover, .glossary-item a:hover { text-decoration: underline; }
+.hub-teaser a.hub-more, .related p a.hub-more, .glossary-item a.hub-more {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+white-space: nowrap;
+margin-left: 0.35em;
+}
+.see-live ul, .related ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: grid;
+gap: 12px;
+}
+.graphic-block {
+margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
+}
+.graphic-block:has(.sys-figwrap) {
+max-width: 620px;
+margin-left: auto;
+margin-right: auto;
+}
+.graphic-block .sys-figwrap,
+.graphic-block .sys-tiltrow,
+.graphic-block .sys-tiltnote {
+max-width: 620px;
+}
+.graphic-block figcaption, figcaption {
+margin-top: 10px;
+color: var(--muted);
+font-size: 0.9rem;
+}
+.more-info {
+margin: 24px 0;
+border: 1px solid var(--border);
+border-radius: 12px;
+background: var(--card);
+padding: 4px 16px 16px;
+}
+.more-info > summary {
+cursor: pointer;
+font-weight: 650;
+padding: 14px 0;
+list-style: none;
+color: var(--text);
+}
+.more-info > summary::-webkit-details-marker { display: none; }
+.more-info > summary::after {
+content: " +";
+color: var(--accent);
+font-weight: 700;
+}
+.more-info[open] > summary::after { content: " −"; }
+.search {
+width: 100%;
+height: 48px;
+border-radius: 10px;
+border: 1px solid var(--border);
+background: var(--card);
+color: var(--text);
+padding: 0 14px;
+font-size: 1rem;
+margin: 16px 0 28px;
+font-variant-numeric: tabular-nums;
+}
+.search:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.glossary-list {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.glossary-item {
+padding: 16px 0;
+border-bottom: 1px solid var(--border);
+}
+.glossary-item h2 {
+font-size: 1.05rem;
+margin: 0 0 6px;
+letter-spacing: 0;
+font-weight: 650;
+}
+.glossary-item p { margin: 0; color: var(--muted); }
+.letter {
+font-size: 1.5rem;
+margin: 28px 0 0;
+color: var(--muted);
+}
+.glossary-item[hidden], .letter[hidden] { display: none; }
+.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
+.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
+.hub-qs a:hover { text-decoration: underline; }
+.hub-kicker {
+margin: 0 0 4px;
+font-size: 0.72rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--muted);
+font-weight: 700;
+}
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }
 .card:has(#td-results:not([hidden])),.card:has(#nm-results:not([hidden])),.card:has(#td-mypanel:not([hidden])){position:relative;z-index:40}
 .td-search{position:relative;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 #td-mypanel{min-width:280px}
@@ -1308,7 +1476,7 @@ color:var(--muted);padding:7px 2px;border-top:1px solid var(--border)}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Taipei","address":{"@type":"PostalAddress","addressLocality":"Taipei","addressCountry":"TW"},"geo":{"@type":"GeoCoordinates","latitude":25.03,"longitude":121.57},"containedInPlace":[{"@type":"Country","name":"Taiwan"}],"url":"https://timeandspace.science/world-clock/taipei/"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What time is it in Taipei, Taiwan right now?","acceptedAnswer":{"@type":"Answer","text":"The clock at the top of this page shows Taipei's current local time and updates every minute. Taipei is on Taiwan Standard Time (UTC+8). The clocks there do not change during the year."}},{"@type":"Question","name":"What time zone is Taipei in?","acceptedAnswer":{"@type":"Answer","text":"Taipei uses the Asia/Taipei time zone, known as Taiwan Standard Time, currently UTC+8. The clocks there do not change during the year."}},{"@type":"Question","name":"How far ahead or behind is Taipei?","acceptedAnswer":{"@type":"Answer","text":"The table on this page compares Taipei with six major cities, and the line under the clock works out the difference from your own time zone as soon as the page loads."}}]}</script>
 
-<!-- build fef91f6f2976 · generated 2026-08-28T04:20:18.726Z -->
+<!-- build 02e78b8c4933 · generated 2026-08-28T04:26:15.812Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/globe.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1453,7 +1621,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <h1>Current Time in Taipei, Taiwan</h1>
   <p class="sub">Taipei is on Taiwan Standard Time, UTC+8. Taipei keeps the same offset all year — the clocks there do not change. The sun rises there at 5:34 AM and sets at 6:19 PM today.</p>
   <div class="card wc-nowcard" id="wcp" data-tz="Asia/Taipei" data-city="Taipei">
-    <div class="wc-bigtime" id="wc-big">12:19 PM</div>
+    <div class="wc-bigtime" id="wc-big">12:25 PM</div>
     <div class="wc-bigdate" id="wc-bigdate">Friday, August 28, 2026</div>
     <p class="wc-diff" id="wc-diff">The difference from your own time zone appears here when the page loads.</p>
     <button type="button" class="btn small secondary" id="wc-fmt">24-hour</button>
@@ -1465,7 +1633,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   </div>
   <div class="card">
     <h2>Taipei time compared with other cities</h2>
-    <div class="td-tablewrap"><table class="wc-ptable"><thead><tr><th>City</th><th>Local time</th><th>Difference from Taipei</th></tr></thead><tbody><tr><td><a href="/world-clock/los-angeles/">Los Angeles, CA</a></td><td class="wc-ptime" data-tz="America/Los_Angeles">9:19 PM</td><td class="wc-pdiff" data-tz="America/Los_Angeles">15 hours behind</td></tr><tr><td><a href="/world-clock/new-york/">New York, NY</a></td><td class="wc-ptime" data-tz="America/New_York">12:19 AM</td><td class="wc-pdiff" data-tz="America/New_York">12 hours behind</td></tr><tr><td><a href="/world-clock/london/">London, UK</a></td><td class="wc-ptime" data-tz="Europe/London">5:19 AM</td><td class="wc-pdiff" data-tz="Europe/London">7 hours behind</td></tr><tr><td><a href="/world-clock/dubai/">Dubai, UAE</a></td><td class="wc-ptime" data-tz="Asia/Dubai">8:19 AM</td><td class="wc-pdiff" data-tz="Asia/Dubai">4 hours behind</td></tr><tr><td><a href="/world-clock/shanghai/">Shanghai, China</a></td><td class="wc-ptime" data-tz="Asia/Shanghai">12:19 PM</td><td class="wc-pdiff" data-tz="Asia/Shanghai">same time</td></tr><tr><td><a href="/world-clock/tokyo/">Tokyo, Japan</a></td><td class="wc-ptime" data-tz="Asia/Tokyo">1:19 PM</td><td class="wc-pdiff" data-tz="Asia/Tokyo">1 hour ahead</td></tr></tbody></table></div>
+    <div class="td-tablewrap"><table class="wc-ptable"><thead><tr><th>City</th><th>Local time</th><th>Difference from Taipei</th></tr></thead><tbody><tr><td><a href="/world-clock/los-angeles/">Los Angeles, CA</a></td><td class="wc-ptime" data-tz="America/Los_Angeles">9:25 PM</td><td class="wc-pdiff" data-tz="America/Los_Angeles">15 hours behind</td></tr><tr><td><a href="/world-clock/new-york/">New York, NY</a></td><td class="wc-ptime" data-tz="America/New_York">12:25 AM</td><td class="wc-pdiff" data-tz="America/New_York">12 hours behind</td></tr><tr><td><a href="/world-clock/london/">London, UK</a></td><td class="wc-ptime" data-tz="Europe/London">5:25 AM</td><td class="wc-pdiff" data-tz="Europe/London">7 hours behind</td></tr><tr><td><a href="/world-clock/dubai/">Dubai, UAE</a></td><td class="wc-ptime" data-tz="Asia/Dubai">8:25 AM</td><td class="wc-pdiff" data-tz="Asia/Dubai">4 hours behind</td></tr><tr><td><a href="/world-clock/shanghai/">Shanghai, China</a></td><td class="wc-ptime" data-tz="Asia/Shanghai">12:25 PM</td><td class="wc-pdiff" data-tz="Asia/Shanghai">same time</td></tr><tr><td><a href="/world-clock/tokyo/">Tokyo, Japan</a></td><td class="wc-ptime" data-tz="Asia/Tokyo">1:25 PM</td><td class="wc-pdiff" data-tz="Asia/Tokyo">1 hour ahead</td></tr></tbody></table></div>
     <p class="hint">Differences follow each region's daylight-saving rules, so they change when either city's clocks move.</p>
   </div>
   <div class="card xl-card">
@@ -1486,6 +1654,14 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     </div>
     <p class="hint">Calculated astronomical positions for these coordinates. Local weather and conditions are not modelled.</p>
     <p class="hint orr-sim">Also see the <a href="/sun-moon-earth-movement-simulator/taipei/">Sun, Earth &amp; Moon movement simulator for Taipei</a>, to watch how the three move together over a day, a week or a month.</p>
+  </div>
+  <div class="card hub-teasers">
+    <h2>Questions this page answers</h2>
+    <ul class="hub-qs">
+<li id="what-is-a-time-zone"><p><a href="/concepts/what-is-a-time-zone/">What is a time zone?</a> A political stripe painted on a rotating ball.</p></li>
+<li id="what-is-utc"><p><a href="/concepts/what-is-utc/">What is UTC?</a> Coordinated Universal Time — the one clock the rest are offsets from.</p></li>
+<li id="what-is-daylight-saving-time"><p><a href="/concepts/what-is-daylight-saving-time/">What is daylight saving time?</a> A twice-a-year decision to shift the clock one hour so evening daylight lasts longer in summer.</p></li>
+</ul>
   </div>
   <div class="card tool-about">
     <h2>About Taipei time</h2>

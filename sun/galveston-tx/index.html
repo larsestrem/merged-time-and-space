@@ -1290,6 +1290,174 @@ fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
 @media (min-width:560px){ h1{font-size:32px} }
 .pl-facts .wc-frow>span{flex:0 0 42%}
 @media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}
+.kicker {
+text-transform: uppercase;
+letter-spacing: 0.12em;
+font-size: 0.72rem;
+color: var(--muted);
+margin: 0 0 8px;
+font-weight: 600;
+}
+.answer {
+font-size: 1.125rem;
+line-height: 1.55;
+}
+.answer a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
+.concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
+.band-deeper h2::after {
+content: " Further down";
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--muted);
+margin-left: 8px;
+font-weight: 600;
+}
+.hub-teaser, .related p, .see-live p {
+margin: 0 0 16px;
+color: var(--muted);
+}
+.hub-teaser a, .related p a, .glossary-item a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.hub-teaser a:hover, .related p a:hover, .glossary-item a:hover { text-decoration: underline; }
+.hub-teaser a.hub-more, .related p a.hub-more, .glossary-item a.hub-more {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+white-space: nowrap;
+margin-left: 0.35em;
+}
+.see-live ul, .related ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: grid;
+gap: 12px;
+}
+.graphic-block {
+margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
+}
+.graphic-block:has(.sys-figwrap) {
+max-width: 620px;
+margin-left: auto;
+margin-right: auto;
+}
+.graphic-block .sys-figwrap,
+.graphic-block .sys-tiltrow,
+.graphic-block .sys-tiltnote {
+max-width: 620px;
+}
+.graphic-block figcaption, figcaption {
+margin-top: 10px;
+color: var(--muted);
+font-size: 0.9rem;
+}
+.more-info {
+margin: 24px 0;
+border: 1px solid var(--border);
+border-radius: 12px;
+background: var(--card);
+padding: 4px 16px 16px;
+}
+.more-info > summary {
+cursor: pointer;
+font-weight: 650;
+padding: 14px 0;
+list-style: none;
+color: var(--text);
+}
+.more-info > summary::-webkit-details-marker { display: none; }
+.more-info > summary::after {
+content: " +";
+color: var(--accent);
+font-weight: 700;
+}
+.more-info[open] > summary::after { content: " −"; }
+.search {
+width: 100%;
+height: 48px;
+border-radius: 10px;
+border: 1px solid var(--border);
+background: var(--card);
+color: var(--text);
+padding: 0 14px;
+font-size: 1rem;
+margin: 16px 0 28px;
+font-variant-numeric: tabular-nums;
+}
+.search:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.glossary-list {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.glossary-item {
+padding: 16px 0;
+border-bottom: 1px solid var(--border);
+}
+.glossary-item h2 {
+font-size: 1.05rem;
+margin: 0 0 6px;
+letter-spacing: 0;
+font-weight: 650;
+}
+.glossary-item p { margin: 0; color: var(--muted); }
+.letter {
+font-size: 1.5rem;
+margin: 28px 0 0;
+color: var(--muted);
+}
+.glossary-item[hidden], .letter[hidden] { display: none; }
+.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
+.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
+.hub-qs a:hover { text-decoration: underline; }
+.hub-kicker {
+margin: 0 0 4px;
+font-size: 0.72rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--muted);
+font-weight: 700;
+}
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }
 .card:has(#td-results:not([hidden])),.card:has(#nm-results:not([hidden])),.card:has(#td-mypanel:not([hidden])){position:relative;z-index:40}
 .td-search{position:relative;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 #td-mypanel{min-width:280px}
@@ -1436,7 +1604,7 @@ color:var(--muted);padding:7px 2px;border-top:1px solid var(--border)}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Sunrise & Sunset","item":"https://timeandspace.science/sun/"},{"@type":"ListItem","position":3,"name":"Galveston, TX","item":"https://timeandspace.science/sun/galveston-tx/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Galveston","address":{"@type":"PostalAddress","addressLocality":"Galveston","addressCountry":"US","addressRegion":"Texas"},"geo":{"@type":"GeoCoordinates","latitude":29.3013,"longitude":-94.7977},"containedInPlace":[{"@type":"AdministrativeArea","name":"Texas"},{"@type":"Country","name":"United States"}],"url":"https://timeandspace.science/sun/galveston-tx/"}</script>
 
-<!-- build fef91f6f2976 · generated 2026-08-28T04:20:18.726Z -->
+<!-- build 02e78b8c4933 · generated 2026-08-28T04:26:15.812Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/sunrise.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1580,14 +1748,14 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 })();</script></div>
   <h1>Sunrise &amp; Sunset in Galveston, TX</h1>
   <p class="sub" id="sun-answer">The sun rises in Galveston today at <b id="sun-a-rise">6:55 AM</b> and sets at <b id="sun-a-set">7:48 PM</b>, giving <b id="sun-a-len">12 hours 53 minutes</b> of daylight — <span id="sun-a-delta">2 minutes less than yesterday</span>. First light is at <b id="sun-a-dawn">6:31 AM</b>, last light at <b id="sun-a-dusk">8:13 PM</b>, and solar noon at <b id="sun-a-noon">1:22 PM</b>.</p>
-    <p class="lt-line" data-lt-tz="America/Chicago">It's <a href="/world-clock/chicago/"><b class="lt-now">11:19 PM</b> Central Daylight Time</a> in Galveston.</p>
+    <p class="lt-line" data-lt-tz="America/Chicago">It's <a href="/world-clock/chicago/"><b class="lt-now">11:25 PM</b> Central Daylight Time</a> in Galveston.</p>
 <p class="hint sun-tzline">Central Daylight Time · <span id="sun-today">Thursday, August 27, 2026</span> · Calculated for central Galveston — recomputed live in your browser for today's date.</p>
   <div class="card sun-arccard">
     <h2>Daylight in Galveston <input type="date" class="sun-hdate" id="sun-date2" aria-label="Pick any date" value="2026-08-27"></h2>
     <p class="sun-arcbar"><b id="sun-arc-len">12 hours 53 minutes</b> of daylight</p>
     <p class="sun-next" id="sun-next">Next: Sunrise tomorrow at 6:56 AM</p>
     <p class="sun-arctimes">Sunrise <b id="sun-arc-rise">6:55 AM</b> <span class="sun-arcsep">·</span> Sunset <b id="sun-arc-set">7:48 PM</b></p>
-    <svg id="sun-arc" viewBox="0 0 640 216" role="img" aria-label="The sun's path through the day: sunrise, solar noon, sunset, and the first-light to last-light band"><defs><linearGradient id="sunArcG" x1="0" y1="20" x2="0" y2="132" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fcd34d" stop-opacity=".40"/><stop offset="1" stop-color="#fcd34d" stop-opacity=".04"/></linearGradient><linearGradient id="sunTwA" x1="0" x2="1"><stop offset="0" stop-color="#141c3a"/><stop offset="1" stop-color="#f59e0b"/></linearGradient><linearGradient id="sunTwB" x1="0" x2="1"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#141c3a"/></linearGradient><clipPath id="sunRailC"><rect x="32" y="172" width="576" height="18" rx="9"/></clipPath></defs><rect x="32" y="20" width="576" height="132" rx="10" fill="#12172b"/><rect x="32" y="132" width="576" height="20" fill="#0a0f22"/><line x1="176" y1="20" x2="176" y2="152" stroke="rgba(148,163,184,.13)" stroke-width="1"/><line x1="320" y1="20" x2="320" y2="152" stroke="rgba(148,163,184,.13)" stroke-width="1"/><line x1="464" y1="20" x2="464" y2="152" stroke="rgba(148,163,184,.13)" stroke-width="1"/><path d="M32 152 L38 152 L44 152 L50 152 L56 152 L62 152 L68 152 L74 152 L80 152 L86 152 L92 152 L98 152 L104 152 L110 152 L116 152 L122 152 L128 152 L134 152 L140 152 L146 152 L152 152 L158 152 L164 152 L170 149.3 L176 145.9 L182 142.5 L188 139 L194 135.4 " fill="none" stroke="#64748b" stroke-width="1.6" stroke-dasharray="4 5" opacity=".6" stroke-linecap="round"/><path d="M194 135.4 L200 131.9 L206 128.8 L212 125.6 L218 122.4 L224 119.2 L230 116 L236 112.9 L242 109.7 L248 106.5 L254 103.3 L260 100.1 L266 96.9 L272 93.8 L278 90.7 L284 87.6 L290 84.6 L296 81.6 L302 78.7 L308 75.9 L314 73.2 L320 70.7 L326 68.4 L332 66.4 L338 64.8 L344 63.6 L350 63.1 L356 63.1 L362 63.7 L368 64.9 L374 66.5 L380 68.5 L386 70.8 L392 73.4 L398 76 L404 78.9 L410 81.8 L416 84.8 L422 87.8 L428 90.9 L434 94 L440 97.1 L446 100.3 L452 103.5 L458 106.7 L464 109.9 L470 113.1 L476 116.3 L482 119.5 L488 122.6 L494 125.8 L500 129 " fill="url(#sunArcG)" stroke="#fcd34d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M500 129 L506 132.1 L512 135.7 L518 139.2 L524 142.7 L530 146.1 L536 149.6 L542 152 L548 152 L554 152 L560 152 L566 152 L572 152 L578 152 L584 152 L590 152 L596 152 L602 152 L608 152 " fill="none" stroke="#64748b" stroke-width="1.6" stroke-dasharray="4 5" opacity=".6" stroke-linecap="round"/><line x1="32" y1="132" x2="608" y2="132" stroke="rgba(148,163,184,.5)" stroke-width="1"/><circle cx="198" cy="132" r="4.5" fill="#fcd34d" stroke="#12172b" stroke-width="1.5"/><circle cx="507.2" cy="132" r="4.5" fill="#fcd34d" stroke="#12172b" stroke-width="1.5"/><text x="189.0" y="121" text-anchor="end" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">Sunrise </tspan><tspan class="sun-aS"></tspan>6:55 AM</text><text x="516.2" y="121" text-anchor="start" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">Sunset </tspan><tspan class="sun-aS"></tspan>7:48 PM</text><g transform="translate(352.8 63)"><circle r="5" fill="#fcd34d"/><line x1="6.8" y1="0.0" x2="9.4" y2="0.0" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="4.8" y1="4.8" x2="6.6" y2="6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="0.0" y1="6.8" x2="0.0" y2="9.4" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-4.8" y1="4.8" x2="-6.6" y2="6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-6.8" y1="0.0" x2="-9.4" y2="0.0" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-4.8" y1="-4.8" x2="-6.6" y2="-6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-0.0" y1="-6.8" x2="-0.0" y2="-9.4" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="4.8" y1="-4.8" x2="6.6" y2="-6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/></g><text x="352.8" y="46.0" text-anchor="middle" font-size="11" fill="#94a3b8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-pk"><tspan class="sun-aL">Solar noon </tspan><tspan class="sun-aS">Noon </tspan>1:22 PM · <tspan class="sun-aL">sun </tspan><tspan class="sun-aS"></tspan>71° high</text><rect x="32" y="172" width="576" height="18" rx="9" fill="#0a0f22" stroke="rgba(148,163,184,.25)"/><rect x="188.4" y="172" width="9.6" height="18" fill="url(#sunTwA)" clip-path="url(#sunRailC)"/><rect x="198" y="172" width="309.2" height="18" fill="#fbbf24" clip-path="url(#sunRailC)"/><rect x="507.2" y="172" width="10.0" height="18" fill="url(#sunTwB)" clip-path="url(#sunRailC)"/><line x1="188.4" y1="168" x2="188.4" y2="194" stroke="#93c5fd" stroke-width="1.4"/><text x="179.4" y="163" text-anchor="end" font-size="11" fill="#93c5fd" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">First light </tspan><tspan class="sun-aS">First </tspan>6:31 AM</text><line x1="517.2" y1="168" x2="517.2" y2="194" stroke="#93c5fd" stroke-width="1.4"/><text x="526.2" y="163" text-anchor="start" font-size="11" fill="#93c5fd" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">Last light </tspan><tspan class="sun-aS">Last </tspan>8:13 PM</text><text x="32" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">12 AM</text><text x="176" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">6 AM</text><text x="320" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">12 PM</text><text x="464" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">6 PM</text><text x="608" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">12 AM</text></svg>
+    <svg id="sun-arc" viewBox="0 0 640 216" role="img" aria-label="The sun's path through the day: sunrise, solar noon, sunset, and the first-light to last-light band"><defs><linearGradient id="sunArcG" x1="0" y1="20" x2="0" y2="132" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fcd34d" stop-opacity=".40"/><stop offset="1" stop-color="#fcd34d" stop-opacity=".04"/></linearGradient><linearGradient id="sunTwA" x1="0" x2="1"><stop offset="0" stop-color="#141c3a"/><stop offset="1" stop-color="#f59e0b"/></linearGradient><linearGradient id="sunTwB" x1="0" x2="1"><stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#141c3a"/></linearGradient><clipPath id="sunRailC"><rect x="32" y="172" width="576" height="18" rx="9"/></clipPath></defs><rect x="32" y="20" width="576" height="132" rx="10" fill="#12172b"/><rect x="32" y="132" width="576" height="20" fill="#0a0f22"/><line x1="176" y1="20" x2="176" y2="152" stroke="rgba(148,163,184,.13)" stroke-width="1"/><line x1="320" y1="20" x2="320" y2="152" stroke="rgba(148,163,184,.13)" stroke-width="1"/><line x1="464" y1="20" x2="464" y2="152" stroke="rgba(148,163,184,.13)" stroke-width="1"/><path d="M32 152 L38 152 L44 152 L50 152 L56 152 L62 152 L68 152 L74 152 L80 152 L86 152 L92 152 L98 152 L104 152 L110 152 L116 152 L122 152 L128 152 L134 152 L140 152 L146 152 L152 152 L158 152 L164 152 L170 149.3 L176 145.9 L182 142.5 L188 139 L194 135.4 " fill="none" stroke="#64748b" stroke-width="1.6" stroke-dasharray="4 5" opacity=".6" stroke-linecap="round"/><path d="M194 135.4 L200 131.9 L206 128.8 L212 125.6 L218 122.4 L224 119.2 L230 116 L236 112.9 L242 109.7 L248 106.5 L254 103.3 L260 100.1 L266 96.9 L272 93.8 L278 90.7 L284 87.6 L290 84.6 L296 81.6 L302 78.7 L308 75.9 L314 73.2 L320 70.7 L326 68.4 L332 66.4 L338 64.8 L344 63.6 L350 63.1 L356 63.1 L362 63.7 L368 64.9 L374 66.5 L380 68.5 L386 70.8 L392 73.4 L398 76.1 L404 78.9 L410 81.8 L416 84.8 L422 87.8 L428 90.9 L434 94 L440 97.1 L446 100.3 L452 103.5 L458 106.7 L464 109.9 L470 113.1 L476 116.3 L482 119.5 L488 122.6 L494 125.8 L500 129 " fill="url(#sunArcG)" stroke="#fcd34d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M500 129 L506 132.1 L512 135.7 L518 139.2 L524 142.7 L530 146.1 L536 149.6 L542 152 L548 152 L554 152 L560 152 L566 152 L572 152 L578 152 L584 152 L590 152 L596 152 L602 152 L608 152 " fill="none" stroke="#64748b" stroke-width="1.6" stroke-dasharray="4 5" opacity=".6" stroke-linecap="round"/><line x1="32" y1="132" x2="608" y2="132" stroke="rgba(148,163,184,.5)" stroke-width="1"/><circle cx="198" cy="132" r="4.5" fill="#fcd34d" stroke="#12172b" stroke-width="1.5"/><circle cx="507.2" cy="132" r="4.5" fill="#fcd34d" stroke="#12172b" stroke-width="1.5"/><text x="189.0" y="121" text-anchor="end" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">Sunrise </tspan><tspan class="sun-aS"></tspan>6:55 AM</text><text x="516.2" y="121" text-anchor="start" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">Sunset </tspan><tspan class="sun-aS"></tspan>7:48 PM</text><g transform="translate(352.8 63)"><circle r="5" fill="#fcd34d"/><line x1="6.8" y1="0.0" x2="9.4" y2="0.0" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="4.8" y1="4.8" x2="6.6" y2="6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="0.0" y1="6.8" x2="0.0" y2="9.4" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-4.8" y1="4.8" x2="-6.6" y2="6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-6.8" y1="0.0" x2="-9.4" y2="0.0" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-4.8" y1="-4.8" x2="-6.6" y2="-6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="-0.0" y1="-6.8" x2="-0.0" y2="-9.4" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/><line x1="4.8" y1="-4.8" x2="6.6" y2="-6.6" stroke="#fcd34d" stroke-width="1.5" stroke-linecap="round"/></g><text x="352.8" y="46.0" text-anchor="middle" font-size="11" fill="#94a3b8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-pk"><tspan class="sun-aL">Solar noon </tspan><tspan class="sun-aS">Noon </tspan>1:22 PM · <tspan class="sun-aL">sun </tspan><tspan class="sun-aS"></tspan>71° high</text><rect x="32" y="172" width="576" height="18" rx="9" fill="#0a0f22" stroke="rgba(148,163,184,.25)"/><rect x="188.4" y="172" width="9.6" height="18" fill="url(#sunTwA)" clip-path="url(#sunRailC)"/><rect x="198" y="172" width="309.2" height="18" fill="#fbbf24" clip-path="url(#sunRailC)"/><rect x="507.2" y="172" width="10.0" height="18" fill="url(#sunTwB)" clip-path="url(#sunRailC)"/><line x1="188.4" y1="168" x2="188.4" y2="194" stroke="#93c5fd" stroke-width="1.4"/><text x="179.4" y="163" text-anchor="end" font-size="11" fill="#93c5fd" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">First light </tspan><tspan class="sun-aS">First </tspan>6:31 AM</text><line x1="517.2" y1="168" x2="517.2" y2="194" stroke="#93c5fd" stroke-width="1.4"/><text x="526.2" y="163" text-anchor="start" font-size="11" fill="#93c5fd" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" font-weight="700"><tspan class="sun-aL">Last light </tspan><tspan class="sun-aS">Last </tspan>8:13 PM</text><text x="32" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">12 AM</text><text x="176" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">6 AM</text><text x="320" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">12 PM</text><text x="464" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">6 PM</text><text x="608" y="206" text-anchor="middle" font-size="9.5" fill="#7c88a8" paint-order="stroke" stroke="#12172b" stroke-width="3.5" stroke-linejoin="round" class="sun-ax">12 AM</text></svg>
     <p class="hint">The curve is how high the sun climbs through the day; the band beneath it runs from first light to last light.</p>
     <p class="sun-tmwlink"><a href="/sun/galveston-tx/?date=2026-08-28" id="sun-tmwlink-a" data-sun-base="/sun/galveston-tx/">Tomorrow's sunrise in Galveston &middot; <b id="sun-tmwlink-rise">6:56 AM</b> &rarr;</a></p>
   </div>
@@ -1609,21 +1777,21 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <h2 id="sun-now-h2">Where the sun is right now</h2>
     <div class="sun-nowgrid">
         <figure class="orr" aria-describedby="orr-note">
-      <div class="orr-fig" id="orr-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="374.5,111.8 372.9,108.9 371.1,106.2 368.9,103.7 366.5,101.4 363.8,99.4 360.9,97.6 357.8,96.2 354.6,95 351.2,94.2 347.8,93.6 344.3,93.4 340.7,93.6 337.2,94 333.7,94.8 330.3,95.9 327,97.3 323.8,99 320.8,101 318,103.2 315.4,105.7 313.1,108.3 311.1,111.2 309.3,114.2 307.9,117.4 306.7,120.6 305.9,123.9 305.5,127.3 305.4,130.6 305.6,133.9 306.2,137.2 307.2,140.4 308.4,143.4 310,146.3 311.9,149 314.1,151.5 316.5,153.8 319.2,155.8 322.1,157.6 325.1,159.1 328.4,160.2 331.7,161.1 335.2,161.6 338.7,161.8 342.2,161.7 345.8,161.2 349.2,160.4 352.7,159.3 356,157.9 359.1,156.2 362.1,154.3 364.9,152 367.5,149.6 369.8,146.9 371.9,144.1 373.6,141 375.1,137.9 376.2,134.6 377,131.3 377.4,128 377.5,124.6 377.3,121.3 376.7,118 375.8,114.9 374.5,111.8" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.8 119.9" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.8" cy="119.9" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="334.3" y="116.2" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M372.6 142.8L394.1 148.9" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="372.6" cy="142.8" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="397.9" y="154" text-anchor="start" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Galveston</text><circle cx="452" cy="134" r="11.45" fill="#4b5563"/><path d="M452 122.5A11.45 11.45 0 0 0 452 145.4Z" fill="#e8eef7"/><circle cx="452" cy="134" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="452" y="156.4" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Full moon</text></g></svg></div>
+      <div class="orr-fig" id="orr-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="374.5,111.8 372.9,108.9 371.1,106.2 368.9,103.7 366.5,101.4 363.8,99.4 360.9,97.6 357.8,96.2 354.6,95 351.2,94.2 347.8,93.6 344.3,93.4 340.7,93.6 337.2,94 333.7,94.8 330.3,95.9 327,97.3 323.8,99 320.8,101 318,103.2 315.4,105.7 313.1,108.3 311.1,111.2 309.3,114.2 307.9,117.4 306.7,120.6 305.9,123.9 305.5,127.3 305.4,130.6 305.6,133.9 306.2,137.2 307.2,140.4 308.4,143.4 310,146.3 311.9,149 314.1,151.5 316.5,153.8 319.2,155.8 322.1,157.6 325.1,159.1 328.4,160.2 331.7,161.1 335.2,161.6 338.7,161.8 342.2,161.7 345.8,161.2 349.2,160.4 352.7,159.3 356,157.9 359.1,156.2 362.1,154.3 364.9,152 367.5,149.6 369.8,146.9 371.9,144.1 373.6,141 375.1,137.9 376.2,134.6 377,131.3 377.4,128 377.5,124.6 377.3,121.3 376.7,118 375.8,114.9 374.5,111.8" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.8 119.9" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.8" cy="119.9" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="334.3" y="116.2" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M373.1 142.1L394.5 147.5" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="373.1" cy="142.1" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="398.3" y="152.4" text-anchor="start" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Galveston</text><circle cx="452" cy="133.9" r="11.45" fill="#4b5563"/><path d="M452 122.4A11.45 11.45 0 0 0 452 145.3Z" fill="#e8eef7"/><circle cx="452" cy="133.9" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="452" y="156.3" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Full moon</text></g></svg></div>
       <p class="orr-stamp">
-        <input type="datetime-local" class="orr-at" id="orr-at" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-27T23:19" disabled aria-label="Date and time to draw the sun and moon for">
+        <input type="datetime-local" class="orr-at" id="orr-at" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-27T23:25" disabled aria-label="Date and time to draw the sun and moon for">
         <button type="button" class="chip orr-now orr-play" id="orr-play" hidden aria-pressed="false">Play</button>
         <button type="button" class="chip orr-now" id="orr-now" hidden>Now</button>
       </p>
       <p class="orr-scrub">
-        <input type="range" class="orr-slider" id="orr-slider" min="0" max="42524" step="5" value="1399" disabled aria-label="Move through one full cycle of the moon">
+        <input type="range" class="orr-slider" id="orr-slider" min="0" max="42524" step="5" value="1405" disabled aria-label="Move through one full cycle of the moon">
         <span class="orr-scrub-lab" id="orr-scrub-lab">Press Play, or drag: end to end is one full turn of the moon round the Earth — 29 days and 13 hours</span>
       </p>
     </figure>
     <div class="sun-nowstats">
-      <div class="sun-srow sun-main"><span>Altitude</span><b id="sun-now-alt">-41.1°</b></div>
+      <div class="sun-srow sun-main"><span>Altitude</span><b id="sun-now-alt">-42.0°</b></div>
       <div class="sun-srow sun-main"><span>Direction</span><b id="sun-now-dir">northwest</b></div>
-      <div class="sun-srow"><span>Azimuth</span><b id="sun-now-az">318.7°</b></div>
+      <div class="sun-srow"><span>Azimuth</span><b id="sun-now-az">320.3°</b></div>
       <div class="sun-srow"><span id="sun-now-rowlab">Right now</span><b id="sun-now-phase">Night</b></div>
     </div>
     </div>
@@ -1631,8 +1799,8 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 <p class="hint orr-tide">That angle sets the tides, too. The moon does most of the pulling and the sun about half as much, so when the two line up — new moon and full moon — their pulls add and the tide runs to its biggest (spring tides); when they sit square on at the quarters the pulls fight and it runs to its smallest (neaps). The coast follows a day or two behind, and the shape of the shore matters as much as the sky does. <a href="/tides/galveston-tx/">Predicted tide times for Galveston Pier 21, TX &rarr;</a></p>
     <p class="hint orr-sim">Also see the <a href="/sun-moon-earth-movement-simulator/galveston-tx/" data-xlink="sim">Sun, Earth &amp; Moon movement simulator for Galveston</a>, to watch how the three move together over a day, a week or a month.</p>
 
-    <p class="sun-nowmoon" id="sun-nowmoon">The moon is up too — <b>41.4°</b> above the horizon in the <b>southeast</b>. <a href="/moon/galveston-tx/">Moonrise, moonset and tonight's phase &rarr;</a></p>
-    <p class="hint"><span id="sun-now-note">The sun is far below the horizon — full astronomical darkness.</span> Altitude is how far above the horizon the sun sits; azimuth is the compass bearing to look along, measured clockwise from north. <span id="sun-now-stamp">Shown for 11:19 PM; this updates to the live position when the page loads.</span></p>
+    <p class="sun-nowmoon" id="sun-nowmoon">The moon is up too — <b>42.2°</b> above the horizon in the <b>southeast</b>. <a href="/moon/galveston-tx/">Moonrise, moonset and tonight's phase &rarr;</a></p>
+    <p class="hint"><span id="sun-now-note">The sun is far below the horizon — full astronomical darkness.</span> Altitude is how far above the horizon the sun sits; azimuth is the compass bearing to look along, measured clockwise from north. <span id="sun-now-stamp">Shown for 11:25 PM; this updates to the live position when the page loads.</span></p>
   </div>
 <div class="duo">  <div class="card sun-tmwcard" id="sun-tomorrow">
     <h2>Sunrise &amp; sunset tomorrow in Galveston</h2>
@@ -1726,6 +1894,14 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       </a>
     </div>
     <p class="hint">Calculated astronomical positions for these coordinates. Local weather and conditions are not modelled.</p>
+  </div>
+  <div class="card hub-teasers">
+    <h2>Questions this page answers</h2>
+    <ul class="hub-qs">
+<li id="why-do-we-have-seasons"><p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun.</p></li>
+<li id="what-is-twilight"><p><a href="/concepts/what-is-twilight/">What is twilight?</a> Twilight is the time when the Sun is below the horizon but still lighting the sky.</p></li>
+<li id="what-is-daylight-saving-time"><p><a href="/concepts/what-is-daylight-saving-time/">What is daylight saving time?</a> A twice-a-year decision to shift the clock one hour so evening daylight lasts longer in summer.</p></li>
+</ul>
   </div>
 
   <div class="card">

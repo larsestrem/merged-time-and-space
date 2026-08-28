@@ -131,6 +131,21 @@ export function hubQs(slugs, hubPath = "") {
   return `<ul class="hub-qs">\n${items}\n</ul>`;
 }
 
+/**
+ * A compact question card for the PER-PLACE pages (sun, moon, tide, clock
+ * cities). The hubs carry the full teaser stack; a city page gets the two or
+ * three questions its numbers keep raising, so ~2,600 pages that used to
+ * dead-end now route into the concept pages — the URLs this site wants to
+ * rank. Slugs are named by the caller: the mapping is editorial, not derived,
+ * because "which question does a sunrise table raise" is a judgement. */
+export function placeQuestionsCard(slugs, hubPath) {
+  return `  <div class="card hub-teasers">
+    <h2>Questions this page answers</h2>
+    ${hubQs(slugs, hubPath)}
+  </div>
+`;
+}
+
 function firstSentence(s) {
   const m = String(s).match(/^.+?[.](?=\s|$)/);
   return m ? m[0] : s;

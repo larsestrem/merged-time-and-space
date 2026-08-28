@@ -1296,6 +1296,174 @@ fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
 @media (min-width:560px){ h1{font-size:32px} }
 .pl-facts .wc-frow>span{flex:0 0 42%}
 @media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}
+.kicker {
+text-transform: uppercase;
+letter-spacing: 0.12em;
+font-size: 0.72rem;
+color: var(--muted);
+margin: 0 0 8px;
+font-weight: 600;
+}
+.answer {
+font-size: 1.125rem;
+line-height: 1.55;
+}
+.answer a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
+.concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
+.band-deeper h2::after {
+content: " Further down";
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--muted);
+margin-left: 8px;
+font-weight: 600;
+}
+.hub-teaser, .related p, .see-live p {
+margin: 0 0 16px;
+color: var(--muted);
+}
+.hub-teaser a, .related p a, .glossary-item a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.hub-teaser a:hover, .related p a:hover, .glossary-item a:hover { text-decoration: underline; }
+.hub-teaser a.hub-more, .related p a.hub-more, .glossary-item a.hub-more {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+white-space: nowrap;
+margin-left: 0.35em;
+}
+.see-live ul, .related ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: grid;
+gap: 12px;
+}
+.graphic-block {
+margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
+}
+.graphic-block:has(.sys-figwrap) {
+max-width: 620px;
+margin-left: auto;
+margin-right: auto;
+}
+.graphic-block .sys-figwrap,
+.graphic-block .sys-tiltrow,
+.graphic-block .sys-tiltnote {
+max-width: 620px;
+}
+.graphic-block figcaption, figcaption {
+margin-top: 10px;
+color: var(--muted);
+font-size: 0.9rem;
+}
+.more-info {
+margin: 24px 0;
+border: 1px solid var(--border);
+border-radius: 12px;
+background: var(--card);
+padding: 4px 16px 16px;
+}
+.more-info > summary {
+cursor: pointer;
+font-weight: 650;
+padding: 14px 0;
+list-style: none;
+color: var(--text);
+}
+.more-info > summary::-webkit-details-marker { display: none; }
+.more-info > summary::after {
+content: " +";
+color: var(--accent);
+font-weight: 700;
+}
+.more-info[open] > summary::after { content: " −"; }
+.search {
+width: 100%;
+height: 48px;
+border-radius: 10px;
+border: 1px solid var(--border);
+background: var(--card);
+color: var(--text);
+padding: 0 14px;
+font-size: 1rem;
+margin: 16px 0 28px;
+font-variant-numeric: tabular-nums;
+}
+.search:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.glossary-list {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.glossary-item {
+padding: 16px 0;
+border-bottom: 1px solid var(--border);
+}
+.glossary-item h2 {
+font-size: 1.05rem;
+margin: 0 0 6px;
+letter-spacing: 0;
+font-weight: 650;
+}
+.glossary-item p { margin: 0; color: var(--muted); }
+.letter {
+font-size: 1.5rem;
+margin: 28px 0 0;
+color: var(--muted);
+}
+.glossary-item[hidden], .letter[hidden] { display: none; }
+.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
+.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
+.hub-qs a:hover { text-decoration: underline; }
+.hub-kicker {
+margin: 0 0 4px;
+font-size: 0.72rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--muted);
+font-weight: 700;
+}
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }
 .card:has(#td-results:not([hidden])),.card:has(#nm-results:not([hidden])),.card:has(#td-mypanel:not([hidden])){position:relative;z-index:40}
 .td-search{position:relative;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 #td-mypanel{min-width:280px}
@@ -1442,7 +1610,7 @@ color:var(--muted);padding:7px 2px;border-top:1px solid var(--border)}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many tides a day does Fernandina Beach, FL get?","acceptedAnswer":{"@type":"Answer","text":"Fernandina Beach typically gets two high tides and two low tides each day — a semidiurnal pattern. Exact times for today are on the live chart above."}},{"@type":"Question","name":"What is the tidal range at Fernandina Beach, FL?","acceptedAnswer":{"@type":"Answer","text":"The range between low and high water at Fernandina Beach is moderate to large, often 5 to 6 feet. The chart above shows the exact predicted heights for the days you pick, straight from NOAA station 8720030."}},{"@type":"Question","name":"Where does the tide data come from?","acceptedAnswer":{"@type":"Answer","text":"Straight from NOAA CO-OPS, the official U.S. source for tide predictions — for Fernandina Beach, FL it uses the NOAA station listed above. Heights are in feet above MLLW (mean lower low water, the standard chart datum) and times are shown in the station's own local time."}},{"@type":"Question","name":"How far ahead can I see the tides?","acceptedAnswer":{"@type":"Answer","text":"Tide predictions are computed from astronomy (the positions of the moon and sun), so they're available about a year ahead. Use the date-range finder to list every high tide between any two dates — for general reference and low-risk scheduling only. Before any marine or shoreline activity, confirm conditions with official local forecasts, alerts, harbor guidance, and NOAA."}},{"@type":"Question","name":"What is a king tide?","acceptedAnswer":{"@type":"Answer","text":"An informal name for the highest tides of the year, which happen when a new or full moon lines up with the moon's closest approach to Earth. In the finder, the top 10% highest tides in your range are marked with a crown — periods with some of the highest predicted astronomical tides of the year."}},{"@type":"Question","name":"What actually makes the tide bigger or smaller?","acceptedAnswer":{"@type":"Answer","text":"The engine is gravity: the moon and sun pull the ocean into bulges. When they line up at a new or full moon you get the biggest swings (spring tides); at quarter moons their pulls partly cancel (neap tides), and the moon's closest approach (perigee) super-sizes things further — that's a king tide. River flow, the shape of the bay, and long-term sea-level cycles can also affect the actual water level, which is why real conditions can differ from the astronomical prediction shown here."}},{"@type":"Question","name":"What are the highest tides in the world — and in the U.S.?","acceptedAnswer":{"@type":"Answer","text":"The world's largest tides are in Canada's Bay of Fundy, where the range between low and high can top 50 feet (it's outside NOAA's network, so it isn't listed here). In the U.S., the giants are Alaska's Cook Inlet — Anchorage sees swings around 26–30 feet — along with Southeast Alaska ports like Skagway, and on the East Coast, Eastport, Maine at roughly 18 feet. All of those have dedicated pages here."}},{"@type":"Question","name":"Can I save my home beach and other spots I follow?","acceptedAnswer":{"@type":"Answer","text":"Yes — tap ＋ Add to Saved Stations next to any station's name (it turns into a green Saved note), or ＋ Add nearest inside the Saved Stations dropdown to add the station closest to you (allow location access). Your saved spots appear as one-tap cards on the tides home page, the Default column's radio button picks your primary station, and Edit removes stations. Everything is stored on your device; no account needed."}},{"@type":"Question","name":"Is this free? Do I need an account?","acceptedAnswer":{"@type":"Answer","text":"Completely free, no sign-up. It's built on public NOAA data and works on any device."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Tide Charts","item":"https://timeandspace.science/tides/"},{"@type":"ListItem","position":3,"name":"Fernandina Beach, FL","item":"https://timeandspace.science/tides/fernandina-beach-fl/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Fernandina Beach tide station (NOAA 8720030)","url":"https://timeandspace.science/tides/fernandina-beach-fl/","geo":{"@type":"GeoCoordinates","latitude":30.67,"longitude":-81.47},"address":{"@type":"PostalAddress","addressLocality":"Fernandina Beach","addressRegion":"Florida","addressCountry":"US"},"containedInPlace":[{"@type":"AdministrativeArea","name":"Nassau County"},{"@type":"AdministrativeArea","name":"Florida"},{"@type":"Country","name":"United States"}]}</script>
-<!-- build fef91f6f2976 · generated 2026-08-28T04:20:18.726Z -->
+<!-- build 02e78b8c4933 · generated 2026-08-28T04:26:15.812Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/wave.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1584,7 +1752,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <h1>Fernandina Beach, FL Tide Chart</h1>
   <p class="sub">Today's high and low tide times for Fernandina Beach, FL — see the next high and low tide, water heights, and a live tide chart, straight from NOAA.</p>
   <p class="sub td-answer">On Friday, August 28, Fernandina Beach has high tides at <b>9:33 AM</b> (6.3 ft) and <b>9:56 PM</b> (6.7 ft), and low tides at <b>3:18 AM</b> (0.5 ft) and <b>3:26 PM</b> (0.5 ft). These are NOAA astronomical predictions in Fernandina Beach local time, with heights in feet above MLLW.</p>
-  <p class="lt-line" data-lt-tz="America/New_York">It's <a href="/world-clock/new-york/"><b class="lt-now">12:19 AM</b> Eastern Daylight Time</a> in Fernandina Beach, FL.</p>
+  <p class="lt-line" data-lt-tz="America/New_York">It's <a href="/world-clock/new-york/"><b class="lt-now">12:25 AM</b> Eastern Daylight Time</a> in Fernandina Beach, FL.</p>
 <script>window.TIDE_BAKED={"id":"8720030","ev":[["2026-08-27 02:41",0.73,0],["2026-08-27 08:51",6.05,1],["2026-08-27 14:44",0.55,0],["2026-08-27 21:17",6.71,1],["2026-08-28 03:18",0.54,0],["2026-08-28 09:33",6.26,1],["2026-08-28 15:26",0.46,0],["2026-08-28 21:56",6.69,1],["2026-08-29 03:54",0.38,0],["2026-08-29 10:14",6.44,1],["2026-08-29 16:08",0.44,0],["2026-08-29 22:35",6.6,1],["2026-08-30 04:31",0.28,0],["2026-08-30 10:56",6.59,1],["2026-08-30 16:51",0.5,0],["2026-08-30 23:16",6.47,1],["2026-08-31 05:10",0.23,0],["2026-08-31 11:40",6.71,1],["2026-08-31 17:36",0.64,0],["2026-08-31 23:58",6.29,1],["2026-09-01 05:52",0.26,0],["2026-09-01 12:26",6.79,1],["2026-09-01 18:27",0.84,0],["2026-09-02 00:44",6.1,1],["2026-09-02 06:39",0.35,0],["2026-09-02 13:15",6.82,1],["2026-09-02 19:24",1.06,0],["2026-09-03 01:34",5.9,1],["2026-09-03 07:33",0.48,0],["2026-09-03 14:11",6.81,1],["2026-09-03 20:28",1.23,0],["2026-09-04 02:31",5.73,1],["2026-09-04 08:35",0.58,0],["2026-09-04 15:15",6.79,1],["2026-09-04 21:36",1.27,0],["2026-09-05 03:38",5.64,1],["2026-09-05 09:41",0.6,0],["2026-09-05 16:25",6.84,1],["2026-09-05 22:41",1.18,0],["2026-09-06 04:49",5.71,1],["2026-09-06 10:47",0.52,0],["2026-09-06 17:34",6.97,1],["2026-09-06 23:43",0.99,0],["2026-09-07 05:58",5.93,1],["2026-09-07 11:51",0.4,0],["2026-09-07 18:38",7.16,1],["2026-09-08 00:42",0.74,0],["2026-09-08 07:02",6.27,1],["2026-09-08 12:54",0.24,0],["2026-09-08 19:36",7.33,1],["2026-09-09 01:37",0.47,0],["2026-09-09 08:00",6.64,1],["2026-09-09 13:52",0.1,0],["2026-09-09 20:28",7.41,1],["2026-09-10 02:27",0.23,0],["2026-09-10 08:52",6.95,1],["2026-09-10 14:46",0.02,0],["2026-09-10 21:15",7.37,1],["2026-09-11 03:13",0.09,0],["2026-09-11 09:41",7.14,1],["2026-09-11 15:36",0.07,0],["2026-09-11 22:00",7.21,1],["2026-09-12 03:55",0.07,0],["2026-09-12 10:28",7.22,1],["2026-09-12 16:23",0.24,0],["2026-09-12 22:44",6.96,1]]};</script>
 <div class="td-hero">
 
@@ -1736,6 +1904,13 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <a class="btn secondary" style="width:auto;display:inline-flex;margin:0 8px 8px 0" href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8720030" rel="noopener" target="_blank">NOAA official predictions for this station →</a>
     </p>
   </div></div>
+  <div class="card hub-teasers">
+    <h2>Questions this page answers</h2>
+    <ul class="hub-qs">
+<li id="what-causes-tides"><p><a href="/concepts/what-causes-tides/">What causes tides?</a> The Moon’s gravity pulls harder on the water nearer to it than on the Earth’s centre, and harder on the centre than on the far-side water.</p></li>
+<li id="why-does-the-moon-change-shape"><p><a href="/concepts/why-does-the-moon-change-shape/">Why does the Moon change shape?</a> The Moon makes no light of its own.</p></li>
+</ul>
+  </div>
   <div class="card"><h2>More FL tide stations</h2><div class="timer-presets" style="margin-top:6px"><a class="chip" href="/tides/jacksonville-fl/">Jacksonville</a><a class="chip" href="/tides/cape-canaveral-fl/">Cape Canaveral</a><a class="chip" href="/tides/palm-beach-fl/">Palm Beach</a><a class="chip" href="/tides/miami-fl/">Miami</a><a class="chip" href="/tides/key-west-fl/">Key West</a><a class="chip" href="/tides/naples-fl/">Naples</a><a class="chip" href="/tides/st-petersburg-fl/">St. Petersburg</a><a class="chip" href="/tides/pensacola-fl/">Pensacola</a><a class="chip" href="/tides/st-augustine-fl/">St. Augustine</a><a class="chip" href="/tides/marathon-fl/">Marathon</a><a class="chip" href="/tides/fort-myers-fl/">Fort Myers</a><a class="chip" href="/tides/clearwater-beach-fl/">Clearwater Beach</a><a class="chip" href="/tides/cedar-key-fl/">Cedar Key</a><a class="chip" href="/tides/apalachicola-fl/">Apalachicola</a><a class="chip" href="/tides/panama-city-fl/">Panama City</a><a class="chip" href="/tides/">All stations →</a></div><p class="td-statelink"><a href="/tides/florida/">More tide charts in Florida →</a></p></div>
   <div class="card cd-answer">
     <h2>How many tides a day does Fernandina Beach, FL get?</h2><p>Fernandina Beach typically gets two high tides and two low tides each day — a semidiurnal pattern. Exact times for today are on the live chart above.</p>

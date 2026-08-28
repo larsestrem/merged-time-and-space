@@ -33,7 +33,7 @@ import { CITY_DB, citySlug } from "./cities.mjs";
 /* the city list itself lives in wc-cities.mjs — see the note there */
 import { WC_CITY_LIST as CITIES } from "./wc-cities.mjs";
 import { familyLinks } from "./city-registry.mjs";
-import { hubQuestionsCard } from "./concepts.mjs";
+import { hubQuestionsCard, placeQuestionsCard } from "./concepts.mjs";
 import { astroStrip } from "./crosslinks.mjs";
 /* the same Place + geo node every other place family emits. World-clock city
    pages were the one family without it — breadcrumbs and an FAQ and nothing
@@ -581,7 +581,7 @@ ${GA_SNIPPET}
     <div class="td-tablewrap"><table class="wc-ptable"><thead><tr><th>City</th><th>Local time</th><th>Difference from ${esc(c.city)}</th></tr></thead><tbody>${refRows}</tbody></table></div>
     <p class="hint">Differences follow each region's daylight-saving rules, so they change when either city's clocks move.</p>
   </div>
-${astroCard}  <div class="card tool-about">
+${astroCard}${placeQuestionsCard(["what-is-a-time-zone", "what-is-utc", "what-is-daylight-saving-time"], "/world-clock/")}  <div class="card tool-about">
     <h2>About ${esc(c.city)} time</h2>
     <p>This page shows the local time in ${esc(label)} — the same clock people there are reading. ${esc(dstShort)}</p>
     <p>Comparing several places at once? The <a href="/world-clock/">world clock</a> lists every major UTC offset side by side and marks your own. Waiting for a moment that lands at the same instant everywhere, whatever the zone? Follow a <a href="/countdown/">countdown</a>, or set a <a href="/timer/">timer</a> or an <a href="/alarm-clock/">alarm</a>. <a href="/methodology/time-zones/">How this page knows the offset and the daylight-saving state</a>.</p>

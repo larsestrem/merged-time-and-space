@@ -1290,6 +1290,174 @@ fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
 @media (min-width:560px){ h1{font-size:32px} }
 .pl-facts .wc-frow>span{flex:0 0 42%}
 @media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}
+.kicker {
+text-transform: uppercase;
+letter-spacing: 0.12em;
+font-size: 0.72rem;
+color: var(--muted);
+margin: 0 0 8px;
+font-weight: 600;
+}
+.answer {
+font-size: 1.125rem;
+line-height: 1.55;
+}
+.answer a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
+.concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
+.band-deeper h2::after {
+content: " Further down";
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--muted);
+margin-left: 8px;
+font-weight: 600;
+}
+.hub-teaser, .related p, .see-live p {
+margin: 0 0 16px;
+color: var(--muted);
+}
+.hub-teaser a, .related p a, .glossary-item a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.hub-teaser a:hover, .related p a:hover, .glossary-item a:hover { text-decoration: underline; }
+.hub-teaser a.hub-more, .related p a.hub-more, .glossary-item a.hub-more {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+white-space: nowrap;
+margin-left: 0.35em;
+}
+.see-live ul, .related ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: grid;
+gap: 12px;
+}
+.graphic-block {
+margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
+}
+.graphic-block:has(.sys-figwrap) {
+max-width: 620px;
+margin-left: auto;
+margin-right: auto;
+}
+.graphic-block .sys-figwrap,
+.graphic-block .sys-tiltrow,
+.graphic-block .sys-tiltnote {
+max-width: 620px;
+}
+.graphic-block figcaption, figcaption {
+margin-top: 10px;
+color: var(--muted);
+font-size: 0.9rem;
+}
+.more-info {
+margin: 24px 0;
+border: 1px solid var(--border);
+border-radius: 12px;
+background: var(--card);
+padding: 4px 16px 16px;
+}
+.more-info > summary {
+cursor: pointer;
+font-weight: 650;
+padding: 14px 0;
+list-style: none;
+color: var(--text);
+}
+.more-info > summary::-webkit-details-marker { display: none; }
+.more-info > summary::after {
+content: " +";
+color: var(--accent);
+font-weight: 700;
+}
+.more-info[open] > summary::after { content: " −"; }
+.search {
+width: 100%;
+height: 48px;
+border-radius: 10px;
+border: 1px solid var(--border);
+background: var(--card);
+color: var(--text);
+padding: 0 14px;
+font-size: 1rem;
+margin: 16px 0 28px;
+font-variant-numeric: tabular-nums;
+}
+.search:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.glossary-list {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.glossary-item {
+padding: 16px 0;
+border-bottom: 1px solid var(--border);
+}
+.glossary-item h2 {
+font-size: 1.05rem;
+margin: 0 0 6px;
+letter-spacing: 0;
+font-weight: 650;
+}
+.glossary-item p { margin: 0; color: var(--muted); }
+.letter {
+font-size: 1.5rem;
+margin: 28px 0 0;
+color: var(--muted);
+}
+.glossary-item[hidden], .letter[hidden] { display: none; }
+.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
+.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
+.hub-qs a:hover { text-decoration: underline; }
+.hub-kicker {
+margin: 0 0 4px;
+font-size: 0.72rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--muted);
+font-weight: 700;
+}
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }
 .card:has(#td-results:not([hidden])),.card:has(#nm-results:not([hidden])),.card:has(#td-mypanel:not([hidden])){position:relative;z-index:40}
 .td-search{position:relative;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 #td-mypanel{min-width:280px}
@@ -1436,7 +1604,7 @@ color:var(--muted);padding:7px 2px;border-top:1px solid var(--border)}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Sunrise & Sunset","item":"https://timeandspace.science/sun/"},{"@type":"ListItem","position":3,"name":"Santee, CA","item":"https://timeandspace.science/sun/santee-ca/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Santee","address":{"@type":"PostalAddress","addressLocality":"Santee","addressCountry":"US","addressRegion":"California"},"geo":{"@type":"GeoCoordinates","latitude":32.8384,"longitude":-116.9739},"containedInPlace":[{"@type":"AdministrativeArea","name":"California"},{"@type":"Country","name":"United States"}],"url":"https://timeandspace.science/sun/santee-ca/"}</script>
 
-<!-- build fef91f6f2976 · generated 2026-08-28T04:20:18.726Z -->
+<!-- build 02e78b8c4933 · generated 2026-08-28T04:26:15.812Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/sunrise.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1580,7 +1748,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 })();</script></div>
   <h1>Sunrise &amp; Sunset in Santee, CA</h1>
   <p class="sub" id="sun-answer">The sun rises in Santee today at <b id="sun-a-rise">6:20 AM</b> and sets at <b id="sun-a-set">7:21 PM</b>, giving <b id="sun-a-len">13 hours 0 minutes</b> of daylight — <span id="sun-a-delta">2 minutes less than yesterday</span>. First light is at <b id="sun-a-dawn">5:55 AM</b>, last light at <b id="sun-a-dusk">7:46 PM</b>, and solar noon at <b id="sun-a-noon">12:50 PM</b>.</p>
-    <p class="lt-line" data-lt-tz="America/Los_Angeles">It's <a href="/world-clock/los-angeles/"><b class="lt-now">9:19 PM</b> Pacific Daylight Time</a> in Santee.</p>
+    <p class="lt-line" data-lt-tz="America/Los_Angeles">It's <a href="/world-clock/los-angeles/"><b class="lt-now">9:25 PM</b> Pacific Daylight Time</a> in Santee.</p>
 <p class="hint sun-tzline">Pacific Daylight Time · <span id="sun-today">Thursday, August 27, 2026</span> · Calculated for central Santee — recomputed live in your browser for today's date.</p>
   <div class="card sun-arccard">
     <h2>Daylight in Santee <input type="date" class="sun-hdate" id="sun-date2" aria-label="Pick any date" value="2026-08-27"></h2>
@@ -1609,21 +1777,21 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <h2 id="sun-now-h2">Where the sun is right now</h2>
     <div class="sun-nowgrid">
         <figure class="orr" aria-describedby="orr-note">
-      <div class="orr-fig" id="orr-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="372.9,111.6 371.4,108.8 369.6,106.2 367.5,103.8 365.2,101.6 362.6,99.6 359.8,97.9 356.8,96.5 353.7,95.4 350.5,94.6 347.2,94.1 343.8,93.9 340.4,94 337,94.5 333.6,95.2 330.3,96.3 327.1,97.6 324.1,99.3 321.2,101.1 318.5,103.3 316,105.7 313.8,108.2 311.8,111 310.1,113.9 308.7,116.9 307.6,120.1 306.9,123.3 306.4,126.5 306.3,129.7 306.6,132.9 307.1,136.1 308,139.1 309.3,142 310.8,144.8 312.6,147.5 314.7,149.9 317,152.1 319.6,154 322.4,155.7 325.3,157.1 328.5,158.2 331.7,159.1 335,159.6 338.4,159.8 341.8,159.6 345.2,159.2 348.6,158.4 351.9,157.4 355.1,156 358.1,154.4 361,152.5 363.7,150.4 366.2,148 368.4,145.4 370.4,142.7 372.1,139.7 373.5,136.7 374.6,133.6 375.3,130.4 375.8,127.2 375.8,123.9 375.6,120.7 375,117.6 374.1,114.5 372.9,111.6" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.8 119.9" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.8" cy="119.9" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="334.3" y="116.2" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M362.3 151.5L381.8 170.3" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="362.3" cy="151.5" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="384.7" y="182" text-anchor="start" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Santee</text><circle cx="452" cy="134" r="11.45" fill="#4b5563"/><path d="M452 122.5A11.45 11.45 0 0 0 452 145.4Z" fill="#e8eef7"/><circle cx="452" cy="134" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="452" y="156.4" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Full moon</text></g></svg></div>
+      <div class="orr-fig" id="orr-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="372.9,111.6 371.4,108.8 369.6,106.2 367.5,103.8 365.2,101.6 362.6,99.6 359.8,97.9 356.8,96.5 353.7,95.4 350.5,94.6 347.2,94.1 343.8,93.9 340.4,94 337,94.5 333.6,95.2 330.3,96.3 327.1,97.6 324.1,99.2 321.2,101.1 318.5,103.3 316,105.7 313.8,108.2 311.8,111 310.1,113.9 308.7,116.9 307.6,120.1 306.9,123.3 306.4,126.5 306.3,129.7 306.6,132.9 307.1,136.1 308,139.1 309.3,142 310.8,144.8 312.6,147.5 314.7,149.9 317,152.1 319.6,154 322.4,155.7 325.3,157.1 328.5,158.2 331.7,159.1 335,159.6 338.4,159.8 341.8,159.6 345.2,159.2 348.6,158.4 351.9,157.4 355.1,156 358.1,154.4 361,152.5 363.7,150.4 366.2,148 368.4,145.4 370.4,142.7 372.1,139.8 373.5,136.7 374.6,133.6 375.3,130.4 375.8,127.2 375.9,123.9 375.6,120.7 375,117.6 374.1,114.5 372.9,111.6" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L337.8 119.9" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="337.8" cy="119.9" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="334.3" y="116.2" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">N</text><path class="orr-citytick" d="M363 151L383.1 168.9" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="363" cy="151" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="386.1" y="180.6" text-anchor="start" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Santee</text><circle cx="452" cy="133.9" r="11.45" fill="#4b5563"/><path d="M452 122.4A11.45 11.45 0 0 0 452 145.3Z" fill="#e8eef7"/><circle cx="452" cy="133.9" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="452" y="156.3" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Full moon</text></g></svg></div>
       <p class="orr-stamp">
-        <input type="datetime-local" class="orr-at" id="orr-at" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-27T21:19" disabled aria-label="Date and time to draw the sun and moon for">
+        <input type="datetime-local" class="orr-at" id="orr-at" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-27T21:25" disabled aria-label="Date and time to draw the sun and moon for">
         <button type="button" class="chip orr-now orr-play" id="orr-play" hidden aria-pressed="false">Play</button>
         <button type="button" class="chip orr-now" id="orr-now" hidden>Now</button>
       </p>
       <p class="orr-scrub">
-        <input type="range" class="orr-slider" id="orr-slider" min="0" max="42524" step="5" value="1279" disabled aria-label="Move through one full cycle of the moon">
+        <input type="range" class="orr-slider" id="orr-slider" min="0" max="42524" step="5" value="1285" disabled aria-label="Move through one full cycle of the moon">
         <span class="orr-scrub-lab" id="orr-scrub-lab">Press Play, or drag: end to end is one full turn of the moon round the Earth — 29 days and 13 hours</span>
       </p>
     </figure>
     <div class="sun-nowstats">
-      <div class="sun-srow sun-main"><span>Altitude</span><b id="sun-now-alt">-24.3°</b></div>
+      <div class="sun-srow sun-main"><span>Altitude</span><b id="sun-now-alt">-25.3°</b></div>
       <div class="sun-srow sun-main"><span>Direction</span><b id="sun-now-dir">west-northwest</b></div>
-      <div class="sun-srow"><span>Azimuth</span><b id="sun-now-az">301.0°</b></div>
+      <div class="sun-srow"><span>Azimuth</span><b id="sun-now-az">302.1°</b></div>
       <div class="sun-srow"><span id="sun-now-rowlab">Right now</span><b id="sun-now-phase">Night</b></div>
     </div>
     </div>
@@ -1631,8 +1799,8 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 <p class="hint orr-tide">That angle sets the tides, too. The moon does most of the pulling and the sun about half as much, so when the two line up — new moon and full moon — their pulls add and the tide runs to its biggest (spring tides); when they sit square on at the quarters the pulls fight and it runs to its smallest (neaps). The coast follows a day or two behind, and the shape of the shore matters as much as the sky does. <a href="/tides/san-diego-ca/">Predicted tide times for San Diego, San Diego Bay, CA &rarr;</a></p>
     <p class="hint orr-sim">Also see the <a href="/sun-moon-earth-movement-simulator/santee-ca/" data-xlink="sim">Sun, Earth &amp; Moon movement simulator for Santee</a>, to watch how the three move together over a day, a week or a month.</p>
 
-    <p class="sun-nowmoon" id="sun-nowmoon">The moon is up too — <b>24.4°</b> above the horizon in the <b>east-southeast</b>. <a href="/moon/santee-ca/">Moonrise, moonset and tonight's phase &rarr;</a></p>
-    <p class="hint"><span id="sun-now-note">The sun is far below the horizon — full astronomical darkness.</span> Altitude is how far above the horizon the sun sits; azimuth is the compass bearing to look along, measured clockwise from north. <span id="sun-now-stamp">Shown for 9:19 PM; this updates to the live position when the page loads.</span></p>
+    <p class="sun-nowmoon" id="sun-nowmoon">The moon is up too — <b>25.4°</b> above the horizon in the <b>east-southeast</b>. <a href="/moon/santee-ca/">Moonrise, moonset and tonight's phase &rarr;</a></p>
+    <p class="hint"><span id="sun-now-note">The sun is far below the horizon — full astronomical darkness.</span> Altitude is how far above the horizon the sun sits; azimuth is the compass bearing to look along, measured clockwise from north. <span id="sun-now-stamp">Shown for 9:25 PM; this updates to the live position when the page loads.</span></p>
   </div>
 <div class="duo">  <div class="card sun-tmwcard" id="sun-tomorrow">
     <h2>Sunrise &amp; sunset tomorrow in Santee</h2>
@@ -1720,6 +1888,14 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       </a>
     </div>
     <p class="hint">Calculated astronomical positions for these coordinates. Local weather and conditions are not modelled.</p>
+  </div>
+  <div class="card hub-teasers">
+    <h2>Questions this page answers</h2>
+    <ul class="hub-qs">
+<li id="why-do-we-have-seasons"><p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun.</p></li>
+<li id="what-is-twilight"><p><a href="/concepts/what-is-twilight/">What is twilight?</a> Twilight is the time when the Sun is below the horizon but still lighting the sky.</p></li>
+<li id="what-is-daylight-saving-time"><p><a href="/concepts/what-is-daylight-saving-time/">What is daylight saving time?</a> A twice-a-year decision to shift the clock one hour so evening daylight lasts longer in summer.</p></li>
+</ul>
   </div>
 
   <div class="card">

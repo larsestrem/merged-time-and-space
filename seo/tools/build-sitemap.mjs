@@ -206,7 +206,9 @@ const families = {
     ...group([["/about/work-with-us/", "0.5"]], "about/work-with-us/index.html"),
     ...group([["/sponsors/", "0.4"]], "sponsors/index.html"),
     ...group([["/glossary/", "0.7"]], ...deps("seo/tools/build-glossary.mjs"), "seo/_data/concepts.json"),
-    ...group((await import("./concepts.mjs")).CONCEPT_SLUGS().map((s) => [`/concepts/${s}/`, "0.65"]),
+    /* 0.8, not 0.65: the question pages are the URLs this strategy wants
+       ranked — the crawl signal should not weight them below a timer preset */
+    ...group((await import("./concepts.mjs")).CONCEPT_SLUGS().map((s) => [`/concepts/${s}/`, "0.8"]),
              ...deps("seo/tools/build-concepts.mjs"), "seo/_data/concepts.json"),
     ...group([["/browser-limitations/", "0.5"]], "browser-limitations/index.html"),
     ...group([["/suggest-event/", "0.4"]], "suggest-event/index.html"),
@@ -308,6 +310,8 @@ const FAMILIES = [
   ["/planets/", "The planets", "Every planet in orbital order with a picture and a couple of paragraphs each, the asteroid belt in its place, and a page for every one."],
   ["/solar-system-simulator/", "Solar system simulator", "The planets on their real orbits, with moon systems, the asteroid belt and comets."],
   ["/rocket-launch-simulator/", "Rocket launch simulator", "When the next launch window to Mars, Jupiter and Saturn opens, what it costs, and how the real missions compare."],
+  ["/concepts/", "Questions & concepts", "One question per URL, answered in the first paragraph: why we have seasons, what causes tides, why the moon changes shape, what a time zone is — each with a computed drawing."],
+  ["/glossary/", "Glossary", "Every term on the site, A to Z, each linking to the question page that explains it."],
   ["/countdown/", "Countdowns", "Countdown pages for holidays, celebrity birthdays, sports and anniversaries."],
   ["/calendar/", "Events calendar", "Every countdown by month. Also published as a subscribable feed at /calendar/events.ics."],
   ["/methodology/", "Methodology", "How each figure on the site is worked out, and where it stops being reliable."],

@@ -18,7 +18,7 @@ import { tideCurve } from "./tide-curve.mjs";
 import { tideChartSvg, tideSeries, TIDE_W, TIDE_H_PAGE } from "./tide-chart.mjs";
 import { stationToSun } from "./coastal.mjs";
 import { astroStripForStation, simLink } from "./crosslinks.mjs";
-import { hubQuestionsCard } from "./concepts.mjs";
+import { hubQuestionsCard, placeQuestionsCard } from "./concepts.mjs";
 import { placeFacts, resolvePlace } from "./place.mjs";
 import { localTimeLine } from "./localtime.mjs";
 
@@ -1089,7 +1089,7 @@ ${placeJsonLd}
 ${tideAnswer(s.city, todayTides.get(s.slug))}${localTimeLine(`${s.city}, ${s.st}`, s.tz)}${bakedData(s)}${STATION_TOOL({ stateLink: adminStateLink, ssrChart: ssrChartFor(s), note: BETA_NOTE, bakedTable: tidesTable(todayTides.get(s.slug), s), sunCard: sunCardFor(s) })}
   ${character}
   ${about}
-  ${nearby}
+${placeQuestionsCard(["what-causes-tides", "why-does-the-moon-change-shape"], "/tides/")}  ${nearby}
   <div class="card cd-answer">
     ${stationFaq.map(([q, a]) => `<h2>${esc(q)}</h2><p>${esc(a)}</p>`).join("\n    ")}
   </div>

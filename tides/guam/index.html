@@ -1296,6 +1296,174 @@ fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
 @media (min-width:560px){ h1{font-size:32px} }
 .pl-facts .wc-frow>span{flex:0 0 42%}
 @media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}
+.kicker {
+text-transform: uppercase;
+letter-spacing: 0.12em;
+font-size: 0.72rem;
+color: var(--muted);
+margin: 0 0 8px;
+font-weight: 600;
+}
+.answer {
+font-size: 1.125rem;
+line-height: 1.55;
+}
+.answer a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.answer a:hover { text-decoration: underline; }
+.concept section, .hub-teasers, .see-live, .related { margin-top: 8px; }
+.band-deeper h2::after {
+content: " Further down";
+font-size: 0.7rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--muted);
+margin-left: 8px;
+font-weight: 600;
+}
+.hub-teaser, .related p, .see-live p {
+margin: 0 0 16px;
+color: var(--muted);
+}
+.hub-teaser a, .related p a, .glossary-item a {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+}
+.hub-teaser a:hover, .related p a:hover, .glossary-item a:hover { text-decoration: underline; }
+.hub-teaser a.hub-more, .related p a.hub-more, .glossary-item a.hub-more {
+font-weight: 600;
+color: var(--accent);
+text-decoration: none;
+white-space: nowrap;
+margin-left: 0.35em;
+}
+.see-live ul, .related ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: grid;
+gap: 12px;
+}
+.graphic-block {
+margin: 24px 0;
+width: 100%;
+}
+.graphic-block > svg,
+.graphic-block .dns-svg,
+.graphic-block .dn-svg,
+.graphic-block .ol-fig,
+.graphic-block .orr-fig,
+.graphic-block .so-wrap,
+.graphic-block .dns-wrap {
+display: block;
+width: 100%;
+max-width: none;
+}
+.graphic-block:has(.sys-figwrap) {
+max-width: 620px;
+margin-left: auto;
+margin-right: auto;
+}
+.graphic-block .sys-figwrap,
+.graphic-block .sys-tiltrow,
+.graphic-block .sys-tiltnote {
+max-width: 620px;
+}
+.graphic-block figcaption, figcaption {
+margin-top: 10px;
+color: var(--muted);
+font-size: 0.9rem;
+}
+.more-info {
+margin: 24px 0;
+border: 1px solid var(--border);
+border-radius: 12px;
+background: var(--card);
+padding: 4px 16px 16px;
+}
+.more-info > summary {
+cursor: pointer;
+font-weight: 650;
+padding: 14px 0;
+list-style: none;
+color: var(--text);
+}
+.more-info > summary::-webkit-details-marker { display: none; }
+.more-info > summary::after {
+content: " +";
+color: var(--accent);
+font-weight: 700;
+}
+.more-info[open] > summary::after { content: " −"; }
+.search {
+width: 100%;
+height: 48px;
+border-radius: 10px;
+border: 1px solid var(--border);
+background: var(--card);
+color: var(--text);
+padding: 0 14px;
+font-size: 1rem;
+margin: 16px 0 28px;
+font-variant-numeric: tabular-nums;
+}
+.search:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.glossary-list {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.glossary-item {
+padding: 16px 0;
+border-bottom: 1px solid var(--border);
+}
+.glossary-item h2 {
+font-size: 1.05rem;
+margin: 0 0 6px;
+letter-spacing: 0;
+font-weight: 650;
+}
+.glossary-item p { margin: 0; color: var(--muted); }
+.letter {
+font-size: 1.5rem;
+margin: 28px 0 0;
+color: var(--muted);
+}
+.glossary-item[hidden], .letter[hidden] { display: none; }
+.hub-qs { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.hub-qs p, .hub-qs li { margin: 0; color: var(--muted); }
+.hub-qs a { font-weight: 600; color: var(--accent); text-decoration: none; }
+.hub-qs a:hover { text-decoration: underline; }
+.hub-kicker {
+margin: 0 0 4px;
+font-size: 0.72rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(--muted);
+font-weight: 700;
+}
+.hub-blurb { margin: 0 0 14px; color: var(--muted); }
+.ol-lesson { margin: 0; }
+.ol-fig { display: block; width: 100%; height: auto; border-radius: 16px; background: #080d1a; }
+.ol-key { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+.ol-k { display: inline-flex; align-items: center; gap: 6px; }
+.ol-k::before { content: ""; width: 14px; height: 3px; border-radius: 2px; flex: 0 0 auto; }
+.ol-k-v::before { background: #4ade80; }
+.ol-k-g::before { background: #fbbf24; }
+.ol-ink-v { color: #4ade80; font-weight: 700; }
+.ol-ink-g { color: #fbbf24; font-weight: 700; }
+.ol-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.ol-btns .chip { width: auto; }
+#ol-play { min-width: 7ch; justify-content: center; }
+.ol-status { margin: 10px 0 0; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ol-status.is-good { color: #4ade80; }
+.ol-status.is-warn { color: #fbbf24; }
+.ol-status.is-bad { color: #f87171; }
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }
 .card:has(#td-results:not([hidden])),.card:has(#nm-results:not([hidden])),.card:has(#td-mypanel:not([hidden])){position:relative;z-index:40}
 .td-search{position:relative;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 #td-mypanel{min-width:280px}
@@ -1442,7 +1610,7 @@ color:var(--muted);padding:7px 2px;border-top:1px solid var(--border)}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many tides a day does Guam (Apra Harbor), GU get?","acceptedAnswer":{"@type":"Answer","text":"Guam (Apra Harbor) typically gets two high tides and two low tides each day — a mixed pattern. Exact times for today are on the live chart above."}},{"@type":"Question","name":"What is the tidal range at Guam (Apra Harbor), GU?","acceptedAnswer":{"@type":"Answer","text":"The range between low and high water at Guam (Apra Harbor) is small, typically 1 to 2 feet. The chart above shows the exact predicted heights for the days you pick, straight from NOAA station 1630000."}},{"@type":"Question","name":"Where does the tide data come from?","acceptedAnswer":{"@type":"Answer","text":"Straight from NOAA CO-OPS, the official U.S. source for tide predictions — for Guam (Apra Harbor), GU it uses the NOAA station listed above. Heights are in feet above MLLW (mean lower low water, the standard chart datum) and times are shown in the station's own local time."}},{"@type":"Question","name":"How far ahead can I see the tides?","acceptedAnswer":{"@type":"Answer","text":"Tide predictions are computed from astronomy (the positions of the moon and sun), so they're available about a year ahead. Use the date-range finder to list every high tide between any two dates — for general reference and low-risk scheduling only. Before any marine or shoreline activity, confirm conditions with official local forecasts, alerts, harbor guidance, and NOAA."}},{"@type":"Question","name":"What is a king tide?","acceptedAnswer":{"@type":"Answer","text":"An informal name for the highest tides of the year, which happen when a new or full moon lines up with the moon's closest approach to Earth. In the finder, the top 10% highest tides in your range are marked with a crown — periods with some of the highest predicted astronomical tides of the year."}},{"@type":"Question","name":"What actually makes the tide bigger or smaller?","acceptedAnswer":{"@type":"Answer","text":"The engine is gravity: the moon and sun pull the ocean into bulges. When they line up at a new or full moon you get the biggest swings (spring tides); at quarter moons their pulls partly cancel (neap tides), and the moon's closest approach (perigee) super-sizes things further — that's a king tide. River flow, the shape of the bay, and long-term sea-level cycles can also affect the actual water level, which is why real conditions can differ from the astronomical prediction shown here."}},{"@type":"Question","name":"What are the highest tides in the world — and in the U.S.?","acceptedAnswer":{"@type":"Answer","text":"The world's largest tides are in Canada's Bay of Fundy, where the range between low and high can top 50 feet (it's outside NOAA's network, so it isn't listed here). In the U.S., the giants are Alaska's Cook Inlet — Anchorage sees swings around 26–30 feet — along with Southeast Alaska ports like Skagway, and on the East Coast, Eastport, Maine at roughly 18 feet. All of those have dedicated pages here."}},{"@type":"Question","name":"Can I save my home beach and other spots I follow?","acceptedAnswer":{"@type":"Answer","text":"Yes — tap ＋ Add to Saved Stations next to any station's name (it turns into a green Saved note), or ＋ Add nearest inside the Saved Stations dropdown to add the station closest to you (allow location access). Your saved spots appear as one-tap cards on the tides home page, the Default column's radio button picks your primary station, and Edit removes stations. Everything is stored on your device; no account needed."}},{"@type":"Question","name":"Is this free? Do I need an account?","acceptedAnswer":{"@type":"Answer","text":"Completely free, no sign-up. It's built on public NOAA data and works on any device."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Tide Charts","item":"https://timeandspace.science/tides/"},{"@type":"ListItem","position":3,"name":"Guam (Apra Harbor), GU","item":"https://timeandspace.science/tides/guam/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Apra Harbor tide station (NOAA 1630000)","url":"https://timeandspace.science/tides/guam/","geo":{"@type":"GeoCoordinates","latitude":13.44,"longitude":144.65},"address":{"@type":"PostalAddress","addressLocality":"Guam (Apra Harbor)","addressRegion":"Guam","addressCountry":"US"},"containedInPlace":[{"@type":"AdministrativeArea","name":"Guam"},{"@type":"AdministrativeArea","name":"Guam"},{"@type":"Country","name":"United States"}]}</script>
-<!-- build fef91f6f2976 · generated 2026-08-28T04:20:18.726Z -->
+<!-- build 02e78b8c4933 · generated 2026-08-28T04:26:15.812Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/wave.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1584,7 +1752,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <h1>Guam (Apra Harbor), GU Tide Chart</h1>
   <p class="sub">Today's high and low tide times for Guam (Apra Harbor), GU — see the next high and low tide, water heights, and a live tide chart, straight from NOAA.</p>
   <p class="sub td-answer">On Friday, August 28, Guam has high tides at <b>7:01 AM</b> (2.4 ft) and <b>8:26 PM</b> (2.4 ft), and low tides at <b>1:39 AM</b> (1.3 ft) and <b>1:50 PM</b> (0.2 ft). These are NOAA astronomical predictions in Guam local time, with heights in feet above MLLW.</p>
-  <p class="lt-line" data-lt-tz="Pacific/Guam">It's <b class="lt-now">2:19 PM</b> Chamorro Standard Time in Guam (Apra Harbor), GU.</p>
+  <p class="lt-line" data-lt-tz="Pacific/Guam">It's <b class="lt-now">2:25 PM</b> Chamorro Standard Time in Guam (Apra Harbor), GU.</p>
 <script>window.TIDE_BAKED={"id":"1630000","ev":[["2026-08-27 01:06",1.46,0],["2026-08-27 06:18",2.38,1],["2026-08-27 13:16",0.08,0],["2026-08-27 20:06",2.38,1],["2026-08-28 01:39",1.34,0],["2026-08-28 07:01",2.45,1],["2026-08-28 13:50",0.15,0],["2026-08-28 20:26",2.44,1],["2026-08-29 02:13",1.19,0],["2026-08-29 07:43",2.48,1],["2026-08-29 14:23",0.29,0],["2026-08-29 20:47",2.49,1],["2026-08-30 02:49",1,0],["2026-08-30 08:28",2.46,1],["2026-08-30 14:57",0.48,0],["2026-08-30 21:09",2.51,1],["2026-08-31 03:26",0.79,0],["2026-08-31 09:17",2.41,1],["2026-08-31 15:32",0.73,0],["2026-08-31 21:33",2.5,1],["2026-09-01 04:06",0.56,0],["2026-09-01 10:13",2.32,1],["2026-09-01 16:10",1.01,0],["2026-09-01 22:00",2.48,1],["2026-09-02 04:52",0.36,0],["2026-09-02 11:18",2.22,1],["2026-09-02 16:53",1.29,0],["2026-09-02 22:31",2.44,1],["2026-09-03 05:43",0.19,0],["2026-09-03 12:39",2.13,1],["2026-09-03 17:44",1.55,0],["2026-09-03 23:09",2.4,1],["2026-09-04 06:44",0.06,0],["2026-09-04 14:20",2.11,1],["2026-09-04 18:52",1.76,0],["2026-09-04 23:58",2.34,1],["2026-09-05 07:54",-0.03,0],["2026-09-05 16:01",2.17,1],["2026-09-05 20:24",1.86,0],["2026-09-06 01:04",2.29,1],["2026-09-06 09:09",-0.12,0],["2026-09-06 17:12",2.27,1],["2026-09-06 21:55",1.82,0],["2026-09-07 02:27",2.29,1],["2026-09-07 10:19",-0.18,0],["2026-09-07 18:01",2.36,1],["2026-09-07 23:04",1.68,0],["2026-09-08 03:53",2.35,1],["2026-09-08 11:21",-0.21,0],["2026-09-08 18:40",2.43,1],["2026-09-08 23:59",1.48,0],["2026-09-09 05:07",2.45,1],["2026-09-09 12:15",-0.17,0],["2026-09-09 19:12",2.48,1],["2026-09-10 00:47",1.24,0],["2026-09-10 06:10",2.53,1],["2026-09-10 13:03",-0.04,0],["2026-09-10 19:40",2.51,1],["2026-09-11 01:31",0.99,0],["2026-09-11 07:06",2.56,1],["2026-09-11 13:47",0.17,0],["2026-09-11 20:07",2.52,1],["2026-09-12 02:13",0.76,0],["2026-09-12 07:58",2.52,1],["2026-09-12 14:27",0.43,0],["2026-09-12 20:31",2.5,1]]};</script>
 <div class="td-hero">
 
@@ -1721,6 +1889,13 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <a class="btn secondary" style="width:auto;display:inline-flex;margin:0 8px 8px 0" href="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1630000" rel="noopener" target="_blank">NOAA official predictions for this station →</a>
     </p>
   </div></div>
+  <div class="card hub-teasers">
+    <h2>Questions this page answers</h2>
+    <ul class="hub-qs">
+<li id="what-causes-tides"><p><a href="/concepts/what-causes-tides/">What causes tides?</a> The Moon’s gravity pulls harder on the water nearer to it than on the Earth’s centre, and harder on the centre than on the far-side water.</p></li>
+<li id="why-does-the-moon-change-shape"><p><a href="/concepts/why-does-the-moon-change-shape/">Why does the Moon change shape?</a> The Moon makes no light of its own.</p></li>
+</ul>
+  </div>
   <div class="card"><h2>More tide stations</h2><div class="timer-presets" style="margin-top:6px"><a class="chip" href="/tides/">Browse all stations →</a></div></div>
   <div class="card cd-answer">
     <h2>How many tides a day does Guam (Apra Harbor), GU get?</h2><p>Guam (Apra Harbor) typically gets two high tides and two low tides each day — a mixed pattern. Exact times for today are on the live chart above.</p>

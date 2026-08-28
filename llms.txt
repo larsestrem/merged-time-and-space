@@ -22,6 +22,8 @@ computed, not scraped: the methodology pages state the method and its limits.
 - [The planets](https://timeandspace.science/planets/): Every planet in orbital order with a picture and a couple of paragraphs each, the asteroid belt in its place, and a page for every one.
 - [Solar system simulator](https://timeandspace.science/solar-system-simulator/) — 5 pages: The planets on their real orbits, with moon systems, the asteroid belt and comets.
 - [Rocket launch simulator](https://timeandspace.science/rocket-launch-simulator/) — 4 pages: When the next launch window to Mars, Jupiter and Saturn opens, what it costs, and how the real missions compare.
+- [Questions & concepts](https://timeandspace.science/concepts/) — 45 pages: One question per URL, answered in the first paragraph: why we have seasons, what causes tides, why the moon changes shape, what a time zone is — each with a computed drawing.
+- [Glossary](https://timeandspace.science/glossary/): Every term on the site, A to Z, each linking to the question page that explains it.
 - [Countdowns](https://timeandspace.science/countdown/): Countdown pages for holidays, celebrity birthdays, sports and anniversaries.
 - [Events calendar](https://timeandspace.science/calendar/): Every countdown by month. Also published as a subscribable feed at /calendar/events.ics.
 - [Methodology](https://timeandspace.science/methodology/) — 6 pages: How each figure on the site is worked out, and where it stops being reliable.
