@@ -1,14 +1,14 @@
-# /questions/ was a chain index of concept pages. Those pages remain the
-# one-intent URLs; the glossary is the remaining A–Z door. Hashes are not
-# sent to the server, so /questions/#fall-in lands on /glossary/.
-/questions  /glossary/  301
-/questions/  /glossary/  301
-/questions/*  /glossary/  301
+# /questions/ is BACK (owner's call, August 2026) — no longer the old chain
+# index, but a derived by-topic index of the concept pages, built by
+# build-glossary.mjs from the same concepts.json. No splat rule: the old page
+# had only hash children (#fall-in …), hashes never reach the server, and a
+# /questions/* rule could shadow the real page.
 
-# Concept pages live at /concepts/<slug>/. The folder itself is not an essay.
-/concepts  /glossary/  301
-/concepts/  /glossary/  301
-/concepts/index.html  /glossary/  301
+# Concept pages live at /concepts/<slug>/. The folder itself is not an essay —
+# it goes to the by-topic index of exactly those pages.
+/concepts  /questions/  301
+/concepts/  /questions/  301
+/concepts/index.html  /questions/  301
 
 # The nine planet pages moved out from under /solar-system-simulator/ to flat
 # URLs naming what they are — /jupiter-and-moons-simulator/ — because each is a page

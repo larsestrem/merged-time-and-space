@@ -64,7 +64,7 @@ const HTML = [
      them — the planet pages are flat URLs now, so no pattern here could be
      right for long */
   ...(await import("./build-solar.mjs")).SOLAR_URLS.map((u) => `${u.slice(1)}index.html`),
-  "planets/index.html", "day-night-map/index.html", "glossary/index.html",
+  "planets/index.html", "day-night-map/index.html", "glossary/index.html", "questions/index.html",
   ...(await import("./concepts.mjs")).CONCEPT_SLUGS().map((s) => `concepts/${s}/index.html`),
   "methodology/index.html", "methodology/sunrise-sunset/index.html", "methodology/moon-phase/index.html",
   "methodology/tide-predictions/index.html", "methodology/time-zones/index.html", "methodology/browser-timing/index.html",
@@ -415,6 +415,7 @@ const MENU = `<details class="nav-dd menu-dd"><summary class="hamburger" aria-la
      site-wide route at all — the footer and this menu both skipped it */
   `<li><a href="/earth-sun-moon-orbit-simulator/">${ico("earthmoon")} Earth&rsquo;s Orbit</a></li>` +
   `<li class="menu-lab"><a href="/space/">Space</a></li>` +
+  `<li><a href="/questions/">${ico("question")} Big Questions</a></li>` +
   `<li><a href="/glossary/">${ico("glossary")} Glossary</a></li>` +
   `<li><a href="/planets/">${ico("solar")} The Planets</a></li>` +
   `<li><a href="/solar-system-simulator/">${ico("solar")} Solar System</a></li>` +

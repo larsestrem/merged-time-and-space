@@ -26,8 +26,8 @@ Formerly **alarm-clock.org** — same site, new domain.
   [solar system simulator](https://timeandspace.science/solar-system-simulator/)
   with a page per planet, [rocket launch windows](https://timeandspace.science/rocket-launch-simulator/),
   [orbits & gravity](https://timeandspace.science/orbital-velocity-simulator/).
-- **Learn** — [glossary](https://timeandspace.science/glossary/),
-  [concepts](https://timeandspace.science/glossary/) (one question per URL).
+- **Learn** — [big questions by topic](https://timeandspace.science/questions/),
+  [glossary](https://timeandspace.science/glossary/) (one question per URL).
 - **For teachers** — [the classroom guide](https://timeandspace.science/classroom/).
 
 ## Two rules the whole repo rests on

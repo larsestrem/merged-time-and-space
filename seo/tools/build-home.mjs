@@ -12,7 +12,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { esc, GA_SNIPPET, brand, breadcrumbLD, hrefFor, when, richMap, loadEvents, nextOccurrence, iso, viewHash, webSiteLd, appLd, segMarkup, syncLabelYear, upcomingFederalHolidays, nSunCalc, sunHm, sunDialSvg } from "./lib.mjs";
+import { esc, GA_SNIPPET, brand, breadcrumbLD, faqLd, hrefFor, when, richMap, loadEvents, nextOccurrence, iso, viewHash, webSiteLd, appLd, segMarkup, syncLabelYear, upcomingFederalHolidays, nSunCalc, sunHm, sunDialSvg } from "./lib.mjs";
 import { PANEL_HTML, HOME_CLOCK_JS, HOME_COLOR_JS, FS_ICON } from "./alarm-widget.mjs";
 import { ico } from "./icons.mjs";
 import { moonIllum, moonName, moonGlyph, moonSnap, nextPhase, remainLabel, MOON_CORE } from "./moon.mjs";
@@ -36,7 +36,7 @@ import { DAYNIGHT_PATH, seasonPoints, DN_CORE, DN_W, DN_TOP, DN_BOT, dnX, dnY, d
    (/jupiter-and-moons-simulator/) and the launch hub moved, and a second copy
    of either rule here would rot the first time one changed */
 import { planetPath, PLANETS_PATH, LAUNCH_PATH as ROCKET_PATH } from "./solar-pages.mjs";
-import { hubQs } from "./concepts.mjs";
+import { hubQs, conceptBySlug, fillConcept } from "./concepts.mjs";
 import { SECTION_LINKS, sectionSwitcher } from "./section-nav.mjs";
 /* the two-zone time-difference widget, shared with /time-difference-calculator/
    so the card and the page are one calculator rather than two */
@@ -50,9 +50,14 @@ import { convForm, CONV_JS } from "./clock-convert.mjs";
 import { SAT_SYS, SAT_COUNT } from "./satellites.mjs";
 import { PLANETS_JS, SOLAR_JS } from "./planets.mjs";
 
-/** Questions sit inside the matching card so the picture comes first. */
+/** Questions sit inside the matching card so the picture comes first.
+ *  Every slug shown on a section page is also recorded here, so the page can
+ *  emit the same Q&A pairs as FAQPage JSON-LD — the questions and one-line
+ *  answers were already on the page with no structured data at all. */
+const QS_BY_HUB = {};
 function withQs(card, slugs, hub) {
   if (!slugs || !slugs.length) return card;
+  (QS_BY_HUB[hub] = QS_BY_HUB[hub] || []).push(...slugs);
   const qs = hubQs(slugs, hub);
   const i = card.lastIndexOf("</div>");
   if (i < 0) return card + qs;
@@ -1820,10 +1825,18 @@ ${S.board.map(([card, n]) => sp(card, n, S.slug)).join("\n")}
   <div class="home-foot">
     <p class="home-suggest">Start with a question — <a href="/concepts/why-dont-planets-fall-into-the-sun/">why don't the planets fall into the sun</a>, or <a href="/glossary/">any of the others</a>. Or jump across: ${SECTION_LINKS.filter(([u]) => u !== `/${S.slug}/`).map(([u, l]) => `<a href="${u}">${l}</a>`).join(" · ")}.</p>
   </div>`;
+  /* the Q&A pairs this page already shows, as FAQPage JSON-LD — the answers
+     are the concepts' own shortAnswers, so the markup cannot say something
+     the visible teaser does not */
+  const bySlugLd = conceptBySlug();
+  const faqPairs = [...new Set(QS_BY_HUB[`/${S.slug}/`] || [])]
+    .map((slug) => bySlugLd.get(slug))
+    .filter(Boolean)
+    .map((c) => [c.question, fillConcept(c.shortAnswer)]);
   mkdirSync(join(root, S.slug), { recursive: true });
   writeFileSync(join(root, `${S.slug}/index.html`), doc({
     title: S.title, desc: S.desc, canon: `/${S.slug}/`, ogTitle: S.title, body,
-    ld: `<script type="application/ld+json">${breadcrumbLD(SITE, [{ name: "Time and Space Science", url: "/" }, { name: S.h1, url: `/${S.slug}/` }])}</script>`,
+    ld: `<script type="application/ld+json">${breadcrumbLD(SITE, [{ name: "Time and Space Science", url: "/" }, { name: S.h1, url: `/${S.slug}/` }])}</script>${faqPairs.length ? `\n${faqLd(faqPairs)}` : ""}`,
     extraJs: S.js(),
   }));
 }

@@ -10,6 +10,51 @@ output. See `CLAUDE.md` for the architecture and working rules. Deploy = push to
 `main` (Cloudflare auto-publishes).
 
 ---
+### 2026-08-28 — Site review implemented: bugs, duplicate links, concept wiring, teaching loop, 8 new questions, /questions/ returns
+
+Owner-approved five-phase pass from a full site review (Claude session, branch
+claude/merged-time-space-review-0h0ff1):
+
+- BUGS: "today's full moon moon" out of 1,103 simulator meta descriptions;
+  "its 1 largest moons" on the Earth simulator; /classroom/ hub rows titled as
+  lessons now land on the sequence itself (id=run-<slug> anchors); the day/night
+  map's seven-task "Things to try" card (written, never composed) now ships;
+  coastal.mjs loses the unused sunToStation map.
+- DUPLICATE LINKS: new check-pages gate fails the build when a body href
+  repeats 4+ times (chrome stripped). Sources fixed: simLink() names only the
+  simulator, planet-card globes are no longer anchors, concept "On the hub:"
+  skips hubs See-it-live already links, the event autolinker is one-link-per-
+  destination page-wide, terms.html keeps two of five privacy links.
+- CHROME: the breadcrumb is BACK site-wide (nav.brand-crumbs, second bar row) —
+  4,200 pages emitted BreadcrumbList JSON-LD no human could see. Hamburger:
+  Time/Earth/Space group labels are links now; Day & Night Map, Earth's Orbit,
+  Big Questions, Lesson Plans rows added.
+- CONCEPT WIRING: placeQuestionsCard() puts 2–3 questions on every sun, moon,
+  world-clock city page and tide station (~2,420 pages now feed the concept
+  pages, up from ~12); llms.txt names the questions family; concept sitemap
+  priority 0.65 -> 0.8.
+- TEACHING LOOP: build-classroom derives seo/_data/lesson-index.json from the
+  lessons' own hrefs; lesson-index.mjs renders "Lessons that run on this" on
+  the tool hubs; lessons carry their topic's questions (TOPIC_CONCEPTS);
+  five concepts' See-it-live runs the lesson built on them; home page leads
+  the collaboration card with the finished catalog.
+- CONTENT: 8 new concepts — military time (how do you calculate it — owner's
+  daughter's question, with the converter's own hour chart as its graphic),
+  solstice, equinox (new marEquinox/sepEquinox tokens), supermoon, blue moon,
+  moon phase names, dark side of the moon, spring/neap tides. Schema slug
+  pattern relaxed to any question word. Saturn's moons page narrowed to Saturn
+  (was a twin of Jupiter's, same premise, same h2). Triton/asteroids/orbit-
+  change H1s carry their nouns again. Seasons, moonrise-later, tidal-locking,
+  Jupiter deepened. Glossary entries truncate to the first sentence (were 45
+  full duplicate paragraphs) with terms demoted to h3. /time/ /earth/ /space/
+  emit FAQPage JSON-LD from the Q&As they already show.
+- /questions/ IS BACK as a derived by-topic index of all 53 concepts
+  (build-glossary.mjs writes both doors); /concepts/ 301 retargeted to it.
+- Open: no lesson yet opens /day-night-map/ or /orbital-velocity-simulator/
+  (their lessons cards honestly render nothing); footer/hamburger overlap and
+  the 1,104 simulator-city-page cannibalization decision deliberately left
+  for the owner.
+
 ### 2026-08-27 — seasons page uses the orbit map, relabelled
 
 The seasons concept page was showing the four-Earths drawing, stretched

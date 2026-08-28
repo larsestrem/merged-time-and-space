@@ -23,7 +23,8 @@
     "properties": {
       "slug": {
         "type": "string",
-        "pattern": "^(what-is|what-are|why-|how-does|how-are).+"
+        "description": "Any question-shaped slug. The old pattern (what-is|what-are|why-|how-does|how-are) forbade half the questions people actually ask — 'how far away is the moon', 'does the moon have a dark side', 'how do you calculate military time' — so the rule is now just: it starts with a question word.",
+        "pattern": "^(what|why|how|when|where|which|who|do|does|can|is|are)-.+"
       },
       "question": { "type": "string" },
       "term": { "type": "string" },
@@ -60,6 +61,7 @@
           "olbers",
           "season-orbit",
           "system-orbit",
+          "hour-chart",
           "none"
         ]
       },

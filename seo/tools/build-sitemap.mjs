@@ -205,7 +205,7 @@ const families = {
     ...group([["/about/", "0.5"]], "about/index.html"),
     ...group([["/about/work-with-us/", "0.5"]], "about/work-with-us/index.html"),
     ...group([["/sponsors/", "0.4"]], "sponsors/index.html"),
-    ...group([["/glossary/", "0.7"]], ...deps("seo/tools/build-glossary.mjs"), "seo/_data/concepts.json"),
+    ...group([["/glossary/", "0.7"], ["/questions/", "0.7"]], ...deps("seo/tools/build-glossary.mjs"), "seo/_data/concepts.json"),
     /* 0.8, not 0.65: the question pages are the URLs this strategy wants
        ranked — the crawl signal should not weight them below a timer preset */
     ...group((await import("./concepts.mjs")).CONCEPT_SLUGS().map((s) => [`/concepts/${s}/`, "0.8"]),

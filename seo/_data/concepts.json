@@ -7,7 +7,7 @@
     "teasers": {
       "/": "The dashed gold line north of the equator on the map above — the Sun never stands overhead north of it.",
       "/earth/": "The northern edge of the band where a flagpole can have no shadow."
-},
+    },
     "ledeHtml": "The Tropic of Cancer is the circle at {tilt}° north. This circle is where the Sun stands <a href=\"/concepts/what-is-the-subsolar-point/\">straight overhead</a> — a flagpole there would cast no shadow — on the <a href=\"/concepts/why-do-we-have-seasons/\">summer solstice</a>, around {juneSolstice}. That is the longest day of the year in the north. The Sun is never straight overhead anywhere north of this line. The number {tilt}° is <a href=\"/concepts/what-is-earths-axial-tilt/\">Earth’s tilt</a>.",
     "title": "What Is the Tropic of Cancer?",
     "description": "The Tropic of Cancer is the circle at {tilt}° N. On the summer solstice, around {juneSolstice}, the Sun stands straight overhead there — and never north of it.",
@@ -181,7 +181,7 @@
     "teasers": {
       "/": "The curve of night on the map — it leans because Earth does.",
       "/earth/": "Sunrise and sunset are this line crossing your town."
-},
+    },
     "ledeHtml": "The terminator is the line between day and night — the circle on Earth where the Sun sits on the horizon. Sunrise is where you cross it going into the light; sunset is where you cross it going out. On the <a href=\"/day-night-map/#terminator\">day/night map</a> it is the edge of the dark half.",
     "title": "What Is the Terminator?",
     "description": "The terminator is the day/night line: the circle where the Sun is on the horizon. It sweeps west as Earth turns, and it leans with the seasons.",
@@ -234,7 +234,7 @@
     "teasers": {
       "/": "The axis is not upright. That lean is why the tropics and the polar circles sit where they do.",
       "/earth/": "The same number that sets the tropics is the lean in the orbit drawing above."
-},
+    },
     "title": "What Is Earth’s Axial Tilt?",
     "description": "Earth’s axial tilt is about 23.4°. The tropics sit at that latitude, the polar circles at 90° minus it, and the seasons are that lean facing toward or away from the Sun.",
     "cluster": "day-night",
@@ -251,7 +251,9 @@
     "relatedSlugs": [
       "what-is-the-tropic-of-cancer",
       "what-are-the-polar-circles",
-      "why-do-we-have-seasons"
+      "why-do-we-have-seasons",
+      "what-is-a-solstice",
+      "what-is-an-equinox"
     ],
     "graphicId": "sun-earth-line",
     "graphicCaption": "The axis is drawn leaning by the Sun’s declination. That is not a sketch of the seasons. Seen from the orbital plane, that component of the tilt is what the seasons are.",
@@ -285,7 +287,7 @@
       },
       {
         "href": "/classroom/lessons/seasons-grades-5-6/",
-        "label": "Run the seasons lesson for grades 5\u20136"
+        "label": "Run the seasons lesson for grades 5–6"
       }
     ]
   },
@@ -437,7 +439,7 @@
     "teasers": {
       "/": "They are falling. Missing is the rest of the sentence — sideways speed is what keeps the miss going.",
       "/space/": "Slow a planet in the gravity card and the miss gets smaller. That is this question as a picture."
-},
+    },
     "title": "Why Don’t Planets Fall Into the Sun?",
     "description": "Planets fall toward the Sun and miss, forever. Sideways motion plus gravity is an orbit — not a balance with an outward push.",
     "cluster": "questions",
@@ -487,7 +489,7 @@
       },
       {
         "href": "/classroom/lessons/solar-system-grades-3-4/",
-        "label": "Run the solar-system lesson for grades 3\u20134"
+        "label": "Run the solar-system lesson for grades 3–4"
       }
     ]
   },
@@ -499,7 +501,7 @@
     "teasers": {
       "/": "Falling toward, already moving sideways. Change the sideways and the far side of the path is what moves.",
       "/space/": "The Slow down / Speed up buttons on this card are the sentence above, runnable."
-},
+    },
     "ledeHtml": "A planet is always <a href=\"/concepts/why-dont-planets-fall-into-the-sun/\">falling toward the Sun</a>, and it is already moving sideways. Gravity only pulls inward — it never pushes the planet along. In the picture, the <span class=\"ol-ink-v\">green arrow</span> is the way it is already going. The <span class=\"ol-ink-g\">gold arrow</span> is the pull, always straight at the Sun. Press Slow down: the other side of the path falls toward the Sun, and the planet still comes back. That closed path is the orbit.",
     "title": "How Does an Orbit Work?",
     "description": "An orbit is falling toward the Sun and missing. Gravity pulls inward; sideways speed keeps the path from hitting. One speed at each distance makes a circle.",
@@ -571,7 +573,7 @@
       "/": "Not because Earth gets closer to the Sun. Because it leans, and the lean faces a different way as it goes around.",
       "/earth/": "Summer is the hemisphere leaned into the light — the orbit view above is that lean, running.",
       "/space/": "Earth is not the only world that leans. The tilt is the season machine, and it is drawn here too."
-},
+    },
     "title": "Why Do We Have Seasons?",
     "description": "Seasons are the tilt, not the distance. Earth’s axis leans 23.4° and holds still, so each hemisphere takes a turn leaning into the sunlight.",
     "cluster": "questions",
@@ -592,7 +594,8 @@
     "relatedSlugs": [
       "what-is-earths-axial-tilt",
       "what-is-the-tropic-of-cancer",
-      "what-are-the-polar-circles"
+      "what-are-the-polar-circles",
+      "what-is-a-solstice"
     ],
     "graphicId": "system-orbit",
     "graphicCaption": "Earth goes around the Sun with its axis leaning one fixed way. June is on the left — the north pole leans sunward. December is on the right — it leans away. At the top and bottom of the path the Sun sits above the equator. Drag the slider to tip the whole orbit; the lean is easiest to see from the side.",
@@ -602,14 +605,23 @@
         "heading": "The test that kills the distance story",
         "band": "5-12",
         "body": [
-          "Earth is actually closest to the Sun in early January — northern winter. If distance ran the seasons, the whole planet would warm and cool together. It does not. One hemisphere’s summer is the other’s winter. The cause has to be a direction, not a distance."
+          "Earth is actually closest to the Sun in early January — northern winter. If distance ran the seasons, the whole planet would warm and cool together. It does not. One hemisphere’s summer is the other’s winter. The cause has to be a direction, not a distance.",
+          "You can run the test from your chair: pick a date, then compare daylight in <a href=\"/sun/sydney/\">Sydney</a> and <a href=\"/sun/near-me/\">your own town</a>. Same day, same distance to the Sun, opposite seasons — the distance story has no way to explain that, and the tilt story cannot avoid predicting it."
         ]
       },
       {
         "heading": "Two effects, one lean",
+        "band": "5-12",
+        "body": [
+          "The lean does two things at once: it keeps the Sun up longer, and it lifts the noon Sun higher. More hours of light, and each hour landing more steeply, more concentrated on the ground — the same flashlight beam covering a smaller patch. Winter is the same pair in reverse: fewer hours, arriving at a slant that spreads them thin. Neither is a change in how much light the Sun puts out.",
+          "The tilt itself is {tilt}°, and it points the same way all year — toward the same patch of stars — while Earth goes round. That fixed direction is the whole machine: six months apart, the same lean faces toward the Sun and then away from it. Watch it happen on <a href=\"/earth-sun-moon-orbit-simulator/\">Earth’s orbit</a>, where the axis visibly stays parallel all the way round."
+        ]
+      },
+      {
+        "heading": "So what does the distance do?",
         "band": "deeper",
         "body": [
-          "The lean does two things at once: it makes the day longer, and it raises the noon Sun. More hours, and each hour more concentrated on the ground. Neither is a change in how much light the Sun puts out."
+          "The orbit is very slightly oval — about 3% closer in January than in July, delivering about 7% more sunlight to the whole planet. That is real, and it is swamped: the tilt swings your daily sunlight by far more than 7% almost everywhere people live. The 3% mostly shows up as a subtle asymmetry — southern summers get slightly stronger sunlight than northern ones, and the great southern oceans absorb most of the difference."
         ]
       }
     ],
@@ -624,7 +636,7 @@
       },
       {
         "href": "/classroom/lessons/seasons-grades-7-8/",
-        "label": "Run the seasons lesson — a full period that breaks the \u201ccloser in summer\u201d idea"
+        "label": "Run the seasons lesson — a full period that breaks the “closer in summer” idea"
       }
     ]
   },
@@ -636,7 +648,7 @@
     "teasers": {
       "/": "The Moon is up about twelve hours of every twenty-four, and those hours drift through the day.",
       "/earth/": "Tonight's phase card above does not wait for dark."
-},
+    },
     "ledeHtml": "Yes. The moon is above the horizon about half of every day, and those hours drift through daylight as the month goes by. It is simply bright enough to beat the blue sky. On the <a href=\"/day-night-map/#daytime-moon\">day/night map</a> the pale marker is where the moon stands overhead — watch it ride through the lit half.",
     "title": "Can the Moon Be Up in the Daytime?",
     "description": "The moon is up in daylight about as often as at night. It does not belong to the night; it just happens to be easier to notice then.",
@@ -696,7 +708,7 @@
     "teasers": {
       "/": "One half is always lit. The picture above is that lit half, seen from a different angle each night.",
       "/earth/": "The phase over your house is the same Moon as the one in the simulator — only the view has moved."
-},
+    },
     "title": "Why Does the Moon Change Shape?",
     "description": "Moon phases are a changing view of a ball that is always half-lit. The Moon does not change; your angle on the lit half does.",
     "cluster": "questions",
@@ -717,7 +729,9 @@
     "relatedSlugs": [
       "what-is-tidal-locking",
       "what-is-a-synodic-month",
-      "why-isnt-there-an-eclipse-every-month"
+      "why-isnt-there-an-eclipse-every-month",
+      "what-are-the-moon-phases-called",
+      "what-is-a-supermoon"
     ],
     "graphicId": "moon-phase",
     "graphicCaption": "The Sun is off to the left. The Moon is a ball, half bright, half dark. Walk around it and the bright part points a different way relative to you. That is a phase.",
@@ -746,7 +760,7 @@
       },
       {
         "href": "/classroom/lessons/moon-phases-grades-5-6/",
-        "label": "Run the moon-phases lesson for grades 5\u20136"
+        "label": "Run the moon-phases lesson for grades 5–6"
       }
     ]
   },
@@ -758,7 +772,7 @@
     "teasers": {
       "/": "Two bulges of water, Earth turning under them. Most coasts therefore see two highs a day.",
       "/earth/": "The charts above are the pull of the Moon on a real harbour, hour by hour."
-},
+    },
     "title": "What Causes Tides?",
     "description": "Tides are two ocean bulges raised by the Moon’s gravity, with a smaller assist from the Sun. Earth turning under the bulges makes the daily rhythm.",
     "cluster": "questions",
@@ -779,7 +793,8 @@
     "relatedSlugs": [
       "why-does-the-moon-change-shape",
       "what-is-tidal-locking",
-      "what-is-libration"
+      "what-is-libration",
+      "what-is-a-spring-tide"
     ],
     "graphicId": "tides",
     "graphicCaption": "Two bulges: one toward the Moon, one away. The far bulge is not the Moon “pushing.” It is the Earth being pulled out from under the far water.",
@@ -826,6 +841,7 @@
       }
     ],
     "relatedSlugs": [
+      "why-does-saturn-have-so-many-moons",
       "how-does-an-orbit-work",
       "why-dont-planets-fall-into-the-sun"
     ],
@@ -837,14 +853,21 @@
         "heading": "A planet that acts like a small system",
         "band": "5-12",
         "body": [
-          "The same falling-and-missing that keeps Earth beside the Sun keeps Io beside Jupiter. More mass, stronger pull at a given distance, a larger volume of space where “beside Jupiter” wins over “beside the Sun.”"
+          "The same falling-and-missing that keeps Earth beside the Sun keeps Io beside Jupiter. More mass means a stronger pull at any distance, and so a larger volume of space where “beside Jupiter” beats “beside the Sun.” Jupiter has more mass than every other planet combined — its keep-a-moon region is correspondingly enormous."
         ]
       },
       {
-        "heading": "Captured crowds and a few giants",
+        "heading": "Four worlds you can see for yourself",
+        "band": "5-12",
+        "body": [
+          "Io, Europa, Ganymede and Callisto formed from a disc around young Jupiter, the way the planets formed from a disc around the Sun — a solar system in miniature. Ganymede is bigger than the planet Mercury. All four show in steady binoculars as pinpricks in a line beside the planet, shifting night to night; watching them move is how Galileo proved not everything orbits Earth, and you can repeat the observation from a backyard."
+        ]
+      },
+      {
+        "heading": "Captured crowds and a moving count",
         "band": "deeper",
         "body": [
-          "The four Galilean moons are worlds. Many of the rest are captured asteroids on long, often backward orbits. Counting “how many moons” is then a census of what telescopes can still see, not a closed number."
+          "Beyond the four giants, the census is mostly captured asteroids on distant, tilted, often backwards orbits — snatched from the belt Jupiter itself stirs. Counting “how many moons” is then a census of what telescopes can currently see, not a closed number, which is why the figure in the news keeps changing. <a href=\"/concepts/why-does-saturn-have-so-many-moons/\">Saturn’s count</a> climbs for exactly the same reason."
         ]
       }
     ],
@@ -906,7 +929,7 @@
     "teasers": {
       "/": "Full moon to full moon is about 29.5 days, a little longer than one trip around Earth.",
       "/earth/": "The simulator's month and the calendar month are not the same length, and that difference is this."
-},
+    },
     "title": "What Is a Synodic Month?",
     "description": "The synodic month is full moon to full moon, about 29.5 days — longer than the 27.3-day sidereal month.",
     "cluster": "simulator",
@@ -959,7 +982,7 @@
     "teasers": {
       "/": "The same face stays toward us because the Moon turns once per orbit.",
       "/earth/": "The near-side drawing on the moon card is not a choice of illustration. The far side never shows."
-},
+    },
     "title": "What Is Tidal Locking?",
     "description": "Tidal locking is a spin matching an orbit, so one face stays toward the planet. The Moon’s far side still has day and night.",
     "cluster": "simulator",
@@ -976,7 +999,8 @@
     "relatedSlugs": [
       "what-is-libration",
       "why-does-the-moon-change-shape",
-      "what-causes-tides"
+      "what-causes-tides",
+      "does-the-moon-have-a-dark-side"
     ],
     "graphicId": "moon-phase",
     "graphicCaption": "A mark on the Moon stays aimed at Earth all the way around. The Sun still lights the left half of the ball. The far side has plenty of daytime.",
@@ -986,14 +1010,21 @@
         "heading": "Far side is not dark side",
         "band": "5-12",
         "body": [
-          "The far side is the hemisphere we do not see from Earth. The dark side is whatever hemisphere is in night right now. They coincide only at full moon, when we are looking at the lit face."
+          "The far side is the hemisphere we never see from Earth. The dark side is whatever hemisphere is in night right now. They coincide only at full moon, when we are looking at the whole lit face — <a href=\"/concepts/does-the-moon-have-a-dark-side/\">the “dark side” question</a> has its own page because the answer surprises almost everyone."
+        ]
+      },
+      {
+        "heading": "One spin per lap, exactly",
+        "band": "5-12",
+        "body": [
+          "Locked does not mean not spinning. The Moon rotates — once per orbit, exactly, which is the one rate that holds a face still toward a moving Earth. Walk around a chair while always facing it and you have done the same thing: one full turn of your body per lap, without ever showing the chair your back. And the lock is almost perfect rather than perfect — the orbit’s slight ellipse lets the Moon <a href=\"/concepts/what-is-libration/\">rock a few degrees</a>, so we see about 59% of it over time."
         ]
       },
       {
         "heading": "How the match was forced",
         "band": "deeper",
         "body": [
-          "Earth’s tides in the Moon’s solid body lagged the bulge, torqued the spin, and bled rotational energy until the periods matched. The same kind of torque is slowly pushing the Moon outward and lengthening our day."
+          "Earth’s tides in the Moon’s solid body lagged the bulge, torqued the spin, and bled rotational energy until the periods matched. The same kind of torque is still running: it pushes the Moon a few centimetres farther out each year and slowly lengthens our day. Tidal locking is the normal fate of close moons — nearly every large moon in the solar system shows its planet one face."
         ]
       }
     ],
@@ -1082,7 +1113,22 @@
         "heading": "The same 50 minutes as the month",
         "band": "5-12",
         "body": [
-          "A synodic month is about 29.5 days. Spread that extra lap around the sky over 24 hours and you get roughly 50 minutes. The delay is not a separate mystery. It is the month, counted per night."
+          "A synodic month is about 29.5 days. Spread that extra lap around the sky over 24 hours and you get roughly 50 minutes. The delay is not a separate mystery. It is the month, counted per night.",
+          "You can measure it yourself with nothing but <a href=\"/moon/near-me/\">your town’s moonrise table</a>: read off a week of moonrise times and take the differences. The gap is not constant — some nights it is 20 minutes, some nights 70 — and that spread is real, not an error in the table."
+        ]
+      },
+      {
+        "heading": "Why the delay is not always 50 minutes",
+        "band": "5-12",
+        "body": [
+          "Fifty minutes is the average. The Moon’s path is tilted against your horizon by an angle that changes through the month and the year, and when the path meets the horizon at a shallow angle, the Moon’s nightly step eastward barely delays its rising. Around the September full moon at mid-northern latitudes the delay shrinks to its smallest — several evenings in a row of bright moonrise near sunset. Farmers noticed that long before anyone explained it: it is the harvest moon."
+        ]
+      },
+      {
+        "heading": "The Sun does it too, invisibly",
+        "band": "deeper",
+        "body": [
+          "Sunrise also slips against the stars — the Sun drifts about one degree east per day, which is why the stars rise four minutes earlier each night. The Moon’s slip is just thirteen times bigger and easier to notice, because the Moon moves thirteen times faster around the sky. The two slips are the same phenomenon: rise times follow whatever the body does against the turning sky."
         ]
       }
     ],
@@ -1148,7 +1194,7 @@
   },
   {
     "slug": "how-does-an-orbit-change",
-    "question": "What happens when you change one part of an orbit?",
+    "question": "How does an orbit change?",
     "term": "Orbit change",
     "shortAnswer": "The shape changes, not just the speed. Slow a planet at one point and it drops onto a longer ellipse that swings closer in and climbs back out. Speed it up and the far side lifts away. It does not spiral into the Sun unless almost all of the sideways speed is gone.",
     "title": "What Happens When You Change an Orbit?",
@@ -1339,7 +1385,7 @@
   },
   {
     "slug": "why-does-triton-orbit-backwards",
-    "question": "Why does one of Neptune’s moons go the other way?",
+    "question": "Why does Triton orbit Neptune backwards?",
     "term": "Triton’s retrograde orbit",
     "shortAnswer": "Most moons travel the same way their planet spins, because they formed from the same spinning disc. Triton goes the other way, so it did not form next to Neptune. It was captured, almost certainly from the Kuiper belt.",
     "ledeHtml": "Most moons travel the same way their planet spins, because they formed from the same spinning disc. Triton goes the other way, so it did not form next to Neptune. It was captured, almost certainly from the Kuiper belt. On <a href=\"/neptune-and-moons-simulator/\">Neptune’s moons</a> it is the one that runs backwards.",
@@ -1390,12 +1436,12 @@
   },
   {
     "slug": "why-does-saturn-have-so-many-moons",
-    "question": "Why do Saturn and Jupiter have so many moons?",
+    "question": "Why does Saturn have so many moons?",
     "term": "Giant-planet moons",
-    "shortAnswer": "Gravity’s reach grows with mass. Jupiter and Saturn are the two heaviest planets, so a huge volume of space around each one is a place where a small body stays with the planet instead of orbiting the Sun on its own. Some of those moons formed there. Many more were captured.",
+    "shortAnswer": "Saturn holds the largest confirmed-moon count of any planet, and it keeps climbing as surveys find smaller ones. It is the second-heaviest planet, so an enormous region around it is one where a small icy body stays with Saturn instead of orbiting the Sun. A few large moons formed there; most of the crowd was captured later.",
     "ledeHtml": "Gravity’s reach grows with mass. Jupiter and Saturn are the two heaviest planets, so a huge volume of space around each one is a place where a small body stays with the planet instead of orbiting the Sun on its own. Some of those moons formed there. Many more were captured. See <a href=\"/jupiter-and-moons-simulator/\">Jupiter’s moons</a> and <a href=\"/saturn-and-moons-simulator/\">Saturn’s moons</a>.",
-    "title": "Why Do Saturn and Jupiter Have So Many Moons?",
-    "description": "Jupiter and Saturn keep huge crowds of moons because they are so massive. Some moons formed with them; many small ones were captured later.",
+    "title": "Why Does Saturn Have So Many Moons?",
+    "description": "Saturn has the most confirmed moons of any planet: a huge gravitational reach, one giant formed moon (Titan), a captured icy crowd — and rings that are not moons.",
     "cluster": "solar",
     "hubUrls": [
       {
@@ -1418,18 +1464,25 @@
     "graphicAlt": "Saturn as a globe with its ring system.",
     "sections": [
       {
-        "heading": "A planet that acts like a small system",
+        "heading": "One giant, then a crowd",
         "band": "5-12",
         "body": [
-          "The four big inner moons of Jupiter — Io, Europa, Ganymede, Callisto — formed from a disc around Jupiter, the way the planets formed from a disc around the Sun. Titan did the same around Saturn. Those are worlds.",
-          "The rest of the census is mostly captured ice-rocks on long, often tilted orbits. Telescopes keep finding smaller ones, so the count is still going up. It is a crowd, not a closed set."
+          "Titan is the moon that formed beside Saturn the way planets formed beside the Sun, and it holds almost all the mass that orbits the planet — a world bigger than Mercury, with weather and rivers of methane. After Titan come a handful of mid-sized icy moons, and then the census dissolves into hundreds of captured ice-rocks a few kilometres across, on long, tilted, often backwards orbits.",
+          "That is why the count keeps changing: the big moons were all found long ago, and what survey telescopes keep adding is the small captured crowd at the bottom of the list. “How many moons does Saturn have” is a census question, not a fixed fact — the honest answer always carries a date."
+        ]
+      },
+      {
+        "heading": "The rings are not failed moons on the list",
+        "band": "5-12",
+        "body": [
+          "Inside a certain distance of Saturn, its gravity stretches an orbiting body harder than the body’s own gravity can hold it together — so close in, there can be rings but no large moon. Saturn’s rings live inside that line. Right at its edge sit tiny shepherd moons, herding the ring edges sharp; they are on the moon list, while the countless ring particles they herd are not."
         ]
       },
       {
         "heading": "Why the rocky planets keep almost none",
         "band": "deeper",
         "body": [
-          "Earth has one large moon from a giant impact. Mars has two tiny ones. Mercury and Venus have none. Close to the Sun the region where a planet’s gravity beats the Sun’s is small, so there is little room to keep a captured body, and less leftover ice to build one. Mass and distance both decide the guest list."
+          "Earth has one large moon from a giant impact. Mars has two tiny ones. Mercury and Venus have none. Close to the Sun the region where a planet’s gravity beats the Sun’s is small, so there is little room to keep a captured body, and less leftover ice to build one. Mass and distance both decide the guest list — Saturn is heavy and far, so its list is the longest. <a href=\"/concepts/why-does-jupiter-have-so-many-moons/\">Jupiter’s answer</a> is the same physics with even more mass behind it."
         ]
       }
     ],
@@ -1872,11 +1925,11 @@
   },
   {
     "slug": "why-do-asteroids-collide",
-    "question": "Do the asteroids in the belt crash together?",
+    "question": "Do asteroids in the asteroid belt collide?",
     "term": "Asteroid collisions",
     "shortAnswer": "Yes, but rarely. Typical named bodies sit about a million kilometres apart, so the belt is empty, not a pinball table. When two do hit, they make a family of fragments on similar orbits. Spacecraft fly through without dodging.",
     "ledeHtml": "Yes, but rarely. Typical named bodies sit about a million kilometres apart, so the belt is empty, not a pinball table. When two do hit, they make a family of fragments on similar orbits. Spacecraft fly through without dodging. The <a href=\"/solar-system-simulator/asteroid-belt/\">asteroid belt view</a> is honest about how spread out they are.",
-    "title": "Do Asteroids in the Belt Crash Together?",
+    "title": "Do Asteroids in the Asteroid Belt Collide?",
     "description": "Asteroids do collide, but the belt is so spread out that hits are rare. Films pack it; the real gap between named bodies is about a million kilometres.",
     "cluster": "solar",
     "hubUrls": [
@@ -2090,7 +2143,8 @@
     ],
     "relatedSlugs": [
       "what-is-a-sidereal-day",
-      "what-is-the-equation-of-time"
+      "what-is-the-equation-of-time",
+      "what-is-a-leap-year"
     ],
     "graphicId": "none",
     "graphicCaption": "Earth has to turn a little extra each day to catch the Sun, because it also moved along its orbit.",
@@ -2329,7 +2383,8 @@
     ],
     "relatedSlugs": [
       "what-is-a-time-zone",
-      "what-is-utc"
+      "what-is-utc",
+      "how-do-you-calculate-military-time"
     ],
     "graphicId": "none",
     "graphicCaption": "One trip around the clock face is one day, not half of one.",
@@ -2355,6 +2410,510 @@
       {
         "href": "/24-hour-clock-converter/",
         "label": "Convert a time"
+      }
+    ]
+  },
+  {
+    "slug": "how-do-you-calculate-military-time",
+    "question": "How do you calculate military time?",
+    "term": "Military time",
+    "shortAnswer": "Morning hours keep their number: 9:00 AM is 0900. From 1:00 PM onward, add 12 to the hour: 1:00 PM becomes 1300, 9:30 PM becomes 2130. Midnight is 0000. To convert back, subtract 12 from any hour of 13 or higher. The minutes never change — only the hour and the AM/PM label.",
+    "ledeHtml": "Two rules do all of it. In the morning, the hour keeps its number: 9:00 AM is 0900 — “oh-nine-hundred.” From 1:00 PM on, <strong>add 12 to the hour</strong>: 1:00 PM is 1300, 6:15 PM is 1815, 9:30 PM is 2130. Coming back the other way, <strong>subtract 12</strong> from any hour of 13 or more. The minutes never move. Military time is the <a href=\"/concepts/what-is-the-24-hour-clock/\">24-hour clock</a> with the colon dropped and a zero up front — the same clock with the afternoon un-hidden — and the chart below has every hour already worked out.",
+    "title": "How Do You Calculate Military Time?",
+    "description": "Add 12 to any PM hour: 1:00 PM is 1300, 9:30 PM is 2130. Morning hours keep their number, midnight is 0000, and the minutes never change.",
+    "cluster": "time",
+    "hubUrls": [
+      {
+        "href": "/24-hour-clock-converter/",
+        "label": "12/24-hour converter"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-the-24-hour-clock",
+      "what-is-utc",
+      "what-is-a-time-zone"
+    ],
+    "graphicId": "hour-chart",
+    "graphicCaption": "Every hour of the day in both clocks. Find your hour on either side and read across — the minutes carry over unchanged.",
+    "graphicAlt": "A table of all 24 hours showing each 12-hour clock time beside its 24-hour equivalent.",
+    "sections": [
+      {
+        "heading": "The two rules, worked through",
+        "band": "5-12",
+        "body": [
+          "AM hours: write the hour with two digits and put the minutes straight after. 7:05 AM is 0705; 11:59 AM is 1159. The only odd one is the first hour of the day: 12:30 AM is 0030, because the day starts at zero, not at twelve.",
+          "PM hours: add 12. So 1:00 PM is 1300, 4:45 PM is 1645, 11:00 PM is 2300. Noon stays 1200 — it is the last hour that keeps its number. Check yourself against the chart above, or type a time into <a href=\"/24-hour-clock-converter/\">the converter</a> and see whether you agree."
+        ]
+      },
+      {
+        "heading": "How to say it",
+        "band": "5-12",
+        "body": [
+          "Whole hours are read as hundreds: 0900 is “oh-nine-hundred,” 1300 is “thirteen-hundred.” With minutes, read the pairs: 2130 is “twenty-one thirty.” Nobody says “o’clock” — the number already says which half of the day it is, which is the point."
+        ]
+      },
+      {
+        "heading": "Why midnight is 0000 and not 2400",
+        "band": "5-12",
+        "body": [
+          "A day runs from 0000 to 2359. The moment a clock would read 2400, a new day has begun and it reads 0000 instead. You will occasionally see 2400 on a schedule to mean “the very end of this day” — the same instant as the next day’s 0000, just different bookkeeping."
+        ]
+      },
+      {
+        "heading": "Who cannot afford the 12-hour clock",
+        "band": "deeper",
+        "body": [
+          "Write 7:00 on a whiteboard and it could be breakfast or dinner — the 12-hour clock throws that information away and trusts context to rescue you. Pilots, nurses, train crews, soldiers and scientists work where context does not rescue you, so they use the clock that cannot be misread. Aviation and the military go a step further and pin the clock to one shared zone: 0900Z — “Zulu” — means 0900 <a href=\"/concepts/what-is-utc/\">UTC</a>, the same instant everywhere on Earth."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/24-hour-clock-converter/",
+        "label": "Convert any time, both directions"
+      },
+      {
+        "href": "/world-clock/",
+        "label": "Every city’s clock, with the 12/24 switch"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-a-solstice",
+    "question": "What is a solstice?",
+    "term": "Solstice",
+    "shortAnswer": "A solstice is a day the Sun reaches the farthest point it ever gets from the equator — {tilt}° north around {juneSolstice}, {tilt}° south around {decSolstice}. For the hemisphere leaning in it is the longest day of the year; for the other, the shortest. The word means “the Sun stands still”: its slow drift north or south stops and turns around.",
+    "ledeHtml": "A solstice is a day the Sun reaches the farthest point it ever gets from the equator. Around {juneSolstice} it stands straight over the <a href=\"/concepts/what-is-the-tropic-of-cancer/\">Tropic of Cancer</a>, {tilt}° north — the longest day of the year in the northern hemisphere and the shortest in the southern. Around {decSolstice} it stands over the <a href=\"/concepts/what-is-the-tropic-of-capricorn/\">Tropic of Capricorn</a> and the hemispheres swap. The word is Latin — <em>sol</em>, the Sun, and <em>sistere</em>, to stand still — because the Sun’s drift north or south stops on this day and reverses. That farthest-ever figure, {tilt}°, is <a href=\"/concepts/what-is-earths-axial-tilt/\">Earth’s tilt</a>, and that is no coincidence: a solstice is the tilt, seen from the ground.",
+    "title": "What Is a Solstice?",
+    "description": "A solstice is the day the Sun stands farthest from the equator — over a tropic around {juneSolstice} or {decSolstice}: the year's longest and shortest days.",
+    "cluster": "day-night",
+    "hubUrls": [
+      {
+        "href": "/sun/",
+        "label": "Sunrise & sunset"
+      },
+      {
+        "href": "/day-night-map/",
+        "label": "Day and night map"
+      }
+    ],
+    "relatedSlugs": [
+      "why-do-we-have-seasons",
+      "what-is-earths-axial-tilt",
+      "what-is-the-tropic-of-cancer",
+      "what-is-an-equinox"
+    ],
+    "graphicId": "sun-earth-line",
+    "graphicCaption": "The June solstice from the side: sunlight meets Earth {tilt}° north of the equator — as far north as the overhead Sun ever gets. Six months later the picture flips south.",
+    "graphicAlt": "Side view of Earth at the June solstice, with sunlight arriving directly over the Tropic of Cancer.",
+    "sections": [
+      {
+        "heading": "Longest day, not earliest sunrise",
+        "band": "5-12",
+        "body": [
+          "The June solstice has the most daylight in the north, but the earliest sunrise lands about a week before it and the latest sunset about a week after. The two ends of the day do not move in step, because clock noon and Sun noon drift apart through the year — the <a href=\"/concepts/what-is-the-equation-of-time/\">equation of time</a>. The whole pattern is sitting in the 7-day table on <a href=\"/sun/near-me/\">your own town’s sun page</a> if you look at the week around the solstice."
+        ]
+      },
+      {
+        "heading": "What actually stands still",
+        "band": "5-12",
+        "body": [
+          "Watch where the Sun rises for a few weeks and it slides along the horizon, a little further north each morning through northern spring. At the solstice the slide stops, holds for a few days, and heads back the other way. That is the standing-still the name records — not the Sun pausing in the sky, but the turning point of its year."
+        ]
+      },
+      {
+        "heading": "At the polar circles it is all or nothing",
+        "band": "5-12",
+        "body": [
+          "On the June solstice the Sun does not set anywhere inside the Arctic Circle, and does not rise anywhere inside the Antarctic Circle. <a href=\"/concepts/what-are-the-polar-circles/\">The polar circles</a> sit at 90° minus {tilt} — the tilt’s other signature. Jump to a solstice on <a href=\"/day-night-map/\">the day/night map</a> and you can see it: the top of the map entirely lit, or entirely dark."
+        ]
+      },
+      {
+        "heading": "Why the hottest weeks come later",
+        "band": "deeper",
+        "body": [
+          "The most sunlight is not the most heat. Land and ocean keep warming for as long as each day still delivers more energy than its night sheds, so the temperature peak lags the light peak by several weeks — July and August in the north, January and February in the south. The sea lags hardest of all, which is why beach water is warmest long after the longest day has gone."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/day-night-map/",
+        "label": "Jump straight to a solstice on the live map"
+      },
+      {
+        "href": "/sun/near-me/",
+        "label": "Your own longest and shortest day, computed for your town"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-an-equinox",
+    "question": "What is an equinox?",
+    "term": "Equinox",
+    "shortAnswer": "An equinox is one of the two days a year the Sun stands directly over the equator — around {marEquinox} and again around {sepEquinox}. Day and night are then close to twelve hours each everywhere on Earth, pole to pole. One equinox starts spring in your hemisphere; the other starts fall.",
+    "ledeHtml": "An equinox is a day the Sun stands directly over the equator, which happens twice a year — around {marEquinox} and around {sepEquinox}. On those days the <a href=\"/concepts/what-is-the-terminator/\">day/night line</a> runs through both poles and everywhere on Earth gets close to twelve hours of daylight; the name is Latin for “equal night.” The March equinox begins spring in the northern hemisphere and fall in the southern, and the September one swaps them. Between equinoxes, the <a href=\"/concepts/what-is-the-subsolar-point/\">overhead Sun</a> is always somewhere on its way from one tropic to the other.",
+    "title": "What Is an Equinox?",
+    "description": "An equinox is a day the Sun stands over the equator — around {marEquinox} and {sepEquinox} — and day and night run close to twelve hours each, everywhere on Earth.",
+    "cluster": "day-night",
+    "hubUrls": [
+      {
+        "href": "/sun/",
+        "label": "Sunrise & sunset"
+      },
+      {
+        "href": "/day-night-map/",
+        "label": "Day and night map"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-a-solstice",
+      "why-do-we-have-seasons",
+      "what-is-the-terminator",
+      "what-is-a-leap-year"
+    ],
+    "graphicId": "sun-earth-line",
+    "graphicCaption": "The side view at an equinox: sunlight meets Earth square-on to the equator, and the day/night line runs pole to pole.",
+    "graphicAlt": "Side view of Earth at an equinox, with sunlight arriving directly over the equator and the terminator passing through both poles.",
+    "sections": [
+      {
+        "heading": "The one day the map is symmetric",
+        "band": "5-12",
+        "body": [
+          "Jump to an equinox on <a href=\"/day-night-map/\">the day/night map</a> and the shadow’s edge stands nearly vertical — every latitude cut in half. It is the only date that is true. The poles split the difference most strangely of all: there the Sun rolls along the horizon, taking days to fully rise or fully set. An equinox at the pole is not a day — it is the hinge between a six-month day and a six-month night."
+        ]
+      },
+      {
+        "heading": "“Equal” is approximate",
+        "band": "5-12",
+        "body": [
+          "Check <a href=\"/sun/near-me/\">your own sunrise table</a> on the equinox and you will find slightly more than twelve hours of daylight. Two honest reasons: sunrise and sunset are counted from the Sun’s top edge rather than its centre, and the air bends the low Sun upward into view, stretching both ends of the day by a few minutes. The date when day and night truly measure equal — the equilux — falls a few days toward the winter side."
+        ]
+      },
+      {
+        "heading": "Why the date wobbles between the 19th and the 21st",
+        "band": "deeper",
+        "body": [
+          "The equinox is an instant, not a date — the moment the overhead Sun crosses the equator. A real year of seasons is about a quarter of a day longer than 365 days, so that instant lands about six hours later each calendar year, then jumps back a day when the leap day is inserted. That is the same stray quarter-day <a href=\"/concepts/what-is-a-leap-year/\">the leap year exists to absorb</a>, showing up as a wobbling date."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/day-night-map/",
+        "label": "Jump straight to an equinox on the live map"
+      },
+      {
+        "href": "/sun/near-me/",
+        "label": "Check your own equinox daylight against twelve hours"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-a-supermoon",
+    "question": "What is a supermoon?",
+    "term": "Supermoon",
+    "shortAnswer": "A supermoon is a full moon that happens near the Moon’s closest approach to Earth. The orbit is an ellipse, not a circle — the distance swings by about 14% — so some full moons are closer, larger and brighter than others. There is no official cutoff, which is why a supermoon list should show each full moon’s actual distance.",
+    "ledeHtml": "A supermoon is a full moon that lands near perigee, the closest point of the Moon’s orbit. The orbit is an ellipse: the distance swings between roughly 357,000 and 407,000 km, about 14% end to end, so a full moon at the near end looks a little bigger and meaningfully brighter than one at the far end. “Supermoon” is not an astronomer’s term and has no official definition — which is why <a href=\"/moon/supermoons/\">the supermoon list on this site</a> names the threshold it uses and prints every full moon’s distance beside it, so you can see the choice being made.",
+    "title": "What Is a Supermoon?",
+    "description": "A supermoon is a full moon near the Moon’s closest approach. The orbit’s distance swings about 14%, so the closest full moons run larger and about 30% brighter.",
+    "cluster": "simulator",
+    "hubUrls": [
+      {
+        "href": "/moon/",
+        "label": "Moon"
+      }
+    ],
+    "relatedSlugs": [
+      "why-does-the-moon-change-shape",
+      "what-is-a-synodic-month",
+      "what-is-a-spring-tide",
+      "what-is-a-blue-moon"
+    ],
+    "graphicId": "moon-phase",
+    "graphicCaption": "The Moon on its orbit right now. The drawing’s circle is a simplification — the real orbit is an ellipse, and a supermoon is about where on that ellipse a full moon lands.",
+    "graphicAlt": "The Moon on its orbit around Earth, with the Sun’s direction setting the phase.",
+    "sections": [
+      {
+        "heading": "What you would actually notice",
+        "band": "5-12",
+        "body": [
+          "Side by side, the year’s closest full moon is about 14% wider than its most distant one — a coin next to a very slightly larger coin. From memory, a month apart, you would struggle to call it. Brightness is the real difference: light grows with the area of the disc, so the closest full moons run around 30% brighter than the farthest. And the famous giant moon sitting on the horizon is a different thing entirely — <a href=\"/concepts/why-does-the-moon-change-shape/\">the phase is real</a>, but the horizon-hugeness is an illusion your brain adds at any distance."
+        ]
+      },
+      {
+        "heading": "A coincidence of two cycles",
+        "band": "5-12",
+        "body": [
+          "The Moon passes its closest point every single orbit, so a supermoon is not a rare approach — it is a coincidence of timing, full phase and closest approach landing together. The cycle of phases (about 29.5 days) runs slightly longer than the orbit’s own close-far cycle, so the full moon slowly slides around the ellipse, and roughly every fourteen months a run of two or three full moons lands near the close end."
+        ]
+      },
+      {
+        "heading": "The tides notice more than you do",
+        "band": "deeper",
+        "body": [
+          "The Moon’s tide-raising grip strengthens faster with closeness than its brightness does. A full moon is already a <a href=\"/concepts/what-is-a-spring-tide/\">spring-tide</a> alignment; a full moon at perigee stacks the two, and those “perigean spring tides” run measurably higher — they are the king tides that make coastal news. If flood warnings follow a supermoon by a day or two, that is the same coincidence of cycles, read from the beach."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/moon/supermoons/",
+        "label": "Every coming supermoon, with its distance"
+      },
+      {
+        "href": "/moon/near-me/",
+        "label": "Tonight’s moon for your own town"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-a-blue-moon",
+    "question": "What is a blue moon?",
+    "term": "Blue moon",
+    "shortAnswer": "A blue moon is the second full moon inside one calendar month. Phases repeat about every 29.5 days and most months are 30 or 31 days long, so a full moon on the 1st or 2nd leaves just enough room for another before the month ends. It happens roughly every two to three years — and the Moon does not turn blue.",
+    "ledeHtml": "A blue moon is the second full moon to fall inside one calendar month. The cycle of phases takes about 29.5 days — <a href=\"/concepts/what-is-a-synodic-month/\">a synodic month</a> — and most calendar months are 30 or 31 days, so a full moon on the 1st or 2nd leaves just enough room for a second before the month runs out. That squeeze only works out every two to three years, which is what “once in a blue moon” has come to mean. The Moon itself looks exactly as it always does; <a href=\"/moon/blue-moons/\">the blue-moon list on this site</a> works out every one that is coming.",
+    "title": "What Is a Blue Moon?",
+    "description": "A blue moon is the second full moon in one calendar month — possible because phases repeat every 29.5 days and months run 30 or 31. About every two to three years.",
+    "cluster": "simulator",
+    "hubUrls": [
+      {
+        "href": "/moon/",
+        "label": "Moon"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-a-synodic-month",
+      "what-is-a-supermoon",
+      "why-does-the-moon-change-shape"
+    ],
+    "graphicId": "moon-phase",
+    "graphicCaption": "Tonight’s phase. A blue moon looks exactly like any other full moon — the name is about the calendar, not the colour.",
+    "graphicAlt": "The Moon on its orbit around Earth, showing tonight’s phase.",
+    "sections": [
+      {
+        "heading": "Why a month can fit two full moons",
+        "band": "5-12",
+        "body": [
+          "A calendar month is a container built for the Moon’s cycle — the word comes from “moon” — but built slightly too big, rounded up to 30 or 31 days. A container one or two days roomier than the thing it holds will occasionally hold the start of a second one. February is the exception in both directions: at 28 or 29 days it is shorter than the cycle itself, so it can never hold two full moons — and some Februaries hold none at all. When that happens, January and March can each go blue in the same year."
+        ]
+      },
+      {
+        "heading": "The older, stranger definition",
+        "band": "5-12",
+        "body": [
+          "The original almanac rule counted full moons per season: a season normally gets three, and in a season with four, the third was the blue moon. The simpler month-based rule spread from a mid-century magazine’s mistake and stuck. <a href=\"/moon/blue-moons/\">This site’s list</a> uses the monthly rule and says so on the page — a list that does not name its rule is presenting a choice as a fact."
+        ]
+      },
+      {
+        "heading": "Has the Moon ever actually been blue?",
+        "band": "deeper",
+        "body": [
+          "Rarely — and for none of these calendar reasons. After enormous volcanic eruptions or forest fires, ash particles of just the right size scatter red light and let blue through, and the Moon genuinely shows blue-grey: Krakatoa’s 1883 eruption tinted moons around the world for months. The phrase “once in a blue moon,” meaning almost never, is older than either calendar rule — the calendars borrowed the phrase, not the other way round."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/moon/blue-moons/",
+        "label": "Every blue moon coming, worked out"
+      },
+      {
+        "href": "/moon/near-me/",
+        "label": "Tonight’s moon for your own town"
+      }
+    ]
+  },
+  {
+    "slug": "what-are-the-moon-phases-called",
+    "question": "What are the moon phases called?",
+    "term": "Moon phase names",
+    "shortAnswer": "Eight names, in order: new moon, waxing crescent, first quarter, waxing gibbous, full moon, waning gibbous, last quarter, waning crescent — then new again, about 29.5 days after the last new. Waxing means growing, waning means shrinking, gibbous means more than half lit, and the quarters are named for the orbit, not the shape.",
+    "ledeHtml": "Eight names, in order: <strong>new moon, waxing crescent, first quarter, waxing gibbous, full moon, waning gibbous, last quarter, waning crescent</strong> — and back to new, about 29.5 days after the last one. The words are a small dictionary: <em>waxing</em> is growing, <em>waning</em> is shrinking, a <em>crescent</em> is less than half lit, and <em>gibbous</em> — “humped” — is more than half. The four in-between names describe shapes; the four turning points (new, first quarter, full, last quarter) mark quarters of <a href=\"/concepts/why-does-the-moon-change-shape/\">the journey that causes the shapes</a>.",
+    "title": "What Are the Moon Phases Called?",
+    "description": "New moon, waxing crescent, first quarter, waxing gibbous, full, waning gibbous, last quarter, waning crescent — what each name means and how to read tonight’s.",
+    "cluster": "simulator",
+    "hubUrls": [
+      {
+        "href": "/moon/",
+        "label": "Moon"
+      },
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Sun–Earth–Moon simulator"
+      }
+    ],
+    "relatedSlugs": [
+      "why-does-the-moon-change-shape",
+      "what-is-a-synodic-month",
+      "why-can-the-moon-be-up-in-the-daytime"
+    ],
+    "graphicId": "moon-phase",
+    "graphicCaption": "Where the Moon stands against the Sun right now. That angle is tonight’s phase — the names are just addresses along the lap.",
+    "graphicAlt": "The Moon on its orbit around Earth, with its position relative to the Sun setting the current phase.",
+    "sections": [
+      {
+        "heading": "Why “first quarter” looks like a half",
+        "band": "5-12",
+        "body": [
+          "At first quarter you see a half-lit disc, and the name is still right — it counts the orbit, not the light. The Moon is a quarter of the way around its lap when we see half its lit side. The names track the journey; the shapes track the lighting. Once you know that, “last quarter” stops being confusing too: three-quarters of the way around, the other half lit."
+        ]
+      },
+      {
+        "heading": "How to read tonight’s moon",
+        "band": "5-12",
+        "body": [
+          "Two questions identify any phase: how much is lit, and which side is lit. Less than half is a crescent, more than half is gibbous. North of the equator, a moon lit on the right is waxing — heading toward full — and lit on the left is waning; south of the equator the two swap, because you are looking at the same Moon the other way up. <a href=\"/moon/near-me/\">Your town’s moon page</a> names tonight’s phase and the 30-day strip shows the whole run."
+        ]
+      },
+      {
+        "heading": "The same instant, the whole world over",
+        "band": "5-12",
+        "body": [
+          "The phase is the angle between the Sun and the Moon, so everyone on Earth sees the same phase at the same moment — there is no city where it is first quarter while another has full. What changes with where you stand is which way up the shape hangs, and when the Moon rises. That is why phase pages can be global while <a href=\"/concepts/why-does-moonrise-get-later/\">moonrise pages</a> have to know your town."
+        ]
+      },
+      {
+        "heading": "Where the turning points really are",
+        "band": "deeper",
+        "body": [
+          "New moon is not “no moon” — it is the Moon standing in the Sun’s direction, its lit half facing away from us, up all day and lost in the glare. Full is the opposite station, and it is the only night the Moon is up from sunset to sunrise. Scrub <a href=\"/sun-moon-earth-movement-simulator/\">the simulator</a> across a month and you can watch each name arrive as an angle, not as a picture on a calendar."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/moon/near-me/",
+        "label": "Tonight’s phase and the 30-day strip for your town"
+      },
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Scrub a month and watch the names go by"
+      }
+    ]
+  },
+  {
+    "slug": "does-the-moon-have-a-dark-side",
+    "question": "Does the Moon have a dark side?",
+    "term": "Far side of the Moon",
+    "shortAnswer": "No. The Moon has a far side — the half that never faces Earth — but it gets exactly as much sunlight as the side we see. During a new moon, the far side is in full daylight. The “dark” in “dark side” only ever meant unseen, and it stopped being unseen in 1959.",
+    "ledeHtml": "No — and the two words hiding inside the question are doing different jobs. The Moon has a <strong>far side</strong>, the half that never faces Earth, because <a href=\"/concepts/what-is-tidal-locking/\">it turns once per orbit</a>. And it has a <strong>dark side</strong> — whichever half is in night right now — exactly as Earth does. They are only the same half at full moon. At new moon the far side is in full daylight while the face we know is dark. “Dark” only ever meant <em>unseen</em>, and it stopped being unseen in 1959, when the first spacecraft flew around and photographed it.",
+    "title": "Does the Moon Have a Dark Side?",
+    "description": "No — the far side of the Moon gets exactly as much sunlight as the side we see. At new moon it is in full daylight. “Dark” only ever meant unseen.",
+    "cluster": "simulator",
+    "hubUrls": [
+      {
+        "href": "/moon/",
+        "label": "Moon"
+      },
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Sun–Earth–Moon simulator"
+      }
+    ],
+    "relatedSlugs": [
+      "what-is-tidal-locking",
+      "what-is-libration",
+      "why-does-the-moon-change-shape"
+    ],
+    "graphicId": "moon-phase",
+    "graphicCaption": "The Moon right now. Which face points at Earth and which face points at the Sun are two different questions — the picture answers both at once.",
+    "graphicAlt": "The Moon on its orbit, showing the hemisphere facing Earth and the hemisphere lit by the Sun.",
+    "sections": [
+      {
+        "heading": "Far is about us; dark is about the Sun",
+        "band": "5-12",
+        "body": [
+          "“Far side” names a fixed half of the Moon — the same terrain, always turned away from Earth. “Dark side” can only honestly name a moving half: wherever it is currently night, which sweeps right around the Moon every month the same way night sweeps around Earth every day. A fixed name and a moving name can’t be the same thing, and the phases prove it: every crescent you have ever seen is sunlight spilling onto the far side."
+        ]
+      },
+      {
+        "heading": "Why one side hides at all",
+        "band": "5-12",
+        "body": [
+          "The Moon spins exactly once per trip around us — not by coincidence, but because Earth’s gravity braked it into step over billions of years, which is <a href=\"/concepts/what-is-tidal-locking/\">tidal locking</a>. So one hemisphere faces us for good. Almost for good: the orbit’s slight ellipse and tilt let us peek a little around the edges — <a href=\"/concepts/what-is-libration/\">libration</a> — so about 59% of the Moon is visible from Earth over time."
+        ]
+      },
+      {
+        "heading": "What the far side is actually like",
+        "band": "deeper",
+        "body": [
+          "Different, not darker. It has almost none of the smooth dark lava plains that make the face we see look like a face — it is paler, more heavily cratered, with a thicker crust, and why the two halves differ so much is still an open question. It is also the quietest radio environment a telescope could ask for, shielded from every transmitter on Earth by 3,500 km of rock, which is why astronomers keep proposing observatories there. The first photographs came from Luna 3 in 1959; the first landing on the far side came sixty years later, in 2019."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Watch the same face hold toward Earth while the sunlight sweeps round"
+      },
+      {
+        "href": "/moon/near-me/",
+        "label": "Tonight’s moon for your own town"
+      }
+    ]
+  },
+  {
+    "slug": "what-is-a-spring-tide",
+    "question": "What is a spring tide?",
+    "term": "Spring and neap tides",
+    "shortAnswer": "A spring tide is the fortnightly run of bigger tides — higher highs, lower lows — that comes when the Sun, Moon and Earth line up at new moon and full moon, so the two pulls add. At the quarter moons they work at right angles and partly cancel: those smaller tides are neap tides. “Spring” has nothing to do with the season; the word means to leap.",
+    "ledeHtml": "A spring tide is the fortnightly run of bigger tides — higher highs and lower lows — that arrives when the Sun, Moon and Earth stand in a line, so the Sun’s pull adds to the Moon’s. That line-up is exactly what a <strong>new moon or a full moon</strong> is, which is why the tide range follows the phase. At the quarter moons the Sun pulls at right angles to the Moon and partly cancels it: those smaller tides are <strong>neap tides</strong>. The season has nothing to do with it — “spring” here is the old sense of the word, to leap up — and the mechanism underneath is <a href=\"/concepts/what-causes-tides/\">what causes tides</a> in the first place.",
+    "title": "What Is a Spring Tide?",
+    "description": "Spring tides are the bigger tides at new and full moon, when the Sun’s pull adds to the Moon’s; neap tides are the smaller ones at the quarters. Not the season.",
+    "cluster": "questions",
+    "hubUrls": [
+      {
+        "href": "/tides/",
+        "label": "Tide predictions"
+      }
+    ],
+    "relatedSlugs": [
+      "what-causes-tides",
+      "what-is-a-supermoon",
+      "why-does-the-moon-change-shape"
+    ],
+    "graphicId": "tides",
+    "graphicCaption": "The two bulges the Moon raises. At new and full moon the Sun’s own, smaller pair lines up with them — spring tides. At the quarters it fights them — neaps.",
+    "graphicAlt": "Earth with the Moon’s two tidal bulges, showing how the Sun’s alignment strengthens or weakens them.",
+    "sections": [
+      {
+        "heading": "Twice a month, every month",
+        "band": "5-12",
+        "body": [
+          "Springs come at both new moon and full moon, because the tides do not care which side of Earth the Moon lines up on — a straight line is a straight line. So the rhythm is: springs, then about seven days later neaps, then springs again, riding the phases all month. It has run at that beat for as long as there has been an ocean."
+        ]
+      },
+      {
+        "heading": "Read this week’s tides off tonight’s moon",
+        "band": "5-12",
+        "body": [
+          "This is a genuinely usable trick: look at <a href=\"/moon/near-me/\">tonight’s phase</a>. Full or new, and the biggest ranges of the fortnight are landing within a day or two — the ocean lags the alignment slightly. Half-lit, and the week’s tides are at their tamest. Then check the real numbers against <a href=\"/tides/\">your station’s predictions</a>, which solve it properly instead of estimating from the phase."
+        ]
+      },
+      {
+        "heading": "Why some springs are king tides",
+        "band": "5-12",
+        "body": [
+          "Not all springs are equal. When the full or new moon also lands near the Moon’s closest approach to Earth — <a href=\"/concepts/what-is-a-supermoon/\">the supermoon coincidence</a> — the two effects stack, and those perigean spring tides are the ones that flood low streets and make the news as king tides."
+        ]
+      },
+      {
+        "heading": "What the angle looks like from above",
+        "band": "deeper",
+        "body": [
+          "The whole story is one angle: Sun–Earth–Moon. At 0° and 180° the two tidal stretches align and add; at 90° the Moon’s high water sits on the Sun’s low water. The Sun’s contribution is a bit under half the Moon’s — enormous mass, but tides fall off with the cube of distance, and the Sun is four hundred times farther away. That cube law is also why the nearer, smaller Moon runs the show at all."
+        ]
+      }
+    ],
+    "seeItLive": [
+      {
+        "href": "/tides/",
+        "label": "Your station’s predicted highs and lows"
+      },
+      {
+        "href": "/sun-moon-earth-movement-simulator/",
+        "label": "Watch the Sun–Moon angle that sets spring and neap"
       }
     ]
   }

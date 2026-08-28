@@ -17,6 +17,7 @@ import {
 import { orrerySvg } from "./orrery.mjs";
 import { globeSvg, globeRadius } from "./globe.mjs";
 import { sysOrbitWidget } from "./system-orbit.mjs";
+import { hourChart } from "./clock-convert.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -47,6 +48,8 @@ export function conceptTokens() {
     tilt: Y.tilt.toFixed(1),
     juneSolstice: day(Y.maxMs),
     decSolstice: day(Y.minMs),
+    marEquinox: day(Y.up),      /* declination crossing zero on the way up */
+    sepEquinox: day(Y.down),    /* and on the way down */
   };
 }
 
@@ -56,7 +59,9 @@ export function fillConcept(text) {
   return text
     .replace(/\{tilt\}/g, t.tilt)
     .replace(/\{juneSolstice\}/g, t.juneSolstice)
-    .replace(/\{decSolstice\}/g, t.decSolstice);
+    .replace(/\{decSolstice\}/g, t.decSolstice)
+    .replace(/\{marEquinox\}/g, t.marEquinox)
+    .replace(/\{sepEquinox\}/g, t.sepEquinox);
 }
 
 /** Editorial HTML from concepts.json (ledeHtml, or a body sentence with an
@@ -146,7 +151,7 @@ export function placeQuestionsCard(slugs, hubPath) {
 `;
 }
 
-function firstSentence(s) {
+export function firstSentence(s) {
   const m = String(s).match(/^.+?[.](?=\s|$)/);
   return m ? m[0] : s;
 }
@@ -439,6 +444,11 @@ export function graphicHtml(c) {
       let dec = SS.dec;
       if (c.slug === "what-is-the-tropic-of-cancer") dec = YEAR.tilt;
       else if (c.slug === "what-is-the-tropic-of-capricorn") dec = -YEAR.tilt;
+      /* the solstice page must show a solstice and the equinox page an
+         equinox, for the same reason the tropic pages force theirs: today's
+         declination would contradict the sentence above the picture */
+      else if (c.slug === "what-is-a-solstice") dec = YEAR.tilt;
+      else if (c.slug === "what-is-an-equinox") dec = 0;
       inner = `<div class="dns-wrap">${sideView(dec, YEAR.tilt).replace(/aria-label="[^"]*"/, `aria-label="${esc(c.graphicAlt)}"`)}</div>`;
       break;
     }
@@ -472,6 +482,12 @@ export function graphicHtml(c) {
       break;
     case "system-orbit":
       inner = sysOrbitWidget();
+      break;
+    case "hour-chart":
+      /* the converter's own 24-hour chart (clock-convert.mjs, no side
+         effects) — the military-time page's best possible graphic is the
+         complete answer table, and importing it means the two can't drift */
+      inner = hourChart();
       break;
     case "none":
       return "";
