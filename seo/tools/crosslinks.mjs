@@ -191,27 +191,22 @@ export { NOTE as CROSSLINK_NOTE };
  * cannot: its slug is a station, and the simulator page it reaches names the
  * station's mapped city, not the station. So that one stays contextual. */
 export const SIM_URL = "/sun-moon-earth-movement-simulator/";
-/* The "also see" line. Every registry city has a page in all three families
- * AND its own simulator page, so this names the ones the reader is not already
- * on and then the simulator — which is the thing that explains why the other
- * two say what they say. `from` is the family rendering it, and is the link
- * left out. */
+/* The "also see" line. It names ONLY the simulator: it used to also name the
+ * other families' pages for the place, which restated the "Related
+ * astronomical information" strip a card away — the same destinations with
+ * near-identical labels, and on a sun page the fourth moon link on the page.
+ * `from` decides whether the simulator link can carry data-xlink. */
 export function simLink({ slug = null, from = null, city = null } = {}) {
   if (!slug) {
     return `    <p class="hint orr-sim">Also see the <a href="${SIM_URL}">Sun, Earth &amp; Moon movement simulator</a>, to watch how the three move together over a day, a week or a month.</p>
 `;
   }
-  const where = city ? ` in ${esc(city)}` : "";
-  const forWhere = city ? ` for ${esc(city)}` : "";   /* the simulator is FOR a place, the times are IN one */
-  const others = [];
-  if (from !== "sun") others.push(`<a href="/sun/${slug}/">sunrise &amp; sunset${where}</a>`);
-  if (from !== "moon") others.push(`<a href="/moon/${slug}/">moonrise, moonset &amp; the phase${where}</a>`);
-  const list = others.length === 2 ? `${others[0]}, ${others[1]}` : others[0];
+  const forWhere = city ? ` for ${esc(city)}` : "";   /* the simulator is FOR a place */
   /* only sun and moon: the simulator's city page names those two back, so the
      pair is checkable. A tide page's slug is a station, and a clock page's zone
      has many cities — neither can be asserted, so neither is tagged. */
   const x = from === "sun" || from === "moon" ? ` data-xlink="sim"` : "";
-  return `    <p class="hint orr-sim">Also see ${list}, and the <a href="${SIM_URL}${slug}/"${x}>Sun, Earth &amp; Moon movement simulator${forWhere}</a>, to watch how the three move together over a day, a week or a month.</p>
+  return `    <p class="hint orr-sim">Also see the <a href="${SIM_URL}${slug}/"${x}>Sun, Earth &amp; Moon movement simulator${forWhere}</a>, to watch how the three move together over a day, a week or a month.</p>
 `;
 }
 

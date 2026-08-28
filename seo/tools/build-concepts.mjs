@@ -49,7 +49,12 @@ ${s.body.map((p) => `<p>${conceptHtml(p)}</p>`).join("\n")}
   const see = c.seeItLive
     .map((h) => `<li><a href="${esc(h.href)}">${esc(h.label)}</a></li>`)
     .join("");
-  const hubs = c.hubUrls
+  /* "On the hub:" names only hubs the See-it-live list above has NOT already
+     linked (compared without the fragment) — with the prose links in the
+     sections, the same destination was reaching four links per page. */
+  const seen = new Set(c.seeItLive.map((h) => h.href.replace(/#.*$/, "")));
+  const hubLinks = c.hubUrls.filter((h) => !seen.has(h.href.replace(/#.*$/, "")));
+  const hubs = hubLinks
     .map((h) => `<a href="${esc(h.href)}">${esc(h.label)}</a>`)
     .join(" · ");
   const deeperBlock = deeper.length
@@ -100,8 +105,7 @@ ${GA_SNIPPET}
   <div class="card see-live">
     <h2>See it live</h2>
     <ul>${see}</ul>
-    <p>On the hub: ${hubs}</p>
-  </div>
+${hubs ? `    <p>On the hub: ${hubs}</p>\n` : ""}  </div>
   <div class="card related">
     <h2>Related questions</h2>
     ${relatedPartial(c.relatedSlugs, bySlug)}

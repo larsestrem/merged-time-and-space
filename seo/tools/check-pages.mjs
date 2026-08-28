@@ -197,6 +197,28 @@ for (const f of files) {
   for (const m of html.matchAll(/<a\b[^>]*\shref=["'](undefined|null|NaN|\[object [A-Za-z]+\])["']/gi))
     bad.add(m[1] + " (a template interpolated a missing value)");
   for (const u of [...bad].slice(0, 5)) fail(`internal link goes nowhere: ${u}`);
+
+  /* THE SAME DESTINATION MUST NOT PILE UP IN BODY COPY. Chrome links one URL
+   * once per surface by design (menu, footer, crumb); body copy that links
+   * the same href four or more times is a pattern that drifted — the sun
+   * city pages reached four near-identical moon links and the day/night map
+   * five "Earth's orbit"s before anyone counted. Chrome and scripts are
+   * stripped first so the gate measures only what an author wrote into the
+   * page. Fragments and queries distinguish: /x/#a and /x/?d=1 are different
+   * intents, not repeats. */
+  const bodyOnly = html
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<details class="nav-dd[\s\S]*?<\/details>/g, "")
+    .replace(/<!--bd-->[\s\S]*?<!--\/bd-->/g, "")
+    .replace(/<nav class="brand-crumbs"[\s\S]*?<\/nav>/g, "")
+    .replace(/<nav class="sol-crumbs"[\s\S]*?<\/nav>/g, "")
+    .replace(/<nav class="(?:home-tabs|sec-switch)[^"]*"[\s\S]*?<\/nav>/g, "")
+    .replace(/<p class="footer[\s\S]*?<\/p>/g, "");
+  const hrefCount = new Map();
+  for (const m of bodyOnly.matchAll(/<a\b[^>]*\shref=["'](\/[^"']*)["']/gi))
+    hrefCount.set(m[1], (hrefCount.get(m[1]) || 0) + 1);
+  for (const [u, n] of hrefCount)
+    if (n >= 4) fail(`body links ${u} ${n} times — one destination, one link (or at most a contextual echo); fold the extras`);
 }
 
 if (problems.length) {

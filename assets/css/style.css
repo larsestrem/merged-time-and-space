@@ -258,6 +258,11 @@ html.nb-off .site-notice{display:none}
 .nav-dd .menu .menu-lab{display:block;padding:8px 13px 2px;font-size:10.5px;font-weight:800;
   letter-spacing:.08em;text-transform:uppercase;color:var(--muted);pointer-events:none}
 .nav-dd .menu .menu-lab:not(:first-child){margin-top:4px;padding-top:8px;border-top:1px solid var(--border)}
+/* a group label that IS a section hub is a link to it; everything stays the
+ * label's size and colour so the menu reads exactly as before */
+.nav-dd .menu .menu-lab a{pointer-events:auto;display:inline;padding:0;font-size:inherit;font-weight:inherit;
+  letter-spacing:inherit;color:inherit;border-radius:4px}
+.nav-dd .menu .menu-lab a:hover{background:none;text-decoration:underline}
 .nav-dd .menu .sep{height:1px;background:var(--border);margin:5px 8px}
 /* the cannabis-leaf glyph on the 420 Countdown item — cropped viewBox + this
  * size make it fill roughly the same box as the emoji icons on the other
@@ -334,6 +339,12 @@ a.brand-word:hover .wm-j{color:var(--accent);opacity:.55}
 @media (max-width:380px){.brand-word{font-size:17px}}
 .brand-cat{font-weight:600;font-size:18px;color:var(--muted);text-decoration:none;word-break:break-all}
 .brand-cat:hover{color:var(--text)}
+/* the restored breadcrumb: a slim second row of the brand grid, reading like
+ * a URL path under the wordmark — the visible twin of the BreadcrumbList
+ * JSON-LD every page already emits */
+.brand-crumbs{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:1px;
+  min-width:0;padding:0 2px 2px}
+.brand-crumbs .brand-cat{font-size:14px}
 /* copy / share dropdown (reuses the nav-dd machinery, icon instead of a label) */
 .copy-dd summary{padding:6px;color:var(--muted)}
 .copy-dd summary::after{content:none}

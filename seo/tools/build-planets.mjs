@@ -103,7 +103,9 @@ const planetCard = (b, place) => {
   return `  <div class="card sol-plan" id="${esc(b.slug)}">
     <div class="sol-planrow">
       <div class="sol-planart">
-        <a href="${url}" aria-label="${esc(b.name)}"><svg viewBox="0 0 400 400" width="100%" role="img" aria-label="${esc(b.name)} as a globe, drawn from its real features"><title>${esc(b.name)}</title><rect width="400" height="400" rx="16" fill="#080d1a"/>${art}</svg></a>
+        ${""/* the picture is NOT an anchor: the H2 beside it and the chip
+             below already link this URL, and a third tab stop per card was
+             two-thirds noise for a keyboard or screen-reader user */}<svg viewBox="0 0 400 400" width="100%" role="img" aria-label="${esc(b.name)} as a globe, drawn from its real features"><title>${esc(b.name)}</title><rect width="400" height="400" rx="16" fill="#080d1a"/>${art}</svg>
       </div>
       <div class="sol-planbody">
         <p class="sol-plankind">${dwarf ? "Dwarf planet" : "Planet"} · ${dwarf ? "beyond Neptune, in the Kuiper belt" : `${ordinals[place]} from the sun`}</p>
@@ -137,7 +139,7 @@ const beltCard = (b) => {
   return `  <div class="card sol-plan" id="${esc(b.slug)}">
     <div class="sol-planrow">
       <div class="sol-planart">
-        <a href="${url}" aria-label="The asteroid belt"><span class="sol-planbelt">${beltFigure()}</span></a>
+        <span class="sol-planbelt">${beltFigure()}</span>
       </div>
       <div class="sol-planbody">
         <p class="sol-plankind">Not a planet · between Mars and Jupiter</p>

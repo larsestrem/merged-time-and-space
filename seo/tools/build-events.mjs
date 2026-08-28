@@ -452,8 +452,15 @@ function page(e) {
     }
     return html;
   }
+  /* one link per destination PER PAGE, which is what the comment above always
+     promised: the set used to be local to each linkify() call, so the intro,
+     every section and every fact each got their own "first" mention — the
+     Macy's page linked Thanksgiving four times. Shared here, and the intro is
+     linkified first below so the one link lands at the first mention a reader
+     actually sees. */
+  const usedUrls = new Set();
   function linkify(raw) {
-    let html = esc(raw); const usedUrls = new Set();
+    let html = esc(raw);
     for (const { text, url, ext } of phrases) {
       if (usedUrls.has(url)) continue;
       const rx = new RegExp(`(^|[^A-Za-z0-9])(${ESCRX(esc(text))})(?![A-Za-z0-9])`, "i");
@@ -465,6 +472,10 @@ function page(e) {
     return html;
   }
 
+  /* PAGE ORDER: the intro renders above the sections, so it claims its links
+     first — otherwise a section would take the page's one Thanksgiving link
+     and the intro's mention would go bare while a later one carried it. */
+  const introHtml = linkify(e.intro);
   const sections = e.sections.map((s) =>
     `  <div class="card">\n    <h2>${esc(s.h)}</h2>\n    <p>${linkify(s.p)}</p>\n  </div>`).join("\n");
   const facts = e.facts.map((f) => `      <li>${linkify(f)}</li>`).join("\n");
@@ -663,7 +674,7 @@ ${GA_SNIPPET}
         ? `<div class="cd-hero cd-hero-pair">${ART.star}${ART.birthday}</div>`
         : `<div class="cd-hero">${ART[e.art] || ART.generic}</div>`}
   <h1>${esc(e.h1)}</h1>
-  <p class="sub">${linkify(e.intro)}</p>${estimateNote}`}
+  <p class="sub">${introHtml}</p>${estimateNote}`}
 
   <div class="cd-clockrow">
   <p class="visually-hidden">${esc(answer)}</p>
@@ -683,7 +694,7 @@ ${e.profile ? `
         ? heroImg(e.profile, e.profileAlt || (e.type === "birthday-countdown" ? `Cartoon of ${e.label} celebrating a birthday` : `Illustration celebrating ${e.name}`))
         : (ART[e.profile] || "")}</div>
     <div class="cd-profile-body">
-      <p class="sub">${linkify(e.intro)}</p>${estimateNote}
+      <p class="sub">${introHtml}</p>${estimateNote}
       ${profileMeta}
     </div>
   </div>` : ""}

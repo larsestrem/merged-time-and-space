@@ -397,17 +397,24 @@ const MENU = `<details class="nav-dd menu-dd"><summary class="hamburger" aria-la
      classroom. Labels group the flat list under the five-section nav so the
      two navigations stop reading as two sites. Countdowns and the retired
      Big Questions page stay off this list on purpose. */
-  `<li class="menu-lab">Time</li>` +
+  /* THE LABELS ARE LINKS to the section hubs: /time/, /earth/ and /space/
+     used to be reachable only through the logo dropdown — the hamburger
+     grouped the tools under three headings a reader could not click. */
+  `<li class="menu-lab"><a href="/time/">Time</a></li>` +
   `<li><a href="/alarm-clock/">${ico("alarm")} Alarm Clock</a></li>` +
   `<li><a href="/world-clock/">${ico("globe")} World Clock</a></li>` +
   `<li><a href="/timer/">${ico("timer")} Timer</a></li>` +
   `<li><a href="/stopwatch/">${ico("stopwatch")} Stopwatch</a></li>` +
-  `<li class="menu-lab">Earth</li>` +
+  `<li class="menu-lab"><a href="/earth/">Earth</a></li>` +
   `<li><a href="/sun/">${ico("sunrise")} Sunrise &amp; Sunset</a></li>` +
   `<li><a href="/moon/">${ico("moon")} Moon</a></li>` +
   `<li><a href="/tides/">${ico("wave")} Tides</a></li>` +
+  `<li><a href="/day-night-map/">${ico("globe")} Day &amp; Night Map</a></li>` +
   `<li><a href="/sun-moon-earth-movement-simulator/">${ico("earthmoon")} Sun, Earth &amp; Moon</a></li>` +
-  `<li class="menu-lab">Space</li>` +
+  /* rung 2 of the view ladder: without this row the orbit simulator had no
+     site-wide route at all — the footer and this menu both skipped it */
+  `<li><a href="/earth-sun-moon-orbit-simulator/">${ico("earthmoon")} Earth&rsquo;s Orbit</a></li>` +
+  `<li class="menu-lab"><a href="/space/">Space</a></li>` +
   `<li><a href="/glossary/">${ico("glossary")} Glossary</a></li>` +
   `<li><a href="/planets/">${ico("solar")} The Planets</a></li>` +
   `<li><a href="/solar-system-simulator/">${ico("solar")} Solar System</a></li>` +
@@ -1048,18 +1055,19 @@ const wordmark = (isHome) => isHome
   : `<a class="brand-word" href="/" aria-label="Time and Space Science home">${WORDMARK}</a>`;
 const brandBlock = (isHome) => `<!--bd-->${BRAND_DD}${wordmark(isHome)}<!--/bd-->`;
 
-/* Matches its own previous output OR the original anchor — and, crucially,
- * ANY brand-cat crumb links that follow it. The breadcrumb comes out of the
- * bar site-wide (owner's call; the navigation is being reworked separately),
- * and doing the strip HERE rather than in lib.mjs brand() is what reaches the
- * hand-maintained pages too, whose brand markup is literal in the file and
- * never passes through a generator. The BreadcrumbList JSON-LD is emitted
- * separately and is untouched, so search-result breadcrumbs still work. */
-const CRUMB_TAIL = '(?:\\s*<a class="brand-cat"[^>]*>[\\s\\S]*?</a>)*';
+/* Matches its own previous output OR the original anchor — and ANY brand-cat
+ * crumb links that follow it. THE CRUMBS ARE KEPT NOW: for a while the bar
+ * stripped them site-wide, which left ~4,200 pages emitting BreadcrumbList
+ * JSON-LD for a hierarchy no human could see — a reader landing on
+ * /sun/london/ from a search result had no visible way up. The tail is
+ * captured and re-emitted after the logo block, so the replacement stays
+ * idempotent and the hand-maintained pages (whose brand markup is literal in
+ * the file and never passes through lib.mjs brand()) keep theirs too. */
+const CRUMB_TAIL = '((?:\\s*<nav class="brand-crumbs"[^>]*>[\\s\\S]*?</nav>|(?:\\s*<a class="brand-cat"[^>]*>[\\s\\S]*?</a>)+)?)';
 const BRAND_RE = new RegExp(
   '(?:<!--bd-->[\\s\\S]*?<!--/bd-->'
   + '|<a class="brand-name" href="/"[^>]*>[\\s\\S]*?</a>)'
-  /* the crumb-eater hangs off BOTH branches: on a page built before this
+  /* the crumb tail hangs off BOTH branches: on a page built before this
      change the markers already exist and the crumbs sit AFTER them, so a
      tail attached only to the anchor branch would leave them behind. */
   + CRUMB_TAIL,
@@ -1073,7 +1081,13 @@ const COPY_JS_RE = /<script>document\.addEventListener\("click",function\(e\)\{v
 function injectLogo(html, rel) {
   const isHome = rel === "index.html";
   let out = html.replace(COPY_DD_RE, "").replace(COPY_JS_RE, "");
-  out = out.replace(BRAND_RE, brandBlock(isHome));
+  out = out.replace(BRAND_RE, (m, tail) => {
+    /* normalise whatever the tail held — bare anchors from lib.mjs brand(),
+       or a wrapper from a previous run of this very function — into one
+       <nav> that sits as a full-width second row of the bar's grid */
+    const links = ((tail || "").match(/<a class="brand-cat"[\s\S]*?<\/a>/g) || []).join("");
+    return brandBlock(isHome) + (links ? `<nav class="brand-crumbs" aria-label="Breadcrumb">${links}</nav>` : "");
+  });
   /* the home page's centred "Time and Space" heading is now the wordmark on
      the left, so the old one would be a second copy of the same name */
   if (isHome) out = out.replace(/<h1 class="brand-h1">Time and Space<\/h1>\s*/g, "");
