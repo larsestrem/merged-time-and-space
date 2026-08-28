@@ -35,7 +35,7 @@ import { mm, cm, metres } from "./units.mjs";
 import { LAUNCH_PATH as ROCKET_PATH, PLANETS_PATH, planetPath } from "./solar-pages.mjs";
 import { DAYNIGHT_PATH } from "./daynight.mjs";
 import { sectionSwitcher } from "./section-nav.mjs";
-import { hubQuestionsCard } from "./concepts.mjs";
+import { hubQuestionsCard, placeQuestionsCard } from "./concepts.mjs";
 import {
   lessonForm, questionsForm, FORMS_JS, plaque, submitCta,
   SUBMIT_PATH, LESSON_FORM_HASH, QUESTIONS_HASH,
@@ -955,6 +955,23 @@ const FLAGSHIP = {
   "high-school": ["solar-system", "Launch windows: aim where it will be"],
 };
 
+/* ---- the questions under each topic --------------------------------------
+ * The merge moved the explanations to /concepts/, and the lesson plans — the
+ * pages whose whole job is handing a teacher the explanation — never pointed
+ * at them: 17 of 18 lessons carried zero concept links, because
+ * hubQuestionsCard(url) had no mapping for lesson URLs and silently returned
+ * "". This map is that mapping, per topic. hubQs throws on a slug that does
+ * not exist, so a retired concept fails the build here instead of shipping a
+ * dead card. */
+const TOPIC_CONCEPTS = {
+  "solar-system": ["why-dont-planets-fall-into-the-sun", "how-does-an-orbit-work", "why-do-planets-have-moons"],
+  "moon-phases": ["why-does-the-moon-change-shape", "what-is-a-synodic-month", "why-isnt-there-an-eclipse-every-month"],
+  "seasons": ["why-do-we-have-seasons", "what-is-earths-axial-tilt", "what-is-the-subsolar-point"],
+  "earth-moon-sun": ["what-is-a-solar-day", "what-is-a-synodic-month", "what-is-tidal-locking"],
+  "light-speed": ["why-is-the-night-sky-dark"],
+  "leap-year": ["what-is-a-leap-year", "what-is-a-solar-day"],
+};
+
 /* topics may cover only some bands — a new topic starts with its strongest
    band and the matrix shows the empty rungs as "coming" */
 export const LESSON_PAGES = [];
@@ -1165,8 +1182,7 @@ ${L.ext.map(([n, u, why]) => `      <li><a href="${u}" rel="noopener" target="_b
     <div class="timer-presets">${others}<a class="chip chip-alt" href="${LPATH}">All lesson plans</a></div>
   </div>
 
-${feedbackCard("this lesson")}
-${hubQuestionsCard(url)}
+${TOPIC_CONCEPTS[T.s] ? placeQuestionsCard(TOPIC_CONCEPTS[T.s], url) : ""}${feedbackCard("this lesson")}
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 </body>
@@ -2106,3 +2122,48 @@ export const LESSON_FLAGSHIPS = BANDS.map((B) => {
   const [topicSlug, label] = FLAGSHIP[B.s];
   return { band: B.n, label, url: `${LPATH}${topicSlug}-${B.s}/` };
 });
+
+/* ---- the tool -> lesson index (seo/_data/lesson-index.json) --------------
+ * Which lessons run on which tool, DERIVED by scanning each lesson's own
+ * copy for the tools it opens — a lesson that stops linking a simulator
+ * falls off that simulator's "lessons that run on this" card by itself,
+ * and nothing is typed twice. Written as a sidecar because the tool
+ * builders (day/night map, orbital, solar, the movement simulator) run
+ * AFTER this script in the build and must not import it — importing a
+ * builder re-runs it, and this one writes twenty-five pages. lesson-index.mjs
+ * is the side-effect-free reader they use. check-pages' dead-link gate
+ * covers the staleness case: a sidecar row pointing at a retired lesson
+ * fails the build. */
+const TOOL_HUBS = new Set([
+  "day-night-map", "sun", "moon", "tides", "world-clock",
+  "timer", "stopwatch", "alarm-clock", "24-hour-clock-converter",
+  "time-difference-calculator", "planets",
+  "solar-system-simulator", "sun-moon-earth-movement-simulator",
+  "earth-sun-moon-orbit-simulator", "orbital-velocity-simulator",
+  "rocket-launch-simulator", "earth-and-moon-simulator",
+  "mercury-simulator", "venus-simulator", "mars-and-moons-simulator",
+  "jupiter-and-moons-simulator", "saturn-and-moons-simulator",
+  "uranus-and-moons-simulator", "neptune-and-moons-simulator",
+  "pluto-and-moons-simulator",
+]);
+const lessonIndex = [];
+for (const T of TOPICS) for (const B of BANDS) {
+  const L = LESSONS[T.s][B.s];
+  if (!L) continue;
+  const strings = [];
+  (function walk(v) {
+    if (typeof v === "string") strings.push(v);
+    else if (Array.isArray(v)) v.forEach(walk);
+    else if (v && typeof v === "object") Object.values(v).forEach(walk);
+  })(L);
+  const tools = new Set();
+  for (const s of strings)
+    for (const m of s.matchAll(/href="\/([a-z0-9-]+)(?=[/?"#])/g))
+      if (TOOL_HUBS.has(m[1])) tools.add(`/${m[1]}/`);
+  lessonIndex.push({
+    url: `${LPATH}${T.s}-${B.s}/`, title: L.t, mins: L.mins,
+    band: B.n, topic: T.s, tools: [...tools].sort(),
+  });
+}
+writeFileSync(join(root, "seo/_data/lesson-index.json"), JSON.stringify(lessonIndex, null, 1) + "\n");
+console.log(`classroom: wrote seo/_data/lesson-index.json (${lessonIndex.length} lessons)`);

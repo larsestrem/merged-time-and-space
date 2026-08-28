@@ -30,6 +30,7 @@ import { MOON_CORE, moonIllum, moonName, moonTimes, moonPos, moonGlyph, compass 
 import { ORRERY_JS, ORR_GEOM, orrerySvg, orreryNote, orreryLocalValue, orreryCalc } from "./orrery.mjs";
 import { ico } from "./icons.mjs";
 import { hubQuestionsCard } from "./concepts.mjs";
+import { lessonsCard } from "./lesson-index.mjs";
 import { viewLadder } from "./view-ladder.mjs";
 import { CITIES } from "./city-registry.mjs";
 import { placeLd, resolvePlace } from "./place.mjs";
@@ -1117,7 +1118,7 @@ ${head({
   <h1>Sun, Moon &amp; Earth Movement Simulator</h1>
   <p class="sub">Watch where the sun and the moon actually are, from any place on Earth, at any moment you like. Drag the slider through a <strong>day</strong>, a <strong>week</strong> or a <strong>month</strong> and the picture, the phase and every number move with it.</p>
 
-${viewLadder("town")}${simCard(HUB_CITY, hubFacts)}${howWorksCard}${scaleCard}${teachCard}  <div class="card">
+${viewLadder("town")}${simCard(HUB_CITY, hubFacts)}${howWorksCard}${scaleCard}${teachCard}${lessonsCard(SIM_PATH)}  <div class="card">
     <h2>Pick a city</h2>
     <p>Every city with a sunrise page has a simulator page of its own — ${ALL.length.toLocaleString("en-US")} of them. The largest are here; for anywhere else, use the search above or start from that city’s <a href="/sun/">sunrise</a> or <a href="/moon/">moon</a> page.</p>
     <div class="chips sim-citylist">
@@ -1328,7 +1329,7 @@ ${head({
   <h1>Earth, the Sun &amp; the Moon — All Three Moving</h1>
   <p class="sub">The picture neither of this site's other simulators draws: the Earth going round the sun while the moon goes round the Earth, both at once. It is drawn small enough to fit a screen, which means it cannot be to scale — and the card below it says exactly how far out it is.</p>
 
-${viewLadder("system", { note: sysTradeNote })}${sysFigureCard}${sysWatchCard}${sysTeachCard}${sysScaleCard}${faqCard(SYS_FAQ, "Common questions")}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
+${viewLadder("system", { note: sysTradeNote })}${sysFigureCard}${sysWatchCard}${sysTeachCard}${lessonsCard(SYS_PATH)}${sysScaleCard}${faqCard(SYS_FAQ, "Common questions")}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 </body>
 </html>

@@ -1681,6 +1681,11 @@ ${sectionSwitcher("/")}
        and nothing new is stored. */""
   }<div class="card cr-ask" id="teach-together">
     <h2>${ico("classroom")} Have a lesson in mind? Let's build it together.</h2>
+    ${/* THE OFFER BEFORE THE ASK: this card used to be the home page's only
+         teacher door, which routed a teacher to a collaboration form before
+         the finished plans — the thing a teacher planning tomorrow actually
+         wants. One line, catalog first. */""
+    }<p><a href="/classroom/lessons/"><strong>Timed lesson plans, K–2 to high school</strong></a> are already written and ready to project — filterable by grade, topic and minutes, every step a link that opens the exact view.</p>
     <p><strong>This site gets better by being taught from.</strong> If you have an idea that would make it better — or a lesson you'd like to build together and share with everyone — reach out. We'll shape the tool around your class, write the plan with you, and publish it free for every other classroom. <strong>If we build your idea, your class is credited on the page</strong>, and <a href="/about/work-with-us/">how that works is written down</a>.</p>
     ${/* TWO DOORS, NOT THREE. This form is for a lesson that does not exist
          yet — something to build together. A teacher who already HAS the

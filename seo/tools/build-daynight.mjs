@@ -28,6 +28,7 @@ import { esc, GA_SNIPPET, brand, faqLd, breadcrumbLD, appLd, learningLd } from "
 import { ico } from "./icons.mjs";
 import { WC_CITY_LIST } from "./wc-cities.mjs";
 import { hubQuestionsCard } from "./concepts.mjs";
+import { lessonsCard } from "./lesson-index.mjs";
 import { SYS_PATH, SIDEREAL } from "./build-simulator.mjs";
 import {
   DAYNIGHT_PATH, DN_CORE, DN_W, DN_VIEW_Y, DN_VIEW_H, DN_VIEWBOX,
@@ -490,7 +491,7 @@ ${GA_SNIPPET}
   <h1>Day and Night Map</h1>
   <p class="sub">Where it is light on Earth right now, where it is dark, and the twilight in between. Drag the slider to move through one ${SIDEREAL}-day orbit of the Moon, or press play and watch the line sweep round. The same picture as the <a href="/world-clock/">world clock</a>'s map, with time attached.</p>
 
-${simCard}${howCard}${sideCard}${tryCard}${hubQuestionsCard(PATH)}  <div class="card">
+${simCard}${howCard}${sideCard}${tryCard}${hubQuestionsCard(PATH)}${lessonsCard(PATH)}  <div class="card">
     <h2>Keep going</h2>
     <p>This map answers "where", to the nearest few hundred kilometres. For "when", to the minute, in your own town:</p>
     <p class="timer-presets">

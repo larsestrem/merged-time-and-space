@@ -37,6 +37,7 @@ import { kmPerS } from "./units.mjs";
    both of which have been redirects since those pages moved. */
 import { PLANETS_PATH, LAUNCH_PATH as ROCKET_PATH, ORBITAL_PATH, planetPath } from "./solar-pages.mjs";
 import { hubQuestionsCard } from "./concepts.mjs";
+import { lessonsCard } from "./lesson-index.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -521,7 +522,7 @@ ${head({
   <h1>Orbital Velocity Simulator</h1>
   <p class="sub">Set how far out a planet sits and how fast it is moving sideways, and watch what gravity does with it — a circle, a long ellipse, an escape, or a fall into the sun. The two arrows are the whole story: where it is going, and where it is being pulled.</p>
 
-${simCard}${whyShort}${hubQuestionsCard(OV_PATH)}${tableCard}  <div class="card">
+${simCard}${whyShort}${hubQuestionsCard(OV_PATH)}${lessonsCard(OV_PATH)}${tableCard}  <div class="card">
     <h2>Keep going</h2>
     <p class="timer-presets">
       <a class="chip" href="/glossary/">The glossary of every term</a>

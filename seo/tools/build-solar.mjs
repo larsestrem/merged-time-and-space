@@ -48,6 +48,7 @@ import { SMALL_JS, SM_COMETS, SM_BIG, cometRow, nextPerihelion, resonanceAU, bel
 import { TRANSFER_JS, TR_TARGETS, TR_GM_SUN, launchWindow, transferCost, closestApproaches } from "./transfer.mjs";
 import { SIM_PATH, SYS_PATH } from "./build-simulator.mjs";
 import { hubQuestionsCard } from "./concepts.mjs";
+import { lessonsCard } from "./lesson-index.mjs";
 import { JS_MODULES, SOLAR_HUB, PLANETS_PATH, LAUNCH_PATH as LAUNCH_NEW, LAUNCH_OLD, planetPath, planetOldPath,
          SYS_VIEWS, EXTRA_VIEWS, HUB_NEEDS, LAUNCH_DESTS, LAUNCH_NEEDS, assertNeeds, moonCount,
          solarCrumbs, CRUMB_ROOT, ORBITAL_PATH } from "./solar-pages.mjs";
@@ -1421,7 +1422,7 @@ function buildHub() {
     faq: FAQ,
     h1: "Solar System Simulator",
     sub: `The planets on their real orbits, moving. Drag through a <strong>month</strong>, a <strong>year</strong>, a <strong>decade</strong> or a <strong>century</strong>; zoom from Jupiter’s moons all the way out to Neptune; switch on the asteroid belt, the comets, and the flight path to Mars.`,
-    cards: viewLadder("solar") + simCard("inner", 0, SOLAR_PATH, 1) + howItWorksCard() + hubQuestionsCard(SOLAR_PATH) + bodyLinks() + windowCard(PLANET.MARS) + TRANSFER_NOTE + ladderCard()
+    cards: viewLadder("solar") + simCard("inner", 0, SOLAR_PATH, 1) + howItWorksCard() + hubQuestionsCard(SOLAR_PATH) + lessonsCard(SOLAR_PATH) + bodyLinks() + windowCard(PLANET.MARS) + TRANSFER_NOTE + ladderCard()
       + shareCard(SOLAR_PATH) + elsewhereCard(),
     cfg: { rung: "inner", path: SOLAR_PATH },
     /* the one page that keeps every module — its ladder climbs every rung in

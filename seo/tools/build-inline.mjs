@@ -422,6 +422,10 @@ const MENU = `<details class="nav-dd menu-dd"><summary class="hamburger" aria-la
   `<li><a href="/rocket-launch-simulator/">${ico("rocket")} Rocket Launches</a></li>` +
   `<li class="menu-lab">Classroom</li>` +
   `<li><a href="/classroom/">${ico("classroom")} For Teachers</a></li>` +
+  /* THE OFFER SITS ABOVE THE ASK: the finished lesson plans were two-plus
+     clicks from everywhere while the submission form had its own nav row —
+     a teacher should reach the catalog before the collaboration pitch. */
+  `<li><a href="/classroom/lessons/">${ico("calendar")} Lesson Plans</a></li>` +
   /* THE ONE ACTION IN A MENU OF PLACES, and in the nav on the owner's call:
      collaborating with teachers is a primary task of the site, and a task
      that lives only at the foot of one page is a footnote. It points at a
