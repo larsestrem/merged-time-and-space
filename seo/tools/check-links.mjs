@@ -52,16 +52,27 @@ async function probe(url) {
       });
       if (res.ok || res.status === 304) return { ok: true, status: res.status };
       if (method === "GET") {
-        /* 403/401/429 are usually bot-blocking, not a dead page */
-        const blocked = [401, 403, 405, 429, 999].includes(res.status);
-        return { ok: false, status: res.status, blocked };
+        /* ONLY a status that means "this page is gone" is actionable: 404 and
+           410. Everything else a live site can throw at a crawler — 401/403
+           bot walls, 405, 429 rate limits, 5xx hiccups, 999 — proves nothing
+           about whether the page exists, and reporting each one daily is what
+           turned the maintenance email into fifty lines of state election
+           sites that block robots. Those are counted, not listed. */
+        const dead = res.status === 404 || res.status === 410;
+        return { ok: false, status: res.status, blocked: !dead };
       }
       /* HEAD failed; retry with GET */
     } catch (e) {
-      if (method === "GET") return { ok: false, status: "ERR " + (e.cause?.code || e.name), blocked: false };
+      const code = e.cause?.code || e.name;
+      if (method === "GET") {
+        /* a domain that no longer resolves is genuinely dead; a timeout or a
+           reset is a site defending itself and proves nothing */
+        const dead = code === "ENOTFOUND" || String(code).startsWith("CERT_") || code === "ERR_TLS_CERT_ALTNAME_INVALID";
+        return { ok: false, status: "ERR " + code, blocked: !dead };
+      }
     }
   }
-  return { ok: false, status: "ERR", blocked: false };
+  return { ok: false, status: "ERR", blocked: true };
 }
 
 const urls = [...usage.keys()];
@@ -78,10 +89,23 @@ async function worker() {
 }
 await Promise.all(Array.from({ length: POOL }, worker));
 
+/* Two classes, two fates. DEAD links (404/410/no-such-domain) are FINDINGs —
+ * each one is an edit to events.json a person can actually make. UNVERIFIABLE
+ * links (bot walls, rate limits, timeouts) become ONE summary line, because
+ * fifty of them a day taught the owner to stop reading the email. They are
+ * still printed plain below for the workflow log, where a human debugging a
+ * specific link can find them. */
+const dead = findings.filter((f) => !f.blocked);
+const unver = findings.filter((f) => f.blocked);
 if (!findings.length) {
   console.log("OK: all external links healthy.");
 } else {
-  for (const f of findings)
-    console.log(`FINDING\t${f.blocked ? "blocked" : "broken"}\t${f.status}\t${f.url}\t${f.where}`);
-  console.log(`\n${findings.length} problem link(s) out of ${urls.length}.`);
+  for (const f of dead)
+    console.log(`FINDING\tdead link\t${f.status}\t${f.url}\tused on ${f.where}`);
+  if (unver.length) {
+    const domains = new Set(unver.map((f) => { try { return new URL(f.url).hostname; } catch { return f.url; } }));
+    console.log(`NOTE\t${unver.length} of ${urls.length} external link(s) (${domains.size} domain(s)) could not be verified — bot-blocked or timing out, which proves nothing about the page. Routine; no action needed.`);
+    for (const f of unver) console.log(`  unverifiable ${f.status} ${f.url} (${f.where})`);
+  }
+  console.log(`\n${dead.length} dead, ${unver.length} unverifiable, out of ${urls.length}.`);
 }
