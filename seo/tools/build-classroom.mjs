@@ -99,6 +99,7 @@ ${GA_SNIPPET}
       <a class="chip" href="/classroom/lessons/seasons-grades-7-8/">Seasons · grades 7&ndash;8</a>
       <a class="chip" href="/classroom/lessons/solar-system-grades-3-4/">The solar system · grades 3&ndash;4</a>
     </p>
+    <p class="hint">Sixteen more drafts sit in an archive at their old addresses — unpolished on purpose, each one an invitation. If a link brought you to one, <a href="${SUBMIT_PATH}">adopt it</a> and we'll rebuild it with you.</p>
   </div>
 
   <div class="card">

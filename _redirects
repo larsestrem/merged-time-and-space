@@ -443,19 +443,25 @@
 # shadow them; the sixteen retired lessons and the hub redirect by name.
 /classroom/lessons/  /classroom/  301
 /classroom/lessons  /classroom/  301
-/classroom/lessons/solar-system-grades-k-2/*  /classroom/  301
-/classroom/lessons/solar-system-grades-5-6/*  /classroom/  301
-/classroom/lessons/solar-system-grades-7-8/*  /classroom/  301
-/classroom/lessons/solar-system-high-school/*  /classroom/  301
-/classroom/lessons/moon-phases-grades-k-2/*  /classroom/  301
-/classroom/lessons/moon-phases-grades-3-4/*  /classroom/  301
-/classroom/lessons/moon-phases-grades-5-6/*  /classroom/  301
-/classroom/lessons/moon-phases-grades-7-8/*  /classroom/  301
-/classroom/lessons/moon-phases-high-school/*  /classroom/  301
-/classroom/lessons/seasons-grades-k-2/*  /classroom/  301
-/classroom/lessons/seasons-grades-3-4/*  /classroom/  301
-/classroom/lessons/seasons-grades-5-6/*  /classroom/  301
-/classroom/lessons/seasons-high-school/*  /classroom/  301
-/classroom/lessons/earth-moon-sun-grades-5-6/*  /classroom/  301
-/classroom/lessons/light-speed-grades-7-8/*  /classroom/  301
-/classroom/lessons/leap-year-grades-5-6/*  /classroom/  301
+# …and the sixteen retired drafts each 301 to THE SAME CONTENT, archived at
+# /classroom/archive/<slug>/ (noindex, banner explaining what it is): a link
+# someone saved still lands on the lesson it named, not on a pitch page.
+/classroom/lessons/solar-system-grades-k-2/*  /classroom/archive/solar-system-grades-k-2/  301
+/classroom/lessons/solar-system-grades-5-6/*  /classroom/archive/solar-system-grades-5-6/  301
+/classroom/lessons/solar-system-grades-7-8/*  /classroom/archive/solar-system-grades-7-8/  301
+/classroom/lessons/solar-system-high-school/*  /classroom/archive/solar-system-high-school/  301
+/classroom/lessons/moon-phases-grades-k-2/*  /classroom/archive/moon-phases-grades-k-2/  301
+/classroom/lessons/moon-phases-grades-3-4/*  /classroom/archive/moon-phases-grades-3-4/  301
+/classroom/lessons/moon-phases-grades-5-6/*  /classroom/archive/moon-phases-grades-5-6/  301
+/classroom/lessons/moon-phases-grades-7-8/*  /classroom/archive/moon-phases-grades-7-8/  301
+/classroom/lessons/moon-phases-high-school/*  /classroom/archive/moon-phases-high-school/  301
+/classroom/lessons/seasons-grades-k-2/*  /classroom/archive/seasons-grades-k-2/  301
+/classroom/lessons/seasons-grades-3-4/*  /classroom/archive/seasons-grades-3-4/  301
+/classroom/lessons/seasons-grades-5-6/*  /classroom/archive/seasons-grades-5-6/  301
+/classroom/lessons/seasons-high-school/*  /classroom/archive/seasons-high-school/  301
+/classroom/lessons/earth-moon-sun-grades-5-6/*  /classroom/archive/earth-moon-sun-grades-5-6/  301
+/classroom/lessons/light-speed-grades-7-8/*  /classroom/archive/light-speed-grades-7-8/  301
+/classroom/lessons/leap-year-grades-5-6/*  /classroom/archive/leap-year-grades-5-6/  301
+# the archive folder itself is not a page
+/classroom/archive/  /classroom/  301
+/classroom/archive  /classroom/  301
