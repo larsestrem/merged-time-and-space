@@ -50,6 +50,11 @@ claude/merged-time-space-review-0h0ff1):
   emit FAQPage JSON-LD from the Q&As they already show.
 - /questions/ IS BACK as a derived by-topic index of all 53 concepts
   (build-glossary.mjs writes both doors); /concepts/ 301 retargeted to it.
+- NAV REWORK (owner's spec, same day): the logo dropdown is gone — the
+  top-left mark is a plain home link — and the hamburger now IS the section
+  menu: Home, Time, Earth, Space, Classroom, then Submit a Lesson Plan, Units
+  and Projector mode. The eighteen-row tool index left the chrome; tools are
+  reached through their sections, the footer topics and in-page links.
 - Open: no lesson yet opens /day-night-map/ or /orbital-velocity-simulator/
   (their lessons cards honestly render nothing); footer/hamburger overlap and
   the 1,104 simulator-city-page cannibalization decision deliberately left

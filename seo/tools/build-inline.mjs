@@ -392,41 +392,24 @@ const NOTICE = `<!--nb--><div class="site-notice" id="ac-nb"><p>We've changed ou
 x.addEventListener("click",function(){document.documentElement.classList.add("nb-off");try{localStorage.setItem("ac_nb","1")}catch(e){}});})();</script><!--/nb-->`;
 const NOTICE_RE = /<!--nb-->[\s\S]*?<!--\/nb-->\s*/g;
 
+/* THE FIVE SECTIONS — one list, used by the hamburger. This used to feed a
+   dropdown on the LOGO while the hamburger carried an eighteen-row index of
+   every tool: two navigations on one bar, and the shorter, truer one was
+   hidden behind the mark nobody thinks to press. Owner's call, August 2026:
+   the logo is a plain home link, and the hamburger IS the section menu. The
+   tools are one click away inside their sections, where each arrives with a
+   picture and a line of context instead of a bare row. */
+const BRAND_SECTIONS = [
+  ["/", "Home", "home"],
+  ["/time/", "Time", "timer"],
+  ["/earth/", "Earth", "globe"],
+  ["/space/", "Space", "solar"],
+  ["/classroom/", "Classroom", "classroom"],
+];
+
 const MENU = `<details class="nav-dd menu-dd"><summary class="hamburger" aria-label="Menu">☰</summary><ul class="menu">` +
-  /* SAME ORDER AS THE HOME PAGE: time, then earth, then space, then the
-     classroom. Labels group the flat list under the five-section nav so the
-     two navigations stop reading as two sites. Countdowns and the retired
-     Big Questions page stay off this list on purpose. */
-  /* THE LABELS ARE LINKS to the section hubs: /time/, /earth/ and /space/
-     used to be reachable only through the logo dropdown — the hamburger
-     grouped the tools under three headings a reader could not click. */
-  `<li class="menu-lab"><a href="/time/">Time</a></li>` +
-  `<li><a href="/alarm-clock/">${ico("alarm")} Alarm Clock</a></li>` +
-  `<li><a href="/world-clock/">${ico("globe")} World Clock</a></li>` +
-  `<li><a href="/timer/">${ico("timer")} Timer</a></li>` +
-  `<li><a href="/stopwatch/">${ico("stopwatch")} Stopwatch</a></li>` +
-  `<li class="menu-lab"><a href="/earth/">Earth</a></li>` +
-  `<li><a href="/sun/">${ico("sunrise")} Sunrise &amp; Sunset</a></li>` +
-  `<li><a href="/moon/">${ico("moon")} Moon</a></li>` +
-  `<li><a href="/tides/">${ico("wave")} Tides</a></li>` +
-  `<li><a href="/day-night-map/">${ico("globe")} Day &amp; Night Map</a></li>` +
-  `<li><a href="/sun-moon-earth-movement-simulator/">${ico("earthmoon")} Sun, Earth &amp; Moon</a></li>` +
-  /* rung 2 of the view ladder: without this row the orbit simulator had no
-     site-wide route at all — the footer and this menu both skipped it */
-  `<li><a href="/earth-sun-moon-orbit-simulator/">${ico("earthmoon")} Earth&rsquo;s Orbit</a></li>` +
-  `<li class="menu-lab"><a href="/space/">Space</a></li>` +
-  `<li><a href="/questions/">${ico("question")} Big Questions</a></li>` +
-  `<li><a href="/glossary/">${ico("glossary")} Glossary</a></li>` +
-  `<li><a href="/planets/">${ico("solar")} The Planets</a></li>` +
-  `<li><a href="/solar-system-simulator/">${ico("solar")} Solar System</a></li>` +
-  `<li><a href="/orbital-velocity-simulator/">${ico("solar")} Orbits &amp; Gravity</a></li>` +
-  `<li><a href="/rocket-launch-simulator/">${ico("rocket")} Rocket Launches</a></li>` +
-  `<li class="menu-lab">Classroom</li>` +
-  `<li><a href="/classroom/">${ico("classroom")} For Teachers</a></li>` +
-  /* THE OFFER SITS ABOVE THE ASK: the finished lesson plans were two-plus
-     clicks from everywhere while the submission form had its own nav row —
-     a teacher should reach the catalog before the collaboration pitch. */
-  `<li><a href="/classroom/lessons/">${ico("calendar")} Lesson Plans</a></li>` +
+  BRAND_SECTIONS.map(([url, label, icon]) => `<li><a href="${url}">${ico(icon)} ${label}</a></li>`).join("") +
+  `<li class="sep" aria-hidden="true"></li>` +
   /* THE ONE ACTION IN A MENU OF PLACES, and in the nav on the owner's call:
      collaborating with teachers is a primary task of the site, and a task
      that lives only at the foot of one page is a footnote. It points at a
@@ -438,9 +421,8 @@ const MENU = `<details class="nav-dd menu-dd"><summary class="hamburger" aria-la
      between the timer, the moon and the simulator without thinking about it
      again. It is a toggle, not a link, so it says which state it is in. */
   /* UNITS SIT ABOVE PROJECTOR MODE (owner's call): both are settings rather
-     than destinations, so they share the separated block at the foot of the
-     menu, and units come first because far more readers will want them than
-     will ever project a page onto a wall. */
+     than destinations, and units come first because far more readers will
+     want them than will ever project a page onto a wall. */
   `${UNITS_MENU_ITEM(ico)}` +
   `<li><button type="button" class="menu-pj" id="ac-pj" aria-pressed="false">${ico("projector")} <span>Projector mode</span></button></li>` +
   `</ul></details>${PJ_SCRIPT}${UNITS_SCRIPT}`;
@@ -1018,19 +1000,13 @@ await writeFile(path.join(root, "favicon.svg"),
  * pages are rewritten in place, so the pattern has to find its own previous
  * output as well as the original anchor — otherwise the menu would freeze on
  * those pages the first time it was injected. Same reasoning as NOTICE_RE. */
-const BRAND_SECTIONS = [
-  ["/", "Home", "home"],
-  ["/time/", "Time", "timer"],
-  ["/earth/", "Earth", "globe"],
-  ["/space/", "Space", "solar"],
-  ["/classroom/", "Classroom", "classroom"],
-];
+/* THE LOGO IS A HOME LINK, nothing more (owner's call, August 2026). It used
+   to open the five-section dropdown while the hamburger held the tool index —
+   two menus on one bar. The sections moved into the hamburger (see MENU
+   above), and the mark does what every reader expects a mark to do. */
 const BRAND_DD =
-  `<details class="nav-dd brand-dd"><summary aria-label="Site sections">`
-  + `${LOGO_SVG}<span class="visually-hidden">Time and Space Science — sections</span></summary>`
-  + `<ul class="menu brand-menu">`
-  + BRAND_SECTIONS.map(([url, label, icon]) => `<li><a href="${url}">${ico(icon)} ${label}</a></li>`).join("")
-  + `</ul></details>`;
+  `<a class="brand-dd brand-home" href="/" aria-label="Time and Space Science home">`
+  + `${LOGO_SVG}<span class="visually-hidden">Time and Space Science — home</span></a>`;
 
 /* ---- THE WORDMARK -------------------------------------------------------
  * The domain, set so a run-together string reads as words: capitals at each

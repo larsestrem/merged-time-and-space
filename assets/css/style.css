@@ -258,11 +258,6 @@ html.nb-off .site-notice{display:none}
 .nav-dd .menu .menu-lab{display:block;padding:8px 13px 2px;font-size:10.5px;font-weight:800;
   letter-spacing:.08em;text-transform:uppercase;color:var(--muted);pointer-events:none}
 .nav-dd .menu .menu-lab:not(:first-child){margin-top:4px;padding-top:8px;border-top:1px solid var(--border)}
-/* a group label that IS a section hub is a link to it; everything stays the
- * label's size and colour so the menu reads exactly as before */
-.nav-dd .menu .menu-lab a{pointer-events:auto;display:inline;padding:0;font-size:inherit;font-weight:inherit;
-  letter-spacing:inherit;color:inherit;border-radius:4px}
-.nav-dd .menu .menu-lab a:hover{background:none;text-decoration:underline}
 .nav-dd .menu .sep{height:1px;background:var(--border);margin:5px 8px}
 /* the cannabis-leaf glyph on the 420 Countdown item — cropped viewBox + this
  * size make it fill roughly the same box as the emoji icons on the other
@@ -277,24 +272,12 @@ html.nb-off .site-notice{display:none}
 .brand-name{font-weight:800;font-size:18px;color:var(--text);text-decoration:none;display:inline-flex;align-items:center}
 .brand-name .logo{display:block;height:45px;width:auto}
 .brand-name:hover{color:var(--accent)}
-/* ---- the logo as the section menu (build-inline's BRAND_DD) --------------
-   The logo replaced the wordmark long ago; now it also opens the four home
-   sections. It reuses .nav-dd wholesale — the same open/close markup, the
-   same panel, and the same close-on-outside-click script the copy and
-   hamburger menus use — so this is only the three things that differ from a
-   right-hand dropdown. */
-/* 1. it opens to the RIGHT of its own left edge. .nav-dd .menu pins right:0,
-      which is correct for the two menus at the far end of the bar and puts
-      this one off the left of the viewport. */
-.brand-dd .menu{left:0;right:auto}
-/* 2. the logo keeps the size it had as a link — the .brand-name rule above no
-      longer applies to it now that it lives in a <summary>. */
-.brand-dd summary{padding:2px 4px;gap:3px}
+/* ---- the logo as the home link (build-inline's BRAND_DD) -----------------
+   The dropdown it used to open moved into the hamburger (owner's call); the
+   mark now does what every reader expects a mark to do. Same box the old
+   <summary> drew, so the bar does not shift by a pixel. */
+a.brand-dd{display:inline-flex;align-items:center;gap:3px;padding:2px 4px;border-radius:9px}
 .brand-dd .logo{display:block;height:45px;width:auto}
-/* 3. the section rows carry an icon, so they lay out as icon + label rather
-      than as the plain text rows .nav-dd .menu a assumes. */
-.brand-menu a{display:flex;align-items:center;gap:9px}
-.brand-menu .nav-ico{flex:0 0 auto;opacity:.85}
 /* ---- the wordmark ---------------------------------------------------------
    The domain set as a logotype: capitals start each word so a run-together
    string reads as words, and the two JOINS (And, and the dot) go grey while
@@ -319,9 +302,6 @@ html.nb-off .site-notice{display:none}
 .brand-dd{justify-self:start}
 .brand-word{justify-self:center}
 .menu-dd{justify-self:end;margin-left:0}
-/* no ▾ on the logo: the caret reads as a form control next to a mark that is
-   plainly a button already, and it pulled the eye off the wordmark */
-.brand-dd summary::after{content:none}
 .brand-word{display:inline-flex;align-items:baseline;margin:0;text-decoration:none;
   font-weight:800;letter-spacing:-.005em;line-height:1.1;white-space:nowrap;
   font-size:clamp(19px,4.2vw,30px)}
