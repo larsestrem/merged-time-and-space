@@ -1239,7 +1239,7 @@ const LEDE = {
   time: `<strong>Clocks, and what they are counting.</strong> An <a href="/alarm-clock/">alarm</a>, a <a href="/timer/">timer</a>, a <a href="/stopwatch/">stopwatch</a>, <a href="/world-clock/">every time zone at once</a>, and a <a href="/countdown/">countdown</a> to the day you are waiting for. All of it runs in the browser, with nothing to install and no sign-up.`,
   earth: `<strong>Your own sky, worked out for your own town.</strong> <a href="/sun/">Sunrise and sunset</a>, <a href="/moon/">tonight's moon and how full it is</a>, and <a href="/tides/">when the tide turns</a> — for more than a thousand cities, on whatever date you pick. Every figure is computed from the real motions rather than looked up in a table.`,
   space: `<strong>Where everything actually is, right now.</strong> <a href="${PLANETS_PATH}">Every planet</a>, a page each, turning on its own axis with its moons going round it — the <a href="/solar-system-simulator/">whole system on its real orbits</a>, and the <a href="${ROCKET_PATH}">next launch window to Mars</a>. The positions are solved when the page loads, not drawn from memory.`,
-  class: `<strong>Made to go on a projector.</strong> A timer big enough to read from the back, <a href="/stopwatch/multiple/">six stopwatches at once</a>, and simulators you can drag through a day, a month or a century. The <a href="/classroom/">guide</a> sets out what a browser timer can and cannot be trusted with — before a lesson depends on it.`,
+  class: `<strong>Made to go on a projector.</strong> A timer big enough to read from the back, <a href="/stopwatch/multiple/">six stopwatches at once</a>, and simulators you can drag through a day, a month or a century. And if you teach with any of it, <a href="/classroom/">bring us the lesson</a> — we build lesson plans with teachers and publish them free.`,
 };
 
 /* THE NIGHT SIDE IS REPAINTED FOR NOW. The baked curve is right for the minute
@@ -1383,8 +1383,8 @@ const PORTAL_SECTIONS = [
     line: `A diagram has to be believed. A simulator can be <em>asked</em>: slow the planet down, drag the month, tilt the axis — and children see WHY it happens, not just that it does. Everything runs on a projector or a school Chromebook, free, with nothing collected from anyone.`,
     cards: [
       ["question", "Questions that open the door", "Why is the night sky so dark? Why do the planets orbit the sun instead of falling in? Each answered honestly, each answer handing you the next.", "/glossary/"],
-      ["classroom", "Lesson plans", "Timed and ready to project, K–2 to high school — every step a link that opens the exact view, with a printable student sheet.", "/classroom/lessons/"],
-      ["projector", "Classroom guide", "Projector mode, keyboard shortcuts, and what a browser timer can and cannot be trusted with.", "/classroom/"],
+      ["classroom", "Build a lesson with us", "Bring the lesson you already teach — we develop it on our tools, or build tools for it, then publish it free for every teacher, credited to you.", "/classroom/"],
+      ["plus", "Send it in", "The form takes a paste of whatever you have — a Doc, five bullet points, a scanned worksheet. A person reads it and replies.", "/classroom/submit-a-lesson/"],
     ] },
 ];
 
@@ -1686,11 +1686,6 @@ ${sectionSwitcher("/")}
        and nothing new is stored. */""
   }<div class="card cr-ask" id="teach-together">
     <h2>${ico("classroom")} Have a lesson in mind? Let's build it together.</h2>
-    ${/* THE OFFER BEFORE THE ASK: this card used to be the home page's only
-         teacher door, which routed a teacher to a collaboration form before
-         the finished plans — the thing a teacher planning tomorrow actually
-         wants. One line, catalog first. */""
-    }<p><a href="/classroom/lessons/"><strong>Timed lesson plans, K–2 to high school</strong></a> are already written and ready to project — filterable by grade, topic and minutes, every step a link that opens the exact view.</p>
     <p><strong>This site gets better by being taught from.</strong> If you have an idea that would make it better — or a lesson you'd like to build together and share with everyone — reach out. We'll shape the tool around your class, write the plan with you, and publish it free for every other classroom. <strong>If we build your idea, your class is credited on the page</strong>, and <a href="/about/work-with-us/">how that works is written down</a>.</p>
     ${/* TWO DOORS, NOT THREE. This form is for a lesson that does not exist
          yet — something to build together. A teacher who already HAS the
@@ -1765,7 +1760,7 @@ const SECTION_PAGES = [
     lede: LEDE.time,
     board: [
       [ALARM_CARD, 4], [TIMER_CARD, 4], [STOPWATCH_CARD, 4],
-      [withQs(WORLD_CLOCK_CARD, ["what-is-a-time-zone", "what-is-utc", "what-is-the-international-date-line"], "/time/"), 6],
+      [withQs(WORLD_CLOCK_CARD, ["who-invented-time", "what-is-a-time-zone", "what-is-utc", "what-is-the-international-date-line"], "/time/"), 6],
       [withQs(TIMEDIFF_CARD, ["what-is-daylight-saving-time"], "/time/"), 6],
       [withQs(CONVERT_CARD, ["what-is-the-24-hour-clock"], "/time/"), 6], [COUNTDOWN_BLOCK, 6],
     ],

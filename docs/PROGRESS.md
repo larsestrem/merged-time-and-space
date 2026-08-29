@@ -10,6 +10,38 @@ output. See `CLAUDE.md` for the architecture and working rules. Deploy = push to
 `main` (Cloudflare auto-publishes).
 
 ---
+### 2026-08-29 — Classroom pivots to teacher collaboration; time gets its origin story
+
+- CLASSROOM NARROWED 25 -> 5 pages (owner's call): the in-house lesson catalog
+  was not classroom quality, and worse, argued against the ask. /classroom/ is
+  now the offer, briefly — we make Earth/space content, teachers bring lessons,
+  we build each plan specifically for that topic and grade band (with tools
+  built for it where needed) and publish it free, credited. /classroom/
+  submit-a-lesson/ is form-first. TWO lessons survive as worked examples
+  (seasons 7-8 with its student view, solar-system 3-4), each opening with
+  "an example, written by a non-teacher — help us make it better"; sixteen
+  lessons, three subject doors, the lessons hub and distance-units 301 to
+  /classroom/ (explicitly, no splat — a splat would shadow the kept two).
+  The drafts survive in docs/archive/build-classroom-lessons.mjs.bak.
+- The hub carries "lesson plans we'd like to create" — six suggestions with
+  what each would cover — instead of a catalog.
+- GUIDED CONTENT STAYS (owner: "good quality... inspires curiosity"): the
+  day/night map's Things to try, the orbit page's Four true things, hub
+  questions. Each such card now ends with a door: "help us turn it into a
+  lesson plan." NEW Things-to-try cards on /solar-system-simulator/ (the race,
+  the knot at Neptune, the belt's swept lanes, a comet's century) and
+  /orbital-velocity-simulator/ (90%/110%/141% of circular, try to hit the
+  sun) — every simulator now pairs questions with find-it-yourself tasks.
+- Lesson-link machinery removed (lesson-index sidecar, lessonsCard on hubs,
+  concepts' lesson seeItLive/hubUrls); timer/alarm copy that promised "the
+  classroom guide" now states the projector facts itself.
+- NEW concept /concepts/who-invented-time/ ("nobody — people read it off the
+  sky"): day=spin, year=orbit announced by the tilt's seasons, month=Moon,
+  the week's seven wanderers, Egyptian twelves, Babylonian sixties, and the
+  atomic-clock reversal. New marEquinox/sepEquinox tokens; on /time/'s strip
+  and FAQ. docs/IDEAS.md created — the owner's parking lot (space-created-
+  time full treatment, the scientists series, and more).
+
 ### 2026-08-28 — Site review implemented: bugs, duplicate links, concept wiring, teaching loop, 8 new questions, /questions/ returns
 
 Owner-approved five-phase pass from a full site review (Claude session, branch
