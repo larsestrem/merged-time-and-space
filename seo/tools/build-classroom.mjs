@@ -29,6 +29,7 @@ import {
   CLASSROOM_PATH, SUBMIT_PATH, LESSON_FORM_HASH, QUESTIONS_HASH,
   plaque, submitCta, SAFETY_NOTE, lessonForm, questionsForm, FORMS_JS,
 } from "./classroom-forms.mjs";
+import { sectionSwitcher } from "./section-nav.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -69,6 +70,7 @@ ${GA_SNIPPET}
 <div class="wrap">
   ${brand({ crumb: { slug: "classroom", url: CLASSROOM_PATH } })}
   <h1>Classroom</h1>
+${sectionSwitcher(CLASSROOM_PATH)}
   <p class="sub"><strong>We create Earth and space science content. Teachers create the lessons.</strong> Our goal is making better education accessible to every teacher — free, no sign-up, nothing installed.</p>
 
   <div class="card cr-ask" id="ask">
