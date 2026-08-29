@@ -421,3 +421,41 @@
 /affiliate-disclosure  /  301
 /promote-event/*  /suggest-event/  301
 /promote-event  /suggest-event/  301
+
+# AUGUST 2026: the classroom section narrowed from twenty-five pages to two.
+# The in-house lesson catalog, the three subject doors and the distance-units
+# reference were the site talking to itself about teaching; the owner's call
+# is that lesson plans on this site come FROM teachers, built together, or
+# not at all. The hub (/classroom/) now makes that offer briefly and
+# /classroom/submit-a-lesson/ takes the lesson. Every retired URL lands on
+# the offer. The lesson drafts survive in docs/archive/ as raw material.
+/classroom/astronomy/  /classroom/  301
+/classroom/astronomy  /classroom/  301
+/classroom/earth/  /classroom/  301
+/classroom/earth  /classroom/  301
+/classroom/time/  /classroom/  301
+/classroom/time  /classroom/  301
+/classroom/distance-units/  /classroom/  301
+/classroom/distance-units  /classroom/  301
+# Two lessons SURVIVE as worked examples (labelled as non-teacher drafts):
+# /classroom/lessons/seasons-grades-7-8/ (with its /student/ view) and
+# /classroom/lessons/solar-system-grades-3-4/. No splat here — a splat would
+# shadow them; the sixteen retired lessons and the hub redirect by name.
+/classroom/lessons/  /classroom/  301
+/classroom/lessons  /classroom/  301
+/classroom/lessons/solar-system-grades-k-2/*  /classroom/  301
+/classroom/lessons/solar-system-grades-5-6/*  /classroom/  301
+/classroom/lessons/solar-system-grades-7-8/*  /classroom/  301
+/classroom/lessons/solar-system-high-school/*  /classroom/  301
+/classroom/lessons/moon-phases-grades-k-2/*  /classroom/  301
+/classroom/lessons/moon-phases-grades-3-4/*  /classroom/  301
+/classroom/lessons/moon-phases-grades-5-6/*  /classroom/  301
+/classroom/lessons/moon-phases-grades-7-8/*  /classroom/  301
+/classroom/lessons/moon-phases-high-school/*  /classroom/  301
+/classroom/lessons/seasons-grades-k-2/*  /classroom/  301
+/classroom/lessons/seasons-grades-3-4/*  /classroom/  301
+/classroom/lessons/seasons-grades-5-6/*  /classroom/  301
+/classroom/lessons/seasons-high-school/*  /classroom/  301
+/classroom/lessons/earth-moon-sun-grades-5-6/*  /classroom/  301
+/classroom/lessons/light-speed-grades-7-8/*  /classroom/  301
+/classroom/lessons/leap-year-grades-5-6/*  /classroom/  301

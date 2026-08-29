@@ -153,15 +153,11 @@ const families = {
     ...group([["/time/", "0.8"], ["/earth/", "0.8"], ["/space/", "0.8"]], ...homeSrc),
     ...group([["/countdown/", "0.9"]], "seo/tools/build-home.mjs"),
     ...group([["/stopwatch/", "0.8"]], "stopwatch/index.html"),
-    ...group([["/classroom/", "0.7"], ["/classroom/lessons/", "0.7"], ["/classroom/distance-units/", "0.6"],
-      ["/classroom/submit-a-lesson/", "0.7"]], ...deps("seo/tools/build-classroom.mjs")),
-    /* the three subject doors under the hub — from the generator's own list,
-       so a fourth door is sitemapped by adding it in one place */
-    ...group((await import("./build-classroom.mjs")).CLASSROOM_SUBJECTS.map((s) => [`/classroom/${s}/`, "0.7"]),
-      ...deps("seo/tools/build-classroom.mjs")),
-    /* one page per lesson (topic × grade band) — same sources as the hub */
-    ...group((await import("./build-classroom.mjs")).LESSON_PAGES.map((s) => [`/classroom/lessons/${s}/`, "0.6"]),
-      ...deps("seo/tools/build-classroom.mjs")),
+    ...group([["/classroom/", "0.7"], ["/classroom/submit-a-lesson/", "0.7"]], ...deps("seo/tools/build-classroom.mjs")),
+    /* the two worked-example lessons are static files now (see build-inline),
+       so their own HTML is the source their lastmod tracks */
+    ...group([["/classroom/lessons/seasons-grades-7-8/", "0.5"]], "classroom/lessons/seasons-grades-7-8/index.html"),
+    ...group([["/classroom/lessons/solar-system-grades-3-4/", "0.5"]], "classroom/lessons/solar-system-grades-3-4/index.html"),
     ...group([["/sun-moon-earth-movement-simulator/", "0.7"], ["/earth-sun-moon-orbit-simulator/", "0.6"]], ...deps("seo/tools/build-simulator.mjs")),
     /* EVERY SOLAR + ROCKET PAGE, from the list build-solar recorded as it wrote
        them. It used to be three hand-kept entries plus a
@@ -315,7 +311,7 @@ const FAMILIES = [
   ["/countdown/", "Countdowns", "Countdown pages for holidays, celebrity birthdays, sports and anniversaries."],
   ["/calendar/", "Events calendar", "Every countdown by month. Also published as a subscribable feed at /calendar/events.ics."],
   ["/methodology/", "Methodology", "How each figure on the site is worked out, and where it stops being reliable."],
-  ["/classroom/", "Classroom", "Free projector-ready science simulators and timed lesson plans, in three doors: astronomy, Earth science and time. Teachers can send a lesson they already run."],
+  ["/classroom/", "Classroom", "The invitation to teachers: bring a lesson you're proud of, we develop it together — on our tools or tools we build for it — and publish it free for every teacher."],
 ];
 const under = (prefix) => rows.filter(([u]) => u.startsWith(prefix)).length;
 const llms = `# Time and Space Science

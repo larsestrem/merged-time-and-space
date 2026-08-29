@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Earth, Sky and Time for the Classroom — Free Science Simulators</title>
-<meta name="description" content="Free, projector-ready science simulators and lesson plans for K–2 to high school: the solar system and the moon, the seasons and the day/night line, time zones and clocks. No sign-up. Send us the lesson you already run and we will build it.">
+<title>Classroom — Help Us Build Lesson Plans Every Teacher Can Use</title>
+<meta name="description" content="We create free Earth and space science content, and we're looking for teachers to help create lesson plans. Bring one you're proud of — we'll develop it together and publish it free for every teacher.">
 <link rel="canonical" href="https://timeandspace.science/classroom/">
-<meta property="og:title" content="Earth, sky and time — for the classroom">
-<meta property="og:description" content="Free simulators, projector-ready, no sign-up. Open a lesson. Or send us one.">
+<meta property="og:title" content="Classroom — Help Us Build Lesson Plans Every Teacher Can Use">
+<meta property="og:description" content="Bring a lesson you're proud of. We'll develop it on our tools — or build tools for it — and publish it free for every teacher.">
 <meta property="og:type" content="article">
 <style data-ac="css">:root{
 --bg:linear-gradient(#0b0e1c,#0b0e1c);
@@ -402,321 +402,6 @@ a{color:#111;text-decoration:underline}
 .home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
 .sec-switch{margin:2px 0 14px}
 .sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
-.tool-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 26px}
-@media(min-width:560px){.tool-grid{grid-template-columns:1fr 1fr}}
-@media(min-width:900px){.tool-grid{grid-template-columns:repeat(4,1fr)}}
-.tc-top-row{display:grid;grid-template-columns:1fr;gap:14px;margin:18px 0 14px}
-@media(min-width:900px){
-.tc-top-row{grid-template-columns:1.7fr 1fr;align-items:start}
-}
-.tc{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:16px;background:var(--card);padding:16px;text-decoration:none;color:var(--text);transition:.15s;min-height:148px}
-.tc-foot{margin-top:auto;padding-top:12px;display:flex;justify-content:center}
-.tc-open-btn{flex:0 0 auto;width:auto;padding:8px 30px;font-size:14px;white-space:nowrap}
-.tc-presets{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:12px}
-.tc-presets .chip{padding:5px 11px;font-size:13px}
-.tc:hover{border-color:var(--accent);transform:translateY(-2px)}
-.tc-head{font-weight:800;font-size:15px;margin-bottom:8px}
-.tc-big{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;font-size:44px;color:var(--accent);line-height:1.1}
-.tc-big small{font-size:22px;opacity:.8}
-.tc-tide-big{text-align:center;margin:6px auto 0}
-.tc-tide-big svg{width:100%;max-width:300px;height:auto;border-radius:10px}
-.tc-foot-2{gap:8px}
-.tc-foot-2 .tc-open-btn{flex:1 1 0;padding:8px 12px;text-align:center;justify-content:center}
-.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
-.home-tab{width:auto;flex:0 0 auto;padding:9px 20px;font-size:15px;font-weight:700;
-line-height:1.2;cursor:pointer}
-.home-tab[aria-selected="true"]{border-color:var(--accent);color:var(--accent);
-background:rgba(252,211,77,.14)}
-@media (max-width:559px){.home-tab{padding:8px 14px;font-size:13.5px}.home-tabs{gap:6px}}
-.home-lede{margin:14px 0 6px;font-size:17px;line-height:1.5;color:var(--muted)}
-.home-lede strong{color:var(--text)}
-.home-foot{margin-top:30px;padding-top:18px;border-top:1px solid var(--border)}
-.home-tools-row{display:grid;grid-template-columns:1fr;gap:14px;margin:18px 0 14px}
-@media(min-width:560px){.home-tools-row{grid-template-columns:1fr 1fr}}
-@media(min-width:900px){.home-tools-row{align-items:start}}
-@media(min-width:1120px){.home-tools-row.home-tools-two{grid-template-columns:repeat(3,1fr)}}
-.home-clock-row{grid-template-columns:1fr}
-@media(min-width:640px){
-.home-clock-row{grid-template-columns:1fr 1fr;align-items:start}
-.home-clock-row>:nth-child(1){grid-column:1;grid-row:1}
-.home-clock-row>:nth-child(2){grid-column:1;grid-row:2}
-.home-clock-row>:nth-child(3){grid-column:2;grid-row:1/span 2}
-}
-@media(min-width:1120px){
-.home-clock-row{grid-template-columns:repeat(3,1fr)}
-.home-clock-row>:nth-child(1),
-.home-clock-row>:nth-child(2),
-.home-clock-row>:nth-child(3){grid-column:auto;grid-row:auto}
-}
-.home-tides-card .tc-head{margin-bottom:12px}
-.home-tides-charts{display:grid;grid-template-columns:1fr;gap:16px}
-@media(min-width:600px){.home-tides-charts{grid-template-columns:repeat(3,1fr)}}
-.home-tides-chart{display:block;text-decoration:none;color:var(--text);text-align:center;border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,.02);transition:border-color .15s ease}
-.home-tides-chart:hover{border-color:var(--accent)}
-.home-tides-chart svg{width:100%;max-width:460px;height:auto;margin:8px auto 0}
-.home-tidesvg{border-radius:10px}
-.home-tides-city{font-weight:700;font-size:15px}
-.home-tides-note{font-size:11px;color:var(--muted);margin-top:6px}
-.home-tides-foot,.home-sun-foot,.home-moon-foot{display:flex;gap:8px;margin-top:14px;flex-wrap:nowrap}
-.home-tides-foot .tc-open-btn,.home-sun-foot .tc-open-btn,.home-moon-foot .tc-open-btn{flex:0 1 auto;min-width:0;padding:8px 14px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-@media(max-width:360px){.home-tides-foot .tc-open-btn,.home-sun-foot .tc-open-btn,.home-moon-foot .tc-open-btn{padding:8px 10px;font-size:12px}}
-@media(max-width:340px){.home-tides-foot,.home-sun-foot,.home-moon-foot{gap:6px}.home-tides-foot .tc-open-btn,.home-sun-foot .tc-open-btn,.home-moon-foot .tc-open-btn{padding:8px 7px;font-size:11px}}
-.home-mini-row{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 26px}
-@media(min-width:560px){.home-moon-row{max-width:none}}
-.tc-mini{container-type:inline-size}
-.tc-big.seg-screen{display:flex;width:100%;max-width:380px;font-size:min(19cqw,104px);padding:.3em .28em;border-radius:12px;margin:8px auto 0;gap:.05em}
-.tc-work .tc-head{margin-bottom:10px}
-.wk-mini{display:grid;grid-template-columns:1fr;gap:10px}
-@media(min-width:520px){.wk-mini{grid-template-columns:1fr 1fr;gap:10px 22px}}
-@media(min-width:860px){.wk-mini{grid-template-columns:repeat(4,1fr);gap:10px 18px}}
-.wk-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.wk-info{display:flex;flex-direction:column;min-width:0}
-.wk-row span{font-size:13px;font-weight:700;color:var(--text);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.wk-row b{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px;line-height:1.2;white-space:nowrap}
-.btn.tiny{flex:0 0 auto;width:auto;padding:5px 13px;font-size:12px}
-.wk-all{display:block;text-align:center;font-size:13px;font-weight:600;color:var(--accent);margin-top:14px}
-.wk-all:hover{text-decoration:underline}
-.tc-foot{font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
-.tc-alarm{cursor:pointer;container-type:inline-size;margin:0}
-.tc-alarm .ac-clock{max-width:none;margin:8px auto 0}
-.tc-alarm .ac-left{flex:0 1 auto;font-size:min(13cqw,84px)}
-.tc-alarm .ac-right{font-size:min(3.4cqw,20px)}
-.tc-alarm #ac-panel .ac-controls,.tc-alarm .ac-ring,.tc-alarm .ac-brand{display:none}
-.tc-alarm .ac-controls{max-width:none;margin:12px 0 0;flex-direction:row;flex-wrap:wrap;align-items:center}
-.tc-alarm .ac-ctrl-row{width:auto}
-.tc-alarm .ac-ctrl-main{flex:1 1 140px}
-.tc-alarm .ac-ctrl-icons{flex:0 0 auto}
-@supports not (container-type:inline-size){.tc-alarm .ac-left{font-size:min(11vw,64px)}.tc-alarm .ac-right{font-size:14px}.tc-big.seg-screen{font-size:44px}}
-.cd-mini{display:flex;flex-direction:column;gap:6px;font-size:14px}
-.cd-mini>div{display:flex;justify-content:space-between;gap:10px}
-.cd-mini span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cd-mini b{color:var(--accent);white-space:nowrap}
-.home-moon-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px}
-.home-moon-top .home-moon-foot{margin-top:0}
-.home-moon{display:flex;align-items:center;gap:13px;margin:4px 0 10px}
-.home-moon-g{flex:0 0 auto;line-height:0}
-.home-moon-t{display:flex;flex-direction:column;gap:1px;min-width:0}
-.home-moon-t b{font-size:16px;font-weight:800}
-.home-moon-t span{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
-.home-moon-strip{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;margin-top:10px;-webkit-overflow-scrolling:touch}
-.home-moon-strip .mn-day{flex:0 0 auto;width:62px;display:flex;flex-direction:column;align-items:center;gap:3px;
-padding:9px 4px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.03);
-text-align:center;text-decoration:none;color:inherit;
-content-visibility:auto;contain-intrinsic-size:62px 78px}
-.home-moon-strip .mn-day:hover{border-color:var(--accent);background:rgba(252,211,77,.10)}
-.home-moon-strip .mn-day-g{line-height:0}
-.home-moon-strip .mn-day-d{font-size:11px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
-.home-moon-strip .mn-day-p{font-size:10px;line-height:1.25;color:var(--muted);font-variant-numeric:tabular-nums}
-.home-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
-.home-nav a{font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;border:1px solid var(--border);
-background:rgba(0,0,0,.18);color:var(--text);text-decoration:none;white-space:nowrap}
-.home-nav a:hover{border-color:var(--accent)}
-.home-cd-block .home-search{margin:10px 0 12px}
-.home-cd-links{justify-content:flex-start;margin:10px 0 4px}
-.home-tools-two{grid-template-columns:1fr}
-@media(min-width:640px){.home-tools-two{grid-template-columns:1fr 1fr}}
-.home-simsvg{line-height:0}
-.home-simwide{width:100%;line-height:0;margin:8px 0 10px}
-.home-simwide svg{display:block;width:100%;height:auto;border-radius:10px}
-.home-simsq{width:100%;display:flex;justify-content:center;line-height:0;margin:8px 0 10px}
-.home-simsq svg{display:block;flex:0 0 auto;width:var(--sq,56.25%);height:auto;border-radius:10px}
-.home-orb{margin:6px 0 10px}
-.home-orb svg{display:block;width:100%;height:auto;border-radius:10px}
-.home-orbtxt{margin:8px 0 0;font-size:12.5px;line-height:1.45;color:var(--muted);min-height:2.6em}
-.home-orbbtns{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:8px 0 0}
-.home-orbbtns .chip{padding:5px 11px;font-size:12.5px}
-.home-simtxt{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
-.home-simtxt-solo{margin:6px 0 10px}
-.tc-teach .home-simtxt{margin:4px 0 10px}
-.tc-teach .tc-presets{margin:0 0 12px}
-.home-simlinks{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center;margin-top:auto}
-.home-simlinks .wk-all{margin:0}
-.hm-orbit,.hm-face{transform-box:view-box;transform-origin:var(--hm-o)}
-.hm-orbit{animation:hm-orbit 18s linear infinite}
-.hm-face{animation:hm-face 18s linear infinite}
-@keyframes hm-orbit{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-@keyframes hm-face{from{transform:rotate(0)}to{transform:rotate(-360deg)}}
-.hs-p1,.hs-p2,.hs-p3,.hs-p4{transform-box:view-box;transform-origin:var(--hs-o,60px 60px);
-animation-name:hm-orbit;animation-timing-function:linear;animation-iteration-count:infinite}
-.hs-p1{animation-duration:9s}
-.hs-p2{animation-duration:15s}
-.hs-p3{animation-duration:23s}
-.hs-p4{animation-duration:34s}
-.hm-phase{transform-box:view-box;transform-origin:var(--hm-o);
-animation:hm-flip var(--hm-p,18s) steps(1,end) infinite;animation-delay:var(--hm-d,0s)}
-.hm-term{transform-box:view-box;transform-origin:var(--hm-o);
-animation:hm-term var(--hm-p,18s) linear infinite,hm-termfill var(--hm-p,18s) steps(1,end) infinite;
-animation-delay:var(--hm-d,0s),var(--hm-d,0s)}
-@keyframes hm-term{0%{transform:scaleX(1)}25%{transform:scaleX(0)}50%{transform:scaleX(1)}
-75%{transform:scaleX(0)}100%{transform:scaleX(1)}}
-@keyframes hm-termfill{0%{fill:#222c3d}25%{fill:#e8eef7}75%{fill:#222c3d}100%{fill:#222c3d}}
-@keyframes hm-flip{0%{transform:scaleX(1)}50%{transform:scaleX(-1)}100%{transform:scaleX(1)}}
-.hy-orbit,.hy-mo,.hy-rev,.hy-sat{transform-box:view-box;transform-origin:var(--hy-o);
-animation-name:hm-orbit;animation-timing-function:linear;animation-iteration-count:infinite}
-.hy-rev{animation-direction:reverse}
-.hy-retro{animation-direction:reverse}
-.home-moonwrap{width:100%;display:flex;justify-content:center;line-height:0;margin:8px 0 10px}
-.home-moonsvg{display:block;flex:0 0 auto;width:min(100%,300px);height:auto;border-radius:10px}
-.home-moonline{margin:8px 0 10px;font-size:12px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
-.tc-moons .wk-all{margin-top:auto}
-.tc-tdiff .tdiff-result{font-size:clamp(28px,6vw,38px);margin:14px 0 4px}
-.tc-tdiff .tdiff-sum,.tc-tdiff .tdiff-cross{font-size:12px;line-height:1.5}
-.tc-tdiff .wk-all{margin-top:auto}
-.tc-conv .cv-read{font-size:clamp(26px,6vw,34px)}
-.tc-conv .cv-say{font-size:12px;line-height:1.5;margin-top:10px}
-.tc-conv .wk-all{margin-top:auto}
-@media (prefers-reduced-motion:reduce){
-.hm-orbit,.hm-face,.hm-phase,.hm-term,.hs-p1,.hs-p2,.hs-p3,.hs-p4,
-.hy-orbit,.hy-mo,.hy-rev,.hy-sat{animation:none}
-.hm-term{transform:scaleX(0)}
-}
-.home-moonprog{display:flex;align-items:center;gap:6px;margin-top:8px;opacity:.5}
-.home-moonprog-n{font-size:10px;font-variant-numeric:tabular-nums;color:var(--muted);flex:0 0 auto}
-.home-moonprog-track{position:relative;flex:1 1 auto;height:2px;border-radius:2px;background:var(--border)}
-.home-moonprog-puck{position:absolute;top:50%;left:0;width:6px;height:6px;margin:-3px 0 0 -3px;
-border-radius:50%;background:var(--muted);animation:home-moonslide 18s linear infinite}
-@keyframes home-moonslide{from{left:0}to{left:100%}}
-.home-moonprog-lab{margin:2px 0 0;font-size:10px;text-align:center;color:var(--muted)}
-@media (prefers-reduced-motion:reduce){.home-moonprog-puck{animation:none;left:0}}
-.wk-map{line-height:0;border-radius:12px;overflow:hidden;margin:4px auto 10px;
-border:1px solid var(--border);width:100%;max-width:1000px}
-.wk-map svg{display:block;width:100%;height:auto}
-.wk-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-@media(min-width:520px){.wk-strip{grid-template-columns:repeat(4,1fr)}}
-.wk-city{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
-background:var(--card);border:1px solid var(--border);text-decoration:none;color:var(--text);
-transition:.15s}
-.wk-city:hover{border-color:var(--accent)}
-.wk-city span{font-size:12px;color:var(--muted)}
-.wk-city b{font-size:16px;font-variant-numeric:tabular-nums}
-.home-classlead h2{display:flex;align-items:center;gap:10px}
-.home-classcard{padding-top:14px}
-.home-classhead{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-.home-classhead h3{margin:0;font-size:19px}
-.home-classhead h3 a{text-decoration:none;color:var(--text)}
-.home-classhead h3 a:hover{color:var(--accent)}
-.home-classhead .nav-ico{flex:0 0 auto}
-.home-classhonest{margin:12px 0 0;padding:10px 14px;border-radius:10px;
-background:rgba(255,255,255,.05);border-left:3px solid var(--accent);
-font-size:14px;line-height:1.55;color:var(--muted)}
-.home-classhonest span{display:block;font-size:11px;font-weight:700;letter-spacing:.05em;
-text-transform:uppercase;color:var(--accent);margin-bottom:3px}
-.home-classask{border:1.5px solid var(--accent)}
-.home-classask .btn{width:auto;display:inline-block;padding:11px 22px;margin-top:4px}
-.home-board{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 26px;align-items:start}
-.home-board>*{margin:0;min-width:0;width:100%;max-width:100%;grid-column:1/-1}
-@media(min-width:700px){
-.home-board{grid-template-columns:repeat(12,1fr)}
-.home-board>*{grid-column:span 12}
-.home-board>.sp-4,.home-board>.sp-6{grid-column:span 6}
-.home-board>.sp-8,.home-board>.sp-12{grid-column:span 12}
-}
-@media(min-width:1080px){
-.home-board>.sp-4{grid-column:span 4}
-.home-board>.sp-6{grid-column:span 6}
-.home-board>.sp-8{grid-column:span 8}
-.home-board>.sp-12{grid-column:span 12}
-}
-@media(min-width:700px){
-.home-board.hb-mas{grid-auto-rows:7px;row-gap:0}
-}
-.home-board>*{container-type:inline-size}
-@media(min-width:700px){
-.home-board>*{content-visibility:auto;contain-intrinsic-size:auto 520px}
-}
-.home-classcard,.home-classlead,.home-classask{content-visibility:auto;contain-intrinsic-size:auto 420px}
-@container (max-width:780px){
-.wk-mini{grid-template-columns:1fr 1fr}
-}
-@container (max-width:520px){
-.home-tides-charts{grid-template-columns:1fr}
-}
-@container (max-width:340px){
-.wk-mini{grid-template-columns:1fr}
-}
-.home-classgrid{margin:14px 0}
-.wk-links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;margin-top:14px}
-.wk-links .wk-all{margin-top:0}
-.home-hero{padding:14px 16px 16px}
-.home-hero .wk-map{margin:0}
-.home-hero-line{margin:0 0 12px;font-size:15.5px;line-height:1.55}
-.home-hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(280px,5fr);gap:18px;align-items:start}
-.home-hero-side .wk-strip{grid-template-columns:repeat(2,1fr) !important;margin-bottom:12px}
-.home-hero-side .wk-links{justify-content:flex-start}
-@media(max-width:880px){
-.home-hero-grid{display:block}
-.home-hero-map{margin-bottom:12px}
-}
-.home-q{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:18px 2px 6px}
-.home-q-lab{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:var(--muted);margin-right:2px}
-.home-sec{margin:26px 0 0}
-.home-sechead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.home-sechead h2{margin:0;font-size:22px}
-.home-sechead h2 a{color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.home-sechead h2 a:hover{color:var(--accent)}
-.home-secall{margin:0}
-.home-secline{margin:6px 2px 12px;color:var(--muted);font-size:14.5px}
-.pc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.pc-grid-4{grid-template-columns:repeat(4,1fr)}
-@media(max-width:1020px){.pc-grid-4{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:760px){.pc-grid,.pc-grid-4{grid-template-columns:1fr}}
-.pc-anim{display:block;margin:0 0 8px;line-height:0;border-radius:12px;overflow:hidden}
-.pc-anim svg{display:block;width:100%;height:auto}
-.pc-anim-sol{max-width:236px;margin:0 auto 8px}
-.pc-live b{display:block;text-align:center}
-.pc-card{display:flex;flex-direction:column;gap:6px;padding:16px;border:1px solid var(--border);border-radius:14px;
-background:var(--card);color:var(--text);text-decoration:none;transition:border-color .12s}
-.pc-card:hover{border-color:var(--accent);text-decoration:none}
-.pc-card b{font-size:16.5px}
-.pc-card:hover b{color:var(--accent)}
-.pc-line{font-size:13.5px;color:var(--muted);line-height:1.5}
-.pc-ico{line-height:0}
-.home-how{margin-top:26px}
-.home-hero-map{position:relative}
-.wk-share{position:absolute;top:10px;right:10px;z-index:3;display:inline-flex;align-items:center;gap:6px;
-padding:8px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.3);cursor:pointer;
-background:rgba(2,6,23,.72);color:var(--text);font-size:12.5px;font-weight:700;backdrop-filter:blur(2px)}
-.wk-share:hover{background:rgba(2,6,23,.9);border-color:var(--accent)}
-.wk-grat line{stroke:rgba(255,255,255,.32);stroke-width:1}
-.wk-grat .wk-trop{stroke:rgba(252,211,77,.34);stroke-dasharray:7 6}
-.wk-grat text{fill:rgba(255,255,255,.42);font-size:10.5px;font-weight:600}
-.wk-sunline{margin:0 0 12px;font-size:13.5px;line-height:1.55;color:var(--muted)}
-.wk-sunline b{color:var(--accent);font-variant-numeric:tabular-nums}
-.wk-sunline a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
-.wk-sunline a:hover{color:var(--accent)}
-.wk-seasons{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
-.wk-seasons .chip{margin:0;padding:6px 12px;font-size:12.5px}
-.so-wrap-home{margin:10px 0 0}
-.wk-scrub{display:flex;align-items:center;gap:12px;margin-top:10px}
-.wk-scrub input{flex:1;min-width:0}
-.wk-scrub-lab{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;white-space:nowrap;color:var(--muted)}
-.wk-scrub-lab b{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
-.wk-nowbtn{margin:0;padding:5px 12px}
-.home-hero .hub-qs{margin-top:16px}
-.home-board .hub-qs,.tc .hub-qs,.hub-sim .hub-qs{margin-top:12px;gap:8px}
-.home-board .hub-qs p,.tc .hub-qs p{font-size:14px}
-.home-hero > h2{margin:0 0 10px;font-size:1.35rem}
-.home-hero > h2 a{color:inherit;text-decoration:none}
-.home-hero > h2 a:hover{color:var(--accent)}
-.home-dn-link{display:block;line-height:0;border-radius:12px;color:inherit;text-decoration:none}
-.home-dn-link:hover .wk-map,.home-dn-link:focus-visible .wk-map{box-shadow:0 0 0 2px var(--accent)}
-.home-hero-side .wk-all{text-align:left;margin-top:4px}
-.hub-sim{margin:22px 0 0}
-.hub-sim .home-tides-charts{margin:10px 0 8px}
-.hub-live{margin:0 0 8px;line-height:0;border-radius:12px;overflow:hidden}
-.hub-live svg{display:block;width:100%;height:auto}
-.hub-live.pc-anim-sol{max-width:min(420px,100%);margin:0 auto 8px}
-.dir-grid{display:grid;gap:12px;margin-top:8px}
-@media(min-width:720px){.dir-grid{grid-template-columns:1fr 1fr}}
-@media(min-width:980px){.dir-grid{grid-template-columns:1fr 1fr 1fr 1fr}}
-.dir-grid .card{margin:0;padding:16px 18px}
-.dir-grid .card h2{margin:0 0 6px;font-size:18px}
-.dir-grid .card p{margin:0;color:var(--muted);font-size:14.5px}
-.dir-grid a.card{color:inherit;text-decoration:none}
-.dir-grid a.card:hover{border-color:var(--accent)}
-.dir-grid a.card:hover h2{color:var(--accent)}
-.home-rest{margin:28px 0 0}
-.home-rest > h2{margin:0 0 4px}
 .wc-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
 .wc-grid{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:560px){.wc-grid{grid-template-columns:1fr 1fr}}
@@ -958,17 +643,16 @@ border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:v
 .pl-facts .wc-frow>span{flex:0 0 42%}
 @media(max-width:520px){.pl-facts .wc-frow>span{flex:0 0 46%}}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Classroom","item":"https://timeandspace.science/classroom/"}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Earth, sky and time for the classroom","url":"https://timeandspace.science/classroom/","description":"Free browser-based science simulators and timed lesson plans for K–2 through high school: astronomy, Earth science and time. Teachers can submit a lesson plan they already run, or the questions their class asked.","learningResourceType":"guide","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"teacher"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I need an account?","acceptedAnswer":{"@type":"Answer","text":"No. There is no sign-up, nothing to install and nothing to pay. Everything runs in the browser on whatever machine the school gives you, and anything a tool saves stays on that device."}},{"@type":"Question","name":"Will these work on a locked-down school computer?","acceptedAnswer":{"@type":"Answer","text":"They are ordinary web pages, so if the browser can reach the site they work. There is no plugin, no Flash, no app and no login wall. The one thing worth testing before a lesson is sound, because some browsers need one tap on the page before they will play audio."}},{"@type":"Question","name":"Are the simulators real, or are they animations?","acceptedAnswer":{"@type":"Answer","text":"The positions are computed from the real orbits when the page loads, using the same standard methods observatories teach from — not a video and not a loop. Every page also states what its drawing exaggerates, which is usually the most useful thing on it. The one honest exception: where a moon sits along its orbit is illustrative, and the page says so."}},{"@type":"Question","name":"Can I print, adapt or remix the lesson plans?","acceptedAnswer":{"@type":"Answer","text":"Yes — free to use, adapt and share for teaching. You do not need to ask, and there is nothing to attribute unless you want to."}},{"@type":"Question","name":"What actually happens if I send you a lesson?","acceptedAnswer":{"@type":"Answer","text":"A person reads it. If we can use it, we rewrite it in the site's voice, wire every step to a live view, check the science, credit you the way you asked, and email you when it is live. If we cannot use it, we tell you rather than leaving you waiting. Nothing is ever published automatically."}},{"@type":"Question","name":"Do you collect anything from students?","acceptedAnswer":{"@type":"Answer","text":"No. There are no student accounts, no student forms, no uploads and no public comments anywhere on this site. The only address it ever holds is a teacher's, given on one of the teacher forms, and it is used to reply to that teacher. Class questions are published as “a 5th-grade class asked…”, never with a name."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Classroom","url":"https://timeandspace.science/classroom/","description":"Free Earth and space science content for classrooms, and an open invitation to teachers to co-create lesson plans published free for everyone.","learningResourceType":"guide","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"teacher"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
 
-<!-- build 733eac56e0d3 · generated 2026-08-29T16:42:23.972Z -->
+<!-- build 22e364802de2 · generated 2026-08-29T18:07:14.347Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/classroom.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
-<meta property="og:image" content="https://timeandspace.science/api/og?name=Earth%2C%20Sky%20and%20Time%20for%20the%20Classroom&amp;theme=generic">
+<meta property="og:image" content="https://timeandspace.science/api/og?name=Classroom&amp;theme=generic">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Earth%2C%20Sky%20and%20Time%20for%20the%20Classroom&amp;theme=generic">
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Classroom&amp;theme=generic">
 <meta name="robots" content="max-image-preview:large">
 </head>
 <body>
@@ -1103,142 +787,54 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
      minute, the simulators every frame) tell us to run again */
   document.addEventListener('ac:units',function(){ apply(get()); });
 })();</script></div>
-  <h1>Earth, sky and time — for the classroom</h1>
-  <nav class="home-tabs sec-switch" aria-label="Site sections">
-    <a class="chip" href="/">Home</a>
-    <a class="chip" href="/time/">Time</a>
-    <a class="chip" href="/earth/">Earth</a>
-    <a class="chip" href="/space/">Space</a>
-    <span class="chip is-here" aria-current="page">Classroom</span>
-  </nav>
-  <p class="sub">Free simulators, projector-ready, no sign-up. Open a lesson. Or send us one.</p>
+  <h1>Classroom</h1>
+  <p class="sub"><strong>We create Earth and space science content. Teachers create the lessons.</strong> Our goal is making better education accessible to every teacher — free, no sign-up, nothing installed.</p>
 
-  
-  <div class="duo">
-  <div class="card cr-door">
-    <h2><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> <a href="/classroom/astronomy/">Astronomy in the classroom</a></h2>
-    <p>Planets, the moon, the solar system — and a rocket that has to aim at where Mars will be.</p>
-    <div class="wc-facts lp-steps">
-      <div class="wc-frow"><span>Grades K–2</span><b><a href="/classroom/lessons/solar-system-grades-k-2/">The planet race</a> — 20 min · 1-ESS1-1</b></div>
-      <div class="wc-frow"><span>Grades 3–4</span><b><a href="/classroom/lessons/solar-system-grades-3-4/">The solar system, gravity and moons</a> — 45 min · 5-ESS1-2</b></div>
-      <div class="wc-frow"><span>Grades 5–6</span><b><a href="/classroom/lessons/moon-phases-grades-5-6/">The 50-minute slip — measure it</a> — 40 min · 5-ESS1-2</b></div>
-
-    </div>
-    <p><a class="cr-more" href="/classroom/astronomy/">Open Astronomy</a></p>
-  </div>
-  <div class="card cr-door">
-    <h2><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> <a href="/classroom/earth/">Earth science in the classroom</a></h2>
-    <p>Why the day/night line leans, why summer is tilt and not distance, and what the moon does to the sea.</p>
-    <div class="wc-facts lp-steps">
-      <div class="wc-frow"><span>Grades K–2</span><b><a href="/classroom/lessons/seasons-grades-k-2/">Is today longer than yesterday?</a> — 20 min · 1-ESS1-2</b></div>
-      <div class="wc-frow"><span>Grades 3–4</span><b><a href="/classroom/lessons/seasons-grades-3-4/">Three towns, three stories</a> — 35 min · 5-ESS1-2</b></div>
-      <div class="wc-frow"><span>Grades 5–6</span><b><a href="/classroom/lessons/seasons-grades-5-6/">Measure what the tilt does</a> — 45 min · 5-ESS1-2</b></div>
-
-    </div>
-    <p><a class="cr-more" href="/classroom/earth/">Open Earth science</a></p>
-  </div>
-  </div>
-  <div class="card cr-door">
-    <h2><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="6" y="2" width="12" height="2.4" rx="1.2" fill="#92400e"/><rect x="6" y="19.6" width="12" height="2.4" rx="1.2" fill="#92400e"/><path d="M7.4 4.4h9.2c0 3.2-2 4.6-3.4 5.8-.5.4-.5 1.2 0 1.6 1.4 1.2 3.4 2.6 3.4 5.8H7.4c0-3.2 2-4.6 3.4-5.8.5-.4.5-1.2 0-1.6C9.4 9 7.4 7.6 7.4 4.4z" fill="#bae6fd" opacity=".5"/><path d="M9.2 6h5.6c-.5 1.6-1.6 2.4-2.8 3.4C10.8 8.4 9.7 7.6 9.2 6z" fill="#f59e0b"/><path d="M12 13.4c1.6 1.2 3 2.2 3.4 4.2H8.6c.4-2 1.8-3 3.4-4.2z" fill="#f59e0b"/></g></svg> <a href="/classroom/time/">Time in the classroom</a></h2>
-    <p>Time zones, 12- and 24-hour clocks, the line where the date jumps — time as geography, not as a countdown.</p>
-    <div class="wc-facts lp-steps">
-      <div class="wc-frow"><span>Grades 5–6</span><b><a href="/classroom/lessons/leap-year-grades-5-6/">The leap year: a fraction with consequences</a> — 45 min · 5-ESS1-2</b></div>
-      <div class="wc-frow"><span><a href="/classroom/time/#run-a-time-zone-is-a-political-stripe-on-a-rotating-ball">A time zone is a political stripe on a rotating ball</a></span><b>~20 min · grades 3–8</b></div>
-      <div class="wc-frow"><span><a href="/classroom/time/#run-the-clock-that-hides-the-afternoon">The clock that hides the afternoon</a></span><b>~15 min · grades 3–6</b></div>
-    </div>
-    <p><a class="cr-more" href="/classroom/time/">Open Time</a></p>
-  </div>
-
-  
-  <div class="card cr-lead">
-    <h2>Send us the lesson you already run</h2>
-    <p>This site is one person building simulators, and the best thing that could happen to it is a teacher saying <em>here is what I actually teach, and here is where it falls apart on a whiteboard</em>. Send that. We rewrite it into a page on this site, built on these tools, with your name on it — free for every classroom that comes after yours.</p>
-    <p>You do not need a polished plan, an original one, or one you wrote without help. You need the right to share it. That is the entire bar.</p>
-    <p class="cr-plaque"><strong>Yours would be the first teacher-written lesson on the site.</strong>
-      The timed plans already here were written in-house. We rewrite what you send, credit you the way you ask, and email you when it is live.</p>
-    <p class="cr-ctarow"><a class="btn cr-cta" href="/classroom/submit-a-lesson/#lesson">Submit a lesson plan</a> <a class="cr-more" href="/classroom/submit-a-lesson/#questions">Or just send the questions your class asked →</a></p>
-  </div>
-
-  <div class="card">
-    <h2><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> Or start from a lesson that already exists</h2>
-    
-    <p>Eighteen timed plans across five grade bands, each built around one question and each with every step wired to a live view. The whole grid is on <a href="/classroom/lessons/">lesson plans by topic and grade</a>; a few to start from:</p>
-    <div class="wc-facts lp-steps">
-      <div class="wc-frow"><span>Grades K–2</span><b><a href="/classroom/lessons/seasons-grades-k-2/">Is today longer than yesterday?</a> — 20 min · 1-ESS1-2</b></div>
-      <div class="wc-frow"><span>Grades 3–4</span><b><a href="/classroom/lessons/solar-system-grades-3-4/">The solar system, gravity and moons</a> — 45 min · 5-ESS1-2</b></div>
-      <div class="wc-frow"><span>Grades 5–6</span><b><a href="/classroom/lessons/moon-phases-grades-5-6/">The 50-minute slip — measure it</a> — 40 min · 5-ESS1-2</b></div>
-      <div class="wc-frow"><span>Grades 7–8</span><b><a href="/classroom/lessons/seasons-grades-7-8/">Summer is tilt, not distance</a> — 45 min · MS-ESS1-1</b></div>
-      <div class="wc-frow"><span>High school &amp; up</span><b><a href="/classroom/lessons/solar-system-high-school/">Launch windows: aim where it will be</a> — 50 min · HS-ESS1-4</b></div>
-    </div>
-    <p class="hint">Every step carries its own minutes, which means any single step can be handed to a student as their own five-minute lesson. The <a href="/classroom/lessons/#student-taught">student-taught section</a> is built on exactly that.</p>
-  </div>
-
-  
   <div class="card cr-ask" id="ask">
-    <h2>Ask us to build something new</h2>
-    <p>The third door, and the biggest ask: <strong>a simulator, not a countdown</strong>. What would make a concept land for your class if they could <em>see it move</em>? If it comes out of orbits, formulas or real measurements — an alignment, a cycle, a comparison, a scale you could walk out on a field, a body we have not drawn — it is probably within reach, and we will take it as a challenge.</p>
-    <p>Make the ask part of the lesson: let them argue about what would actually help, then send <strong>one</strong> email from the class rather than thirty. If we build it, the credit goes on the page it inspired — <em>“inspired by an idea from Mr Smith's 5th grade class at Paradise Elementary School in Paradise, California”</em> — which is a rare thing for a school task to end with: evidence, on the open internet, that the work changed something outside the room.</p>
-
-    <form id="cr-form">
-      <label for="cr-teacher">Teacher's name, as you want it to appear</label>
-      <input id="cr-teacher" type="text" maxlength="80" required placeholder="e.g. Mr Smith">
-      <label for="cr-grade">Grade or year group</label>
-      <input id="cr-grade" type="text" maxlength="60" required placeholder="e.g. 5th grade">
-      <label for="cr-place">City and state, or town and country</label>
-      <input id="cr-place" type="text" maxlength="90" required placeholder="e.g. Paradise, CA">
-      <label for="cr-year">School year <span class="cr-opt">— optional, and only used if you want it printed</span></label>
-      <input id="cr-year" type="text" maxlength="30" placeholder="e.g. 2026–2027">
-      <label for="cr-ask">What are you teaching, and what would you like to be able to watch?</label>
-      <textarea id="cr-ask" maxlength="1200" required placeholder="e.g. We are on the seasons in October. We would like a tool that shows the same town at noon on the solstice and the equinox side by side, so we can see the sun's height change without leaving the classroom…"></textarea>
-      <label for="cr-email">Email to reply to</label>
-      <input id="cr-email" type="email" required placeholder="A school address is fine">
-      <div class="hint">Required — a request nobody can reply to is a request we cannot ask a question about. Used only to answer you, never shared and never added to a list.</div>
-      <label class="cr-check"><input type="checkbox" id="cr-credit" checked> <span>Credit my class on the page if you build it</span></label>
-      <input id="cr-hp" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-      <div class="row" style="margin-top:16px"><button class="btn" id="cr-send" type="submit">Send our request</button></div>
-      <p id="cr-note" class="hint"></p>
-    </form>
+    <h2><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> Have a lesson plan you're proud of?</h2>
+    <p>We're looking for teachers to help create lesson plans. Bring us the one you already teach — in whatever state it's in — and we'll develop it with you: built on the simulators and live sky pages we already have, or on <strong>tools we build specifically for your lesson</strong>. Every plan is created <strong>for your topic and your grade band</strong> and shared that way, so as more teachers join in, this grows into a library a teacher can actually search. Then we'll publish yours, with your name on it, <strong>free for every teacher</strong>.</p>
+    <p><a class="btn cr-cta" href="/classroom/submit-a-lesson/">Submit a lesson plan</a></p>
+    <p class="hint">How the collaboration and the credit work, field by field, is written down at <a href="/about/work-with-us/">work with us</a>. Nothing about a student is ever published.</p>
   </div>
-  <script>
-  (function(){
-    var f=document.getElementById("cr-form"); if(!f) return;
-    var V=function(id){ return (document.getElementById(id).value||"").trim(); };
-    f.addEventListener("submit",function(ev){
-      ev.preventDefault();
-      var note=document.getElementById("cr-note"), btn=document.getElementById("cr-send");
-      btn.disabled=true; note.textContent="Sending\u2026";
-      var yr=V("cr-year"), cite=V("cr-teacher")+"'s "+V("cr-grade")+" class"
-        +(yr?", "+yr+" school year":"")+" \u2014 "+V("cr-place");
-      var credit=document.getElementById("cr-credit").checked?"YES":"NO";
-      fetch("/api/report",{method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-          url:location.href, reason:"Classroom request",
-          details:"CITATION: "+cite+"\nCREDIT OK: "+credit+"\n\n"+V("cr-ask"),
-          email:V("cr-email"), website:document.getElementById("cr-hp").value
-        })})
-        .then(function(r){ return r.json().catch(function(){return{};}); })
-        .then(function(d){
-          if(d&&d.ok){ f.reset(); note.textContent="\u2713 Thank you \u2014 we read every one of these and will reply. If we build it, your class goes on the page."; }
-          else { btn.disabled=false; note.textContent="Something went wrong \u2014 please try again."; }
-        })
-        .catch(function(){ btn.disabled=false; note.textContent="Network error \u2014 please try again."; });
-    });
-  })();
-  </script>
 
   <div class="card">
-    <h2>Need a countdown on the wall?</h2>
-    <p>The <a href="/timer/">timer</a> and the <a href="/stopwatch/">stopwatch</a> are still here, still free and still full-screen. They are not what this page is about — the projector timer, the keyboard shortcuts, the lap export and what a browser timer cannot be trusted to do all live on <a href="/classroom/time/">Time in the classroom</a>.</p>
+    <h2>Lesson plans we'd like to create — with you</h2>
+    <p>We're starting from scratch on purpose: rather than fill this page with plans no teacher has taught, here is what we'd most like to build, and roughly what each would cover. Claim one — tell us your topic and grade band and we'll build it specifically for your class.</p>
+    <div class="wc-facts">
+      <div class="wc-frow"><span>The seasons</span><b>The "closer to the sun in summer" trap, broken by the class's own measurements — day length here vs. Sydney, on the same date.</b></div>
+      <div class="wc-frow"><span>Moon phases</span><b>A month of moonrise from the class's own town, why the phase is an angle, and why there isn't an eclipse every month.</b></div>
+      <div class="wc-frow"><span>Time zones</span><b>A political stripe on a rotating ball: why noon is a place, why China is one zone, and the seam where the date jumps.</b></div>
+      <div class="wc-frow"><span>Tides</span><b>For a coastal school: read this week's real NOAA chart, predict spring and neap from tonight's phase, then check.</b></div>
+      <div class="wc-frow"><span>Launch windows</span><b>High school: why a Mars rocket waits 26 months, derived from two orbital periods and checked against the real solved windows.</b></div>
+      <div class="wc-frow"><span>The leap year</span><b>The stray quarter-day: count solstice to solstice, find the drift, and invent the fix Caesar's astronomers found.</b></div>
+    </div>
+    <p class="hint">Teach something these don't cover? Even better — <a href="/classroom/submit-a-lesson/">send what you have</a>.</p>
   </div>
 
-  <div class="card tool-about">
-    <h2>Common questions</h2>
-    <p><strong>Do I need an account?</strong> No. There is no sign-up, nothing to install and nothing to pay. Everything runs in the browser on whatever machine the school gives you, and anything a tool saves stays on that device.</p>
-    <p><strong>Will these work on a locked-down school computer?</strong> They are ordinary web pages, so if the browser can reach the site they work. There is no plugin, no Flash, no app and no login wall. The one thing worth testing before a lesson is sound, because some browsers need one tap on the page before they will play audio.</p>
-    <p><strong>Are the simulators real, or are they animations?</strong> The positions are computed from the real orbits when the page loads, using the same standard methods observatories teach from — not a video and not a loop. Every page also states what its drawing exaggerates, which is usually the most useful thing on it. The one honest exception: where a moon sits along its orbit is illustrative, and the page says so.</p>
-    <p><strong>Can I print, adapt or remix the lesson plans?</strong> Yes — free to use, adapt and share for teaching. You do not need to ask, and there is nothing to attribute unless you want to.</p>
-    <p><strong>What actually happens if I send you a lesson?</strong> A person reads it. If we can use it, we rewrite it in the site&#39;s voice, wire every step to a live view, check the science, credit you the way you asked, and email you when it is live. If we cannot use it, we tell you rather than leaving you waiting. Nothing is ever published automatically.</p>
-    <p><strong>Do you collect anything from students?</strong> No. There are no student accounts, no student forms, no uploads and no public comments anywhere on this site. The only address it ever holds is a teacher&#39;s, given on one of the teacher forms, and it is used to reply to that teacher. Class questions are published as “a 5th-grade class asked…”, never with a name.</p>
+  <div class="card">
+    <h2>Two examples of what we'd build together</h2>
+    <p><strong>Written by a non-teacher, and labelled that way on the page</strong> — they show the shape (timed steps, every step opening the exact live view, a teacher's key, a printable student sheet), and we think a real teacher's help would make them much better. That is the collaboration we're asking for.</p>
+    <p class="timer-presets">
+      <a class="chip" href="/classroom/lessons/seasons-grades-7-8/">Seasons · grades 7&ndash;8</a>
+      <a class="chip" href="/classroom/lessons/solar-system-grades-3-4/">The solar system · grades 3&ndash;4</a>
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>What we bring to your lesson</h2>
+    <p>Everything on this site is computed, never typed in — sunrise for your own town, tonight's moon, the planets where they actually are today — and it all runs full screen on a projector. <strong>Projector mode</strong>, in the menu on every page, raises the contrast for the back row.</p>
+    <p class="timer-presets">
+      <a class="chip" href="/day-night-map/">Day &amp; night map</a>
+      <a class="chip" href="/sun/">Sunrise &amp; sunset for any town</a>
+      <a class="chip" href="/moon/">Moon phases &amp; moonrise</a>
+      <a class="chip" href="/earth-sun-moon-orbit-simulator/">Earth&rsquo;s orbit &amp; the seasons</a>
+      <a class="chip" href="/solar-system-simulator/">The solar system, moving</a>
+      <a class="chip" href="/rocket-launch-simulator/">Launch windows to Mars</a>
+      <a class="chip" href="/tides/">NOAA tide charts</a>
+      <a class="chip" href="/timer/">Projector timer</a>
+      <a class="chip" href="/stopwatch/">Stopwatch with laps</a>
+    </p>
+    <p class="hint">Start anywhere: <a href="/earth/">Earth</a> · <a href="/space/">Space</a> · <a href="/time/">Time</a> · <a href="/questions/">the questions students actually ask</a>.</p>
   </div>
 
   <details class="suggest-box" data-ac="suggest">

@@ -69,7 +69,7 @@ ${GA_SNIPPET}
     <p><strong>Set</strong> as many alarms as you like — pick a time, add a label, and choose a one-time alarm or a repeat (daily, weekly, or monthly). <strong>Edit</strong> changes any alarm and <strong>Stop alarm</strong> silences one that's ringing.</p>
     <p><strong>Full screen</strong> turns this into a bedside clock — a big, easy-to-read display you can leave on the nightstand. On supported devices, the page asks the screen to stay awake while it's open and plugged in — glance over and read the time like a real bedside clock. Your browser or device can still dim the screen, suspend the page or mute audio, so keep the device powered and test an alarm first. The buttons fade away for a clean face and come back the moment you touch the screen or move the phone. On a computer, <strong>Pop out</strong> opens a small floating clock that stays above your other windows (Chrome and Edge).</p>
     <p>Alarms ring only while this page (or its floating window) is open — <a href="/alarm-clock/about/">here's exactly how that works</a>, and see <a href="/browser-limitations/">browser timing limitations</a> for why background tabs and mobile devices can affect that.</p>
-    <p>Using it in a classroom? The <a href="/classroom/time/">classroom timer &amp; stopwatch guide</a> covers full screen on a projector, keyboard shortcuts and what to test before a lesson depends on it.</p>
+    <p>Using it in a classroom? Put it full screen on the projector, switch on <strong>Projector mode</strong> in the menu, and test the alarm before a lesson depends on it — and if you teach with it, <a href="/classroom/">we build lesson plans with teachers</a>.</p>
   </div>
 
   <div class="card tool-about">

@@ -415,71 +415,6 @@ a{color:#111;text-decoration:underline}
 .home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
 .sec-switch{margin:2px 0 14px}
 .sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
-.wc-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
-.wc-grid{display:grid;grid-template-columns:1fr;gap:10px}
-@media(min-width:560px){.wc-grid{grid-template-columns:1fr 1fr}}
-.wc-card{display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:14px;padding:11px 14px;background:var(--card);min-width:0;position:relative}
-.wc-toolbar .btn{width:auto}
-.wc-icon{font-size:17px;flex:0 0 auto}
-.wc-info{flex:1 1 auto;min-width:0}
-.wc-city{font-weight:700;font-size:15px}
-.wc-tzname{display:block;font-weight:500;font-size:12px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.wc-meta{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.wc-time{font-variant-numeric:tabular-nums;font-weight:700;font-size:19px;white-space:nowrap;flex:0 0 auto}
-.wc-card.wc-night{background:rgba(40,55,82,.32)}
-.wc-card.wc-you{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
-.wc-sun{font-size:11px;color:var(--muted);margin-top:1px;font-variant-numeric:tabular-nums}
-.wc-sun-i{font-size:15px;font-weight:700;line-height:1}
-.wc-city a{color:inherit;text-decoration:none}
-.wc-city a:hover{text-decoration:underline}
-.wc-nowcard{text-align:center}
-.wc-bigtime{font-size:clamp(40px,13vw,72px);font-weight:800;font-variant-numeric:tabular-nums;line-height:1.05;letter-spacing:-.01em}
-.wc-bigdate{font-size:15px;color:var(--muted);margin-top:4px}
-.wc-diff{font-size:14px;margin:12px 0 10px}
-.wc-nowcard .btn{width:auto}
-.wc-facts{display:grid;grid-template-columns:1fr;gap:2px;max-width:760px}
-.wc-frow{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--border)}
-.wc-frow:last-child{border-bottom:0}
-.wc-frow span{color:var(--muted);font-size:14px}
-.wc-frow b{font-variant-numeric:tabular-nums;text-align:right}
-.lp-steps .wc-frow{align-items:baseline}
-.lp-steps .wc-frow>span{flex:0 0 118px}
-.lp-steps .wc-frow b{text-align:left;font-weight:400}
-.lp-steps .wc-frow b strong{font-weight:700}
-.lp-you{display:block;margin-top:6px;padding-top:6px;border-top:1px dashed var(--border);color:var(--muted);font-size:13.5px}
-.lp-you em{color:var(--accent);font-style:normal;font-weight:700}
-.lp-h3{margin:14px 0 6px;font-size:15px}
-.lp-key summary{cursor:pointer;font-weight:700;color:var(--accent);margin:8px 0}
-.lp-actions{margin-top:14px}
-.lp-blank{display:inline-block;min-width:180px;border-bottom:1px solid var(--muted);height:1em;vertical-align:bottom}
-.lp-blank-wide{display:block;min-width:0;margin:10px 0 14px;height:3.2em;border-bottom:none;
-background:repeating-linear-gradient(to bottom,transparent,transparent 1.5em,var(--muted) 1.55em)}
-.lp-exit li{margin-bottom:10px}
-.wc-ptable{width:100%;border-collapse:collapse;font-size:14px}
-.wc-ptable th,.wc-ptable td{text-align:left;padding:7px 10px 7px 0;border-bottom:1px solid var(--border)}
-.wc-ptable th{color:var(--muted);font-weight:600}
-.wc-ptable td:nth-child(2){font-variant-numeric:tabular-nums;white-space:nowrap}
-.wc-search{position:relative;margin:0 0 14px}
-.wc-search-lab{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
-.wc-search-row{display:flex;gap:8px}
-.wc-search-row input{flex:1;min-width:0;padding:10px 13px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:16px}
-.wc-search-row input:focus{outline:2px solid var(--accent);outline-offset:1px}
-.wc-search-row .btn{width:auto;flex:0 0 auto}
-.wc-results{position:absolute;left:0;right:0;top:100%;z-index:30;margin:4px 0 0;padding:4px;list-style:none;
-background:var(--menu-bg);border:1px solid var(--border);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.45);max-height:320px;overflow:auto}
-.wc-results li{margin:0}
-.wc-results a{display:flex;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:8px;color:var(--menu-text);text-decoration:none;font-weight:600}
-.wc-results a:hover,.wc-results a.active{background:rgba(255,255,255,.12)}
-.wc-res-area{color:var(--muted);font-weight:500}
-.wc-res-empty{padding:9px 11px;color:var(--muted);font-size:14px}
-.wc-stretch{color:inherit;text-decoration:none}
-.wc-stretch::after{content:"";position:absolute;inset:0;z-index:0}
-.wc-card:hover{border-color:rgba(255,255,255,.34)}
-.wc-card:focus-within{border-color:var(--accent)}
-.wc-astro{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
-.wc-astro a{font-size:11px;font-weight:600;line-height:1;padding:4px 8px;border-radius:999px;
-border:1px solid var(--border);color:var(--muted);text-decoration:none;background:rgba(0,0,0,.18)}
-.wc-astro a:hover{color:var(--text);border-color:var(--accent)}
 .ac-dialog{border:1px solid var(--border);border-radius:16px;background:var(--menu-bg,#15151b);color:var(--text);padding:0;max-width:380px;width:92%;max-height:92vh;max-height:92dvh;overflow-y:auto}
 .ac-dialog::backdrop{background:rgba(0,0,0,.55)}
 #mt-dlg{margin-top:14px;margin-bottom:auto}
@@ -952,7 +887,7 @@ font-weight: 700;
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sunrise and Sunset Times Today — Any Location","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/sun/","description":"Today's sunrise & sunset times plus first light, last light, solar noon, day length and a 7-day outlook.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How accurate are the times?","acceptedAnswer":{"@type":"Answer","text":"These are calculated estimates, computed live in your browser with a standard solar-position method (the SunCalc library) from each city's listed coordinates — so they're always for today's date and can't go stale. Actual observed sunrise and sunset can differ by a few minutes with terrain, elevation, weather, atmospheric refraction, and how far you are from the listed coordinates."}},{"@type":"Question","name":"Whose time zone are the times in?","acceptedAnswer":{"@type":"Answer","text":"Each city page shows times in that city's own local time zone, labelled on the page."}},{"@type":"Question","name":"What's the difference between sunrise and first light?","acceptedAnswer":{"@type":"Answer","text":"First light (civil dawn) is when the sun reaches 6° below the horizon — bright enough to see clearly. Sunrise is when the sun's upper edge crosses the horizon itself."}}]}</script>
 
-<!-- build 733eac56e0d3 · generated 2026-08-29T16:42:23.972Z -->
+<!-- build 22e364802de2 · generated 2026-08-29T18:07:14.347Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/sunrise.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1165,17 +1100,6 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <li id="what-is-a-solstice"><p><a href="/concepts/what-is-a-solstice/">What is a solstice?</a> A solstice is a day the Sun reaches the farthest point it ever gets from the equator — 23.4° north around June 21, 23.4° south around December 21.</p></li>
     <li id="what-is-an-equinox"><p><a href="/concepts/what-is-an-equinox/">What is an equinox?</a> An equinox is one of the two days a year the Sun stands directly over the equator — around March 20 and again around September 23.</p></li>
     </ul>
-  </div>
-  <div class="card">
-    <h2>Lessons that run on this</h2>
-    <p class="sub">Timed, projector-ready plans a class can run on the page above — free, no sign-up, each with its minutes and its grade band.</p>
-    <div class="wc-facts">
-      <div class="wc-frow"><span>Grades K–2 · ~20 min</span><b><a href="/classroom/lessons/seasons-grades-k-2/">Is today longer than yesterday?</a></b></div>
-      <div class="wc-frow"><span>Grades 3–4 · ~35 min</span><b><a href="/classroom/lessons/seasons-grades-3-4/">Three towns, three stories</a></b></div>
-      <div class="wc-frow"><span>Grades 5–6 · ~45 min</span><b><a href="/classroom/lessons/seasons-grades-5-6/">Measure what the tilt does</a></b></div>
-      <div class="wc-frow"><span>Grades 7–8 · ~45 min</span><b><a href="/classroom/lessons/seasons-grades-7-8/">Summer is tilt, not distance</a></b></div>
-    </div>
-    <p class="hint">3 more that use this page, plus the full catalog, filterable by grade, topic and time: <a href="/classroom/lessons/">lesson plans</a>.</p>
   </div>
 
   <details class="suggest-box" data-ac="suggest">

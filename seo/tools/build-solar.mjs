@@ -48,7 +48,6 @@ import { SMALL_JS, SM_COMETS, SM_BIG, cometRow, nextPerihelion, resonanceAU, bel
 import { TRANSFER_JS, TR_TARGETS, TR_GM_SUN, launchWindow, transferCost, closestApproaches } from "./transfer.mjs";
 import { SIM_PATH, SYS_PATH } from "./build-simulator.mjs";
 import { hubQuestionsCard } from "./concepts.mjs";
-import { lessonsCard } from "./lesson-index.mjs";
 import { JS_MODULES, SOLAR_HUB, PLANETS_PATH, LAUNCH_PATH as LAUNCH_NEW, LAUNCH_OLD, planetPath, planetOldPath,
          SYS_VIEWS, EXTRA_VIEWS, HUB_NEEDS, LAUNCH_DESTS, LAUNCH_NEEDS, assertNeeds, moonCount,
          solarCrumbs, CRUMB_ROOT, ORBITAL_PATH } from "./solar-pages.mjs";
@@ -1412,6 +1411,22 @@ ${(sim ? assertNeeds(path, cfg.rung, needs) : 0, script(jsName, needs, cfg, sim)
 </html>
 `;
 
+/* THINGS TO TRY (owner's ask, August 2026): every simulator carries both the
+   questions it raises AND a set of find-it-yourself tasks — learning by
+   doing, phrased against the controls this page actually has. */
+const tryCard = `  <div class="card">
+    <h2>Things to try</h2>
+    <ul class="facts">
+      <li><strong>Run the race.</strong> Press <strong>Inner planets</strong>, put a <strong>year</strong> on the span, and press Play. Count Mercury's laps while Earth makes one — about four — and notice the pattern: the closer to the sun, the faster the lap. That one pattern is most of orbital mechanics.</li>
+      <li><strong>Find the true shape of the system.</strong> Zoom <strong>To Neptune</strong> and watch the four inner planets collapse into a labelled knot around the sun. Every evenly-spaced poster hides this: the outer system is mostly emptiness, and Neptune's orbit is about 80 times wider than Mercury's.</li>
+      <li><strong>Switch on the asteroid belt</strong> and zoom <strong>To the belt</strong>. Look for the empty lanes inside it — gaps swept clean by Jupiter's repeated tugs — and the two clouds of asteroids riding ahead of and behind Jupiter on its own orbit.</li>
+      <li><strong>Switch on the comets</strong> and put a <strong>century</strong> on the span. A comet spends decades crawling through the outer dark, then whips around the sun in months. Nothing shows "faster when closer" more dramatically.</li>
+      <li><strong>Give the slider a century.</strong> Mercury becomes a blur; Neptune manages barely more than half a lap. A Neptune year is longer than a human life — nobody who has ever seen Neptune discovered has also seen it complete an orbit since.</li>
+    </ul>
+    <p class="hint">Taught something good with this page? <a href="/classroom/">Help us turn it into a lesson plan</a> — built with you, published free, credited to you.</p>
+  </div>
+`;
+
 function buildHub() {
   const html = page({
     title: `${TITLE} — Planets, Moons, Comets & Launch Windows`,
@@ -1422,7 +1437,7 @@ function buildHub() {
     faq: FAQ,
     h1: "Solar System Simulator",
     sub: `The planets on their real orbits, moving. Drag through a <strong>month</strong>, a <strong>year</strong>, a <strong>decade</strong> or a <strong>century</strong>; zoom from Jupiter’s moons all the way out to Neptune; switch on the asteroid belt, the comets, and the flight path to Mars.`,
-    cards: viewLadder("solar") + simCard("inner", 0, SOLAR_PATH, 1) + howItWorksCard() + hubQuestionsCard(SOLAR_PATH) + lessonsCard(SOLAR_PATH) + bodyLinks() + windowCard(PLANET.MARS) + TRANSFER_NOTE + ladderCard()
+    cards: viewLadder("solar") + simCard("inner", 0, SOLAR_PATH, 1) + howItWorksCard() + tryCard + hubQuestionsCard(SOLAR_PATH) + bodyLinks() + windowCard(PLANET.MARS) + TRANSFER_NOTE + ladderCard()
       + shareCard(SOLAR_PATH) + elsewhereCard(),
     cfg: { rung: "inner", path: SOLAR_PATH },
     /* the one page that keeps every module — its ladder climbs every rung in

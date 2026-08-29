@@ -52,11 +52,13 @@ const HTML = [
   "how-it-works/index.html", "about/index.html", "about/work-with-us/index.html", "sponsors/index.html", "browser-limitations/index.html", "report/index.html", "wrong-date/index.html",
   "suggest-event/index.html",
   "calendar/index.html", "popular/index.html", "trending/index.html", "widget/index.html",
-  "classroom/index.html", "classroom/lessons/index.html", "classroom/distance-units/index.html",
-  "classroom/submit-a-lesson/index.html",
-  ...(await import("./build-classroom.mjs")).CLASSROOM_SUBJECTS.map((s) => `classroom/${s}/index.html`),
-  ...(await import("./build-classroom.mjs")).LESSON_PAGES.map((s) => `classroom/lessons/${s}/index.html`),
-  ...(await import("./build-classroom.mjs")).LESSON_STUDENT_PAGES.map((s) => `classroom/lessons/${s}/student/index.html`),
+  "classroom/index.html", "classroom/submit-a-lesson/index.html",
+  /* the two worked-example lessons kept when the catalog retired — static,
+     hand-frozen pages now (their generator is archived), labelled on-page as
+     non-teacher drafts; listed here so the chrome stays current on them */
+  "classroom/lessons/seasons-grades-7-8/index.html",
+  "classroom/lessons/seasons-grades-7-8/student/index.html",
+  "classroom/lessons/solar-system-grades-3-4/index.html",
   "sun-moon-earth-movement-simulator/index.html", "earth-sun-moon-orbit-simulator/index.html",
   "orbital-velocity-simulator/index.html", "orbital-velocity-simulator/why-planets-dont-fall-into-the-sun/index.html",
   ...(await import("./build-simulator.mjs")).SIM_SLUGS.map((s) => `sun-moon-earth-movement-simulator/${s}/index.html`),

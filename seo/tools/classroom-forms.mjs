@@ -48,8 +48,8 @@ const SUBJECTS = ["Astronomy", "Earth science", "Time", "Other"];
  * argues against itself. */
 export function plaque(n = 0, credit = "") {
   if (!n) {
-    return `    <p class="cr-plaque"><strong>Yours would be the first teacher-written lesson on the site.</strong>
-      The timed plans already here were written in-house. We rewrite what you send, credit you the way you ask, and email you when it is live.</p>`;
+    return `    <p class="cr-plaque"><strong>Yours would be the first lesson plan on the site.</strong>
+      We publish nothing we wrote alone — every plan here will come from a teacher. We rewrite what you send, credit you the way you ask, and email you when it is live.</p>`;
   }
   return `    <p class="cr-plaque"><strong>${n} teacher-written lesson${n === 1 ? "" : "s"}</strong> on the site${credit ? ` — ${esc(credit)}` : ""}. Send the next one.</p>`;
 }
@@ -80,8 +80,8 @@ export const lessonForm = `  <div class="card cr-ask" id="lesson">
     <h3>What happens to it</h3>
     <ul class="bullets">
       <li>A person reads it. Nothing is published automatically, and nothing goes up without a reply to you first.</li>
-      <li>We rewrite it in the site's voice and wire every step to a live view, the way the existing
-        <a href="/classroom/lessons/">lesson plans</a> are built. The science is checked; the shape stays yours.</li>
+      <li>We rewrite it in the site's voice and wire every step to the exact live view it teaches from —
+        or build a new tool where your lesson needs one. The science is checked; the shape stays yours.</li>
       <li>You are credited the way you asked to be — <em>“from a lesson by Ms Thomas, Paradise Elementary”</em> —
         and we email you when it is live. If we cannot use it, we say so rather than leaving you waiting.</li>
     </ul>

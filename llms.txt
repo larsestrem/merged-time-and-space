@@ -2,7 +2,7 @@
 
 > Free, no-sign-up clock tools and countdowns that run entirely in the browser.
 > Static pages on Cloudflare Pages; no accounts, no tracking beyond analytics,
-> nothing to install. 4228 pages in all.
+> nothing to install. 4208 pages in all.
 
 Everything below is a real, permanent URL. Figures on time-and-sky pages are
 computed, not scraped: the methodology pages state the method and its limits.
@@ -22,12 +22,12 @@ computed, not scraped: the methodology pages state the method and its limits.
 - [The planets](https://timeandspace.science/planets/): Every planet in orbital order with a picture and a couple of paragraphs each, the asteroid belt in its place, and a page for every one.
 - [Solar system simulator](https://timeandspace.science/solar-system-simulator/) — 5 pages: The planets on their real orbits, with moon systems, the asteroid belt and comets.
 - [Rocket launch simulator](https://timeandspace.science/rocket-launch-simulator/) — 4 pages: When the next launch window to Mars, Jupiter and Saturn opens, what it costs, and how the real missions compare.
-- [Questions & concepts](https://timeandspace.science/concepts/) — 53 pages: One question per URL, answered in the first paragraph: why we have seasons, what causes tides, why the moon changes shape, what a time zone is — each with a computed drawing.
+- [Questions & concepts](https://timeandspace.science/concepts/) — 54 pages: One question per URL, answered in the first paragraph: why we have seasons, what causes tides, why the moon changes shape, what a time zone is — each with a computed drawing.
 - [Glossary](https://timeandspace.science/glossary/): Every term on the site, A to Z, each linking to the question page that explains it.
 - [Countdowns](https://timeandspace.science/countdown/): Countdown pages for holidays, celebrity birthdays, sports and anniversaries.
 - [Events calendar](https://timeandspace.science/calendar/): Every countdown by month. Also published as a subscribable feed at /calendar/events.ics.
 - [Methodology](https://timeandspace.science/methodology/) — 6 pages: How each figure on the site is worked out, and where it stops being reliable.
-- [Classroom](https://timeandspace.science/classroom/) — 25 pages: Free projector-ready science simulators and timed lesson plans, in three doors: astronomy, Earth science and time. Teachers can send a lesson they already run.
+- [Classroom](https://timeandspace.science/classroom/) — 4 pages: The invitation to teachers: bring a lesson you're proud of, we develop it together — on our tools or tools we build for it — and publish it free for every teacher.
 
 ## Notes
 

@@ -32,7 +32,6 @@ import { placeFacts, placeLd, resolvePlace, nearestMajor, cityLabel, milesBetwee
 import { tideStatePages } from "./tide-stations.mjs";
 import { MOON_CORE, moonIllum, moonName, moonGlyph, moonTimes, moonPos } from "./moon.mjs";
 import { hubQuestionsCard, placeQuestionsCard } from "./concepts.mjs";
-import { lessonsCard } from "./lesson-index.mjs";
 /* epoch of the city's local midnight (minute precision — moonTimes samples hourly) */
 function mnDayStart(ms, tz) {
   const p = new Intl.DateTimeFormat("en-GB", { timeZone: tz, hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date(ms)).split(":");
@@ -2305,7 +2304,7 @@ ${head({
     <h2>More sun &amp; time tools</h2>
     <p>The <a href="/world-clock/">world clock</a> shows live times and today's sunrise/sunset around the globe at a glance. Counting down to a season? Try the <a href="/holiday-countdowns/summer-solstice/">summer solstice countdown</a>. Want the maths? <a href="/methodology/sunrise-sunset/">How sunrise and sunset are calculated</a>.</p>
   </div>
-${hubQuestionsCard("/sun/")}${lessonsCard("/sun/")}
+${hubQuestionsCard("/sun/")}
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 ${HUB_JS}</body>

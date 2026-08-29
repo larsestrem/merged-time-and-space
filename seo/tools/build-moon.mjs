@@ -38,7 +38,6 @@ import { localTimeLine, LOCALTIME_JS } from "./localtime.mjs";
 import { SUN_JS, AC_JS } from "./lib.mjs";
 import { astroStrip, tideNote, simLink } from "./crosslinks.mjs";
 import { hubQuestionsCard, placeQuestionsCard } from "./concepts.mjs";
-import { lessonsCard } from "./lesson-index.mjs";
 import { placeFacts, placeLd, resolvePlace, nearestMajor, cityLabel } from "./place.mjs";
 import { sunToStations } from "./coastal.mjs";
 import { ORRERY_JS, orreryFigure, orreryCaption } from "./orrery.mjs";
@@ -523,7 +522,7 @@ ${tiles}
     <p>This is tonight’s moon, computed for right now. The disc is the phase as seen from the ground — the same shape everyone on Earth sees at the same instant. The date box jumps to any night; <strong>Today</strong> brings it back.</p>
     <p>Moonrise and moonset depend on where you are; the phase does not. The 30-day strip is the cycle at a glance. Below the equator the lit side swaps limbs, which is why the picture flips in the southern hemisphere.</p>
   </div>
-${hubQuestionsCard("/moon/")}${lessonsCard("/moon/")}
+${hubQuestionsCard("/moon/")}
 
   <div class="duo duo-23">
   <div class="card">

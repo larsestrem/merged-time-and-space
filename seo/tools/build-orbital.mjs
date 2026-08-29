@@ -37,7 +37,6 @@ import { kmPerS } from "./units.mjs";
    both of which have been redirects since those pages moved. */
 import { PLANETS_PATH, LAUNCH_PATH as ROCKET_PATH, ORBITAL_PATH, planetPath } from "./solar-pages.mjs";
 import { hubQuestionsCard } from "./concepts.mjs";
-import { lessonsCard } from "./lesson-index.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -424,6 +423,23 @@ const whyShort = `  <div class="card">
   </div>
 `;
 
+/* THINGS TO TRY — the tasks the two sliders were built for. Percentages are
+   of circular speed at the current distance, which is what the speed slider
+   reads out; escape sits at √2 ≈ 141% of circular, inside the slider's range
+   on purpose. */
+const tryCard = `  <div class="card">
+    <h2>Things to try</h2>
+    <ul class="facts">
+      <li><strong>Break the circle, gently.</strong> Press <strong>Make it circular</strong>, then drag the speed down to about <strong>90%</strong>. The point where you slowed it stays put, and the far side of the orbit drops closer to the sun. Slowing down doesn't make a planet spiral in — it reshapes the loop.</li>
+      <li><strong>Raise an orbit by pushing forwards.</strong> Back to circular, then up to about <strong>110%</strong>. Now the far side lifts away. This is how real spacecraft climb: they don't point up, they speed up.</li>
+      <li><strong>Find escape.</strong> Keep adding speed and watch the ellipse stretch — somewhere around <strong>141%</strong> of circular it stops being a loop at all and the planet leaves. That number is no accident: escape speed is always the circular speed times the square root of two.</li>
+      <li><strong>Try to hit the sun.</strong> Drag the speed as low as it goes. Even at a crawl, the planet whips around the sun and comes back — to actually fall straight in you would have to shed nearly all of it. Falling into the sun is one of the hardest trips in the solar system.</li>
+      <li><strong>Move house.</strong> Use the presets to jump to Mercury's distance, then Neptune's, and watch two read-outs together: the sun's pull per kilogram, and the speed a circle needs. Closer means pulled harder means faster — the race the solar system simulator shows, explained by two numbers.</li>
+    </ul>
+    <p class="hint">Taught something good with this page? <a href="/classroom/">Help us turn it into a lesson plan</a> — built with you, published free, credited to you.</p>
+  </div>
+`;
+
 const gravityCard = `  <div class="card">
     <h2>What the two arrows are, and why they are different kinds of thing</h2>
     <p>The <strong class="ov-ink-g">amber arrow</strong> is the sun's pull. It always points straight at the sun, and its strength is <strong>GM/r²</strong> — nothing else. Not the planet's mass, not its speed, not what it is made of. Move twice as far out and it drops to a quarter.</p>
@@ -522,7 +538,7 @@ ${head({
   <h1>Orbital Velocity Simulator</h1>
   <p class="sub">Set how far out a planet sits and how fast it is moving sideways, and watch what gravity does with it — a circle, a long ellipse, an escape, or a fall into the sun. The two arrows are the whole story: where it is going, and where it is being pulled.</p>
 
-${simCard}${whyShort}${hubQuestionsCard(OV_PATH)}${lessonsCard(OV_PATH)}${tableCard}  <div class="card">
+${simCard}${whyShort}${tryCard}${hubQuestionsCard(OV_PATH)}${tableCard}  <div class="card">
     <h2>Keep going</h2>
     <p class="timer-presets">
       <a class="chip" href="/glossary/">The glossary of every term</a>
@@ -632,7 +648,6 @@ ${PLANETS.filter((p) => ["Mercury", "Earth", "Jupiter", "Neptune"].includes(p.na
       <a class="chip" href="/solar-system-simulator/">All eight planets on their real orbits</a>
       <a class="chip" href="${PLANETS_PATH}">Every planet, a page each</a>
       <a class="chip" href="${planetPath("mercury", 0)}">Mercury</a>
-      <a class="chip" href="/classroom/lessons/">Lesson plans</a>
     </p>
   </div>
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>

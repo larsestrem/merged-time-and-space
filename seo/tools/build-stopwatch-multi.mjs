@@ -162,7 +162,7 @@ ${GA_SNIPPET}
 
   <div class="card tool-about">
     <h2>More timing tools</h2>
-    <p><a href="/stopwatch/">Single stopwatch</a> · <a href="/timer/">Timer</a> (three countdowns at once) · <a href="/alarm-clock/">Alarm clock</a> · <a href="/classroom/time/">Using these in a classroom</a></p>
+    <p><a href="/stopwatch/">Single stopwatch</a> · <a href="/timer/">Timer</a> (three countdowns at once) · <a href="/alarm-clock/">Alarm clock</a> · <a href="/classroom/">Using these in a classroom</a></p>
   </div>
 
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
