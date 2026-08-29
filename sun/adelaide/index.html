@@ -163,9 +163,9 @@ a.brand-dd{display:inline-flex;align-items:center;gap:3px;padding:2px 4px;border
 .brand-dd .logo{display:block;height:45px;width:auto}
 .brand{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
 .crumbs{display:contents}
-.brand-dd{justify-self:start}
-.brand-word{justify-self:center}
-.menu-dd{justify-self:end;margin-left:0}
+.brand-dd{grid-row:1;grid-column:1;justify-self:start}
+.brand-word{grid-row:1;grid-column:2;justify-self:center}
+.menu-dd{grid-row:1;grid-column:3;justify-self:end;margin-left:0}
 .brand-word{display:inline-flex;align-items:baseline;margin:0;text-decoration:none;
 font-weight:800;letter-spacing:-.005em;line-height:1.1;white-space:nowrap;
 font-size:clamp(19px,4.2vw,30px)}
@@ -178,7 +178,7 @@ a.brand-word:hover .wm-j{color:var(--accent);opacity:.55}
 @media (max-width:380px){.brand-word{font-size:17px}}
 .brand-cat{font-weight:600;font-size:18px;color:var(--muted);text-decoration:none;word-break:break-all}
 .brand-cat:hover{color:var(--text)}
-.brand-crumbs{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:1px;
+.brand-crumbs{grid-row:2;grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:1px;
 min-width:0;padding:0 2px 2px}
 .brand-crumbs .brand-cat{font-size:14px}
 .copy-dd summary{padding:6px;color:var(--muted)}
@@ -1597,7 +1597,7 @@ color:var(--muted);padding:7px 2px;border-top:1px solid var(--border)}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Sunrise & Sunset","item":"https://timeandspace.science/sun/"},{"@type":"ListItem","position":3,"name":"Adelaide, Australia","item":"https://timeandspace.science/sun/adelaide/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Adelaide","address":{"@type":"PostalAddress","addressLocality":"Adelaide","addressCountry":"AU"},"geo":{"@type":"GeoCoordinates","latitude":-34.93,"longitude":138.6},"containedInPlace":[{"@type":"Country","name":"Australia"}],"url":"https://timeandspace.science/sun/adelaide/"}</script>
 
-<!-- build 560103bbce9b · generated 2026-08-29T16:05:15.097Z -->
+<!-- build db7597387a19 · generated 2026-08-29T16:28:48.378Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/sunrise.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1741,7 +1741,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 })();</script></div>
   <h1>Sunrise &amp; Sunset in Adelaide, Australia</h1>
   <p class="sub" id="sun-answer">The sun rises in Adelaide today at <b id="sun-a-rise">6:39 AM</b> and sets at <b id="sun-a-set">5:56 PM</b>, giving <b id="sun-a-len">11 hours 16 minutes</b> of daylight — <span id="sun-a-delta">2 minutes more than yesterday</span>. First light is at <b id="sun-a-dawn">6:14 AM</b>, last light at <b id="sun-a-dusk">6:21 PM</b>, and solar noon at <b id="sun-a-noon">12:17 PM</b>.</p>
-    <p class="lt-line" data-lt-tz="Australia/Adelaide">It's <a href="/world-clock/adelaide/"><b class="lt-now">1:34 AM</b> Australian Central Standard Time</a> in Adelaide.</p>
+    <p class="lt-line" data-lt-tz="Australia/Adelaide">It's <a href="/world-clock/adelaide/"><b class="lt-now">1:57 AM</b> Australian Central Standard Time</a> in Adelaide.</p>
 <p class="hint sun-tzline">Australian Central Standard Time · <span id="sun-today">Sunday, August 30, 2026</span> · Calculated for central Adelaide — recomputed live in your browser for today's date.</p>
   <div class="card sun-arccard">
     <h2>Daylight in Adelaide <input type="date" class="sun-hdate" id="sun-date2" aria-label="Pick any date" value="2026-08-30"></h2>
@@ -1770,21 +1770,21 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <h2 id="sun-now-h2">Where the sun is right now</h2>
     <div class="sun-nowgrid">
         <figure class="orr" aria-describedby="orr-note">
-      <div class="orr-fig" id="orr-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="380.3,140.3 378.9,143.1 377.2,145.7 375.2,148.1 373,150.3 370.5,152.3 367.9,154 365,155.4 362,156.6 358.9,157.5 355.6,158.1 352.3,158.3 349,158.3 345.7,157.9 342.4,157.3 339.1,156.3 336,155.1 333,153.6 330.1,151.8 327.4,149.8 325,147.5 322.7,145.1 320.7,142.4 319,139.6 317.6,136.7 316.4,133.7 315.6,130.6 315.1,127.5 314.9,124.3 315.1,121.2 315.6,118.1 316.4,115.1 317.5,112.2 318.9,109.4 320.6,106.8 322.6,104.4 324.8,102.2 327.3,100.3 329.9,98.6 332.8,97.1 335.8,95.9 338.9,95.1 342.2,94.5 345.5,94.2 348.8,94.2 352.1,94.6 355.4,95.2 358.7,96.2 361.8,97.4 364.8,99 367.7,100.7 370.4,102.8 372.9,105 375.1,107.5 377.1,110.1 378.8,112.9 380.3,115.8 381.4,118.9 382.2,121.9 382.7,125.1 382.9,128.2 382.7,131.4 382.3,134.4 381.5,137.4 380.3,140.3" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L351.8 119.8" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="351.8" cy="119.8" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="355.1" y="115.9" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">S</text><path class="orr-citytick" d="M381 138.8L395.7 140.4" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="381" cy="138.8" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="399.7" y="144.8" text-anchor="start" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Adelaide</text><circle cx="446.5" cy="168.8" r="11.45" fill="#4b5563"/><path d="M446.5 157.3A11.45 11.45 0 0 0 446.5 180.2Z" fill="#e8eef7"/><circle cx="446.5" cy="168.8" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="446.5" y="191.2" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><path d="M14 0A14 14 0 0 0 14 28A13.28 14 0 0 1 14 0Z" fill="#0e0d08" fill-opacity="0.983"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Waning gibbous</text></g></svg></div>
+      <div class="orr-fig" id="orr-fig"><svg viewBox="0 0 480 270" width="480" height="270" aria-hidden="true"><defs><radialGradient id="orr-glow" gradientUnits="userSpaceOnUse" cx="32" cy="135" r="114"><stop offset="0.8" stop-color="#fcd34d" stop-opacity=".34"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></radialGradient><clipPath id="orr-clip"><rect width="480" height="270" rx="16"/></clipPath></defs><g clip-path="url(#orr-clip)"><rect width="480" height="270" rx="16" fill="#0a1020"/><circle cx="32" cy="135" r="114" fill="url(#orr-glow)"/><circle cx="32" cy="135" r="88" fill="#fcd34d"/><text x="32" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#4b3a05">Sun</text><circle cx="345" cy="135" r="107" fill="none" stroke="#a8b6c8" stroke-opacity=".34" stroke-width="1" stroke-dasharray="2 4"/><circle cx="345" cy="135" r="42" fill="#2f74ad"/><path d="M345 93A42 42 0 0 1 345 177Z" fill="#050a16" fill-opacity=".84"/><polyline points="380.3,140.3 378.9,143.1 377.2,145.7 375.2,148.1 373,150.3 370.5,152.3 367.9,154 365,155.4 362,156.6 358.9,157.5 355.6,158.1 352.3,158.3 349,158.3 345.7,157.9 342.4,157.3 339.1,156.3 336,155.1 333,153.6 330.1,151.8 327.4,149.8 325,147.5 322.7,145.1 320.7,142.4 319,139.6 317.6,136.7 316.4,133.7 315.6,130.6 315.1,127.5 314.9,124.3 315.1,121.2 315.6,118.1 316.4,115.1 317.5,112.2 318.9,109.4 320.6,106.9 322.6,104.4 324.8,102.2 327.3,100.3 329.9,98.6 332.8,97.1 335.8,95.9 338.9,95.1 342.2,94.5 345.5,94.2 348.8,94.2 352.1,94.6 355.4,95.2 358.7,96.2 361.8,97.4 364.8,98.9 367.7,100.7 370.4,102.8 372.9,105 375.1,107.5 377.1,110.1 378.8,112.9 380.3,115.8 381.4,118.8 382.2,121.9 382.7,125.1 382.9,128.2 382.7,131.4 382.3,134.4 381.5,137.4 380.3,140.3" fill="none" stroke="#e8eef7" stroke-opacity=".38" stroke-width="1.1" stroke-dasharray="3 3"/><circle cx="345" cy="135" r="42" fill="none" stroke="#9dc2e0" stroke-opacity=".45" stroke-width="1"/><path d="M345 135L351.8 119.7" stroke="#e8eef7" stroke-opacity=".33" stroke-width="1"/><circle cx="351.8" cy="119.7" r="1.8" fill="#e8eef7" fill-opacity=".65"/><text x="355.1" y="115.9" text-anchor="middle" font-size="10" fill="#e8eef7" fill-opacity=".6" paint-order="stroke" stroke="#0a1020" stroke-width="2.5">S</text><path class="orr-citytick" d="M379.6 141.8L395.1 144.8" stroke="#fcd34d" stroke-opacity=".75" stroke-width="1.2"/><circle cx="379.6" cy="141.8" r="3.4" fill="#fcd34d" stroke="#fcd34d" stroke-opacity=".9" stroke-width="1.2"/><text class="orr-cityname" x="399" y="149.6" text-anchor="start" font-size="12" font-weight="600" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">Adelaide</text><circle cx="446.4" cy="169.1" r="11.45" fill="#4b5563"/><path d="M446.4 157.7A11.45 11.45 0 0 0 446.4 180.6Z" fill="#e8eef7"/><circle cx="446.4" cy="169.1" r="11.45" fill="none" stroke="#cbd5e1" stroke-opacity=".55" stroke-width="1"/><text x="446.4" y="191.6" text-anchor="middle" font-size="12" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Moon</text><g class="orr-phase" transform="translate(197.5 214)"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="14" cy="14" r="14" fill="#efe3c2"/><path d="M14 0A14 14 0 0 0 14 28A13.26 14 0 0 1 14 0Z" fill="#0e0d08" fill-opacity="0.983"/><circle cx="14" cy="14" r="14" fill="none" stroke="#57503a" stroke-width="1"/></svg></g><text class="orr-phase-lab" x="211.5" y="254" text-anchor="middle" font-size="11" fill="#e2e8f0" paint-order="stroke" stroke="#0a1020" stroke-width="3">Waning gibbous</text></g></svg></div>
       <p class="orr-stamp">
-        <input type="datetime-local" class="orr-at" id="orr-at" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-30T01:34" disabled aria-label="Date and time to draw the sun and moon for">
+        <input type="datetime-local" class="orr-at" id="orr-at" step="60" min="1900-01-01T00:00" max="2099-12-31T23:59" value="2026-08-30T01:57" disabled aria-label="Date and time to draw the sun and moon for">
         <button type="button" class="chip orr-now orr-play" id="orr-play" hidden aria-pressed="false">Play</button>
         <button type="button" class="chip orr-now" id="orr-now" hidden>Now</button>
       </p>
       <p class="orr-scrub">
-        <input type="range" class="orr-slider" id="orr-slider" min="0" max="42524" step="5" value="94" disabled aria-label="Move through one full cycle of the moon">
+        <input type="range" class="orr-slider" id="orr-slider" min="0" max="42524" step="5" value="117" disabled aria-label="Move through one full cycle of the moon">
         <span class="orr-scrub-lab" id="orr-scrub-lab">Press Play, or drag: end to end is one full turn of the moon round the Earth — 29 days and 13 hours</span>
       </p>
     </figure>
     <div class="sun-nowstats">
-      <div class="sun-srow sun-main"><span>Altitude</span><b id="sun-now-alt">-58.9°</b></div>
+      <div class="sun-srow sun-main"><span>Altitude</span><b id="sun-now-alt">-55.6°</b></div>
       <div class="sun-srow sun-main"><span>Direction</span><b id="sun-now-dir">southeast</b></div>
-      <div class="sun-srow"><span>Azimuth</span><b id="sun-now-az">140.7°</b></div>
+      <div class="sun-srow"><span>Azimuth</span><b id="sun-now-az">131.9°</b></div>
       <div class="sun-srow"><span id="sun-now-rowlab">Right now</span><b id="sun-now-phase">Night</b></div>
     </div>
     </div>
@@ -1792,8 +1792,8 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 <p class="hint orr-tide">That angle sets the tides, too. The moon does most of the pulling and the sun about half as much, so when the two line up — new moon and full moon — their pulls add and the tide runs to its biggest (spring tides); when they sit square on at the quarters the pulls fight and it runs to its smallest (neaps). The coast follows a day or two behind, and the shape of the shore matters as much as the sky does.</p>
     <p class="hint orr-sim">Also see the <a href="/sun-moon-earth-movement-simulator/adelaide/" data-xlink="sim">Sun, Earth &amp; Moon movement simulator for Adelaide</a>, to watch how the three move together over a day, a week or a month.</p>
 
-    <p class="sun-nowmoon" id="sun-nowmoon">The moon is up too — <b>55.3°</b> above the horizon in the <b>north</b>. <a href="/moon/adelaide/">Moonrise, moonset and tonight's phase &rarr;</a></p>
-    <p class="hint"><span id="sun-now-note">The sun is far below the horizon — full astronomical darkness.</span> Altitude is how far above the horizon the sun sits; azimuth is the compass bearing to look along, measured clockwise from north. <span id="sun-now-stamp">Shown for 1:34 AM; this updates to the live position when the page loads.</span></p>
+    <p class="sun-nowmoon" id="sun-nowmoon">The moon is up too — <b>54.4°</b> above the horizon in the <b>north-northwest</b>. <a href="/moon/adelaide/">Moonrise, moonset and tonight's phase &rarr;</a></p>
+    <p class="hint"><span id="sun-now-note">The sun is far below the horizon — full astronomical darkness.</span> Altitude is how far above the horizon the sun sits; azimuth is the compass bearing to look along, measured clockwise from north. <span id="sun-now-stamp">Shown for 1:57 AM; this updates to the live position when the page loads.</span></p>
   </div>
 <div class="duo">  <div class="card sun-tmwcard" id="sun-tomorrow">
     <h2>Sunrise &amp; sunset tomorrow in Adelaide</h2>
@@ -1824,7 +1824,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       </div>
     </div>
     <div class="sun-moon">
-      <span class="sun-moon-ico" id="sun-moon-ico" aria-hidden="true"><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true" class="mn-moon"><circle cx="22" cy="22" r="22" fill="#efe3c2"/><image href="/assets/img/moon-face.a952fb5bbe.webp" x="0" y="0" width="44" height="44" transform="rotate(180 22 22)"/><path d="M22 0A22 22 0 0 0 22 44A20.87 22 0 0 1 22 0Z" fill="#0e0d08" fill-opacity="0.983"/><circle cx="22" cy="22" r="22" fill="none" stroke="#57503a" stroke-width="1"/></svg></span>
+      <span class="sun-moon-ico" id="sun-moon-ico" aria-hidden="true"><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true" class="mn-moon"><circle cx="22" cy="22" r="22" fill="#efe3c2"/><image href="/assets/img/moon-face.a952fb5bbe.webp" x="0" y="0" width="44" height="44" transform="rotate(180 22 22)"/><path d="M22 0A22 22 0 0 0 22 44A20.84 22 0 0 1 22 0Z" fill="#0e0d08" fill-opacity="0.983"/><circle cx="22" cy="22" r="22" fill="none" stroke="#57503a" stroke-width="1"/></svg></span>
       <span class="sun-moon-txt">Tonight's moon: <b id="sun-moon-name">Waning gibbous</b>, <b id="sun-moon-pct">97%</b> lit — rises <b id="sun-moon-rise">8:08 PM</b>, sets <b id="sun-moon-set">7:28 AM</b>. <a href="/moon/adelaide/">Moonrise, moonset &amp; the phase calendar &rarr;</a></span>
     </div>
     <p class="hint" id="sun-twi-note">The three twilights are just how far the sun is below the horizon: civil to −6° (bright enough to read outside), nautical to −12° (the horizon is still visible at sea), astronomical to −18° (true darkness for stargazing). Golden hour is the warm, low-angle light photographers love, when the sun sits between −4° and +6°; blue hour is the deep-blue band just beyond it, from −6° to −4°. A dash means the sun never gets that low here on this date.</p>

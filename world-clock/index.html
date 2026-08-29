@@ -163,9 +163,9 @@ a.brand-dd{display:inline-flex;align-items:center;gap:3px;padding:2px 4px;border
 .brand-dd .logo{display:block;height:45px;width:auto}
 .brand{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
 .crumbs{display:contents}
-.brand-dd{justify-self:start}
-.brand-word{justify-self:center}
-.menu-dd{justify-self:end;margin-left:0}
+.brand-dd{grid-row:1;grid-column:1;justify-self:start}
+.brand-word{grid-row:1;grid-column:2;justify-self:center}
+.menu-dd{grid-row:1;grid-column:3;justify-self:end;margin-left:0}
 .brand-word{display:inline-flex;align-items:baseline;margin:0;text-decoration:none;
 font-weight:800;letter-spacing:-.005em;line-height:1.1;white-space:nowrap;
 font-size:clamp(19px,4.2vw,30px)}
@@ -178,7 +178,7 @@ a.brand-word:hover .wm-j{color:var(--accent);opacity:.55}
 @media (max-width:380px){.brand-word{font-size:17px}}
 .brand-cat{font-weight:600;font-size:18px;color:var(--muted);text-decoration:none;word-break:break-all}
 .brand-cat:hover{color:var(--text)}
-.brand-crumbs{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:1px;
+.brand-crumbs{grid-row:2;grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:1px;
 min-width:0;padding:0 2px 2px}
 .brand-crumbs .brand-cat{font-size:14px}
 .copy-dd summary{padding:6px;color:var(--muted)}
@@ -940,7 +940,7 @@ font-weight: 700;
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"World Clock","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/world-clock/","description":"Live current times around the world with sunrise and sunset for each city.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the world clock free?","acceptedAnswer":{"@type":"Answer","text":"Yes — free, with no sign-up. It shows live times worldwide right in your browser."}},{"@type":"Question","name":"Does it show my time zone?","acceptedAnswer":{"@type":"Answer","text":"Yes. The list starts just west of your own zone and wraps around the globe, with your zone highlighted."}},{"@type":"Question","name":"Can I switch between 12- and 24-hour time?","acceptedAnswer":{"@type":"Answer","text":"Yes — tap the 24-hour / 12-hour button to switch the whole list."}}]}</script>
 
-<!-- build 560103bbce9b · generated 2026-08-29T16:05:15.097Z -->
+<!-- build db7597387a19 · generated 2026-08-29T16:28:48.378Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/globe.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1099,152 +1099,152 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     <div class="wc-card" data-tz="Pacific/Pago_Pago" data-city="Pago Pago" data-area="American Samoa" data-lat="-14.28" data-lon="-170.7">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/pago-pago/">Pago Pago, American Samoa</a><span class="wc-tzname">American Samoa Standard Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT-11</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:31 AM   <span class="wc-sun-i">☼↓</span> 06:19 PM</div><div class="wc-astro"><a href="/sun/pago-pago/">Sun</a><a href="/moon/pago-pago/">Moon</a><a href="/tides/pago-pago-as/">Tides</a><a href="/sun-moon-earth-movement-simulator/pago-pago/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T05:04:12-11:00">05:04 AM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T05:27:46-11:00">05:27 AM</time></div>
     </div>
     <div class="wc-card" data-tz="Pacific/Honolulu" data-city="Honolulu" data-area="USA" data-lat="21.31" data-lon="-157.86">
-      <span class="wc-icon" aria-hidden="true">🌙</span>
+      <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/honolulu/">Honolulu, HI - USA</a><span class="wc-tzname">Hawaii-Aleutian Standard Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT-10</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:15 AM   <span class="wc-sun-i">☼↓</span> 06:52 PM</div><div class="wc-astro"><a href="/sun/honolulu/">Sun</a><a href="/moon/honolulu/">Moon</a><a href="/tides/honolulu-hi/">Tides</a><a href="/sun-moon-earth-movement-simulator/honolulu/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T06:04:12-10:00">06:04 AM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T06:27:46-10:00">06:27 AM</time></div>
     </div>
     <div class="wc-card" data-tz="America/Anchorage" data-city="Anchorage" data-area="USA" data-lat="61.22" data-lon="-149.9">
       <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/anchorage/">Anchorage, AK - USA</a><span class="wc-tzname">Alaska Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT-8</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:45 AM   <span class="wc-sun-i">☼↓</span> 09:18 PM</div><div class="wc-astro"><a href="/sun/anchorage/">Sun</a><a href="/moon/anchorage/">Moon</a><a href="/tides/anchorage-ak/">Tides</a><a href="/sun-moon-earth-movement-simulator/anchorage/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T08:04:12-08:00">08:04 AM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T08:27:46-08:00">08:27 AM</time></div>
     </div>
     <div class="wc-card" data-tz="America/Los_Angeles" data-city="Los Angeles" data-area="USA" data-lat="34.05" data-lon="-118.24">
       <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/los-angeles/">Los Angeles, CA - USA</a><span class="wc-tzname">Pacific Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT-7</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:25 AM   <span class="wc-sun-i">☼↓</span> 07:24 PM</div><div class="wc-astro"><a href="/sun/los-angeles/">Sun</a><a href="/moon/los-angeles/">Moon</a><a href="/tides/santa-monica-ca/">Tides</a><a href="/sun-moon-earth-movement-simulator/los-angeles/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T09:04:12-07:00">09:04 AM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T09:27:46-07:00">09:27 AM</time></div>
     </div>
     <div class="wc-card" data-tz="America/Denver" data-city="Denver" data-area="USA" data-lat="39.74" data-lon="-104.99">
       <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/denver/">Denver, CO - USA</a><span class="wc-tzname">Mountain Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT-6</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:26 AM   <span class="wc-sun-i">☼↓</span> 07:38 PM</div><div class="wc-astro"><a href="/sun/denver/">Sun</a><a href="/moon/denver/">Moon</a><a href="/sun-moon-earth-movement-simulator/denver/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T10:04:12-06:00">10:04 AM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T10:27:46-06:00">10:27 AM</time></div>
     </div>
     <div class="wc-card" data-tz="America/Chicago" data-city="Chicago" data-area="USA" data-lat="41.88" data-lon="-87.63">
       <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/chicago/">Chicago, IL - USA</a><span class="wc-tzname">Central Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT-5</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:14 AM   <span class="wc-sun-i">☼↓</span> 07:31 PM</div><div class="wc-astro"><a href="/sun/chicago/">Sun</a><a href="/moon/chicago/">Moon</a><a href="/sun-moon-earth-movement-simulator/chicago/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T11:04:12-05:00">11:04 AM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T11:27:46-05:00">11:27 AM</time></div>
     </div>
     <div class="wc-card" data-tz="America/New_York" data-city="New York" data-area="USA" data-lat="40.71" data-lon="-74.01">
       <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/new-york/">New York, NY - USA</a><span class="wc-tzname">Eastern Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT-4</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:21 AM   <span class="wc-sun-i">☼↓</span> 07:35 PM</div><div class="wc-astro"><a href="/sun/new-york/">Sun</a><a href="/moon/new-york/">Moon</a><a href="/tides/new-york-ny/">Tides</a><a href="/sun-moon-earth-movement-simulator/new-york/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T12:04:12-04:00">12:04 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T12:27:46-04:00">12:27 PM</time></div>
     </div>
     <div class="wc-card" data-tz="America/Halifax" data-city="Halifax" data-area="Canada" data-lat="44.65" data-lon="-63.57">
       <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/halifax/">Halifax, NS - Canada</a><span class="wc-tzname">Atlantic Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT-3</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:34 AM   <span class="wc-sun-i">☼↓</span> 07:59 PM</div><div class="wc-astro"><a href="/sun/halifax/">Sun</a><a href="/moon/halifax/">Moon</a><a href="/sun-moon-earth-movement-simulator/halifax/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T13:04:12-03:00">01:04 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T13:27:46-03:00">01:27 PM</time></div>
     </div>
     <div class="wc-card" data-tz="America/St_Johns" data-city="St. John&#39;s" data-area="Canada" data-lat="47.56" data-lon="-52.71">
       <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/st-john-s/">St. John&#39;s, NL - Canada</a><span class="wc-tzname">Newfoundland Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT-2:30</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:16 AM   <span class="wc-sun-i">☼↓</span> 07:49 PM</div><div class="wc-astro"><a href="/sun/st-john-s/">Sun</a><a href="/moon/st-john-s/">Moon</a><a href="/sun-moon-earth-movement-simulator/st-john-s/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T13:34:12-02:30">01:34 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T13:57:46-02:30">01:57 PM</time></div>
     </div>
     <div class="wc-card" data-tz="America/Sao_Paulo" data-city="São Paulo" data-area="Brazil" data-lat="-23.55" data-lon="-46.63">
       <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/sao-paulo/">São Paulo, SP - Brazil</a><span class="wc-tzname">Brasilia Standard Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT-3</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:21 AM   <span class="wc-sun-i">☼↓</span> 05:56 PM</div><div class="wc-astro"><a href="/sun/sao-paulo/">Sun</a><a href="/moon/sao-paulo/">Moon</a><a href="/sun-moon-earth-movement-simulator/sao-paulo/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T13:04:12-03:00">01:04 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T13:27:46-03:00">01:27 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Atlantic/Azores" data-city="Azores" data-area="Portugal" data-lat="37.74" data-lon="-25.67">
       <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/azores/">Azores, Portugal</a><span class="wc-tzname">Azores Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT+0</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 07:11 AM   <span class="wc-sun-i">☼↓</span> 08:18 PM</div><div class="wc-astro"><a href="/sun/azores/">Sun</a><a href="/moon/azores/">Moon</a><a href="/sun-moon-earth-movement-simulator/azores/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T16:04:12+00:00">04:04 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T16:27:46+00:00">04:27 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Europe/London" data-city="London" data-area="UK" data-lat="51.51" data-lon="-0.13">
       <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/london/">London, UK</a><span class="wc-tzname">United Kingdom Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT+1</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:09 AM   <span class="wc-sun-i">☼↓</span> 07:56 PM</div><div class="wc-astro"><a href="/sun/london/">Sun</a><a href="/moon/london/">Moon</a><a href="/sun-moon-earth-movement-simulator/london/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T17:04:12+01:00">05:04 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T17:27:46+01:00">05:27 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Europe/Paris" data-city="Paris" data-area="France" data-lat="48.85" data-lon="2.35">
       <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/paris/">Paris, France</a><span class="wc-tzname">Central European Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT+2</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 07:04 AM   <span class="wc-sun-i">☼↓</span> 08:42 PM</div><div class="wc-astro"><a href="/sun/paris/">Sun</a><a href="/moon/paris/">Moon</a><a href="/sun-moon-earth-movement-simulator/paris/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T18:04:12+02:00">06:04 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T18:27:46+02:00">06:27 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Europe/Athens" data-city="Athens" data-area="Greece" data-lat="37.98" data-lon="23.73">
       <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/athens/">Athens, Greece</a><span class="wc-tzname">Eastern European Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT+3</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:53 AM   <span class="wc-sun-i">☼↓</span> 08:01 PM</div><div class="wc-astro"><a href="/sun/athens/">Sun</a><a href="/moon/athens/">Moon</a><a href="/sun-moon-earth-movement-simulator/athens/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T19:04:12+03:00">07:04 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T19:27:46+03:00">07:27 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Europe/Moscow" data-city="Moscow" data-area="Russia" data-lat="55.76" data-lon="37.62">
       <span class="wc-icon" aria-hidden="true">☀️</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/moscow/">Moscow, Russia</a><span class="wc-tzname">Moscow Standard Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT+3</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 05:29 AM   <span class="wc-sun-i">☼↓</span> 07:34 PM</div><div class="wc-astro"><a href="/sun/moscow/">Sun</a><a href="/moon/moscow/">Moon</a><a href="/sun-moon-earth-movement-simulator/moscow/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T19:04:12+03:00">07:04 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T19:27:46+03:00">07:27 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Asia/Tehran" data-city="Tehran" data-area="Iran" data-lat="35.69" data-lon="51.39">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/tehran/">Tehran, Iran</a><span class="wc-tzname">Iran Standard Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT+3:30</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 05:35 AM   <span class="wc-sun-i">☼↓</span> 06:38 PM</div><div class="wc-astro"><a href="/sun/tehran/">Sun</a><a href="/moon/tehran/">Moon</a><a href="/sun-moon-earth-movement-simulator/tehran/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T19:34:12+03:30">07:34 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T19:57:46+03:30">07:57 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Asia/Dubai" data-city="Dubai" data-area="UAE" data-lat="25.2" data-lon="55.27">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/dubai/">Dubai, UAE</a><span class="wc-tzname">Gulf Standard Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT+4</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 05:59 AM   <span class="wc-sun-i">☼↓</span> 06:43 PM</div><div class="wc-astro"><a href="/sun/dubai/">Sun</a><a href="/moon/dubai/">Moon</a><a href="/sun-moon-earth-movement-simulator/dubai/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T20:04:12+04:00">08:04 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T20:27:46+04:00">08:27 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Asia/Kabul" data-city="Kabul" data-area="Afghanistan" data-lat="34.53" data-lon="69.17">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/kabul/">Kabul, Afghanistan</a><span class="wc-tzname">Afghanistan Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT+4:30</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 05:25 AM   <span class="wc-sun-i">☼↓</span> 06:26 PM</div><div class="wc-astro"><a href="/sun/kabul/">Sun</a><a href="/moon/kabul/">Moon</a><a href="/sun-moon-earth-movement-simulator/kabul/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T20:34:12+04:30">08:34 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T20:57:46+04:30">08:57 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Asia/Karachi" data-city="Karachi" data-area="Pakistan" data-lat="24.86" data-lon="67.01">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/karachi/">Karachi, Pakistan</a><span class="wc-tzname">Pakistan Standard Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT+5</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:13 AM   <span class="wc-sun-i">☼↓</span> 06:56 PM</div><div class="wc-astro"><a href="/sun/karachi/">Sun</a><a href="/moon/karachi/">Moon</a><a href="/sun-moon-earth-movement-simulator/karachi/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T21:04:12+05:00">09:04 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T21:27:46+05:00">09:27 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Asia/Kolkata" data-city="Mumbai" data-area="India" data-lat="19.08" data-lon="72.88">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/mumbai/">Mumbai, India</a><span class="wc-tzname">India Standard Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT+5:30</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:24 AM   <span class="wc-sun-i">☼↓</span> 06:57 PM</div><div class="wc-astro"><a href="/sun/mumbai/">Sun</a><a href="/moon/mumbai/">Moon</a><a href="/sun-moon-earth-movement-simulator/mumbai/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T21:34:12+05:30">09:34 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T21:57:46+05:30">09:57 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Asia/Kathmandu" data-city="Kathmandu" data-area="Nepal" data-lat="27.7" data-lon="85.32">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/kathmandu/">Kathmandu, Nepal</a><span class="wc-tzname">Nepal Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT+5:45</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 05:42 AM   <span class="wc-sun-i">☼↓</span> 06:30 PM</div><div class="wc-astro"><a href="/sun/kathmandu/">Sun</a><a href="/moon/kathmandu/">Moon</a><a href="/sun-moon-earth-movement-simulator/kathmandu/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T21:49:12+05:45">09:49 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T22:12:46+05:45">10:12 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Asia/Dhaka" data-city="Dhaka" data-area="Bangladesh" data-lat="23.81" data-lon="90.41">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/dhaka/">Dhaka, Bangladesh</a><span class="wc-tzname">Bangladesh Standard Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT+6</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 05:40 AM   <span class="wc-sun-i">☼↓</span> 06:21 PM</div><div class="wc-astro"><a href="/sun/dhaka/">Sun</a><a href="/moon/dhaka/">Moon</a><a href="/sun-moon-earth-movement-simulator/dhaka/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T22:04:12+06:00">10:04 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T22:27:46+06:00">10:27 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Asia/Bangkok" data-city="Bangkok" data-area="Thailand" data-lat="13.76" data-lon="100.5">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/bangkok/">Bangkok, Thailand</a><span class="wc-tzname">Indochina Time</span></div><div class="wc-meta">Sat, Aug 29 &middot; GMT+7</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:07 AM   <span class="wc-sun-i">☼↓</span> 06:33 PM</div><div class="wc-astro"><a href="/sun/bangkok/">Sun</a><a href="/moon/bangkok/">Moon</a><a href="/sun-moon-earth-movement-simulator/bangkok/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-29T23:04:12+07:00">11:04 PM</time></div>
+      <div class="wc-time"><time datetime="2026-08-29T23:27:46+07:00">11:27 PM</time></div>
     </div>
     <div class="wc-card" data-tz="Asia/Shanghai" data-city="Shanghai" data-area="China" data-lat="31.23" data-lon="121.47">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/shanghai/">Shanghai, China</a><span class="wc-tzname">China Standard Time</span></div><div class="wc-meta">Sun, Aug 30 &middot; GMT+8</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 05:30 AM   <span class="wc-sun-i">☼↓</span> 06:22 PM</div><div class="wc-astro"><a href="/sun/shanghai/">Sun</a><a href="/moon/shanghai/">Moon</a><a href="/sun-moon-earth-movement-simulator/shanghai/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-30T00:04:12+08:00">12:04 AM</time></div>
+      <div class="wc-time"><time datetime="2026-08-30T00:27:46+08:00">12:27 AM</time></div>
     </div>
     <div class="wc-card" data-tz="Asia/Tokyo" data-city="Tokyo" data-area="Japan" data-lat="35.68" data-lon="139.65">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/tokyo/">Tokyo, Japan</a><span class="wc-tzname">Japan Standard Time</span></div><div class="wc-meta">Sun, Aug 30 &middot; GMT+9</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 05:12 AM   <span class="wc-sun-i">☼↓</span> 06:14 PM</div><div class="wc-astro"><a href="/sun/tokyo/">Sun</a><a href="/moon/tokyo/">Moon</a><a href="/sun-moon-earth-movement-simulator/tokyo/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-30T01:04:12+09:00">01:04 AM</time></div>
+      <div class="wc-time"><time datetime="2026-08-30T01:27:46+09:00">01:27 AM</time></div>
     </div>
     <div class="wc-card" data-tz="Australia/Adelaide" data-city="Adelaide" data-area="Australia" data-lat="-34.93" data-lon="138.6">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/adelaide/">Adelaide, SA - Australia</a><span class="wc-tzname">Australian Central Time</span></div><div class="wc-meta">Sun, Aug 30 &middot; GMT+9:30</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:39 AM   <span class="wc-sun-i">☼↓</span> 05:56 PM</div><div class="wc-astro"><a href="/sun/adelaide/">Sun</a><a href="/moon/adelaide/">Moon</a><a href="/sun-moon-earth-movement-simulator/adelaide/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-30T01:34:12+09:30">01:34 AM</time></div>
+      <div class="wc-time"><time datetime="2026-08-30T01:57:46+09:30">01:57 AM</time></div>
     </div>
     <div class="wc-card" data-tz="Australia/Sydney" data-city="Sydney" data-area="Australia" data-lat="-33.87" data-lon="151.21">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/sydney/">Sydney, NSW - Australia</a><span class="wc-tzname">Australian Eastern Time</span></div><div class="wc-meta">Sun, Aug 30 &middot; GMT+10</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:18 AM   <span class="wc-sun-i">☼↓</span> 05:36 PM</div><div class="wc-astro"><a href="/sun/sydney/">Sun</a><a href="/moon/sydney/">Moon</a><a href="/sun-moon-earth-movement-simulator/sydney/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-30T02:04:12+10:00">02:04 AM</time></div>
+      <div class="wc-time"><time datetime="2026-08-30T02:27:46+10:00">02:27 AM</time></div>
     </div>
     <div class="wc-card" data-tz="Pacific/Noumea" data-city="Nouméa" data-area="New Caledonia" data-lat="-22.28" data-lon="166.46">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/noumea/">Nouméa, New Caledonia</a><span class="wc-tzname">New Caledonia Standard Time</span></div><div class="wc-meta">Sun, Aug 30 &middot; GMT+11</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:08 AM   <span class="wc-sun-i">☼↓</span> 05:44 PM</div><div class="wc-astro"><a href="/sun/noumea/">Sun</a><a href="/moon/noumea/">Moon</a><a href="/sun-moon-earth-movement-simulator/noumea/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-30T03:04:12+11:00">03:04 AM</time></div>
+      <div class="wc-time"><time datetime="2026-08-30T03:27:46+11:00">03:27 AM</time></div>
     </div>
     <div class="wc-card" data-tz="Pacific/Auckland" data-city="Auckland" data-area="New Zealand" data-lat="-36.85" data-lon="174.76">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/auckland/">Auckland, New Zealand</a><span class="wc-tzname">New Zealand Time</span></div><div class="wc-meta">Sun, Aug 30 &middot; GMT+12</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:47 AM   <span class="wc-sun-i">☼↓</span> 05:59 PM</div><div class="wc-astro"><a href="/sun/auckland/">Sun</a><a href="/moon/auckland/">Moon</a><a href="/sun-moon-earth-movement-simulator/auckland/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-30T04:04:12+12:00">04:04 AM</time></div>
+      <div class="wc-time"><time datetime="2026-08-30T04:27:46+12:00">04:27 AM</time></div>
     </div>
     <div class="wc-card" data-tz="Pacific/Apia" data-city="Apia" data-area="Samoa" data-lat="-13.83" data-lon="-171.77">
       <span class="wc-icon" aria-hidden="true">🌙</span>
       <div class="wc-info"><div class="wc-city"><a class="wc-stretch" href="/world-clock/apia/">Apia, Samoa</a><span class="wc-tzname">Samoa Standard Time</span></div><div class="wc-meta">Sun, Aug 30 &middot; GMT+13</div><div class="wc-sun"><span class="wc-sun-i">☼↑</span> 06:35 AM   <span class="wc-sun-i">☼↓</span> 06:23 PM</div><div class="wc-astro"><a href="/sun/apia/">Sun</a><a href="/moon/apia/">Moon</a><a href="/sun-moon-earth-movement-simulator/apia/">Simulator</a></div></div>
-      <div class="wc-time"><time datetime="2026-08-30T05:04:12+13:00">05:04 AM</time></div>
+      <div class="wc-time"><time datetime="2026-08-30T05:27:46+13:00">05:27 AM</time></div>
     </div>
   </div>
   <div class="card">

@@ -163,9 +163,9 @@ a.brand-dd{display:inline-flex;align-items:center;gap:3px;padding:2px 4px;border
 .brand-dd .logo{display:block;height:45px;width:auto}
 .brand{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
 .crumbs{display:contents}
-.brand-dd{justify-self:start}
-.brand-word{justify-self:center}
-.menu-dd{justify-self:end;margin-left:0}
+.brand-dd{grid-row:1;grid-column:1;justify-self:start}
+.brand-word{grid-row:1;grid-column:2;justify-self:center}
+.menu-dd{grid-row:1;grid-column:3;justify-self:end;margin-left:0}
 .brand-word{display:inline-flex;align-items:baseline;margin:0;text-decoration:none;
 font-weight:800;letter-spacing:-.005em;line-height:1.1;white-space:nowrap;
 font-size:clamp(19px,4.2vw,30px)}
@@ -178,7 +178,7 @@ a.brand-word:hover .wm-j{color:var(--accent);opacity:.55}
 @media (max-width:380px){.brand-word{font-size:17px}}
 .brand-cat{font-weight:600;font-size:18px;color:var(--muted);text-decoration:none;word-break:break-all}
 .brand-cat:hover{color:var(--text)}
-.brand-crumbs{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:1px;
+.brand-crumbs{grid-row:2;grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:1px;
 min-width:0;padding:0 2px 2px}
 .brand-crumbs .brand-cat{font-size:14px}
 .copy-dd summary{padding:6px;color:var(--muted)}
@@ -1161,7 +1161,7 @@ fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Why don't the planets fall into the sun?","url":"https://timeandspace.science/orbital-velocity-simulator/why-planets-dont-fall-into-the-sun/","description":"An explanation of orbits as continuous free fall, why stronger gravity closer to the sun requires greater orbital speed, and why orbital motion is independent of mass.","learningResourceType":"explanation","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"student"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why doesn't the sun's gravity pull the planets into it?","acceptedAnswer":{"@type":"Answer","text":"It does pull them — every planet is falling toward the sun at every moment. They miss because they are also moving sideways fast enough that the sun is no longer directly ahead by the time they have fallen. An orbit is a continuous fall that keeps missing, not a balance between gravity and some outward force."}},{"@type":"Question","name":"Does Mercury have to travel faster than the other planets?","acceptedAnswer":{"@type":"Answer","text":"Yes. The sun's pull on each kilogram at Mercury's distance is about 6.7 times what it is at Earth and about 181 times what it is at Jupiter, because gravity falls off as the square of distance. To keep missing a pull that strong, Mercury must move sideways at about 47.9 km/s, against Earth's 29.8 and Jupiter's 13.1. Closer in means pulled harder and moving faster — the speed goes as one over the square root of the distance."}},{"@type":"Question","name":"Does a heavier planet orbit differently from a lighter one?","acceptedAnswer":{"@type":"Answer","text":"No. The planet's mass cancels out completely: it is pulled harder in exact proportion to how much harder it is to turn. At a given distance every object needs the same orbital speed, whether it is Jupiter, a satellite or a speck of dust. That is why the simulator has no mass control."}},{"@type":"Question","name":"What would actually happen if a planet slowed down?","acceptedAnswer":{"@type":"Answer","text":"It would not spiral in. It would drop onto a more elongated ellipse — swinging closer to the sun, speeding up as it fell, then climbing back out to where it started. To actually hit the sun from Earth's distance you would have to cut the speed from 29.8 km/s to roughly 2.9 km/s, because anything faster still has enough sideways motion to miss."}},{"@type":"Question","name":"Why don't the planets gradually slow down and fall in?","acceptedAnswer":{"@type":"Answer","text":"Because there is nothing to slow them. Space has no meaningful air resistance, and gravity — being always at right angles to the motion on a circular orbit — does no work on them. With no friction there is nothing to bleed away the sideways speed, so the fall keeps missing indefinitely."}},{"@type":"Question","name":"Where did the sideways motion come from in the first place?","acceptedAnswer":{"@type":"Answer","text":"From the cloud of gas and dust the solar system condensed out of, which was already turning slightly. As it collapsed it spun faster, for the same reason a skater speeds up when they pull their arms in, and it flattened into a disc. The planets formed inside that already-orbiting disc, and inherited its motion."}}]}</script>
 
-<!-- build 560103bbce9b · generated 2026-08-29T16:05:15.097Z -->
+<!-- build db7597387a19 · generated 2026-08-29T16:28:48.378Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/solar.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">

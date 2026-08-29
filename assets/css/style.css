@@ -299,9 +299,14 @@ a.brand-dd{display:inline-flex;align-items:center;gap:3px;padding:2px 4px;border
    Centring it inside .crumbs would have put it ~26px off true centre. */
 .brand{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
 .crumbs{display:contents}
-.brand-dd{justify-self:start}
-.brand-word{justify-self:center}
-.menu-dd{justify-self:end;margin-left:0}
+/* EVERY BAR ITEM IS PINNED TO ITS CELL. Auto-placement broke the moment the
+ * breadcrumb returned: a full-width row-2 item sitting BEFORE the hamburger
+ * in the DOM pushed the hamburger onto row 3, left of centre, on every page
+ * with a crumb. Explicit row/column means the bar lays out the same whatever
+ * order the injector emits the pieces in. */
+.brand-dd{grid-row:1;grid-column:1;justify-self:start}
+.brand-word{grid-row:1;grid-column:2;justify-self:center}
+.menu-dd{grid-row:1;grid-column:3;justify-self:end;margin-left:0}
 .brand-word{display:inline-flex;align-items:baseline;margin:0;text-decoration:none;
   font-weight:800;letter-spacing:-.005em;line-height:1.1;white-space:nowrap;
   font-size:clamp(19px,4.2vw,30px)}
@@ -322,7 +327,7 @@ a.brand-word:hover .wm-j{color:var(--accent);opacity:.55}
 /* the restored breadcrumb: a slim second row of the brand grid, reading like
  * a URL path under the wordmark — the visible twin of the BreadcrumbList
  * JSON-LD every page already emits */
-.brand-crumbs{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:1px;
+.brand-crumbs{grid-row:2;grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:1px;
   min-width:0;padding:0 2px 2px}
 .brand-crumbs .brand-cat{font-size:14px}
 /* copy / share dropdown (reuses the nav-dd machinery, icon instead of a label) */

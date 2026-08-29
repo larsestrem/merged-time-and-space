@@ -168,9 +168,9 @@ a.brand-dd{display:inline-flex;align-items:center;gap:3px;padding:2px 4px;border
 .brand-dd .logo{display:block;height:45px;width:auto}
 .brand{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
 .crumbs{display:contents}
-.brand-dd{justify-self:start}
-.brand-word{justify-self:center}
-.menu-dd{justify-self:end;margin-left:0}
+.brand-dd{grid-row:1;grid-column:1;justify-self:start}
+.brand-word{grid-row:1;grid-column:2;justify-self:center}
+.menu-dd{grid-row:1;grid-column:3;justify-self:end;margin-left:0}
 .brand-word{display:inline-flex;align-items:baseline;margin:0;text-decoration:none;
 font-weight:800;letter-spacing:-.005em;line-height:1.1;white-space:nowrap;
 font-size:clamp(19px,4.2vw,30px)}
@@ -183,7 +183,7 @@ a.brand-word:hover .wm-j{color:var(--accent);opacity:.55}
 @media (max-width:380px){.brand-word{font-size:17px}}
 .brand-cat{font-weight:600;font-size:18px;color:var(--muted);text-decoration:none;word-break:break-all}
 .brand-cat:hover{color:var(--text)}
-.brand-crumbs{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:1px;
+.brand-crumbs{grid-row:2;grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:1px;
 min-width:0;padding:0 2px 2px}
 .brand-crumbs .brand-cat{font-size:14px}
 .copy-dd summary{padding:6px;color:var(--muted)}
@@ -837,7 +837,7 @@ border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:v
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Online Alarm Clock","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/alarm-clock/","description":"Free online alarm clock with a big red LED display, full-screen bedside mode and one-time or repeating alarms.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does the alarm ring if I close the tab?","acceptedAnswer":{"@type":"Answer","text":"No. It's a browser alarm, so it only rings while the alarm page or its full-screen or floating window is open. Keep it open for the alarm to sound."}},{"@type":"Question","name":"Can I set repeating alarms?","acceptedAnswer":{"@type":"Answer","text":"Yes — choose a one-time alarm, or repeat daily, weekly on chosen days, or monthly by date or weekday."}},{"@type":"Question","name":"Can I use it as a bedside clock that stays on?","acceptedAnswer":{"@type":"Answer","text":"Tap Full screen for a big bedside clock. On supported browsers and devices it will try to keep the display awake while open, but power-saving settings, browser restrictions, or device permissions may still dim or turn off the screen — keep your phone plugged in for the best results."}}]}</script>
 
-<!-- build 560103bbce9b · generated 2026-08-29T16:05:15.097Z -->
+<!-- build db7597387a19 · generated 2026-08-29T16:28:48.378Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
