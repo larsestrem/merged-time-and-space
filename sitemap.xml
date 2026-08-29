@@ -5,7 +5,7 @@
   <url><loc>https://timeandspace.science/earth/</loc><lastmod>2026-08-28</lastmod><priority>0.8</priority></url>
   <url><loc>https://timeandspace.science/space/</loc><lastmod>2026-08-28</lastmod><priority>0.8</priority></url>
   <url><loc>https://timeandspace.science/countdown/</loc><lastmod>2026-08-28</lastmod><priority>0.9</priority></url>
-  <url><loc>https://timeandspace.science/stopwatch/</loc><lastmod>2026-08-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://timeandspace.science/stopwatch/</loc><lastmod>2026-08-29</lastmod><priority>0.8</priority></url>
   <url><loc>https://timeandspace.science/classroom/</loc><lastmod>2026-08-28</lastmod><priority>0.7</priority></url>
   <url><loc>https://timeandspace.science/classroom/lessons/</loc><lastmod>2026-08-28</lastmod><priority>0.7</priority></url>
   <url><loc>https://timeandspace.science/classroom/distance-units/</loc><lastmod>2026-08-28</lastmod><priority>0.6</priority></url>
@@ -1334,10 +1334,10 @@
   <url><loc>https://timeandspace.science/countries/france/</loc><lastmod>2026-08-26</lastmod><priority>0.6</priority></url>
   <url><loc>https://timeandspace.science/countries/japan/</loc><lastmod>2026-08-26</lastmod><priority>0.6</priority></url>
   <url><loc>https://timeandspace.science/countries/australia/</loc><lastmod>2026-08-26</lastmod><priority>0.6</priority></url>
-  <url><loc>https://timeandspace.science/how-it-works/</loc><lastmod>2026-08-28</lastmod><priority>0.5</priority></url>
-  <url><loc>https://timeandspace.science/about/</loc><lastmod>2026-08-28</lastmod><priority>0.5</priority></url>
-  <url><loc>https://timeandspace.science/about/work-with-us/</loc><lastmod>2026-08-28</lastmod><priority>0.5</priority></url>
-  <url><loc>https://timeandspace.science/sponsors/</loc><lastmod>2026-08-28</lastmod><priority>0.4</priority></url>
+  <url><loc>https://timeandspace.science/how-it-works/</loc><lastmod>2026-08-29</lastmod><priority>0.5</priority></url>
+  <url><loc>https://timeandspace.science/about/</loc><lastmod>2026-08-29</lastmod><priority>0.5</priority></url>
+  <url><loc>https://timeandspace.science/about/work-with-us/</loc><lastmod>2026-08-29</lastmod><priority>0.5</priority></url>
+  <url><loc>https://timeandspace.science/sponsors/</loc><lastmod>2026-08-29</lastmod><priority>0.4</priority></url>
   <url><loc>https://timeandspace.science/glossary/</loc><lastmod>2026-08-28</lastmod><priority>0.7</priority></url>
   <url><loc>https://timeandspace.science/questions/</loc><lastmod>2026-08-28</lastmod><priority>0.7</priority></url>
   <url><loc>https://timeandspace.science/concepts/what-is-the-tropic-of-cancer/</loc><lastmod>2026-08-28</lastmod><priority>0.8</priority></url>
@@ -1393,10 +1393,10 @@
   <url><loc>https://timeandspace.science/concepts/what-are-the-moon-phases-called/</loc><lastmod>2026-08-28</lastmod><priority>0.8</priority></url>
   <url><loc>https://timeandspace.science/concepts/does-the-moon-have-a-dark-side/</loc><lastmod>2026-08-28</lastmod><priority>0.8</priority></url>
   <url><loc>https://timeandspace.science/concepts/what-is-a-spring-tide/</loc><lastmod>2026-08-28</lastmod><priority>0.8</priority></url>
-  <url><loc>https://timeandspace.science/browser-limitations/</loc><lastmod>2026-08-28</lastmod><priority>0.5</priority></url>
-  <url><loc>https://timeandspace.science/suggest-event/</loc><lastmod>2026-08-28</lastmod><priority>0.4</priority></url>
-  <url><loc>https://timeandspace.science/terms</loc><lastmod>2026-08-28</lastmod><priority>0.3</priority></url>
-  <url><loc>https://timeandspace.science/privacy</loc><lastmod>2026-08-28</lastmod><priority>0.3</priority></url>
+  <url><loc>https://timeandspace.science/browser-limitations/</loc><lastmod>2026-08-29</lastmod><priority>0.5</priority></url>
+  <url><loc>https://timeandspace.science/suggest-event/</loc><lastmod>2026-08-29</lastmod><priority>0.4</priority></url>
+  <url><loc>https://timeandspace.science/terms</loc><lastmod>2026-08-29</lastmod><priority>0.3</priority></url>
+  <url><loc>https://timeandspace.science/privacy</loc><lastmod>2026-08-29</lastmod><priority>0.3</priority></url>
   <url><loc>https://timeandspace.science/timer/</loc><lastmod>2026-08-27</lastmod><priority>0.8</priority></url>
   <url><loc>https://timeandspace.science/timer/15-seconds/</loc><lastmod>2026-08-27</lastmod><priority>0.6</priority></url>
   <url><loc>https://timeandspace.science/timer/30-seconds/</loc><lastmod>2026-08-27</lastmod><priority>0.6</priority></url>
