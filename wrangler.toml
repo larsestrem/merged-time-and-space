@@ -6,7 +6,10 @@
 # and a modern compatibility date. Capturing it here means a Git-connected Pages
 # build picks it up automatically — no dashboard flags to set by hand — and
 # `npx wrangler pages dev .` runs the Functions locally with the same settings.
-name = "time-and-space"
+# MUST match the Pages project this repo deploys to — a mismatched name makes
+# Pages ignore this whole file (no KV bindings, no nodejs_compat), and the
+# site moved from the "time-and-space" project in August 2026.
+name = "merged-time-and-space"
 pages_build_output_dir = "."
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
