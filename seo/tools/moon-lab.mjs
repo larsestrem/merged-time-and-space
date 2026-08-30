@@ -154,7 +154,22 @@ function mlSun(x,y,r){
   for(var i=0;i<12;i++){var a=i*Math.PI/6;s+='<line x1="'+(x+Math.cos(a)*(r+7)).toFixed(1)+'" y1="'+(y+Math.sin(a)*(r+7)).toFixed(1)+'" x2="'+(x+Math.cos(a)*(r+18)).toFixed(1)+'" y2="'+(y+Math.sin(a)*(r+18)).toFixed(1)+'"/>';}
   return s+'</g><circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#fbbf24"/>';
 }
-function mlEarth(x,y,r){return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#2563eb" stroke="#93c5fd" stroke-width="2"/><path d="M '+(x-r*.6)+' '+(y-r*.25)+' q '+(r*.35)+' '+(-r*.4)+' '+(r*.7)+' 0 t '+(r*.45)+' '+(r*.35)+' q '+(-r*.4)+' '+(r*.4)+' '+(-r*.9)+' '+(r*.25)+'z" fill="#4ade80" opacity=".8"/>';}
+function mlEarth(x,y,r){
+  /* A recognizable classroom-globe shorthand, not a random green patch.
+     The Americas sit on the left; Europe/Africa/Asia and Australia sit on the
+     right. Normalized coordinates keep the same silhouette legible everywhere
+     this engine draws Earth, from the 20px synodic-month globe to the 76px
+     moonrise globe. */
+  var k=r/50;
+  return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#2563eb" stroke="#93c5fd" stroke-width="2"/>'
+    +'<g transform="translate('+x+' '+y+') scale('+k.toFixed(3)+')" fill="#4ade80" stroke="#166534" stroke-width="1" stroke-linejoin="round" vector-effect="non-scaling-stroke">'
+    +'<path d="M-39-22l9-10 13-5 12 5 4 9-7 7-8 2-2 8 6 8-3 8-7-1-5-8-10-5-5-9z"/>'
+    +'<path d="M-17 8l8 4 4 9-5 18-7 8-5-16-7-12 5-10z"/>'
+    +'<path d="M0-29l13-7 10 4 3 6 14 1 7 10-7 8-13-1-8 6-3 9-8 2-10-8-9-5 3-10 8-6z"/>'
+    +'<path d="M5 4l13 2 8 9-6 19-10 12-8-8-5-17z"/>'
+    +'<path d="M29 22l11 2 4 8-8 7-11-5z"/>'
+    +'</g>';
+}
 function mlMoon(x,y,r){return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#334155" stroke="#cbd5e1" stroke-width="2"/><path d="M '+x+' '+(y-r)+' A '+r+' '+r+' 0 0 0 '+x+' '+(y+r)+' A '+(r*.72)+' '+r+' 0 0 0 '+x+' '+(y-r)+'Z" fill="#e2e8f0"/>';}
 function mlPhaseName(a){
   var names=['new moon','waxing crescent','first quarter','waxing gibbous','full moon','waning gibbous','last quarter','waning crescent'];
