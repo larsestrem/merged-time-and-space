@@ -80,159 +80,7 @@ function plPeriodDays(idx){ var a=PL_EL[idx][1]; return 365.256898*Math.pow(a,1.
 
 /* sat: not drawn on this page */
 /* small: not drawn on this page */
-
-var TR_GM_SUN=1.32712440018e11;      /* km^3/s^2 */
-var TR_GM_EARTH=398600.44;
-var TR_LEO=6678;                     /* km: a 300 km parking orbit, Earth radius + 300 */
-var TR_DAY=86400000;
-
-/* the targets a transfer is offered for: index, and the label used in the UI */
-var TR_TARGETS=[[3,'Mars'],[4,'Jupiter'],[5,'Saturn']];
-
-function trAU(){ return PL_AU; }
-function trR(idx,ms){ var p=plPos(idx,ms); return Math.sqrt(p.x*p.x+p.y*p.y)*PL_AU; }   /* km, in the ecliptic plane */
-function trLon(idx,ms){ var p=plPos(idx,ms); return Math.atan2(p.y,p.x); }
-function trWrapPi(a){ while(a>Math.PI) a-=2*Math.PI; while(a<-Math.PI) a+=2*Math.PI; return a; }
-
-/* the half-ellipse from Earth's radius at t0 to the target's radius on arrival.
-   Iterated because the arrival radius depends on the flight time it sets. */
-function trSolve(idx,t0){
-  var r1=trR(2,t0), a=(r1+trR(idx,t0))/2, tf=0, i;
-  for(i=0;i<8;i++){
-    tf=Math.PI*Math.sqrt(a*a*a/TR_GM_SUN)*1000;         /* ms */
-    var r2=trR(idx,t0+tf), na=(r1+r2)/2;
-    if(Math.abs(na-a)<1) { a=na; break; }
-    a=na;
-  }
-  tf=Math.PI*Math.sqrt(a*a*a/TR_GM_SUN)*1000;
-  var r2=trR(idx,t0+tf);
-  /* how far the target misses the far end of the ellipse, in radians */
-  var miss=trWrapPi(trLon(idx,t0+tf)-(trLon(2,t0)+Math.PI));
-  return { t0:t0, tf:tf, a:a, r1:r1, r2:r2, e:(r2-r1)/(r2+r1), miss:miss, lon1:trLon(2,t0) };
-}
-
-/* The next departure at or after ms. Earth laps every target, so as the
-   departure date slides forward the miss angle falls steadily — about half a
-   degree a day for Mars, a degree for Saturn — and the window is where it
-   crosses zero. Scan for that crossing, then bisect. The 6-day step is a small
-   fraction of a synodic period, so no window can be stepped over, and the
-   guard rejects the jump where the angle wraps from -180 to +180 rather than
-   crossing. */
-function trWindow(idx,ms){
-  var step=6*TR_DAY, prev=trSolve(idx,ms), t=ms, i, cur;
-  for(i=0;i<760;i++){                                   /* up to ~12.5 years */
-    t+=step; cur=trSolve(idx,t);
-    if(prev.miss>0&&cur.miss<=0&&(prev.miss-cur.miss)<Math.PI){
-      var lo=t-step, hi=t, j;
-      for(j=0;j<44;j++){
-        var mid=(lo+hi)/2;
-        if(trSolve(idx,mid).miss>0) lo=mid; else hi=mid;
-      }
-      return trSolve(idx,(lo+hi)/2);
-    }
-    prev=cur;
-  }
-  return null;
-}
-
-/* The next n windows, not just the next one. Each search restarts a fortnight
-   past the last departure found, which is far enough to clear the window it just
-   solved and far short of the synodic period, so none can be skipped. */
-function trWindows(idx,ms,n){
-  var out=[], t=ms, i, w;
-  for(i=0;i<n;i++){
-    w=trWindow(idx,t); if(!w) break;
-    out.push(w); t=w.t0+14*TR_DAY;
-  }
-  return out;
-}
-
-/* speeds, and therefore the cost of the trip */
-function trBurns(s){
-  var vDep=Math.sqrt(TR_GM_SUN*(2/s.r1-1/s.a));         /* on the transfer ellipse at departure */
-  var vE=Math.sqrt(TR_GM_SUN*(2/s.r1-1/(PL_EL[2][1]*PL_AU)));
-  var vArr=Math.sqrt(TR_GM_SUN*(2/s.r2-1/s.a));
-  return { vDep:vDep, vE:vE, dv1:vDep-vE, vArr:vArr };
-}
-/* the full accounting for one target: heliocentric burns, plus what it costs to
-   leave a low Earth orbit at all (which is most of a rocket) */
-function trCost(idx,s){
-  var b=trBurns(s);
-  var vT=Math.sqrt(TR_GM_SUN*(2/s.r2-1/(PL_EL[idx][1]*PL_AU)));
-  var dv2=vT-b.vArr;
-  var vinf=b.dv1;
-  var vLeo=Math.sqrt(TR_GM_EARTH/TR_LEO);
-  var vEsc=Math.sqrt(vinf*vinf+2*TR_GM_EARTH/TR_LEO);
-  return { dv1:b.dv1, dv2:dv2, total:b.dv1+Math.abs(dv2), vinf:vinf,
-           injection:vEsc-vLeo, vDep:b.vDep, vE:b.vE, vArr:b.vArr, vT:vT };
-}
-
-/* where the craft is at time ms, or null if it is not flying yet / already
-   arrived. Kepler on the transfer ellipse, same solver the planets use. */
-function trCraft(s,ms){
-  if(ms<s.t0||ms>s.t0+s.tf) return null;
-  var n=Math.PI/s.tf;                                    /* half a revolution over tf */
-  var M=n*(ms-s.t0), E=plKepler(M,s.e);
-  var aAU=s.a/PL_AU;
-  var xo=aAU*(Math.cos(E)-s.e), yo=aAU*Math.sqrt(1-s.e*s.e)*Math.sin(E);
-  var c=Math.cos(s.lon1), sn=Math.sin(s.lon1);           /* perihelion at the departure longitude */
-  return { x:c*xo-sn*yo, y:sn*xo+c*yo, r:Math.sqrt(xo*xo+yo*yo) };
-}
-
-/* the closest the two planets get: local minima of the real separation. Not the
-   same instant as opposition, and not the same distance every time, which is
-   the whole point of showing it. */
-function trClosest(idx,ms,count){
-  var out=[], step=TR_DAY, sep=function(t){
-    var a=plPos(2,t), b=plPos(idx,t);
-    return Math.sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y)+(a.z-b.z)*(a.z-b.z));
-  };
-  var p0=sep(ms-step), p1=sep(ms), t=ms, i;
-  for(i=0;i<7000&&out.length<count;i++){
-    t+=step; var p2=sep(t);
-    if(p1<p0&&p1<=p2){
-      /* refine to the hour */
-      var lo=t-2*step, hi=t, j;
-      for(j=0;j<30;j++){
-        var m1=lo+(hi-lo)/3, m2=hi-(hi-lo)/3;
-        if(sep(m1)<sep(m2)) hi=m2; else lo=m1;
-      }
-      var tm=(lo+hi)/2;
-      out.push({ t:tm, au:sep(tm) });
-    }
-    p0=p1; p1=p2;
-  }
-  return out;
-}
-
-/* ---- drawing ------------------------------------------------------------- */
-/* the flight path: the half ellipse, where the planets are when it leaves and
-   when it lands, and the craft itself if the clock is inside the flight. */
-function trLayer(ms,idx,outer,k,s){
-  if(!s) return '';
-  var out='', i, pts=[];
-  var aAU=s.a/PL_AU, c=Math.cos(s.lon1), sn=Math.sin(s.lon1);
-  for(i=0;i<=120;i++){
-    var E=i/120*Math.PI;
-    var xo=aAU*(Math.cos(E)-s.e), yo=aAU*Math.sqrt(1-s.e*s.e)*Math.sin(E);
-    pts.push(solF(SOL_CX+k*(c*xo-sn*yo))+','+solF(SOL_CY-k*(sn*xo+c*yo)));
-  }
-  out+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#facc15" stroke-opacity=".85" stroke-width="2"/>';
-  /* departure and arrival, as hollow markers on the two orbits */
-  var e0=plPos(2,s.t0), p1=plPos(idx,s.t0+s.tf);
-  out+='<circle cx="'+solF(SOL_CX+k*e0.x)+'" cy="'+solF(SOL_CY-k*e0.y)+'" r="7" fill="none" stroke="#facc15" stroke-width="1.5"/>';
-  out+='<circle cx="'+solF(SOL_CX+k*p1.x)+'" cy="'+solF(SOL_CY-k*p1.y)+'" r="9" fill="none" stroke="#facc15" stroke-width="1.5" stroke-dasharray="3 3"/>';
-  out+='<text x="'+solF(SOL_CX+k*e0.x)+'" y="'+solF(SOL_CY-k*e0.y+22)+'" text-anchor="middle" font-size="11" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">launch</text>';
-  out+='<text x="'+solF(SOL_CX+k*p1.x)+'" y="'+solF(SOL_CY-k*p1.y+24)+'" text-anchor="middle" font-size="11" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">arrive</text>';
-  var cr=trCraft(s,ms);
-  if(cr){
-    var cx=SOL_CX+k*cr.x, cy=SOL_CY-k*cr.y;
-    out+='<circle cx="'+solF(cx)+'" cy="'+solF(cy)+'" r="4" fill="#fef9c3"/>';
-    out+='<circle cx="'+solF(cx)+'" cy="'+solF(cy)+'" r="9" fill="none" stroke="#facc15" stroke-opacity=".7"/>';
-  }
-  return out;
-}
-
+/* transfer: not drawn on this page */
 
 var SOL_RUNGS=[["moon","Earth & the Moon",0,0,"em",2],["inner","The inner planets",1.62,4,"sys",-1],["mars","Out to Mars",1.72,4,"sys",-1],["belt","Out to the asteroid belt",3.75,4,"sys",-1],["jupiter","Out to Jupiter",5.75,5,"sys",-1],["saturn","Out to Saturn",10.3,6,"sys",-1],["neptune","Out to Neptune",31.5,8,"sys",-1],["pluto","Out to Pluto (a dwarf planet)",50,9,"sys",-1],["mars-moons","Mars: Phobos & Deimos",0,0,"moons",3],["jupiter-moons","Jupiter: the Galilean moons",0,0,"moons",4],["saturn-moons","Saturn: the rings & Titan",0,0,"moons",5],["uranus-moons","Uranus: Titania & Miranda",0,0,"moons",6],["neptune-moons","Neptune: Triton",0,0,"moons",7],["pluto-moons","Pluto: Charon & the small four",0,0,"moons",8]];
 var SOL_SPANS=[['month','Month',30],['year','Year',365.25],['decade','Decade',3652.5],['century','Century',36525]];
@@ -484,11 +332,11 @@ function solSvg(ms,rungId,opt){
   /* WHAT THIS PAGE CAN DRAW. Every optional module's entry points are behind
      one of these, so a URL parameter or a stray button cannot ask for a layer
      whose code was left out of this file. */
-  var SOL_HAS={"core":1,"globe":0,"moon":0,"sat":0,"small":0,"transfer":1};
+  var SOL_HAS={"core":1,"globe":0,"moon":0,"sat":0,"small":0,"transfer":0};
   /* The page's own configuration, baked in rather than read from a
      window.AC_SOL the surrounding page had to set: this file is unique to this
      page now, so its config belongs in it. */
-  var CFG={"rung":"belt","path":"/rocket-launch-simulator/"};
+  var CFG={"rung":"neptune","path":"/solar-system-simulator/outer-planets/"};
   var RUNG=CFG.rung||'inner', START=null, OFF=0, SPAN='year', PLAY=0, SPEED=15;
   /* THE VIEW OPENS TILTED. Straight down is the exact view and stays one drag
    away, but the page's job is to make people look, and a disc seen at an angle
@@ -702,7 +550,10 @@ function solSvg(ms,rungId,opt){
 
   function share(){
     var q='date='+localValue(when()).slice(0,10)+'&zoom='+RUNG+'&span='+SPAN;
-    if(SPEED!==1) q+='&speed='+SPEED;
+    /* always written. The old guard (skip when SPEED===1) predates absolute
+       speeds — 1 was the multiplier's default then, and is a real day-per-second
+       setting on a moon rung now, which the shared link silently dropped. */
+    q+='&speed='+SPEED;
     /* the view angle travels with the link, so a shared picture arrives at the
        angle it was shared at rather than snapping back to the page default */
     if(Math.round(TILT)!==Math.round(SOL_TILT0)) q+='&tilt='+Math.round(TILT);
@@ -795,7 +646,10 @@ function solSvg(ms,rungId,opt){
        changes the picture most could not be linked to or shared — the share
        box below now writes it, and this reads it back. 0 is straight down
        (the exact view) and 90 is edge-on. */
-    var tl=parseFloat(q0.get('tilt')); if(tl>=0&&tl<=90) TILT=SOL_TILT0=tl;
+    /* clamped to the slider's own 80° max: a link carrying more drew a picture
+       the control could not represent — the thumb pinned at 80 while the view
+       sat at 90, and the first drag snapped the drawing back */
+    var tl=parseFloat(q0.get('tilt')); if(tl>=0&&tl<=90) TILT=SOL_TILT0=Math.min(80,tl);
     /* how much of the moon system to draw. Clamped inside satView too, so a
        level this planet does not have degrades to the most it does. */
     var ml=parseInt(q0.get('moons'),10); if(SOL_HAS.sat&&ml>=1&&ml<=3) MOONLVL=ml;

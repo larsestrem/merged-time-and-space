@@ -79,162 +79,160 @@ function plName(idx){ return PL_EL[idx][0]; }
 function plPeriodDays(idx){ var a=PL_EL[idx][1]; return 365.256898*Math.pow(a,1.5); }
 
 /* sat: not drawn on this page */
+/* small: not drawn on this page */
 
-var SM_RAD=Math.PI/180, SM_YR=365.256898, SM_DAY=86400000;
+var TR_GM_SUN=1.32712440018e11;      /* km^3/s^2 */
+var TR_GM_EARTH=398600.44;
+var TR_LEO=6678;                     /* km: a 300 km parking orbit, Earth radius + 300 */
+var TR_DAY=86400000;
 
-/* [name, label, a AU, e, i deg, node deg, argPeri deg, perihelion time ms,
-    period years (checked against a^1.5), q AU (checked against a(1-e)), note] */
-var SM_COMETS=[
- ['1P','Halley',17.834,0.967140,162.262,58.42,111.33,Date.UTC(1986,1,9,11,1),75.32,0.5860,
-  'The one everybody has heard of, and the only short-period comet visible to the naked eye twice in a lifetime. Goes round backwards.'],
- ['2P','Encke',2.2153,0.848330,11.781,334.57,186.55,Date.UTC(2023,9,22,9,36),3.30,0.3360,
-  'The shortest orbit of any known comet — it never gets past the asteroid belt, and it has been round more than a hundred times since it was found.'],
- ['55P','Tempel-Tuttle',10.3376,0.905510,162.49,235.27,172.50,Date.UTC(1998,1,28,5,0),33.24,0.9766,
-  'Leaves the dust that becomes the Leonid meteor shower every November, and a storm of them roughly every 33 years.'],
- ['109P','Swift-Tuttle',26.092,0.963226,113.454,139.38,152.98,Date.UTC(1992,11,12,7,0),133.28,0.9595,
-  'The Perseids in August are this comet\u2019s dust. The nucleus is 26 km across, the largest object known to make repeated close passes of Earth.'],
- ['12P','Pons-Brooks',17.20,0.954608,74.19,255.85,199.03,Date.UTC(2024,3,21,7,0),71.33,0.7810,
-  'The \u201cdevil comet\u201d of spring 2024, named for the horned shape its outbursts gave it.'],
- ['67P','Churyumov-Gerasimenko',3.4630,0.641000,7.043,36.33,22.15,Date.UTC(2021,10,2,0,0),6.44,1.2432,
-  'The rubber-duck-shaped one Rosetta orbited for two years and landed on in 2014 — the only comet ever visited that way.'],
- ['C/1995 O1','Hale-Bopp',186.0,0.995086,89.43,282.47,130.59,Date.UTC(1997,3,1,3,20),2537,0.9140,
-  'Naked-eye for eighteen months in 1996-97, longer than any comet on record. Its orbit is very nearly perpendicular to everything else here.'],
- ['C/2020 F3','NEOWISE',358.5,0.999178,128.94,61.01,37.28,Date.UTC(2020,6,3,16,48),6788,0.2947,
-  'The best comet of the last two decades from the northern hemisphere, and not due back for about 6,800 years.']
-];
+/* the targets a transfer is offered for: index, and the label used in the UI */
+var TR_TARGETS=[[3,'Mars'],[4,'Jupiter'],[5,'Saturn']];
 
-/* Kepler for eccentricities the planets never reach. Newton from E=M diverges
-   as e approaches 1, so this uses Danby's starting guess and a tighter loop;
-   check-solar-data.mjs asserts convergence at e=0.9992, the worst row here. */
-function smKepler(M,e){
-  M=((M+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI;
-  var E=M+0.85*e*(M<0?-1:1), i, f, fp, dE;
-  for(i=0;i<60;i++){
-    f=E-e*Math.sin(E)-M; fp=1-e*Math.cos(E);
-    dE=f/fp; E-=dE;
-    if(Math.abs(dE)<1e-13) break;
+function trAU(){ return PL_AU; }
+function trR(idx,ms){ var p=plPos(idx,ms); return Math.sqrt(p.x*p.x+p.y*p.y)*PL_AU; }   /* km, in the ecliptic plane */
+function trLon(idx,ms){ var p=plPos(idx,ms); return Math.atan2(p.y,p.x); }
+function trWrapPi(a){ while(a>Math.PI) a-=2*Math.PI; while(a<-Math.PI) a+=2*Math.PI; return a; }
+
+/* the half-ellipse from Earth's radius at t0 to the target's radius on arrival.
+   Iterated because the arrival radius depends on the flight time it sets. */
+function trSolve(idx,t0){
+  var r1=trR(2,t0), a=(r1+trR(idx,t0))/2, tf=0, i;
+  for(i=0;i<8;i++){
+    tf=Math.PI*Math.sqrt(a*a*a/TR_GM_SUN)*1000;         /* ms */
+    var r2=trR(idx,t0+tf), na=(r1+r2)/2;
+    if(Math.abs(na-a)<1) { a=na; break; }
+    a=na;
   }
-  return E;
+  tf=Math.PI*Math.sqrt(a*a*a/TR_GM_SUN)*1000;
+  var r2=trR(idx,t0+tf);
+  /* how far the target misses the far end of the ellipse, in radians */
+  var miss=trWrapPi(trLon(idx,t0+tf)-(trLon(2,t0)+Math.PI));
+  return { t0:t0, tf:tf, a:a, r1:r1, r2:r2, e:(r2-r1)/(r2+r1), miss:miss, lon1:trLon(2,t0) };
 }
-/* heliocentric ecliptic position of one comet, in AU */
-function smCometPos(idx,ms){
-  var c=SM_COMETS[idx], a=c[2], e=c[3];
-  var I=c[4]*SM_RAD, O=c[5]*SM_RAD, w=c[6]*SM_RAD;
-  var P=Math.pow(a,1.5)*SM_YR*SM_DAY;             /* period in ms, from a alone */
-  var M=2*Math.PI*((ms-c[7])/P);
-  var E=smKepler(M,e);
-  var xo=a*(Math.cos(E)-e), yo=a*Math.sqrt(1-e*e)*Math.sin(E);
-  var cw=Math.cos(w), sw=Math.sin(w), cO=Math.cos(O), sO=Math.sin(O), cI=Math.cos(I), sI=Math.sin(I);
-  var x=(cw*cO-sw*sO*cI)*xo+(-sw*cO-cw*sO*cI)*yo;
-  var y=(cw*sO+sw*cO*cI)*xo+(-sw*sO+cw*cO*cI)*yo;
-  var z=(sw*sI)*xo+(cw*sI)*yo;
-  return { x:x, y:y, z:z, r:Math.sqrt(x*x+y*y+z*z) };
-}
-/* the perihelion on or after ms — how the "next pass" dates are worked out */
-function smNextPerihelion(idx,ms){
-  var c=SM_COMETS[idx], P=Math.pow(c[2],1.5)*SM_YR*SM_DAY;
-  var n=Math.ceil((ms-c[7])/P);
-  return c[7]+n*P;
-}
-function smPeriodYears(idx){ return Math.pow(SM_COMETS[idx][2],1.5); }
 
-/* ---- the belt, entirely derived from Jupiter -----------------------------
-   A body in a p:q resonance with Jupiter (its period q/p of Jupiter's) orbits
-   at a_J*(q/p)^(2/3). Every feature below is one of those. */
-function smResonance(p,q){ return PL_EL[4][1]*Math.pow(q/p,2/3); }
-var SM_BELT=[
- [4,1,'gap','4:1 \u2014 inner edge'],
- [3,1,'gap','3:1 Kirkwood gap'],
- [5,2,'gap','5:2 Kirkwood gap'],
- [7,3,'gap','7:3 Kirkwood gap'],
- [2,1,'gap','2:1 \u2014 outer edge'],
- [3,2,'hilda','3:2 \u2014 the Hildas'],
- [1,1,'trojan','1:1 \u2014 the Trojans']
-];
-function smBeltEdges(){ return [smResonance(4,1),smResonance(2,1)]; }
-
-/* the four largest belt objects. Drawn as RINGS, never as dots: the orbit of an
-   asteroid needs no epoch and is a fact, but where it sits on that orbit today
-   is not solved for here, and an invented dot would be the one untruth this
-   page is built to avoid. */
-var SM_BIG=[
- ['Ceres',2.7658,939.4,'A dwarf planet, a quarter of all the mass in the belt, with water ice under its crust'],
- ['Vesta',2.3617,525.4,'The brightest asteroid, bright enough to see without a telescope, and a differentiated protoplanet'],
- ['Pallas',2.7709,511,'On a 35-degree tilt, so it crosses the belt rather than lying in it'],
- ['Hygiea',3.1415,433,'Round enough that it may count as a dwarf planet too']
-];
-
-/* ---- drawing ------------------------------------------------------------ */
-function smBeltLayer(ms,outer,k){
-  var e=smBeltEdges(), ri=e[0]*k, ro=e[1]*k, out='', i;
-  if(e[0]>outer) return '';
-  /* faint on purpose: the belt is a place, not a wall, and the planets' orbits
-     have to stay readable through it. It is also nearly empty in reality — the
-     large bodies in it are around a million km apart. */
-  out+='<circle cx="'+SOL_CX+'" cy="'+SOL_CY+'" r="'+solF((ri+ro)/2)+'" fill="none" stroke="#8b7355" stroke-opacity=".22" stroke-width="'+solF(ro-ri)+'"/>';
-  for(i=0;i<SM_BELT.length;i++){
-    var b=SM_BELT[i], a=smResonance(b[0],b[1]);
-    if(b[2]!=='gap'||a>outer) continue;
-    out+='<circle cx="'+SOL_CX+'" cy="'+SOL_CY+'" r="'+solF(a*k)+'" fill="none" stroke="#080d1a" stroke-opacity=".62" stroke-width="'+solF(Math.max(1.2,(ro-ri)*0.05))+'"/>';
+/* The next departure at or after ms. Earth laps every target, so as the
+   departure date slides forward the miss angle falls steadily — about half a
+   degree a day for Mars, a degree for Saturn — and the window is where it
+   crosses zero. Scan for that crossing, then bisect. The 6-day step is a small
+   fraction of a synodic period, so no window can be stepped over, and the
+   guard rejects the jump where the angle wraps from -180 to +180 rather than
+   crossing. */
+function trWindow(idx,ms){
+  var step=6*TR_DAY, prev=trSolve(idx,ms), t=ms, i, cur;
+  for(i=0;i<760;i++){                                   /* up to ~12.5 years */
+    t+=step; cur=trSolve(idx,t);
+    if(prev.miss>0&&cur.miss<=0&&(prev.miss-cur.miss)<Math.PI){
+      var lo=t-step, hi=t, j;
+      for(j=0;j<44;j++){
+        var mid=(lo+hi)/2;
+        if(trSolve(idx,mid).miss>0) lo=mid; else hi=mid;
+      }
+      return trSolve(idx,(lo+hi)/2);
+    }
+    prev=cur;
   }
-  out+='<text x="'+SOL_CX+'" y="'+solF(SOL_CY-(ri+ro)/2+4)+'" text-anchor="middle" font-size="11" fill="#c8b48f" paint-order="stroke" stroke="#0a1020" stroke-width="3">Asteroid belt \u2014 the dark lanes are Jupiter\u2019s resonances</text>';
-  /* the Hildas and the Trojans are where Jupiter says they are, right now */
-  var ha=smResonance(3,2);
-  if(ha<=outer)
-    out+='<circle cx="'+SOL_CX+'" cy="'+SOL_CY+'" r="'+solF(ha*k)+'" fill="none" stroke="#8b7355" stroke-opacity=".45" stroke-width="2" stroke-dasharray="2 6"/>';
-  var jp=plPos(4,ms), jlon=Math.atan2(jp.y,jp.x), jr=Math.sqrt(jp.x*jp.x+jp.y*jp.y);
-  if(jr<=outer){
-    for(i=-1;i<=1;i+=2){
-      var th=jlon+i*60*SM_RAD, tx=SOL_CX+k*jr*Math.cos(th), ty=SOL_CY-k*jr*Math.sin(th);
-      out+='<ellipse cx="'+solF(tx)+'" cy="'+solF(ty)+'" rx="'+solF(Math.max(5,jr*k*0.14))+'" ry="'+solF(Math.max(3,jr*k*0.05))+'" fill="#8b7355" fill-opacity=".55" transform="rotate('+solF(-th/SM_RAD+(i>0?90:90))+' '+solF(tx)+' '+solF(ty)+')"/>';
-    }
-    out+='<text x="'+solF(SOL_CX+k*jr*Math.cos(jlon+60*SM_RAD))+'" y="'+solF(SOL_CY-k*jr*Math.sin(jlon+60*SM_RAD)-12)+'" text-anchor="middle" font-size="11" fill="#c8b48f" paint-order="stroke" stroke="#0a1020" stroke-width="3">Trojans</text>';
-  }
-  return out;
+  return null;
 }
-/* WOULD THERE BE ANYTHING TO SEE? The two draw functions above already return
-   nothing when their subject is off the frame, which left the switches that
-   turn them on looking live while doing nothing. These answer the same question
-   from the same numbers, so a switch cannot claim a layer the frame has no
-   room for. */
-function smBeltIn(outer){ return smBeltEdges()[0]<=outer; }
-function smCometsIn(outer){
-  for(var i=0;i<SM_COMETS.length;i++) if(SM_COMETS[i][2]*(1-SM_COMETS[i][3])<=outer) return 1;
-  return 0;
-}
-/* one comet: its orbit, and where the two-body solution puts it */
-function smCometLayer(ms,outer,k){
-  var out='', i, j;
-  for(i=0;i<SM_COMETS.length;i++){
-    var c=SM_COMETS[i], a=c[2], e=c[3];
-    if(a*(1-e)>outer) continue;                    /* never enters the frame */
-    var I=c[4]*SM_RAD, O=c[5]*SM_RAD, w=c[6]*SM_RAD;
-    var cw=Math.cos(w), sw=Math.sin(w), cO=Math.cos(O), sO=Math.sin(O), cI=Math.cos(I);
-    var pts=[], any=0;
-    for(j=0;j<=240;j++){
-      var E=j/240*2*Math.PI;
-      var xo=a*(Math.cos(E)-e), yo=a*Math.sqrt(1-e*e)*Math.sin(E);
-      var x=(cw*cO-sw*sO*cI)*xo+(-sw*cO-cw*sO*cI)*yo;
-      var y=(cw*sO+sw*cO*cI)*xo+(-sw*sO+cw*cO*cI)*yo;
-      if(Math.abs(x)>outer*2.5||Math.abs(y)>outer*2.5){ if(any){ pts.push(''); any=0; } continue; }
-      pts.push(solF(SOL_CX+k*x)+','+solF(SOL_CY-k*y)); any=1;
-    }
-    out+='<polyline points="'+pts.filter(Boolean).join(' ')+'" fill="none" stroke="#7dd3fc" stroke-opacity=".33" stroke-width="1" stroke-dasharray="5 4"/>';
-    var p=smCometPos(i,ms);
-    if(Math.abs(p.x)<outer&&Math.abs(p.y)<outer){
-      var px=SOL_CX+k*p.x, py=SOL_CY-k*p.y;
-      /* the tail points away from the sun, because that is the one thing about
-         a comet tail everybody gets wrong */
-      var d=Math.sqrt(p.x*p.x+p.y*p.y)||1, tl=Math.min(46,Math.max(10,26/Math.max(p.r,0.3)));
-      out+='<line x1="'+solF(px)+'" y1="'+solF(py)+'" x2="'+solF(px+tl*p.x/d)+'" y2="'+solF(py-tl*p.y/d)+'" stroke="#7dd3fc" stroke-opacity=".6" stroke-width="2" stroke-linecap="round"/>';
-      out+='<circle cx="'+solF(px)+'" cy="'+solF(py)+'" r="3" fill="#e0f2fe"/>';
-      out+='<text x="'+solF(px)+'" y="'+solF(py+16)+'" text-anchor="middle" font-size="11" fill="#bae6fd" paint-order="stroke" stroke="#0a1020" stroke-width="3">'+c[1]+'</text>';
-    }
+
+/* The next n windows, not just the next one. Each search restarts a fortnight
+   past the last departure found, which is far enough to clear the window it just
+   solved and far short of the synodic period, so none can be skipped. */
+function trWindows(idx,ms,n){
+  var out=[], t=ms, i, w;
+  for(i=0;i<n;i++){
+    w=trWindow(idx,t); if(!w) break;
+    out.push(w); t=w.t0+14*TR_DAY;
   }
   return out;
 }
 
-/* transfer: not drawn on this page */
+/* speeds, and therefore the cost of the trip */
+function trBurns(s){
+  var vDep=Math.sqrt(TR_GM_SUN*(2/s.r1-1/s.a));         /* on the transfer ellipse at departure */
+  var vE=Math.sqrt(TR_GM_SUN*(2/s.r1-1/(PL_EL[2][1]*PL_AU)));
+  var vArr=Math.sqrt(TR_GM_SUN*(2/s.r2-1/s.a));
+  return { vDep:vDep, vE:vE, dv1:vDep-vE, vArr:vArr };
+}
+/* the full accounting for one target: heliocentric burns, plus what it costs to
+   leave a low Earth orbit at all (which is most of a rocket) */
+function trCost(idx,s){
+  var b=trBurns(s);
+  var vT=Math.sqrt(TR_GM_SUN*(2/s.r2-1/(PL_EL[idx][1]*PL_AU)));
+  var dv2=vT-b.vArr;
+  var vinf=b.dv1;
+  var vLeo=Math.sqrt(TR_GM_EARTH/TR_LEO);
+  var vEsc=Math.sqrt(vinf*vinf+2*TR_GM_EARTH/TR_LEO);
+  return { dv1:b.dv1, dv2:dv2, total:b.dv1+Math.abs(dv2), vinf:vinf,
+           injection:vEsc-vLeo, vDep:b.vDep, vE:b.vE, vArr:b.vArr, vT:vT };
+}
+
+/* where the craft is at time ms, or null if it is not flying yet / already
+   arrived. Kepler on the transfer ellipse, same solver the planets use. */
+function trCraft(s,ms){
+  if(ms<s.t0||ms>s.t0+s.tf) return null;
+  var n=Math.PI/s.tf;                                    /* half a revolution over tf */
+  var M=n*(ms-s.t0), E=plKepler(M,s.e);
+  var aAU=s.a/PL_AU;
+  var xo=aAU*(Math.cos(E)-s.e), yo=aAU*Math.sqrt(1-s.e*s.e)*Math.sin(E);
+  var c=Math.cos(s.lon1), sn=Math.sin(s.lon1);           /* perihelion at the departure longitude */
+  return { x:c*xo-sn*yo, y:sn*xo+c*yo, r:Math.sqrt(xo*xo+yo*yo) };
+}
+
+/* the closest the two planets get: local minima of the real separation. Not the
+   same instant as opposition, and not the same distance every time, which is
+   the whole point of showing it. */
+function trClosest(idx,ms,count){
+  var out=[], step=TR_DAY, sep=function(t){
+    var a=plPos(2,t), b=plPos(idx,t);
+    return Math.sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y)+(a.z-b.z)*(a.z-b.z));
+  };
+  var p0=sep(ms-step), p1=sep(ms), t=ms, i;
+  for(i=0;i<7000&&out.length<count;i++){
+    t+=step; var p2=sep(t);
+    if(p1<p0&&p1<=p2){
+      /* refine to the hour */
+      var lo=t-2*step, hi=t, j;
+      for(j=0;j<30;j++){
+        var m1=lo+(hi-lo)/3, m2=hi-(hi-lo)/3;
+        if(sep(m1)<sep(m2)) hi=m2; else lo=m1;
+      }
+      var tm=(lo+hi)/2;
+      out.push({ t:tm, au:sep(tm) });
+    }
+    p0=p1; p1=p2;
+  }
+  return out;
+}
+
+/* ---- drawing ------------------------------------------------------------- */
+/* the flight path: the half ellipse, where the planets are when it leaves and
+   when it lands, and the craft itself if the clock is inside the flight. */
+function trLayer(ms,idx,outer,k,s){
+  if(!s) return '';
+  var out='', i, pts=[];
+  var aAU=s.a/PL_AU, c=Math.cos(s.lon1), sn=Math.sin(s.lon1);
+  for(i=0;i<=120;i++){
+    var E=i/120*Math.PI;
+    var xo=aAU*(Math.cos(E)-s.e), yo=aAU*Math.sqrt(1-s.e*s.e)*Math.sin(E);
+    pts.push(solF(SOL_CX+k*(c*xo-sn*yo))+','+solF(SOL_CY-k*(sn*xo+c*yo)));
+  }
+  out+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#facc15" stroke-opacity=".85" stroke-width="2"/>';
+  /* departure and arrival, as hollow markers on the two orbits */
+  var e0=plPos(2,s.t0), p1=plPos(idx,s.t0+s.tf);
+  out+='<circle cx="'+solF(SOL_CX+k*e0.x)+'" cy="'+solF(SOL_CY-k*e0.y)+'" r="7" fill="none" stroke="#facc15" stroke-width="1.5"/>';
+  out+='<circle cx="'+solF(SOL_CX+k*p1.x)+'" cy="'+solF(SOL_CY-k*p1.y)+'" r="9" fill="none" stroke="#facc15" stroke-width="1.5" stroke-dasharray="3 3"/>';
+  out+='<text x="'+solF(SOL_CX+k*e0.x)+'" y="'+solF(SOL_CY-k*e0.y+22)+'" text-anchor="middle" font-size="11" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">launch</text>';
+  out+='<text x="'+solF(SOL_CX+k*p1.x)+'" y="'+solF(SOL_CY-k*p1.y+24)+'" text-anchor="middle" font-size="11" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">arrive</text>';
+  var cr=trCraft(s,ms);
+  if(cr){
+    var cx=SOL_CX+k*cr.x, cy=SOL_CY-k*cr.y;
+    out+='<circle cx="'+solF(cx)+'" cy="'+solF(cy)+'" r="4" fill="#fef9c3"/>';
+    out+='<circle cx="'+solF(cx)+'" cy="'+solF(cy)+'" r="9" fill="none" stroke="#facc15" stroke-opacity=".7"/>';
+  }
+  return out;
+}
+
 
 var SOL_RUNGS=[["moon","Earth & the Moon",0,0,"em",2],["inner","The inner planets",1.62,4,"sys",-1],["mars","Out to Mars",1.72,4,"sys",-1],["belt","Out to the asteroid belt",3.75,4,"sys",-1],["jupiter","Out to Jupiter",5.75,5,"sys",-1],["saturn","Out to Saturn",10.3,6,"sys",-1],["neptune","Out to Neptune",31.5,8,"sys",-1],["pluto","Out to Pluto (a dwarf planet)",50,9,"sys",-1],["mars-moons","Mars: Phobos & Deimos",0,0,"moons",3],["jupiter-moons","Jupiter: the Galilean moons",0,0,"moons",4],["saturn-moons","Saturn: the rings & Titan",0,0,"moons",5],["uranus-moons","Uranus: Titania & Miranda",0,0,"moons",6],["neptune-moons","Neptune: Triton",0,0,"moons",7],["pluto-moons","Pluto: Charon & the small four",0,0,"moons",8]];
 var SOL_SPANS=[['month','Month',30],['year','Year',365.25],['decade','Decade',3652.5],['century','Century',36525]];
@@ -486,11 +484,11 @@ function solSvg(ms,rungId,opt){
   /* WHAT THIS PAGE CAN DRAW. Every optional module's entry points are behind
      one of these, so a URL parameter or a stray button cannot ask for a layer
      whose code was left out of this file. */
-  var SOL_HAS={"core":1,"globe":0,"moon":0,"sat":0,"small":1,"transfer":0};
+  var SOL_HAS={"core":1,"globe":0,"moon":0,"sat":0,"small":0,"transfer":1};
   /* The page's own configuration, baked in rather than read from a
      window.AC_SOL the surrounding page had to set: this file is unique to this
      page now, so its config belongs in it. */
-  var CFG={"rung":"belt","path":"/solar-system-simulator/asteroid-belt/","belt":1};
+  var CFG={"rung":"belt","path":"/rocket-launch-simulator/"};
   var RUNG=CFG.rung||'inner', START=null, OFF=0, SPAN='year', PLAY=0, SPEED=15;
   /* THE VIEW OPENS TILTED. Straight down is the exact view and stays one drag
    away, but the page's job is to make people look, and a disc seen at an angle
@@ -704,7 +702,10 @@ function solSvg(ms,rungId,opt){
 
   function share(){
     var q='date='+localValue(when()).slice(0,10)+'&zoom='+RUNG+'&span='+SPAN;
-    if(SPEED!==1) q+='&speed='+SPEED;
+    /* always written. The old guard (skip when SPEED===1) predates absolute
+       speeds — 1 was the multiplier's default then, and is a real day-per-second
+       setting on a moon rung now, which the shared link silently dropped. */
+    q+='&speed='+SPEED;
     /* the view angle travels with the link, so a shared picture arrives at the
        angle it was shared at rather than snapping back to the page default */
     if(Math.round(TILT)!==Math.round(SOL_TILT0)) q+='&tilt='+Math.round(TILT);
@@ -797,7 +798,10 @@ function solSvg(ms,rungId,opt){
        changes the picture most could not be linked to or shared — the share
        box below now writes it, and this reads it back. 0 is straight down
        (the exact view) and 90 is edge-on. */
-    var tl=parseFloat(q0.get('tilt')); if(tl>=0&&tl<=90) TILT=SOL_TILT0=tl;
+    /* clamped to the slider's own 80° max: a link carrying more drew a picture
+       the control could not represent — the thumb pinned at 80 while the view
+       sat at 90, and the first drag snapped the drawing back */
+    var tl=parseFloat(q0.get('tilt')); if(tl>=0&&tl<=90) TILT=SOL_TILT0=Math.min(80,tl);
     /* how much of the moon system to draw. Clamped inside satView too, so a
        level this planet does not have degrades to the most it does. */
     var ml=parseInt(q0.get('moons'),10); if(SOL_HAS.sat&&ml>=1&&ml<=3) MOONLVL=ml;

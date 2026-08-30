@@ -12446,3 +12446,22 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
 - Verified in Chromium: max=39312 minutes, label "27.3 days, one orbit of the
   Moon", span Aug 28 – Sep 24, thumb at the far end lands 27.3 days later.
 
+
+## 2026-08-30 — Slider review: five fixes across the simulators
+
+- Reviewed every slider on the site (orrery, day/night map, both simulators,
+  home hero, orbital-velocity). Main find: the orrery slider's 'change'
+  handler compared the landing day against orrWhen() AFTER its own 'input'
+  events had moved it, so dayChanged was always false and ~2,200 /sun/ and
+  /moon/ pages never pulled their per-day facts (sunrise, dial, tables) onto
+  the day a drag landed on. Fixed by capturing the host's day at drag start
+  (ORR_DRAGDAY); field/Now now also force the catch-up when they interrupt
+  Play, whose frames the host never follows.
+- Smaller fixes: /day-night-map/ no longer yanks the thumb mid-drag on the
+  minute tick; /orbital-velocity-simulator/ bakes the distance thumb at 1 AU
+  (was the bar midpoint, ~2.8 AU, under a 1.00 AU read-out); solar ?tilt=
+  clamps to the slider's 80° max; solar share links always carry &speed=
+  (the ===1 skip predated absolute speeds); sun-moon-earth hub copy no longer
+  names Tilt/Playback controls it doesn't have, and documents span=year.
+- Files: seo/tools/{orrery,build-daynight,build-orbital,build-solar,
+  build-simulator}.mjs + full rebuild. Both gates pass.

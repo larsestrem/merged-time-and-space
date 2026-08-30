@@ -1320,7 +1320,7 @@ function solSvg(ms,rungId,opt){
   /* The page's own configuration, baked in rather than read from a
      window.AC_SOL the surrounding page had to set: this file is unique to this
      page now, so its config belongs in it. */
-  var CFG={"rung":"pluto-moons","path":"/pluto-and-moons-simulator/","tilt":50};
+  var CFG={"rung":"uranus-moons","path":"/uranus-and-moons-simulator/","tilt":50};
   var RUNG=CFG.rung||'inner', START=null, OFF=0, SPAN='year', PLAY=0, SPEED=15;
   /* THE VIEW OPENS TILTED. Straight down is the exact view and stays one drag
    away, but the page's job is to make people look, and a disc seen at an angle
@@ -1534,7 +1534,10 @@ function solSvg(ms,rungId,opt){
 
   function share(){
     var q='date='+localValue(when()).slice(0,10)+'&zoom='+RUNG+'&span='+SPAN;
-    if(SPEED!==1) q+='&speed='+SPEED;
+    /* always written. The old guard (skip when SPEED===1) predates absolute
+       speeds — 1 was the multiplier's default then, and is a real day-per-second
+       setting on a moon rung now, which the shared link silently dropped. */
+    q+='&speed='+SPEED;
     /* the view angle travels with the link, so a shared picture arrives at the
        angle it was shared at rather than snapping back to the page default */
     if(Math.round(TILT)!==Math.round(SOL_TILT0)) q+='&tilt='+Math.round(TILT);
@@ -1627,7 +1630,10 @@ function solSvg(ms,rungId,opt){
        changes the picture most could not be linked to or shared — the share
        box below now writes it, and this reads it back. 0 is straight down
        (the exact view) and 90 is edge-on. */
-    var tl=parseFloat(q0.get('tilt')); if(tl>=0&&tl<=90) TILT=SOL_TILT0=tl;
+    /* clamped to the slider's own 80° max: a link carrying more drew a picture
+       the control could not represent — the thumb pinned at 80 while the view
+       sat at 90, and the first drag snapped the drawing back */
+    var tl=parseFloat(q0.get('tilt')); if(tl>=0&&tl<=90) TILT=SOL_TILT0=Math.min(80,tl);
     /* how much of the moon system to draw. Clamped inside satView too, so a
        level this planet does not have degrades to the most it does. */
     var ml=parseInt(q0.get('moons'),10); if(SOL_HAS.sat&&ml>=1&&ml<=3) MOONLVL=ml;

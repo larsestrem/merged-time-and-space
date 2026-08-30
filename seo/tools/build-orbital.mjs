@@ -81,6 +81,13 @@ const n2 = (x) => x.toFixed(2);
 /* how many times weaker/stronger, phrased so the reader never has to invert it */
 const times = (x) => (x >= 1 ? `${x < 10 ? n1(x) : Math.round(x)}× stronger` : `${(1 / x) < 10 ? n1(1 / x) : Math.round(1 / x)}× weaker`);
 
+/* the distance slider's log scale — ONE pair of numbers for the client formula
+   and the baked thumb position. The baked value used to be a typed 500 (the
+   bar's midpoint, ~2.8 AU on this scale) under a baked scene and read-out of
+   1.00 AU, so the control and the drawing shipped disagreeing. */
+const OV_DMIN = 0.2, OV_DMAX = 40;
+const ovSliderFromDist = (r) => Math.round((Math.log(r) - Math.log(OV_DMIN)) / (Math.log(OV_DMAX) - Math.log(OV_DMIN)) * 1000);
+
 /* the speed that, launched sideways from 1 AU, would actually reach the sun's
    surface — the number that kills the "slow down a bit and you fall in" idea */
 const HIT_SUN_1AU = vAt(AU_KM, (AU_KM + R_SUN) / 2);
@@ -307,10 +314,10 @@ function frame(ts){
   step(dt);
   requestAnimationFrame(frame);
 }
-/* the sliders. Distance is logarithmic — 0.2 to 40 AU on a linear slider
+/* the sliders. Distance is logarithmic — ${OV_DMIN} to ${OV_DMAX} AU on a linear slider
    spends four fifths of its travel outside Saturn, where nothing changes. */
-function distFromSlider(x){ return Math.exp(Math.log(0.2)+(x/1000)*(Math.log(40)-Math.log(0.2))); }
-function sliderFromDist(r){ return Math.round((Math.log(r)-Math.log(0.2))/(Math.log(40)-Math.log(0.2))*1000); }
+function distFromSlider(x){ return Math.exp(Math.log(${OV_DMIN})+(x/1000)*(Math.log(${OV_DMAX})-Math.log(${OV_DMIN}))); }
+function sliderFromDist(r){ return Math.round((Math.log(r)-Math.log(${OV_DMIN}))/(Math.log(${OV_DMAX})-Math.log(${OV_DMIN}))*1000); }
 dEl.addEventListener('input',function(){ rAU=distFromSlider(+dEl.value); build(); });
 vEl.addEventListener('input',function(){ ratio=+vEl.value/100; build(); });
 if(spEl) spEl.addEventListener('input',function(){ days=+spEl.value; });
@@ -355,7 +362,7 @@ const simCard = `  <div class="card">
         <p class="ov-shape" id="ov-o-shape">Falling exactly as fast as the curve of the orbit carries it away.</p>
         <div class="ov-ctl">
           <label class="sim-flab" for="ov-dist">Distance from the sun</label>
-          <p class="ov-row"><input type="range" class="orr-slider" id="ov-dist" min="0" max="1000" step="1" value="500" disabled aria-label="Distance from the sun"><output id="ov-o-dist">1.00 AU</output></p>
+          <p class="ov-row"><input type="range" class="orr-slider" id="ov-dist" min="0" max="1000" step="1" value="${ovSliderFromDist(1)}" disabled aria-label="Distance from the sun"><output id="ov-o-dist">1.00 AU</output></p>
           <label class="sim-flab" for="ov-vel">Sideways speed</label>
           <p class="ov-row">${/* THE MINIMUM IS 5%, NOT 10%, AND THAT IS A PHYSICS CONSTRAINT, not a taste
      one. Falling far enough in to actually strike the sun from distance r

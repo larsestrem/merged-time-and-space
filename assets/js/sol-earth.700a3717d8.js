@@ -645,7 +645,307 @@ function glSvg(name,ms,cx,cy,R,rotHours,sunAng){
 }
 
 (function(){
-/* moon: not drawn on this page */
+
+var MN_RAD=Math.PI/180, MN_DAY=86400000, MN_J1970=2440588, MN_J2000=2451545, MN_OBL=MN_RAD*23.4397;
+function mnDays(ms){ return ms/MN_DAY - 0.5 + MN_J1970 - MN_J2000; }
+function mnRa(l,b){ return Math.atan2(Math.sin(l)*Math.cos(MN_OBL)-Math.tan(b)*Math.sin(MN_OBL), Math.cos(l)); }
+function mnDec(l,b){ return Math.asin(Math.sin(b)*Math.cos(MN_OBL)+Math.cos(b)*Math.sin(MN_OBL)*Math.sin(l)); }
+function mnSidereal(d,lw){ return MN_RAD*(280.16+360.9856235*d)-lw; }
+function mnAlt(H,phi,dec){ return Math.asin(Math.sin(phi)*Math.sin(dec)+Math.cos(phi)*Math.cos(dec)*Math.cos(H)); }
+
+/* Sun's apparent equatorial position (same series SUN_JS uses). */
+function mnSunPos(d){
+  var M=MN_RAD*(357.5291+0.98560028*d);
+  var C=MN_RAD*(1.9148*Math.sin(M)+0.02*Math.sin(2*M)+0.0003*Math.sin(3*M));
+  var L=M+C+MN_RAD*102.9372+Math.PI;
+  return { ra:mnRa(L,0), dec:mnDec(L,0) };
+}
+
+/* Moon's geocentric position and distance — Meeus ch. 47, truncated to the
+ * leading terms. The distance series matters: the single-term version
+ * (385001 - 20905*cos M') is off by up to ~2,000 km, which is more than the
+ * margin the supermoon threshold is decided by. */
+function mnMoonPos(d){
+  var L=MN_RAD*(218.316+13.176396*d),   /* mean longitude   */
+      M=MN_RAD*(134.963+13.064993*d),   /* mean anomaly     */
+      F=MN_RAD*(93.272+13.229350*d),    /* argument of lat. */
+      D=MN_RAD*(297.850+12.190749*d),   /* mean elongation  */
+      Ms=MN_RAD*(357.529+0.98560028*d); /* sun mean anomaly */
+  var l=L+MN_RAD*(6.289*Math.sin(M)+1.274*Math.sin(2*D-M)+0.658*Math.sin(2*D)
+        +0.214*Math.sin(2*M)-0.186*Math.sin(Ms)-0.114*Math.sin(2*F));
+  var b=MN_RAD*(5.128*Math.sin(F)+0.281*Math.sin(M+F)-0.278*Math.sin(F-M)
+        -0.173*Math.sin(F-2*D));
+  var dt=385000.56+(-20905355*Math.cos(M)-3699111*Math.cos(2*D-M)-2955968*Math.cos(2*D)
+        -569925*Math.cos(2*M)+48888*Math.cos(Ms)-3149*Math.cos(2*F)
+        +246158*Math.cos(2*D-2*M)-152138*Math.cos(2*D-Ms-M)-170733*Math.cos(2*D+M)
+        -204586*Math.cos(2*D-Ms)-129620*Math.cos(Ms-M)+108743*Math.cos(D)
+        +104755*Math.cos(Ms+M)+10321*Math.cos(2*D-2*F)+79661*Math.cos(M-2*F))/1000;
+  return { ra:mnRa(l,b), dec:mnDec(l,b), dist:dt };
+}
+/* the one place the moon is straight overhead — same job as dnSub for the sun.
+   Latitude is the moon's declination; longitude is RA minus Greenwich sidereal
+   time, using THIS file's sidereal so a marker cannot disagree with mnPos. */
+function mnSub(ms){
+  var d=mnDays(ms), m=mnMoonPos(d);
+  var lo=m.ra/MN_RAD-(280.16+360.9856235*d);
+  lo=((lo%360)+540)%360-180;
+  return {dec:m.dec/MN_RAD, lon:lo};
+}
+
+/* Illuminated fraction, cycle position and limb angle.
+ *   fraction 0..1, phase 0=new .5=full (rises 0->1 across the cycle),
+ *   waxing   true while the lit side is growing. */
+function mnIllum(ms){
+  var d=mnDays(ms), s=mnSunPos(d), m=mnMoonPos(d), SD=149598000;
+  var phi=Math.acos(Math.sin(s.dec)*Math.sin(m.dec)+Math.cos(s.dec)*Math.cos(m.dec)*Math.cos(s.ra-m.ra));
+  var inc=Math.atan2(SD*Math.sin(phi), m.dist-SD*Math.cos(phi));
+  var ang=Math.atan2(Math.cos(s.dec)*Math.sin(s.ra-m.ra),
+        Math.sin(s.dec)*Math.cos(m.dec)-Math.cos(s.dec)*Math.sin(m.dec)*Math.cos(s.ra-m.ra));
+  var ph=0.5+0.5*inc*(ang<0?-1:1)/Math.PI;
+  return { fraction:(1+Math.cos(inc))/2, phase:ph, waxing:ph<0.5, dist:m.dist, angle:ang };
+}
+
+/* ---- Meeus ch. 49: the exact instant of a primary phase ------------------
+ * kind: 0 new, 1 first quarter, 2 full, 3 last quarter.
+ * k must be an integer + kind/4. Returns epoch ms (UTC). */
+function mnPhaseJde(k,kind){
+  var T=k/1236.85, T2=T*T, T3=T2*T, T4=T3*T, R=MN_RAD;
+  var jde=2451550.09766+29.530588861*k+0.00015437*T2-0.000000150*T3+0.00000000073*T4;
+  var E=1-0.002516*T-0.0000074*T2;
+  var M =R*(2.5534+29.10535670*k-0.0000014*T2-0.00000011*T3);
+  var Mp=R*(201.5643+385.81693528*k+0.0107582*T2+0.00001238*T3-0.000000058*T4);
+  var F =R*(160.7108+390.67050284*k-0.0016118*T2-0.00000227*T3+0.000000011*T4);
+  var O =R*(124.7746-1.56375588*k+0.0020672*T2+0.00000215*T3);
+  var s=Math.sin, c=Math.cos, corr=0;
+  if(kind===0){
+    corr=-0.40720*s(Mp)+0.17241*E*s(M)+0.01608*s(2*Mp)+0.01039*s(2*F)
+      +0.00739*E*s(Mp-M)-0.00514*E*s(Mp+M)+0.00208*E*E*s(2*M)
+      -0.00111*s(Mp-2*F)-0.00057*s(Mp+2*F)+0.00056*E*s(2*Mp+M)-0.00042*s(3*Mp)
+      +0.00042*E*s(M+2*F)+0.00038*E*s(M-2*F)-0.00024*E*s(2*Mp-M)-0.00017*s(O)
+      -0.00007*s(Mp+2*M)+0.00004*s(2*Mp-2*F)+0.00004*s(3*M)+0.00003*s(Mp+M-2*F)
+      +0.00003*s(2*Mp+2*F)-0.00003*s(Mp+M+2*F)+0.00003*s(Mp-M+2*F)
+      -0.00002*s(Mp-M-2*F)-0.00002*s(3*Mp+M)+0.00002*s(4*Mp);
+  } else if(kind===2){
+    corr=-0.40614*s(Mp)+0.17302*E*s(M)+0.01614*s(2*Mp)+0.01043*s(2*F)
+      +0.00734*E*s(Mp-M)-0.00515*E*s(Mp+M)+0.00209*E*E*s(2*M)
+      -0.00111*s(Mp-2*F)-0.00057*s(Mp+2*F)+0.00056*E*s(2*Mp+M)-0.00042*s(3*Mp)
+      +0.00042*E*s(M+2*F)+0.00038*E*s(M-2*F)-0.00024*E*s(2*Mp-M)-0.00017*s(O)
+      -0.00007*s(Mp+2*M)+0.00004*s(2*Mp-2*F)+0.00004*s(3*M)+0.00003*s(Mp+M-2*F)
+      +0.00003*s(2*Mp+2*F)-0.00003*s(Mp+M+2*F)+0.00003*s(Mp-M+2*F)
+      -0.00002*s(Mp-M-2*F)-0.00002*s(3*Mp+M)+0.00002*s(4*Mp);
+  } else {
+    corr=-0.62801*s(Mp)+0.17172*E*s(M)-0.01183*E*s(Mp+M)+0.00862*s(2*Mp)
+      +0.00804*s(2*F)+0.00454*E*s(Mp-M)+0.00204*E*E*s(2*M)-0.00180*s(Mp-2*F)
+      -0.00070*s(Mp+2*F)-0.00040*s(3*Mp)-0.00034*E*s(2*Mp-M)+0.00032*E*s(M+2*F)
+      +0.00032*E*s(M-2*F)-0.00028*E*E*s(Mp+2*M)+0.00027*E*s(2*Mp+M)-0.00017*s(O)
+      -0.00005*s(Mp-M-2*F)+0.00004*s(2*Mp+2*F)-0.00004*s(Mp+M+2*F)+0.00004*s(Mp-2*M)
+      +0.00003*s(Mp+M-2*F)+0.00003*s(3*M)+0.00002*s(2*Mp-2*F)+0.00002*s(Mp-M+2*F)
+      -0.00002*s(3*Mp+M);
+    var W=0.00306-0.00038*E*c(M)+0.00026*c(Mp)-0.00002*c(Mp-M)+0.00002*c(Mp+M)+0.00002*c(2*F);
+    corr+=(kind===1?W:-W);
+  }
+  /* the 14 planetary-argument corrections, identical for all four phases */
+  var A=[299.77+0.107408*k-0.009173*T2, 251.88+0.016321*k, 251.83+26.651886*k,
+    349.42+36.412478*k, 84.66+18.206239*k, 141.74+53.303771*k, 207.14+2.453732*k,
+    154.84+7.306860*k, 34.52+27.261239*k, 207.19+0.121824*k, 291.34+1.844379*k,
+    161.72+24.198154*k, 239.56+25.513099*k, 331.55+3.592518*k];
+  var W2=[0.000325,0.000165,0.000164,0.000126,0.000110,0.000062,0.000060,
+    0.000056,0.000047,0.000042,0.000040,0.000037,0.000035,0.000023];
+  for(var i=0;i<14;i++) corr+=W2[i]*s(R*A[i]);
+  jde+=corr;
+  /* JDE is Terrestrial Time; shift to UTC (Espenak-Meeus, 2005-2050) */
+  var yr=2000+(jde-2451545)/365.25, tt=yr-2000;
+  var dT=62.92+0.32217*tt+0.005589*tt*tt;
+  return (jde-2440587.5)*MN_DAY-dT*1000;
+}
+/* the lunation number bracketing an instant, so a search can start near it */
+function mnK(ms){ return (( ms/MN_DAY+2440587.5 )-2451550.09766)/29.530588861; }
+
+/* Next occurrence of phase "kind" at or after "ms". */
+function mnNextPhase(ms,kind){
+  var k=Math.floor(mnK(ms))-1+kind/4, t;
+  for(var i=0;i<4;i++){ t=mnPhaseJde(k,kind); if(t>ms) return t; k+=1; }
+  return t;
+}
+/* Most recent occurrence of phase "kind" at or before "ms". */
+function mnPrevPhase(ms,kind){
+  var k=Math.ceil(mnK(ms))+1+kind/4, t;
+  for(var i=0;i<4;i++){ t=mnPhaseJde(k,kind); if(t<=ms) return t; k-=1; }
+  return t;
+}
+/* Days since the last new moon — the real elapsed time, not a mean cycle. */
+function mnAge(ms){ return (ms-mnPrevPhase(ms,0))/MN_DAY; }
+
+/* ONE snapshot of the moon at an instant. Age, cycle position, waxing flag
+ * and the phase name all come from the Meeus primary-phase instants. The
+ * illuminated fraction still comes from the sun–moon elongation, because that
+ * is the geometry of the lit disc. Mixing the two sources was how a page
+ * could say "full, waxing, 15.1 days old, 49% through" at once. */
+function mnSnap(ms){
+  var lastNew=mnPrevPhase(ms,0), nextNew=mnNextPhase(ms,0);
+  var nextFull=mnNextPhase(ms,2);
+  var ill=mnIllum(ms);
+  var lun=nextNew-lastNew;
+  var age=(ms-lastNew)/MN_DAY;
+  var cycle=lun>0?(ms-lastNew)/lun:ill.phase;
+  var waxing=nextFull<nextNew;
+  var name=mnNameFromInstants(ms, cycle);
+  return { fraction:ill.fraction, phase:cycle, waxing:waxing, dist:ill.dist,
+           angle:ill.angle, age:age, name:name, primary:mnNearestPrimary(ms) };
+}
+/* Within 12 hours of a primary instant, use that name so "full moon" means
+ * the day of full moon. Otherwise name the cycle position. */
+function mnNearestPrimary(ms){
+  var best=null, bestAbs=12*3600000, i, prev, next, d;
+  for(i=0;i<4;i++){
+    prev=mnPrevPhase(ms,i); next=mnNextPhase(ms,i);
+    d=Math.min(ms-prev, next-ms);
+    if(d<bestAbs){ bestAbs=d; best=i; }
+  }
+  return best;
+}
+function mnNameFromInstants(ms, cycle){
+  var k=mnNearestPrimary(ms);
+  if(k!==null) return mnPrimaryName(k);
+  return mnName(cycle);
+}
+
+/* Every primary phase whose instant falls inside [from,to). */
+function mnPhasesBetween(from,to){
+  var out=[], k=Math.floor(mnK(from))-1;
+  while(k<mnK(to)+1){
+    for(var kind=0;kind<4;kind++){
+      var t=mnPhaseJde(k+kind/4,kind);
+      if(t>=from&&t<to) out.push({ kind:kind, t:t });
+    }
+    k+=1;
+  }
+  return out.sort(function(a,b){ return a.t-b.t; });
+}
+
+var MN_NAMES=['New moon','Waxing crescent','First quarter','Waxing gibbous',
+  'Full moon','Waning gibbous','Last quarter','Waning crescent'];
+/* Phase name from cycle position. The four primary names are reserved for a
+ * narrow window around the exact instant, so "first quarter" on the page means
+ * roughly the day of first quarter, not four days of it. */
+function mnName(p){
+  if(p<0.02||p>=0.98) return MN_NAMES[0];
+  if(p<0.23) return MN_NAMES[1];
+  if(p<0.27) return MN_NAMES[2];
+  if(p<0.48) return MN_NAMES[3];
+  if(p<0.52) return MN_NAMES[4];
+  if(p<0.73) return MN_NAMES[5];
+  if(p<0.77) return MN_NAMES[6];
+  return MN_NAMES[7];
+}
+function mnPrimaryName(kind){ return [MN_NAMES[0],MN_NAMES[2],MN_NAMES[4],MN_NAMES[6]][kind]; }
+
+/* ---- moonrise / moonset -------------------------------------------------
+ * start: epoch ms of the START of the local day being asked about (the caller
+ * owns the time zone, so a city page can ask in the city's own zone). Samples
+ * altitude hourly and interpolates the horizon crossings — the SunCalc method.
+ * hc = 0.133° allows for the moon's semidiameter plus refraction. */
+function mnTimes(start,lat,lon){
+  var hc=0.133*MN_RAD, lw=MN_RAD*-lon, phi=MN_RAD*lat;
+  function alt(hoursOn){
+    var t=start+hoursOn*3600000, d=mnDays(t), m=mnMoonPos(d);
+    return mnAlt(mnSidereal(d,lw)-m.ra, phi, m.dec)-hc;
+  }
+  var h0=alt(0), rise, set, ye=0;
+  for(var i=1;i<=24;i+=2){
+    var h1=alt(i), h2=alt(i+1);
+    var a=(h0+h2)/2-h1, b=(h2-h0)/2, xe=-b/(2*a); ye=(a*xe+b)*xe+h1;
+    var d0=b*b-4*a*h1, roots=0, x1=0, x2=0;
+    if(d0>=0){
+      var dx=Math.sqrt(d0)/(Math.abs(a)*2);
+      x1=xe-dx; x2=xe+dx;
+      if(Math.abs(x1)<=1) roots++;
+      if(Math.abs(x2)<=1) roots++;
+      if(x1<-1) x1=x2;
+    }
+    if(roots===1){ if(h0<0) rise=i+x1; else set=i+x1; }
+    else if(roots===2){ rise=i+(ye<0?x2:x1); set=i+(ye<0?x1:x2); }
+    if(rise!==undefined&&set!==undefined) break;
+    h0=h2;
+  }
+  var out={};
+  if(rise!==undefined) out.rise=start+rise*3600000;
+  if(set!==undefined) out.set=start+set*3600000;
+  if(rise===undefined&&set===undefined) out[ye>0?'alwaysUp':'alwaysDown']=true;
+  return out;
+}
+
+/* ---- where in the sky ---------------------------------------------------
+ * Altitude and compass bearing of the moon for an observer, epoch ms.
+ * Azimuth comes out of the standard formula measured from south (positive
+ * west); +180 converts it to a compass bearing (0 = N, 90 = E), which is the
+ * form a "rises in the ESE" sentence needs. */
+function mnPos(ms,lat,lon){
+  var d=mnDays(ms), m=mnMoonPos(d), lw=MN_RAD*-lon, phi=MN_RAD*lat;
+  var H=mnSidereal(d,lw)-m.ra;
+  var az=Math.atan2(Math.sin(H), Math.cos(H)*Math.sin(phi)-Math.tan(m.dec)*Math.cos(phi));
+  return { alt:mnAlt(H,phi,m.dec)/MN_RAD, az:((az/MN_RAD+180)%360+360)%360, dist:m.dist };
+}
+var MN_COMPASS=['north','NNE','NE','ENE','east','ESE','SE','SSE','south','SSW','SW','WSW','west','WNW','NW','NNW'];
+function mnCompass(bearing){ return MN_COMPASS[Math.round(((bearing%360)+360)%360/22.5)%16]; }
+
+/* ---- the moon glyph -----------------------------------------------------
+ * The real lunar near side (the sprite in moon-face.mjs, referenced once with
+ * <use>) with the UNLIT part covered by a shadow.
+ *
+ * The shadow is ONE path, not a mask or a clip: the unlit region is bounded by
+ * the dark limb on one side and the terminator on the other, so it is an arc
+ * out and an arc back. That matters — masks and clipPaths need a document-
+ * unique id, and these glyphs are generated at build time AND regenerated in
+ * the browser, on pages carrying thirty of them. No id, nothing to collide.
+ *
+ * Sweep flags do all the work:
+ *   dark limb   away from the lit side
+ *   terminator  bulges toward the LIT side when a crescent (shadow crosses the
+ *               middle) and toward the DARK side when gibbous.
+ * At f=0 the two arcs make the whole disc; at f=1 they cancel to nothing; at
+ * f=0.5 the terminator's rx is 0 and it degenerates to the straight centre
+ * line. So new, full and both quarters fall out of the same two arcs.
+ *
+ * `south` flips it: the phase is identical everywhere on Earth, but below the
+ * equator the lit limb — and the whole face with it — appears rotated 180°. */
+function mnGlyph(fraction,waxing,r,south,plain){
+  var f=fraction<0?0:(fraction>1?1:fraction), d=2*r, cx=r, cy=r;
+  var rx=(r*Math.abs(1-2*f)).toFixed(2), litRight=(waxing!==!!south);
+  var s1=litRight?0:1, s2=litRight?(f<0.5?0:1):(f<0.5?1:0);
+  var shadow='M'+cx+' '+(cy-r)+'A'+r+' '+r+' 0 0 '+s1+' '+cx+' '+(cy+r)
+    +'A'+rx+' '+r+' 0 0 '+s2+' '+cx+' '+(cy-r)+'Z';
+  return '<svg viewBox="0 0 '+d+' '+d+'" width="'+d+'" height="'+d+'" aria-hidden="true" class="mn-moon"'+(plain?' overflow="visible"':'')+'>'
+    /* plain disc underneath: if the sprite is ever missing the glyph still
+       reads as a moon in the right phase rather than vanishing */
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="#efe3c2"/>'
+    /* The face is the same picture in every glyph — only the terminator and the
+       earthshine below change per day. At thumbnail size a <use> of the sprite
+       is a bad deal: it is 828 vector elements behind two blur filters, and
+       <use> rasterizes each reference independently, so a 31-day strip drew
+       ~25,700 shapes to fill thirty 30px circles (407ms of style+layout+paint
+       on the home page, vs ~60ms without it). Below 64px the glyph therefore
+       places a build-time raster of that same sprite instead — identical pixels,
+       one decode, shared by every thumbnail on the page. The big moon on a
+       /moon/ city page is a single instance and keeps the vector, which stays
+       crisp at any size. See make-moon-face-raster.mjs.
+       "/assets/img/moon-face.a952fb5bbe.webp" is rewritten to the hashed .webp by build-inline, the
+       same way "/assets/img/moon-face.b9e194850d.svg#ac-moon-face" is pointed at the hashed sprite.
+       `plain` skips the face: the day/night map marker is too small to read it,
+       and that page does not carry the sprite. */
+    +(plain?'':(r<=32
+      ? '<image href="/assets/img/moon-face.a952fb5bbe.webp" x="0" y="0" width="'+d+'" height="'+d+'"'+(south?' transform="rotate(180 '+cx+' '+cy+')"':'')+'/>'
+      : '<g transform="scale('+(r/100)+')'+(south?' rotate(180 100 100)':'')+'"><use href="/assets/img/moon-face.b9e194850d.svg#ac-moon-face"/></g>'))
+    /* Earthshine: the shadow is not equally opaque at every phase. Sunlight
+       bounced off the Earth genuinely lights the moon's dark side, and it is
+       most obvious on a thin crescent (a big, bright Earth in the moon's sky)
+       and invisible next to a gibbous moon's glare — so the shadow lightens
+       toward new and goes near-solid toward full. It also stops the sliver of
+       shadow on a gibbous moon from looking like a smudge. */
+    +(f>0.999?'':'<path d="'+shadow+'" fill="#0e0d08" fill-opacity="'+(0.91+0.075*f).toFixed(3)+'"/>')
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#57503a" stroke-width="1"/></svg>';
+}
+
 
 var PL_RAD=Math.PI/180, PL_DAY=86400000, PL_J2000=2451545, PL_J1970=2440588;
 /* [name, a, e, I, L, longPeri, longNode] at J2000, then the same six per
@@ -1064,159 +1364,7 @@ function satView(ms,idx,opt){
 }
 
 /* small: not drawn on this page */
-
-var TR_GM_SUN=1.32712440018e11;      /* km^3/s^2 */
-var TR_GM_EARTH=398600.44;
-var TR_LEO=6678;                     /* km: a 300 km parking orbit, Earth radius + 300 */
-var TR_DAY=86400000;
-
-/* the targets a transfer is offered for: index, and the label used in the UI */
-var TR_TARGETS=[[3,'Mars'],[4,'Jupiter'],[5,'Saturn']];
-
-function trAU(){ return PL_AU; }
-function trR(idx,ms){ var p=plPos(idx,ms); return Math.sqrt(p.x*p.x+p.y*p.y)*PL_AU; }   /* km, in the ecliptic plane */
-function trLon(idx,ms){ var p=plPos(idx,ms); return Math.atan2(p.y,p.x); }
-function trWrapPi(a){ while(a>Math.PI) a-=2*Math.PI; while(a<-Math.PI) a+=2*Math.PI; return a; }
-
-/* the half-ellipse from Earth's radius at t0 to the target's radius on arrival.
-   Iterated because the arrival radius depends on the flight time it sets. */
-function trSolve(idx,t0){
-  var r1=trR(2,t0), a=(r1+trR(idx,t0))/2, tf=0, i;
-  for(i=0;i<8;i++){
-    tf=Math.PI*Math.sqrt(a*a*a/TR_GM_SUN)*1000;         /* ms */
-    var r2=trR(idx,t0+tf), na=(r1+r2)/2;
-    if(Math.abs(na-a)<1) { a=na; break; }
-    a=na;
-  }
-  tf=Math.PI*Math.sqrt(a*a*a/TR_GM_SUN)*1000;
-  var r2=trR(idx,t0+tf);
-  /* how far the target misses the far end of the ellipse, in radians */
-  var miss=trWrapPi(trLon(idx,t0+tf)-(trLon(2,t0)+Math.PI));
-  return { t0:t0, tf:tf, a:a, r1:r1, r2:r2, e:(r2-r1)/(r2+r1), miss:miss, lon1:trLon(2,t0) };
-}
-
-/* The next departure at or after ms. Earth laps every target, so as the
-   departure date slides forward the miss angle falls steadily — about half a
-   degree a day for Mars, a degree for Saturn — and the window is where it
-   crosses zero. Scan for that crossing, then bisect. The 6-day step is a small
-   fraction of a synodic period, so no window can be stepped over, and the
-   guard rejects the jump where the angle wraps from -180 to +180 rather than
-   crossing. */
-function trWindow(idx,ms){
-  var step=6*TR_DAY, prev=trSolve(idx,ms), t=ms, i, cur;
-  for(i=0;i<760;i++){                                   /* up to ~12.5 years */
-    t+=step; cur=trSolve(idx,t);
-    if(prev.miss>0&&cur.miss<=0&&(prev.miss-cur.miss)<Math.PI){
-      var lo=t-step, hi=t, j;
-      for(j=0;j<44;j++){
-        var mid=(lo+hi)/2;
-        if(trSolve(idx,mid).miss>0) lo=mid; else hi=mid;
-      }
-      return trSolve(idx,(lo+hi)/2);
-    }
-    prev=cur;
-  }
-  return null;
-}
-
-/* The next n windows, not just the next one. Each search restarts a fortnight
-   past the last departure found, which is far enough to clear the window it just
-   solved and far short of the synodic period, so none can be skipped. */
-function trWindows(idx,ms,n){
-  var out=[], t=ms, i, w;
-  for(i=0;i<n;i++){
-    w=trWindow(idx,t); if(!w) break;
-    out.push(w); t=w.t0+14*TR_DAY;
-  }
-  return out;
-}
-
-/* speeds, and therefore the cost of the trip */
-function trBurns(s){
-  var vDep=Math.sqrt(TR_GM_SUN*(2/s.r1-1/s.a));         /* on the transfer ellipse at departure */
-  var vE=Math.sqrt(TR_GM_SUN*(2/s.r1-1/(PL_EL[2][1]*PL_AU)));
-  var vArr=Math.sqrt(TR_GM_SUN*(2/s.r2-1/s.a));
-  return { vDep:vDep, vE:vE, dv1:vDep-vE, vArr:vArr };
-}
-/* the full accounting for one target: heliocentric burns, plus what it costs to
-   leave a low Earth orbit at all (which is most of a rocket) */
-function trCost(idx,s){
-  var b=trBurns(s);
-  var vT=Math.sqrt(TR_GM_SUN*(2/s.r2-1/(PL_EL[idx][1]*PL_AU)));
-  var dv2=vT-b.vArr;
-  var vinf=b.dv1;
-  var vLeo=Math.sqrt(TR_GM_EARTH/TR_LEO);
-  var vEsc=Math.sqrt(vinf*vinf+2*TR_GM_EARTH/TR_LEO);
-  return { dv1:b.dv1, dv2:dv2, total:b.dv1+Math.abs(dv2), vinf:vinf,
-           injection:vEsc-vLeo, vDep:b.vDep, vE:b.vE, vArr:b.vArr, vT:vT };
-}
-
-/* where the craft is at time ms, or null if it is not flying yet / already
-   arrived. Kepler on the transfer ellipse, same solver the planets use. */
-function trCraft(s,ms){
-  if(ms<s.t0||ms>s.t0+s.tf) return null;
-  var n=Math.PI/s.tf;                                    /* half a revolution over tf */
-  var M=n*(ms-s.t0), E=plKepler(M,s.e);
-  var aAU=s.a/PL_AU;
-  var xo=aAU*(Math.cos(E)-s.e), yo=aAU*Math.sqrt(1-s.e*s.e)*Math.sin(E);
-  var c=Math.cos(s.lon1), sn=Math.sin(s.lon1);           /* perihelion at the departure longitude */
-  return { x:c*xo-sn*yo, y:sn*xo+c*yo, r:Math.sqrt(xo*xo+yo*yo) };
-}
-
-/* the closest the two planets get: local minima of the real separation. Not the
-   same instant as opposition, and not the same distance every time, which is
-   the whole point of showing it. */
-function trClosest(idx,ms,count){
-  var out=[], step=TR_DAY, sep=function(t){
-    var a=plPos(2,t), b=plPos(idx,t);
-    return Math.sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y)+(a.z-b.z)*(a.z-b.z));
-  };
-  var p0=sep(ms-step), p1=sep(ms), t=ms, i;
-  for(i=0;i<7000&&out.length<count;i++){
-    t+=step; var p2=sep(t);
-    if(p1<p0&&p1<=p2){
-      /* refine to the hour */
-      var lo=t-2*step, hi=t, j;
-      for(j=0;j<30;j++){
-        var m1=lo+(hi-lo)/3, m2=hi-(hi-lo)/3;
-        if(sep(m1)<sep(m2)) hi=m2; else lo=m1;
-      }
-      var tm=(lo+hi)/2;
-      out.push({ t:tm, au:sep(tm) });
-    }
-    p0=p1; p1=p2;
-  }
-  return out;
-}
-
-/* ---- drawing ------------------------------------------------------------- */
-/* the flight path: the half ellipse, where the planets are when it leaves and
-   when it lands, and the craft itself if the clock is inside the flight. */
-function trLayer(ms,idx,outer,k,s){
-  if(!s) return '';
-  var out='', i, pts=[];
-  var aAU=s.a/PL_AU, c=Math.cos(s.lon1), sn=Math.sin(s.lon1);
-  for(i=0;i<=120;i++){
-    var E=i/120*Math.PI;
-    var xo=aAU*(Math.cos(E)-s.e), yo=aAU*Math.sqrt(1-s.e*s.e)*Math.sin(E);
-    pts.push(solF(SOL_CX+k*(c*xo-sn*yo))+','+solF(SOL_CY-k*(sn*xo+c*yo)));
-  }
-  out+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#facc15" stroke-opacity=".85" stroke-width="2"/>';
-  /* departure and arrival, as hollow markers on the two orbits */
-  var e0=plPos(2,s.t0), p1=plPos(idx,s.t0+s.tf);
-  out+='<circle cx="'+solF(SOL_CX+k*e0.x)+'" cy="'+solF(SOL_CY-k*e0.y)+'" r="7" fill="none" stroke="#facc15" stroke-width="1.5"/>';
-  out+='<circle cx="'+solF(SOL_CX+k*p1.x)+'" cy="'+solF(SOL_CY-k*p1.y)+'" r="9" fill="none" stroke="#facc15" stroke-width="1.5" stroke-dasharray="3 3"/>';
-  out+='<text x="'+solF(SOL_CX+k*e0.x)+'" y="'+solF(SOL_CY-k*e0.y+22)+'" text-anchor="middle" font-size="11" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">launch</text>';
-  out+='<text x="'+solF(SOL_CX+k*p1.x)+'" y="'+solF(SOL_CY-k*p1.y+24)+'" text-anchor="middle" font-size="11" fill="#fde68a" paint-order="stroke" stroke="#0a1020" stroke-width="3">arrive</text>';
-  var cr=trCraft(s,ms);
-  if(cr){
-    var cx=SOL_CX+k*cr.x, cy=SOL_CY-k*cr.y;
-    out+='<circle cx="'+solF(cx)+'" cy="'+solF(cy)+'" r="4" fill="#fef9c3"/>';
-    out+='<circle cx="'+solF(cx)+'" cy="'+solF(cy)+'" r="9" fill="none" stroke="#facc15" stroke-opacity=".7"/>';
-  }
-  return out;
-}
-
+/* transfer: not drawn on this page */
 
 var SOL_RUNGS=[["moon","Earth & the Moon",0,0,"em",2],["inner","The inner planets",1.62,4,"sys",-1],["mars","Out to Mars",1.72,4,"sys",-1],["belt","Out to the asteroid belt",3.75,4,"sys",-1],["jupiter","Out to Jupiter",5.75,5,"sys",-1],["saturn","Out to Saturn",10.3,6,"sys",-1],["neptune","Out to Neptune",31.5,8,"sys",-1],["pluto","Out to Pluto (a dwarf planet)",50,9,"sys",-1],["mars-moons","Mars: Phobos & Deimos",0,0,"moons",3],["jupiter-moons","Jupiter: the Galilean moons",0,0,"moons",4],["saturn-moons","Saturn: the rings & Titan",0,0,"moons",5],["uranus-moons","Uranus: Titania & Miranda",0,0,"moons",6],["neptune-moons","Neptune: Triton",0,0,"moons",7],["pluto-moons","Pluto: Charon & the small four",0,0,"moons",8]];
 var SOL_SPANS=[['month','Month',30],['year','Year',365.25],['decade','Decade',3652.5],['century','Century',36525]];
@@ -1468,11 +1616,11 @@ function solSvg(ms,rungId,opt){
   /* WHAT THIS PAGE CAN DRAW. Every optional module's entry points are behind
      one of these, so a URL parameter or a stray button cannot ask for a layer
      whose code was left out of this file. */
-  var SOL_HAS={"core":1,"globe":1,"moon":0,"sat":1,"small":0,"transfer":1};
+  var SOL_HAS={"core":1,"globe":1,"moon":1,"sat":1,"small":0,"transfer":0};
   /* The page's own configuration, baked in rather than read from a
      window.AC_SOL the surrounding page had to set: this file is unique to this
      page now, so its config belongs in it. */
-  var CFG={"rung":"saturn-moons","path":"/saturn-and-moons-simulator/","tilt":50};
+  var CFG={"rung":"moon","path":"/earth-and-moon-simulator/","tilt":80};
   var RUNG=CFG.rung||'inner', START=null, OFF=0, SPAN='year', PLAY=0, SPEED=15;
   /* THE VIEW OPENS TILTED. Straight down is the exact view and stays one drag
    away, but the page's job is to make people look, and a disc seen at an angle
@@ -1686,7 +1834,10 @@ function solSvg(ms,rungId,opt){
 
   function share(){
     var q='date='+localValue(when()).slice(0,10)+'&zoom='+RUNG+'&span='+SPAN;
-    if(SPEED!==1) q+='&speed='+SPEED;
+    /* always written. The old guard (skip when SPEED===1) predates absolute
+       speeds — 1 was the multiplier's default then, and is a real day-per-second
+       setting on a moon rung now, which the shared link silently dropped. */
+    q+='&speed='+SPEED;
     /* the view angle travels with the link, so a shared picture arrives at the
        angle it was shared at rather than snapping back to the page default */
     if(Math.round(TILT)!==Math.round(SOL_TILT0)) q+='&tilt='+Math.round(TILT);
@@ -1779,7 +1930,10 @@ function solSvg(ms,rungId,opt){
        changes the picture most could not be linked to or shared — the share
        box below now writes it, and this reads it back. 0 is straight down
        (the exact view) and 90 is edge-on. */
-    var tl=parseFloat(q0.get('tilt')); if(tl>=0&&tl<=90) TILT=SOL_TILT0=tl;
+    /* clamped to the slider's own 80° max: a link carrying more drew a picture
+       the control could not represent — the thumb pinned at 80 while the view
+       sat at 90, and the first drag snapped the drawing back */
+    var tl=parseFloat(q0.get('tilt')); if(tl>=0&&tl<=90) TILT=SOL_TILT0=Math.min(80,tl);
     /* how much of the moon system to draw. Clamped inside satView too, so a
        level this planet does not have degrades to the most it does. */
     var ml=parseInt(q0.get('moons'),10); if(SOL_HAS.sat&&ml>=1&&ml<=3) MOONLVL=ml;

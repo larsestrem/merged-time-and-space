@@ -1005,7 +1005,7 @@ const scaleCard = `  <div class="card">
 
 const howWorksCard = `  <div class="card">
     <h2>What this is, and how it works</h2>
-    <p>This is a working model of the Sun, Earth and Moon for one place on Earth. The Earth turns, the Moon goes around it, and the Sun sits off to the left. Drag the slider through a <strong>day</strong>, a <strong>week</strong> or a <strong>month</strong>. <strong>Now</strong> jumps back to this moment. <strong>Tilt</strong> tips the view. Playback speed is how fast that time plays.</p>
+    <p>This is a working model of the Sun, Earth and Moon for one place on Earth. The Earth turns, the Moon goes around it, and the Sun sits off to the left. Drag the slider through a <strong>day</strong>, a <strong>week</strong>, a <strong>month</strong> or a <strong>year</strong>. <strong>Play</strong> runs that time forward; <strong>Now</strong> jumps back to this moment; <strong>Settings</strong> choose the place, the starting date and how much time the slider covers.</p>
     <p>Every angle is real. Every size and distance is not — the card below says by how much, computed from the drawing itself.</p>
   </div>
 `;
@@ -1056,7 +1056,7 @@ const builderCard = `  <div class="card">
         <div class="wc-frow"><span><code>lat</code> &amp; <code>lon</code></span><b>any coordinates — <code>?lat=47.6&amp;lon=-122.33</code>, with optional <code>name</code> and <code>tz</code></b></div>
         <div class="wc-frow"><span><code>date</code></span><b><code>YYYY-MM-DD</code>, the day the span starts</b></div>
         <div class="wc-frow"><span><code>time</code></span><b><code>HH:MM</code> in the place’s own clock</b></div>
-        <div class="wc-frow"><span><code>span</code></span><b><code>day</code>, <code>week</code> or <code>month</code></b></div>
+        <div class="wc-frow"><span><code>span</code></span><b><code>day</code>, <code>week</code>, <code>month</code> or <code>year</code></b></div>
       </div>
       <p class="hint">City slugs are the ones in the address of a city page: <code>/sun/<strong>seattle</strong>/</code>. Coordinates win if you give both.</p>
     </details>

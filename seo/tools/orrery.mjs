@@ -466,6 +466,13 @@ function orrSpanAt(min,tz){ return orrSpanFix(orrWhen(),tz)+min*60000; }
  * full re-render sixteen times a second. The page catches up in ONE re-render
  * when the picture stops, which is also the moment a reader looks at it. */
 var ORR_PLAY=0, ORR_IV=0, ORR_ANCH=0, ORR_T0=0;
+/* the day the HOST page was showing when a slider drag began. The drag's own
+   'input' events move ORR_AT as they go, so by the time 'change' fires a
+   comparison against orrWhen() can only ever answer "unchanged" — this is the
+   value the comparison actually needs. '' means the drag interrupted Play,
+   whose frames the host never follows, so the host's day is unknown and the
+   catch-up has to be forced. */
+var ORR_DRAGDAY=null;
 var ORR_SPEED=86400000/1400;
 function orrPlaying(){ return !!ORR_PLAY; }
 function orrPlayBtn(){ return document.getElementById('orr-play'); }
@@ -563,12 +570,16 @@ function orrWire(){
   if(inp&&!inp.getAttribute('data-orr-wired')){
     inp.setAttribute('data-orr-wired','1');
     inp.addEventListener('change',function(){
+      /* interrupting Play leaves orrWhen() on a day the host never followed
+         (its frames repaint only this card), so the day comparison below can
+         miss — force the catch-up in that case, as orrPlayStop(true) would */
+      var wasPlay=orrPlaying();
       orrPlayStop(false);
       var tz=L().tz, t=orrParse(inp.value,tz);
       /* a cleared field means "no particular time", which is the live clock */
-      if(t==null){ orrSpanFix(Date.now(),tz,1); orrSet(null, orrDayOf(Date.now(),tz)!==orrDayOf(orrWhen(),tz)); return; }
+      if(t==null){ orrSpanFix(Date.now(),tz,1); orrSet(null, wasPlay||orrDayOf(Date.now(),tz)!==orrDayOf(orrWhen(),tz)); return; }
       orrSpanFix(t,tz,1);                       /* the bar starts at the chosen day */
-      orrSet(t, orrDayOf(t,tz)!==orrDayOf(orrWhen(),tz));
+      orrSet(t, wasPlay||orrDayOf(t,tz)!==orrDayOf(orrWhen(),tz));
     });
   }
   if(sl&&!sl.getAttribute('data-orr-wired')){
@@ -583,20 +594,32 @@ function orrWire(){
        'change' — which fires once, when the thumb is let go — hands the page
        the day it landed on. Smooth while dragging, correct when it stops. */
     sl.addEventListener('input',function(){
+      /* capture the host's day BEFORE the first move (and before orrPlayStop,
+         which must still see whether Play was running) — see ORR_DRAGDAY */
+      if(ORR_DRAGDAY==null) ORR_DRAGDAY=orrPlaying()?'':orrDayOf(orrWhen(),L().tz);
       orrPlayStop(false);
       var t=orrSpanAt(+sl.value||0, L().tz);
       if(t!=null) orrSet(t,false);
     });
     sl.addEventListener('change',function(){
       var tz=L().tz, t=orrSpanAt(+sl.value||0, tz);
-      if(t!=null) orrSet(t, orrDayOf(t,tz)!==orrDayOf(orrWhen(),tz));
+      /* compare the landing day against the day the drag STARTED from, not
+         against orrWhen() — the input events above already moved that to the
+         landing instant, which made this comparison a constant false and left
+         the host's per-day facts (sunrise, the dial, the tables) on the old
+         day after every drag */
+      var d0=ORR_DRAGDAY; ORR_DRAGDAY=null;
+      if(t==null) return;
+      orrSet(t, d0==null ? orrDayOf(t,tz)!==orrDayOf(orrWhen(),tz) : orrDayOf(t,tz)!==d0);
     });
   }
   if(nw&&!nw.getAttribute('data-orr-wired')){
     nw.setAttribute('data-orr-wired','1');
     nw.hidden=false;                            /* useless without JS, ships hidden */
     nw.addEventListener('click',function(){
-      var tz=L().tz, changed=orrDayOf(Date.now(),tz)!==orrDayOf(orrWhen(),tz);
+      /* orrPlaying(): same reason as the field above — a host that never saw
+         Play's frames may be on another day even when orrWhen() is on today */
+      var tz=L().tz, changed=orrPlaying()||orrDayOf(Date.now(),tz)!==orrDayOf(orrWhen(),tz);
       orrPlayStop(false);
       orrSpanFix(Date.now(),tz,1);              /* back to today, and the bar with it */
       orrSet(null, changed);

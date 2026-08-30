@@ -233,7 +233,10 @@ function paint(){
      repaints from the same ss and cannot disagree with the map above it */
   if(sideBox) sideBox.innerHTML=dnSide(ss.dec,TILT, HOME&&HOME.lat!=null?HOME.lat:null);
   if(sideCapEl) sideCapEl.innerHTML=sideCap(ss.dec);
-  if(slider) slider.value=Math.round((AT-T0)/60000);
+  /* not while it is being dragged: the once-a-minute live tick lands here too,
+     and writing the value mid-drag yanks the thumb out from under the hand —
+     the same activeElement guard the orrery and solar sliders use */
+  if(slider&&document.activeElement!==slider) slider.value=Math.round((AT-T0)/60000);
   if(HOME){
     var a=dnAlt(HOME.lat,HOME.lon,ss.dec,ss.lon), s2=state(a);
     meG.removeAttribute('hidden');
