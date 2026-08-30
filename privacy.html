@@ -579,7 +579,8 @@ border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:v
 <meta name="twitter:image" content="https://timeandspace.science/api/og?name=Privacy%20Policy&amp;theme=generic">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Time and Space Science", "item": "https://timeandspace.science/"}, {"@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://timeandspace.science/privacy"}]}</script>
 <meta name="robots" content="max-image-preview:large">
-<!-- build 6c2bcf30b203 · generated 2026-08-30T03:32:10.292Z -->
+
+<!-- build cf57ceefdcba · generated 2026-08-30T22:32:58.877Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -675,6 +676,134 @@ border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:v
   }
   var bs=document.querySelectorAll('[data-uset]');
   for(var i=0;i<bs.length;i++) bs[i].addEventListener('click',function(){ set(this.getAttribute('data-uset')); });
+  var now=get(); mark(now); if(now==='imperial') apply(now);
+  /* pages that draw figures after load (the sun and moon cards repaint every
+     minute, the simulators every frame) tell us to run again */
+  document.addEventListener('ac:units',function(){ apply(get()); });
+})();</script><script>(function(){var b=document.getElementById("ac-pj");if(!b)return;
+function sync(){var on=document.documentElement.classList.contains("pj");b.setAttribute("aria-pressed",on?"true":"false");}
+sync();b.addEventListener("click",function(){var on=document.documentElement.classList.toggle("pj");
+try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(e){}sync();});})();</script><script>(function(){
+  var KEY='ac_units';
+  var IMP=["US","LR","MM"];
+  /* WHAT THE READER HAS CHOSEN, or what their locale implies. A stored value
+     always wins: it is an explicit answer to the question the guess is making. */
+  function guess(){
+    try{
+      var ls=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'']);
+      for(var i=0;i<ls.length;i++){
+        var m=/-([A-Za-z]{2})\b/.exec(ls[i]||'');
+        if(m){ var r=m[1].toUpperCase();
+          /* the first tag that names a country decides it — a reader with
+             en-US then en-GB is being told they are in the US */
+          for(var j=0;j<IMP.length;j++) if(IMP[j]===r) return 'imperial';
+          return 'metric';
+        }
+      }
+      /* no region anywhere in the list: fall back to the time zone, which is
+         the other thing every browser knows about where it is */
+      var tz=(Intl.DateTimeFormat().resolvedOptions()||{}).timeZone||'';
+      if(/^America\/(New_York|Chicago|Denver|Phoenix|Los_Angeles|Anchorage|Detroit|Indiana|Kentucky|Boise|Juneau|Nome|Adak|Menominee|North_Dakota|Sitka|Yakutat)/.test(tz)
+         || tz==='Pacific/Honolulu' || tz==='America/Monrovia' || tz==='Asia/Yangon') return 'imperial';
+    }catch(e){}
+    return 'metric';
+  }
+  function get(){
+    var v=null; try{ v=localStorage.getItem(KEY); }catch(e){}
+    return (v==='imperial'||v==='metric')?v:guess();
+  }
+  function set(v){
+    try{ localStorage.setItem(KEY,v); }catch(e){}
+    apply(v); mark(v);
+    /* pages that draw their own figures listen for this — the simulators, the
+       tide chart, the nearby-city dropdown. Fired AFTER the spans are done, so
+       a listener sees a consistent page. */
+    try{ document.dispatchEvent(new Event('ac:units')); }catch(e){}
+  }
+  window.acUnits=get;
+
+  /* ---- the conversions -------------------------------------------------
+     Each entry: the imperial unit's name, how many of it there are in one
+     metric unit, and how to write it. Nothing here is approximate — these are
+     the defining ratios, so a converted figure is exact before it is rounded. */
+  var C={
+    km:   { u:'miles', f:0.621371192237334, one:'mile' },
+    m:    { u:'ft',    f:3.280839895013123 },
+    cm:   { u:'in',    f:0.393700787401575 },
+    mm:   { u:'in',    f:0.0393700787401575 },
+    'km/h':{ u:'mph',  f:0.621371192237334 },
+    'km/s':{ u:'mi/s', f:0.621371192237334 },
+    kg:   { u:'lb',    f:2.204622621848776 },
+    C:    { u:'\u00b0F', f:1.8, off:32, pre:'' }
+  };
+  /* Round the converted value to the same PRECISION the source was written
+     with: sig is the number of significant figures the page chose, or a
+     negative number meaning "this many decimal places". */
+  function round(v,sig){
+    if(sig==null) return v;
+    if(sig<0){ var d=-sig; return +v.toFixed(d); }
+    if(v===0) return 0;
+    var mag=Math.floor(Math.log(Math.abs(v))/Math.LN10)+1;
+    var p=Math.max(0,sig-mag);
+    return +v.toFixed(p);
+  }
+  function fmt(v){
+    var d=0, a=Math.abs(v);
+    if(a<10) d=(a<1?3:2); else if(a<100) d=1;
+    var s=v.toFixed(d);
+    if(d) s=s.replace(/\.?0+$/,'');
+    return (+s).toLocaleString('en-US',{maximumFractionDigits:d});
+  }
+  function apply(sys){
+    var ns=document.querySelectorAll('[data-u]'), i;
+    for(i=0;i<ns.length;i++){
+      var el=ns[i], u=el.getAttribute('data-u'), c=C[u];
+      var raw=parseFloat(el.getAttribute('data-v'));
+      if(!c||isNaN(raw)) continue;
+      /* the metric text is what the page shipped with — kept verbatim, so
+         switching back is exact rather than re-formatted */
+      if(el.getAttribute('data-m')==null) el.setAttribute('data-m',el.textContent);
+      if(sys!=='imperial'){ el.textContent=el.getAttribute('data-m'); continue; }
+      var sig=el.getAttribute('data-s'); sig=(sig==null||sig==='')?null:+sig;
+      var v=round(raw*c.f+(c.off||0),sig);
+      var unit=(c.one&&Math.abs(v)===1)?c.one:c.u;
+      el.textContent=fmt(v)+(u==='C'?'':' ')+unit;
+    }
+  }
+  /* the control in the menu */
+  function mark(sys){
+    var bs=document.querySelectorAll('[data-uset]'), i;
+    for(i=0;i<bs.length;i++)
+      bs[i].setAttribute('aria-pressed', bs[i].getAttribute('data-uset')===sys?'true':'false');
+  }
+  var bs=document.querySelectorAll('[data-uset]');
+  for(var i=0;i<bs.length;i++) bs[i].addEventListener('click',function(){ set(this.getAttribute('data-uset')); });
+  /* ---- FOR FIGURES THE PAGE DRAWS ITSELF ---------------------------------
+     A span works for anything baked into the HTML. It cannot work for a number
+     a script writes every frame — the orbital simulator's speed read-out, a
+     tide height fetched from NOAA, an <option> in a dropdown (which can hold
+     no markup at all). Those call this instead: give it a metric value, its
+     unit and the precision, and it returns the string in the reader's system.
+     One conversion table, one rounding rule, both halves of the site. */
+  /* written to the SAME number of decimals the caller asked for, in either
+     system: a tide height is quoted to a tenth whether it is feet or metres,
+     and fmt()'s own rules would print 0.85 m against 2.8 ft. */
+  function fmtAs(v,sig){
+    if(sig!=null&&sig<0) return (+v).toLocaleString('en-US',{minimumFractionDigits:-sig,maximumFractionDigits:-sig});
+    return fmt(v);
+  }
+  window.acFmt=function(v,unit,sig){
+    var c=C[unit];
+    if(!c||v==null||isNaN(v)) return '';
+    if(get()!=='imperial') return fmtAs(round(v,sig),sig)+(unit==='C'?' °C':' '+unit);
+    var iv=round(v*c.f+(c.off||0),sig);
+    return fmtAs(iv,sig)+(unit==='C'?'':' ')+((c.one&&Math.abs(iv)===1)?c.one:c.u);
+  };
+  /* the inverse, for data that arrives IMPERIAL: NOAA publishes tide heights in
+     feet, so the page holds feet and asks for the reader's version of them. */
+  window.acFromFt=function(ft,sig){ return window.acFmt(ft/3.280839895013123,'m',sig==null?-1:sig); };
+  window.acUnitFt=function(){ return get()==='imperial'?'ft':'m'; };
+  window.acFtVal=function(ft){ return get()==='imperial'?ft:ft/3.280839895013123; };
   var now=get(); mark(now); if(now==='imperial') apply(now);
   /* pages that draw figures after load (the sun and moon cards repaint every
      minute, the simulators every frame) tell us to run again */

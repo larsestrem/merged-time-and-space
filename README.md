@@ -23,10 +23,11 @@ Formerly **alarm-clock.org** — same site, new domain.
   [moon phases and moonrise](https://timeandspace.science/moon/),
   [NOAA tide charts](https://timeandspace.science/tides/).
 - **Space** — [Sun–Earth–Moon simulator](https://timeandspace.science/sun-moon-earth-movement-simulator/),
+  [Moon question lab](https://timeandspace.science/moon-simulator/) with shareable named experiments,
   [solar system simulator](https://timeandspace.science/solar-system-simulator/)
   with a page per planet, [rocket launch windows](https://timeandspace.science/rocket-launch-simulator/),
   [orbits & gravity](https://timeandspace.science/orbital-velocity-simulator/).
-- **Learn** — [big questions by topic](https://timeandspace.science/questions/),
+- **Learn** — [questions you can test](https://timeandspace.science/questions/),
   [glossary](https://timeandspace.science/glossary/) (one question per URL).
 - **For teachers** — [the classroom guide](https://timeandspace.science/classroom/).
 
@@ -45,7 +46,7 @@ every one of them from `seo/tools/` + `seo/_data/`. The irreplaceable sources ar
 seo/tools/*.mjs        the generators
 seo/_data/*.json       the content they read
 assets/css/parts/*.css one file per section, assembled by build-css
-assets/js/*.js         tool page scripts (inlined at build)
+assets/js/*.js         tool controllers (inlined or hashed + deferred by measured cost)
 functions/             Cloudflare Pages Functions (/api/* only)
 CLAUDE.md              the architectural source of truth — read this first
 ```

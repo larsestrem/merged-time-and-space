@@ -55,6 +55,7 @@
           "orbit",
           "orbit-live",
           "moon-phase",
+          "moon-lab",
           "tides",
           "jupiter",
           "globe",
@@ -68,6 +69,21 @@
       "graphicPlanet": {
         "type": "string",
         "description": "Planet name for graphicId globe, matching globe.mjs (Mars, Jupiter, …)."
+      },
+      "simulatorState": {
+        "enum": [
+          "phases",
+          "phase-names",
+          "synodic-month",
+          "tidal-locking",
+          "libration",
+          "moonrise-later",
+          "eclipse-tilt",
+          "supermoon",
+          "blue-moon",
+          "dark-side"
+        ],
+        "description": "Stable string state for graphicId moon-lab. The same value is accepted by /moon-simulator/?state=."
       },
       "graphicCaption": { "type": "string" },
       "graphicAlt": { "type": "string" },
@@ -94,6 +110,12 @@
           }
         }
       }
-    }
+    },
+    "allOf": [
+      {
+        "if": { "properties": { "graphicId": { "const": "moon-lab" } } },
+        "then": { "required": ["simulatorState"] }
+      }
+    ]
   }
 }

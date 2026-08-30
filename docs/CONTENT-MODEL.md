@@ -30,6 +30,7 @@ City/date pages: live numbers + 1–2 concept links. No 800-word essay.
 H1 = question
 shortAnswer (grade 5–12, ≤80 words)
 graphic (reuse live-site math; caption + alt state the geometry)
+simulatorState (when interactive: a validated string selecting one distinct task)
 sections[]  — band "5-12" then "deeper"
 seeItLive[] — back to the hub / simulator
 relatedSlugs[] — other questions, as links whose text is the question
@@ -38,6 +39,14 @@ relatedSlugs[] — other questions, as links whose text is the question
 Unique `<title>` and meta description. `hreflang="en"`. Canonical = this URL.
 
 FAQ JSON-LD only for real Q/A (the H1 + shortAnswer counts as one).
+
+For Moon questions, use the shared Moon Lab instead of a decorative generic
+orbit. `simulatorState` selects the question, starting value, controls and
+observation in both the concept embed and `/moon-simulator/?state=<name>`.
+Each page still ships a complete static SVG, task and result before JavaScript;
+the deferred shared controller adds exploration rather than supplying the
+meaning. Do not create a new state unless changing it can reveal something the
+visitor can explain.
 
 ## Glossary
 

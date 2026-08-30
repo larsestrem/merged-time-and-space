@@ -837,12 +837,12 @@ border-radius:12px;background:rgba(255,255,255,.03);text-decoration:none;color:v
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Online Alarm Clock","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","url":"https://timeandspace.science/alarm-clock/","description":"Free online alarm clock with a big red LED display, full-screen bedside mode and one-time or repeating alarms.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"browserRequirements":"Requires JavaScript","isAccessibleForFree":true}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does the alarm ring if I close the tab?","acceptedAnswer":{"@type":"Answer","text":"No. It's a browser alarm, so it only rings while the alarm page or its full-screen or floating window is open. Keep it open for the alarm to sound."}},{"@type":"Question","name":"Can I set repeating alarms?","acceptedAnswer":{"@type":"Answer","text":"Yes — choose a one-time alarm, or repeat daily, weekly on chosen days, or monthly by date or weekday."}},{"@type":"Question","name":"Can I use it as a bedside clock that stays on?","acceptedAnswer":{"@type":"Answer","text":"Tap Full screen for a big bedside clock. On supported browsers and devices it will try to keep the display awake while open, but power-saving settings, browser restrictions, or device permissions may still dim or turn off the screen — keep your phone plugged in for the best results."}}]}</script>
 
-<!-- build 6c2bcf30b203 · generated 2026-08-30T03:32:10.292Z -->
+<meta name="robots" content="max-image-preview:large">
+<!-- build cf57ceefdcba · generated 2026-08-30T22:32:58.877Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
-<meta name="robots" content="max-image-preview:large">
 </head>
 <body class="ac-page">
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -1381,8 +1381,7 @@ else { openDialog(); fTime.value=window.AC_SETTIME; fRepeat.value='once'; syncFi
 }
 if(/[?&]popout=1/.test(location.search) && pipOK){ var ph=document.createElement('div'); ph.className='ac-pohint'; ph.innerHTML='<div>⧉<br>Tap to open the floating clock</div>'; document.body.appendChild(ph); var go=function(){ if(ph.parentNode) ph.parentNode.removeChild(ph); document.removeEventListener('click',go); popTop(); }; setTimeout(function(){ document.addEventListener('click',go); },60); }
 if(/[?&]bedside=1/.test(location.search)){ var bh=document.createElement('div'); bh.className='ac-pohint'; bh.innerHTML='<div class="ac-pohint-box"><div class="ac-pohint-title">Ready for your bedside clock? Confirm to go full screen.</div><button type="button" class="btn ac-bedside-go">Open full screen</button><button type="button" class="btn secondary ac-bedside-skip">Return to alarm clock</button><p>Plug in your device so the screen can stay on overnight.</p></div>'; document.body.appendChild(bh); var bgo=bh.querySelector('.ac-bedside-go'), bskip=bh.querySelector('.ac-bedside-skip'); function closeBedsideHint(){ if(bh.parentNode) bh.parentNode.removeChild(bh); } bgo.addEventListener('click',function(){ closeBedsideHint(); enterFs(); }); bskip.addEventListener('click',function(){ location.href='/alarm-clock/'; }); }
-})();</script>
-<script data-pgv="1">(function(){try{if(localStorage.getItem("ac_notrack"))return;}catch(_){}
+})();</script><script data-pgv="1">(function(){try{if(localStorage.getItem("ac_notrack"))return;}catch(_){}
 var vid="";try{vid=localStorage.getItem("ac_vid")||"";if(!vid){vid=Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem("ac_vid",vid);}}catch(_){}
 /* sendBeacon, fired at idle: this is a fire-and-forget counter whose reply the
    page discards, so it has no business sitting in the load timeline. sendBeacon

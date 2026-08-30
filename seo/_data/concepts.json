@@ -721,7 +721,8 @@
       "what-are-the-moon-phases-called",
       "what-is-a-supermoon"
     ],
-    "graphicId": "moon-phase",
+    "graphicId": "moon-lab",
+    "simulatorState": "phases",
     "graphicCaption": "The Sun is off to the left. The Moon is a ball, half bright, half dark. Walk around it and the bright part points a different way relative to you. That is a phase.",
     "graphicAlt": "A moon disc half-lit from the left, with the viewer’s angle marked.",
     "sections": [
@@ -743,8 +744,8 @@
     ],
     "seeItLive": [
       {
-        "href": "/sun-moon-earth-movement-simulator/",
-        "label": "Scrub a month of phases"
+        "href": "/moon-simulator/?state=phases",
+        "label": "Change the Moon’s angle and make every phase"
       }
     ]
   },
@@ -932,7 +933,8 @@
       "why-does-moonrise-get-later",
       "why-isnt-there-an-eclipse-every-month"
     ],
-    "graphicId": "moon-phase",
+    "graphicId": "moon-lab",
+    "simulatorState": "synodic-month",
     "graphicCaption": "One lap around Earth relative to the stars is not yet the same phase. The Sun’s direction has shifted because Earth moved.",
     "graphicAlt": "Moon orbiting Earth with the Sun’s direction shifting as Earth orbits.",
     "sections": [
@@ -953,8 +955,8 @@
     ],
     "seeItLive": [
       {
-        "href": "/sun-moon-earth-movement-simulator/",
-        "label": "Scrub one synodic month"
+        "href": "/moon-simulator/?state=synodic-month",
+        "label": "Compare one star-relative orbit with one phase cycle"
       }
     ]
   },
@@ -986,7 +988,8 @@
       "what-causes-tides",
       "does-the-moon-have-a-dark-side"
     ],
-    "graphicId": "moon-phase",
+    "graphicId": "moon-lab",
+    "simulatorState": "tidal-locking",
     "graphicCaption": "A mark on the Moon stays aimed at Earth all the way around. The Sun still lights the left half of the ball. The far side has plenty of daytime.",
     "graphicAlt": "Moon with a marked near side facing Earth as it orbits, while the Sun lights one half.",
     "sections": [
@@ -1014,8 +1017,8 @@
     ],
     "seeItLive": [
       {
-        "href": "/sun-moon-earth-movement-simulator/",
-        "label": "Watch one face stay aimed at Earth"
+        "href": "/moon-simulator/?state=tidal-locking",
+        "label": "Compare one spin per orbit with no spin"
       }
     ]
   },
@@ -1041,7 +1044,8 @@
       "what-is-tidal-locking",
       "what-is-a-synodic-month"
     ],
-    "graphicId": "moon-phase",
+    "graphicId": "moon-lab",
+    "simulatorState": "libration",
     "graphicCaption": "A locked Moon on an ellipse seems to nod: the spin is steady, the orbital speed is not, so we look slightly around the east or west limb.",
     "graphicAlt": "Moon disc with a slight rotation showing a sliver of the far-side limb.",
     "sections": [
@@ -1062,8 +1066,8 @@
     ],
     "seeItLive": [
       {
-        "href": "/sun-moon-earth-movement-simulator/",
-        "label": "Look for the Moon’s small nod"
+        "href": "/moon-simulator/?state=libration",
+        "label": "Move around the ellipse and measure the Moon’s nod"
       }
     ]
   },
@@ -1089,7 +1093,8 @@
       "what-is-a-synodic-month",
       "why-does-the-moon-change-shape"
     ],
-    "graphicId": "moon-phase",
+    "graphicId": "moon-lab",
+    "simulatorState": "moonrise-later",
     "graphicCaption": "After one Earth turn the Moon has advanced. The ground must turn farther to find it again.",
     "graphicAlt": "Earth turning under a Moon that has moved east along its orbit.",
     "sections": [
@@ -1117,6 +1122,10 @@
       }
     ],
     "seeItLive": [
+      {
+        "href": "/moon-simulator/?state=moonrise-later",
+        "label": "Turn the Moon’s daily step into clock time"
+      },
       {
         "href": "/moon/",
         "label": "Compare moonrise times night to night"
@@ -1146,7 +1155,8 @@
       "what-is-a-synodic-month",
       "what-causes-tides"
     ],
-    "graphicId": "moon-phase",
+    "graphicId": "moon-lab",
+    "simulatorState": "eclipse-tilt",
     "graphicCaption": "Earth’s shadow is a real cone past the Moon’s orbit. A 5° tip is enough for the full Moon to miss that cone most months. The drawing of the tip is exaggerated so you can see it.",
     "graphicAlt": "Moon orbit tipped relative to the Sun–Earth line, missing the shadow cone.",
     "sections": [
@@ -1167,8 +1177,12 @@
     ],
     "seeItLive": [
       {
+        "href": "/moon-simulator/?state=eclipse-tilt",
+        "label": "Flatten the Moon’s orbit, then restore its real tilt"
+      },
+      {
         "href": "/earth-sun-moon-orbit-simulator/",
-        "label": "See why the shadow is left undrawn"
+        "label": "Watch the three bodies move together"
       }
     ]
   },
@@ -2602,7 +2616,8 @@
       "what-is-a-spring-tide",
       "what-is-a-blue-moon"
     ],
-    "graphicId": "moon-phase",
+    "graphicId": "moon-lab",
+    "simulatorState": "supermoon",
     "graphicCaption": "The Moon on its orbit right now. The drawing’s circle is a simplification — the real orbit is an ellipse, and a supermoon is about where on that ellipse a full moon lands.",
     "graphicAlt": "The Moon on its orbit around Earth, with the Sun’s direction setting the phase.",
     "sections": [
@@ -2629,6 +2644,10 @@
       }
     ],
     "seeItLive": [
+      {
+        "href": "/moon-simulator/?state=supermoon",
+        "label": "Compare the closest and farthest full Moon"
+      },
       {
         "href": "/moon/supermoons/",
         "label": "Every coming supermoon, with its distance"
@@ -2659,7 +2678,8 @@
       "what-is-a-supermoon",
       "why-does-the-moon-change-shape"
     ],
-    "graphicId": "moon-phase",
+    "graphicId": "moon-lab",
+    "simulatorState": "blue-moon",
     "graphicCaption": "Tonight’s phase. A blue moon looks exactly like any other full moon — the name is about the calendar, not the colour.",
     "graphicAlt": "The Moon on its orbit around Earth, showing tonight’s phase.",
     "sections": [
@@ -2686,6 +2706,10 @@
       }
     ],
     "seeItLive": [
+      {
+        "href": "/moon-simulator/?state=blue-moon",
+        "label": "Find when two full moons fit in one month"
+      },
       {
         "href": "/moon/blue-moons/",
         "label": "Every blue moon coming, worked out"
@@ -2720,7 +2744,8 @@
       "what-is-a-synodic-month",
       "why-can-the-moon-be-up-in-the-daytime"
     ],
-    "graphicId": "moon-phase",
+    "graphicId": "moon-lab",
+    "simulatorState": "phase-names",
     "graphicCaption": "Where the Moon stands against the Sun right now. That angle is tonight’s phase — the names are just addresses along the lap.",
     "graphicAlt": "The Moon on its orbit around Earth, with its position relative to the Sun setting the current phase.",
     "sections": [
@@ -2759,8 +2784,8 @@
         "label": "Tonight’s phase and the 30-day strip for your town"
       },
       {
-        "href": "/sun-moon-earth-movement-simulator/",
-        "label": "Scrub a month and watch the names go by"
+        "href": "/moon-simulator/?state=phase-names",
+        "label": "Move through all eight named phases"
       }
     ]
   },
@@ -2788,7 +2813,8 @@
       "what-is-libration",
       "why-does-the-moon-change-shape"
     ],
-    "graphicId": "moon-phase",
+    "graphicId": "moon-lab",
+    "simulatorState": "dark-side",
     "graphicCaption": "The Moon right now. Which face points at Earth and which face points at the Sun are two different questions — the picture answers both at once.",
     "graphicAlt": "The Moon on its orbit, showing the hemisphere facing Earth and the hemisphere lit by the Sun.",
     "sections": [
@@ -2816,8 +2842,8 @@
     ],
     "seeItLive": [
       {
-        "href": "/sun-moon-earth-movement-simulator/",
-        "label": "Watch the same face hold toward Earth while the sunlight sweeps round"
+        "href": "/moon-simulator/?state=dark-side",
+        "label": "Compare the fixed far side with the moving night side"
       },
       {
         "href": "/moon/near-me/",

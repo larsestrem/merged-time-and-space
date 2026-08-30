@@ -10,6 +10,23 @@ output. See `CLAUDE.md` for the architecture and working rules. Deploy = push to
 `main` (Cloudflare auto-publishes).
 
 ---
+### 2026-08-30 — One Moon engine, ten testable questions
+
+- NEW `/moon-simulator/?state=<name>`: ten stable string states choose a distinct
+  question, task, control, first position, observation and shareable URL.
+- The same build-time painter and hashed deferred controller now power ten Moon
+  concept pages; the repeated generic Earth-orbit image is gone from them.
+- Every experiment ships a complete SVG, task and result before JavaScript, and
+  `check-moon-lab` gates URL-safe states, finite frames and one-to-one concepts.
+- `/questions/` is now “Questions you can test”: experiments first, then concise
+  answers grouped by phenomenon; the weak “Big questions” hierarchy is retired.
+- Moon and questions CSS are separately probed route sections; clocks, timers,
+  unrelated concepts and the questions directory pay no unused Moon Lab CSS.
+- Canonical, delivery and session rules are now measured guidelines: unique
+  intent decides canonical; critical CSS stays inline; shared JS is deferred.
+- Full page/link/astronomy checks and desktop/mobile browser QA passed; the only
+  existing advisories are the repository's dated-event verification reminders.
+
 ### 2026-08-29 — Classroom pivots to teacher collaboration; time gets its origin story
 
 - CLASSROOM NARROWED 25 -> 5 pages (owner's call): the in-house lesson catalog

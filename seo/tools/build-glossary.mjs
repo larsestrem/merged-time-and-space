@@ -116,11 +116,11 @@ console.log("wrote /glossary/", rows.length, "terms");
  * the first sentence as the teaser. It was retired once as a hand-written
  * page; rebuilt here it is derived, so a new concept files itself. */
 const GROUPS = [
-  ["questions", "The big questions", "Why things orbit, why we have seasons, what the Moon and the tides are doing — the questions the whole site exists to answer."],
-  ["day-night", "Day, night and the year", "The line between day and night, the tropics and polar circles, twilight, and what the tilt does to all of them."],
-  ["simulator", "The Moon and its cycle", "Phases and their names, the month, moonrise, eclipses that mostly refuse to happen — the Moon as a machine you can watch."],
-  ["time", "Time and clocks", "Time zones, UTC, the 24-hour clock and military time, leap years, and the two kinds of day."],
-  ["solar", "The planets and the solar system", "What the worlds beyond ours are like, why they have the moons they have, and what the belt between them is."],
+  ["simulator", "Moon, tides and eclipses", "Change the Moon’s position, spin, distance and orbital tilt. Then connect what moves to phases, moonrise, eclipses and tides."],
+  ["day-night", "Light, day and seasons", "Move the line between day and night, the overhead Sun and Earth’s tilt to explain tropics, polar circles, twilight and the seasons."],
+  ["questions", "Gravity, motion and the universe", "Test why an orbit keeps missing, why the night sky is dark, and how gravity ties falling objects, moons and tides together."],
+  ["time", "Time from the sky and clocks", "Follow Earth’s turn into days, longitude and time zones, then see how UTC, calendar rules and clock notation describe the same motion."],
+  ["solar", "Worlds, materials and formation", "Compare planets, moons, atmospheres and the asteroid belt, then ask what their differences say about how the solar system formed."],
 ];
 
 const groupHtml = GROUPS.map(([key, name, dek]) => {
@@ -141,25 +141,43 @@ const questionsHtml = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Big Questions About Time, Earth and Space</title>
-<meta name="description" content="${qCount} questions, each answered on its own page: why we have seasons, what causes tides, why the moon changes shape, what a time zone is, and more.">
+<title>Questions You Can Test About Time, Earth and Space</title>
+<meta name="description" content="Choose a question, change one thing in a simulator, observe the result and then read the explanation. ${qCount} questions about time, Earth and space.">
 <link rel="canonical" href="${SITE}/questions/">
 <link rel="alternate" hreflang="en" href="${SITE}/questions/">
-<meta property="og:title" content="Big Questions About Time, Earth and Space">
-<meta property="og:description" content="Every question the site answers, grouped by topic. The question is the link.">
+<meta property="og:title" content="Questions You Can Test About Time, Earth and Space">
+<meta property="og:description" content="Choose a question. Change one thing. Watch what the universe does.">
 <meta property="og:type" content="article">
 <link rel="stylesheet" href="/assets/css/style.css">
 <script type="application/ld+json">${breadcrumbLD(SITE, [
   { name: "Time and Space Science", url: "/" },
-  { name: "Big questions", url: "/questions/" },
+  { name: "Questions you can test", url: "/questions/" },
 ])}</script>
 ${GA_SNIPPET}
 </head>
 <body>
 <div class="wrap">
   ${brand({ crumb: { slug: "questions", url: "/questions/" } })}
-  <h1>Big questions</h1>
-  <p class="sub">Every question this site answers, grouped by topic — ${qCount} of them, each with its own page, its own drawing, and a short answer in the first paragraph. The question is the link. Prefer an A–Z of the terms instead? That is <a href="/glossary/">the glossary</a>.</p>
+  <h1>Questions you can test</h1>
+  <p class="sub">Choose a question. Change one thing. Watch what the universe does, then explain why. Start with an experiment or browse ${qCount} concise answers by phenomenon. Prefer an A–Z of the terms? Use <a href="/glossary/">the glossary</a>.</p>
+  <section aria-labelledby="try-an-experiment">
+    <h2 id="try-an-experiment">Try an experiment</h2>
+    <div class="q-experiments">
+      <a class="card q-experiment" href="/moon-simulator/?state=phases">
+        <span>Moon lab</span><strong>Make every Moon phase</strong>
+        <small>Move one angle. Watch a half-lit ball become every shape we name.</small>
+      </a>
+      <a class="card q-experiment" href="/orbital-velocity-simulator/">
+        <span>Orbit lab</span><strong>Slow an orbit without stopping it</strong>
+        <small>Change sideways speed and see which part of the path moves.</small>
+      </a>
+      <a class="card q-experiment" href="/day-night-map/">
+        <span>Earth lab</span><strong>Move the overhead Sun</strong>
+        <small>Jump between solstices and watch daylight move between hemispheres.</small>
+      </a>
+    </div>
+  </section>
+  <h2>Browse by phenomenon</h2>
 ${groupHtml}
   <div class="card">
     <h2>Have a question we haven't answered?</h2>

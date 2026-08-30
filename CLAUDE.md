@@ -12,7 +12,8 @@ seo/_data/*.json     the content/data the generators read
 assets/css/parts/*.css the stylesheet, one file per section (see css-parts.mjs);
                     build-css.mjs assembles them into assets/css/style.css,
                     build-inline gives each page only the sections it renders
-assets/js/*.js       tool page scripts (inlined): tides, effects, util, moderation
+assets/js/*.js       tool controllers (small/page-only code may be inlined;
+                    repeated controllers become hashed deferred assets)
 functions/           Cloudflare Pages Functions (serverless)
 *.html (root)        index.html, c.html, 404.html, terms/privacy/not-found
 _redirects, _headers, wrangler.toml, package.json
@@ -24,7 +25,10 @@ If you only kept those, `npm run build` regenerates the entire public site.
 
 ## Working rules
 
-- **One feature per session.** Explore, plan, code, verify, commit.
+- **Prefer one coherent outcome per session.** This is a scope-control default,
+  not a quota: ship the smallest reviewable release that solves the visitor's
+  problem, even when that needs a coupled content, interaction and performance
+  change. Explore, plan, code, verify, commit.
 - **Touch only files needed for the current task.** No drive-by refactors or
   reformatting of unrelated code.
 - **At session start, read `docs/PROGRESS.md`.** At session end, append a dated
@@ -148,11 +152,12 @@ steps consume files/markers written by earlier ones; `build-sitemap` then
 | 19e | `build-solar.mjs` | `/solar-system-simulator/` **+ 11 child pages** (one per planet, plus `asteroid-belt/`, `comets/`, `launch-windows/`). An **11-rung zoom ladder** — five heliocentric views, the to-scale Earth & Moon, and one per planet that has large moons — plus a span slider (month/year/decade/century), a **playback speed** control, toggleable **asteroid-belt and comet** layers, and a **flight path** to Mars, Jupiter or Saturn. The ladder exists because the OUTER:INNER orbit ratio decides legibility: 4:1 out to Mars, 27:1 to Saturn, 81:1 to Neptune, where Mercury's whole orbit is 5px and the inner four are a labelled knot — the true shape of the system and the thing evenly-spaced textbook diagrams hide. **The frame is square** (`SOL_FRAME` in planets.mjs): the drawing is concentric circles, so a 16:9 frame is radius-limited by its short side and the corners hold nothing — squaring buys ~40% more radius. Pages use `.wrap-wide` (1500px) for the same reason. **The Earth & Moon rung is the only view to scale in size AND distance at once**; on a moon rung the planet's own disc IS to scale against its moons' orbits. Every physical figure on a child page is DERIVED — mass from GM, gravity from GM/r², year from Kepler, diameter from `PL_DIA` — so no number can drift from the picture beside it. Content (tilt, temperature, atmosphere, facts, **open questions**, dated **recent findings**) from `seo/_data/solar-facts.json` |
 | 19e2 | `build-planets.mjs` | `/planets/` — **the section hub above the simulator**, and the page the home card, the nav and every planet page's breadcrumb point at. One card per world in orbital order, each a drawn globe from `globe.mjs`, two paragraphs of `overview` prose from `solar-facts.json`, five DERIVED figures and a link to that world's own page. The asteroid belt sits between Mars and Jupiter — same card shape, because that is where it is — and Pluto is last, labelled a dwarf planet in its own kicker. It repeats nothing a planet page says at length: it is a route, not a rival for the same queries. The belt picture is `solSvg` run at build (one source, two runtimes), so it cannot draw a belt in a different place from the page it links to |
 | 19b | `build-eclipses.mjs` | `/moon/eclipses/` hub + one page per lunar eclipse, solved from `eclipse.mjs` (Meeus ch. 54 on the same series as the phase calendar). **Lunar only** — solar eclipses need Besselian elements for the visibility track, and a bare date sends people to look at the sun from outside the path |
-| 19f | *(retired)* | `/questions/` is gone. 301 to `/glossary/`. Concept pages at `/concepts/<slug>/` remain the one-intent URLs. Do not regenerate this page. |
+| 19h | `build-concepts.mjs` + `build-glossary.mjs` | one-intent `/concepts/<slug>/` answers from `concepts.json`, the A–Z `/glossary/`, and `/questions/` as an experiment-first directory. The directory is not a second essay: three “try it” doors lead, followed by scannable questions grouped by phenomenon. Moon concepts select distinct Moon Lab states; non-Moon concepts keep their subject-specific graphics |
 | 19c | `build-moon-events.mjs` | `/moon/supermoons/` + `/moon/blue-moons/`. The supermoon threshold (361,885 km) is NAMED on the page with every full moon's distance, because there is no official definition and a list without its rule presents an arbitrary choice as fact. Blue moons list the monthly definition only; the seasonal one is explained but not tabulated, since this site doesn't solve for the solstices |
 | 19f | `build-daynight.mjs` | `/day-night-map/` — the home page's day-and-night card with time attached: a 7-day slider, Play and Now ON the map's bottom edge, jump buttons for the solstices and equinoxes (SOLVED by scanning a year of declinations, never tabulated), a location dot the page asks for ON LOAD (the My location button beside Now is only what is left when that is refused, and it is removed outright where there is no geolocation at all), and the four world-clock cities showing their local time and whether they are in daylight at the instant on show. The drawing is `daynight.mjs`, shared with the home card, so the two cannot draw different maps. Every figure in the prose — the tilt, the tropics, the polar circles, the solstice dates, the projection's stretch factor at each latitude — is derived from that same series; the only typed numbers on the page are two continent areas, which no formula produces |
+| 19g | `build-moon-lab.mjs` | `/moon-simulator/` — one cacheable Moon learning engine with ten named string states (`?state=phases`, `tidal-locking`, `libration`, `eclipse-tilt`, etc.). A state selects a distinct question, task, starting value, control and observation. The same engine is embedded on the matching Moon concept pages through `data-state`, replacing the unrelated repeated Earth-orbit graphic. Its first SVG and answer are rendered at build time; the shared controller is a hashed deferred asset that only enables controls and repaints the complete first frame. The clean hub URL is canonical; query states are shareable tasks, not separate indexable copies |
 | 20 | `build-sitemap.mjs` | `sitemap.xml` (date-only `<lastmod>`, from the newest git date across the generator AND every module it imports, walked transitively) + `seo/_data/sitemap-revs.json` (`url -> "date/rev"`, rev hashing those same files' content). The sources are DERIVED from the imports because hand-listing them meant a change to a shared module (`localtime.mjs`, `crosslinks.mjs`) moved no date, so IndexNow never announced the ~2,330 pages it had just changed; the rev exists because a date can't tell two edits on the same day apart |
-| 21 | `build-inline.mjs` | inlines `style.css` + per-page JS into every page, injects nav/logo/GA/favicon/landmarks, minifies CSS, strips unused theme palettes |
+| 21 | `build-inline.mjs` | probes each page and inlines only its critical section CSS, inlines small page-isolated JS, hoists repeated controllers to hashed deferred assets, and injects nav/logo/GA/favicon/landmarks. It also strips unused theme palettes and refuses a CSS probe that would leave matching markup unstyled |
 | 21b | `check-crosslinks.mjs` | **gate**: walks every emitted `/sun/`, `/moon/`, `/tides/` page for `data-xlink` anchors and fails the build if any cross-link is one-way (target missing, or not linking back). `/world-clock/` pages are scanned too, target-exists-only — their strip is one-way by design, but a retired sun or moon city would still leave a dead link. A one-way link renders fine and dead-ends a crawl path silently, which is why it needed a gate rather than a convention |
 | 22 | `check-pages.mjs` | **fail-safe gate, runs last**: scans every emitted page for a non-empty title, real body content, **no unresolved merge-conflict markers** (ten hand-maintained pages once shipped an empty `<<<<<<< HEAD` block in their `<head>`, which the parser treats as body text — every visitor to /about/, /privacy and eight others read conflict markers above the logo, and nothing else here could catch it), (where indexable) a description + H1, **and that every internal `href` resolves to something actually published** (on-disk page, asset, or a `_redirects` source); exits non-zero so Cloudflare aborts the deploy and the last good version keeps serving. The link check exists because 18 country-page links went on pointing at the retired share-link product long after it was retired |
 
@@ -527,14 +532,21 @@ every 15s to 2 min, every 30s to 10 min, every minute to 30 min, every 5 min to
   page with a different subject. Planet pages link onward by NAME instead
   (`/planets/`, the hub, the neighbouring planets). Don't put a `?zoom=` link
   on a page whose picture is not the thing being zoomed.
-- **Self-referential canonical** on every page (`<link rel="canonical">` points
-  to the page's own URL). Near-duplicate pages (timer durations, alarm times)
-  are differentiated with per-page content — a "what it's for" line, conversion
-  facts, and links to neighbours — so they index as distinct, not folded as
-  duplicates. **Do not point them at a shared canonical.**
-- **CSS/JS are inlined** by `build-inline.mjs` (no render-blocking requests).
-  Source of truth is `assets/css/parts/*.css` and `assets/js/*.js` — never edit
-  `style.css` (generated) or the inlined copies in generated HTML.
+- **Canonical follows search intent, not a blanket rule.** A page with a unique
+  answer and stable URL is normally self-canonical. Query states such as the
+  Moon Lab's `?state=` remain useful shareable tasks but canonicalize to the
+  clean hub. Genuine near-duplicates should be consolidated, redirected or
+  canonicalized instead of padded only to justify another indexable URL.
+- **Choose CSS/JS delivery by measured first-load cost.** Inline the small
+  critical CSS needed to paint the first view and tiny page-only behavior when
+  that removes a blocking request. Hoist repeated or noncritical controllers to
+  content-hashed `defer` assets so browsers can cache them; lazy-initialize a
+  heavy below-fold interaction when that improves measured loading without
+  making its first click feel broken. Source of truth is
+  `assets/css/parts/*.css` and `assets/js/*.js` — never edit `style.css`
+  (generated) or the emitted copies in generated HTML. PageSpeed/Lighthouse and
+  real transfer/parse cost decide the exception, not "always inline" or
+  "always external."
 - **CSS is per-section**: each part is tagged with a section in
   `seo/tools/css-parts.mjs`, and `build-inline` picks a page's sections by
   probing its own markup, so a timer page ships no alarm/tide/home CSS, and no
@@ -557,6 +569,11 @@ every 15s to 2 min, every 30s to 10 min, every minute to 30 min, every 5 min to
   (`/assets/img/moon-face.<hash>.svg`, referenced by `<use>`). The hash is what
   makes the one-year `_headers` cache safe, and the files do not change when the
   hourly rebuild re-bakes today's times.
+- **Moon Lab state is a string contract.** `/moon-simulator/?state=<name>` and
+  concept-page `data-state="<name>"` must use an enum in
+  `concepts.schema.json`, not an unvalidated free-form value. A new state must
+  supply a different question and observable task, render a complete static
+  first frame, and use the same painter at build time and in the controller.
 - **JSON-LD** (`WebApplication`, `FAQPage`, `BreadcrumbList`) via lib helpers.
 - **Favicon** is the logo SVG, written to `/favicon.svg` by `build-inline.mjs`.
 - Commit + push to `main` to deploy; Cloudflare Pages publishes automatically.

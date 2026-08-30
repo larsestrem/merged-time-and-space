@@ -18,6 +18,7 @@ import { orrerySvg } from "./orrery.mjs";
 import { globeSvg, globeRadius } from "./globe.mjs";
 import { sysOrbitWidget } from "./system-orbit.mjs";
 import { hourChart } from "./clock-convert.mjs";
+import { moonLabHtml } from "./moon-lab.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -464,6 +465,12 @@ export function graphicHtml(c) {
     case "moon-phase":
       inner = `<div class="orr-fig">${orrerySvg(NOW, 40.7, -74.0, "New York")}</div>`;
       break;
+    case "moon-lab":
+      return moonLabHtml({
+        state: c.simulatorState,
+        caption: fillConcept(c.graphicCaption),
+        alt: fillConcept(c.graphicAlt),
+      });
     case "tides":
       inner = tidesDiagram();
       break;

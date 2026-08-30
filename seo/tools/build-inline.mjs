@@ -1,16 +1,19 @@
-/* build-inline.mjs — inline the shared CSS and per-page JS into every page so
- * the browser makes no render-blocking requests for them.
+/* build-inline.mjs — put the critical CSS and each page's behavior on the
+ * fastest measured delivery path, with no render-blocking asset request.
  *
  * Source of truth stays in assets/css/style.css and assets/js/*.js; this step
- * copies their contents into the HTML. It is idempotent: the injected blocks
+ * copies route-specific critical CSS into the HTML. Small one-page scripts may
+ * be inlined; repeated controllers are hoisted to content-hashed `defer`
+ * assets so they are cached across their page family. It is idempotent: the injected blocks
  * are tagged with data-ac="css|js", so re-running replaces them in place
  * rather than stacking up. Run it with `npm run build` before committing/
  * deploying.
  *
- * Why inline (not <link>/<script src>): the site is tiny, the per-event result
- * page is the hot path, and a single self-contained document paints without
- * waiting on extra round-trips. The async Google Analytics tag is left external
- * on purpose — it's third-party and already non-blocking.
+ * Why inline critical CSS: the per-event result page is the hot path and can
+ * paint without an extra round-trip. Why not inline everything: cacheable
+ * repeated controllers and route-specific CSS keep unrelated first loads from
+ * paying parse/transfer cost. PageSpeed and real first-load measurements, not
+ * an absolute "inline" rule, decide future exceptions.
  */
 import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -77,7 +80,7 @@ const HTML = [
   "classroom/archive/earth-moon-sun-grades-5-6/index.html",
   "classroom/archive/light-speed-grades-7-8/index.html",
   "classroom/archive/leap-year-grades-5-6/index.html",
-  "sun-moon-earth-movement-simulator/index.html", "earth-sun-moon-orbit-simulator/index.html",
+  "sun-moon-earth-movement-simulator/index.html", "earth-sun-moon-orbit-simulator/index.html", "moon-simulator/index.html",
   "orbital-velocity-simulator/index.html", "orbital-velocity-simulator/why-planets-dont-fall-into-the-sun/index.html",
   ...(await import("./build-simulator.mjs")).SIM_SLUGS.map((s) => `sun-moon-earth-movement-simulator/${s}/index.html`),
   /* the solar + rocket pages, from the list the generator recorded as it wrote
@@ -159,11 +162,16 @@ const JS_RE  = /(?:[\t ]*<script (?:defer )?src="\/assets\/js\/[^"]+"><\/script>
 
 /* keep a literal </script> in bundled code from closing our inline tag early */
 const safe = (js) => js.replace(/<\/script/gi, "<\\/script");
+/* Git may check source files out as CRLF on Windows. Generated assets and
+ * hashes must be byte-identical to Linux CI and Cloudflare builds, or a local
+ * build rewrites every page and invalidates every shared cache for no content
+ * change. Normalize at each source-to-output boundary. */
+const lf = (s) => s.replace(/\r\n?/g, "\n");
 
 async function bundle(names) {
   const parts = [];
   for (const n of names) {
-    const src = await readFile(path.join(root, "assets/js", `${n}.js`), "utf8");
+    const src = lf(await readFile(path.join(root, "assets/js", `${n}.js`), "utf8"));
     parts.push(`/* ${n}.js */\n${src.trim()}`);
   }
   return parts.join("\n\n");
@@ -173,7 +181,7 @@ async function bundle(names) {
  * blank lines. It never touches whitespace inside a declaration, so strings,
  * url(...) data-URIs and calc() are left intact. (No literal "/*" appears
  * inside the percent-encoded data-URIs, so comment stripping is safe.) */
-const minifyCss = (s) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^[\t ]+/gm, "").replace(/[\t ]+$/gm, "").replace(/\n{2,}/g, "\n").trim();
+const minifyCss = (s) => lf(s).replace(/\/\*[\s\S]*?\*\//g, "").replace(/^[\t ]+/gm, "").replace(/[\t ]+$/gm, "").replace(/\n{2,}/g, "\n").trim();
 
 /* ---- per-page CSS: only the sections a page actually renders ----------------
  * The stylesheet is a list of section parts (css-parts.mjs). Which sections a
@@ -231,6 +239,8 @@ const SECTION_PROBES = {
      the whole of what this page needs */
   convert: /class="[^"]*\bcv-/,
   concept: /class="[^"]*\b(kicker|hub-teaser|hub-teasers|hub-qs|hub-kicker|hub-sim|glossary-item|more-info|graphic-block)\b/,
+  questionexperiments: /class="[^"]*\b(q-experiments|q-experiment)\b/,
+  moonlab: /class="[^"]*\bmoon-lab\b/,
 };
 {
   const unknown = Object.keys(SECTION_PROBES).filter((s) => !SECTIONS.includes(s));
@@ -554,6 +564,7 @@ const sharedWritten = new Map();   // "name|hash" -> url
 const sharedNames = new Set();
 function hoistShared(html) {
   return html.replace(/<script data-ac="shared" data-name="([a-z0-9-]+)">([\s\S]*?)<\/script>/g, (m, name, body) => {
+    body = lf(body);
     const hash = createHash("sha256").update(body).digest("hex").slice(0, 10);
     const url = `/assets/js/${name}.${hash}.js`;
     const key = `${name}|${hash}`;
@@ -910,6 +921,7 @@ const FAVICON_RULES = [
   ["24-hour-clock-converter/", "clock24"],
   ["sun/", "sunrise"],
   ["moon/", "moon"],
+  ["moon-simulator/", "moon"],
   ["tides/", "wave"],
   ["methodology/", "gear"],
   ["work/", "briefcase"],

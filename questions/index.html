@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Big Questions About Time, Earth and Space</title>
-<meta name="description" content="54 questions, each answered on its own page: why we have seasons, what causes tides, why the moon changes shape, what a time zone is, and more.">
+<title>Questions You Can Test About Time, Earth and Space</title>
+<meta name="description" content="Choose a question, change one thing in a simulator, observe the result and then read the explanation. 54 questions about time, Earth and space.">
 <link rel="canonical" href="https://timeandspace.science/questions/">
 <link rel="alternate" hreflang="en" href="https://timeandspace.science/questions/">
-<meta property="og:title" content="Big Questions About Time, Earth and Space">
-<meta property="og:description" content="Every question the site answers, grouped by topic. The question is the link.">
+<meta property="og:title" content="Questions You Can Test About Time, Earth and Space">
+<meta property="og:description" content="Choose a question. Change one thing. Watch what the universe does.">
 <meta property="og:type" content="article">
 <style data-ac="css">:root{
 --bg:linear-gradient(#0b0e1c,#0b0e1c);
@@ -745,18 +745,46 @@ font-weight: 700;
 .ol-status.is-good { color: #4ade80; }
 .ol-status.is-warn { color: #fbbf24; }
 .ol-status.is-bad { color: #f87171; }
-.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Big questions","item":"https://timeandspace.science/questions/"}]}</script>
+.ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }
+.q-experiments {
+display: grid;
+grid-template-columns: repeat(3, minmax(0, 1fr));
+gap: 12px;
+margin-bottom: 26px;
+}
+.q-experiment {
+display: flex;
+flex-direction: column;
+gap: 6px;
+min-height: 170px;
+color: inherit;
+text-decoration: none;
+}
+.q-experiment span {
+color: var(--accent);
+font-size: .7rem;
+letter-spacing: .1em;
+text-transform: uppercase;
+font-weight: 800;
+}
+.q-experiment strong { font-size: 1.08rem; line-height: 1.3; }
+.q-experiment small { color: var(--muted); line-height: 1.45; font-size: .86rem; }
+.q-experiment:hover { border-color: var(--accent); transform: translateY(-1px); }
+@media (max-width: 900px) {
+.q-experiments { grid-template-columns: 1fr; }
+.q-experiment { min-height: 0; }
+}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Questions you can test","item":"https://timeandspace.science/questions/"}]}</script>
 
-<!-- build 6c2bcf30b203 · generated 2026-08-30T03:32:10.292Z -->
+<meta property="og:image" content="https://timeandspace.science/api/og?name=Questions%20You%20Can%20Test%20About%20Time%2C%20Earth%20and%20Space&amp;theme=generic">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Questions%20You%20Can%20Test%20About%20Time%2C%20Earth%20and%20Space&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
+<!-- build cf57ceefdcba · generated 2026-08-30T22:32:58.877Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
-<meta property="og:image" content="https://timeandspace.science/api/og?name=Big%20Questions%20About%20Time%2C%20Earth%20and%20Space&amp;theme=generic">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Big%20Questions%20About%20Time%2C%20Earth%20and%20Space&amp;theme=generic">
-<meta name="robots" content="max-image-preview:large">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -890,26 +918,44 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
      minute, the simulators every frame) tell us to run again */
   document.addEventListener('ac:units',function(){ apply(get()); });
 })();</script></div>
-  <h1>Big questions</h1>
-  <p class="sub">Every question this site answers, grouped by topic — 54 of them, each with its own page, its own drawing, and a short answer in the first paragraph. The question is the link. Prefer an A–Z of the terms instead? That is <a href="/glossary/">the glossary</a>.</p>
-  <div class="card hub-teasers" id="questions">
-    <h2>The big questions</h2>
-    <p class="sub">Why things orbit, why we have seasons, what the Moon and the tides are doing — the questions the whole site exists to answer.</p>
+  <h1>Questions you can test</h1>
+  <p class="sub">Choose a question. Change one thing. Watch what the universe does, then explain why. Start with an experiment or browse 54 concise answers by phenomenon. Prefer an A–Z of the terms? Use <a href="/glossary/">the glossary</a>.</p>
+  <section aria-labelledby="try-an-experiment">
+    <h2 id="try-an-experiment">Try an experiment</h2>
+    <div class="q-experiments">
+      <a class="card q-experiment" href="/moon-simulator/?state=phases">
+        <span>Moon lab</span><strong>Make every Moon phase</strong>
+        <small>Move one angle. Watch a half-lit ball become every shape we name.</small>
+      </a>
+      <a class="card q-experiment" href="/orbital-velocity-simulator/">
+        <span>Orbit lab</span><strong>Slow an orbit without stopping it</strong>
+        <small>Change sideways speed and see which part of the path moves.</small>
+      </a>
+      <a class="card q-experiment" href="/day-night-map/">
+        <span>Earth lab</span><strong>Move the overhead Sun</strong>
+        <small>Jump between solstices and watch daylight move between hemispheres.</small>
+      </a>
+    </div>
+  </section>
+  <h2>Browse by phenomenon</h2>
+  <div class="card hub-teasers" id="simulator">
+    <h2>Moon, tides and eclipses</h2>
+    <p class="sub">Change the Moon’s position, spin, distance and orbital tilt. Then connect what moves to phases, moonrise, eclipses and tides.</p>
     <ul class="hub-qs">
-      <li><p><a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a> They are falling.</p></li>
-      <li><p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> A planet is always falling toward the Sun, and it is already moving sideways.</p></li>
-      <li><p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun.</p></li>
-      <li><p><a href="/concepts/why-does-the-moon-change-shape/">Why does the Moon change shape?</a> The Moon makes no light of its own.</p></li>
-      <li><p><a href="/concepts/what-causes-tides/">What causes tides?</a> The Moon’s gravity pulls harder on the water nearer to it than on the Earth’s centre, and harder on the centre than on the far-side water.</p></li>
-      <li><p><a href="/concepts/why-does-jupiter-have-so-many-moons/">Why does Jupiter have so many moons?</a> Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun.</p></li>
-      <li><p><a href="/concepts/why-is-the-night-sky-dark/">Why is the night sky dark?</a> If stars went on forever, every line of sight would hit a star and the night would be as bright as a surface of suns.</p></li>
-      <li><p><a href="/concepts/how-does-an-orbit-change/">How does an orbit change?</a> The shape changes, not just the speed.</p></li>
-      <li><p><a href="/concepts/what-is-a-spring-tide/">What is a spring tide?</a> A spring tide is the fortnightly run of bigger tides — higher highs, lower lows — that comes when the Sun, Moon and Earth line up at new moon and full moon, so the two pulls add.</p></li>
+      <li><p><a href="/concepts/what-is-a-synodic-month/">What is a synodic month?</a> A synodic month is the time from one full moon to the next, about 29.5 days.</p></li>
+      <li><p><a href="/concepts/what-is-tidal-locking/">What is tidal locking?</a> The Moon keeps the same face toward Earth because it turns once in the same time it goes around us.</p></li>
+      <li><p><a href="/concepts/what-is-libration/">What is libration?</a> Libration is a small wobble in the Moon’s facing.</p></li>
+      <li><p><a href="/concepts/why-does-moonrise-get-later/">Why does moonrise get later each night?</a> The Moon moves east along its orbit while Earth turns.</p></li>
+      <li><p><a href="/concepts/why-isnt-there-an-eclipse-every-month/">Why isn’t there an eclipse every month?</a> The Moon’s path around Earth is tipped about 5° to Earth’s path around the Sun.</p></li>
+      <li><p><a href="/concepts/what-is-a-supermoon/">What is a supermoon?</a> A supermoon is a full moon that happens near the Moon’s closest approach to Earth.</p></li>
+      <li><p><a href="/concepts/what-is-a-blue-moon/">What is a blue moon?</a> A blue moon is the second full moon inside one calendar month.</p></li>
+      <li><p><a href="/concepts/what-are-the-moon-phases-called/">What are the moon phases called?</a> Eight names, in order: new moon, waxing crescent, first quarter, waxing gibbous, full moon, waning gibbous, last quarter, waning crescent — then new again, about 29.5 days after the last new.</p></li>
+      <li><p><a href="/concepts/does-the-moon-have-a-dark-side/">Does the Moon have a dark side?</a> No.</p></li>
     </ul>
   </div>
   <div class="card hub-teasers" id="day-night">
-    <h2>Day, night and the year</h2>
-    <p class="sub">The line between day and night, the tropics and polar circles, twilight, and what the tilt does to all of them.</p>
+    <h2>Light, day and seasons</h2>
+    <p class="sub">Move the line between day and night, the overhead Sun and Earth’s tilt to explain tropics, polar circles, twilight and the seasons.</p>
     <ul class="hub-qs">
       <li><p><a href="/concepts/what-is-the-tropic-of-cancer/">What is the Tropic of Cancer?</a> The Tropic of Cancer is the circle at 23.4° north.</p></li>
       <li><p><a href="/concepts/what-is-the-tropic-of-capricorn/">What is the Tropic of Capricorn?</a> The Tropic of Capricorn is the circle at 23.4° south.</p></li>
@@ -924,24 +970,24 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <li><p><a href="/concepts/what-is-an-equinox/">What is an equinox?</a> An equinox is one of the two days a year the Sun stands directly over the equator — around March 20 and again around September 23.</p></li>
     </ul>
   </div>
-  <div class="card hub-teasers" id="simulator">
-    <h2>The Moon and its cycle</h2>
-    <p class="sub">Phases and their names, the month, moonrise, eclipses that mostly refuse to happen — the Moon as a machine you can watch.</p>
+  <div class="card hub-teasers" id="questions">
+    <h2>Gravity, motion and the universe</h2>
+    <p class="sub">Test why an orbit keeps missing, why the night sky is dark, and how gravity ties falling objects, moons and tides together.</p>
     <ul class="hub-qs">
-      <li><p><a href="/concepts/what-is-a-synodic-month/">What is a synodic month?</a> A synodic month is the time from one full moon to the next, about 29.5 days.</p></li>
-      <li><p><a href="/concepts/what-is-tidal-locking/">What is tidal locking?</a> The Moon keeps the same face toward Earth because it turns once in the same time it goes around us.</p></li>
-      <li><p><a href="/concepts/what-is-libration/">What is libration?</a> Libration is a small wobble in the Moon’s facing.</p></li>
-      <li><p><a href="/concepts/why-does-moonrise-get-later/">Why does moonrise get later each night?</a> The Moon moves east along its orbit while Earth turns.</p></li>
-      <li><p><a href="/concepts/why-isnt-there-an-eclipse-every-month/">Why isn’t there an eclipse every month?</a> The Moon’s path around Earth is tipped about 5° to Earth’s path around the Sun.</p></li>
-      <li><p><a href="/concepts/what-is-a-supermoon/">What is a supermoon?</a> A supermoon is a full moon that happens near the Moon’s closest approach to Earth.</p></li>
-      <li><p><a href="/concepts/what-is-a-blue-moon/">What is a blue moon?</a> A blue moon is the second full moon inside one calendar month.</p></li>
-      <li><p><a href="/concepts/what-are-the-moon-phases-called/">What are the moon phases called?</a> Eight names, in order: new moon, waxing crescent, first quarter, waxing gibbous, full moon, waning gibbous, last quarter, waning crescent — then new again, about 29.5 days after the last new.</p></li>
-      <li><p><a href="/concepts/does-the-moon-have-a-dark-side/">Does the Moon have a dark side?</a> No.</p></li>
+      <li><p><a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a> They are falling.</p></li>
+      <li><p><a href="/concepts/how-does-an-orbit-work/">How does an orbit work?</a> A planet is always falling toward the Sun, and it is already moving sideways.</p></li>
+      <li><p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun.</p></li>
+      <li><p><a href="/concepts/why-does-the-moon-change-shape/">Why does the Moon change shape?</a> The Moon makes no light of its own.</p></li>
+      <li><p><a href="/concepts/what-causes-tides/">What causes tides?</a> The Moon’s gravity pulls harder on the water nearer to it than on the Earth’s centre, and harder on the centre than on the far-side water.</p></li>
+      <li><p><a href="/concepts/why-does-jupiter-have-so-many-moons/">Why does Jupiter have so many moons?</a> Gravity’s reach grows with mass, and Jupiter has more of it than anything in the solar system except the Sun.</p></li>
+      <li><p><a href="/concepts/why-is-the-night-sky-dark/">Why is the night sky dark?</a> If stars went on forever, every line of sight would hit a star and the night would be as bright as a surface of suns.</p></li>
+      <li><p><a href="/concepts/how-does-an-orbit-change/">How does an orbit change?</a> The shape changes, not just the speed.</p></li>
+      <li><p><a href="/concepts/what-is-a-spring-tide/">What is a spring tide?</a> A spring tide is the fortnightly run of bigger tides — higher highs, lower lows — that comes when the Sun, Moon and Earth line up at new moon and full moon, so the two pulls add.</p></li>
     </ul>
   </div>
   <div class="card hub-teasers" id="time">
-    <h2>Time and clocks</h2>
-    <p class="sub">Time zones, UTC, the 24-hour clock and military time, leap years, and the two kinds of day.</p>
+    <h2>Time from the sky and clocks</h2>
+    <p class="sub">Follow Earth’s turn into days, longitude and time zones, then see how UTC, calendar rules and clock notation describe the same motion.</p>
     <ul class="hub-qs">
       <li><p><a href="/concepts/what-is-a-time-zone/">What is a time zone?</a> A political stripe painted on a rotating ball.</p></li>
       <li><p><a href="/concepts/what-is-utc/">What is UTC?</a> Coordinated Universal Time — the one clock the rest are offsets from.</p></li>
@@ -957,8 +1003,8 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     </ul>
   </div>
   <div class="card hub-teasers" id="solar">
-    <h2>The planets and the solar system</h2>
-    <p class="sub">What the worlds beyond ours are like, why they have the moons they have, and what the belt between them is.</p>
+    <h2>Worlds, materials and formation</h2>
+    <p class="sub">Compare planets, moons, atmospheres and the asteroid belt, then ask what their differences say about how the solar system formed.</p>
     <ul class="hub-qs">
       <li><p><a href="/concepts/what-is-the-asteroid-belt/">What is the asteroid belt?</a> A ring of leftover rock between Mars and Jupiter.</p></li>
       <li><p><a href="/concepts/why-are-the-planets-drawn-so-close/">Why are the planets drawn so close together?</a> Because the real solar system will not fit on a screen.</p></li>
@@ -1001,8 +1047,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <p class="footer copyright">© 2026 Time and Space Science. All rights reserved.</p>
   <p class="footer sitelinks">Gravity, motion, time and space — one set of rules, seen from different sides: <a href="/glossary/">the glossary</a> · <a href="/sun-moon-earth-movement-simulator/">the Sun, Earth &amp; Moon</a> · <a href="/day-night-map/">day &amp; night on Earth</a> · <a href="/solar-system-simulator/">the solar system</a> · <a href="/planets/">the planets</a> · <a href="/orbital-velocity-simulator/">gravity &amp; orbits</a> · <a href="/sun/">sunrise &amp; sunset</a> · <a href="/moon/">moon phases</a> · <a href="/world-clock/">time zones</a></p>
   <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. Teachers: <a href="/classroom/submit-a-lesson/">send us the lesson you already run</a> and we will build it into a page here, with your name on it — or <a href="/classroom/#ask">ask us to build a simulator</a> your class has thought of. <a href="/classroom/">Classroom</a> · <a href="/about/">About this site</a>.</p>
-</div>
-<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+</div><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];

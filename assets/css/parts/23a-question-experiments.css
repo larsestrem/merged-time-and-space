@@ -1,0 +1,30 @@
+/* The three experiment doors at the top of /questions/. Separate from the
+ * Moon Lab so the directory does not parse the simulator's layout CSS. */
+.q-experiments {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 26px;
+}
+.q-experiment {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 170px;
+  color: inherit;
+  text-decoration: none;
+}
+.q-experiment span {
+  color: var(--accent);
+  font-size: .7rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+.q-experiment strong { font-size: 1.08rem; line-height: 1.3; }
+.q-experiment small { color: var(--muted); line-height: 1.45; font-size: .86rem; }
+.q-experiment:hover { border-color: var(--accent); transform: translateY(-1px); }
+@media (max-width: 900px) {
+  .q-experiments { grid-template-columns: 1fr; }
+  .q-experiment { min-height: 0; }
+}

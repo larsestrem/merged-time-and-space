@@ -2,7 +2,7 @@
 
 > Free, no-sign-up clock tools and countdowns that run entirely in the browser.
 > Static pages on Cloudflare Pages; no accounts, no tracking beyond analytics,
-> nothing to install. 4208 pages in all.
+> nothing to install. 4209 pages in all.
 
 Everything below is a real, permanent URL. Figures on time-and-sky pages are
 computed, not scraped: the methodology pages state the method and its limits.

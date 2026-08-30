@@ -108,6 +108,8 @@ const SPEC = [
      move as timediff/convert: keep tides+moon the last two sections so
      DEFER_CSS on earth/index.html stays a suffix. */
   ["23-concept.css", "concept"],
+  ["23a-question-experiments.css", "questionexperiments"],
+  ["23b-moon-lab.css", "moonlab"],  /* only pages that render a Moon experiment */
   ["21-tides.css", "tides"],
   ["22-moon.css", "moon"],
 ];

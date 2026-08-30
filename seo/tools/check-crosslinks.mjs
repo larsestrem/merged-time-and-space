@@ -114,8 +114,15 @@ if (problems.length) {
     else {
       const html = readFileSync(fileFor(url), "utf8");
       for (const h of [...c.hubUrls, ...c.seeItLive]) {
-        const path = h.href.split("#")[0];
+        const path = h.href.split(/[?#]/)[0];
         const norm = path.endsWith("/") ? path : path + "/";
+        /* A hash only chooses a position on the same resource and may be
+           omitted by a hub link. A query state chooses a specific simulator
+           task, so the concept must preserve it exactly. */
+        if (h.href.includes("?")) {
+          if (!html.includes(`href="${h.href}"`)) problems.push(`${url} does not link to task ${h.href}`);
+          continue;
+        }
         if (!html.includes(`href="${norm}`) && !html.includes(`href="${h.href}"`)) {
           /* concept pages must point back at the hub; the exact hash is optional */
           if (!html.includes(`href="${path}`) && !html.includes(`href="${norm}`)) {
@@ -125,12 +132,12 @@ if (problems.length) {
       }
     }
     for (const h of [...c.hubUrls, ...c.seeItLive]) {
-      const path = h.href.split("#")[0];
+      const path = h.href.split(/[?#]/)[0];
       const norm = path.endsWith("/") ? path : path + "/";
       if (!existsSync(fileFor(norm))) problems.push(`${url} target missing: ${h.href}`);
     }
     for (const h of c.hubUrls) {
-      const path = h.href.split("#")[0];
+      const path = h.href.split(/[?#]/)[0];
       const norm = path.endsWith("/") ? path : path + "/";
       if (!existsSync(fileFor(norm))) continue;
       const hubHtml = readFileSync(fileFor(norm), "utf8");

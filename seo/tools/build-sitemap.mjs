@@ -159,6 +159,7 @@ const families = {
     ...group([["/classroom/lessons/seasons-grades-7-8/", "0.5"]], "classroom/lessons/seasons-grades-7-8/index.html"),
     ...group([["/classroom/lessons/solar-system-grades-3-4/", "0.5"]], "classroom/lessons/solar-system-grades-3-4/index.html"),
     ...group([["/sun-moon-earth-movement-simulator/", "0.7"], ["/earth-sun-moon-orbit-simulator/", "0.6"]], ...deps("seo/tools/build-simulator.mjs")),
+    ...group([["/moon-simulator/", "0.75"]], ...deps("seo/tools/build-moon-lab.mjs")),
     /* EVERY SOLAR + ROCKET PAGE, from the list build-solar recorded as it wrote
        them. It used to be three hand-kept entries plus a
        `/solar-system-simulator/<slug>/` pattern, which silently stopped being
