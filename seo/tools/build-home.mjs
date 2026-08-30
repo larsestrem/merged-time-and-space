@@ -712,6 +712,17 @@ const CONVERT_CARD = `    <div class="tc tc-mini tc-conv">
       <a class="wk-all" href="/24-hour-clock-converter/">Full converter, chart &amp; every half hour →</a>
     </div>`;
 
+/* ---- WHERE THE CLOCK ACTUALLY COMES FROM -----------------------------------
+ * Every tool on this board measures a motion; nothing on it said so until now.
+ * Text-only, on purpose — the point being made is the idea, not a picture —
+ * so this reuses the plain PLANETS_CARD shape (data-href on the whole tile,
+ * one paragraph, one link) rather than inventing a new card style. */
+const TIME_ORIGIN_CARD = `    <div class="tc tc-mini tc-origin" data-href="/concepts/who-invented-time/">
+      <div class="tc-head">${ico("earthmoon")} Where the Clock Comes From</div>
+      <p class="home-simtxt">Nobody invented time — people read it off the sky. A day is Earth spinning once. A year is Earth's orbit, announced by the seasons the tilt creates. A month is the Moon's cycle. Every hour and minute since is bookkeeping for those three motions.</p>
+      <a class="wk-all" href="/concepts/who-invented-time/">Who invented time? →</a>
+    </div>`;
+
 /* ---- THE STEP BETWEEN THE TWO SIMULATORS, as its own card -----------------
  * /earth-sun-moon-orbit-simulator/ draws the three bodies moving
  * TOGETHER — Earth round the sun, moon round the Earth, at once — which is
@@ -1612,6 +1623,13 @@ ${sectionSwitcher("/")}
     <a class="chip chip-alt" href="/glossary/">More questions →</a>
   </div>
   <div class="card hub-sim">
+    <p class="hub-kicker">Time</p>
+    <h2>Where the clock comes from</h2>
+    <p class="hub-blurb">Nobody invented time — people read it off the sky. A day is Earth spinning once. A year is Earth's orbit, announced by the seasons its tilt creates. A month is the Moon's cycle. Every hour and minute since is bookkeeping for those three motions.</p>
+    <a class="wk-all" href="/concepts/who-invented-time/">Who invented time? →</a>
+    ${hubQs(["what-is-a-solar-day", "why-do-we-have-seasons", "what-is-a-synodic-month"], "/")}
+  </div>
+  <div class="card hub-sim">
     <p class="hub-kicker">Earth</p>
     <h2>The Moon around the Earth</h2>
     <p class="hub-blurb">The Sun holds still on the left. Earth and the Moon sit to the right so there is more sky between them. The Moon is about a quarter the width of Earth — that size is true. Distances are not: the simulator says by how much.</p>
@@ -1762,7 +1780,8 @@ const SECTION_PAGES = [
       [ALARM_CARD, 4], [TIMER_CARD, 4], [STOPWATCH_CARD, 4],
       [withQs(WORLD_CLOCK_CARD, ["who-invented-time", "what-is-a-time-zone", "what-is-utc", "what-is-the-international-date-line"], "/time/"), 6],
       [withQs(TIMEDIFF_CARD, ["what-is-daylight-saving-time"], "/time/"), 6],
-      [withQs(CONVERT_CARD, ["what-is-the-24-hour-clock"], "/time/"), 6], [COUNTDOWN_BLOCK, 6],
+      [withQs(CONVERT_CARD, ["what-is-the-24-hour-clock"], "/time/"), 6],
+      [TIME_ORIGIN_CARD, 6], [COUNTDOWN_BLOCK, 6],
     ],
     js: () => `<script data-ac="shared" data-name="sec-time">${HOME_CLOCK_JS}${HOME_COLOR_JS}${WORLD_MAP_JS}${TDIFF_JS}${CONV_JS}${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>`,
   },
