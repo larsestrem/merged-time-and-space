@@ -1,12 +1,10 @@
-# Hourly Cloudflare Pages rebuild — freshness only.
+# Cloudflare Pages deploy — on every main push, plus hourly for freshness.
 #
-# Rebuilds the whole site every hour so the baked "today" values (sun times,
-# tide charts/tables, "days until" countdowns) are near-real-time native HTML
-# for every crawl and visit. _headers serves s-maxage=300, so an edge copy is at
-# most 5 minutes behind the origin and the rebuild cadence sets how fresh the
-# origin itself is: served pages are at most ~1h behind real time.
-# Rebuild-only: no audit, no report email (maintenance.yml still runs the daily
-# audit + its own rebuild).
+# Every push to main triggers the Cloudflare deploy hook so "pushed" and
+# "deployed" are one workflow. The hourly trigger still rebuilds the whole site
+# so baked "today" values (sun times, tide charts/tables, countdowns) stay
+# current even when the source has not changed. _headers serves s-maxage=300,
+# so an edge copy is at most 5 minutes behind the origin.
 #
 # Uses the same CF_DEPLOY_HOOK secret as maintenance.yml (Cloudflare Pages ->
 # Settings -> Builds & deployments -> Deploy hooks). If the secret is missing
@@ -19,13 +17,19 @@
 # Cloudflare BUILD itself is reported by Cloudflare Pages deployment
 # notifications (dashboard -> Notifications).
 
-name: Hourly rebuild
+name: Deploy to Cloudflare Pages
 on:
+  push:
+    branches: [main]
   schedule:
     # Every hour at :20 (off-the-hour minute dodges GitHub's top-of-hour
     # scheduling backlog). maintenance.yml also rebuilds once at 11:20.
     - cron: "20 * * * *"
   workflow_dispatch: {}
+
+concurrency:
+  group: cloudflare-pages-production
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -42,4 +46,4 @@ jobs:
 
       - name: Warn if no deploy hook is configured
         if: ${{ env.HOOK == '' }}
-        run: echo "::warning::CF_DEPLOY_HOOK not set — the second daily rebuild did nothing"
+        run: echo "::warning::CF_DEPLOY_HOOK not set — the Cloudflare deployment did nothing"
