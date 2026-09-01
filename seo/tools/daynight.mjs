@@ -413,7 +413,7 @@ export function seasonOrbitSvg(ms, opts) {
     const label = `${word1} ${word2}`;
     return `<g class="so-earth"${jump}>
       <title>${label} \u2014 the start of the next season</title>
-      <circle cx="${f(p.x)}" cy="${f(p.y)}" r="${ER}" fill="#2f5d3a" stroke="rgba(226,232,240,.45)" stroke-width="1.2"/>
+      <circle cx="${f(p.x)}" cy="${f(p.y)}" r="${ER}" fill="#2f74ad" stroke="rgba(226,232,240,.45)" stroke-width="1.2"/>
       <path class="so-day" d="M${x1} ${y1}A${ER} ${ER} 0 0 0 ${x2} ${y2}Z"/>
       <path d="M${x1} ${y1}A${ER} ${ER} 0 0 1 ${x2} ${y2}Z" fill="#050a16" fill-opacity=".62"/>
       <line class="so-eq" x1="${f(p.x + qx * ER)}" y1="${f(p.y + qy * ER)}" x2="${f(p.x - qx * ER)}" y2="${f(p.y - qy * ER)}"/>

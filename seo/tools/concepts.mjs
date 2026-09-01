@@ -408,7 +408,7 @@ function tidesDiagram() {
   return `<svg class="dns-svg" viewBox="0 0 700 276" width="100%" role="img" aria-label="Earth with two opposite ocean bulges and the Moon to one side">
     <circle cx="300" cy="138" r="78" fill="#2a3d63"/>
     <ellipse cx="300" cy="138" rx="118" ry="70" fill="#3a6a8a" opacity=".85"/>
-    <circle cx="300" cy="138" r="70" fill="#2f5d3a"/>
+    <circle cx="300" cy="138" r="70" fill="#2f74ad"/>
     <circle class="dns-glow" cx="560" cy="138" r="28"/><circle cx="560" cy="138" r="18" fill="#e8e0c8"/>
     <text class="dns-lab" x="270" y="36">two bulges</text>
     <text class="dns-lab" x="540" y="100">Moon</text>

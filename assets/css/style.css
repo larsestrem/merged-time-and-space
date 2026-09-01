@@ -3852,7 +3852,10 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dns-glow{fill:#fde68a;fill-opacity:.13}
 .dns-sun{fill:#fde68a;stroke:#b45309;stroke-width:2}
 .dns-ray{stroke:#fde68a;stroke-opacity:.4;stroke-width:2;stroke-dasharray:2 7;stroke-linecap:round}
-.dns-earth{fill:#2f5d3a;stroke:rgba(226,232,240,.35);stroke-width:1}
+/* A detail-free Earth reads as ocean, not as an unexplained green planet.
+   Maps keep green land over blue water; schematic globes use the site's
+   established Earth blue until they have recognizable continent detail. */
+.dns-earth{fill:#2f74ad;stroke:rgba(226,232,240,.35);stroke-width:1}
 .dns-night{fill:#050a16;fill-opacity:.62}
 .dns-term{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:4 5}
 .dns-axis{stroke:rgba(226,232,240,.72);stroke-width:2;stroke-dasharray:7 5}
