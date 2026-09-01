@@ -67,6 +67,7 @@ function withQs(card, slugs, hub) {
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
 const SITE = JSON.parse(readFileSync(join(root, "seo/_data/site.json"), "utf8")).origin;
+const SEASONS_PATH = "/earth-tilt-sun-seasons/";
 
 /* Sunrise & Sunset homepage card: 6 fixed cities strung along a wide band of
  * latitude — from the Arctic (Nome) down across the temperate coast to the
@@ -782,6 +783,20 @@ const SYSTEM_CARD = `    <div class="tc tc-mini tc-sim" data-href="/earth-sun-mo
       </div>
     </div>`;
 
+/* The Earth section needs a direct seasons door, not just a question link on
+   an orbit card. The same thumbnail establishes the annual motion, while the
+   copy names the two observable consequences of tilt: sunlight angle and day
+   length. The full orbit view remains one explicit link away. */
+const SEASONS_CARD = `    <div class="tc tc-mini tc-sim" data-href="${SEASONS_PATH}">
+      <div class="tc-head">${ico("sunrise")} Earth’s Tilt, the Sun &amp; Seasons</div>
+      <div class="home-simwide">${_systemThumb}</div>
+      <p class="home-simtxt">Earth carries the same 23.4° tilted axis around the Sun. That tilt changes the angle of sunlight and the hours of daylight, giving the hemispheres opposite seasons.</p>
+      <div class="home-simlinks">
+        <a class="wk-all" href="${SEASONS_PATH}">Explore the three synchronized views →</a>
+        <a class="wk-all" href="${SYS_PATH}">Open the full orbit simulator →</a>
+      </div>
+    </div>`;
+
 /* ---- A CARD PER PLANET THAT HAS MOONS, on the Space tab only ---------------
  * Six of them — Mars, Jupiter, Saturn, Uranus, Neptune, Pluto — which is
  * exactly the set of planets with a moons rung on the simulator. Mercury and
@@ -1248,7 +1263,7 @@ ${SEARCH}
 const LEDE = {
   all: `<strong>Gravity, motion, time and space.</strong> A day is Earth turning. A year is it going round. Seasons are that turn being tilted. Built for classrooms and for anyone else who is curious.`,
   time: `<strong>Clocks, and what they are counting.</strong> An <a href="/alarm-clock/">alarm</a>, a <a href="/timer/">timer</a>, a <a href="/stopwatch/">stopwatch</a>, <a href="/world-clock/">every time zone at once</a>, and a <a href="/countdown/">countdown</a> to the day you are waiting for. All of it runs in the browser, with nothing to install and no sign-up.`,
-  earth: `<strong>Your own sky, worked out for your own town.</strong> <a href="/sun/">Sunrise and sunset</a>, <a href="/moon/">tonight's moon and how full it is</a>, and <a href="/tides/">when the tide turns</a> — for more than a thousand cities, on whatever date you pick. Every figure is computed from the real motions rather than looked up in a table.`,
+  earth: `<strong>Your sky is Earth’s motion made visible.</strong> Start with <a href="${SEASONS_PATH}">three synchronized views of Earth’s tilt, sunlight and the seasons</a>, then explore <a href="/sun/">sunrise and sunset</a>, <a href="/moon/">tonight's moon</a>, and <a href="/tides/">when the tide turns</a>. Every figure is computed from the real motions rather than looked up in a table.`,
   space: `<strong>Where everything actually is, right now.</strong> <a href="${PLANETS_PATH}">Every planet</a>, a page each, turning on its own axis with its moons going round it — the <a href="/solar-system-simulator/">whole system on its real orbits</a>, and the <a href="${ROCKET_PATH}">next launch window to Mars</a>. The positions are solved when the page loads, not drawn from memory.`,
   class: `<strong>Made to go on a projector.</strong> A timer big enough to read from the back, <a href="/stopwatch/multiple/">six stopwatches at once</a>, and simulators you can drag through a day, a month or a century. And if you teach with any of it, <a href="/classroom/">bring us the lesson</a> — we build lesson plans with teachers and publish them free.`,
 };
@@ -1787,13 +1802,13 @@ const SECTION_PAGES = [
   },
   {
     slug: "earth", h1: "Earth",
-    title: "Earth — Sunrise, Sunset, Moon Phases, Tides & the Day/Night Map",
-    desc: "Your own sky, computed for your own town: sunrise and sunset times, tonight's moon phase, NOAA tide predictions, the live day/night map and the Sun–Earth–Moon simulator — for more than a thousand cities, on any date.",
+    title: "Earth — Seasons, Axial Tilt, Sunrise, Moon Phases & Tides",
+    desc: "Explore Earth with interactive maps and simulators: see how axial tilt creates seasons, follow daylight, sunrise and moon phases, and check tide predictions.",
     lede: LEDE.earth,
     board: [
       [withQs(MOON_CARD, ["why-does-the-moon-change-shape"], "/earth/"), 6],
       [withQs(SIM_CARD, ["what-is-a-synodic-month", "why-does-moonrise-get-later", "what-is-tidal-locking"], "/earth/"), 6],
-      [withQs(SYSTEM_CARD, ["why-do-we-have-seasons", "what-is-earths-axial-tilt", "why-isnt-there-an-eclipse-every-month"], "/earth/"), 6],
+      [withQs(SEASONS_CARD, ["why-do-we-have-seasons", "what-is-earths-axial-tilt", "what-is-a-solstice", "what-is-an-equinox"], "/earth/"), 6],
       [SUN_HOME_CARD, 6],
       [withQs(TIDES_HOME_CARD, ["what-causes-tides"], "/earth/"), 12],
       [withQs(WORLD_CLOCK_CARD, ["what-is-the-tropic-of-cancer", "what-is-the-terminator", "why-can-the-moon-be-up-in-the-daytime"], "/earth/"), 12],

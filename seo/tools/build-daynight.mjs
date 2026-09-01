@@ -532,7 +532,34 @@ for(var j=0;j<jumps.length;j++){
 /* The seasons lesson opens as a compact simulator workspace. Any of the small
    text controls beneath the seasonal jumps reveals or hides the same lesson
    details, so the choice is available without scrolling back to a top tab. */
-var wrap=document.querySelector('.wrap'),detailBtns=[].slice.call(document.querySelectorAll('.dn-details-toggle'));
+/* Pack the three simulator cards the same way the section-page boards pack
+   uneven cards: tiny grid rows let the third card rise directly under the
+   shorter card instead of waiting for the taller card beside it. */
+var simGrid=document.querySelector('.dn-sim-pair'),simPackMq=window.matchMedia&&window.matchMedia('(min-width:901px)'),simPackQueued=false;
+function clearSimPack(){
+  if(!simGrid)return;
+  simGrid.classList.remove('dn-mas');
+  for(var i=0;i<simGrid.children.length;i++)simGrid.children[i].style.gridRowEnd='';
+}
+function packSimGrid(){
+  simPackQueued=false;
+  if(!simGrid||!simPackMq||!simPackMq.matches){clearSimPack();return;}
+  simGrid.classList.add('dn-mas');
+  var cs=getComputedStyle(simGrid),rowH=parseFloat(cs.gridAutoRows),gap=parseFloat(cs.columnGap)||14;
+  if(!rowH){clearSimPack();return;}
+  var kids=[].slice.call(simGrid.children),heights=[],i;
+  for(i=0;i<kids.length;i++)heights[i]=kids[i].getBoundingClientRect().height;
+  for(i=0;i<kids.length;i++)kids[i].style.gridRowEnd='span '+Math.max(1,Math.ceil((heights[i]+gap)/rowH));
+}
+function queueSimPack(){if(!simPackQueued){simPackQueued=true;requestAnimationFrame(packSimGrid);}}
+if(simGrid&&simPackMq){
+  window.addEventListener('resize',queueSimPack);
+  if(simPackMq.addEventListener)simPackMq.addEventListener('change',queueSimPack);
+  if(window.ResizeObserver){var simRo=new ResizeObserver(queueSimPack);for(var sr=0;sr<simGrid.children.length;sr++)simRo.observe(simGrid.children[sr]);}
+  packSimGrid();
+}
+
+var wrap=document.querySelector('.wrap'),detailBtns=[].slice.call(document.querySelectorAll('[data-dn-details-toggle]'));
 function setSimOnly(on,writeUrl){
   if(!wrap||!detailBtns.length) return;
   wrap.classList.toggle('dn-only',on);
@@ -542,18 +569,18 @@ function setSimOnly(on,writeUrl){
     if(on) u.searchParams.delete('view'); else u.searchParams.set('view','details');
     history.replaceState(null,'',u.pathname+(u.searchParams.toString()?'?'+u.searchParams.toString():'')+u.hash);
   }
+  queueSimPack();
 }
 if(detailBtns.length){
   for(var db=0;db<detailBtns.length;db++) detailBtns[db].addEventListener('click',function(){setSimOnly(!wrap.classList.contains('dn-only'),1);});
   var lessonLinks=document.querySelectorAll('.dn-tabs a');
   for(var q=0;q<lessonLinks.length;q++) lessonLinks[q].addEventListener('click',function(){
-    if(this.classList.contains('dn-detail-tab'))setSimOnly(0,1);
     for(var x=0;x<lessonLinks.length;x++) lessonLinks[x].classList.remove('is-here');
     this.classList.add('is-here');
   });
   try{
     var viewUrl=new URL(location.href),hashTarget=viewUrl.hash?document.getElementById(viewUrl.hash.slice(1)):null;
-    var deepDetail=!!(hashTarget&&hashTarget.closest('.dn-lesson-sections'));
+    var deepDetail=!!(hashTarget&&hashTarget.closest('.dn-lesson-sections')&&!hashTarget.closest('.dn-compact-sections'));
     setSimOnly(viewUrl.searchParams.get('view')!=='details'&&!deepDetail,0);
   }catch(e){setSimOnly(1,0);}
 }
@@ -645,7 +672,7 @@ const jumpRow = (cls, withLoc, withDetails = false) => `    <p class="${cls}">
       <button type="button" class="chip" data-dn-jump="sep" disabled>Fall equinox</button>
       <button type="button" class="chip" data-dn-jump="dec" disabled>Winter solstice</button>
     </p>${withDetails ? `
-    <p class="dn-details-prompt"><button type="button" class="dn-details-toggle" aria-expanded="false" aria-controls="dn-lesson-details">See more details</button></p>` : ""}`;
+    <p class="dn-details-prompt"><button type="button" class="dn-details-toggle" data-dn-details-toggle aria-expanded="false" aria-controls="dn-lesson-details">See more details</button></p>` : ""}`;
 const jumpBtn = (k, t) => `<button type="button" class="chip" data-dn-jump="${k}" disabled>${esc(t)}</button>`;
 
 const timelineControl = (id, mapScale = false) => `    <div class="dn-timeline" data-dn-timeline="${id}"${mapScale ? "" : ` data-dn-step-min="10080"`}>
@@ -796,8 +823,9 @@ const pageTabs = `  <nav class="home-tabs sec-switch dn-tabs" aria-label="Explor
     <a class="chip home-tab is-here" href="#day-night-map">Day/Night Map</a>
     <a class="chip home-tab" href="#sun-angle">Angle of the Sun</a>
     <a class="chip home-tab" href="#earth-sun-moon-year">Earth, Sun &amp; Moon</a>
-    <a class="chip home-tab dn-detail-tab" href="#things-to-try">Things to Try</a>
-    <a class="chip home-tab dn-detail-tab" href="#questions-answered">Questions Answered</a>
+    <a class="chip home-tab" href="#things-to-try">Things to Try</a>
+    <a class="chip home-tab" href="#questions-answered">Questions Answered</a>
+    <button type="button" class="chip home-tab dn-view-toggle" data-dn-details-toggle aria-expanded="false" aria-controls="dn-lesson-details">See more details</button>
   </nav>`;
 
 const simulatorPair = `  <div class="dn-sim-pair">
@@ -861,7 +889,9 @@ ${GA_SNIPPET}
 ${pageTabs}
 
 ${simulatorPair}  <div class="dn-lesson-sections" id="dn-lesson-details">
-${lessonHowCard}${tryCard}${hubQuestionsCard(LESSON_PATH, "Questions This Page Answers", { id: "questions-answered" })}${faqCard}  <div class="card">
+${lessonHowCard}    <div class="dn-compact-sections">
+${tryCard}${hubQuestionsCard(LESSON_PATH, "Questions This Page Answers", { id: "questions-answered" })}    </div>
+${faqCard}  <div class="card">
     <h2>Keep Exploring the Seasons</h2>
     <p>Use the simulators here to see the relationship, then open a focused page when you want the deeper explanation or the numbers for your own location.</p>
     <p class="timer-presets">

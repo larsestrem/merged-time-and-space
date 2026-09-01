@@ -12474,3 +12474,15 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
   own yearly slider, play button, and step controls; the map also offers hourly
   through weekly increments. Full build, checks, and Chromium interaction QA pass.
 
+## 2026-09-01 — Compact seasons lesson keeps its learning prompts
+
+- The compact default now keeps Things to Try and Questions Answered directly
+  below the three simulators while leaving the longer lesson details collapsed.
+- Added a synchronized See more details / Show simulators only control to the
+  top tab row; the existing controls beneath each simulator remain available.
+- Above 900px, the three unequal simulator cards now pack into two tight columns;
+  at 900px and below they return to a single natural-height column.
+- `/earth/` now introduces axial tilt, changing sunlight and seasons, links to
+  the lesson from its lede and a dedicated card, and has matching title/meta copy.
+- Full build/check gates and Chromium interaction tests passed at 900/901/1280px.
+
