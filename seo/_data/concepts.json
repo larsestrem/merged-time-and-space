@@ -14,8 +14,8 @@
     "cluster": "day-night",
     "hubUrls": [
       {
-        "href": "/day-night-map/#tropics",
-        "label": "Day and night map"
+        "href": "/earth-tilt-sun-seasons/#tropics",
+        "label": "Earth’s tilt, the Sun and seasons"
       },
       {
         "href": "/earth-sun-moon-orbit-simulator/",
@@ -86,8 +86,8 @@
     "cluster": "day-night",
     "hubUrls": [
       {
-        "href": "/day-night-map/#tropics",
-        "label": "Day and night map"
+        "href": "/earth-tilt-sun-seasons/#tropics",
+        "label": "Earth’s tilt, the Sun and seasons"
       }
     ],
     "relatedSlugs": [
@@ -240,8 +240,8 @@
     "cluster": "day-night",
     "hubUrls": [
       {
-        "href": "/day-night-map/#tilt",
-        "label": "Day and night map"
+        "href": "/earth-tilt-sun-seasons/#tilt",
+        "label": "Earth’s tilt, the Sun and seasons"
       },
       {
         "href": "/earth-sun-moon-orbit-simulator/",
@@ -297,8 +297,8 @@
     "cluster": "day-night",
     "hubUrls": [
       {
-        "href": "/day-night-map/#polar-circles",
-        "label": "Day and night map"
+        "href": "/earth-tilt-sun-seasons/#polar-circles",
+        "label": "Earth’s tilt, the Sun and seasons"
       }
     ],
     "relatedSlugs": [
@@ -571,8 +571,8 @@
     "cluster": "questions",
     "hubUrls": [
       {
-        "href": "/day-night-map/",
-        "label": "Day and night map"
+        "href": "/earth-tilt-sun-seasons/#why-seasons",
+        "label": "Earth’s tilt, the Sun and seasons"
       },
       {
         "href": "/earth-sun-moon-orbit-simulator/",
@@ -2479,8 +2479,8 @@
         "label": "Sunrise & sunset"
       },
       {
-        "href": "/day-night-map/",
-        "label": "Day and night map"
+        "href": "/earth-tilt-sun-seasons/#solstice",
+        "label": "Earth’s tilt, the Sun and seasons"
       }
     ],
     "relatedSlugs": [
@@ -2548,8 +2548,8 @@
         "label": "Sunrise & sunset"
       },
       {
-        "href": "/day-night-map/",
-        "label": "Day and night map"
+        "href": "/earth-tilt-sun-seasons/#equinox",
+        "label": "Earth’s tilt, the Sun and seasons"
       }
     ],
     "relatedSlugs": [

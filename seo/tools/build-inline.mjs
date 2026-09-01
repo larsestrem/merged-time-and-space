@@ -87,7 +87,7 @@ const HTML = [
      them — the planet pages are flat URLs now, so no pattern here could be
      right for long */
   ...(await import("./build-solar.mjs")).SOLAR_URLS.map((u) => `${u.slice(1)}index.html`),
-  "planets/index.html", "day-night-map/index.html", "glossary/index.html", "questions/index.html",
+  "planets/index.html", "day-night-map/index.html", "earth-tilt-sun-seasons/index.html", "glossary/index.html", "questions/index.html",
   ...(await import("./concepts.mjs")).CONCEPT_SLUGS().map((s) => `concepts/${s}/index.html`),
   "methodology/index.html", "methodology/sunrise-sunset/index.html", "methodology/moon-phase/index.html",
   "methodology/tide-predictions/index.html", "methodology/time-zones/index.html", "methodology/browser-timing/index.html",

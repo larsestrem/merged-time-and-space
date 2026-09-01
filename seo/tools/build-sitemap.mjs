@@ -173,8 +173,8 @@ const families = {
     ...group((await import("./build-solar.mjs")).SOLAR_URLS.map((u) =>
                [u, (u === "/solar-system-simulator/" || u === "/rocket-launch-simulator/") ? "0.7" : "0.6"]),
              ...deps("seo/tools/build-solar.mjs"), "seo/_data/solar-facts.json"),
-    /* the day/night map — the home page's own card, with time attached */
-    ...group([["/day-night-map/", "0.7"]], ...deps("seo/tools/build-daynight.mjs")),
+    /* the focused day/night map and its three-view seasons lesson */
+    ...group([["/day-night-map/", "0.7"], ["/earth-tilt-sun-seasons/", "0.75"]], ...deps("seo/tools/build-daynight.mjs")),
     /* the orbital-velocity pair. Its own generator, but every figure on it is
        derived from planets.mjs + transfer.mjs, so deps() walks to both and a
        change to either element table re-announces these two pages. */

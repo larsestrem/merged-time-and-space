@@ -12463,3 +12463,14 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
 - Verified in Chromium: max=39312 minutes, label "27.3 days, one orbit of the
   Moon", span Aug 28 – Sep 24, thumb at the far end lands 27.3 days later.
 
+## 2026-09-01 — Earth tilt and seasons lesson split from the day/night map
+
+- Kept `/day-night-map/` focused on the live flattened-Earth map and created
+  `/earth-tilt-sun-seasons/` as a distinct three-view lesson with new title,
+  description, introduction, instructions, activities, FAQ, and onward links.
+- The lesson defaults to simulators only; every seasonal control row can reveal
+  or hide the supporting text, and direct lesson hashes reveal it automatically.
+- All three views share one exact, URL-addressable instant while retaining their
+  own yearly slider, play button, and step controls; the map also offers hourly
+  through weekly increments. Full build, checks, and Chromium interaction QA pass.
+
