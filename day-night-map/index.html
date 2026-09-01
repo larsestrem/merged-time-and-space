@@ -402,6 +402,321 @@ a{color:#111;text-decoration:underline}
 .home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
 .sec-switch{margin:2px 0 14px}
 .sec-switch .chip.is-here{background:var(--accent);color:var(--accent-text);border-color:var(--accent);cursor:default}
+.tool-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 26px}
+@media(min-width:560px){.tool-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.tool-grid{grid-template-columns:repeat(4,1fr)}}
+.tc-top-row{display:grid;grid-template-columns:1fr;gap:14px;margin:18px 0 14px}
+@media(min-width:900px){
+.tc-top-row{grid-template-columns:1.7fr 1fr;align-items:start}
+}
+.tc{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:16px;background:var(--card);padding:16px;text-decoration:none;color:var(--text);transition:.15s;min-height:148px}
+.tc-foot{margin-top:auto;padding-top:12px;display:flex;justify-content:center}
+.tc-open-btn{flex:0 0 auto;width:auto;padding:8px 30px;font-size:14px;white-space:nowrap}
+.tc-presets{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:12px}
+.tc-presets .chip{padding:5px 11px;font-size:13px}
+.tc:hover{border-color:var(--accent);transform:translateY(-2px)}
+.tc-head{font-weight:800;font-size:15px;margin-bottom:8px}
+.tc-big{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;font-size:44px;color:var(--accent);line-height:1.1}
+.tc-big small{font-size:22px;opacity:.8}
+.tc-tide-big{text-align:center;margin:6px auto 0}
+.tc-tide-big svg{width:100%;max-width:300px;height:auto;border-radius:10px}
+.tc-foot-2{gap:8px}
+.tc-foot-2 .tc-open-btn{flex:1 1 0;padding:8px 12px;text-align:center;justify-content:center}
+.home-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px;padding:0}
+.home-tab{width:auto;flex:0 0 auto;padding:9px 20px;font-size:15px;font-weight:700;
+line-height:1.2;cursor:pointer}
+.home-tab[aria-selected="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+@media (max-width:559px){.home-tab{padding:8px 14px;font-size:13.5px}.home-tabs{gap:6px}}
+.home-lede{margin:14px 0 6px;font-size:17px;line-height:1.5;color:var(--muted)}
+.home-lede strong{color:var(--text)}
+.home-foot{margin-top:30px;padding-top:18px;border-top:1px solid var(--border)}
+.home-tools-row{display:grid;grid-template-columns:1fr;gap:14px;margin:18px 0 14px}
+@media(min-width:560px){.home-tools-row{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.home-tools-row{align-items:start}}
+@media(min-width:1120px){.home-tools-row.home-tools-two{grid-template-columns:repeat(3,1fr)}}
+.home-clock-row{grid-template-columns:1fr}
+@media(min-width:640px){
+.home-clock-row{grid-template-columns:1fr 1fr;align-items:start}
+.home-clock-row>:nth-child(1){grid-column:1;grid-row:1}
+.home-clock-row>:nth-child(2){grid-column:1;grid-row:2}
+.home-clock-row>:nth-child(3){grid-column:2;grid-row:1/span 2}
+}
+@media(min-width:1120px){
+.home-clock-row{grid-template-columns:repeat(3,1fr)}
+.home-clock-row>:nth-child(1),
+.home-clock-row>:nth-child(2),
+.home-clock-row>:nth-child(3){grid-column:auto;grid-row:auto}
+}
+.home-tides-card .tc-head{margin-bottom:12px}
+.home-tides-charts{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:600px){.home-tides-charts{grid-template-columns:repeat(3,1fr)}}
+.home-tides-chart{display:block;text-decoration:none;color:var(--text);text-align:center;border:1px solid var(--border);border-radius:12px;padding:12px;background:rgba(255,255,255,.02);transition:border-color .15s ease}
+.home-tides-chart:hover{border-color:var(--accent)}
+.home-tides-chart svg{width:100%;max-width:460px;height:auto;margin:8px auto 0}
+.home-tidesvg{border-radius:10px}
+.home-tides-city{font-weight:700;font-size:15px}
+.home-tides-note{font-size:11px;color:var(--muted);margin-top:6px}
+.home-tides-foot,.home-sun-foot,.home-moon-foot{display:flex;gap:8px;margin-top:14px;flex-wrap:nowrap}
+.home-tides-foot .tc-open-btn,.home-sun-foot .tc-open-btn,.home-moon-foot .tc-open-btn{flex:0 1 auto;min-width:0;padding:8px 14px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:360px){.home-tides-foot .tc-open-btn,.home-sun-foot .tc-open-btn,.home-moon-foot .tc-open-btn{padding:8px 10px;font-size:12px}}
+@media(max-width:340px){.home-tides-foot,.home-sun-foot,.home-moon-foot{gap:6px}.home-tides-foot .tc-open-btn,.home-sun-foot .tc-open-btn,.home-moon-foot .tc-open-btn{padding:8px 7px;font-size:11px}}
+.home-mini-row{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 26px}
+@media(min-width:560px){.home-moon-row{max-width:none}}
+.tc-mini{container-type:inline-size}
+.tc-big.seg-screen{display:flex;width:100%;max-width:380px;font-size:min(19cqw,104px);padding:.3em .28em;border-radius:12px;margin:8px auto 0;gap:.05em}
+.tc-work .tc-head{margin-bottom:10px}
+.wk-mini{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:520px){.wk-mini{grid-template-columns:1fr 1fr;gap:10px 22px}}
+@media(min-width:860px){.wk-mini{grid-template-columns:repeat(4,1fr);gap:10px 18px}}
+.wk-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.wk-info{display:flex;flex-direction:column;min-width:0}
+.wk-row span{font-size:13px;font-weight:700;color:var(--text);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wk-row b{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px;line-height:1.2;white-space:nowrap}
+.btn.tiny{flex:0 0 auto;width:auto;padding:5px 13px;font-size:12px}
+.wk-all{display:block;text-align:center;font-size:13px;font-weight:600;color:var(--accent);margin-top:14px}
+.wk-all:hover{text-decoration:underline}
+.tc-foot{font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
+.tc-alarm{cursor:pointer;container-type:inline-size;margin:0}
+.tc-alarm .ac-clock{max-width:none;margin:8px auto 0}
+.tc-alarm .ac-left{flex:0 1 auto;font-size:min(13cqw,84px)}
+.tc-alarm .ac-right{font-size:min(3.4cqw,20px)}
+.tc-alarm #ac-panel .ac-controls,.tc-alarm .ac-ring,.tc-alarm .ac-brand{display:none}
+.tc-alarm .ac-controls{max-width:none;margin:12px 0 0;flex-direction:row;flex-wrap:wrap;align-items:center}
+.tc-alarm .ac-ctrl-row{width:auto}
+.tc-alarm .ac-ctrl-main{flex:1 1 140px}
+.tc-alarm .ac-ctrl-icons{flex:0 0 auto}
+@supports not (container-type:inline-size){.tc-alarm .ac-left{font-size:min(11vw,64px)}.tc-alarm .ac-right{font-size:14px}.tc-big.seg-screen{font-size:44px}}
+.cd-mini{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.cd-mini>div{display:flex;justify-content:space-between;gap:10px}
+.cd-mini span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cd-mini b{color:var(--accent);white-space:nowrap}
+.home-moon-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px}
+.home-moon-top .home-moon-foot{margin-top:0}
+.home-moon{display:flex;align-items:center;gap:13px;margin:4px 0 10px}
+.home-moon-g{flex:0 0 auto;line-height:0}
+.home-moon-t{display:flex;flex-direction:column;gap:1px;min-width:0}
+.home-moon-t b{font-size:16px;font-weight:800}
+.home-moon-t span{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.home-moon-strip{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;margin-top:10px;-webkit-overflow-scrolling:touch}
+.home-moon-strip .mn-day{flex:0 0 auto;width:62px;display:flex;flex-direction:column;align-items:center;gap:3px;
+padding:9px 4px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.03);
+text-align:center;text-decoration:none;color:inherit;
+content-visibility:auto;contain-intrinsic-size:62px 78px}
+.home-moon-strip .mn-day:hover{border-color:var(--accent);background:rgba(252,211,77,.10)}
+.home-moon-strip .mn-day-g{line-height:0}
+.home-moon-strip .mn-day-d{font-size:11px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.home-moon-strip .mn-day-p{font-size:10px;line-height:1.25;color:var(--muted);font-variant-numeric:tabular-nums}
+.home-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.home-nav a{font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;border:1px solid var(--border);
+background:rgba(0,0,0,.18);color:var(--text);text-decoration:none;white-space:nowrap}
+.home-nav a:hover{border-color:var(--accent)}
+.home-cd-block .home-search{margin:10px 0 12px}
+.home-cd-links{justify-content:flex-start;margin:10px 0 4px}
+.home-tools-two{grid-template-columns:1fr}
+@media(min-width:640px){.home-tools-two{grid-template-columns:1fr 1fr}}
+.home-simsvg{line-height:0}
+.home-simwide{width:100%;line-height:0;margin:8px 0 10px}
+.home-simwide svg{display:block;width:100%;height:auto;border-radius:10px}
+.home-simsq{width:100%;display:flex;justify-content:center;line-height:0;margin:8px 0 10px}
+.home-simsq svg{display:block;flex:0 0 auto;width:var(--sq,56.25%);height:auto;border-radius:10px}
+.home-orb{margin:6px 0 10px}
+.home-orb svg{display:block;width:100%;height:auto;border-radius:10px}
+.home-orbtxt{margin:8px 0 0;font-size:12.5px;line-height:1.45;color:var(--muted);min-height:2.6em}
+.home-orbbtns{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:8px 0 0}
+.home-orbbtns .chip{padding:5px 11px;font-size:12.5px}
+.home-simtxt{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
+.home-simtxt-solo{margin:6px 0 10px}
+.tc-teach .home-simtxt{margin:4px 0 10px}
+.tc-teach .tc-presets{margin:0 0 12px}
+.home-simlinks{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center;margin-top:auto}
+.home-simlinks .wk-all{margin:0}
+.hm-orbit,.hm-face{transform-box:view-box;transform-origin:var(--hm-o)}
+.hm-orbit{animation:hm-orbit 18s linear infinite}
+.hm-face{animation:hm-face 18s linear infinite}
+@keyframes hm-orbit{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes hm-face{from{transform:rotate(0)}to{transform:rotate(-360deg)}}
+.hs-p1,.hs-p2,.hs-p3,.hs-p4{transform-box:view-box;transform-origin:var(--hs-o,60px 60px);
+animation-name:hm-orbit;animation-timing-function:linear;animation-iteration-count:infinite}
+.hs-p1{animation-duration:9s}
+.hs-p2{animation-duration:15s}
+.hs-p3{animation-duration:23s}
+.hs-p4{animation-duration:34s}
+.hm-phase{transform-box:view-box;transform-origin:var(--hm-o);
+animation:hm-flip var(--hm-p,18s) steps(1,end) infinite;animation-delay:var(--hm-d,0s)}
+.hm-term{transform-box:view-box;transform-origin:var(--hm-o);
+animation:hm-term var(--hm-p,18s) linear infinite,hm-termfill var(--hm-p,18s) steps(1,end) infinite;
+animation-delay:var(--hm-d,0s),var(--hm-d,0s)}
+@keyframes hm-term{0%{transform:scaleX(1)}25%{transform:scaleX(0)}50%{transform:scaleX(1)}
+75%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+@keyframes hm-termfill{0%{fill:#222c3d}25%{fill:#e8eef7}75%{fill:#222c3d}100%{fill:#222c3d}}
+@keyframes hm-flip{0%{transform:scaleX(1)}50%{transform:scaleX(-1)}100%{transform:scaleX(1)}}
+.hy-orbit,.hy-mo,.hy-rev,.hy-sat{transform-box:view-box;transform-origin:var(--hy-o);
+animation-name:hm-orbit;animation-timing-function:linear;animation-iteration-count:infinite}
+.hy-rev{animation-direction:reverse}
+.hy-retro{animation-direction:reverse}
+.home-moonwrap{width:100%;display:flex;justify-content:center;line-height:0;margin:8px 0 10px}
+.home-moonsvg{display:block;flex:0 0 auto;width:min(100%,300px);height:auto;border-radius:10px}
+.home-moonline{margin:8px 0 10px;font-size:12px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+.tc-moons .wk-all{margin-top:auto}
+.tc-tdiff .tdiff-result{font-size:clamp(28px,6vw,38px);margin:14px 0 4px}
+.tc-tdiff .tdiff-sum,.tc-tdiff .tdiff-cross{font-size:12px;line-height:1.5}
+.tc-tdiff .wk-all{margin-top:auto}
+.tc-conv .cv-read{font-size:clamp(26px,6vw,34px)}
+.tc-conv .cv-say{font-size:12px;line-height:1.5;margin-top:10px}
+.tc-conv .wk-all{margin-top:auto}
+@media (prefers-reduced-motion:reduce){
+.hm-orbit,.hm-face,.hm-phase,.hm-term,.hs-p1,.hs-p2,.hs-p3,.hs-p4,
+.hy-orbit,.hy-mo,.hy-rev,.hy-sat{animation:none}
+.hm-term{transform:scaleX(0)}
+}
+.home-moonprog{display:flex;align-items:center;gap:6px;margin-top:8px;opacity:.5}
+.home-moonprog-n{font-size:10px;font-variant-numeric:tabular-nums;color:var(--muted);flex:0 0 auto}
+.home-moonprog-track{position:relative;flex:1 1 auto;height:2px;border-radius:2px;background:var(--border)}
+.home-moonprog-puck{position:absolute;top:50%;left:0;width:6px;height:6px;margin:-3px 0 0 -3px;
+border-radius:50%;background:var(--muted);animation:home-moonslide 18s linear infinite}
+@keyframes home-moonslide{from{left:0}to{left:100%}}
+.home-moonprog-lab{margin:2px 0 0;font-size:10px;text-align:center;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.home-moonprog-puck{animation:none;left:0}}
+.wk-map{line-height:0;border-radius:12px;overflow:hidden;margin:4px auto 10px;
+border:1px solid var(--border);width:100%;max-width:1000px}
+.wk-map svg{display:block;width:100%;height:auto}
+.wk-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:520px){.wk-strip{grid-template-columns:repeat(4,1fr)}}
+.wk-city{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;
+background:var(--card);border:1px solid var(--border);text-decoration:none;color:var(--text);
+transition:.15s}
+.wk-city:hover{border-color:var(--accent)}
+.wk-city span{font-size:12px;color:var(--muted)}
+.wk-city b{font-size:16px;font-variant-numeric:tabular-nums}
+.home-classlead h2{display:flex;align-items:center;gap:10px}
+.home-classcard{padding-top:14px}
+.home-classhead{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.home-classhead h3{margin:0;font-size:19px}
+.home-classhead h3 a{text-decoration:none;color:var(--text)}
+.home-classhead h3 a:hover{color:var(--accent)}
+.home-classhead .nav-ico{flex:0 0 auto}
+.home-classhonest{margin:12px 0 0;padding:10px 14px;border-radius:10px;
+background:rgba(255,255,255,.05);border-left:3px solid var(--accent);
+font-size:14px;line-height:1.55;color:var(--muted)}
+.home-classhonest span{display:block;font-size:11px;font-weight:700;letter-spacing:.05em;
+text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+.home-classask{border:1.5px solid var(--accent)}
+.home-classask .btn{width:auto;display:inline-block;padding:11px 22px;margin-top:4px}
+.home-board{display:grid;grid-template-columns:1fr;gap:14px;margin:14px 0 26px;align-items:start}
+.home-board>*{margin:0;min-width:0;width:100%;max-width:100%;grid-column:1/-1}
+@media(min-width:700px){
+.home-board{grid-template-columns:repeat(12,1fr)}
+.home-board>*{grid-column:span 12}
+.home-board>.sp-4,.home-board>.sp-6{grid-column:span 6}
+.home-board>.sp-8,.home-board>.sp-12{grid-column:span 12}
+}
+@media(min-width:1080px){
+.home-board>.sp-4{grid-column:span 4}
+.home-board>.sp-6{grid-column:span 6}
+.home-board>.sp-8{grid-column:span 8}
+.home-board>.sp-12{grid-column:span 12}
+}
+@media(min-width:700px){
+.home-board.hb-mas{grid-auto-rows:7px;row-gap:0}
+}
+.home-board>*{container-type:inline-size}
+@media(min-width:700px){
+.home-board>*{content-visibility:auto;contain-intrinsic-size:auto 520px}
+}
+.home-classcard,.home-classlead,.home-classask{content-visibility:auto;contain-intrinsic-size:auto 420px}
+@container (max-width:780px){
+.wk-mini{grid-template-columns:1fr 1fr}
+}
+@container (max-width:520px){
+.home-tides-charts{grid-template-columns:1fr}
+}
+@container (max-width:340px){
+.wk-mini{grid-template-columns:1fr}
+}
+.home-classgrid{margin:14px 0}
+.wk-links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;margin-top:14px}
+.wk-links .wk-all{margin-top:0}
+.home-hero{padding:14px 16px 16px}
+.home-hero .wk-map{margin:0}
+.home-hero-line{margin:0 0 12px;font-size:15.5px;line-height:1.55}
+.home-hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(280px,5fr);gap:18px;align-items:start}
+.home-hero-side .wk-strip{grid-template-columns:repeat(2,1fr) !important;margin-bottom:12px}
+.home-hero-side .wk-links{justify-content:flex-start}
+@media(max-width:880px){
+.home-hero-grid{display:block}
+.home-hero-map{margin-bottom:12px}
+}
+.home-q{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:18px 2px 6px}
+.home-q-lab{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:var(--muted);margin-right:2px}
+.home-sec{margin:26px 0 0}
+.home-sechead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.home-sechead h2{margin:0;font-size:22px}
+.home-sechead h2 a{color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.home-sechead h2 a:hover{color:var(--accent)}
+.home-secall{margin:0}
+.home-secline{margin:6px 2px 12px;color:var(--muted);font-size:14.5px}
+.pc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pc-grid-4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1020px){.pc-grid-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.pc-grid,.pc-grid-4{grid-template-columns:1fr}}
+.pc-anim{display:block;margin:0 0 8px;line-height:0;border-radius:12px;overflow:hidden}
+.pc-anim svg{display:block;width:100%;height:auto}
+.pc-anim-sol{max-width:236px;margin:0 auto 8px}
+.pc-live b{display:block;text-align:center}
+.pc-card{display:flex;flex-direction:column;gap:6px;padding:16px;border:1px solid var(--border);border-radius:14px;
+background:var(--card);color:var(--text);text-decoration:none;transition:border-color .12s}
+.pc-card:hover{border-color:var(--accent);text-decoration:none}
+.pc-card b{font-size:16.5px}
+.pc-card:hover b{color:var(--accent)}
+.pc-line{font-size:13.5px;color:var(--muted);line-height:1.5}
+.pc-ico{line-height:0}
+.home-how{margin-top:26px}
+.home-hero-map{position:relative}
+.wk-share{position:absolute;top:10px;right:10px;z-index:3;display:inline-flex;align-items:center;gap:6px;
+padding:8px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.3);cursor:pointer;
+background:rgba(2,6,23,.72);color:var(--text);font-size:12.5px;font-weight:700;backdrop-filter:blur(2px)}
+.wk-share:hover{background:rgba(2,6,23,.9);border-color:var(--accent)}
+.wk-grat line{stroke:rgba(255,255,255,.32);stroke-width:1}
+.wk-grat .wk-trop{stroke:rgba(252,211,77,.34);stroke-dasharray:7 6}
+.wk-grat text{fill:rgba(255,255,255,.42);font-size:10.5px;font-weight:600}
+.wk-sunline{margin:0 0 12px;font-size:13.5px;line-height:1.55;color:var(--muted)}
+.wk-sunline b{color:var(--accent);font-variant-numeric:tabular-nums}
+.wk-sunline a{color:var(--text);text-decoration:underline;text-underline-offset:2px}
+.wk-sunline a:hover{color:var(--accent)}
+.wk-seasons{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.wk-seasons .chip{margin:0;padding:6px 12px;font-size:12.5px}
+.so-wrap-home{margin:10px 0 0}
+.wk-scrub{display:flex;align-items:center;gap:12px;margin-top:10px}
+.wk-scrub input{flex:1;min-width:0}
+.wk-scrub-lab{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;white-space:nowrap;color:var(--muted)}
+.wk-scrub-lab b{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+.wk-nowbtn{margin:0;padding:5px 12px}
+.home-hero .hub-qs{margin-top:16px}
+.home-board .hub-qs,.tc .hub-qs,.hub-sim .hub-qs{margin-top:12px;gap:8px}
+.home-board .hub-qs p,.tc .hub-qs p{font-size:14px}
+.home-hero > h2{margin:0 0 10px;font-size:1.35rem}
+.home-hero > h2 a{color:inherit;text-decoration:none}
+.home-hero > h2 a:hover{color:var(--accent)}
+.home-dn-link{display:block;line-height:0;border-radius:12px;color:inherit;text-decoration:none}
+.home-dn-link:hover .wk-map,.home-dn-link:focus-visible .wk-map{box-shadow:0 0 0 2px var(--accent)}
+.home-hero-side .wk-all{text-align:left;margin-top:4px}
+.hub-sim{margin:22px 0 0}
+.hub-sim .home-tides-charts{margin:10px 0 8px}
+.hub-live{margin:0 0 8px;line-height:0;border-radius:12px;overflow:hidden}
+.hub-live svg{display:block;width:100%;height:auto}
+.hub-live.pc-anim-sol{max-width:min(420px,100%);margin:0 auto 8px}
+.dir-grid{display:grid;gap:12px;margin-top:8px}
+@media(min-width:720px){.dir-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:980px){.dir-grid{grid-template-columns:1fr 1fr 1fr 1fr}}
+.dir-grid .card{margin:0;padding:16px 18px}
+.dir-grid .card h2{margin:0 0 6px;font-size:18px}
+.dir-grid .card p{margin:0;color:var(--muted);font-size:14.5px}
+.dir-grid a.card{color:inherit;text-decoration:none}
+.dir-grid a.card:hover{border-color:var(--accent)}
+.dir-grid a.card:hover h2{color:var(--accent)}
+.home-rest{margin:28px 0 0}
+.home-rest > h2{margin:0 0 4px}
 .wc-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
 .wc-grid{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:560px){.wc-grid{grid-template-columns:1fr 1fr}}
@@ -1019,6 +1334,12 @@ background:rgba(252,211,77,.14)}
 .sol-planfacts{margin:14px 0 0}
 .sol-planmore{margin:14px 0 0}
 .sol-planjump{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.dn-tabs{align-items:center}
+.dn-tabs .dn-view-toggle{margin-left:auto}
+.dn-tabs .dn-view-toggle[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.dn-sim-pair{display:contents}
+#day-night-map,#sun-angle,#things-to-try,#questions-answered{scroll-margin-top:16px}
 .dn-card{padding-top:14px}
 .dn-figwrap{position:relative;line-height:0;border-radius:12px;overflow:hidden;
 border:1px solid var(--border);background:#12304f}
@@ -1027,8 +1348,9 @@ border:1px solid var(--border);background:#12304f}
 .dn-play[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
 .dn-par{stroke:rgba(226,232,240,.28);stroke-width:1;stroke-dasharray:5 6}
 .dn-parlab{fill:rgba(226,232,240,.55);font-size:10px;font-weight:600}
-.dn-slider-row{display:flex;align-items:center;gap:10px;margin:14px 0 4px}
+.dn-slider-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:10px;margin:14px 0 4px}
 .dn-slider-mid{flex:1;min-width:0}
+.dn-slider-mid .sim-flab{display:block;text-align:center}
 .dn-slider-row .orr-slider{width:100%}
 .dn-slider-row .dn-obtn{flex:0 0 auto;min-height:40px;padding:10px 16px;font-weight:700}
 .dn-loc-chip{min-width:40px;min-height:40px;padding:8px;display:inline-flex;
@@ -1059,7 +1381,33 @@ border:1px solid var(--border);background:rgba(0,0,0,.18);text-decoration:none;c
 border:1px solid var(--border);background:rgba(0,0,0,.18)}
 .dn-ro span{font-size:12px;color:var(--muted);font-weight:600}
 .dn-ro b{font-size:15px;font-variant-numeric:tabular-nums}
-.dn-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
+.dn-tools{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 8px}
+.dn-tools .chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
+background:rgba(252,211,77,.14)}
+.dn-tools-main{margin:4px 0 12px}
+.dn-tools-side{margin:12px 0 4px}
+.dn-tools-only{display:none}
+.dn-map-note{margin:6px 0 0;max-width:68em}
+.dn-map-note a{white-space:nowrap}
+.dn-instructions>summary{position:relative;list-style:none;cursor:pointer;padding-right:30px;
+color:var(--accent);font-size:20px;font-weight:800;line-height:1.25}
+.dn-instructions>summary::-webkit-details-marker{display:none}
+.dn-instructions>summary::after{content:"+";position:absolute;right:2px;top:-2px;
+color:var(--muted);font-size:26px;font-weight:500}
+.dn-instructions[open]>summary::after{content:"\2212"}
+.dn-instructions-body{padding-top:8px}
+.dn-only .dn-page-intro,.dn-only .dn-lesson-sections{display:none}
+.dn-only .dn-sim-pair{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(360px,.65fr);
+align-items:start;gap:14px}
+.dn-only .dn-sim-pair>.card{margin:0;min-width:0}
+.dn-only .dn-tools-main,.dn-only .dn-tools-side{display:none}
+.dn-only .dn-tools-only{display:flex;grid-column:1/-1;margin:0 0 8px}
+.dn-only .dn-side-intro,.dn-only .dn-side-support,.dn-only .dn-map-note{display:none}
+@media(max-width:900px){
+.dn-only .dn-sim-pair{grid-template-columns:1fr}
+.dn-only .dn-tools-only{grid-column:1}
+}
+@media(max-width:620px){.dn-tabs .dn-view-toggle{margin-left:0}}
 .dn-me-line{margin:4px 0 10px;font-size:14.5px}
 .dns-wrap{margin:14px 0 4px;border:1px solid var(--border);border-radius:12px;
 background:#0a1428;padding:4px 4px 0;line-height:0;overflow:hidden}
@@ -1329,20 +1677,20 @@ font-weight: 700;
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Day and Night Map","url":"https://timeandspace.science/day-night-map/","description":"How the day/night line works: the terminator, the subsolar point, twilight, the effect of the Earth's axial tilt, and what a flat equirectangular map does to the size of the continents.","learningResourceType":"simulation","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"student"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the map showing real time?","acceptedAnswer":{"@type":"Answer","text":"Yes. It opens at the current moment and repaints every minute while it is left alone. The slider moves it forward through one 27.3-day orbit of the Moon, and Now brings it back. Everything is computed in your browser from the sun's position — nothing is fetched from a server, and there is nothing to sign up for."}},{"@type":"Question","name":"Where can I see the exact sunrise and sunset time for my town?","acceptedAnswer":{"@type":"Answer","text":"On the sun pages: they give sunrise, sunset, day length, twilight and a seven-day outlook for more than a thousand cities, or for any location you name. This map is the shape of the thing; those pages are the numbers."}},{"@type":"Question","name":"What do Play, Now and the season buttons do?","acceptedAnswer":{"@type":"Answer","text":"Play runs about six hours a second so one turn of the Earth takes 4 seconds, and one 27.3-day orbit of the Moon about 2 minutes. Now jumps back to this moment. The four season buttons — spring equinox, summer solstice, fall equinox, winter solstice — jump to the start of each season so you can see the slow lean of the year."}}]}</script>
 
-<meta property="og:image" content="https://timeandspace.science/api/og?name=Day%20and%20Night%20Map&amp;theme=generic">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Day%20and%20Night%20Map&amp;theme=generic">
-<meta name="robots" content="max-image-preview:large">
-<!-- build cf57ceefdcba · generated 2026-08-30T22:32:58.877Z -->
+<!-- build 533dc74c27f2 · generated 2026-09-01T03:01:58.737Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
+<meta property="og:image" content="https://timeandspace.science/api/og?name=Day%20and%20Night%20Map&amp;theme=generic">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://timeandspace.science/api/og?name=Day%20and%20Night%20Map&amp;theme=generic">
+<meta name="robots" content="max-image-preview:large">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
 <div class="wrap wrap-wide" id="main" role="main">
-  <div class="brand"><span class="crumbs"><!--bd--><a class="brand-dd brand-home" href="/" aria-label="Time and Space Science home"><svg class="logo" viewBox="0 0 200 200" width="48" height="48" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#2A3B4C" stroke-width="6" stroke-linecap="round"/><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#D6AF5C" stroke-width="2" stroke-linecap="round"/><path d="M 97 40 V 30 H 90 C 88 30, 88 22, 90 22 H 110 C 112 22, 112 30, 110 30 H 103 V 40 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 60 160 L 50 185 L 60 185 L 75 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 140 160 L 150 185 L 140 185 L 125 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><circle cx="100" cy="105" r="65" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/><circle cx="100" cy="105" r="57" fill="#F4EED1" stroke="#2A3B4C" stroke-width="2.5"/><g transform="translate(54.5, 54.5) rotate(-42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g transform="translate(145.5, 54.5) rotate(42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g fill="#2A3B4C"><circle cx="100" cy="63" r="3.4"/><circle cx="121" cy="69" r="3"/><circle cx="136.4" cy="84" r="3"/><circle cx="142" cy="105" r="3"/><circle cx="136.4" cy="126" r="3"/><circle cx="121" cy="141" r="3"/><circle cx="100" cy="147" r="3"/><circle cx="79" cy="141" r="3"/><circle cx="63.6" cy="126" r="3"/><circle cx="58" cy="105" r="3"/><circle cx="63.6" cy="84" r="3"/><circle cx="79" cy="69" r="3"/></g><line x1="100" y1="105" x2="130" y2="75" stroke="#C04A41" stroke-width="4" stroke-linecap="round"/><line x1="100" y1="105" x2="73" y2="90" stroke="#C04A41" stroke-width="5" stroke-linecap="round"/><circle cx="100" cy="105" r="5" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/></svg><span class="visually-hidden">Time and Space Science — home</span></a><a class="brand-word" href="/" aria-label="Time and Space Science home"><span class="wm-w">Time</span><span class="wm-j">And</span><span class="wm-w">Space</span><span class="wm-j wm-dot">.</span><span class="wm-w wm-tld">Science</span></a><!--/bd--><nav class="brand-crumbs" aria-label="Breadcrumb"><a class="brand-cat" href="/day-night-map/">/day-night-map</a></nav></span><nav class="topnav"><script>document.addEventListener("click",function(e){document.querySelectorAll(".nav-dd[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})})</script></nav><details class="nav-dd menu-dd"><summary class="hamburger" aria-label="Menu">☰</summary><ul class="menu"><li><a href="/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M3.4 11.2 12 3.6l8.6 7.6-1.2 1.4-1.4-1.2V20a1 1 0 0 1-1 1h-4v-5.4h-2V21H7a1 1 0 0 1-1-1v-8.6l-1.4 1.2z" fill="#fcd34d"/><path d="M6 11.4V20h4v-5.4h4V20h4v-8.6L12 6.2z" fill="#b45309"/><rect x="10" y="14.6" width="4" height="6.4" fill="#7c2d12"/><path d="M12 6.2l6 5.2V20h-2v-6.4h-8V20H6v-8.6z" fill="#f59e0b"/></g></svg> Home</a></li><li><a href="/time/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="6" y="2" width="12" height="2.4" rx="1.2" fill="#92400e"/><rect x="6" y="19.6" width="12" height="2.4" rx="1.2" fill="#92400e"/><path d="M7.4 4.4h9.2c0 3.2-2 4.6-3.4 5.8-.5.4-.5 1.2 0 1.6 1.4 1.2 3.4 2.6 3.4 5.8H7.4c0-3.2 2-4.6 3.4-5.8.5-.4.5-1.2 0-1.6C9.4 9 7.4 7.6 7.4 4.4z" fill="#bae6fd" opacity=".5"/><path d="M9.2 6h5.6c-.5 1.6-1.6 2.4-2.8 3.4C10.8 8.4 9.7 7.6 9.2 6z" fill="#f59e0b"/><path d="M12 13.4c1.6 1.2 3 2.2 3.4 4.2H8.6c.4-2 1.8-3 3.4-4.2z" fill="#f59e0b"/></g></svg> Time</a></li><li><a href="/earth/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> Earth</a></li><li><a href="/space/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Space</a></li><li><a href="/classroom/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> Classroom</a></li><li class="sep" aria-hidden="true"></li><li><a href="/classroom/submit-a-lesson/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.6" fill="#16a34a"/><circle cx="12" cy="12" r="9.6" fill="none" stroke="#15803d" stroke-width="1"/><path d="M12 7.2v9.6M7.2 12h9.6" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="8.8" cy="7.6" rx="2.6" ry="1.5" fill="#ffffff" opacity=".28" transform="rotate(-30 8.8 7.6)"/></g></svg> Submit a Lesson Plan</a></li><li class="menu-units"><span class="menu-ulab"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="1.6" y="13.4" width="13.6" height="5" rx="1.2" fill="#d4a373" transform="rotate(-14 8.4 15.9)"/><rect x="9.4" y="8.2" width="13.6" height="5" rx="1.2" fill="#e8c39e" transform="rotate(22 16.2 10.7)"/><g stroke="#8a5a33" stroke-width="1" stroke-linecap="round" opacity=".8"><path d="M4.2 14.6v1.8M6.9 13.9v2.6M9.6 13.2v1.8M12.3 12.6v2.6"/><path d="M12.6 10.9l.6 1.7M15.2 9.8l.9 2.4M17.8 8.7l.6 1.7M20.4 7.6l.9 2.4"/></g><circle cx="10.6" cy="12.6" r="1.15" fill="#8a5a33"/></g></svg> <span>Units</span></span><span class="menu-useg" role="group" aria-label="Measurement units"><button type="button" class="menu-ubtn" data-uset="metric" aria-pressed="false">Metric</button><button type="button" class="menu-ubtn" data-uset="imperial" aria-pressed="false">Imperial</button></span></li><li><button type="button" class="menu-pj" id="ac-pj" aria-pressed="false"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="2.4" y="7.6" width="15.4" height="10.2" rx="2" fill="#475569"/><rect x="2.4" y="7.6" width="15.4" height="3.4" rx="2" fill="#64748b"/><circle cx="7.4" cy="13.4" r="3.1" fill="#0f172a"/><circle cx="7.4" cy="13.4" r="1.7" fill="#93c5fd"/><circle cx="14.4" cy="10.4" r="1" fill="#fbbf24"/><path d="M17.8 10.4 22.6 6.6v12.4l-4.8-3.8z" fill="#fde68a" opacity=".75"/><path d="M4.6 17.8v2.2M15.4 17.8v2.2" stroke="#334155" stroke-width="1.8" stroke-linecap="round"/></g></svg> <span>Projector mode</span></button></li></ul></details><script>(function(){var b=document.getElementById("ac-pj");if(!b)return;
+  <div class="brand"><span class="crumbs"><!--bd--><a class="brand-dd brand-home" href="/" aria-label="Time and Space Science home"><svg class="logo" viewBox="0 0 200 200" width="48" height="48" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#2A3B4C" stroke-width="6" stroke-linecap="round"/><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#D6AF5C" stroke-width="2" stroke-linecap="round"/><path d="M 97 40 V 30 H 90 C 88 30, 88 22, 90 22 H 110 C 112 22, 112 30, 110 30 H 103 V 40 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 60 160 L 50 185 L 60 185 L 75 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 140 160 L 150 185 L 140 185 L 125 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><circle cx="100" cy="105" r="65" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/><circle cx="100" cy="105" r="57" fill="#F4EED1" stroke="#2A3B4C" stroke-width="2.5"/><g transform="translate(54.5, 54.5) rotate(-42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g transform="translate(145.5, 54.5) rotate(42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g fill="#2A3B4C"><circle cx="100" cy="63" r="3.4"/><circle cx="121" cy="69" r="3"/><circle cx="136.4" cy="84" r="3"/><circle cx="142" cy="105" r="3"/><circle cx="136.4" cy="126" r="3"/><circle cx="121" cy="141" r="3"/><circle cx="100" cy="147" r="3"/><circle cx="79" cy="141" r="3"/><circle cx="63.6" cy="126" r="3"/><circle cx="58" cy="105" r="3"/><circle cx="63.6" cy="84" r="3"/><circle cx="79" cy="69" r="3"/></g><line x1="100" y1="105" x2="130" y2="75" stroke="#C04A41" stroke-width="4" stroke-linecap="round"/><line x1="100" y1="105" x2="73" y2="90" stroke="#C04A41" stroke-width="5" stroke-linecap="round"/><circle cx="100" cy="105" r="5" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/></svg><span class="visually-hidden">Time and Space Science — home</span></a><a class="brand-word" href="/" aria-label="Time and Space Science home"><span class="wm-w">Time</span><span class="wm-j">And</span><span class="wm-w">Space</span><span class="wm-j wm-dot">.</span><span class="wm-w wm-tld">Science</span></a><!--/bd--></span><nav class="topnav"><script>document.addEventListener("click",function(e){document.querySelectorAll(".nav-dd[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})})</script></nav><details class="nav-dd menu-dd"><summary class="hamburger" aria-label="Menu">☰</summary><ul class="menu"><li><a href="/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M3.4 11.2 12 3.6l8.6 7.6-1.2 1.4-1.4-1.2V20a1 1 0 0 1-1 1h-4v-5.4h-2V21H7a1 1 0 0 1-1-1v-8.6l-1.4 1.2z" fill="#fcd34d"/><path d="M6 11.4V20h4v-5.4h4V20h4v-8.6L12 6.2z" fill="#b45309"/><rect x="10" y="14.6" width="4" height="6.4" fill="#7c2d12"/><path d="M12 6.2l6 5.2V20h-2v-6.4h-8V20H6v-8.6z" fill="#f59e0b"/></g></svg> Home</a></li><li><a href="/time/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="6" y="2" width="12" height="2.4" rx="1.2" fill="#92400e"/><rect x="6" y="19.6" width="12" height="2.4" rx="1.2" fill="#92400e"/><path d="M7.4 4.4h9.2c0 3.2-2 4.6-3.4 5.8-.5.4-.5 1.2 0 1.6 1.4 1.2 3.4 2.6 3.4 5.8H7.4c0-3.2 2-4.6 3.4-5.8.5-.4.5-1.2 0-1.6C9.4 9 7.4 7.6 7.4 4.4z" fill="#bae6fd" opacity=".5"/><path d="M9.2 6h5.6c-.5 1.6-1.6 2.4-2.8 3.4C10.8 8.4 9.7 7.6 9.2 6z" fill="#f59e0b"/><path d="M12 13.4c1.6 1.2 3 2.2 3.4 4.2H8.6c.4-2 1.8-3 3.4-4.2z" fill="#f59e0b"/></g></svg> Time</a></li><li><a href="/earth/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> Earth</a></li><li><a href="/space/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Space</a></li><li><a href="/classroom/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> Classroom</a></li><li class="sep" aria-hidden="true"></li><li><a href="/classroom/submit-a-lesson/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.6" fill="#16a34a"/><circle cx="12" cy="12" r="9.6" fill="none" stroke="#15803d" stroke-width="1"/><path d="M12 7.2v9.6M7.2 12h9.6" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="8.8" cy="7.6" rx="2.6" ry="1.5" fill="#ffffff" opacity=".28" transform="rotate(-30 8.8 7.6)"/></g></svg> Submit a Lesson Plan</a></li><li class="menu-units"><span class="menu-ulab"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="1.6" y="13.4" width="13.6" height="5" rx="1.2" fill="#d4a373" transform="rotate(-14 8.4 15.9)"/><rect x="9.4" y="8.2" width="13.6" height="5" rx="1.2" fill="#e8c39e" transform="rotate(22 16.2 10.7)"/><g stroke="#8a5a33" stroke-width="1" stroke-linecap="round" opacity=".8"><path d="M4.2 14.6v1.8M6.9 13.9v2.6M9.6 13.2v1.8M12.3 12.6v2.6"/><path d="M12.6 10.9l.6 1.7M15.2 9.8l.9 2.4M17.8 8.7l.6 1.7M20.4 7.6l.9 2.4"/></g><circle cx="10.6" cy="12.6" r="1.15" fill="#8a5a33"/></g></svg> <span>Units</span></span><span class="menu-useg" role="group" aria-label="Measurement units"><button type="button" class="menu-ubtn" data-uset="metric" aria-pressed="false">Metric</button><button type="button" class="menu-ubtn" data-uset="imperial" aria-pressed="false">Imperial</button></span></li><li><button type="button" class="menu-pj" id="ac-pj" aria-pressed="false"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="2.4" y="7.6" width="15.4" height="10.2" rx="2" fill="#475569"/><rect x="2.4" y="7.6" width="15.4" height="3.4" rx="2" fill="#64748b"/><circle cx="7.4" cy="13.4" r="3.1" fill="#0f172a"/><circle cx="7.4" cy="13.4" r="1.7" fill="#93c5fd"/><circle cx="14.4" cy="10.4" r="1" fill="#fbbf24"/><path d="M17.8 10.4 22.6 6.6v12.4l-4.8-3.8z" fill="#fde68a" opacity=".75"/><path d="M4.6 17.8v2.2M15.4 17.8v2.2" stroke="#334155" stroke-width="1.8" stroke-linecap="round"/></g></svg> <span>Projector mode</span></button></li></ul></details><script>(function(){var b=document.getElementById("ac-pj");if(!b)return;
 function sync(){var on=document.documentElement.classList.contains("pj");b.setAttribute("aria-pressed",on?"true":"false");}
 sync();b.addEventListener("click",function(){var on=document.documentElement.classList.toggle("pj");
 try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(e){}sync();});})();</script><script>(function(){
@@ -1472,24 +1820,32 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   document.addEventListener('ac:units',function(){ apply(get()); });
 })();</script></div>
   <h1>Day and Night Map</h1>
-  <p class="sub">Where it is light on Earth right now, where it is dark, and the twilight in between. Drag the slider to move through one 27.3-day orbit of the Moon, or press play and watch the line sweep round. The same picture as the <a href="/world-clock/">world clock</a>'s map, with time attached.</p>
+  <p class="sub dn-page-intro">Where it is light on Earth right now, where it is dark, and the twilight in between. Drag the slider to move through one 27.3-day orbit of the Moon, or press play and watch the line sweep round. The same picture as the <a href="/world-clock/">world clock</a>'s map, with time attached.</p>
+  <nav class="home-tabs sec-switch dn-tabs" aria-label="Explore this page">
+    <a class="chip home-tab is-here" href="#day-night-map">Day/Night Map</a>
+    <a class="chip home-tab" href="#sun-angle">Angle of the Sun</a>
+    <a class="chip home-tab" href="#things-to-try">Things to Try</a>
+    <a class="chip home-tab" href="#questions-answered">Questions Answered</a>
+    <button type="button" class="chip home-tab dn-view-toggle" id="dn-sim-view" aria-pressed="false" hidden>Simulators only</button>
+  </nav>
 
-  <div class="card dn-card">
+  <div class="dn-sim-pair">
+  <div class="card dn-card" id="day-night-map">
     <div class="dn-figwrap">
       <svg id="dn-svg" class="dn-svg" viewBox="0 16 720 288" width="100%" role="img" aria-label="A world map with the night side shaded, the twilight band between, the sun overhead, and the moon in its current phase">
         <rect y="16" width="720" height="288" fill="#12304f"/>
         <path d="M326 150L328 142L334 134L340 126L346 118L348 112L356 110L366 106L376 106L382 114L390 116L400 118L410 116L418 118L426 118L428 124L430 132L434 138L438 146L446 154L450 158L456 158L462 158L462 164L456 170L448 176L442 182L440 188L440 196L438 204L434 212L430 220L426 228L422 238L414 246L404 248L396 248L390 234L386 226L384 216L384 208L380 198L378 190L378 182L376 172L366 168L356 170L350 170L344 172L338 168L334 162L330 156L326 150ZM342 106L342 98L344 94L356 94L360 88L368 94L374 92L380 92L386 104L392 104L396 100L398 96L392 94L386 90L388 90L398 100L406 104L408 100L414 98L416 106L422 106L430 108L432 108L432 114L430 118L428 118L426 118L436 118L446 120L456 120L460 126L466 132L474 132L478 134L474 140L470 146L464 148L456 152L448 154L446 150L440 140L436 132L430 124L446 120L460 130L474 132L480 140L484 130L492 130L496 132L504 140L506 148L510 156L514 164L520 160L520 154L522 148L530 140L534 138L538 136L544 138L548 144L554 148L556 156L560 154L560 164L566 178L568 160L572 160L576 158L578 150L574 144L572 138L578 138L586 136L594 134L600 130L602 122L604 118L602 110L598 106L604 102L612 100L616 104L618 110L618 94L624 94L630 82L638 74L644 72L642 60L650 62L660 62L672 58L682 60L686 64L686 56L700 56L714 52L720 48L720 38L700 40L680 40L660 36L640 34L620 36L600 34L586 32L570 26L550 24L534 30L520 34L506 36L496 34L484 38L474 38L464 42L450 44L440 48L430 46L426 52L422 56L416 48L410 50L404 60L408 60L400 64L398 68L392 68L386 70L380 66L376 64L370 60L370 56L382 52L390 44L400 40L412 40L420 40L416 38L400 40L388 46L380 52L372 64L376 72L368 76L360 78L356 82L352 84L356 86L358 88L356 92L342 92L342 106ZM24 48L28 44L40 38L50 38L64 40L80 40L94 42L110 40L126 42L140 44L156 42L170 44L180 44L190 46L196 40L204 34L216 40L224 48L230 60L232 64L204 66L196 70L188 74L200 78L202 70L204 60L214 56L228 60L240 70L248 76L242 84L230 90L226 92L220 96L216 98L212 102L210 106L208 110L204 112L198 118L198 126L200 130L196 130L194 124L190 120L184 120L180 122L172 122L166 128L166 138L170 142L178 144L184 138L186 138L184 144L186 150L192 158L194 162L200 162L204 164L202 170L204 178L200 184L200 188L208 198L210 208L218 216L220 226L218 240L214 254L214 264L212 272L210 278L210 284L220 290L224 290L230 288L230 276L232 266L236 260L244 256L246 250L254 246L264 234L264 230L276 226L282 216L282 206L286 200L290 192L284 188L272 184L264 180L258 180L256 172L250 168L240 164L234 160L224 158L218 156L214 160L210 162L206 162L202 162L196 162L192 160L186 148L178 148L170 148L158 144L150 140L148 134L140 132L136 126L132 124L130 120L126 114L120 112L116 106L112 100L112 92L112 84L106 78L98 72L94 66L80 60L68 60L58 62L50 64L40 62L30 60L28 56L24 48ZM270 60L260 56L256 52L252 46L250 40L246 34L240 28L244 22L260 16L280 14L296 14L312 18L320 24L316 30L316 36L304 40L294 44L284 48L276 56L270 60ZM586 224L586 232L590 240L596 248L604 248L612 244L620 244L628 246L636 250L640 256L648 256L654 256L660 254L662 246L666 236L666 230L662 228L658 222L652 218L650 210L644 202L642 206L636 212L632 204L626 202L620 204L614 208L610 208L604 214L602 218L596 220L588 222L586 224ZM0 324L40 330L80 326L120 328L160 326L200 324L240 320L280 324L320 320L360 320L400 318L440 316L480 314L520 312L560 312L600 314L640 314L680 320L720 324L720 352ZM0 352L0 324ZM446 204L456 206L460 212L458 222L456 230L450 230L448 224L446 214L446 204ZM350 80L352 74L354 70L350 66L354 64L356 64L360 72L362 74L358 78L350 80ZM340 76L344 70L348 70L348 76L342 78L340 76ZM620 118L624 114L630 112L634 110L640 108L642 102L642 98L644 96L650 92L644 90L640 96L634 106L626 110L622 114L620 118ZM706 250L712 254L716 256L712 262L708 262L702 266L696 272L692 270L700 266L704 260L706 250ZM578 176L586 172L594 170L598 174L598 182L594 188L586 186L580 186L578 176ZM550 170L558 174L568 184L572 192L566 190L560 182L554 176L550 170ZM570 192L580 194L588 196L588 196L580 196L572 194L570 192ZM598 182L606 180L610 178L610 184L602 188L600 190L598 182ZM622 182L634 184L642 186L652 192L660 198L654 200L646 198L636 196L628 190L622 182ZM600 144L604 144L608 156L612 160L604 166L600 156L600 144ZM520 160L524 164L524 168L520 168L520 160ZM312 50L324 48L332 48L332 52L322 54L312 50ZM190 136L200 134L210 140L204 140L192 136L190 136ZM212 140L222 140L224 144L216 144L212 140ZM650 262L656 262L656 266L650 266L650 262ZM644 88L646 80L646 72L642 78L644 88ZM464 38L472 34L496 28L484 34L472 38L464 38Z" fill="#2f5d3a"/>
         <g class="dn-grat"><line class="dn-par" x1="0" y1="180" x2="720" y2="180"/><text class="dn-parlab" x="6" y="176">Equator</text><line class="dn-par" x1="0" y1="133.1" x2="720" y2="133.1"/><text class="dn-parlab" x="6" y="129.1">Tropic of Cancer</text><line class="dn-par" x1="0" y1="226.9" x2="720" y2="226.9"/><text class="dn-parlab" x="6" y="222.9">Tropic of Capricorn</text><line class="dn-par" x1="0" y1="46.9" x2="720" y2="46.9"/><text class="dn-parlab" x="6" y="42.9">Arctic Circle</text></g>
-        <path id="dn-tw" d="M0 341.1L2 341.2L4 341.4L6 341.5L8 341.6L10 341.7L12 341.8L14 341.9L16 342L18 342L20 342.1L22 342.2L24 342.2L26 342.3L28 342.3L30 342.4L32 342.4L34 342.5L36 342.5L38 342.5L40 342.5L42 342.5L44 342.5L46 342.5L48 342.5L50 342.5L52 342.5L54 342.5L56 342.5L58 342.4L60 342.4L62 342.4L64 342.3L66 342.3L68 342.2L70 342.1L72 342.1L74 342L76 341.9L78 341.8L80 341.7L82 341.6L84 341.5L86 341.4L88 341.3L90 341.1L92 341L94 340.9L96 340.7L98 340.5L100 340.4L102 340.2L104 340L106 339.8L108 339.6L110 339.4L112 339.2L114 338.9L116 338.7L118 338.4L120 338.1L122 337.8L124 337.5L126 337.2L128 336.9L130 336.5L132 336.1L134 335.7L136 335.3L138 334.9L140 334.4L142 334L144 333.5L146 332.9L148 332.4L150 331.8L152 331.1L154 330.5L156 329.7L158 329L160 328.2L162 327.3L164 326.4L166 325.5L168 324.4L170 323.3L172 322.2L174 320.9L176 319.5L178 318.1L180 316.5L182 314.7L184 312.9L186 310.8L188 308.6L190 306.2L192 303.5L194 300.6L196 297.4L198 293.8L200 289.8L202 285.4L204 280.4L206 274.8L208 268.6L210 261.6L212 253.8L214 245.1L216 235.4L218 224.7L220 213.2L222 200.9L224 188.1L226 175.1L228 162.2L230 149.8L232 138L234 127.2L236 117.2L238 108.3L240 100.2L242 93L244 86.6L246 80.9L248 75.8L250 71.2L252 67.2L254 63.5L256 60.2L258 57.2L260 54.4L262 51.9L264 49.7L266 47.6L268 45.7L270 43.9L272 42.3L274 40.8L276 39.4L278 38.1L280 36.9L282 35.8L284 34.8L286 33.8L288 32.9L290 32L292 31.2L294 30.4L296 29.7L298 29L300 28.4L302 27.8L304 27.2L306 26.7L308 26.2L310 25.7L312 25.2L314 24.8L316 24.4L318 24L320 23.6L322 23.2L324 22.9L326 22.6L328 22.2L330 21.9L332 21.7L334 21.4L336 21.1L338 20.9L340 20.7L342 20.4L344 20.2L346 20L348 19.8L350 19.7L352 19.5L354 19.3L356 19.2L358 19L360 18.9L362 18.8L364 18.6L366 18.5L368 18.4L370 18.3L372 18.2L374 18.1L376 18L378 18L380 17.9L382 17.8L384 17.8L386 17.7L388 17.7L390 17.6L392 17.6L394 17.5L396 17.5L398 17.5L400 17.5L402 17.5L404 17.5L406 17.5L408 17.5L410 17.5L412 17.5L414 17.5L416 17.5L418 17.6L420 17.6L422 17.6L424 17.7L426 17.7L428 17.8L430 17.9L432 17.9L434 18L436 18.1L438 18.2L440 18.3L442 18.4L444 18.5L446 18.6L448 18.7L450 18.9L452 19L454 19.1L456 19.3L458 19.5L460 19.6L462 19.8L464 20L466 20.2L468 20.4L470 20.6L472 20.8L474 21.1L476 21.3L478 21.6L480 21.9L482 22.2L484 22.5L486 22.8L488 23.1L490 23.5L492 23.9L494 24.3L496 24.7L498 25.1L500 25.6L502 26L504 26.5L506 27.1L508 27.6L510 28.2L512 28.9L514 29.5L516 30.3L518 31L520 31.8L522 32.7L524 33.6L526 34.5L528 35.6L530 36.7L532 37.8L534 39.1L536 40.5L538 41.9L540 43.5L542 45.3L544 47.1L546 49.2L548 51.4L550 53.8L552 56.5L554 59.4L556 62.6L558 66.2L560 70.2L562 74.6L564 79.6L566 85.2L568 91.4L570 98.4L572 106.2L574 114.9L576 124.6L578 135.3L580 146.8L582 159.1L584 171.9L586 184.9L588 197.8L590 210.2L592 222L594 232.8L596 242.8L598 251.7L600 259.8L602 267L604 273.4L606 279.1L608 284.2L610 288.8L612 292.8L614 296.5L616 299.8L618 302.8L620 305.6L622 308.1L624 310.3L626 312.4L628 314.3L630 316.1L632 317.7L634 319.2L636 320.6L638 321.9L640 323.1L642 324.2L644 325.2L646 326.2L648 327.1L650 328L652 328.8L654 329.6L656 330.3L658 331L660 331.6L662 332.2L664 332.8L666 333.3L668 333.8L670 334.3L672 334.8L674 335.2L676 335.6L678 336L680 336.4L682 336.8L684 337.1L686 337.4L688 337.8L690 338.1L692 338.3L694 338.6L696 338.9L698 339.1L700 339.3L702 339.6L704 339.8L706 340L708 340.2L710 340.3L712 340.5L714 340.7L716 340.8L718 341L720 341.1L720 360L0 360ZM0 360L2 360L4 360L6 360L8 360L10 360L12 360L14 360L16 360L18 360L20 360L22 360L24 360L26 360L28 360L30 360L32 360L34 360L36 360L38 360L40 360L42 360L44 360L46 360L48 360L50 360L52 360L54 360L56 360L58 360L60 360L62 360L64 360L66 360L68 360L70 360L72 360L74 360L76 360L78 360L80 360L82 360L84 360L86 360L88 360L90 360L92 360L94 360L96 360L98 360L100 360L102 360L104 360L106 360L108 360L110 360L112 360L114 360L116 360L118 360L120 360L122 360L124 360L126 360L128 360L130 360L132 360L134 360L136 360L138 360L140 360L142 360L144 360L146 360L148 360L150 360L152 360L154 360L156 360L158 360L160 360L162 360L164 360L166 360L168 360L170 360L172 360L174 360L176 360L178 360L180 360L182 360L184 360L186 360L188 360L190 360L192 360L194 360L196 360L198 360L200 360L202 360L204 360L206 360L208 360L210 360L212 360L214 360L216 360L218 360L220 360L222 360L224 360L226 360L228 360L230 360L232 360L234 360L236 360L238 360L240 360L242 360L244 360L246 360L248 360L250 360L252 360L254 360L256 360L258 210.8L260 191.6L262 178.1L264 167.2L266 158.1L268 150.1L270 143.1L272 136.9L274 131.3L276 126.2L278 121.5L280 117.2L282 113.3L284 109.7L286 106.3L288 103.2L290 100.3L292 97.6L294 95L296 92.6L298 90.4L300 88.3L302 86.3L304 84.5L306 82.7L308 81L310 79.5L312 78L314 76.5L316 75.2L318 73.9L320 72.7L322 71.6L324 70.5L326 69.5L328 68.5L330 67.5L332 66.7L334 65.8L336 65L338 64.2L340 63.5L342 62.8L344 62.2L346 61.5L348 60.9L350 60.4L352 59.8L354 59.3L356 58.8L358 58.4L360 57.9L362 57.5L364 57.1L366 56.8L368 56.4L370 56.1L372 55.8L374 55.5L376 55.3L378 55L380 54.8L382 54.6L384 54.4L386 54.2L388 54.1L390 53.9L392 53.8L394 53.7L396 53.6L398 53.6L400 53.5L402 53.5L404 53.5L406 53.5L408 53.5L410 53.5L412 53.6L414 53.6L416 53.7L418 53.8L420 53.9L422 54L424 54.2L426 54.4L428 54.5L430 54.7L432 55L434 55.2L436 55.5L438 55.7L440 56L442 56.3L444 56.7L446 57L448 57.4L450 57.8L452 58.3L454 58.7L456 59.2L458 59.7L460 60.2L462 60.8L464 61.4L466 62L468 62.6L470 63.3L472 64.1L474 64.8L476 65.6L478 66.4L480 67.3L482 68.2L484 69.2L486 70.2L488 71.3L490 72.4L492 73.6L494 74.9L496 76.2L498 77.6L500 79.1L502 80.6L504 82.3L506 84L508 85.9L510 87.8L512 89.9L514 92.1L516 94.4L518 96.9L520 99.6L522 102.5L524 105.5L526 108.8L528 112.4L530 116.3L532 120.4L534 125L536 130L538 135.5L540 141.6L542 148.4L544 156L546 164.8L548 175.2L550 187.9L552 205.1L554 360L556 360L558 360L560 360L562 360L564 360L566 360L568 360L570 360L572 360L574 360L576 360L578 360L580 360L582 360L584 360L586 360L588 360L590 360L592 360L594 360L596 360L598 360L600 360L602 360L604 360L606 360L608 360L610 360L612 360L614 360L616 360L618 360L620 360L622 360L624 360L626 360L628 360L630 360L632 360L634 360L636 360L638 360L640 360L642 360L644 360L646 360L648 360L650 360L652 360L654 360L656 360L658 360L660 360L662 360L664 360L666 360L668 360L670 360L672 360L674 360L676 360L678 360L680 360L682 360L684 360L686 360L688 360L690 360L692 360L694 360L696 360L698 360L700 360L702 360L704 360L706 360L708 360L710 360L712 360L714 360L716 360L718 360L720 360L720 360L718 360L716 360L714 360L712 360L710 360L708 360L706 360L704 360L702 360L700 360L698 360L696 360L694 360L692 360L690 360L688 360L686 360L684 360L682 360L680 360L678 360L676 360L674 360L672 360L670 360L668 360L666 360L664 360L662 360L660 360L658 360L656 360L654 360L652 360L650 360L648 360L646 360L644 360L642 360L640 360L638 360L636 360L634 360L632 360L630 360L628 360L626 360L624 360L622 360L620 360L618 360L616 360L614 360L612 360L610 360L608 360L606 360L604 360L602 360L600 360L598 360L596 360L594 360L592 360L590 360L588 360L586 360L584 360L582 360L580 360L578 360L576 360L574 360L572 360L570 360L568 360L566 360L564 360L562 360L560 360L558 360L556 360L554 360L552 267.8L550 279.7L548 287.5L546 293.5L544 298.2L542 302.2L540 305.5L538 308.4L536 311L534 313.2L532 315.2L530 317.1L528 318.7L526 320.2L524 321.6L522 322.8L520 324L518 325.1L516 326.1L514 327L512 327.9L510 328.7L508 329.4L506 330.2L504 330.8L502 331.4L500 332L498 332.6L496 333.1L494 333.6L492 334.1L490 334.5L488 335L486 335.4L484 335.7L482 336.1L480 336.4L478 336.8L476 337.1L474 337.4L472 337.6L470 337.9L468 338.1L466 338.4L464 338.6L462 338.8L460 339L458 339.2L456 339.4L454 339.6L452 339.7L450 339.9L448 340L446 340.2L444 340.3L442 340.4L440 340.5L438 340.7L436 340.8L434 340.8L432 340.9L430 341L428 341.1L426 341.1L424 341.2L422 341.3L420 341.3L418 341.3L416 341.4L414 341.4L412 341.4L410 341.4L408 341.5L406 341.5L404 341.5L402 341.5L400 341.4L398 341.4L396 341.4L394 341.4L392 341.3L390 341.3L388 341.2L386 341.2L384 341.1L382 341.1L380 341L378 340.9L376 340.8L374 340.7L372 340.6L370 340.5L368 340.4L366 340.3L364 340.1L362 340L360 339.9L358 339.7L356 339.5L354 339.4L352 339.2L350 339L348 338.8L346 338.6L344 338.3L342 338.1L340 337.8L338 337.6L336 337.3L334 337L332 336.7L330 336.4L328 336L326 335.6L324 335.3L322 334.9L320 334.4L318 334L316 333.5L314 333L312 332.5L310 331.9L308 331.3L306 330.7L304 330L302 329.3L300 328.5L298 327.7L296 326.8L294 325.8L292 324.8L290 323.7L288 322.5L286 321.3L284 319.9L282 318.3L280 316.6L278 314.8L276 312.7L274 310.4L272 307.7L270 304.7L268 301.3L266 297.1L264 292.1L262 285.8L260 277.3L258 263.5L256 360L254 360L252 360L250 360L248 360L246 360L244 360L242 360L240 360L238 360L236 360L234 360L232 360L230 360L228 360L226 360L224 360L222 360L220 360L218 360L216 360L214 360L212 360L210 360L208 360L206 360L204 360L202 360L200 360L198 360L196 360L194 360L192 360L190 360L188 360L186 360L184 360L182 360L180 360L178 360L176 360L174 360L172 360L170 360L168 360L166 360L164 360L162 360L160 360L158 360L156 360L154 360L152 360L150 360L148 360L146 360L144 360L142 360L140 360L138 360L136 360L134 360L132 360L130 360L128 360L126 360L124 360L122 360L120 360L118 360L116 360L114 360L112 360L110 360L108 360L106 360L104 360L102 360L100 360L98 360L96 360L94 360L92 360L90 360L88 360L86 360L84 360L82 360L80 360L78 360L76 360L74 360L72 360L70 360L68 360L66 360L64 360L62 360L60 360L58 360L56 360L54 360L52 360L50 360L48 360L46 360L44 360L42 360L40 360L38 360L36 360L34 360L32 360L30 360L28 360L26 360L24 360L22 360L20 360L18 360L16 360L14 360L12 360L10 360L8 360L6 360L4 360L2 360L0 360Z" fill-rule="evenodd" fill="#050a16" fill-opacity=".34"/>
-        <path id="dn-night" d="M0 360L2 360L4 360L6 360L8 360L10 360L12 360L14 360L16 360L18 360L20 360L22 360L24 360L26 360L28 360L30 360L32 360L34 360L36 360L38 360L40 360L42 360L44 360L46 360L48 360L50 360L52 360L54 360L56 360L58 360L60 360L62 360L64 360L66 360L68 360L70 360L72 360L74 360L76 360L78 360L80 360L82 360L84 360L86 360L88 360L90 360L92 360L94 360L96 360L98 360L100 360L102 360L104 360L106 360L108 360L110 360L112 360L114 360L116 360L118 360L120 360L122 360L124 360L126 360L128 360L130 360L132 360L134 360L136 360L138 360L140 360L142 360L144 360L146 360L148 360L150 360L152 360L154 360L156 360L158 360L160 360L162 360L164 360L166 360L168 360L170 360L172 360L174 360L176 360L178 360L180 360L182 360L184 360L186 360L188 360L190 360L192 360L194 360L196 360L198 360L200 360L202 360L204 360L206 360L208 360L210 360L212 360L214 360L216 360L218 360L220 360L222 360L224 360L226 360L228 360L230 360L232 360L234 360L236 360L238 360L240 360L242 360L244 360L246 360L248 360L250 360L252 360L254 360L256 360L258 210.8L260 191.6L262 178.1L264 167.2L266 158.1L268 150.1L270 143.1L272 136.9L274 131.3L276 126.2L278 121.5L280 117.2L282 113.3L284 109.7L286 106.3L288 103.2L290 100.3L292 97.6L294 95L296 92.6L298 90.4L300 88.3L302 86.3L304 84.5L306 82.7L308 81L310 79.5L312 78L314 76.5L316 75.2L318 73.9L320 72.7L322 71.6L324 70.5L326 69.5L328 68.5L330 67.5L332 66.7L334 65.8L336 65L338 64.2L340 63.5L342 62.8L344 62.2L346 61.5L348 60.9L350 60.4L352 59.8L354 59.3L356 58.8L358 58.4L360 57.9L362 57.5L364 57.1L366 56.8L368 56.4L370 56.1L372 55.8L374 55.5L376 55.3L378 55L380 54.8L382 54.6L384 54.4L386 54.2L388 54.1L390 53.9L392 53.8L394 53.7L396 53.6L398 53.6L400 53.5L402 53.5L404 53.5L406 53.5L408 53.5L410 53.5L412 53.6L414 53.6L416 53.7L418 53.8L420 53.9L422 54L424 54.2L426 54.4L428 54.5L430 54.7L432 55L434 55.2L436 55.5L438 55.7L440 56L442 56.3L444 56.7L446 57L448 57.4L450 57.8L452 58.3L454 58.7L456 59.2L458 59.7L460 60.2L462 60.8L464 61.4L466 62L468 62.6L470 63.3L472 64.1L474 64.8L476 65.6L478 66.4L480 67.3L482 68.2L484 69.2L486 70.2L488 71.3L490 72.4L492 73.6L494 74.9L496 76.2L498 77.6L500 79.1L502 80.6L504 82.3L506 84L508 85.9L510 87.8L512 89.9L514 92.1L516 94.4L518 96.9L520 99.6L522 102.5L524 105.5L526 108.8L528 112.4L530 116.3L532 120.4L534 125L536 130L538 135.5L540 141.6L542 148.4L544 156L546 164.8L548 175.2L550 187.9L552 205.1L554 360L556 360L558 360L560 360L562 360L564 360L566 360L568 360L570 360L572 360L574 360L576 360L578 360L580 360L582 360L584 360L586 360L588 360L590 360L592 360L594 360L596 360L598 360L600 360L602 360L604 360L606 360L608 360L610 360L612 360L614 360L616 360L618 360L620 360L622 360L624 360L626 360L628 360L630 360L632 360L634 360L636 360L638 360L640 360L642 360L644 360L646 360L648 360L650 360L652 360L654 360L656 360L658 360L660 360L662 360L664 360L666 360L668 360L670 360L672 360L674 360L676 360L678 360L680 360L682 360L684 360L686 360L688 360L690 360L692 360L694 360L696 360L698 360L700 360L702 360L704 360L706 360L708 360L710 360L712 360L714 360L716 360L718 360L720 360L720 360L718 360L716 360L714 360L712 360L710 360L708 360L706 360L704 360L702 360L700 360L698 360L696 360L694 360L692 360L690 360L688 360L686 360L684 360L682 360L680 360L678 360L676 360L674 360L672 360L670 360L668 360L666 360L664 360L662 360L660 360L658 360L656 360L654 360L652 360L650 360L648 360L646 360L644 360L642 360L640 360L638 360L636 360L634 360L632 360L630 360L628 360L626 360L624 360L622 360L620 360L618 360L616 360L614 360L612 360L610 360L608 360L606 360L604 360L602 360L600 360L598 360L596 360L594 360L592 360L590 360L588 360L586 360L584 360L582 360L580 360L578 360L576 360L574 360L572 360L570 360L568 360L566 360L564 360L562 360L560 360L558 360L556 360L554 360L552 267.8L550 279.7L548 287.5L546 293.5L544 298.2L542 302.2L540 305.5L538 308.4L536 311L534 313.2L532 315.2L530 317.1L528 318.7L526 320.2L524 321.6L522 322.8L520 324L518 325.1L516 326.1L514 327L512 327.9L510 328.7L508 329.4L506 330.2L504 330.8L502 331.4L500 332L498 332.6L496 333.1L494 333.6L492 334.1L490 334.5L488 335L486 335.4L484 335.7L482 336.1L480 336.4L478 336.8L476 337.1L474 337.4L472 337.6L470 337.9L468 338.1L466 338.4L464 338.6L462 338.8L460 339L458 339.2L456 339.4L454 339.6L452 339.7L450 339.9L448 340L446 340.2L444 340.3L442 340.4L440 340.5L438 340.7L436 340.8L434 340.8L432 340.9L430 341L428 341.1L426 341.1L424 341.2L422 341.3L420 341.3L418 341.3L416 341.4L414 341.4L412 341.4L410 341.4L408 341.5L406 341.5L404 341.5L402 341.5L400 341.4L398 341.4L396 341.4L394 341.4L392 341.3L390 341.3L388 341.2L386 341.2L384 341.1L382 341.1L380 341L378 340.9L376 340.8L374 340.7L372 340.6L370 340.5L368 340.4L366 340.3L364 340.1L362 340L360 339.9L358 339.7L356 339.5L354 339.4L352 339.2L350 339L348 338.8L346 338.6L344 338.3L342 338.1L340 337.8L338 337.6L336 337.3L334 337L332 336.7L330 336.4L328 336L326 335.6L324 335.3L322 334.9L320 334.4L318 334L316 333.5L314 333L312 332.5L310 331.9L308 331.3L306 330.7L304 330L302 329.3L300 328.5L298 327.7L296 326.8L294 325.8L292 324.8L290 323.7L288 322.5L286 321.3L284 319.9L282 318.3L280 316.6L278 314.8L276 312.7L274 310.4L272 307.7L270 304.7L268 301.3L266 297.1L264 292.1L262 285.8L260 277.3L258 263.5L256 360L254 360L252 360L250 360L248 360L246 360L244 360L242 360L240 360L238 360L236 360L234 360L232 360L230 360L228 360L226 360L224 360L222 360L220 360L218 360L216 360L214 360L212 360L210 360L208 360L206 360L204 360L202 360L200 360L198 360L196 360L194 360L192 360L190 360L188 360L186 360L184 360L182 360L180 360L178 360L176 360L174 360L172 360L170 360L168 360L166 360L164 360L162 360L160 360L158 360L156 360L154 360L152 360L150 360L148 360L146 360L144 360L142 360L140 360L138 360L136 360L134 360L132 360L130 360L128 360L126 360L124 360L122 360L120 360L118 360L116 360L114 360L112 360L110 360L108 360L106 360L104 360L102 360L100 360L98 360L96 360L94 360L92 360L90 360L88 360L86 360L84 360L82 360L80 360L78 360L76 360L74 360L72 360L70 360L68 360L66 360L64 360L62 360L60 360L58 360L56 360L54 360L52 360L50 360L48 360L46 360L44 360L42 360L40 360L38 360L36 360L34 360L32 360L30 360L28 360L26 360L24 360L22 360L20 360L18 360L16 360L14 360L12 360L10 360L8 360L6 360L4 360L2 360L0 360Z" fill="#050a16" fill-opacity=".52"/>
+        <path id="dn-tw" d="M0 336.5L2 336.1L4 335.6L6 335.2L8 334.7L10 334.2L12 333.6L14 333.1L16 332.5L18 331.8L20 331.1L22 330.4L24 329.6L26 328.8L28 327.9L30 327L32 326L34 325L36 323.8L38 322.6L40 321.3L42 319.8L44 318.3L46 316.6L48 314.8L50 312.8L52 310.7L54 308.3L56 305.7L58 302.8L60 299.6L62 296.1L64 292.2L66 287.8L68 282.8L70 277.2L72 271L74 263.9L76 255.9L78 246.9L80 236.9L82 225.8L84 213.7L86 200.8L88 187.3L90 173.6L92 160.1L94 147.2L96 135L98 123.9L100 113.7L102 104.7L104 96.7L106 89.5L108 83.2L110 77.6L112 72.6L114 68.1L116 64.2L118 60.6L120 57.4L122 54.5L124 51.9L126 49.5L128 47.3L130 45.3L132 43.5L134 41.8L136 40.3L138 38.8L140 37.5L142 36.3L144 35.1L146 34L148 33.1L150 32.1L152 31.2L154 30.4L156 29.6L158 28.9L160 28.2L162 27.6L164 27L166 26.4L168 25.9L170 25.3L172 24.9L174 24.4L176 24L178 23.5L180 23.1L182 22.8L184 22.4L186 22.1L188 21.7L190 21.4L192 21.1L194 20.9L196 20.6L198 20.3L200 20.1L202 19.9L204 19.6L206 19.4L208 19.2L210 19L212 18.9L214 18.7L216 18.5L218 18.4L220 18.2L222 18.1L224 18L226 17.8L228 17.7L230 17.6L232 17.5L234 17.4L236 17.3L238 17.2L240 17.1L242 17.1L244 17L246 16.9L248 16.9L250 16.8L252 16.8L254 16.7L256 16.7L258 16.7L260 16.7L262 16.6L264 16.6L266 16.6L268 16.6L270 16.6L272 16.6L274 16.6L276 16.6L278 16.7L280 16.7L282 16.7L284 16.7L286 16.8L288 16.8L290 16.9L292 16.9L294 17L296 17.1L298 17.1L300 17.2L302 17.3L304 17.4L306 17.5L308 17.6L310 17.7L312 17.8L314 17.9L316 18.1L318 18.2L320 18.4L322 18.5L324 18.7L326 18.9L328 19L330 19.2L332 19.4L334 19.6L336 19.8L338 20.1L340 20.3L342 20.6L344 20.8L346 21.1L348 21.4L350 21.7L352 22L354 22.4L356 22.7L358 23.1L360 23.5L362 23.9L364 24.4L366 24.8L368 25.3L370 25.8L372 26.4L374 26.9L376 27.5L378 28.2L380 28.9L382 29.6L384 30.4L386 31.2L388 32.1L390 33L392 34L394 35L396 36.2L398 37.4L400 38.7L402 40.2L404 41.7L406 43.4L408 45.2L410 47.2L412 49.3L414 51.7L416 54.3L418 57.2L420 60.4L422 63.9L424 67.8L426 72.2L428 77.2L430 82.8L432 89L434 96.1L436 104.1L438 113.1L440 123.1L442 134.2L444 146.3L446 159.2L448 172.7L450 186.4L452 199.9L454 212.8L456 225L458 236.1L460 246.3L462 255.3L464 263.3L466 270.5L468 276.8L470 282.4L472 287.4L474 291.9L476 295.8L478 299.4L480 302.6L482 305.5L484 308.1L486 310.5L488 312.7L490 314.7L492 316.5L494 318.2L496 319.7L498 321.2L500 322.5L502 323.7L504 324.9L506 326L508 326.9L510 327.9L512 328.8L514 329.6L516 330.4L518 331.1L520 331.8L522 332.4L524 333L526 333.6L528 334.1L530 334.7L532 335.1L534 335.6L536 336L538 336.5L540 336.9L542 337.2L544 337.6L546 337.9L548 338.3L550 338.6L552 338.9L554 339.1L556 339.4L558 339.7L560 339.9L562 340.1L564 340.4L566 340.6L568 340.8L570 341L572 341.1L574 341.3L576 341.5L578 341.6L580 341.8L582 341.9L584 342L586 342.2L588 342.3L590 342.4L592 342.5L594 342.6L596 342.7L598 342.8L600 342.9L602 342.9L604 343L606 343.1L608 343.1L610 343.2L612 343.2L614 343.3L616 343.3L618 343.3L620 343.3L622 343.4L624 343.4L626 343.4L628 343.4L630 343.4L632 343.4L634 343.4L636 343.4L638 343.3L640 343.3L642 343.3L644 343.3L646 343.2L648 343.2L650 343.1L652 343.1L654 343L656 342.9L658 342.9L660 342.8L662 342.7L664 342.6L666 342.5L668 342.4L670 342.3L672 342.2L674 342.1L676 341.9L678 341.8L680 341.6L682 341.5L684 341.3L686 341.1L688 341L690 340.8L692 340.6L694 340.4L696 340.2L698 339.9L700 339.7L702 339.4L704 339.2L706 338.9L708 338.6L710 338.3L712 338L714 337.6L716 337.3L718 336.9L720 336.5L720 360L0 360ZM0 360L2 360L4 360L6 360L8 360L10 360L12 360L14 360L16 360L18 360L20 360L22 360L24 360L26 360L28 360L30 360L32 360L34 360L36 360L38 360L40 360L42 360L44 360L46 360L48 360L50 360L52 360L54 360L56 360L58 360L60 360L62 360L64 360L66 360L68 360L70 360L72 360L74 360L76 360L78 360L80 360L82 360L84 360L86 360L88 360L90 360L92 360L94 360L96 360L98 360L100 360L102 360L104 360L106 360L108 360L110 360L112 360L114 360L116 360L118 360L120 360L122 211.3L124 190.6L126 176.6L128 165.6L130 156.3L132 148.4L134 141.4L136 135.1L138 129.5L140 124.4L142 119.8L144 115.5L146 111.6L148 108L150 104.7L152 101.6L154 98.7L156 96L158 93.5L160 91.2L162 89L164 86.9L166 84.9L168 83.1L170 81.3L172 79.7L174 78.2L176 76.7L178 75.3L180 74L182 72.7L184 71.5L186 70.4L188 69.3L190 68.3L192 67.4L194 66.4L196 65.6L198 64.7L200 63.9L202 63.2L204 62.5L206 61.8L208 61.1L210 60.5L212 59.9L214 59.4L216 58.8L218 58.3L220 57.9L222 57.4L224 57L226 56.6L228 56.2L230 55.8L232 55.5L234 55.2L236 54.9L238 54.6L240 54.4L242 54.1L244 53.9L246 53.7L248 53.5L250 53.3L252 53.2L254 53.1L256 53L258 52.9L260 52.8L262 52.7L264 52.7L266 52.6L268 52.6L270 52.6L272 52.6L274 52.7L276 52.7L278 52.8L280 52.8L282 52.9L284 53.1L286 53.2L288 53.3L290 53.5L292 53.7L294 53.9L296 54.1L298 54.3L300 54.6L302 54.9L304 55.2L306 55.5L308 55.8L310 56.2L312 56.5L314 56.9L316 57.4L318 57.8L320 58.3L322 58.8L324 59.3L326 59.9L328 60.5L330 61.1L332 61.7L334 62.4L336 63.1L338 63.9L340 64.7L342 65.5L344 66.4L346 67.3L348 68.2L350 69.3L352 70.3L354 71.5L356 72.6L358 73.9L360 75.2L362 76.6L364 78L366 79.6L368 81.2L370 83L372 84.8L374 86.7L376 88.8L378 91L380 93.4L382 95.9L384 98.5L386 101.4L388 104.5L390 107.8L392 111.4L394 115.2L396 119.5L398 124.1L400 129.1L402 134.7L404 140.9L406 147.8L408 155.7L410 164.9L412 175.8L414 189.4L416 209.3L418 360L420 360L422 360L424 360L426 360L428 360L430 360L432 360L434 360L436 360L438 360L440 360L442 360L444 360L446 360L448 360L450 360L452 360L454 360L456 360L458 360L460 360L462 360L464 360L466 360L468 360L470 360L472 360L474 360L476 360L478 360L480 360L482 360L484 360L486 360L488 360L490 360L492 360L494 360L496 360L498 360L500 360L502 360L504 360L506 360L508 360L510 360L512 360L514 360L516 360L518 360L520 360L522 360L524 360L526 360L528 360L530 360L532 360L534 360L536 360L538 360L540 360L542 360L544 360L546 360L548 360L550 360L552 360L554 360L556 360L558 360L560 360L562 360L564 360L566 360L568 360L570 360L572 360L574 360L576 360L578 360L580 360L582 360L584 360L586 360L588 360L590 360L592 360L594 360L596 360L598 360L600 360L602 360L604 360L606 360L608 360L610 360L612 360L614 360L616 360L618 360L620 360L622 360L624 360L626 360L628 360L630 360L632 360L634 360L636 360L638 360L640 360L642 360L644 360L646 360L648 360L650 360L652 360L654 360L656 360L658 360L660 360L662 360L664 360L666 360L668 360L670 360L672 360L674 360L676 360L678 360L680 360L682 360L684 360L686 360L688 360L690 360L692 360L694 360L696 360L698 360L700 360L702 360L704 360L706 360L708 360L710 360L712 360L714 360L716 360L718 360L720 360L720 360L718 360L716 360L714 360L712 360L710 360L708 360L706 360L704 360L702 360L700 360L698 360L696 360L694 360L692 360L690 360L688 360L686 360L684 360L682 360L680 360L678 360L676 360L674 360L672 360L670 360L668 360L666 360L664 360L662 360L660 360L658 360L656 360L654 360L652 360L650 360L648 360L646 360L644 360L642 360L640 360L638 360L636 360L634 360L632 360L630 360L628 360L626 360L624 360L622 360L620 360L618 360L616 360L614 360L612 360L610 360L608 360L606 360L604 360L602 360L600 360L598 360L596 360L594 360L592 360L590 360L588 360L586 360L584 360L582 360L580 360L578 360L576 360L574 360L572 360L570 360L568 360L566 360L564 360L562 360L560 360L558 360L556 360L554 360L552 360L550 360L548 360L546 360L544 360L542 360L540 360L538 360L536 360L534 360L532 360L530 360L528 360L526 360L524 360L522 360L520 360L518 360L516 360L514 360L512 360L510 360L508 360L506 360L504 360L502 360L500 360L498 360L496 360L494 360L492 360L490 360L488 360L486 360L484 360L482 360L480 360L478 360L476 360L474 360L472 360L470 360L468 360L466 360L464 360L462 360L460 360L458 360L456 360L454 360L452 360L450 360L448 360L446 360L444 360L442 360L440 360L438 360L436 360L434 360L432 360L430 360L428 360L426 360L424 360L422 360L420 360L418 360L416 259.2L414 273.9L412 282.9L410 289.4L408 294.6L406 298.9L404 302.5L402 305.6L400 308.3L398 310.7L396 312.9L394 314.8L392 316.6L390 318.2L388 319.6L386 321L384 322.2L382 323.3L380 324.4L378 325.4L376 326.3L374 327.1L372 327.9L370 328.7L368 329.4L366 330.1L364 330.7L362 331.3L360 331.8L358 332.3L356 332.8L354 333.3L352 333.7L350 334.2L348 334.6L346 334.9L344 335.3L342 335.6L340 336L338 336.3L336 336.6L334 336.8L332 337.1L330 337.4L328 337.6L326 337.8L324 338L322 338.2L320 338.4L318 338.6L316 338.8L314 338.9L312 339.1L310 339.2L308 339.4L306 339.5L304 339.6L302 339.7L300 339.8L298 339.9L296 340L294 340.1L292 340.2L290 340.3L288 340.3L286 340.4L284 340.4L282 340.5L280 340.5L278 340.5L276 340.6L274 340.6L272 340.6L270 340.6L268 340.6L266 340.6L264 340.6L262 340.6L260 340.5L258 340.5L256 340.5L254 340.4L252 340.4L250 340.3L248 340.3L246 340.2L244 340.1L242 340L240 339.9L238 339.8L236 339.7L234 339.6L232 339.5L230 339.4L228 339.2L226 339.1L224 338.9L222 338.8L220 338.6L218 338.4L216 338.2L214 338L212 337.8L210 337.6L208 337.3L206 337.1L204 336.8L202 336.5L200 336.3L198 335.9L196 335.6L194 335.3L192 334.9L190 334.5L188 334.1L186 333.7L184 333.3L182 332.8L180 332.3L178 331.8L176 331.2L174 330.6L172 330L170 329.3L168 328.6L166 327.9L164 327.1L162 326.2L160 325.3L158 324.3L156 323.3L154 322.1L152 320.9L150 319.5L148 318.1L146 316.5L144 314.7L142 312.8L140 310.6L138 308.2L136 305.4L134 302.3L132 298.6L130 294.3L128 289L126 282.3L124 273.1L122 257.7L120 360L118 360L116 360L114 360L112 360L110 360L108 360L106 360L104 360L102 360L100 360L98 360L96 360L94 360L92 360L90 360L88 360L86 360L84 360L82 360L80 360L78 360L76 360L74 360L72 360L70 360L68 360L66 360L64 360L62 360L60 360L58 360L56 360L54 360L52 360L50 360L48 360L46 360L44 360L42 360L40 360L38 360L36 360L34 360L32 360L30 360L28 360L26 360L24 360L22 360L20 360L18 360L16 360L14 360L12 360L10 360L8 360L6 360L4 360L2 360L0 360Z" fill-rule="evenodd" fill="#050a16" fill-opacity=".34"/>
+        <path id="dn-night" d="M0 360L2 360L4 360L6 360L8 360L10 360L12 360L14 360L16 360L18 360L20 360L22 360L24 360L26 360L28 360L30 360L32 360L34 360L36 360L38 360L40 360L42 360L44 360L46 360L48 360L50 360L52 360L54 360L56 360L58 360L60 360L62 360L64 360L66 360L68 360L70 360L72 360L74 360L76 360L78 360L80 360L82 360L84 360L86 360L88 360L90 360L92 360L94 360L96 360L98 360L100 360L102 360L104 360L106 360L108 360L110 360L112 360L114 360L116 360L118 360L120 360L122 211.3L124 190.6L126 176.6L128 165.6L130 156.3L132 148.4L134 141.4L136 135.1L138 129.5L140 124.4L142 119.8L144 115.5L146 111.6L148 108L150 104.7L152 101.6L154 98.7L156 96L158 93.5L160 91.2L162 89L164 86.9L166 84.9L168 83.1L170 81.3L172 79.7L174 78.2L176 76.7L178 75.3L180 74L182 72.7L184 71.5L186 70.4L188 69.3L190 68.3L192 67.4L194 66.4L196 65.6L198 64.7L200 63.9L202 63.2L204 62.5L206 61.8L208 61.1L210 60.5L212 59.9L214 59.4L216 58.8L218 58.3L220 57.9L222 57.4L224 57L226 56.6L228 56.2L230 55.8L232 55.5L234 55.2L236 54.9L238 54.6L240 54.4L242 54.1L244 53.9L246 53.7L248 53.5L250 53.3L252 53.2L254 53.1L256 53L258 52.9L260 52.8L262 52.7L264 52.7L266 52.6L268 52.6L270 52.6L272 52.6L274 52.7L276 52.7L278 52.8L280 52.8L282 52.9L284 53.1L286 53.2L288 53.3L290 53.5L292 53.7L294 53.9L296 54.1L298 54.3L300 54.6L302 54.9L304 55.2L306 55.5L308 55.8L310 56.2L312 56.5L314 56.9L316 57.4L318 57.8L320 58.3L322 58.8L324 59.3L326 59.9L328 60.5L330 61.1L332 61.7L334 62.4L336 63.1L338 63.9L340 64.7L342 65.5L344 66.4L346 67.3L348 68.2L350 69.3L352 70.3L354 71.5L356 72.6L358 73.9L360 75.2L362 76.6L364 78L366 79.6L368 81.2L370 83L372 84.8L374 86.7L376 88.8L378 91L380 93.4L382 95.9L384 98.5L386 101.4L388 104.5L390 107.8L392 111.4L394 115.2L396 119.5L398 124.1L400 129.1L402 134.7L404 140.9L406 147.8L408 155.7L410 164.9L412 175.8L414 189.4L416 209.3L418 360L420 360L422 360L424 360L426 360L428 360L430 360L432 360L434 360L436 360L438 360L440 360L442 360L444 360L446 360L448 360L450 360L452 360L454 360L456 360L458 360L460 360L462 360L464 360L466 360L468 360L470 360L472 360L474 360L476 360L478 360L480 360L482 360L484 360L486 360L488 360L490 360L492 360L494 360L496 360L498 360L500 360L502 360L504 360L506 360L508 360L510 360L512 360L514 360L516 360L518 360L520 360L522 360L524 360L526 360L528 360L530 360L532 360L534 360L536 360L538 360L540 360L542 360L544 360L546 360L548 360L550 360L552 360L554 360L556 360L558 360L560 360L562 360L564 360L566 360L568 360L570 360L572 360L574 360L576 360L578 360L580 360L582 360L584 360L586 360L588 360L590 360L592 360L594 360L596 360L598 360L600 360L602 360L604 360L606 360L608 360L610 360L612 360L614 360L616 360L618 360L620 360L622 360L624 360L626 360L628 360L630 360L632 360L634 360L636 360L638 360L640 360L642 360L644 360L646 360L648 360L650 360L652 360L654 360L656 360L658 360L660 360L662 360L664 360L666 360L668 360L670 360L672 360L674 360L676 360L678 360L680 360L682 360L684 360L686 360L688 360L690 360L692 360L694 360L696 360L698 360L700 360L702 360L704 360L706 360L708 360L710 360L712 360L714 360L716 360L718 360L720 360L720 360L718 360L716 360L714 360L712 360L710 360L708 360L706 360L704 360L702 360L700 360L698 360L696 360L694 360L692 360L690 360L688 360L686 360L684 360L682 360L680 360L678 360L676 360L674 360L672 360L670 360L668 360L666 360L664 360L662 360L660 360L658 360L656 360L654 360L652 360L650 360L648 360L646 360L644 360L642 360L640 360L638 360L636 360L634 360L632 360L630 360L628 360L626 360L624 360L622 360L620 360L618 360L616 360L614 360L612 360L610 360L608 360L606 360L604 360L602 360L600 360L598 360L596 360L594 360L592 360L590 360L588 360L586 360L584 360L582 360L580 360L578 360L576 360L574 360L572 360L570 360L568 360L566 360L564 360L562 360L560 360L558 360L556 360L554 360L552 360L550 360L548 360L546 360L544 360L542 360L540 360L538 360L536 360L534 360L532 360L530 360L528 360L526 360L524 360L522 360L520 360L518 360L516 360L514 360L512 360L510 360L508 360L506 360L504 360L502 360L500 360L498 360L496 360L494 360L492 360L490 360L488 360L486 360L484 360L482 360L480 360L478 360L476 360L474 360L472 360L470 360L468 360L466 360L464 360L462 360L460 360L458 360L456 360L454 360L452 360L450 360L448 360L446 360L444 360L442 360L440 360L438 360L436 360L434 360L432 360L430 360L428 360L426 360L424 360L422 360L420 360L418 360L416 259.2L414 273.9L412 282.9L410 289.4L408 294.6L406 298.9L404 302.5L402 305.6L400 308.3L398 310.7L396 312.9L394 314.8L392 316.6L390 318.2L388 319.6L386 321L384 322.2L382 323.3L380 324.4L378 325.4L376 326.3L374 327.1L372 327.9L370 328.7L368 329.4L366 330.1L364 330.7L362 331.3L360 331.8L358 332.3L356 332.8L354 333.3L352 333.7L350 334.2L348 334.6L346 334.9L344 335.3L342 335.6L340 336L338 336.3L336 336.6L334 336.8L332 337.1L330 337.4L328 337.6L326 337.8L324 338L322 338.2L320 338.4L318 338.6L316 338.8L314 338.9L312 339.1L310 339.2L308 339.4L306 339.5L304 339.6L302 339.7L300 339.8L298 339.9L296 340L294 340.1L292 340.2L290 340.3L288 340.3L286 340.4L284 340.4L282 340.5L280 340.5L278 340.5L276 340.6L274 340.6L272 340.6L270 340.6L268 340.6L266 340.6L264 340.6L262 340.6L260 340.5L258 340.5L256 340.5L254 340.4L252 340.4L250 340.3L248 340.3L246 340.2L244 340.1L242 340L240 339.9L238 339.8L236 339.7L234 339.6L232 339.5L230 339.4L228 339.2L226 339.1L224 338.9L222 338.8L220 338.6L218 338.4L216 338.2L214 338L212 337.8L210 337.6L208 337.3L206 337.1L204 336.8L202 336.5L200 336.3L198 335.9L196 335.6L194 335.3L192 334.9L190 334.5L188 334.1L186 333.7L184 333.3L182 332.8L180 332.3L178 331.8L176 331.2L174 330.6L172 330L170 329.3L168 328.6L166 327.9L164 327.1L162 326.2L160 325.3L158 324.3L156 323.3L154 322.1L152 320.9L150 319.5L148 318.1L146 316.5L144 314.7L142 312.8L140 310.6L138 308.2L136 305.4L134 302.3L132 298.6L130 294.3L128 289L126 282.3L124 273.1L122 257.7L120 360L118 360L116 360L114 360L112 360L110 360L108 360L106 360L104 360L102 360L100 360L98 360L96 360L94 360L92 360L90 360L88 360L86 360L84 360L82 360L80 360L78 360L76 360L74 360L72 360L70 360L68 360L66 360L64 360L62 360L60 360L58 360L56 360L54 360L52 360L50 360L48 360L46 360L44 360L42 360L40 360L38 360L36 360L34 360L32 360L30 360L28 360L26 360L24 360L22 360L20 360L18 360L16 360L14 360L12 360L10 360L8 360L6 360L4 360L2 360L0 360Z" fill="#050a16" fill-opacity=".52"/>
         <circle cx="123.5" cy="111.9" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="123.5" y="105.1" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Los Angeles</text><circle cx="161.7" cy="141.1" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="161.7" y="134.3" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Mexico City</text><circle cx="266.7" cy="227.1" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="266.7" y="220.3" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">São Paulo</text><circle cx="211.9" cy="170.6" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="211.9" y="163.8" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Bogotá</text><circle cx="60.2" cy="57.6" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="60.2" y="50.8" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Anchorage</text><circle cx="212" cy="98.6" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="212" y="91.8" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">New York</text><circle cx="359.7" cy="77" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="359.7" y="70.2" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">London</text><circle cx="435.2" cy="68.5" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="435.2" y="61.7" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Moscow</text><circle cx="352.6" cy="99.2" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="352.6" y="92.4" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Madrid</text><circle cx="366.8" cy="167" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="366.8" y="160.2" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Lagos</text><circle cx="422.5" cy="119.9" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="422.5" y="113.1" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Cairo</text><circle cx="416.1" cy="232.4" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="416.1" y="225.6" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Johannesburg</text><circle cx="433.6" cy="182.6" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="433.6" y="175.8" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Nairobi</text><circle cx="494" cy="130.3" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="494" y="123.5" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Karachi</text><circle cx="505.8" cy="141.8" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="505.8" y="135" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Mumbai</text><circle cx="561" cy="152.5" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="561" y="145.7" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Bangkok</text><circle cx="602.9" cy="117.5" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="602.9" y="110.7" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Shanghai</text><circle cx="567.6" cy="177.3" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="567.6" y="170.5" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Singapore</text><circle cx="573.7" cy="192.4" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="573.7" y="185.6" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Jakarta</text><circle cx="639.3" cy="108.6" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="639.3" y="101.8" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Tokyo</text><circle cx="709.5" cy="253.7" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="714.3" y="246.9" text-anchor="end" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Auckland</text><circle cx="591.7" cy="243.9" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="591.7" y="237.1" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Perth</text><circle cx="662.4" cy="247.7" r="2.8" fill="#e2e8f0" stroke="#0b0e1c" stroke-width="1.6"/><text x="662.4" y="240.9" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Sydney</text>
-        <g id="dn-moon" transform="translate(465.5 164.9)">
+        <g id="dn-moon" transform="translate(356.6 150.8)">
           <title id="dn-moon-title">Waning gibbous</title>
           <circle r="14" fill="#e8e0c8" fill-opacity=".18"/>
-          <g id="dn-moon-g" transform="translate(-10 -10)"><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="10" cy="10" r="10" fill="#efe3c2"/><path d="M10 0A10 10 0 0 1 10 20A8.29 10 0 0 0 10 0Z" fill="#0e0d08" fill-opacity="0.979"/><circle cx="10" cy="10" r="10" fill="none" stroke="#57503a" stroke-width="1"/></svg></g>
+          <g id="dn-moon-g" transform="translate(-10 -10)"><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" class="mn-moon" overflow="visible"><circle cx="10" cy="10" r="10" fill="#efe3c2"/><path d="M10 0A10 10 0 0 1 10 20A6.57 10 0 0 0 10 0Z" fill="#0e0d08" fill-opacity="0.972"/><circle cx="10" cy="10" r="10" fill="none" stroke="#57503a" stroke-width="1"/></svg></g>
           <text y="-16" text-anchor="middle" font-size="11.5" font-weight="700" fill="#e8e0c8" paint-order="stroke" stroke="#0b0e1c" stroke-width="3">Moon</text>
         </g>
-        <g id="dn-sun" transform="translate(45.2 162.5)">
+        <g id="dn-sun" transform="translate(629.1 163.4)">
           <circle r="13" fill="#fde68a" fill-opacity=".25"/>
           <circle r="6.5" fill="#fde68a" stroke="#b45309" stroke-width="1.5"/>
         </g>
@@ -1501,7 +1857,6 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       </svg>
     </div>
     <div class="dn-slider-row">
-      <button type="button" class="chip dn-obtn" id="dn-now" hidden>Now</button>
       <div class="dn-slider-mid">
         <label class="sim-flab" for="dn-slider">Time — 27.3 days, one orbit of the Moon <span class="dn-span" id="dn-span"></span></label>
         <input type="range" class="orr-slider" id="dn-slider" min="0" max="39312" step="10" value="0" disabled aria-label="Move through one 27.3-day orbit of the Moon">
@@ -1509,8 +1864,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <button type="button" class="chip dn-obtn dn-play" id="dn-play" aria-pressed="false" hidden>Play</button>
     </div>
     <p class="dn-when"><b id="dn-o-when">&nbsp;</b><span id="dn-o-utc">&nbsp;</span></p>
-    <p class="dn-sunline" id="dn-sunline">The sun is overhead at <b>8.7° N, 157.4° W</b> — this is the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a>. This time of year the sun is moving from summer toward fall, and days in the northern half of the world are getting shorter because Earth is tilting away from the sun in <a href="/earth-sun-moon-orbit-simulator/">Earth’s orbit</a>.</p>
-    <p class="dn-tools">
+    <p class="dn-tools dn-tools-main">
       <button type="button" class="chip" data-dn-jump="now" disabled>Now</button>
       <button type="button" class="chip dn-loc-chip" aria-label="Put my location on the map" title="Put my location on the map" hidden disabled><svg class="dn-pin" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.1 6.1 12.2 6.36 12.5a.85.85 0 0 0 1.28 0C12.9 21.2 19 14.1 19 9a7 7 0 0 0-7-7zm0 9.6A2.6 2.6 0 1 1 14.6 9 2.6 2.6 0 0 1 12 11.6z"/></svg></button>
       <button type="button" class="chip" data-dn-jump="mar" disabled>Spring equinox</button>
@@ -1518,12 +1872,43 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <button type="button" class="chip" data-dn-jump="sep" disabled>Fall equinox</button>
       <button type="button" class="chip" data-dn-jump="dec" disabled>Winter solstice</button>
     </p>
+    <p class="dn-sunline" id="dn-sunline">The sun is overhead at <b>8.3° N, 134.5° E</b> — this is the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a>. This time of year the sun is moving from summer toward fall, and days in the northern half of the world are getting shorter because Earth is tilting away from the sun in <a href="/earth-sun-moon-orbit-simulator/">Earth’s orbit</a>.</p>
     <p class="hint" id="dn-loc-msg"></p>
     <p class="dn-me-line" id="dn-mewrap" hidden><b id="dn-o-me">&nbsp;</b> <a id="dn-me-sun" href="/sun/near-me/?geo=1">Your sunrise and sunset →</a></p>
-    <p class="hint">Play runs at about six hours a second: one full turn of the Earth takes 4 seconds, and one 27.3-day orbit of the Moon about 2 minutes. Nothing on the map slides sideways while it runs — the shaded shape is re-solved for each moment, meridian by meridian — so the picture never runs off the edge and jumps back. The one thing that does cross the edge is the sun marker, and that is honest: this map is a cylinder cut open at the date line, so the point the sun stands over leaves at one side and arrives at the other.</p>
+    <p class="hint dn-map-note"><strong>Map limitation:</strong> Earth is a globe flattened into a rectangle, so shapes and distances — especially near the poles — are distorted. The Sun and Moon markers are enlarged so you can see them. <a href="/concepts/why-is-this-map-flat/">Why this map is flat →</a></p>
   </div>
-  <div class="card" id="how">
-    <h2>What this is, and how it works</h2>
+  <div class="card dn-side-card" id="sun-angle">
+    <h2><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> Angle of the Sun based on the time of the year</h2>
+    <p class="dn-side-intro">The map above looks down at the ground. This is the same instant from beside <a href="/earth-sun-moon-orbit-simulator/">Earth’s orbit</a> — parallel sunlight, and the one yellow line from the centre of the sun to the centre of the Earth. It meets the surface at the yellow marker.</p>
+    <div class="dns-wrap" id="dn-side"><svg class="dns-svg" viewBox="0 0 600 276" width="100%" role="img" aria-label="The Earth seen from the side, lit from the left, with the line from the centre of the sun to the centre of the Earth landing between the Tropic of Cancer and the Tropic of Capricorn"><circle class="dns-glow" cx="54" cy="138" r="54"/><circle class="dns-sun" cx="54" cy="138" r="34"/><line class="dns-ray" x1="98" y1="46" x2="278" y2="46"/><line class="dns-ray" x1="98" y1="92" x2="278" y2="92"/><line class="dns-ray" x1="98" y1="184" x2="278" y2="184"/><line class="dns-ray" x1="98" y1="230" x2="278" y2="230"/><text class="dns-lab" x="98" y="26">Sunlight, arriving parallel</text><circle class="dns-earth" cx="372" cy="138" r="86"/><path class="dns-night" d="M372 52A86 86 0 0 1 372 224Z"/><line class="dns-term" x1="372" y1="40" x2="372" y2="236"/><line class="dns-axis" x1="387.6" y1="245.2" x2="356.4" y2="30.8"/><text class="dns-lab" text-anchor="middle" x="354.6" y="18.9">N</text><text class="dns-lab" text-anchor="middle" x="389.4" y="257.1">S</text><line class="dns-par dns-trop" x1="289" y1="115.5" x2="445.1" y2="92.8"/><line class="dns-par dns-trop" x1="298.9" y1="183.2" x2="455" y2="160.5"/><line class="dns-par dns-eq" x1="286.9" y1="150.4" x2="457.1" y2="125.6"/><line class="dns-ctr" x1="54" y1="138" x2="372" y2="138"/><circle class="dns-hit" cx="286" cy="138" r="6"/><text class="dns-lab dns-lab-d" text-anchor="end" x="278" y="120">sun overhead here</text><text class="dns-lab dns-lab-t" x="455.1" y="96.8">Tropic of Cancer</text><text class="dns-lab" x="467.1" y="129.6">Equator</text><text class="dns-lab dns-lab-t" x="465" y="164.5">Tropic of Capricorn</text></svg></div>
+    <p class="dn-tools dn-tools-side">
+      <button type="button" class="chip" data-dn-jump="now" disabled>Now</button>
+      <button type="button" class="chip" data-dn-jump="mar" disabled>Spring equinox</button>
+      <button type="button" class="chip" data-dn-jump="jun" disabled>Summer solstice</button>
+      <button type="button" class="chip" data-dn-jump="sep" disabled>Fall equinox</button>
+      <button type="button" class="chip" data-dn-jump="dec" disabled>Winter solstice</button>
+    </p>
+    <p class="dns-cap" id="dn-side-cap">The Sun–Earth centre line lands at <strong>8.3° N</strong>, 15.1° short of the <a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a>. The Northern Hemisphere is leaning into the light, so its days are longer than its nights. <a href="/concepts/why-do-we-have-seasons/">See how tilt makes the seasons →</a></p>
+    <div class="dn-side-support">
+    <p>The two dashed chords are the tropics, at ±23.4°. They are the tilt written on the surface. Jump the map to a solstice and watch the yellow line stop there.</p>
+    <div class="wc-facts">
+      <div class="wc-frow"><span>Tropic of Cancer, 23.4°N</span><b>Furthest north the sun can stand overhead. <button type="button" class="chip" data-dn-jump="jun" disabled>Show me</button></b></div>
+      <div class="wc-frow"><span>Tropic of Capricorn, 23.4°S</span><b>The same limit going south. <button type="button" class="chip" data-dn-jump="dec" disabled>Show me</button></b></div>
+    </div>
+    </div>
+  </div>
+    <p class="dn-tools dn-tools-only">
+      <button type="button" class="chip" data-dn-jump="now" disabled>Now</button>
+      <button type="button" class="chip" data-dn-jump="mar" disabled>Spring equinox</button>
+      <button type="button" class="chip" data-dn-jump="jun" disabled>Summer solstice</button>
+      <button type="button" class="chip" data-dn-jump="sep" disabled>Fall equinox</button>
+      <button type="button" class="chip" data-dn-jump="dec" disabled>Winter solstice</button>
+    </p>
+  </div>
+  <div class="dn-lesson-sections">
+  <details class="card dn-instructions" id="instructions">
+    <summary>Day &amp; Night Map Instructions</summary>
+    <div class="dn-instructions-body">
     <p>This is a live map of day and night on Earth, solved for this moment. Half the planet is in sunlight at every instant. The bright half is where the sun is above the horizon, the dark half is below, and the <strong>soft band</strong> is twilight — the sun has set but the sky is still lit, out to 18° down.</p>
     <p>The <strong>yellow marker</strong> is the one place the sun stands <a href="/concepts/what-is-the-subsolar-point/">straight overhead</a>. The <strong>moon marker</strong> is where the moon stands overhead at the time on the slider, drawn in its current phase. It can sit in daylight or in night; that is <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">a daytime moon</a>. Drag the slider end to end and that marker completes one 27.3-day orbit of the Moon around Earth. The <strong>dashed gold lines</strong> are the tropics. The <strong>curve</strong> is the <a href="/concepts/what-is-the-terminator/">terminator</a>. <strong>Play</strong> watches both markers sweep west. Jump to a season start to see the shadow lean.</p>
     <div class="wc-facts">
@@ -1532,26 +1917,9 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <div class="wc-frow"><span>Soft band</span><b>Twilight, widest toward the poles.</b></div>
       <div class="wc-frow"><span>Dark half</span><b>Night, solved per meridian, not stamped on.</b></div>
     </div>
-  </div>
-  <div class="card">
-    <h2><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> Where the sun is standing, seen from the side</h2>
-    <p>The map above looks down at the ground. This is the same instant from beside <a href="/earth-sun-moon-orbit-simulator/">Earth’s orbit</a> — parallel sunlight, and the one yellow line from the centre of the sun to the centre of the Earth. It meets the surface at the yellow marker.</p>
-    <div class="dns-wrap" id="dn-side"><svg class="dns-svg" viewBox="0 0 600 276" width="100%" role="img" aria-label="The Earth seen from the side, lit from the left, with the line from the centre of the sun to the centre of the Earth landing between the Tropic of Cancer and the Tropic of Capricorn"><circle class="dns-glow" cx="54" cy="138" r="54"/><circle class="dns-sun" cx="54" cy="138" r="34"/><line class="dns-ray" x1="98" y1="46" x2="278" y2="46"/><line class="dns-ray" x1="98" y1="92" x2="278" y2="92"/><line class="dns-ray" x1="98" y1="184" x2="278" y2="184"/><line class="dns-ray" x1="98" y1="230" x2="278" y2="230"/><text class="dns-lab" x="98" y="26">Sunlight, arriving parallel</text><circle class="dns-earth" cx="372" cy="138" r="86"/><path class="dns-night" d="M372 52A86 86 0 0 1 372 224Z"/><line class="dns-term" x1="372" y1="40" x2="372" y2="236"/><line class="dns-axis" x1="388.5" y1="245.1" x2="355.5" y2="30.9"/><text class="dns-lab" text-anchor="middle" x="353.7" y="19">N</text><text class="dns-lab" text-anchor="middle" x="390.3" y="257">S</text><line class="dns-par dns-trop" x1="288.8" y1="116.2" x2="444.8" y2="92.2"/><line class="dns-par dns-trop" x1="299.2" y1="183.8" x2="455.2" y2="159.8"/><line class="dns-par dns-eq" x1="287" y1="151.1" x2="457" y2="124.9"/><line class="dns-ctr" x1="54" y1="138" x2="372" y2="138"/><circle class="dns-hit" cx="286" cy="138" r="6"/><text class="dns-lab dns-lab-d" text-anchor="end" x="278" y="120">sun overhead here</text><text class="dns-lab dns-lab-t" x="454.8" y="96.2">Tropic of Cancer</text><text class="dns-lab" x="467" y="128.9">Equator</text><text class="dns-lab dns-lab-t" x="465.2" y="163.8">Tropic of Capricorn</text></svg></div>
-    <p class="dns-cap" id="dn-side-cap">That line lands at <b>8.7° N</b> — 14.7° short of the Tropic of Cancer, which is as far north as it can ever get. The northern half of the world is leaning into the light, so more of it falls inside the lit half than outside, and its days are longer than its nights. That lean is the tilt of Earth on its orbit.</p>
-    <p class="dn-tools">
-      <button type="button" class="chip" data-dn-jump="now" disabled>Now</button>
-      <button type="button" class="chip" data-dn-jump="mar" disabled>Spring equinox</button>
-      <button type="button" class="chip" data-dn-jump="jun" disabled>Summer solstice</button>
-      <button type="button" class="chip" data-dn-jump="sep" disabled>Fall equinox</button>
-      <button type="button" class="chip" data-dn-jump="dec" disabled>Winter solstice</button>
-    </p>
-    <p>The two dashed chords are the tropics, at ±23.4°. They are the tilt written on the surface. Jump the map to a solstice and watch the yellow line stop there.</p>
-    <div class="wc-facts">
-      <div class="wc-frow"><span>Tropic of Cancer, 23.4°N</span><b>Furthest north the sun can stand overhead. <button type="button" class="chip" data-dn-jump="jun" disabled>Show me</button></b></div>
-      <div class="wc-frow"><span>Tropic of Capricorn, 23.4°S</span><b>The same limit going south. <button type="button" class="chip" data-dn-jump="dec" disabled>Show me</button></b></div>
     </div>
-  </div>
-  <div class="card">
+  </details>
+  <div class="card" id="things-to-try">
     <h2><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M12 6c-2.6-2.4-6.6-1.2-7.6 2.4-1.2 4.2.6 9.4 3.6 11.8 1.6 1.3 2.8 1.6 4-.2 1.2 1.8 2.4 1.5 4-.2 3-2.4 4.8-7.6 3.6-11.8-1-3.6-5-4.8-7.6-2.4z" fill="#dc2626"/><path d="M11.6 6.4c-.3-1.6.2-3 1.6-4" fill="none" stroke="#78350f" stroke-width="1.6" stroke-linecap="round"/><path d="M13 3.4c1.8-1 4-.4 4.6 1.2-1.6.9-3.8.5-4.6-1.2z" fill="#16a34a"/><ellipse cx="8.4" cy="10.4" rx="1.8" ry="2.6" fill="#ffffff" opacity=".28" transform="rotate(-20 8.4 10.4)"/></g></svg> Things to try</h2>
     <ul class="facts">
       <li><strong>Find your own bedtime.</strong> The map marks where you are as soon as your browser shares it — if it did not, there is a pin in the season-button row. Then drag the slider to tonight and watch the shading arrive over your dot: that is your sunset, to the minute the sun goes down where you are standing.</li>
@@ -1564,7 +1932,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
     </ul>
     <p class="hint">Taught one of these, or something better? <a href="/classroom/">Help us turn it into a lesson plan</a> — we build them with teachers and publish them free, credited to you.</p>
   </div>
-  <div class="card hub-teasers">
+  <div class="card hub-teasers" id="questions-answered">
     <h2>Questions this page answers</h2>
     <p class="sub">The question is the link. A short answer sits here; tap through for the drawing and the deeper pass.</p>
     <ul class="hub-qs">
@@ -1599,6 +1967,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
       <a class="chip" href="/methodology/sunrise-sunset/">How sunrise is worked out</a>
       <a class="chip" href="/classroom/">Using these in a lesson</a>
     </p>
+  </div>
   </div>
   <details class="suggest-box" data-ac="suggest">
     <summary>💡 Question, problem or idea? <span class="arrow">Tell us →</span></summary>
@@ -2112,14 +2481,14 @@ var night=document.getElementById('dn-night'), twi=document.getElementById('dn-t
     sunG=document.getElementById('dn-sun'), moonG=document.getElementById('dn-moon'),
     meG=document.getElementById('dn-me'),
     slider=document.getElementById('dn-slider'), play=document.getElementById('dn-play'),
-    nowB=document.getElementById('dn-now'), locBtns=[].slice.call(document.querySelectorAll('.dn-loc-chip'));
-var TILT=23.435387669100702;                 /* solved at build from the same series */
+    locBtns=[].slice.call(document.querySelectorAll('.dn-loc-chip'));
+var TILT=23.43538784022704;                 /* solved at build from the same series */
 var sideBox=document.getElementById('dn-side'), sideCapEl=document.getElementById('dn-side-cap'),
     sunline=document.getElementById('dn-sunline'),
     orbitNow=document.getElementById('dn-orbit-now');
 var SPAN=39312;             /* minutes: one 27.3-day orbit of the Moon */
 var RATE=21600;            /* six hours of map time per real second */
-var T0=1788128999756, AT=1788128999756, PLAY=0, RAF=0, LAST=0, HOME=null;
+var T0=1788231718263, AT=1788231718263, PLAY=0, RAF=0, LAST=0, HOME=null, SELECTED='now';
 
 function $(id){return document.getElementById(id)}
 function set(id,txt){var e=$(id); if(e) e.textContent=txt}
@@ -2131,13 +2500,24 @@ function fmt(ms,tz){
 /* the caption under the side view — ONE source, shipped as its own text. See
    sideCapText() above the script: the same function bakes the sentence into
    the page and repaints it in the browser. */
-var sideCap=function(dec){ return (function sideCapText(dec, tilt) {
+var sideCap=function(dec,kind,ms){ return (function sideCapText(dec, tilt, kind, ms) {
+  var date = function (at) {
+    try { return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(at)); }
+    catch (e) { return new Date(at).toUTCString().replace(/ 00:00:00 GMT$/, ''); }
+  };
+  var when = ms ? date(ms) : '';
+  if (kind === 'mar') return '<a href="/holiday-countdowns/spring-equinox/">The spring equinox</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical spring</a> in the Northern Hemisphere (autumn in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
+  if (kind === 'jun') return '<a href="/holiday-countdowns/summer-solstice/">The summer solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical summer</a> in the Northern Hemisphere and gives it the year\'s longest period of daylight. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther north. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
+  if (kind === 'sep') return '<a href="/holiday-countdowns/fall-equinox/">The fall equinox</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical fall</a> in the Northern Hemisphere (spring in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
+  if (kind === 'dec') return '<a href="/holiday-countdowns/winter-solstice/">The winter solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical winter</a> in the Northern Hemisphere and gives it the year\'s shortest period of daylight. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-capricorn/">Tropic of Capricorn</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther south. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
   var a = Math.abs(dec), n = dec >= 0, x = a.toFixed(1), gap = (tilt - a).toFixed(1);
-  var TC = 'Tropic of ' + (n ? 'Cancer' : 'Capricorn');
-  if (a < 0.6) return 'That line lands <b>on the equator</b>. The tilt has not gone anywhere — it never does — but today the axis leans SIDEWAYS to the sun rather than toward it or away from it, so from this viewpoint it looks upright and the light divides the globe from pole to pole. Every place on Earth gets about twelve hours of each. This is an equinox.';
-  if (tilt - a < 0.15) return 'That line lands <b>right on the ' + TC + '</b>, ' + x + '° ' + (n ? 'N' : 'S') + ' — the furthest ' + (n ? 'north' : 'south') + ' it ever reaches. This is the solstice: the ' + (n ? 'northern' : 'southern') + ' half of the world is tipped as far into the light as it will get all year, and the ' + (n ? 'north' : 'south') + ' end of the axis stays inside the lit half all the way round, which is why the sun does not set up there today.';
-  return 'That line lands at <b>' + x + '° ' + (n ? 'N' : 'S') + '</b> — ' + gap + '° short of the ' + TC + ', which is as far ' + (n ? 'north' : 'south') + ' as it can ever get. The ' + (n ? 'northern' : 'southern') + ' half of the world is leaning into the light, so more of it falls inside the lit half than outside, and its days are longer than its nights. That lean is the tilt of Earth on its orbit.';
-})(dec,TILT); };
+  var TC = n
+    ? '<a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a>'
+    : '<a href="/concepts/what-is-the-tropic-of-capricorn/">Tropic of Capricorn</a>';
+  if (a < 0.6) return 'The Sun–Earth centre line lands on the equator at the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a>. Earth is still tilted, but its axis leans sideways to the Sun at this moment, so daylight is close to twelve hours worldwide.';
+  if (tilt - a < 0.15) return 'The Sun–Earth centre line lands on the ' + TC + ', at <strong>' + x + '° ' + (n ? 'N' : 'S') + '</strong> — the furthest ' + (n ? 'north' : 'south') + ' the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> reaches. One hemisphere is at its maximum lean toward the Sun.';
+  return 'The Sun–Earth centre line lands at <strong>' + x + '° ' + (n ? 'N' : 'S') + '</strong>, ' + gap + '° short of the ' + TC + '. The ' + (n ? 'Northern' : 'Southern') + ' Hemisphere is leaning into the light, so its days are longer than its nights. <a href="/concepts/why-do-we-have-seasons/">See how tilt makes the seasons →</a>';
+})(dec,TILT,kind,ms); };
 /* the sentence under the map: overhead coordinates + which way the year is
    leaning. Same function that baked the first paint; laterDec is a week on. */
 var seasonSun=function(dec,lon,laterDec){ return (function seasonSunHtml(dec, lon, laterDec, tilt) {
@@ -2193,7 +2573,7 @@ function paint(){
   /* the side view is the same instant from a different place to stand, so it
      repaints from the same ss and cannot disagree with the map above it */
   if(sideBox) sideBox.innerHTML=dnSide(ss.dec,TILT, HOME&&HOME.lat!=null?HOME.lat:null);
-  if(sideCapEl) sideCapEl.innerHTML=sideCap(ss.dec);
+  if(sideCapEl) sideCapEl.innerHTML=sideCap(ss.dec,SELECTED,AT);
   if(slider) slider.value=Math.round((AT-T0)/60000);
   if(HOME){
     var a=dnAlt(HOME.lat,HOME.lon,ss.dec,ss.lon), s2=state(a);
@@ -2217,15 +2597,15 @@ function frame(ts){
   paint(); RAF=requestAnimationFrame(frame);
 }
 function start(){ PLAY=1; LAST=0; play.textContent='Pause'; play.setAttribute('aria-pressed','true');
+  SELECTED=''; syncJumpState();
   svg.classList.add('is-playing'); RAF=requestAnimationFrame(frame); }
 
 if(play){ play.hidden=false; play.addEventListener('click',function(){ PLAY?stop():start(); }); }
-if(nowB){ nowB.hidden=false; nowB.addEventListener('click',function(){ stop(); T0=Date.now(); AT=T0; spanLab(); paint(); }); }
 if(slider){
   slider.disabled=false;
-  slider.addEventListener('input',function(){ stop(); AT=T0+(+slider.value)*60000; paint(); });
+  slider.addEventListener('input',function(){ stop(); SELECTED=''; syncJumpState(); AT=T0+(+slider.value)*60000; paint(); });
 }
-/* the label beside the slider: which stretch of days it is showing */
+/* the label above the slider: which stretch of days it is showing */
 function spanLab(){
   var a=new Date(T0), b=new Date(T0+SPAN*60000);
   var f=function(d){ try{ return new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric'}).format(d); }catch(e){ return ''; } };
@@ -2252,19 +2632,53 @@ function seasonMs(kind){
   return best||t;
 }
 var jumps=document.querySelectorAll('[data-dn-jump]');
+function syncJumpState(){
+  for(var i=0;i<jumps.length;i++) jumps[i].setAttribute('aria-pressed',jumps[i].getAttribute('data-dn-jump')===SELECTED?'true':'false');
+}
 for(var j=0;j<jumps.length;j++){
   jumps[j].disabled=false;
   jumps[j].addEventListener('click',function(){
     stop();
     var k=this.getAttribute('data-dn-jump');
+    SELECTED=k;
     if(k==='now'){ T0=Date.now(); AT=T0; }
     else{
       var m=seasonMs(k), day=new Date(m);
       T0=Date.UTC(day.getUTCFullYear(),day.getUTCMonth(),day.getUTCDate())-3*86400000;
       AT=m;
     }
-    spanLab(); paint();
+    syncJumpState(); spanLab(); paint();
   });
+}
+
+/* A compact classroom view keeps the two synchronized diagrams and one season
+   row on screen together. The query string makes that view shareable without
+   creating a second indexable page. */
+var wrap=document.querySelector('.wrap'), viewBtn=document.getElementById('dn-sim-view');
+function setSimOnly(on,writeUrl){
+  if(!wrap||!viewBtn) return;
+  wrap.classList.toggle('dn-only',on);
+  viewBtn.setAttribute('aria-pressed',on?'true':'false');
+  viewBtn.textContent=on?'Full lesson':'Simulators only';
+  var navLinks=document.querySelectorAll('.dn-tabs a');
+  for(var n=0;n<navLinks.length;n++) navLinks[n].classList.remove('is-here');
+  if(!on&&navLinks.length) navLinks[0].classList.add('is-here');
+  if(writeUrl&&history.replaceState){
+    var u=new URL(location.href);
+    if(on) u.searchParams.set('view','simulators'); else u.searchParams.delete('view');
+    history.replaceState(null,'',u.pathname+(u.searchParams.toString()?'?'+u.searchParams.toString():'')+u.hash);
+  }
+}
+if(viewBtn){
+  viewBtn.hidden=false;
+  viewBtn.addEventListener('click',function(){ setSimOnly(!wrap.classList.contains('dn-only'),1); });
+  var lessonLinks=document.querySelectorAll('.dn-tabs a');
+  for(var q=0;q<lessonLinks.length;q++) lessonLinks[q].addEventListener('click',function(){
+    setSimOnly(0,1);
+    for(var x=0;x<lessonLinks.length;x++) lessonLinks[x].classList.remove('is-here');
+    this.classList.add('is-here');
+  });
+  try{ setSimOnly(new URL(location.href).searchParams.get('view')==='simulators',0); }catch(e){}
 }
 
 /* ---- my location --------------------------------------------------------
@@ -2312,9 +2726,10 @@ if(navigator.geolocation) locAsk(0);
 
 if(HOME){ var w0=$('dn-mewrap'); if(w0) w0.hidden=false; }
 
-T0=Date.now(); AT=T0; spanLab(); paint();
+T0=Date.now(); AT=T0; syncJumpState(); spanLab(); paint();
 setInterval(function(){ if(!PLAY&&Math.abs(AT-Date.now())<90000){ AT=Date.now(); paint(); } },60000);
-})();</script><div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
+})();</script>
+<div class="privacy-notice" id="ac-privacy" hidden role="region" aria-label="Privacy notice"><p class="privacy-text" id="ac-privacy-text"></p><span class="privacy-actions" id="ac-privacy-actions"></span><button type="button" class="privacy-close" id="ac-privacy-x" aria-label="Dismiss">×</button></div>
 <script data-ac="privacy">(function(){
   try{if(localStorage.getItem("ac_consent"))return;}catch(_){}
   var GDPR=["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];

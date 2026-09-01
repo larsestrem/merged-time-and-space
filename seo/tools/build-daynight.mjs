@@ -149,18 +149,30 @@ const MAP_SVG = `<svg id="dn-svg" class="dn-svg" viewBox="${DN_VIEWBOX}" width="
  * reader wants to know is what that does to the length of their day. The
  * solstice gets its own branch: "0.0 degrees short of the tropic" is a worse
  * sentence than "right on it", and it is the sentence that matters most. */
-function sideCapText(dec, tilt) {
+function sideCapText(dec, tilt, kind, ms) {
+  var date = function (at) {
+    try { return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(at)); }
+    catch (e) { return new Date(at).toUTCString().replace(/ 00:00:00 GMT$/, ''); }
+  };
+  var when = ms ? date(ms) : '';
+  if (kind === 'mar') return '<a href="/holiday-countdowns/spring-equinox/">The spring equinox</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical spring</a> in the Northern Hemisphere (autumn in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
+  if (kind === 'jun') return '<a href="/holiday-countdowns/summer-solstice/">The summer solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical summer</a> in the Northern Hemisphere and gives it the year\'s longest period of daylight. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther north. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
+  if (kind === 'sep') return '<a href="/holiday-countdowns/fall-equinox/">The fall equinox</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical fall</a> in the Northern Hemisphere (spring in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
+  if (kind === 'dec') return '<a href="/holiday-countdowns/winter-solstice/">The winter solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical winter</a> in the Northern Hemisphere and gives it the year\'s shortest period of daylight. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-capricorn/">Tropic of Capricorn</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther south. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
   var a = Math.abs(dec), n = dec >= 0, x = a.toFixed(1), gap = (tilt - a).toFixed(1);
-  var TC = 'Tropic of ' + (n ? 'Cancer' : 'Capricorn');
-  if (a < 0.6) return 'That line lands <b>on the equator</b>. The tilt has not gone anywhere — it never does — but today the axis leans SIDEWAYS to the sun rather than toward it or away from it, so from this viewpoint it looks upright and the light divides the globe from pole to pole. Every place on Earth gets about twelve hours of each. This is an equinox.';
-  if (tilt - a < 0.15) return 'That line lands <b>right on the ' + TC + '</b>, ' + x + '° ' + (n ? 'N' : 'S') + ' — the furthest ' + (n ? 'north' : 'south') + ' it ever reaches. This is the solstice: the ' + (n ? 'northern' : 'southern') + ' half of the world is tipped as far into the light as it will get all year, and the ' + (n ? 'north' : 'south') + ' end of the axis stays inside the lit half all the way round, which is why the sun does not set up there today.';
-  return 'That line lands at <b>' + x + '° ' + (n ? 'N' : 'S') + '</b> — ' + gap + '° short of the ' + TC + ', which is as far ' + (n ? 'north' : 'south') + ' as it can ever get. The ' + (n ? 'northern' : 'southern') + ' half of the world is leaning into the light, so more of it falls inside the lit half than outside, and its days are longer than its nights. That lean is the tilt of Earth on its orbit.';
+  var TC = n
+    ? '<a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a>'
+    : '<a href="/concepts/what-is-the-tropic-of-capricorn/">Tropic of Capricorn</a>';
+  if (a < 0.6) return 'The Sun–Earth centre line lands on the equator at the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a>. Earth is still tilted, but its axis leans sideways to the Sun at this moment, so daylight is close to twelve hours worldwide.';
+  if (tilt - a < 0.15) return 'The Sun–Earth centre line lands on the ' + TC + ', at <strong>' + x + '° ' + (n ? 'N' : 'S') + '</strong> — the furthest ' + (n ? 'north' : 'south') + ' the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> reaches. One hemisphere is at its maximum lean toward the Sun.';
+  return 'The Sun–Earth centre line lands at <strong>' + x + '° ' + (n ? 'N' : 'S') + '</strong>, ' + gap + '° short of the ' + TC + '. The ' + (n ? 'Northern' : 'Southern') + ' Hemisphere is leaning into the light, so its days are longer than its nights. <a href="/concepts/why-do-we-have-seasons/">See how tilt makes the seasons →</a>';
 }
 
 /* ---- the page's own script ----------------------------------------------
- * Controls ship INERT — the slider disabled, Play and Now hidden — because
- * without JS neither could do anything, and a dead button on a page for a
- * classroom is worse than no button. The script's first act is to enable them.
+ * Controls ship INERT — the slider and season buttons disabled, Play and the
+ * compact-view toggle hidden — because without JS none could do anything, and
+ * a dead control on a classroom page is worse than no control. The script's
+ * first act is to enable them.
  *
  * NOTHING TRANSLATES. Every repaint rewrites the two path `d` attributes from
  * the absolute solver in daynight.mjs, so the shading never slides out of the
@@ -176,14 +188,14 @@ var night=document.getElementById('dn-night'), twi=document.getElementById('dn-t
     sunG=document.getElementById('dn-sun'), moonG=document.getElementById('dn-moon'),
     meG=document.getElementById('dn-me'),
     slider=document.getElementById('dn-slider'), play=document.getElementById('dn-play'),
-    nowB=document.getElementById('dn-now'), locBtns=[].slice.call(document.querySelectorAll('.dn-loc-chip'));
+    locBtns=[].slice.call(document.querySelectorAll('.dn-loc-chip'));
 var TILT=${TILT};                 /* solved at build from the same series */
 var sideBox=document.getElementById('dn-side'), sideCapEl=document.getElementById('dn-side-cap'),
     sunline=document.getElementById('dn-sunline'),
     orbitNow=document.getElementById('dn-orbit-now');
 var SPAN=${SPAN_MIN};             /* minutes: one ${SIDEREAL}-day orbit of the Moon */
 var RATE=${PLAY_RATE};            /* six hours of map time per real second */
-var T0=${NOW}, AT=${NOW}, PLAY=0, RAF=0, LAST=0, HOME=null;
+var T0=${NOW}, AT=${NOW}, PLAY=0, RAF=0, LAST=0, HOME=null, SELECTED='now';
 
 function $(id){return document.getElementById(id)}
 function set(id,txt){var e=$(id); if(e) e.textContent=txt}
@@ -195,7 +207,7 @@ function fmt(ms,tz){
 /* the caption under the side view — ONE source, shipped as its own text. See
    sideCapText() above the script: the same function bakes the sentence into
    the page and repaints it in the browser. */
-var sideCap=function(dec){ return (${sideCapText.toString()})(dec,TILT); };
+var sideCap=function(dec,kind,ms){ return (${sideCapText.toString()})(dec,TILT,kind,ms); };
 /* the sentence under the map: overhead coordinates + which way the year is
    leaning. Same function that baked the first paint; laterDec is a week on. */
 var seasonSun=function(dec,lon,laterDec){ return (${seasonSunHtml.toString()})(dec,lon,laterDec,TILT); };
@@ -232,7 +244,7 @@ function paint(){
   /* the side view is the same instant from a different place to stand, so it
      repaints from the same ss and cannot disagree with the map above it */
   if(sideBox) sideBox.innerHTML=dnSide(ss.dec,TILT, HOME&&HOME.lat!=null?HOME.lat:null);
-  if(sideCapEl) sideCapEl.innerHTML=sideCap(ss.dec);
+  if(sideCapEl) sideCapEl.innerHTML=sideCap(ss.dec,SELECTED,AT);
   if(slider) slider.value=Math.round((AT-T0)/60000);
   if(HOME){
     var a=dnAlt(HOME.lat,HOME.lon,ss.dec,ss.lon), s2=state(a);
@@ -256,15 +268,15 @@ function frame(ts){
   paint(); RAF=requestAnimationFrame(frame);
 }
 function start(){ PLAY=1; LAST=0; play.textContent='Pause'; play.setAttribute('aria-pressed','true');
+  SELECTED=''; syncJumpState();
   svg.classList.add('is-playing'); RAF=requestAnimationFrame(frame); }
 
 if(play){ play.hidden=false; play.addEventListener('click',function(){ PLAY?stop():start(); }); }
-if(nowB){ nowB.hidden=false; nowB.addEventListener('click',function(){ stop(); T0=Date.now(); AT=T0; spanLab(); paint(); }); }
 if(slider){
   slider.disabled=false;
-  slider.addEventListener('input',function(){ stop(); AT=T0+(+slider.value)*60000; paint(); });
+  slider.addEventListener('input',function(){ stop(); SELECTED=''; syncJumpState(); AT=T0+(+slider.value)*60000; paint(); });
 }
-/* the label beside the slider: which stretch of days it is showing */
+/* the label above the slider: which stretch of days it is showing */
 function spanLab(){
   var a=new Date(T0), b=new Date(T0+SPAN*60000);
   var f=function(d){ try{ return new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric'}).format(d); }catch(e){ return ''; } };
@@ -291,19 +303,53 @@ function seasonMs(kind){
   return best||t;
 }
 var jumps=document.querySelectorAll('[data-dn-jump]');
+function syncJumpState(){
+  for(var i=0;i<jumps.length;i++) jumps[i].setAttribute('aria-pressed',jumps[i].getAttribute('data-dn-jump')===SELECTED?'true':'false');
+}
 for(var j=0;j<jumps.length;j++){
   jumps[j].disabled=false;
   jumps[j].addEventListener('click',function(){
     stop();
     var k=this.getAttribute('data-dn-jump');
+    SELECTED=k;
     if(k==='now'){ T0=Date.now(); AT=T0; }
     else{
       var m=seasonMs(k), day=new Date(m);
       T0=Date.UTC(day.getUTCFullYear(),day.getUTCMonth(),day.getUTCDate())-3*86400000;
       AT=m;
     }
-    spanLab(); paint();
+    syncJumpState(); spanLab(); paint();
   });
+}
+
+/* A compact classroom view keeps the two synchronized diagrams and one season
+   row on screen together. The query string makes that view shareable without
+   creating a second indexable page. */
+var wrap=document.querySelector('.wrap'), viewBtn=document.getElementById('dn-sim-view');
+function setSimOnly(on,writeUrl){
+  if(!wrap||!viewBtn) return;
+  wrap.classList.toggle('dn-only',on);
+  viewBtn.setAttribute('aria-pressed',on?'true':'false');
+  viewBtn.textContent=on?'Full lesson':'Simulators only';
+  var navLinks=document.querySelectorAll('.dn-tabs a');
+  for(var n=0;n<navLinks.length;n++) navLinks[n].classList.remove('is-here');
+  if(!on&&navLinks.length) navLinks[0].classList.add('is-here');
+  if(writeUrl&&history.replaceState){
+    var u=new URL(location.href);
+    if(on) u.searchParams.set('view','simulators'); else u.searchParams.delete('view');
+    history.replaceState(null,'',u.pathname+(u.searchParams.toString()?'?'+u.searchParams.toString():'')+u.hash);
+  }
+}
+if(viewBtn){
+  viewBtn.hidden=false;
+  viewBtn.addEventListener('click',function(){ setSimOnly(!wrap.classList.contains('dn-only'),1); });
+  var lessonLinks=document.querySelectorAll('.dn-tabs a');
+  for(var q=0;q<lessonLinks.length;q++) lessonLinks[q].addEventListener('click',function(){
+    setSimOnly(0,1);
+    for(var x=0;x<lessonLinks.length;x++) lessonLinks[x].classList.remove('is-here');
+    this.classList.add('is-here');
+  });
+  try{ setSimOnly(new URL(location.href).searchParams.get('view')==='simulators',0); }catch(e){}
 }
 
 /* ---- my location --------------------------------------------------------
@@ -351,16 +397,13 @@ if(navigator.geolocation) locAsk(0);
 
 if(HOME){ var w0=$('dn-mewrap'); if(w0) w0.hidden=false; }
 
-T0=Date.now(); AT=T0; spanLab(); paint();
+T0=Date.now(); AT=T0; syncJumpState(); spanLab(); paint();
 setInterval(function(){ if(!PLAY&&Math.abs(AT-Date.now())<90000){ AT=Date.now(); paint(); } },60000);
 })();</script>`;
 
-/* THE FOUR CORNERS OF THE YEAR, AS A CONTROL. The same markup appears three
-   times on this page — under the map, under the side view, and beside the
-   paragraph that explains what pressing it will do — because the script wires
-   every [data-dn-jump] on the page wherever it finds it. A button that sits
-   next to the sentence describing it is worth more than a button the reader
-   has to scroll back up to find. */
+/* THE FOUR CORNERS OF THE YEAR, AS A CONTROL. The full lesson keeps a row with
+   each diagram so a student never has to scroll away from the thing it changes.
+   The compact simulator view hides both and reveals one shared row instead. */
 const locChip = `<button type="button" class="chip dn-loc-chip" aria-label="Put my location on the map" title="Put my location on the map" hidden disabled>${PIN}</button>`;
 const jumpRow = (cls, withLoc) => `    <p class="${cls}">
       <button type="button" class="chip" data-dn-jump="now" disabled>Now</button>
@@ -372,12 +415,11 @@ const jumpRow = (cls, withLoc) => `    <p class="${cls}">
 const jumpBtn = (k, t) => `<button type="button" class="chip" data-dn-jump="${k}" disabled>${esc(t)}</button>`;
 
 /* ---- the simulator card -------------------------------------------------- */
-const simCard = `  <div class="card dn-card">
+const simCard = `  <div class="card dn-card" id="day-night-map">
     <div class="dn-figwrap">
       ${MAP_SVG}
     </div>
     <div class="dn-slider-row">
-      <button type="button" class="chip dn-obtn" id="dn-now" hidden>Now</button>
       <div class="dn-slider-mid">
         <label class="sim-flab" for="dn-slider">Time — ${SIDEREAL} days, one orbit of the Moon <span class="dn-span" id="dn-span"></span></label>
         <input type="range" class="orr-slider" id="dn-slider" min="0" max="${SPAN_MIN}" step="10" value="0" disabled aria-label="Move through one ${SIDEREAL}-day orbit of the Moon">
@@ -385,17 +427,18 @@ const simCard = `  <div class="card dn-card">
       <button type="button" class="chip dn-obtn dn-play" id="dn-play" aria-pressed="false" hidden>Play</button>
     </div>
     <p class="dn-when"><b id="dn-o-when">&nbsp;</b><span id="dn-o-utc">&nbsp;</span></p>
+${jumpRow("dn-tools dn-tools-main", true)}
     <p class="dn-sunline" id="dn-sunline">${seasonSunHtml(SS.dec, SS.lon, subsolar(NOW + 7 * 86400000).dec, TILT)}</p>
-${jumpRow("dn-tools", true)}
     <p class="hint" id="dn-loc-msg"></p>
     <p class="dn-me-line" id="dn-mewrap" hidden><b id="dn-o-me">&nbsp;</b> <a id="dn-me-sun" href="/sun/near-me/?geo=1">Your sunrise and sunset →</a></p>
-    <p class="hint">Play runs at about six hours a second: one full turn of the Earth takes ${PLAY_TURN_S} seconds, and one ${SIDEREAL}-day orbit of the Moon ${playSpanWords}. Nothing on the map slides sideways while it runs — the shaded shape is re-solved for each moment, meridian by meridian — so the picture never runs off the edge and jumps back. The one thing that does cross the edge is the sun marker, and that is honest: this map is a cylinder cut open at the date line, so the point the sun stands over leaves at one side and arrives at the other.</p>
+    <p class="hint dn-map-note"><strong>Map limitation:</strong> Earth is a globe flattened into a rectangle, so shapes and distances — especially near the poles — are distorted. The Sun and Moon markers are enlarged so you can see them. <a href="/concepts/why-is-this-map-flat/">Why this map is flat →</a></p>
   </div>
 `;
 
 /* ---- the explanation (thinned: essays live on /concepts/) ---------------- */
-const howCard = `  <div class="card" id="how">
-    <h2>What this is, and how it works</h2>
+const howCard = `  <details class="card dn-instructions" id="instructions">
+    <summary>Day &amp; Night Map Instructions</summary>
+    <div class="dn-instructions-body">
     <p>This is a live map of day and night on Earth, solved for this moment. Half the planet is in sunlight at every instant. The bright half is where the sun is above the horizon, the dark half is below, and the <strong>soft band</strong> is twilight — the sun has set but the sky is still lit, out to 18° down.</p>
     <p>The <strong>yellow marker</strong> is the one place the sun stands <a href="/concepts/what-is-the-subsolar-point/">straight overhead</a>. The <strong>moon marker</strong> is where the moon stands overhead at the time on the slider, drawn in its current phase. It can sit in daylight or in night; that is <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">a daytime moon</a>. Drag the slider end to end and that marker completes one ${SIDEREAL}-day orbit of the Moon around Earth. The <strong>dashed gold lines</strong> are the tropics. The <strong>curve</strong> is the <a href="/concepts/what-is-the-terminator/">terminator</a>. <strong>Play</strong> watches both markers sweep west. Jump to a season start to see the shadow lean.</p>
     <div class="wc-facts">
@@ -404,20 +447,23 @@ const howCard = `  <div class="card" id="how">
       <div class="wc-frow"><span>Soft band</span><b>Twilight, widest toward the poles.</b></div>
       <div class="wc-frow"><span>Dark half</span><b>Night, solved per meridian, not stamped on.</b></div>
     </div>
-  </div>
+    </div>
+  </details>
 `;
 
 /* ---- the side view: original drawing, short caption, jump controls -------- */
-const sideCard = `  <div class="card">
-    <h2>${ico("globe")} Where the sun is standing, seen from the side</h2>
-    <p>The map above looks down at the ground. This is the same instant from beside <a href="${SYS_PATH}">Earth’s orbit</a> — parallel sunlight, and the one yellow line from the centre of the sun to the centre of the Earth. It meets the surface at the yellow marker.</p>
+const sideCard = `  <div class="card dn-side-card" id="sun-angle">
+    <h2>${ico("globe")} Angle of the Sun based on the time of the year</h2>
+    <p class="dn-side-intro">The map above looks down at the ground. This is the same instant from beside <a href="${SYS_PATH}">Earth’s orbit</a> — parallel sunlight, and the one yellow line from the centre of the sun to the centre of the Earth. It meets the surface at the yellow marker.</p>
     <div class="dns-wrap" id="dn-side">${sideView(SS.dec, TILT)}</div>
-    <p class="dns-cap" id="dn-side-cap">${sideCapText(SS.dec, TILT)}</p>
-${jumpRow("dn-tools")}
+${jumpRow("dn-tools dn-tools-side")}
+    <p class="dns-cap" id="dn-side-cap">${sideCapText(SS.dec, TILT, "now", NOW)}</p>
+    <div class="dn-side-support">
     <p>The two dashed chords are the tropics, at ±${n1(TILT)}°. They are the tilt written on the surface. Jump the map to a solstice and watch the yellow line stop there.</p>
     <div class="wc-facts">
       <div class="wc-frow"><span>Tropic of Cancer, ${n1(TILT)}°N</span><b>Furthest north the sun can stand overhead. ${jumpBtn("jun", "Show me")}</b></div>
       <div class="wc-frow"><span>Tropic of Capricorn, ${n1(TILT)}°S</span><b>The same limit going south. ${jumpBtn("dec", "Show me")}</b></div>
+    </div>
     </div>
   </div>
 `;
@@ -443,7 +489,7 @@ ${STRETCH_ROWS.map((lat) => `      <div class="wc-frow"><span>${lat === 0 ? "At 
   </div>
 `;
 
-const tryCard = `  <div class="card">
+const tryCard = `  <div class="card" id="things-to-try">
     <h2>${ico("classroom")} Things to try</h2>
     <ul class="facts">
       <li><strong>Find your own bedtime.</strong> The map marks where you are as soon as your browser shares it — if it did not, there is a pin in the season-button row. Then drag the slider to tonight and watch the shading arrive over your dot: that is your sunset, to the minute the sun goes down where you are standing.</li>
@@ -467,6 +513,19 @@ const FAQ = [
     `Play runs about six hours a second so one turn of the Earth takes ${PLAY_TURN_S} seconds, and one ${SIDEREAL}-day orbit of the Moon ${playSpanWords}. Now jumps back to this moment. The four season buttons — spring equinox, summer solstice, fall equinox, winter solstice — jump to the start of each season so you can see the slow lean of the year.`],
 ];
 
+const pageTabs = `  <nav class="home-tabs sec-switch dn-tabs" aria-label="Explore this page">
+    <a class="chip home-tab is-here" href="#day-night-map">Day/Night Map</a>
+    <a class="chip home-tab" href="#sun-angle">Angle of the Sun</a>
+    <a class="chip home-tab" href="#things-to-try">Things to Try</a>
+    <a class="chip home-tab" href="#questions-answered">Questions Answered</a>
+    <button type="button" class="chip home-tab dn-view-toggle" id="dn-sim-view" aria-pressed="false" hidden>Simulators only</button>
+  </nav>`;
+
+const simulatorPair = `  <div class="dn-sim-pair">
+${simCard}${sideCard}${jumpRow("dn-tools dn-tools-only")}
+  </div>
+`;
+
 const page = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -487,11 +546,13 @@ ${GA_SNIPPET}
 </head>
 <body>
 <div class="wrap wrap-wide">
-  ${brand({ crumb: { slug: "day-night-map", url: PATH } })}
+  ${brand()}
   <h1>Day and Night Map</h1>
-  <p class="sub">Where it is light on Earth right now, where it is dark, and the twilight in between. Drag the slider to move through one ${SIDEREAL}-day orbit of the Moon, or press play and watch the line sweep round. The same picture as the <a href="/world-clock/">world clock</a>'s map, with time attached.</p>
+  <p class="sub dn-page-intro">Where it is light on Earth right now, where it is dark, and the twilight in between. Drag the slider to move through one ${SIDEREAL}-day orbit of the Moon, or press play and watch the line sweep round. The same picture as the <a href="/world-clock/">world clock</a>'s map, with time attached.</p>
+${pageTabs}
 
-${simCard}${howCard}${sideCard}${tryCard}${hubQuestionsCard(PATH)}  <div class="card">
+${simulatorPair}  <div class="dn-lesson-sections">
+${howCard}${tryCard}${hubQuestionsCard(PATH, "Questions this page answers", { id: "questions-answered" })}  <div class="card">
     <h2>Keep going</h2>
     <p>This map answers "where", to the nearest few hundred kilometres. For "when", to the minute, in your own town:</p>
     <p class="timer-presets">
@@ -507,6 +568,7 @@ ${simCard}${howCard}${sideCard}${tryCard}${hubQuestionsCard(PATH)}  <div class="
       <a class="chip" href="/methodology/sunrise-sunset/">How sunrise is worked out</a>
       <a class="chip" href="/classroom/">Using these in a lesson</a>
     </p>
+  </div>
   </div>
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
