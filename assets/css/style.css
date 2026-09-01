@@ -3801,7 +3801,7 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
   background:rgba(252,211,77,.14)}
 .dn-tools-main{margin:4px 0 12px}
 .dn-tools-side{margin:12px 0 4px}
-.dn-tools-only{display:none}
+.dn-tools-year{margin:12px 0 8px}
 .dn-map-note{margin:6px 0 0;max-width:68em}
 .dn-map-note a{white-space:nowrap}
 .dn-instructions>summary{position:relative;list-style:none;cursor:pointer;padding-right:30px;
@@ -3812,18 +3812,29 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-instructions[open]>summary::after{content:"\2212"}
 .dn-instructions-body{padding-top:8px}
 
-/* A shareable ?view=simulators mode puts the two synchronized views together
-   and removes the lesson stack. Its one season row controls both drawings. */
+/* The annual system view belongs to the focused three-simulator workspace; the
+   full lesson already links to its dedicated page and stays compact. */
+.dn-year-card{display:none}
+.dn-system-wrap{max-width:none}
+.dn-system-meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;
+  margin:8px 0 10px;font-size:13px;line-height:1.45}
+.dn-system-meta b{font-variant-numeric:tabular-nums}
+.dn-system-meta span{color:var(--muted)}
+.dn-system-note{margin:8px 0 0;line-height:1.5}
+
+/* A shareable ?view=simulators mode puts all three synchronized views together
+   and removes the lesson stack. Above 900px every card is exactly one half of
+   the two-column simulator grid; the third begins a new row at that same size. */
 .dn-only .dn-page-intro,.dn-only .dn-lesson-sections{display:none}
-.dn-only .dn-sim-pair{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(360px,.65fr);
+.dn-only .dn-sim-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   align-items:start;gap:14px}
 .dn-only .dn-sim-pair>.card{margin:0;min-width:0}
-.dn-only .dn-tools-main,.dn-only .dn-tools-side{display:none}
-.dn-only .dn-tools-only{display:flex;grid-column:1/-1;margin:0 0 8px}
+.dn-only .dn-year-card{display:block}
+.dn-only .dn-tools-main,.dn-only .dn-tools-side,.dn-only .dn-tools-year{display:flex}
 .dn-only .dn-side-intro,.dn-only .dn-side-support,.dn-only .dn-map-note{display:none}
+.dn-only .dn-sunline,.dn-only .dn-me-line,.dn-only #dn-loc-msg{display:none!important}
 @media(max-width:900px){
   .dn-only .dn-sim-pair{grid-template-columns:1fr}
-  .dn-only .dn-tools-only{grid-column:1}
 }
 @media(max-width:620px){.dn-tabs .dn-view-toggle{margin-left:0}}
 .dn-me-line{margin:4px 0 10px;font-size:14.5px}

@@ -5,8 +5,8 @@
  * WHY IT EXISTS. The card on the front page answers one question — who is in
  * daylight right now — and raises three it has no room for: why the line is
  * curved, why it leans, and where it will be tonight. This page is the same
- * picture with time attached: a slider across one 27.3-day orbit of the Moon, a Play
- * button, and the explanation underneath.
+ * picture with time attached: a slider across one year, a Play button, and
+ * three synchronized views of the same instant.
  *
  * THE DRAWING IS daynight.mjs, shared with the home card, so the two cannot
  * draw different maps. This file owns the page: the controls, the read-out,
@@ -28,7 +28,12 @@ import { esc, GA_SNIPPET, brand, faqLd, breadcrumbLD, appLd, learningLd } from "
 import { ico } from "./icons.mjs";
 import { WC_CITY_LIST } from "./wc-cities.mjs";
 import { hubQuestionsCard } from "./concepts.mjs";
-import { SYS_PATH, SIDEREAL } from "./build-simulator.mjs";
+import { SYS_PATH } from "./build-simulator.mjs";
+import {
+  SIDEREAL, ORBIT_TILT,
+  SYS_W, SYS_H, SYS_CX, SYS_CY, SYS_RS, SYS_REO, SYS_RE, SYS_RMO, SYS_RM,
+  SYS_AXL, SYS_INC_DRAWN,
+} from "./system-orbit.mjs";
 import {
   DAYNIGHT_PATH, DN_CORE, DN_W, DN_VIEW_Y, DN_VIEW_H, DN_VIEWBOX,
   DN_TOP, DN_BOT, dnX, dnY, dnF, subsolar, sunAltitude, nightPath, twilightPath, landPath, seasonPoints,
@@ -42,15 +47,14 @@ const SITE = JSON.parse(readFileSync(join(root, "seo/_data/site.json"), "utf8"))
 const PATH = DAYNIGHT_PATH;
 const NOW = Date.now();
 
-/* ONE SIDEREAL MONTH. The moon marker on this map is the point the moon stands
-   overhead, and that point takes 27.3 days to go once around the Earth — one
-   real orbit, the same SIDEREAL the rest of the site uses, not the 29.53-day
-   cycle of phases. The home card covers a day because that card is "right
-   now"; this page has room to show the moon finish a lap. */
-const SPAN_DAYS = +SIDEREAL;
-const SPAN_MIN = Math.round(SPAN_DAYS * 24 * 60);
-const PLAY_RATE = 21600;                          /* six hours of map time per real second */
-const PLAY_TURN_S = Math.round(86400 / PLAY_RATE);
+/* ONE CALENDAR YEAR. The three drawings now share one clock: the day/night
+   map turns daily, the Moon completes about 13.4 real sidereal orbits, and
+   Earth completes its annual orbit. A selected year may contain 365 or 366
+   days; the browser resets this max when it reads the URL. The playback rate
+   keeps a complete year close to the old two-minute lesson length. */
+const CURRENT_YEAR = new Date(NOW).getUTCFullYear();
+const SPAN_MIN = Math.round((Date.UTC(CURRENT_YEAR + 1, 0, 1) - Date.UTC(CURRENT_YEAR, 0, 1)) / 60000);
+const PLAY_RATE = Math.round(365.2422 * 86400000 / 120000); /* one average year in about two minutes */
 const PLAY_SPAN_S = SPAN_MIN * 60 / PLAY_RATE;
 const playSpanWords = PLAY_SPAN_S < 90
   ? `about ${Math.round(PLAY_SPAN_S)} seconds`
@@ -138,6 +142,21 @@ const MAP_SVG = `<svg id="dn-svg" class="dn-svg" viewBox="${DN_VIEWBOX}" width="
         </g>
       </svg>`;
 
+/* The third simulator is the date-driven version of the existing
+   /earth-sun-moon-orbit-simulator/ figure. Its 80° is the VIEW of the orbital
+   plane, not Earth's axial tilt: the axis remains the real 23.4°. The browser
+   builds the bodies inside this empty scene from the same AT used by the map
+   and side view, so there is no second animation clock that can drift. */
+const SYSTEM_VIEW_DEG = 80;
+const SYSTEM_SVG = `<svg id="dn-system-svg" class="sys-fig dn-system-fig" viewBox="0 0 ${SYS_W} ${SYS_H}" role="img" aria-label="Earth orbiting the Sun while the Moon orbits Earth, viewed with the orbital plane tilted ${SYSTEM_VIEW_DEG} degrees; all positions match the date on the day and night map">
+  <rect width="${SYS_W}" height="${SYS_H}" rx="16" fill="#0a1020"/>
+  <text x="12" y="${SYS_CY - 8}" font-size="11" fill="#94a3b8">June — North leans sunward</text>
+  <text x="${SYS_W - 12}" y="${SYS_CY - 8}" text-anchor="end" font-size="11" fill="#94a3b8">December — North leans away</text>
+  <text x="${SYS_CX}" y="16" text-anchor="middle" font-size="11" fill="#94a3b8">March equinox</text>
+  <text x="${SYS_CX}" y="${SYS_H - 12}" text-anchor="middle" font-size="11" fill="#94a3b8">September equinox</text>
+  <g id="dn-system-scene"></g>
+</svg>`;
+
 /* ---- what the side view is showing, in words -----------------------------
  * ONE SOURCE FOR TWO RUNTIMES, and this time by stringifying the function
  * itself: it is called here to bake the sentence into the page, and its own
@@ -193,9 +212,9 @@ var TILT=${TILT};                 /* solved at build from the same series */
 var sideBox=document.getElementById('dn-side'), sideCapEl=document.getElementById('dn-side-cap'),
     sunline=document.getElementById('dn-sunline'),
     orbitNow=document.getElementById('dn-orbit-now');
-var SPAN=${SPAN_MIN};             /* minutes: one ${SIDEREAL}-day orbit of the Moon */
-var RATE=${PLAY_RATE};            /* six hours of map time per real second */
-var T0=${NOW}, AT=${NOW}, PLAY=0, RAF=0, LAST=0, HOME=null, SELECTED='now';
+var SPAN=${SPAN_MIN};             /* minutes: replaced by the selected calendar year below */
+var RATE=${PLAY_RATE};            /* one average year in about two real minutes */
+var T0=${NOW}, AT=${NOW}, PLAY=0, RAF=0, LAST=0, HOME=null, SELECTED='now', TRACK_NOW=1;
 var SEASON_PARAM={mar:'spring-equinox',jun:'summer-solstice',sep:'fall-equinox',dec:'winter-solstice'};
 var SEASON_ALIAS={
   now:'now',spring:'mar','spring-equinox':'mar',mar:'mar',
@@ -227,6 +246,90 @@ function state(alt){
   return {k:'night', t:'night'};
 }
 
+/* ---- the whole system, driven by this page's date -----------------------
+   This is the same projected geometry as /earth-sun-moon-orbit-simulator/,
+   but it has no requestAnimationFrame of its own. paint() hands it AT, so the
+   three diagrams cannot disagree about the moment on screen. The orbital
+   plane is viewed at 80 degrees. Earth's axial lean remains the real 23.4. */
+function makeSystemRenderer(scene){
+  if(!scene) return null;
+  var CX=${SYS_CX},CY=${SYS_CY},REO=${SYS_REO},RMO=${SYS_RMO},RS=${SYS_RS},RE=${SYS_RE},RM=${SYS_RM},AXL=${SYS_AXL},
+      DRAW_INC=${SYS_INC_DRAWN}*Math.PI/180,REAL_INC=${ORBIT_TILT}*Math.PI/180,AX=23.4*Math.PI/180,
+      V=${SYSTEM_VIEW_DEG}*Math.PI/180,cv=Math.cos(V),sv=Math.sin(V),SC=1+0.42*Math.sin(V),
+      NS='http://www.w3.org/2000/svg',R=Math.PI/180;
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function clamp(x){return Math.max(-1,Math.min(1,x));}
+  function half(r){return 'M0,'+(-r)+'A'+r+','+r+' 0 0 1 0,'+r+'Z';}
+  function phasePath(r,f){
+    var rx=(r*Math.abs(1-2*f)).toFixed(2),s2=f<0.5?0:1;
+    return 'M0 '+(-r)+'A'+r+' '+r+' 0 0 0 0 '+r+'A'+rx+' '+r+' 0 0 '+s2+' 0 '+(-r)+'Z';
+  }
+  function moonEcl(ms){
+    var p=mnMoonPos(mnDays(ms)),ce=Math.cos(MN_OBL),se=Math.sin(MN_OBL);
+    return {
+      lon:Math.atan2(Math.sin(p.ra)*ce+Math.tan(p.dec)*se,Math.cos(p.ra)),
+      lat:Math.asin(clamp(Math.sin(p.dec)*ce-Math.cos(p.dec)*se*Math.sin(p.ra)))
+    };
+  }
+  function px(p){return CX+p[0]*SC;}
+  function py(p){return CY-(p[1]*cv+p[2]*sv)*SC;}
+  function close(p){return -p[1]*sv+p[2]*cv;}
+  function place(g,p,kmin){
+    var k=1+0.18*(close(p)/REO);if(k<kmin)k=kmin;
+    g.setAttribute('transform','translate('+px(p).toFixed(1)+' '+py(p).toFixed(1)+') scale('+(k*SC).toFixed(3)+')');
+  }
+  function shade(node,B,r){
+    var lx=-B[0],ly=-B[1],lz=-B[2],L=Math.sqrt(lx*lx+ly*ly+lz*lz)||1;
+    var f=(1+(ly*(-sv)+lz*cv)/L)/2;
+    var ang=Math.atan2(-(ly*cv+lz*sv),lx)*180/Math.PI;
+    node.setAttribute('d',phasePath(r,f));node.setAttribute('transform','rotate('+ang.toFixed(1)+')');
+  }
+  while(scene.firstChild) scene.removeChild(scene.firstChild);
+  var ering=el('ellipse',{cx:CX,cy:CY,rx:REO*SC,ry:Math.max(REO*cv*SC,0.75),fill:'none',stroke:'#94a3b8','stroke-opacity':'.28','stroke-width':'1','stroke-dasharray':'3 5'});
+  var mring=el('path',{fill:'none',stroke:'#cbd5e1','stroke-opacity':'.34','stroke-width':'1','stroke-dasharray':'2 4'});
+  var gS=el('g'),gE=el('g'),gM=el('g');
+  gS.appendChild(el('circle',{r:RS+14,fill:'#fcd34d','fill-opacity':'.16'}));
+  gS.appendChild(el('circle',{r:RS,fill:'#fcd34d'}));
+  var tS=el('text',{y:RS+18,'text-anchor':'middle','font-size':'13',fill:'#fcd34d'});tS.textContent='Sun';gS.appendChild(tS);
+  gE.appendChild(el('circle',{r:RE,fill:'#2f74ad'}));
+  var eDark=el('path',{d:half(RE),fill:'#050a16','fill-opacity':'.84'});gE.appendChild(eDark);
+  gE.appendChild(el('circle',{r:RE,fill:'none',stroke:'#9dc2e0','stroke-opacity':'.55'}));
+  var eAxis=el('line',{stroke:'#e2e8f0','stroke-opacity':'.85','stroke-width':'1.5'});gE.appendChild(eAxis);
+  var eN=el('text',{'text-anchor':'middle','font-size':'10',fill:'#e2e8f0'});eN.textContent='N';gE.appendChild(eN);
+  var tE=el('text',{y:RE+30,'text-anchor':'middle','font-size':'12',fill:'#e2e8f0'});tE.textContent='Earth';gE.appendChild(tE);
+  gM.appendChild(el('circle',{r:RM,fill:'#d8dee9'}));
+  var mDark=el('path',{d:half(RM),fill:'#050a16','fill-opacity':'.84'});gM.appendChild(mDark);
+  var mPatch=el('circle',{r:(RM*0.38).toFixed(2),fill:'#8a93a5'});gM.appendChild(mPatch);
+  scene.appendChild(ering);scene.appendChild(mring);scene.appendChild(gS);scene.appendChild(gE);scene.appendChild(gM);
+
+  return function(ms){
+    var L=dnEcl(ms)*R,m=moonEcl(ms),E=[-REO*Math.sin(L),REO*Math.cos(L),0];
+    /* Solve the current lunar node from the real latitude, then redraw that
+       same plane at 18 degrees so its five-degree miss is visible. At an
+       eclipse the real latitude approaches zero, so the exaggerated drawing
+       still crosses the exact Sun-Earth line instead of inventing a miss. */
+    var node=m.lon-Math.asin(clamp(Math.sin(m.lat)/Math.sin(REAL_INC)));
+    function moonPoint(a){
+      var z=RMO*Math.sin(DRAW_INC)*Math.sin(a-node),h=Math.sqrt(Math.max(0,RMO*RMO-z*z));
+      return [E[0]+h*Math.sin(a),E[1]-h*Math.cos(a),z];
+    }
+    var M=moonPoint(m.lon),d='',i,a,q;
+    for(i=0;i<=48;i++){a=i/48*2*Math.PI;q=moonPoint(a);d+=(i?'L':'M')+px(q).toFixed(1)+' '+py(q).toFixed(1);}
+    mring.setAttribute('d',d+'Z');
+    place(gS,[0,0,0],1);place(gE,E,0.7);place(gM,M,0.7);
+    shade(eDark,E,RE);shade(mDark,M,RM);
+    var dx=px(E)-px(M),dy=py(E)-py(M),dl=Math.sqrt(dx*dx+dy*dy)||1;
+    mPatch.setAttribute('cx',(dx/dl*RM*0.45).toFixed(2));mPatch.setAttribute('cy',(dy/dl*RM*0.45).toFixed(2));
+    var adx=Math.sin(AX)*AXL,ady=-(Math.cos(AX)*sv)*AXL;
+    eAxis.setAttribute('x1',(-adx).toFixed(1));eAxis.setAttribute('y1',(-ady).toFixed(1));
+    eAxis.setAttribute('x2',adx.toFixed(1));eAxis.setAttribute('y2',ady.toFixed(1));
+    eN.setAttribute('x',(adx*1.4).toFixed(1));eN.setAttribute('y',(ady*1.4-3).toFixed(1));
+    var order=[[close([0,0,0]),gS],[close(E),gE],[close(M),gM]].sort(function(x,y){return x[0]-y[0];});
+    for(i=0;i<3;i++) scene.appendChild(order[i][1]);
+  };
+}
+var systemRender=makeSystemRenderer(document.getElementById('dn-system-scene'));
+
 function paint(){
   var ss=dnSub(AT);
   night.setAttribute('d',dnPath(ss.dec,ss.lon,-18,1));
@@ -252,6 +355,8 @@ function paint(){
      repaints from the same ss and cannot disagree with the map above it */
   if(sideBox) sideBox.innerHTML=dnSide(ss.dec,TILT, HOME&&HOME.lat!=null?HOME.lat:null);
   if(sideCapEl) sideCapEl.innerHTML=sideCap(ss.dec,SELECTED,AT);
+  if(systemRender) systemRender(AT);
+  set('dn-system-date',fmt(AT,'UTC')+' UTC');
   if(slider) slider.value=Math.round((AT-T0)/60000);
   if(HOME){
     var a=dnAlt(HOME.lat,HOME.lon,ss.dec,ss.lon), s2=state(a);
@@ -267,26 +372,77 @@ function paint(){
 /* ---- the controls ---- */
 function stop(){ PLAY=0; if(RAF) cancelAnimationFrame(RAF); RAF=0;
   play.textContent='Play'; play.setAttribute('aria-pressed','false'); svg.classList.remove('is-playing'); }
+function replaceUrl(change){
+  if(!history.replaceState) return;
+  try{
+    var u=new URL(location.href);change(u);
+    history.replaceState(null,'',u.pathname+(u.searchParams.toString()?'?'+u.searchParams.toString():'')+u.hash);
+  }catch(e){}
+}
+function pad2(n){return String(n).padStart(2,'0')}
+function yearOf(ms){return new Date(ms).getUTCFullYear()}
+function validYear(raw){
+  var y=/^\\d{4}$/.test(raw||'')?+raw:0;
+  return y>=1800&&y<=2200?y:null;
+}
+function setYearRange(year,at){
+  var end=Date.UTC(year+1,0,1);
+  T0=Date.UTC(year,0,1);SPAN=Math.round((end-T0)/60000);
+  if(slider) slider.max=SPAN;
+  AT=Math.max(T0,Math.min(end-60000,at==null?T0:at));
+  set('dn-period',Math.round((end-T0)/86400000)+' days, one orbit of Earth');
+}
+function parseDateState(u){
+  var raw=u.searchParams.get('date')||'',time=u.searchParams.get('time')||'',m,ms;
+  if(!raw) return null;
+  m=/^(\\d{4})-(\\d{2})-(\\d{2})$/.exec(raw);
+  if(m){
+    if(time&&!/^\\d{2}:\\d{2}$/.test(time)) return null;
+    var hm=(time||'12:00').split(':');
+    ms=Date.UTC(+m[1],+m[2]-1,+m[3],+hm[0],+hm[1]);
+    var d=new Date(ms);
+    if(d.getUTCFullYear()!==+m[1]||d.getUTCMonth()!==+m[2]-1||d.getUTCDate()!==+m[3]||+hm[0]>23||+hm[1]>59) return null;
+    return ms;
+  }
+  ms=Date.parse(raw);
+  return isFinite(ms)?ms:null;
+}
+function writeMovingUrl(){
+  replaceUrl(function(u){u.searchParams.set('year',String(yearOf(T0)));u.searchParams.delete('date');u.searchParams.delete('time');u.searchParams.delete('season');});
+}
+function writeExactUrl(ms){
+  var d=new Date(ms),ymd=d.getUTCFullYear()+'-'+pad2(d.getUTCMonth()+1)+'-'+pad2(d.getUTCDate()),hm=pad2(d.getUTCHours())+':'+pad2(d.getUTCMinutes());
+  replaceUrl(function(u){u.searchParams.set('year',String(d.getUTCFullYear()));u.searchParams.set('date',ymd);u.searchParams.set('time',hm);u.searchParams.delete('season');});
+}
+function writeSeasonUrl(kind){
+  replaceUrl(function(u){
+    var value=SEASON_PARAM[kind];
+    if(value){u.searchParams.set('season',value);u.searchParams.set('year',String(yearOf(T0)));}
+    else if(kind==='now'){u.searchParams.delete('season');u.searchParams.delete('year');}
+    else u.searchParams.delete('season');
+    u.searchParams.delete('date');u.searchParams.delete('time');
+  });
+}
 function frame(ts){
   if(!PLAY) return;
   if(!LAST) LAST=ts;
   AT+=(ts-LAST)*RATE; LAST=ts;
-  if(AT>T0+SPAN*60000) AT=T0;      /* round again from the start of the orbit */
+  if(AT>T0+SPAN*60000) AT=T0;      /* round again from the start of the year */
   paint(); RAF=requestAnimationFrame(frame);
 }
 function start(){ PLAY=1; LAST=0; play.textContent='Pause'; play.setAttribute('aria-pressed','true');
-  SELECTED=''; writeSeasonUrl(''); syncJumpState();
+  SELECTED=''; TRACK_NOW=0; writeMovingUrl(); syncJumpState();
   svg.classList.add('is-playing'); RAF=requestAnimationFrame(frame); }
 
-if(play){ play.hidden=false; play.addEventListener('click',function(){ PLAY?stop():start(); }); }
+if(play){ play.hidden=false; play.addEventListener('click',function(){ if(PLAY){stop();writeExactUrl(AT)}else start(); }); }
 if(slider){
   slider.disabled=false;
-  slider.addEventListener('input',function(){ stop(); SELECTED=''; writeSeasonUrl(''); syncJumpState(); AT=T0+(+slider.value)*60000; paint(); });
+  slider.addEventListener('input',function(){ stop(); SELECTED=''; TRACK_NOW=0; syncJumpState(); AT=T0+(+slider.value)*60000; writeExactUrl(AT); paint(); });
 }
 /* the label above the slider: which stretch of days it is showing */
 function spanLab(){
-  var a=new Date(T0), b=new Date(T0+SPAN*60000);
-  var f=function(d){ try{ return new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric'}).format(d); }catch(e){ return ''; } };
+  var a=new Date(T0), b=new Date(T0+SPAN*60000-60000);
+  var f=function(d){ try{ return new Intl.DateTimeFormat('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}).format(d); }catch(e){ return ''; } };
   set('dn-span',f(a)+' \\u2013 '+f(b));
 }
 
@@ -295,9 +451,9 @@ function spanLab(){
  * answer off the declination: its highest point is the June solstice, its
  * lowest the December one, and the two crossings of zero are the equinoxes.
  * A table would have to be maintained; this cannot go stale. */
-function seasonMs(kind){
-  var t=Date.now(), best=null, bestV=null, prev=null, ms, d;
-  for(ms=t; ms<t+367*86400000; ms+=3600000){
+function seasonMs(kind,year){
+  var t=Date.UTC(year,0,1),end=Date.UTC(year+1,0,1),best=null,bestV=null,prev=null,ms,d;
+  for(ms=t; ms<end; ms+=3600000){
     d=dnSub(ms).dec;
     if(kind==='jun'&&(bestV===null||d>bestV)){bestV=d;best=ms}
     if(kind==='dec'&&(bestV===null||d<bestV)){bestV=d;best=ms}
@@ -313,23 +469,11 @@ var jumps=document.querySelectorAll('[data-dn-jump]');
 function syncJumpState(){
   for(var i=0;i<jumps.length;i++) jumps[i].setAttribute('aria-pressed',jumps[i].getAttribute('data-dn-jump')===SELECTED?'true':'false');
 }
-function writeSeasonUrl(kind){
-  if(!history.replaceState) return;
-  try{
-    var u=new URL(location.href), value=SEASON_PARAM[kind];
-    if(value) u.searchParams.set('season',value); else u.searchParams.delete('season');
-    history.replaceState(null,'',u.pathname+(u.searchParams.toString()?'?'+u.searchParams.toString():'')+u.hash);
-  }catch(e){}
-}
 function showSeason(kind,writeUrl){
   stop();
   SELECTED=kind;
-  if(kind==='now'){ T0=Date.now(); AT=T0; }
-  else{
-    var m=seasonMs(kind), day=new Date(m);
-    T0=Date.UTC(day.getUTCFullYear(),day.getUTCMonth(),day.getUTCDate())-3*86400000;
-    AT=m;
-  }
+  if(kind==='now'){ TRACK_NOW=1;setYearRange(new Date().getUTCFullYear(),Date.now()); }
+  else{ TRACK_NOW=0;AT=seasonMs(kind,yearOf(T0)); }
   if(writeUrl) writeSeasonUrl(kind);
   syncJumpState(); spanLab(); paint();
 }
@@ -341,9 +485,9 @@ for(var j=0;j<jumps.length;j++){
   });
 }
 
-/* A compact classroom view keeps the two synchronized diagrams and one season
-   row on screen together. The query string makes that view shareable without
-   creating a second indexable page. */
+/* A compact classroom view keeps all three synchronized diagrams on screen.
+   The query string makes that view shareable without creating a second
+   indexable page. */
 var wrap=document.querySelector('.wrap'), viewBtn=document.getElementById('dn-sim-view');
 function setSimOnly(on,writeUrl){
   if(!wrap||!viewBtn) return;
@@ -416,22 +560,40 @@ if(navigator.geolocation) locAsk(0);
 
 if(HOME){ var w0=$('dn-mewrap'); if(w0) w0.hidden=false; }
 
-/* A season is a shareable simulator state, not a separate page. Canonical
-   strings are readable in a copied URL; short and British-English aliases are
-   accepted so a hand-written classroom link still lands on the intended view. */
-var initialSeason='now';
+/* The year owns the slider range. A date (and optional UTC time) owns the exact
+   opening instant. Season aliases remain convenient shareable shortcuts inside
+   that selected year. Date wins if a copied URL contains both. */
+var initialSeason='now',rawSeason='',rawDate='',pickedDate=null,pickedYear=null;
 try{
-  var initialUrl=new URL(location.href), rawSeason=(initialUrl.searchParams.get('season')||'').toLowerCase();
+  var initialUrl=new URL(location.href);
+  rawSeason=(initialUrl.searchParams.get('season')||'').toLowerCase();
+  rawDate=initialUrl.searchParams.get('date')||'';
+  pickedDate=parseDateState(initialUrl);
+  pickedYear=validYear(initialUrl.searchParams.get('year')||'');
   initialSeason=SEASON_ALIAS[rawSeason]||'now';
-  if(rawSeason&&(initialSeason==='now'||rawSeason!==SEASON_PARAM[initialSeason])) writeSeasonUrl(initialSeason);
 }catch(e){}
-showSeason(initialSeason,0);
-setInterval(function(){ if(!PLAY&&Math.abs(AT-Date.now())<90000){ AT=Date.now(); paint(); } },60000);
+var openingYear=pickedDate!==null?yearOf(pickedDate):(pickedYear||new Date().getUTCFullYear());
+setYearRange(openingYear,pickedDate!==null?pickedDate:(pickedYear?Date.UTC(pickedYear,0,1):Date.now()));
+if(pickedDate!==null){
+  SELECTED='';TRACK_NOW=0;syncJumpState();spanLab();paint();writeExactUrl(AT);
+}else if(initialSeason!=='now'){
+  showSeason(initialSeason,0);
+  if(rawSeason!==SEASON_PARAM[initialSeason]||!pickedYear) writeSeasonUrl(initialSeason);
+}else{
+  SELECTED=pickedYear?'':'now';TRACK_NOW=!pickedYear;syncJumpState();spanLab();paint();
+  if(rawDate||rawSeason){if(pickedYear) writeMovingUrl();else writeSeasonUrl('now');}
+}
+setInterval(function(){
+  if(!PLAY&&TRACK_NOW){
+    var now=Date.now(),y=yearOf(now);if(y!==yearOf(T0)) setYearRange(y,now);else AT=now;
+    spanLab();paint();
+  }
+},60000);
 })();</script>`;
 
 /* THE FOUR CORNERS OF THE YEAR, AS A CONTROL. The full lesson keeps a row with
    each diagram so a student never has to scroll away from the thing it changes.
-   The compact simulator view hides both and reveals one shared row instead. */
+   The compact view keeps that same five-button row below every visual. */
 const locChip = `<button type="button" class="chip dn-loc-chip" aria-label="Put my location on the map" title="Put my location on the map" hidden disabled>${PIN}</button>`;
 const jumpRow = (cls, withLoc) => `    <p class="${cls}">
       <button type="button" class="chip" data-dn-jump="now" disabled>Now</button>
@@ -449,8 +611,8 @@ const simCard = `  <div class="card dn-card" id="day-night-map">
     </div>
     <div class="dn-slider-row">
       <div class="dn-slider-mid">
-        <label class="sim-flab" for="dn-slider">Time — ${SIDEREAL} days, one orbit of the Moon <span class="dn-span" id="dn-span"></span></label>
-        <input type="range" class="orr-slider" id="dn-slider" min="0" max="${SPAN_MIN}" step="10" value="0" disabled aria-label="Move through one ${SIDEREAL}-day orbit of the Moon">
+        <label class="sim-flab" for="dn-slider">Time — <span id="dn-period">${Math.round(SPAN_MIN / 1440)} days, one orbit of Earth</span> <span class="dn-span" id="dn-span"></span></label>
+        <input type="range" class="orr-slider" id="dn-slider" min="0" max="${SPAN_MIN}" step="1" value="0" disabled aria-label="Move through one calendar year">
       </div>
       <button type="button" class="chip dn-obtn dn-play" id="dn-play" aria-pressed="false" hidden>Play</button>
     </div>
@@ -468,7 +630,7 @@ const howCard = `  <details class="card dn-instructions" id="instructions">
     <summary>Day &amp; Night Map Instructions</summary>
     <div class="dn-instructions-body">
     <p>This is a live map of day and night on Earth, solved for this moment. Half the planet is in sunlight at every instant. The bright half is where the sun is above the horizon, the dark half is below, and the <strong>soft band</strong> is twilight — the sun has set but the sky is still lit, out to 18° down.</p>
-    <p>The <strong>yellow marker</strong> is the one place the sun stands <a href="/concepts/what-is-the-subsolar-point/">straight overhead</a>. The <strong>moon marker</strong> is where the moon stands overhead at the time on the slider, drawn in its current phase. It can sit in daylight or in night; that is <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">a daytime moon</a>. Drag the slider end to end and that marker completes one ${SIDEREAL}-day orbit of the Moon around Earth. The <strong>dashed gold lines</strong> are the tropics. The <strong>curve</strong> is the <a href="/concepts/what-is-the-terminator/">terminator</a>. <strong>Play</strong> watches both markers sweep west. Jump to a season start to see the shadow lean.</p>
+    <p>The <strong>yellow marker</strong> is the one place the sun stands <a href="/concepts/what-is-the-subsolar-point/">straight overhead</a>. The <strong>moon marker</strong> is where the moon stands overhead at the time on the slider, drawn in its current phase. It can sit in daylight or in night; that is <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">a daytime moon</a>. Drag the slider end to end to travel through one calendar year: Earth completes one orbit and the Moon completes about 13.4. The <strong>dashed gold lines</strong> are the tropics. The <strong>curve</strong> is the <a href="/concepts/what-is-the-terminator/">terminator</a>. <strong>Play</strong> moves every diagram from the same date. Jump to a season start to see the shadow lean.</p>
     <div class="wc-facts">
       <div class="wc-frow"><span>Yellow marker</span><b>Subsolar point — a flagpole there casts no shadow.</b></div>
       <div class="wc-frow"><span>Moon marker</span><b>Overhead, in the phase of that moment. One orbit around Earth takes ${SIDEREAL} days.</b></div>
@@ -482,7 +644,7 @@ const howCard = `  <details class="card dn-instructions" id="instructions">
 /* ---- the side view: original drawing, short caption, jump controls -------- */
 const sideCard = `  <div class="card dn-side-card" id="sun-angle">
     <h2>${ico("globe")} Angle of the Sun based on the time of the year</h2>
-    <p class="dn-side-intro">The map above looks down at the ground. This is the same instant from beside <a href="${SYS_PATH}">Earth’s orbit</a> — parallel sunlight, and the one yellow line from the centre of the sun to the centre of the Earth. It meets the surface at the yellow marker.</p>
+    <p class="dn-side-intro">The map above looks down at the ground. This is the same instant seen from beside Earth’s orbit — parallel sunlight, and the one yellow line from the centre of the sun to the centre of the Earth. It meets the surface at the yellow marker.</p>
     <div class="dns-wrap" id="dn-side">${sideView(SS.dec, TILT)}</div>
 ${jumpRow("dn-tools dn-tools-side")}
     <p class="dns-cap" id="dn-side-cap">${sideCapText(SS.dec, TILT, "now", NOW)}</p>
@@ -493,6 +655,18 @@ ${jumpRow("dn-tools dn-tools-side")}
       <div class="wc-frow"><span>Tropic of Capricorn, ${n1(TILT)}°S</span><b>The same limit going south. ${jumpBtn("dec", "Show me")}</b></div>
     </div>
     </div>
+  </div>
+`;
+
+/* The annual view only appears in Simulators only. It reuses the visual
+   language of the dedicated Earth-Sun-Moon page, but paint() supplies its
+   date; it has no independent animation loop. */
+const systemCard = `  <div class="card dn-year-card" id="earth-sun-moon-year">
+    <h2>${ico("earthmoon")} Earth, Sun &amp; Moon — the whole year</h2>
+    <div class="sys-figwrap dn-system-wrap">${SYSTEM_SVG}</div>
+    <p class="dn-system-meta"><b id="dn-system-date">&nbsp;</b><span>Orbital plane viewed at ${SYSTEM_VIEW_DEG}°. Earth’s axial tilt remains ${n1(TILT)}°.</span></p>
+${jumpRow("dn-tools dn-tools-year")}
+    <p class="hint dn-system-note">This is the same instant as the map and Sun-angle view. Sizes and distances are compressed to fit. The Moon’s real ${ORBIT_TILT}° orbital tilt is drawn at ${SYS_INC_DRAWN}° so a near miss — or an eclipse alignment — is easier to see. <a href="${SYS_PATH}">Open the full Earth–Sun–Moon simulator →</a></p>
   </div>
 `;
 
@@ -521,7 +695,7 @@ const tryCard = `  <div class="card" id="things-to-try">
     <h2>${ico("classroom")} Things to try</h2>
     <ul class="facts">
       <li><strong>Find your own bedtime.</strong> The map marks where you are as soon as your browser shares it — if it did not, there is a pin in the season-button row. Then drag the slider to tonight and watch the shading arrive over your dot: that is your sunset, to the minute the sun goes down where you are standing.</li>
-      <li><strong>Watch the moon go round.</strong> Drag the slider from one end to the other. That is ${SIDEREAL} days — one real orbit of the Moon around Earth — and the moon marker comes back to nearly the same place it started. The phase will not match: a <a href="/concepts/what-is-a-synodic-month/">full cycle of phases</a> takes two days longer.</li>
+      <li><strong>Watch the two orbits together.</strong> Drag the slider from one end to the other. Earth completes one year around the Sun while the Moon loops around Earth about 13.4 times. Switch to <strong>Simulators only</strong> to keep the map, the Sun angle and the full system in view together.</li>
       <li><strong>Who is asleep right now?</strong> Press <strong>Now</strong> and look at which continents sit in the dark half. Then pick a country the class has a connection to and check whether anyone there would answer the phone.</li>
       <li><strong>Race the line.</strong> Press <strong>Play</strong> and follow the terminator west. It crosses the whole map in 24 hours, which at the equator is about 1,670 km/h — faster than an airliner. Ask which way you would have to fly to keep the sun from setting.</li>
       <li><strong>Break the tilt.</strong> Jump to the <strong>summer solstice</strong>, then to the <strong>winter solstice</strong>, and watch the top of the map swap from all-light to all-dark. Ask what would happen to seasons if the tilt were zero — the answer is on the map, because the line would simply stand up straight.</li>
@@ -534,11 +708,13 @@ const tryCard = `  <div class="card" id="things-to-try">
 
 const FAQ = [
   ["Is the map showing real time?",
-    `Yes. It opens at the current moment and repaints every minute while it is left alone. The slider moves it forward through one ${SIDEREAL}-day orbit of the Moon, and Now brings it back. Everything is computed in your browser from the sun's position — nothing is fetched from a server, and there is nothing to sign up for.`],
+    `Yes. It opens at the current moment and repaints every minute while it is left alone. The slider covers the current calendar year, and Now brings it back to this moment. Everything is computed in your browser from the Sun and Moon positions — nothing is fetched while the simulator runs, and there is nothing to sign up for.`],
   ["Where can I see the exact sunrise and sunset time for my town?",
     "On the sun pages: they give sunrise, sunset, day length, twilight and a seven-day outlook for more than a thousand cities, or for any location you name. This map is the shape of the thing; those pages are the numbers."],
   ["What do Play, Now and the season buttons do?",
-    `Play runs about six hours a second so one turn of the Earth takes ${PLAY_TURN_S} seconds, and one ${SIDEREAL}-day orbit of the Moon ${playSpanWords}. Now jumps back to this moment. The four season buttons — spring equinox, summer solstice, fall equinox, winter solstice — jump to the start of each season so you can see the slow lean of the year.`],
+    `Play compresses one calendar year into ${playSpanWords}, with all three diagrams using the same instant. Now jumps back to this moment. The four season buttons — spring equinox, summer solstice, fall equinox, winter solstice — jump to the event inside the selected year so you can compare the lean of the seasons.`],
+  ["Can I link to a particular year, date or eclipse?",
+    `Yes. Add year=2024 to choose the timeline, date=2024-04-08 to open an exact day, and time=18:18 for a precise UTC minute. The copied URL keeps those values, so an eclipse page can open all three views at the same alignment.`],
 ];
 
 const pageTabs = `  <nav class="home-tabs sec-switch dn-tabs" aria-label="Explore this page">
@@ -550,7 +726,7 @@ const pageTabs = `  <nav class="home-tabs sec-switch dn-tabs" aria-label="Explor
   </nav>`;
 
 const simulatorPair = `  <div class="dn-sim-pair">
-${simCard}${sideCard}${jumpRow("dn-tools dn-tools-only")}
+${simCard}${sideCard}${systemCard}
   </div>
 `;
 
@@ -560,13 +736,13 @@ const page = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Day and Night Map — Where It's Light on Earth Right Now</title>
-<meta name="description" content="A live world map of day and night: where the sun is up right now, where it is dark, and the twilight band between. Play one ${SIDEREAL}-day orbit of the Moon, jump to a solstice, and see why the line leans.">
+<meta name="description" content="A live day and night map synchronized with the Sun angle and an Earth–Sun–Moon orbit view. Play a year, open an exact date, or jump to a solstice.">
 <link rel="canonical" href="${SITE}${PATH}">
 <meta property="og:title" content="Day and Night Map — Where It's Light on Earth Right Now">
-<meta property="og:description" content="A live world map of day and night, with a ${SIDEREAL}-day slider, a Play button and the explanation underneath.">
+<meta property="og:description" content="A live world map of day and night with a one-year slider, exact-date links, and synchronized Sun–Earth–Moon views.">
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="/assets/css/style.css">
-${appLd({ name: "Day and Night Map", url: `${SITE}${PATH}`, description: `A live world map showing which half of the Earth is in daylight, the twilight band, and the point the sun is directly overhead, with a ${SIDEREAL}-day time slider.` })}
+${appLd({ name: "Day and Night Map", url: `${SITE}${PATH}`, description: `A live world map showing daylight, twilight, the subsolar point and the Moon, synchronized with annual Sun-angle and Earth–Sun–Moon views.` })}
 <script type="application/ld+json">${breadcrumbLD(SITE, [{ name: "Time and Space Science", url: "/" }, { name: "Day/night map", url: PATH }])}</script>
 ${learningLd({ name: "Day and Night Map", url: `${SITE}${PATH}`, description: "How the day/night line works: the terminator, the subsolar point, twilight, the effect of the Earth's axial tilt, and what a flat equirectangular map does to the size of the continents." })}
 ${faqLd(FAQ)}
@@ -576,7 +752,7 @@ ${GA_SNIPPET}
 <div class="wrap wrap-wide">
   ${brand()}
   <h1>Day and Night Map</h1>
-  <p class="sub dn-page-intro">Where it is light on Earth right now, where it is dark, and the twilight in between. Drag the slider to move through one ${SIDEREAL}-day orbit of the Moon, or press play and watch the line sweep round. The same picture as the <a href="/world-clock/">world clock</a>'s map, with time attached.</p>
+  <p class="sub dn-page-intro">Where it is light on Earth right now, where it is dark, and the twilight in between. Drag the slider through one calendar year, or press play to move the map, the Sun angle and the Earth–Sun–Moon system together. The same picture as the <a href="/world-clock/">world clock</a>'s map, with time attached.</p>
 ${pageTabs}
 
 ${simulatorPair}  <div class="dn-lesson-sections">
@@ -585,7 +761,6 @@ ${howCard}${tryCard}${hubQuestionsCard(PATH, "Questions this page answers", { id
     <p>This map answers "where", to the nearest few hundred kilometres. For "when", to the minute, in your own town:</p>
     <p class="timer-presets">
       <a class="chip" href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a>
-      <a class="chip" href="${SYS_PATH}">Earth’s orbit with the tilt</a>
       <a class="chip" href="/concepts/why-is-this-map-flat/">Why is this map flat?</a>
       <a class="chip" href="/concepts/what-is-a-synodic-month/">Why a month is longer than an orbit</a>
       <a class="chip" href="/glossary/">Glossary</a>
