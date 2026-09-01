@@ -196,6 +196,13 @@ var sideBox=document.getElementById('dn-side'), sideCapEl=document.getElementByI
 var SPAN=${SPAN_MIN};             /* minutes: one ${SIDEREAL}-day orbit of the Moon */
 var RATE=${PLAY_RATE};            /* six hours of map time per real second */
 var T0=${NOW}, AT=${NOW}, PLAY=0, RAF=0, LAST=0, HOME=null, SELECTED='now';
+var SEASON_PARAM={mar:'spring-equinox',jun:'summer-solstice',sep:'fall-equinox',dec:'winter-solstice'};
+var SEASON_ALIAS={
+  now:'now',spring:'mar','spring-equinox':'mar',mar:'mar',
+  summer:'jun','summer-solstice':'jun',jun:'jun',
+  fall:'sep',autumn:'sep','fall-equinox':'sep','autumn-equinox':'sep',sep:'sep',
+  winter:'dec','winter-solstice':'dec',dec:'dec'
+};
 
 function $(id){return document.getElementById(id)}
 function set(id,txt){var e=$(id); if(e) e.textContent=txt}
@@ -268,13 +275,13 @@ function frame(ts){
   paint(); RAF=requestAnimationFrame(frame);
 }
 function start(){ PLAY=1; LAST=0; play.textContent='Pause'; play.setAttribute('aria-pressed','true');
-  SELECTED=''; syncJumpState();
+  SELECTED=''; writeSeasonUrl(''); syncJumpState();
   svg.classList.add('is-playing'); RAF=requestAnimationFrame(frame); }
 
 if(play){ play.hidden=false; play.addEventListener('click',function(){ PLAY?stop():start(); }); }
 if(slider){
   slider.disabled=false;
-  slider.addEventListener('input',function(){ stop(); SELECTED=''; syncJumpState(); AT=T0+(+slider.value)*60000; paint(); });
+  slider.addEventListener('input',function(){ stop(); SELECTED=''; writeSeasonUrl(''); syncJumpState(); AT=T0+(+slider.value)*60000; paint(); });
 }
 /* the label above the slider: which stretch of days it is showing */
 function spanLab(){
@@ -306,19 +313,31 @@ var jumps=document.querySelectorAll('[data-dn-jump]');
 function syncJumpState(){
   for(var i=0;i<jumps.length;i++) jumps[i].setAttribute('aria-pressed',jumps[i].getAttribute('data-dn-jump')===SELECTED?'true':'false');
 }
+function writeSeasonUrl(kind){
+  if(!history.replaceState) return;
+  try{
+    var u=new URL(location.href), value=SEASON_PARAM[kind];
+    if(value) u.searchParams.set('season',value); else u.searchParams.delete('season');
+    history.replaceState(null,'',u.pathname+(u.searchParams.toString()?'?'+u.searchParams.toString():'')+u.hash);
+  }catch(e){}
+}
+function showSeason(kind,writeUrl){
+  stop();
+  SELECTED=kind;
+  if(kind==='now'){ T0=Date.now(); AT=T0; }
+  else{
+    var m=seasonMs(kind), day=new Date(m);
+    T0=Date.UTC(day.getUTCFullYear(),day.getUTCMonth(),day.getUTCDate())-3*86400000;
+    AT=m;
+  }
+  if(writeUrl) writeSeasonUrl(kind);
+  syncJumpState(); spanLab(); paint();
+}
 for(var j=0;j<jumps.length;j++){
   jumps[j].disabled=false;
   jumps[j].addEventListener('click',function(){
-    stop();
     var k=this.getAttribute('data-dn-jump');
-    SELECTED=k;
-    if(k==='now'){ T0=Date.now(); AT=T0; }
-    else{
-      var m=seasonMs(k), day=new Date(m);
-      T0=Date.UTC(day.getUTCFullYear(),day.getUTCMonth(),day.getUTCDate())-3*86400000;
-      AT=m;
-    }
-    syncJumpState(); spanLab(); paint();
+    showSeason(k,1);
   });
 }
 
@@ -397,7 +416,16 @@ if(navigator.geolocation) locAsk(0);
 
 if(HOME){ var w0=$('dn-mewrap'); if(w0) w0.hidden=false; }
 
-T0=Date.now(); AT=T0; syncJumpState(); spanLab(); paint();
+/* A season is a shareable simulator state, not a separate page. Canonical
+   strings are readable in a copied URL; short and British-English aliases are
+   accepted so a hand-written classroom link still lands on the intended view. */
+var initialSeason='now';
+try{
+  var initialUrl=new URL(location.href), rawSeason=(initialUrl.searchParams.get('season')||'').toLowerCase();
+  initialSeason=SEASON_ALIAS[rawSeason]||'now';
+  if(rawSeason&&(initialSeason==='now'||rawSeason!==SEASON_PARAM[initialSeason])) writeSeasonUrl(initialSeason);
+}catch(e){}
+showSeason(initialSeason,0);
 setInterval(function(){ if(!PLAY&&Math.abs(AT-Date.now())<90000){ AT=Date.now(); paint(); } },60000);
 })();</script>`;
 
