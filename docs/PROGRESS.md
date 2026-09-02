@@ -12549,3 +12549,15 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
   making a 32px line 52px tall.
 - Files: `seo/tools/build-daynight.mjs` (timelineControl takes the view
   select id; viewControl/VIEW_HELP removed), `assets/css/parts/20d2-orrery.css`.
+
+## 2026-09-02 — Compact seasons view: controls on top, three bare pictures
+
+- Compact is now ONE control block above THREE frameless pictures. The map's
+  timeline + season row live in `#dn-controls`; the script moves that block
+  above the grid in compact and back under the map in Normal/Full, so the
+  listeners never rebind. Cards lose their titles, borders, background and
+  padding in compact; the grid gap is 6px and the map column is 1.4fr.
+- The arrow-step menu is gone on both pages: every timeline steps one day
+  (`STEP_MIN`), and the View select now ends the slider row (`< slider >
+  Play View`). /day-night-map/ instructions updated to match.
+- Files: `seo/tools/build-daynight.mjs`, `assets/css/parts/20d2-orrery.css`.

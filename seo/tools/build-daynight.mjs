@@ -57,6 +57,7 @@ const CURRENT_YEAR = new Date(NOW).getUTCFullYear();
 const SPAN_MIN = Math.round((Date.UTC(CURRENT_YEAR + 1, 0, 1) - Date.UTC(CURRENT_YEAR, 0, 1)) / 60000);
 const PLAY_RATE = Math.round(365.2422 * 86400000 / 120000); /* one average year in about two minutes */
 const PLAY_SPAN_S = SPAN_MIN * 60 / PLAY_RATE;
+const STEP_MIN = 1440;            /* one day per arrow press, every timeline (see timelineControl) */
 const playSpanWords = PLAY_SPAN_S < 90
   ? `about ${Math.round(PLAY_SPAN_S)} seconds`
   : `about ${Math.round(PLAY_SPAN_S / 60)} minutes`;
@@ -469,11 +470,11 @@ function stepWords(min){
   if(min===480)return '8 hours';if(min===720)return '12 hours';if(min===1440)return '24 hours';return '1 week';
 }
 function stepMinutes(btn){
-  var box=btn.closest('[data-dn-timeline]'),select=box&&box.querySelector('[data-dn-scale]');
-  return select?+select.value:+(box&&box.getAttribute('data-dn-step-min')||10080);
+  var box=btn.closest('[data-dn-timeline]');
+  return +(box&&box.getAttribute('data-dn-step-min'))||${STEP_MIN};
 }
 function labelStepButtons(box){
-  if(!box)return;var select=box.querySelector('[data-dn-scale]'),min=select?+select.value:+box.getAttribute('data-dn-step-min')||10080;
+  if(!box)return;var min=+box.getAttribute('data-dn-step-min')||${STEP_MIN};
   var buttons=box.querySelectorAll('[data-dn-step-dir]');
   for(var i=0;i<buttons.length;i++){var back=buttons[i].getAttribute('data-dn-step-dir')==='-1';buttons[i].setAttribute('aria-label',(back?'Move back ':'Move forward ')+stepWords(min));buttons[i].title=(back?'Move back ':'Move forward ')+stepWords(min);}
 }
@@ -485,8 +486,6 @@ for(var sb=0;sb<stepBtns.length;sb++){
     AT=Math.max(T0,Math.min(end,AT+dir*stepMinutes(this)*60000));writeExactUrl(AT);paint();
   });
 }
-var scales=document.querySelectorAll('[data-dn-scale]');
-for(var sc=0;sc<scales.length;sc++) scales[sc].addEventListener('change',function(){labelStepButtons(this.closest('[data-dn-timeline]'));});
 /* kept as a named operation because season and current-time updates call it */
 function spanLab(){syncTimelineLabels();}
 
@@ -566,11 +565,20 @@ if(simGrid&&simPackMq){
 }
 
 var wrap=document.querySelector('.wrap'),viewSels=[].slice.call(document.querySelectorAll('[data-dn-view]')),VIEWS=['compact','normal','full'];
+/* the map's control block: above the pictures in compact, under the map in
+   the other views. Moving the node keeps its listeners, so nothing rebinds. */
+var ctlBlock=document.getElementById('dn-controls'),mapFig=document.querySelector('#day-night-map .dn-figwrap');
+function placeControls(mode){
+  if(!ctlBlock||!mapFig||!simGrid) return;
+  if(mode==='compact'){ if(ctlBlock.nextSibling!==simGrid) simGrid.parentNode.insertBefore(ctlBlock,simGrid); }
+  else if(mapFig.nextSibling!==ctlBlock) mapFig.parentNode.insertBefore(ctlBlock,mapFig.nextSibling);
+}
 function setView(mode,writeUrl){
   if(!wrap||!viewSels.length) return;
   if(VIEWS.indexOf(mode)<0) mode='compact';
   for(var v=0;v<VIEWS.length;v++) wrap.classList.toggle('dn-view-'+VIEWS[v],VIEWS[v]===mode);
   wrap.classList.toggle('dn-lite',mode!=='full');
+  placeControls(mode);
   for(var n=0;n<viewSels.length;n++) viewSels[n].value=mode;
   if(writeUrl) replaceUrl(function(u){ if(mode==='compact') u.searchParams.delete('view'); else u.searchParams.set('view',mode); });
   queueSimPack();
@@ -687,8 +695,8 @@ const jumpRow = (cls, withLoc) => `    <p class="${cls}">
       <button type="button" class="chip" data-dn-jump="dec" disabled>Winter solstice</button>
     </p>`;
 
-/* HOW MUCH OF THE PAGE TO SHOW. One <select>, on the arrow-step line of each
-   timeline and in the tab row, so the choice is never a scroll away; the
+/* HOW MUCH OF THE PAGE TO SHOW. One <select>, at the end of each timeline's
+   slider row and in the tab row, so the choice is never a scroll away; the
    script keeps every copy on the same value. Compact shows only the map's
    timeline, so the page it describes shows the select exactly once. The
    option labels carry the explanation — a key paragraph under it was tried
@@ -703,35 +711,39 @@ const viewSelect = (id) => `<label class="dn-view-pick" for="${id}">View <select
 
 const jumpBtn = (k, t) => `<button type="button" class="chip" data-dn-jump="${k}" disabled>${esc(t)}</button>`;
 
-const timelineControl = (id, mapScale = false, viewId = null) => `    <div class="dn-timeline" data-dn-timeline="${id}"${mapScale ? "" : ` data-dn-step-min="10080"`}>
+/* ONE DAY PER ARROW PRESS, everywhere. A step menu (an hour to a week) was
+   tried and was a second control competing with the slider for the same job;
+   a day is the step that shows the terminator move without the sun marker
+   leaving the map, and Play covers the rest. STEP_MIN is what the arrow
+   buttons read — declared with the other timing constants above. */
+const timelineControl = (id, viewId = null) => `    <div class="dn-timeline" data-dn-timeline="${id}" data-dn-step-min="${STEP_MIN}">
       <label class="sim-flab" for="${id}-slider"><span data-dn-range>Jan. 1st to Dec. 31st</span> — One orbit of Earth — Showing <span data-dn-showing>${dayName(NOW)}, ${CURRENT_YEAR}</span></label>
-      <div class="dn-step-row">
-      ${mapScale ? `<label class="dn-scale-label" for="${id}-scale">Arrow step
-        <select id="${id}-scale" data-dn-scale>
-          <option value="60">1 hour</option><option value="120">2 hours</option><option value="240">4 hours</option>
-          <option value="480">8 hours</option><option value="720">12 hours</option><option value="1440" selected>24 hours</option>
-          <option value="10080">1 week</option>
-        </select>
-      </label>` : `<span class="dn-fixed-step">Arrow step: 1 week</span>`}${viewId ? "\n      " + viewSelect(viewId) : ""}
-      </div>
-      <div class="dn-slider-row">
-        <button type="button" class="chip dn-step" data-dn-step-dir="-1" disabled aria-label="Move back">&lt;</button>
+      <div class="dn-slider-row${viewId ? " has-view" : ""}">
+        <button type="button" class="chip dn-step" data-dn-step-dir="-1" disabled aria-label="Move back one day">&lt;</button>
         <input type="range" class="orr-slider" id="${id}-slider" data-dn-slider min="0" max="${SPAN_MIN}" step="1" value="0" disabled aria-label="Move through one calendar year">
-        <button type="button" class="chip dn-step" data-dn-step-dir="1" disabled aria-label="Move forward">&gt;</button>
-        <button type="button" class="chip dn-obtn dn-play" data-dn-play aria-pressed="false" hidden>Play</button>
+        <button type="button" class="chip dn-step" data-dn-step-dir="1" disabled aria-label="Move forward one day">&gt;</button>
+        <button type="button" class="chip dn-obtn dn-play" data-dn-play aria-pressed="false" hidden>Play</button>${viewId ? "\n        " + viewSelect(viewId) : ""}
       </div>
     </div>`;
 
 /* ---- the simulator card -------------------------------------------------- */
-const simCard = ({ heading = false, view = false } = {}) => `  <div class="card dn-card" id="day-night-map">
+/* THE MAP'S CONTROLS ARE ONE BLOCK, #dn-controls, because on the lesson page
+   they move: compact puts them ABOVE the three pictures (one set of controls,
+   then the pictures with nothing between them), and the other views put them
+   back under the map. The script moves the block; the listeners ride along.
+   The page ships with the block wherever its default view wants it. */
+const mapControls = (view) => `  <div class="dn-controls" id="dn-controls">
+${timelineControl("dn-map", view ? "dn-view-map" : null)}
+${jumpRow("dn-tools dn-tools-main", true)}
+  </div>
+`;
+const simCard = ({ heading = false, view = false, controlsInside = true } = {}) => `  <div class="card dn-card" id="day-night-map">
 ${heading ? `    <h2>${ico("globe")} Day &amp; Night Map</h2>
 ` : ""}    <span class="dn-anchor-target" id="subsolar"></span><span class="dn-anchor-target" id="terminator"></span><span class="dn-anchor-target" id="twilight"></span><span class="dn-anchor-target" id="projection"></span><span class="dn-anchor-target" id="daytime-moon"></span>
     <div class="dn-figwrap">
       ${MAP_SVG}
     </div>
-${timelineControl("dn-map", true, view ? "dn-view-map" : null)}
-${jumpRow("dn-tools dn-tools-main", true)}
-    <p class="dn-sunline" id="dn-sunline">${seasonSunHtml(SS.dec, SS.lon, subsolar(NOW + 7 * 86400000).dec, TILT)}</p>
+${controlsInside ? mapControls(view) : ""}    <p class="dn-sunline" id="dn-sunline">${seasonSunHtml(SS.dec, SS.lon, subsolar(NOW + 7 * 86400000).dec, TILT)}</p>
     <p class="hint" id="dn-loc-msg"></p>
     <p class="dn-me-line" id="dn-mewrap" hidden><b id="dn-o-me">&nbsp;</b> <a id="dn-me-sun" href="/sun/near-me/?geo=1">Your sunrise and sunset →</a></p>
     <p class="hint dn-map-note"><strong>Map limitation:</strong> Earth is a globe flattened into a rectangle, so shapes and distances — especially near the poles — are distorted. The Sun and Moon markers are enlarged so you can see them. <a href="/concepts/why-is-this-map-flat/">Why this map is flat →</a></p>
@@ -743,7 +755,7 @@ const howCard = `  <details class="card dn-instructions" id="instructions">
     <summary>Day &amp; Night Map Instructions</summary>
     <div class="dn-instructions-body">
     <p>This map solves which half of Earth faces the Sun at the instant shown above the slider. Bright areas have the Sun above the horizon, dark areas have it below, and the <strong>soft band</strong> is <a href="/concepts/what-is-twilight/">twilight</a>.</p>
-    <p>Drag the slider to choose any instant in the year. Use the arrow-step menu to decide whether the arrow buttons move one hour, one day, or one week. <strong>Play</strong> runs through the year, <strong>Now</strong> returns to the current moment, and the seasonal buttons reveal how the day/night boundary changes across the year.</p>
+    <p>Drag the slider to choose any instant in the year. The arrow buttons move one day at a time. <strong>Play</strong> runs through the year, <strong>Now</strong> returns to the current moment, and the seasonal buttons reveal how the day/night boundary changes across the year.</p>
     <p>The <strong>yellow marker</strong> is the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a>, where the Sun is straight overhead. The <strong>moon marker</strong> is where the Moon stands overhead, drawn in its phase at that moment—it can be a <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">daytime Moon</a>. The <strong>dashed gold lines</strong> are the tropics, and the curved boundary is the <a href="/concepts/what-is-the-terminator/">terminator</a>. Its daily sweep also shows why longitude matters to <a href="/concepts/what-is-a-time-zone/">time zones</a>.</p>
     <div class="wc-facts">
       <div class="wc-frow"><span>Yellow marker</span><b>Subsolar point — a flagpole there casts no shadow.</b></div>
@@ -774,7 +786,7 @@ const sideCard = `  <div class="card dn-side-card" id="sun-angle">
     <h2>${ico("globe")} Angle of the Sun Based on the Time of the Year</h2>
     <p class="dn-side-intro">This view turns Earth sideways so the cause of the seasons is easier to see. Earth’s axis keeps its ${n1(TILT)}° tilt while the direction toward the Sun changes through the orbit. The yellow centre line lands at the subsolar point, moving between the two tropics as the year passes.</p>
     <div class="dns-wrap" id="dn-side">${sideView(SS.dec, TILT)}</div>
-${timelineControl("dn-angle", false, "dn-view-side")}
+${timelineControl("dn-angle", "dn-view-side")}
 ${jumpRow("dn-tools dn-tools-side", false)}
     <p class="dns-cap" id="dn-side-cap">${sideCapText(SS.dec, TILT, "now", NOW)}</p>
     <div class="dn-side-support">
@@ -793,7 +805,7 @@ ${jumpRow("dn-tools dn-tools-side", false)}
 const systemCard = `  <div class="card dn-year-card" id="earth-sun-moon-year">
     <h2>${ico("earthmoon")} Earth, the Sun &amp; the Moon Through One Year</h2>
     <div class="sys-figwrap dn-system-wrap">${SYSTEM_SVG}</div>
-${timelineControl("dn-year", false, "dn-view-year")}
+${timelineControl("dn-year", "dn-view-year")}
 ${jumpRow("dn-tools dn-tools-year", false)}
     <p class="dn-system-meta"><span>The orbital plane is viewed at ${SYSTEM_VIEW_DEG}°. Earth’s axial tilt remains ${n1(TILT)}°.</span></p>
     <p class="hint dn-system-note">This wider view answers the missing question: where is Earth in its orbit while the daylight pattern changes? The same instant drives all three simulators. Sizes and distances are compressed to fit. The Moon’s real ${ORBIT_TILT}° orbital tilt is drawn at ${SYS_INC_DRAWN}° so a near miss — or an eclipse alignment — is easier to see. <a href="${SYS_PATH}">Open the full Earth–Sun–Moon simulator →</a></p>
@@ -856,8 +868,8 @@ const pageTabs = `  <nav class="home-tabs sec-switch dn-tabs" aria-label="Explor
     <span class="dn-view-toggle">${viewSelect("dn-view-tabs")}</span>
   </nav>`;
 
-const simulatorPair = `  <div class="dn-sim-pair">
-${simCard({ heading: true, view: true })}${sideCard}${systemCard}
+const simulatorPair = `${mapControls(true)}  <div class="dn-sim-pair">
+${simCard({ heading: true, view: true, controlsInside: false })}${sideCard}${systemCard}
   </div>
 `;
 
