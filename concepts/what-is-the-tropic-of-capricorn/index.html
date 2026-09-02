@@ -971,12 +971,12 @@ border:1px solid var(--border);background:#12304f}
 .dn-timeline{margin:14px 0 4px}
 .dn-timeline>.sim-flab{display:block;text-align:center;font-weight:750;line-height:1.4}
 .dn-timeline [data-dn-showing]{color:var(--accent);font-variant-numeric:tabular-nums}
-.dn-scale-label,.dn-fixed-step{display:flex;align-items:center;justify-content:center;gap:7px;
-margin:7px 0 0;color:var(--muted);font-size:12.5px;font-weight:650}
 .dn-scale-label select{min-height:32px;padding:4px 28px 4px 9px;border:1px solid var(--border);
 border-radius:8px;background:var(--card);color:var(--text);font:inherit}
 .dn-slider-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;
 align-items:center;gap:9px;margin:7px 0 4px}
+.dn-slider-row.has-view{grid-template-columns:auto minmax(0,1fr) auto auto auto}
+.dn-slider-row>.dn-view-pick{margin:0}
 .dn-slider-row .orr-slider{width:100%}
 .dn-slider-row .dn-obtn{flex:0 0 auto;min-height:40px;padding:10px 16px;font-weight:700}
 .dn-step{min-width:40px;min-height:40px;padding:8px 12px;font-size:19px;line-height:1}
@@ -1014,12 +1014,9 @@ background:rgba(252,211,77,.14)}
 .dn-tools-main{margin:4px 0 12px}
 .dn-tools-side{margin:12px 0 4px}
 .dn-tools-year{margin:12px 0 8px}
-.dn-view-ctl{margin:0 0 6px}
-.dn-view-row{display:flex;justify-content:center;margin:0 0 6px}
-.dn-view-pick{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:12.5px;font-weight:650}
+.dn-view-pick{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;color:var(--muted);font-size:12.5px;font-weight:650}
 .dn-view-pick select{min-height:32px;padding:4px 28px 4px 9px;border:1px solid var(--border);
 border-radius:8px;background:var(--card);color:var(--text);font:inherit;font-size:13px}
-.dn-view-help{margin:0 auto;max-width:62em;text-align:center;color:var(--muted);font-size:12.5px;line-height:1.5}
 .dn-map-note{margin:6px 0 0;max-width:68em}
 .dn-map-note a{white-space:nowrap}
 .dn-instructions>summary{position:relative;list-style:none;cursor:pointer;padding-right:30px;
@@ -1042,15 +1039,21 @@ margin:8px 0 10px;font-size:13px;line-height:1.45}
 .dn-view-compact .dn-lesson-sections{display:none}
 .dn-view-normal .dn-lesson-sections>:not(.dn-compact-sections){display:none}
 .dn-view-compact .dn-side-card .dn-timeline,.dn-view-compact .dn-year-card .dn-timeline,
-.dn-view-compact .dn-tools-side,.dn-view-compact .dn-tools-year,
-.dn-view-compact .dn-side-card .dn-view-ctl,.dn-view-compact .dn-year-card .dn-view-ctl{display:none}
+.dn-view-compact .dn-tools-side,.dn-view-compact .dn-tools-year{display:none}
+.dn-view-compact .dn-controls{margin:0 0 6px}
+.dn-view-compact .dn-controls .dn-timeline{margin:6px 0 2px}
+.dn-view-compact .dn-controls .dn-tools-main{margin:2px 0 0}
+.dn-lesson-page.dn-view-compact .dn-sim-pair{gap:6px}
+.dn-view-compact .dn-sim-pair>.card{background:none;border:0;border-radius:0;padding:0;box-shadow:none;backdrop-filter:none}
+.dn-view-compact .dn-sim-pair>.card>h2,.dn-view-compact .dn-sim-pair .dn-anchor-target{display:none}
+.dn-view-compact .dn-figwrap,.dn-view-compact .dn-side-card .dns-wrap,.dn-view-compact .dn-system-wrap{margin:0}
 .dn-lesson-page .dn-sim-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
 align-items:start;gap:14px}
 .dn-lesson-page .dn-sim-pair>.card{margin:0;min-width:0}
 @media(min-width:901px){
 .dn-lesson-page .dn-sim-pair.dn-mas{grid-auto-rows:7px;row-gap:0}
-.dn-view-compact .dn-sim-pair{grid-template-columns:1.25fr 1fr}
-.dn-view-compact .dn-system-wrap{max-width:480px;margin:0 auto}
+.dn-view-compact .dn-sim-pair{grid-template-columns:1.4fr 1fr}
+.dn-view-compact .dn-sim-pair.dn-mas{grid-auto-rows:3px}
 }
 .dn-lite .dn-side-intro,.dn-lite .dn-side-support,.dn-lite .dn-map-note{display:none}
 .dn-lite .dn-sunline,.dn-lite .dn-me-line,.dn-lite #dn-loc-msg,.dn-lite .dns-cap,
@@ -1065,8 +1068,9 @@ align-items:start;gap:14px}
 .dn-lesson-page .dn-sim-pair{grid-template-columns:1fr}
 }
 @media(max-width:520px){
-.dn-slider-row{grid-template-columns:auto minmax(0,1fr) auto}
+.dn-slider-row,.dn-slider-row.has-view{grid-template-columns:auto minmax(0,1fr) auto}
 .dn-slider-row .dn-play{grid-column:1/-1;width:100%}
+.dn-slider-row>.dn-view-pick{grid-column:1/-1;justify-content:center}
 }
 .dn-me-line{margin:4px 0 10px;font-size:14.5px}
 .dns-wrap{margin:14px 0 4px;border:1px solid var(--border);border-radius:12px;
@@ -1337,7 +1341,7 @@ font-weight: 700;
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the Tropic of Capricorn?","acceptedAnswer":{"@type":"Answer","text":"The Tropic of Capricorn is the circle at 23.4° south. On one day each year — the winter solstice, around December 21 — the Sun stands straight overhead on this line. South of it, the Sun is never straight overhead. It is the southern twin of the Tropic of Cancer."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Tropic of Capricorn","description":"The Tropic of Capricorn is the circle at 23.4° south. On one day each year — the winter solstice, around December 21 — the Sun stands straight overhead on this line. South of it, the Sun is never straight overhead. It is the southern twin of the Tropic of Cancer.","url":"https://timeandspace.science/concepts/what-is-the-tropic-of-capricorn/","inDefinedTermSet":"https://timeandspace.science/glossary/"}</script>
 
-<!-- build 3450a56e0ccf · generated 2026-09-02T03:51:59.214Z -->
+<!-- build 2db3a48b4245 · generated 2026-09-02T07:15:14.857Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">

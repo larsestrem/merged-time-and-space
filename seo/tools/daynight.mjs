@@ -321,6 +321,76 @@ export function cityMark(list, tz, big, esc) {
 /** the page this map's own explanation and simulator live on */
 export const DAYNIGHT_PATH = "/day-night-map/";
 
+/* ---- the home card's caption under the side view ---------------------------
+ * The three-branch sentence: where the Sun–Earth centre line lands, and what
+ * that does to the length of the day. /earth-tilt-sun-seasons/ carries its own
+ * longer, linked version of this (sideCapText in build-daynight, with a branch
+ * per season and the countdown links); the home card wants the plain one — no
+ * links inside a card that already links the page, and the same words whether
+ * the button pressed was a solstice or Now. ES5, `tilt` an argument, so the
+ * function's own source is shipped to the browser and the first paint and
+ * every repaint come from one text. */
+export function sideCapPlain(dec, tilt) {
+  var a = Math.abs(dec), n = dec >= 0, x = a.toFixed(1), gap = (tilt - a).toFixed(1);
+  var TC = 'Tropic of ' + (n ? 'Cancer' : 'Capricorn');
+  if (a < 0.6) return 'That line lands <b>on the equator</b>. The tilt has not gone anywhere — it never does — but today the axis leans SIDEWAYS to the sun rather than toward it or away from it, so from this viewpoint it looks upright and the light divides the globe from pole to pole. Every place on Earth gets about twelve hours of each. This is an equinox.';
+  if (tilt - a < 0.15) return 'That line lands <b>right on the ' + TC + '</b>, ' + x + '° ' + (n ? 'N' : 'S') + ' — the furthest ' + (n ? 'north' : 'south') + ' it ever reaches. This is the solstice: the ' + (n ? 'northern' : 'southern') + ' half of the world is tipped as far into the light as it will get all year, and the ' + (n ? 'north' : 'south') + ' end of the axis stays inside the lit half all the way round, which is why the sun does not set up there today.';
+  return 'That line lands at <b>' + x + '° ' + (n ? 'N' : 'S') + '</b> — ' + gap + '° short of the ' + TC + ', which is as far ' + (n ? 'north' : 'south') + ' as it can ever get. The ' + (n ? 'northern' : 'southern') + ' half of the world is leaning into the light, so more of it falls inside the lit half than outside, and its days are longer than its nights. That lean is the tilt of Earth on its orbit.';
+}
+
+/* ---- the season buttons under the home card's side view -------------------
+ * Now · spring equinox · summer solstice · fall equinox · winter solstice, each
+ * carrying the INSTANT it jumps to (data-tj-at, baked from seasonPoints so the
+ * hourly rebuild keeps it current; "now" for the live one). Repaints the side
+ * view (#tj-side) and its caption (#tj-cap) with dnSide + the caption function
+ * it is handed, names the instant in #tj-when (from the button's data-tj-lab),
+ * and marks the pressed chip with aria-pressed — .dn-tools already styles that
+ * state for the seasons page. Buttons ship disabled; the first thing this does
+ * is enable them. While Now is the one pressed the picture follows the clock
+ * once a minute. Its own attribute, not data-wk-at: the hero's handler moves
+ * the MAP for that one, and these buttons move only the card.
+ *
+ * ES5, expects DN_CORE in scope (dnSub, dnSide). */
+export const TILT_JUMP_JS = `
+function tiltJumps(TILT, capFn){
+  var box=document.getElementById('tj-side'), cap=document.getElementById('tj-cap'),
+      when=document.getElementById('tj-when');
+  if(!box) return;
+  var btns=[].slice.call(document.querySelectorAll('[data-tj-at]'));
+  var LIVE=1, AT=Date.now();
+  function dfmt(ms){ try{ return new Intl.DateTimeFormat('en-US',{month:'long',day:'numeric'}).format(new Date(ms)); }catch(e){ return ''; } }
+  function labelFor(v){
+    for(var i=0;i<btns.length;i++){
+      if(btns[i].getAttribute('data-tj-at')===v && btns[i].getAttribute('data-tj-lab')) return btns[i].getAttribute('data-tj-lab');
+    }
+    return '';
+  }
+  function show(){
+    var ss=dnSub(AT);
+    box.innerHTML=dnSide(ss.dec,TILT,null);
+    if(cap) cap.innerHTML=capFn(ss.dec);
+    if(when){
+      var lab=LIVE?'':labelFor(String(AT));
+      when.textContent=LIVE?('right now, '+dfmt(AT)):((lab?lab+', ':'')+dfmt(AT));
+    }
+    for(var i=0;i<btns.length;i++){
+      var v=btns[i].getAttribute('data-tj-at');
+      btns[i].setAttribute('aria-pressed',(LIVE?(v==='now'):(v===String(AT)))?'true':'false');
+    }
+  }
+  for(var i=0;i<btns.length;i++){
+    btns[i].disabled=false;
+    btns[i].addEventListener('click',function(){
+      var v=this.getAttribute('data-tj-at');
+      if(v==='now'){ LIVE=1; AT=Date.now(); } else { LIVE=0; AT=+v; }
+      show();
+    });
+  }
+  show();
+  setInterval(function(){ if(LIVE){ AT=Date.now(); show(); } },60000);
+}
+`;
+
 /* ---- the live sentence under the map --------------------------------------
  * ONE SOURCE FOR TWO RUNTIMES, same pattern as sideCapText in build-daynight:
  * this function bakes the HTML at build and is stringified into the page

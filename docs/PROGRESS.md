@@ -12561,3 +12561,32 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
   (`STEP_MIN`), and the View select now ends the slider row (`< slider >
   Play View`). /day-night-map/ instructions updated to match.
 - Files: `seo/tools/build-daynight.mjs`, `assets/css/parts/20d2-orrery.css`.
+
+## 2026-09-02 — Home page: the tilt-and-seasons card, second, linking the lesson
+
+- Owner's call: the home page's second card is now Earth's tilt and the
+  seasons, and it is the door to /earth-tilt-sun-seasons/. The card carries
+  that page's side view (parallel sunlight, the one Sun-to-Earth line, the
+  axis at its real lean) with the five season buttons — Now, the two
+  solstices, the two equinoxes — so pressing a solstice stops the line on a
+  tropic and the caption says why. Under it: the link to the lesson and to
+  the full orbit simulator, then the lesson's three synchronized views
+  deep-linked by their anchors (#day-night-map, #sun-angle,
+  #earth-sun-moon-year) as three places to stand. It replaced the "Earth
+  going around the Sun" card, whose subject and simulator link it absorbs.
+- Shared pieces in daynight.mjs so the card cannot drift from the page it
+  points at: sideCapPlain (the three-branch caption without links — the
+  lesson keeps its own longer sideCapText in build-daynight) and
+  TILT_JUMP_JS, the button controller, which rides in the hero's IIFE on the
+  home-landing bundle and reuses its DN_CORE. Buttons use data-tj-at, not
+  data-wk-at, so the hero's map handler leaves them alone. The pressed state
+  is the .dn-tools rule the seasons page already had.
+- Session note: this was first built against a checkout twenty commits
+  behind main — including the owner's own seasons lesson at the same URL —
+  and drafted a duplicate page. That generator, its data edits and its
+  registrations were dropped before anything was pushed; only the card and
+  the two shared pieces remain.
+- Files: seo/tools/daynight.mjs, seo/tools/build-home.mjs.
+- Verified in Chromium: buttons enable on load, "Winter solstice" repaints
+  the card to the Tropic of Capricorn with the chip pressed and the instant
+  named; no page errors. Full build passes both gates.

@@ -31,7 +31,7 @@ import { SIDEREAL, SYS_PATH } from "./build-simulator.mjs";
 /* the same coastline rings the planet globes are drawn from — imported, not
    copied, because two coastline tables would drift apart */
 import { WC_CITY_LIST } from "./wc-cities.mjs";
-import { DAYNIGHT_PATH, seasonPoints, DN_CORE, DN_W, DN_TOP, DN_BOT, dnX, dnY, dnF, subsolar, nightPath, landPath, cityMark, DN_MAP_EXTRA, DN_MAP_BIG, seasonSunHtml } from "./daynight.mjs";
+import { DAYNIGHT_PATH, seasonPoints, DN_CORE, DN_W, DN_TOP, DN_BOT, dnX, dnY, dnF, subsolar, nightPath, landPath, cityMark, DN_MAP_EXTRA, DN_MAP_BIG, seasonSunHtml, sideView, sideCapPlain, TILT_JUMP_JS } from "./daynight.mjs";
 /* the simulator URLs, imported rather than typed: the planet pages are flat
    (/jupiter-and-moons-simulator/) and the launch hub moved, and a second copy
    of either rule here would rot the first time one changed */
@@ -1438,6 +1438,10 @@ const solFirst = SOL_MINI(+_hbNow, "inner", {});
  * in a cached file beats restructuring a script three pages share. */
 const HOME_HERO_JS = `
 (function(){${DN_CORE}
+  ${/* the tilt card's season buttons: same DN_CORE, so it costs nothing extra.
+       Runs before the hero's own early return — the card does not need the map. */""
+  }${TILT_JUMP_JS}
+  tiltJumps(${WK_TILT}, function(dec){ return (${sideCapPlain.toString()})(dec,${WK_TILT}); });
   var slider=document.getElementById('wk-slider'); if(!slider) return;
   var night=document.getElementById('wk-night'), sunG=document.getElementById('wk-sun'),
       meG=document.getElementById('wk-me'), share=document.getElementById('wk-share'),
@@ -1644,6 +1648,42 @@ ${sectionSwitcher("/")}
     <a class="wk-all" href="/concepts/who-invented-time/">Who invented time? →</a>
     ${hubQs(["what-is-a-solar-day", "why-do-we-have-seasons", "what-is-a-synodic-month"], "/")}
   </div>
+  ${/* SECOND CARD: THE TILT AND THE SEASONS (owner's call), the door to
+       /earth-tilt-sun-seasons/. The side view from that page — parallel
+       sunlight, the one line from the Sun's centre to the Earth's, the axis
+       leaning its real angle — with the five season buttons, so the card IS
+       the explanation rather than a picture of it: press a solstice and the
+       line stops on a tropic and the caption says why. Under it, the page,
+       and its three synchronized views deep-linked by their own anchors, each
+       a different place to stand. It replaced the "Earth going around the
+       Sun" card; that simulator is the second link. The instants on the
+       buttons are the same WK_YEAR scan the hero uses, and the controller is
+       TILT_JUMP_JS from daynight.mjs, which rides in the hero's IIFE. */""
+  }<div class="card hub-sim" id="home-tilt">
+    <p class="hub-kicker">Earth</p>
+    <h2><a href="${SEASONS_PATH}">Earth’s tilt makes the seasons</a></h2>
+    <p class="hub-blurb">Earth’s axis leans ${WK_TILT.toFixed(1)}° and keeps pointing the same way in space all year. So as Earth goes round the Sun, the northern half leans into the light for half the year and away from it for the other half — and the southern half does the opposite. That lean, not distance, is what changes the seasons. Below is the Sun and the Earth from the side, drawn for <b id="tj-when">right now</b>. The yellow line lands where the sun is straight overhead; press a season and watch it move between the tropics.</p>
+    <div class="dns-wrap" id="tj-side">${sideView(subsolar(+_hbNow).dec, WK_TILT)}</div>
+    <p class="dns-cap" id="tj-cap">${sideCapPlain(subsolar(+_hbNow).dec, WK_TILT)}</p>
+    <p class="dn-tools">
+      <button type="button" class="chip" data-tj-at="now" aria-pressed="true" disabled>Now</button>
+      <button type="button" class="chip" data-tj-at="${WK_YEAR.up}" data-tj-lab="the spring equinox" aria-pressed="false" disabled>Spring equinox</button>
+      <button type="button" class="chip" data-tj-at="${WK_YEAR.maxMs}" data-tj-lab="the summer solstice" aria-pressed="false" disabled>Summer solstice</button>
+      <button type="button" class="chip" data-tj-at="${WK_YEAR.down}" data-tj-lab="the fall equinox" aria-pressed="false" disabled>Fall equinox</button>
+      <button type="button" class="chip" data-tj-at="${WK_YEAR.minMs}" data-tj-lab="the winter solstice" aria-pressed="false" disabled>Winter solstice</button>
+    </p>
+    <div class="home-simlinks">
+      <a class="wk-all" href="${SEASONS_PATH}">More on how Earth’s tilt changes the seasons →</a>
+      <a class="wk-all" href="${SYS_PATH}">Open the full orbit simulator →</a>
+    </div>
+    <p class="hint">Three interactive simulators on that page show it from three different places to stand:</p>
+    <p class="dn-tools">
+      <a class="chip" href="${SEASONS_PATH}#day-night-map">From above · the day &amp; night map</a>
+      <a class="chip" href="${SEASONS_PATH}#sun-angle">From the side · the angle of the sun</a>
+      <a class="chip" href="${SEASONS_PATH}#earth-sun-moon-year">From beyond the orbit · Earth, Sun &amp; Moon through a year</a>
+    </p>
+    ${hubQs(["why-do-we-have-seasons", "what-is-earths-axial-tilt"], "/")}
+  </div>
   <div class="card hub-sim">
     <p class="hub-kicker">Earth</p>
     <h2>The Moon around the Earth</h2>
@@ -1652,14 +1692,6 @@ ${sectionSwitcher("/")}
     <p class="home-moonprog-lab">${SIDEREAL}-day orbit. This picture is the phases. A month passes in about 24 seconds.</p>
     <a class="wk-all" href="/sun-moon-earth-movement-simulator/">See the Sun, Earth & Moon simulator →</a>
     ${hubQs(["why-does-the-moon-change-shape", "what-is-a-synodic-month", "what-is-tidal-locking"], "/")}
-  </div>
-  <div class="card hub-sim">
-    <p class="hub-kicker">Earth</p>
-    <h2>Earth going around the Sun</h2>
-    <p class="hub-blurb">The year and the month running at once. The Moon laps Earth about thirteen times on the way round — that ratio is real. Every size and distance is invented so both orbits fit on one screen.</p>
-    <div class="hub-live">${_systemThumb}</div>
-    <a class="wk-all" href="${SYS_PATH}">See the Earth, Sun & Moon orbit simulator →</a>
-    ${hubQs(["why-do-we-have-seasons", "what-is-earths-axial-tilt"], "/")}
   </div>
   <div class="card hub-sim">
     <p class="hub-kicker">Space</p>
