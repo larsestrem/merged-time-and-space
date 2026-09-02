@@ -12544,6 +12544,8 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
   on the same centred line as Arrow step, and the key paragraph is gone —
   the option labels ("Compact — only simulators") say what each view is.
   The map card lost ~100px; all three cards still end inside 900px at 1400
-  wide. Labels are nowrap so "Arrow step" stays on one line.
+  wide. Labels are nowrap so "Arrow step" stays on one line, and the two
+  labels drop the sitewide label margin (14px above, 6px below), which was
+  making a 32px line 52px tall.
 - Files: `seo/tools/build-daynight.mjs` (timelineControl takes the view
   select id; viewControl/VIEW_HELP removed), `assets/css/parts/20d2-orrery.css`.

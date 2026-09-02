@@ -3763,6 +3763,7 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-timeline [data-dn-showing]{color:var(--accent);font-variant-numeric:tabular-nums}
 /* the arrow step and the view select share one centred line */
 .dn-step-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 22px;margin:7px 0 0}
+.dn-step-row>label{margin:0}  /* the sitewide label rule adds 14px above and 6px below */
 .dn-scale-label,.dn-fixed-step{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
   color:var(--muted);font-size:12.5px;font-weight:650}
 .dn-scale-label select{min-height:32px;padding:4px 28px 4px 9px;border:1px solid var(--border);
