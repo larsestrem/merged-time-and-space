@@ -12622,3 +12622,21 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
   the menu read Home · Time · Earth · Space; grep across the built site finds
   no site-idea box, no Classroom or Submit row, and no link to the hub or the
   form page. Full build passes both gates.
+
+## 2026-09-02 — Message forms paused too, and both pauses made reversible
+
+- Owner's call, same day: /report/, /suggest-event/ and /wrong-date/ post to
+  the same unreachable inbox, so a second switch, `MESSAGE_FORMS_PAUSED` in
+  `site-flags.mjs`, takes their forms down and removes every link to them —
+  "Report abuse" and "Suggest an event" in every footer, "Wrong date?" on the
+  event and country pages. Each page opens with a note instead.
+- The first pass had deleted markup from the hand-maintained pages, which
+  build-inline rewrites in place — a flag flip could not have brought it
+  back. Those pages were restored from the pre-pause commit and both pauses
+  now work by reversible, idempotent moves in `injectPauses`: a paused link
+  keeps its <a> and has its href renamed to `data-paused-href` (plain text in
+  a browser); a paused form and its posting script are wrapped in an inert
+  `<template data-ac="paused-form">`; the notes are marker-tagged. Proved by
+  building with both flags false (forms and hrefs back on the static pages)
+  and true again.
+- Files: seo/tools/site-flags.mjs, seo/tools/build-inline.mjs.

@@ -15,7 +15,18 @@
 export const CLASSROOM_PAUSED = true;
 export const CLASSROOM_PAUSE_WHEN = "October or November";
 
+/* MESSAGE_FORMS_PAUSED (same call, same day): the other three doors into the
+ * same inbox — /report/, /suggest-event/ and /wrong-date/ — lose their forms
+ * (wrapped in an inert <template>, not deleted) and every link to them,
+ * including "Report abuse", "Suggest an event" and "Wrong date?" in the
+ * footers. Each page opens with messageFormsNote() instead. */
+export const MESSAGE_FORMS_PAUSED = true;
+
 /* the note atop every classroom and lesson-plan page; data-ac marks it so
    build-inline can re-inject it idempotently */
 export const classroomPauseNote = () =>
   `<p class="tool-msg tool-msg-warn cr-pause" data-ac="cr-pause" role="note"><strong>The classroom pages are being updated.</strong> We are making an update to the classroom and lesson-plan pages, expected in ${CLASSROOM_PAUSE_WHEN}. Lesson-plan submissions are paused until then — please check back.</p>`;
+
+/* the note atop /report/, /suggest-event/ and /wrong-date/ while their forms are paused */
+export const messageFormsNote = () =>
+  `<p class="tool-msg tool-msg-warn mf-pause" data-ac="mf-pause" role="note"><strong>This form is temporarily offline.</strong> We are updating how messages reach us, expected in ${CLASSROOM_PAUSE_WHEN}. Nothing sent through it right now would reach a person, so it has been taken down until then — please check back.</p>`;

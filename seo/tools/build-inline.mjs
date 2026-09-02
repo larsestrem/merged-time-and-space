@@ -16,7 +16,7 @@
  * an absolute "inline" rule, decide future exceptions.
  */
 import { readFile, writeFile } from "node:fs/promises";
-import { CLASSROOM_PAUSED, classroomPauseNote } from "./site-flags.mjs";
+import { CLASSROOM_PAUSED, MESSAGE_FORMS_PAUSED, classroomPauseNote, messageFormsNote } from "./site-flags.mjs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { createHash } from "node:crypto";
@@ -635,6 +635,7 @@ function injectLocalTime(html) {
  * canonical straight out of the HTML rather than threading it through every
  * call site, since setHtmlOrigin() has already run by this point. */
 function injectReportLink(html, rel) {
+  if (MESSAGE_FORMS_PAUSED) return html.replace(/ · <a class="report-link"[\s\S]*?<\/a>/, ""); /* see site-flags.mjs */
   if (rel.startsWith("report/")) return html;
   const canon = /<link rel="canonical" href="([^"]+)">/.exec(html);
   const href = canon ? `/report/?url=${encodeURIComponent(canon[1])}` : "/report/";
@@ -649,10 +650,10 @@ function injectReportLink(html, rel) {
  * pitch, retired with the rest of the site's commerce; its link is stripped
  * here as well so a stale footer in a committed page cannot survive a rebuild. */
 function injectFooterLinks(html, rel) {
-  const sug = rel.startsWith("suggest-event/") ? "" : ` · <a href="/suggest-event/">Suggest an event</a>`;
+  const sug = (MESSAGE_FORMS_PAUSED || rel.startsWith("suggest-event/")) ? "" : ` · <a href="/suggest-event/">Suggest an event</a>`;
   const pro = "";
   return html.replace(/(<p class="footer">)([\s\S]*?)(<\/p>)/, (m, a, b, c) => {
-    b = b.replace(/ · <a href="\/suggest-event\/">Suggest an event<\/a>/, "")
+    b = b.replace(/ · <a (?:href|data-paused-href)="\/suggest-event\/">Suggest an event<\/a>/, "")
       .replace(/ · <a href="\/promote-event\/">Promote an event<\/a>/, "");
     /* These separators are appended unconditionally, so a template that emits
        an EMPTY footer rendered a visible dangling "· Suggest an event". Four
@@ -774,7 +775,7 @@ const stripSuggest = (h) => h
   .replace(/\s*<p class="suggest-link"[\s\S]*?<\/p>/, "");
 function injectSuggestBox(html, rel) {
   html = stripSuggest(html); /* idempotent: drop any previously injected box */
-  if (CLASSROOM_PAUSED) return html; /* the message e-mail is not arriving — no box anywhere; see site-flags.mjs */
+  if (CLASSROOM_PAUSED || MESSAGE_FORMS_PAUSED) return html; /* the message e-mail is not arriving — no box, no link; see site-flags.mjs */
   if (rel.startsWith("report/") || rel.startsWith("suggest-event/")) return html;
   /* Countdown/event pages: a child often opened these. Keep a link, not the
      age-gated form. Content and classroom pages keep the full box. */
@@ -784,26 +785,51 @@ function injectSuggestBox(html, rel) {
   return html.replace(/(<p class="footer">)/, `${SUGGEST}\n  $1`);
 }
 
-/* ---- the classroom pause (see site-flags.mjs) ----------------------------
- * Two things, both idempotent and both gone the moment the flag is false:
- *   - every link to /classroom/, /classroom/#ask or the submit page anywhere
- *     on the site is unwrapped to its text (the lesson and archive pages keep
- *     their own links to each other — the pattern stops at the hub and the
- *     form page), so no sentence routes a teacher into a paused door;
- *   - every page under /classroom/ opens with the pause note, right under
- *     its H1. Static lesson pages get it here rather than by editing nineteen
- *     hand-frozen files, which is what makes the pause reversible. */
-const PAUSE_LINK_RE = /<a\b[^>]*\shref="\/classroom\/(?:#[^"]*|submit-a-lesson\/[^"]*)?"[^>]*>([\s\S]*?)<\/a>/g;
-/* the "Teachers: make this lesson better" card + its script, embedded in every
-   static lesson and archive page — a form into the same paused inbox */
-const FEEDBACK_FORM_RE = /\s*<div class="card cr-ask" id="feedback">[\s\S]*?<\/form>\s*<\/div>\s*<script>\s*\(function\(\)\{\s*var f=document\.getElementById\("lf-form"\)[\s\S]*?<\/script>/;
-function injectClassroomPause(html, rel) {
-  html = html.replace(/\s*<p class="tool-msg tool-msg-warn cr-pause" data-ac="cr-pause"[\s\S]*?<\/p>/, "");
-  if (!CLASSROOM_PAUSED) return html;
-  html = html.replace(PAUSE_LINK_RE, "$1");
-  if (rel.startsWith("classroom/")) html = html.replace(FEEDBACK_FORM_RE, "");
-  /* the invitation page too — its buttons into the classroom just became text */
-  if (rel.startsWith("classroom/") || rel.startsWith("about/work-with-us/")) html = html.replace(/(<\/h1>)/, `$1\n  ${classroomPauseNote()}`);
+/* ---- the pauses (see site-flags.mjs) ---------------------------------------
+ * REVERSIBLE ON THE STATIC PAGES TOO. This file rewrites hand-maintained pages
+ * in place, so a pause that deleted markup from them would outlive the flag.
+ * Instead, three idempotent moves, each undone when its flag is false:
+ *   - a paused link keeps its <a> and loses only its href, renamed to
+ *     data-paused-href — plain text in the browser, restored by renaming back;
+ *   - a paused form, and the script that posts it, is wrapped in
+ *     <template data-ac="paused-form">, which a browser neither renders nor
+ *     runs; unwrapped by the flag going off;
+ *   - the notes carry data-ac markers and are stripped before re-insertion.
+ * Generated pages get the same treatment and are simply regenerated. */
+const CLASSROOM_LINK = `/classroom/(?:#[^"]*|submit-a-lesson/[^"]*)?`;
+const MESSAGE_LINK = `/(?:report|suggest-event|wrong-date)/[^"]*`;
+function pauseLinks(html, on, pathRe) {
+  return on
+    ? html.replace(new RegExp(`(<a\\b[^>]*\\s)href="(${pathRe})"`, "g"), '$1data-paused-href="$2"')
+    : html.replace(new RegExp(`(<a\\b[^>]*\\s)data-paused-href="(${pathRe})"`, "g"), '$1href="$2"');
+}
+function pauseBlocks(html, on, flag, blockRe) {
+  html = html.replace(new RegExp(`<template data-ac="paused-form" data-flag="${flag}">([\\s\\S]*?)</template>`, "g"), "$1");
+  return on ? html.replace(blockRe, (m) => `<template data-ac="paused-form" data-flag="${flag}">${m}</template>`) : html;
+}
+/* the "Teachers: make this lesson better" card + its script on every static lesson and archive page */
+const FEEDBACK_FORM_RE = /<div class="card cr-ask" id="feedback">[\s\S]*?<\/form>\s*<\/div>\s*<script>\s*\(function\(\)\{\s*var f=document\.getElementById\("lf-form"\)[\s\S]*?<\/script>/;
+/* the form and the posting script on /report/, /suggest-event/ and /wrong-date/ */
+const MSG_FORM_RE = /<form id="(?:report|se|wd)-form"[\s\S]*?<\/form>/;
+const MSG_FORM_JS_RE = /<script>\s*\(function\(\)\{\s*var f=document\.getElementById\("(?:report|se|wd)-form"\)[\s\S]*?<\/script>/;
+function injectPauses(html, rel) {
+  html = html
+    .replace(/\s*<p class="tool-msg tool-msg-warn cr-pause" data-ac="cr-pause"[\s\S]*?<\/p>/, "")
+    .replace(/\s*<p class="tool-msg tool-msg-warn mf-pause" data-ac="mf-pause"[\s\S]*?<\/p>/, "");
+  /* the classroom */
+  html = pauseLinks(html, CLASSROOM_PAUSED, CLASSROOM_LINK);
+  html = pauseBlocks(html, CLASSROOM_PAUSED && rel.startsWith("classroom/"), "classroom", FEEDBACK_FORM_RE);
+  if (CLASSROOM_PAUSED && (rel.startsWith("classroom/") || rel.startsWith("about/work-with-us/")))
+    html = html.replace(/(<\/h1>)/, `$1\n  ${classroomPauseNote()}`);
+  /* the message forms */
+  if (MESSAGE_FORMS_PAUSED) html = html
+    .replace(/ · <a href="\/wrong-date\/[^"]*">Wrong date\?<\/a>/g, "")
+    .replace(/<a href="\/wrong-date\/[^"]*">Wrong date\?<\/a> · /g, "");
+  html = pauseLinks(html, MESSAGE_FORMS_PAUSED, MESSAGE_LINK);
+  const formPage = /^(?:report|suggest-event|wrong-date)\//.test(rel);
+  html = pauseBlocks(html, MESSAGE_FORMS_PAUSED && formPage, "messages", MSG_FORM_RE);
+  html = pauseBlocks(html, MESSAGE_FORMS_PAUSED && formPage, "messages-js", MSG_FORM_JS_RE);
+  if (MESSAGE_FORMS_PAUSED && formPage) html = html.replace(/(<\/h1>)/, `$1\n  ${messageFormsNote()}`);
   return html;
 }
 
@@ -1206,7 +1232,7 @@ for (const rel of HTML) {
   html = injectSiteLinks(html, rel);  /* About + countdown links (per page type) + trademark line */
   html = injectCopyright(html);       /* © line under every footer */
   html = injectSuggestBox(html, rel); /* "share an idea" box above the footer */
-  html = injectClassroomPause(html, rel); /* while paused: classroom links unwrapped, note atop /classroom/ pages */
+  html = injectPauses(html, rel);       /* the classroom and message-form pauses — see site-flags.mjs */
   html = injectPrivacyNotice(html);   /* GDPR/CCPA notice, shown only to qualifying visitors */
 
   if (!CSS_RE.test(html)) console.warn(`! ${rel}: no stylesheet link/block found — CSS not inlined`);
