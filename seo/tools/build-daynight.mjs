@@ -40,6 +40,7 @@ import {
   cityMark, DN_MAP_EXTRA, sideView, seasonSunHtml,
 } from "./daynight.mjs";
 import { MOON_CORE, sublunar, moonGlyph, moonIllum, moonName } from "./moon.mjs";
+import { CLASSROOM_PAUSED } from "./site-flags.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -843,7 +844,7 @@ const tryCard = `  <div class="card" id="things-to-try">
       <li><strong>Follow the overhead Sun.</strong> Press Play and watch the yellow point move between the tropics. It never crosses them because their latitude is Earth’s ${n1(TILT)}° axial tilt written onto the globe.</li>
       <li><strong>Look for an eclipse alignment.</strong> Open a known eclipse date with the year, date, and time URL variables. The Moon can line up with the Sun and Earth, but it does not change Earth’s seasons—the axial tilt and annual orbit do.</li>
     </ul>
-    <p class="hint">Taught one of these, or something better? <a href="/classroom/">Help us turn it into a lesson plan</a> — we build them with teachers and publish them free, credited to you.</p>
+${CLASSROOM_PAUSED ? "" : `    <p class="hint">Taught one of these, or something better? <a href="/classroom/">Help us turn it into a lesson plan</a> — we build them with teachers and publish them free, credited to you.</p>`}
   </div>
 `;
 

@@ -16,6 +16,7 @@
  * an absolute "inline" rule, decide future exceptions.
  */
 import { readFile, writeFile } from "node:fs/promises";
+import { CLASSROOM_PAUSED, classroomPauseNote } from "./site-flags.mjs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { createHash } from "node:crypto";
@@ -435,7 +436,7 @@ const BRAND_SECTIONS = [
   ["/earth/", "Earth", "globe"],
   ["/space/", "Space", "solar"],
   ["/classroom/", "Classroom", "classroom"],
-];
+].filter(([url]) => !(CLASSROOM_PAUSED && url === "/classroom/")); /* see site-flags.mjs */
 
 const MENU = `<details class="nav-dd menu-dd"><summary class="hamburger" aria-label="Menu">☰</summary><ul class="menu">` +
   BRAND_SECTIONS.map(([url, label, icon]) => `<li><a href="${url}">${ico(icon)} ${label}</a></li>`).join("") +
@@ -445,7 +446,7 @@ const MENU = `<details class="nav-dd menu-dd"><summary class="hamburger" aria-la
      that lives only at the foot of one page is a footnote. It points at a
      real page (/classroom/submit-a-lesson/), not an anchor — a menu row that
      landed mid-scroll on the hub would arrive with no case made. */
-  `<li><a href="/classroom/submit-a-lesson/">${ico("plus")} Submit a Lesson Plan</a></li>` +
+  (CLASSROOM_PAUSED ? "" : `<li><a href="/classroom/submit-a-lesson/">${ico("plus")} Submit a Lesson Plan</a></li>`) +
   /* PROJECTOR MODE lives in the nav because it has to be reachable from every
      page — a teacher turns it on once at the start of a lesson and then moves
      between the timer, the moon and the simulator without thinking about it
@@ -710,7 +711,9 @@ const HUB_LINK = ` · <a href="/countdown/">event countdowns</a>`;
 const TRADEMARK = `\n  <p class="footer trademark">Event names and trademarks are the property of their respective owners. Time and Space Science is not affiliated with or endorsed by any event, league, team, or rights holder.</p>`;
 const siteLinks = (rel) =>
   `\n  <p class="footer sitelinks">Gravity, motion, time and space — one set of rules, seen from different sides: ${TOPIC_LINKS}${EVENT_PAGE.test(rel) ? HUB_LINK : ""}</p>`
-  + `\n  <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. Teachers: <a href="/classroom/submit-a-lesson/">send us the lesson you already run</a> and we will build it into a page here, with your name on it — or <a href="/classroom/#ask">ask us to build a simulator</a> your class has thought of. <a href="/classroom/">Classroom</a> · <a href="/about/">About this site</a>.</p>`;
+  + (CLASSROOM_PAUSED
+    ? `\n  <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. <a href="/about/">About this site</a>.</p>`
+    : `\n  <p class="footer sitelinks">Built to be taken apart in a classroom, and by anyone else who is curious. Teachers: <a href="/classroom/submit-a-lesson/">send us the lesson you already run</a> and we will build it into a page here, with your name on it — or <a href="/classroom/#ask">ask us to build a simulator</a> your class has thought of. <a href="/classroom/">Classroom</a> · <a href="/about/">About this site</a>.</p>`);
 function injectSiteLinks(html, rel) {
   /* GLOBAL, because the injector INSERTS TWO sitelinks paragraphs and a
      non-global strip removed only one. On the generated pages that never
@@ -771,6 +774,7 @@ const stripSuggest = (h) => h
   .replace(/\s*<p class="suggest-link"[\s\S]*?<\/p>/, "");
 function injectSuggestBox(html, rel) {
   html = stripSuggest(html); /* idempotent: drop any previously injected box */
+  if (CLASSROOM_PAUSED) return html; /* the message e-mail is not arriving — no box anywhere; see site-flags.mjs */
   if (rel.startsWith("report/") || rel.startsWith("suggest-event/")) return html;
   /* Countdown/event pages: a child often opened these. Keep a link, not the
      age-gated form. Content and classroom pages keep the full box. */
@@ -778,6 +782,29 @@ function injectSuggestBox(html, rel) {
     return html.replace(/(<p class="footer">)/, `<p class="suggest-link" data-ac="suggest"><a href="/report/">Question, problem or idea? Tell us.</a></p>\n  $1`);
   }
   return html.replace(/(<p class="footer">)/, `${SUGGEST}\n  $1`);
+}
+
+/* ---- the classroom pause (see site-flags.mjs) ----------------------------
+ * Two things, both idempotent and both gone the moment the flag is false:
+ *   - every link to /classroom/, /classroom/#ask or the submit page anywhere
+ *     on the site is unwrapped to its text (the lesson and archive pages keep
+ *     their own links to each other — the pattern stops at the hub and the
+ *     form page), so no sentence routes a teacher into a paused door;
+ *   - every page under /classroom/ opens with the pause note, right under
+ *     its H1. Static lesson pages get it here rather than by editing nineteen
+ *     hand-frozen files, which is what makes the pause reversible. */
+const PAUSE_LINK_RE = /<a\b[^>]*\shref="\/classroom\/(?:#[^"]*|submit-a-lesson\/[^"]*)?"[^>]*>([\s\S]*?)<\/a>/g;
+/* the "Teachers: make this lesson better" card + its script, embedded in every
+   static lesson and archive page — a form into the same paused inbox */
+const FEEDBACK_FORM_RE = /\s*<div class="card cr-ask" id="feedback">[\s\S]*?<\/form>\s*<\/div>\s*<script>\s*\(function\(\)\{\s*var f=document\.getElementById\("lf-form"\)[\s\S]*?<\/script>/;
+function injectClassroomPause(html, rel) {
+  html = html.replace(/\s*<p class="tool-msg tool-msg-warn cr-pause" data-ac="cr-pause"[\s\S]*?<\/p>/, "");
+  if (!CLASSROOM_PAUSED) return html;
+  html = html.replace(PAUSE_LINK_RE, "$1");
+  if (rel.startsWith("classroom/")) html = html.replace(FEEDBACK_FORM_RE, "");
+  /* the invitation page too — its buttons into the classroom just became text */
+  if (rel.startsWith("classroom/") || rel.startsWith("about/work-with-us/")) html = html.replace(/(<\/h1>)/, `$1\n  ${classroomPauseNote()}`);
+  return html;
 }
 
 /* ---- GDPR/CCPA privacy notice, injected on every page ----
@@ -1179,6 +1206,7 @@ for (const rel of HTML) {
   html = injectSiteLinks(html, rel);  /* About + countdown links (per page type) + trademark line */
   html = injectCopyright(html);       /* © line under every footer */
   html = injectSuggestBox(html, rel); /* "share an idea" box above the footer */
+  html = injectClassroomPause(html, rel); /* while paused: classroom links unwrapped, note atop /classroom/ pages */
   html = injectPrivacyNotice(html);   /* GDPR/CCPA notice, shown only to qualifying visitors */
 
   if (!CSS_RE.test(html)) console.warn(`! ${rel}: no stylesheet link/block found — CSS not inlined`);

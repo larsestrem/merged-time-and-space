@@ -38,6 +38,7 @@ import { DAYNIGHT_PATH, seasonPoints, DN_CORE, DN_W, DN_TOP, DN_BOT, dnX, dnY, d
 import { planetPath, PLANETS_PATH, LAUNCH_PATH as ROCKET_PATH } from "./solar-pages.mjs";
 import { hubQs, conceptBySlug, fillConcept } from "./concepts.mjs";
 import { SECTION_LINKS, sectionSwitcher } from "./section-nav.mjs";
+import { CLASSROOM_PAUSED } from "./site-flags.mjs";
 /* the two-zone time-difference widget, shared with /time-difference-calculator/
    so the card and the page are one calculator rather than two */
 import { tdiffForm, TDIFF_JS } from "./time-diff.mjs";
@@ -1740,8 +1741,8 @@ ${sectionSwitcher("/")}
       <a class="card" href="/time/"><h2>Time</h2><p>Clocks, and what they are counting — a world clock, a countdown to the day you are waiting for.</p></a>
       <a class="card" href="/earth/"><h2>Earth</h2><p>Your own sky: day and night, sunrise, the Moon, and why the tropics sit where they do.</p></a>
       <a class="card" href="/space/"><h2>Space</h2><p>Where everything actually is — planets, orbits, gravity, and the questions that open the door.</p></a>
-      <a class="card" href="/classroom/"><h2>Classroom</h2><p>Projector mode, questions written for ten-year-olds first, and a way to send the lesson you already run.</p></a>
-    </div>
+${CLASSROOM_PAUSED ? "" : `      <a class="card" href="/classroom/"><h2>Classroom</h2><p>Projector mode, questions written for ten-year-olds first, and a way to send the lesson you already run.</p></a>
+`}    </div>
   </div>
   ${/* THE COLLABORATION ASK, promoted to the page itself (owner's call:
        working WITH teachers is a primary task of the site, not a footnote).
@@ -1749,7 +1750,7 @@ ${sectionSwitcher("/")}
        reason "Lesson collaboration", email required so a reply is possible —
        and the name and tools ride inside the details text, so no API change
        and nothing new is stored. */""
-  }<div class="card cr-ask" id="teach-together">
+  }${CLASSROOM_PAUSED ? "" /* paused — see site-flags.mjs */ : `<div class="card cr-ask" id="teach-together">
     <h2>${ico("classroom")} Have a lesson in mind? Let's build it together.</h2>
     <p><strong>This site gets better by being taught from.</strong> If you have an idea that would make it better — or a lesson you'd like to build together and share with everyone — reach out. We'll shape the tool around your class, write the plan with you, and publish it free for every other classroom. <strong>If we build your idea, your class is credited on the page</strong>, and <a href="/about/work-with-us/">how that works is written down</a>.</p>
     ${/* TWO DOORS, NOT THREE. This form is for a lesson that does not exist
@@ -1780,21 +1781,21 @@ ${sectionSwitcher("/")}
       f.addEventListener("submit",function(ev){
         ev.preventDefault();
         var note=document.getElementById("tt-note"), btn=document.getElementById("tt-send");
-        btn.disabled=true; note.textContent="Sending\u2026";
+        btn.disabled=true; note.textContent="Sending\\u2026";
         var v=function(id){ return (document.getElementById(id).value||"").trim(); };
         fetch("/api/report",{method:"POST",headers:{"Content-Type":"application/json"},
           body:JSON.stringify({ url:location.href, reason:"Lesson collaboration",
-            details:"Name: "+v("tt-name")+"\\nWants to teach: "+v("tt-what")+"\\nTools needed: "+v("tt-tools"),
+            details:"Name: "+v("tt-name")+"\\\\nWants to teach: "+v("tt-what")+"\\\\nTools needed: "+v("tt-tools"),
             email:v("tt-email"), website:document.getElementById("tt-hp").value })})
           .then(function(r){ return r.json().catch(function(){return{};}); })
           .then(function(d){
-            if(d&&d.ok){ f.reset(); note.textContent="\u2713 Sent \u2014 you'll hear back from a person. Thank you."; }
-            else { btn.disabled=false; note.textContent="Something went wrong \u2014 please try again."; }
+            if(d&&d.ok){ f.reset(); note.textContent="\\u2713 Sent \\u2014 you'll hear back from a person. Thank you."; }
+            else { btn.disabled=false; note.textContent="Something went wrong \\u2014 please try again."; }
           })
-          .catch(function(){ btn.disabled=false; note.textContent="Network error \u2014 please try again."; });
+          .catch(function(){ btn.disabled=false; note.textContent="Network error \\u2014 please try again."; });
       });
     })();</script>
-  </div>
+  </div>`}
   ${/* the three differentiators, one line each — why this site is safe to
        trust and safe to hand to a class */""
   }<div class="card home-how">
@@ -1806,7 +1807,7 @@ ${sectionSwitcher("/")}
     </div>
   </div>
   <div class="home-foot">
-    <p class="home-suggest">Guides: <a href="/classroom/">using this in a classroom</a> · <a href="/methodology/">how these numbers are worked out</a> · <a href="/how-it-works/">how countdowns work</a> · <a href="/browser-limitations/">browser limitations</a> · <a href="/about/">about this site</a>.</p>
+    <p class="home-suggest">Guides: ${CLASSROOM_PAUSED ? "" : `<a href="/classroom/">using this in a classroom</a> · `}<a href="/methodology/">how these numbers are worked out</a> · <a href="/how-it-works/">how countdowns work</a> · <a href="/browser-limitations/">browser limitations</a> · <a href="/about/">about this site</a>.</p>
   </div>`;
 
 /* ---------------------------------------------------------------------------

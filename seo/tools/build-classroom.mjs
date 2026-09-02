@@ -30,6 +30,7 @@ import {
   plaque, submitCta, SAFETY_NOTE, lessonForm, questionsForm, FORMS_JS,
 } from "./classroom-forms.mjs";
 import { sectionSwitcher } from "./section-nav.mjs";
+import { CLASSROOM_PAUSED, CLASSROOM_PAUSE_WHEN } from "./site-flags.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -76,8 +77,8 @@ ${sectionSwitcher(CLASSROOM_PATH)}
   <div class="card cr-ask" id="ask">
     <h2>${ico("classroom")} Have a lesson plan you're proud of?</h2>
     <p>We're looking for teachers to help create lesson plans. Bring us the one you already teach — in whatever state it's in — and we'll develop it with you: built on the simulators and live sky pages we already have, or on <strong>tools we build specifically for your lesson</strong>. Every plan is created <strong>for your topic and your grade band</strong> and shared that way, so as more teachers join in, this grows into a library a teacher can actually search. Then we'll publish yours, with your name on it, <strong>free for every teacher</strong>.</p>
-    <p>${submitCta("Submit a lesson plan", SUBMIT_PATH)}</p>
-    <p class="hint">How the collaboration and the credit work, field by field, is written down at <a href="/about/work-with-us/">work with us</a>. Nothing about a student is ever published.</p>
+${CLASSROOM_PAUSED ? "" : `    <p>${submitCta("Submit a lesson plan", SUBMIT_PATH)}</p>
+`}    <p class="hint">How the collaboration and the credit work, field by field, is written down at <a href="/about/work-with-us/">work with us</a>. Nothing about a student is ever published.</p>
   </div>
 
   <div class="card">
@@ -140,14 +141,18 @@ ${GA_SNIPPET}
   ${brand({ crumb: { slug: "classroom", url: CLASSROOM_PATH }, page: { label: "submit-a-lesson", url: SUBMIT_PATH } })}
   <h1>Submit a lesson plan</h1>
   <p class="sub">Send the Earth or space science lesson you already teach. We'll develop it with you — on our tools, or tools we build for it — <strong>specifically for your topic and your grade band</strong>, then publish it <strong>free for every teacher</strong>, credited to you.</p>
-${plaque()}
+${CLASSROOM_PAUSED ? `  <div class="card cr-ask">
+    <h2>Submissions are paused while we update the classroom pages</h2>
+    <p>The lesson-plan and class-questions forms are offline until the update ships, expected in ${CLASSROOM_PAUSE_WHEN}. Nothing sent in the meantime would reach a person, so rather than take your work and lose it, we have taken the forms down. Please check back then — the offer stands.</p>
+  </div>
+` : `${plaque()}
 ${lessonForm}
 ${questionsForm}
 ${SAFETY_NOTE}
-  <p class="hint">The longer story — what we publish, what we never publish, and how the credit line works — is at <a href="/about/work-with-us/">work with us</a>.</p>
+`}  <p class="hint">The longer story — what we publish, what we never publish, and how the credit line works — is at <a href="/about/work-with-us/">work with us</a>.</p>
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
-${FORMS_JS}
+${CLASSROOM_PAUSED ? "" : FORMS_JS}
 </body>
 </html>
 `;

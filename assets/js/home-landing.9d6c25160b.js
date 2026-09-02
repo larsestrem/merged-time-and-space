@@ -424,13 +424,13 @@ function tiltJumps(TILT, capFn){
   setInterval(function(){ if(LIVE){ AT=Date.now(); show(); } },60000);
 }
 
-  tiltJumps(23.435388086423448, function(dec){ return (function sideCapPlain(dec, tilt) {
+  tiltJumps(23.435387237477464, function(dec){ return (function sideCapPlain(dec, tilt) {
   var a = Math.abs(dec), n = dec >= 0, x = a.toFixed(1), gap = (tilt - a).toFixed(1);
   var TC = 'Tropic of ' + (n ? 'Cancer' : 'Capricorn');
   if (a < 0.6) return 'That line lands <b>on the equator</b>. The tilt has not gone anywhere — it never does — but today the axis leans SIDEWAYS to the sun rather than toward it or away from it, so from this viewpoint it looks upright and the light divides the globe from pole to pole. Every place on Earth gets about twelve hours of each. This is an equinox.';
   if (tilt - a < 0.15) return 'That line lands <b>right on the ' + TC + '</b>, ' + x + '° ' + (n ? 'N' : 'S') + ' — the furthest ' + (n ? 'north' : 'south') + ' it ever reaches. This is the solstice: the ' + (n ? 'northern' : 'southern') + ' half of the world is tipped as far into the light as it will get all year, and the ' + (n ? 'north' : 'south') + ' end of the axis stays inside the lit half all the way round, which is why the sun does not set up there today.';
   return 'That line lands at <b>' + x + '° ' + (n ? 'N' : 'S') + '</b> — ' + gap + '° short of the ' + TC + ', which is as far ' + (n ? 'north' : 'south') + ' as it can ever get. The ' + (n ? 'northern' : 'southern') + ' half of the world is leaning into the light, so more of it falls inside the lit half than outside, and its days are longer than its nights. That lean is the tilt of Earth on its orbit.';
-})(dec,23.435388086423448); });
+})(dec,23.435387237477464); });
   var slider=document.getElementById('wk-slider'); if(!slider) return;
   var night=document.getElementById('wk-night'), sunG=document.getElementById('wk-sun'),
       meG=document.getElementById('wk-me'), share=document.getElementById('wk-share'),
@@ -438,7 +438,7 @@ function tiltJumps(TILT, capFn){
   var cs=document.querySelectorAll('[data-wk-tz]');
   var sunline=document.getElementById('wk-sunline');
   var orbitNow=document.getElementById('wk-orbit-now');
-  var TILT=23.435388086423448;
+  var TILT=23.435387237477464;
   var seasonSun=function(dec,lon,laterDec){ return (function seasonSunHtml(dec, lon, laterDec, tilt) {
   var lat = Math.abs(dec).toFixed(1) + '\u00B0 ' + (dec >= 0 ? 'N' : 'S');
   var lo = Math.abs(lon).toFixed(1) + '\u00B0 ' + (lon >= 0 ? 'E' : 'W');

@@ -1,12 +1,14 @@
 /** Shared Home / Time / Earth / Space / Classroom switcher.
  *  One copy so the four section pages and /classroom/ cannot drift. */
+import { CLASSROOM_PAUSED } from "./site-flags.mjs";
+
 export const SECTION_LINKS = [
   ["/", "Home"],
   ["/time/", "Time"],
   ["/earth/", "Earth"],
   ["/space/", "Space"],
   ["/classroom/", "Classroom"],
-];
+].filter(([u]) => !(CLASSROOM_PAUSED && u === "/classroom/")); /* see site-flags.mjs */
 
 export function sectionSwitcher(here) {
   return `  <nav class="home-tabs sec-switch" aria-label="Site sections">

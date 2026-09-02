@@ -32,6 +32,7 @@
  *   node seo/tools/build-solar.mjs   (before build-sitemap + build-inline)
  */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { CLASSROOM_PAUSED } from "./site-flags.mjs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { esc, GA_SNIPPET, brand, faqLd, breadcrumbLD, appLd, learningLd } from "./lib.mjs";
@@ -1423,7 +1424,7 @@ const tryCard = `  <div class="card">
       <li><strong>Switch on the comets</strong> and put a <strong>century</strong> on the span. A comet spends decades crawling through the outer dark, then whips around the sun in months. Nothing shows "faster when closer" more dramatically.</li>
       <li><strong>Give the slider a century.</strong> Mercury becomes a blur; Neptune manages barely more than half a lap. A Neptune year is longer than a human life — nobody who has ever seen Neptune discovered has also seen it complete an orbit since.</li>
     </ul>
-    <p class="hint">Taught something good with this page? <a href="/classroom/">Help us turn it into a lesson plan</a> — built with you, published free, credited to you.</p>
+${CLASSROOM_PAUSED ? "" : `    <p class="hint">Taught something good with this page? <a href="/classroom/">Help us turn it into a lesson plan</a> — built with you, published free, credited to you.</p>`}
   </div>
 `;
 

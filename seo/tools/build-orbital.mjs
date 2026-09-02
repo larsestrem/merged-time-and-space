@@ -37,6 +37,7 @@ import { kmPerS } from "./units.mjs";
    both of which have been redirects since those pages moved. */
 import { PLANETS_PATH, LAUNCH_PATH as ROCKET_PATH, ORBITAL_PATH, planetPath } from "./solar-pages.mjs";
 import { hubQuestionsCard } from "./concepts.mjs";
+import { CLASSROOM_PAUSED } from "./site-flags.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
@@ -436,7 +437,7 @@ const tryCard = `  <div class="card">
       <li><strong>Try to hit the sun.</strong> Drag the speed as low as it goes. Even at a crawl, the planet whips around the sun and comes back — to actually fall straight in you would have to shed nearly all of it. Falling into the sun is one of the hardest trips in the solar system.</li>
       <li><strong>Move house.</strong> Use the presets to jump to Mercury's distance, then Neptune's, and watch two read-outs together: the sun's pull per kilogram, and the speed a circle needs. Closer means pulled harder means faster — the race the solar system simulator shows, explained by two numbers.</li>
     </ul>
-    <p class="hint">Taught something good with this page? <a href="/classroom/">Help us turn it into a lesson plan</a> — built with you, published free, credited to you.</p>
+${CLASSROOM_PAUSED ? "" : `    <p class="hint">Taught something good with this page? <a href="/classroom/">Help us turn it into a lesson plan</a> — built with you, published free, credited to you.</p>`}
   </div>
 `;
 

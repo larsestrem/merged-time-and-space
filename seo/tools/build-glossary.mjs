@@ -4,6 +4,7 @@
  * to the same 50-odd questions. One data file, two indexes, zero second
  * copies of any answer. */
 import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
+import { CLASSROOM_PAUSED } from "./site-flags.mjs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { esc, GA_SNIPPET, brand, breadcrumbLD } from "./lib.mjs";
@@ -179,10 +180,11 @@ ${GA_SNIPPET}
   </section>
   <h2>Browse by phenomenon</h2>
 ${groupHtml}
-  <div class="card">
+${CLASSROOM_PAUSED ? "" : `  <div class="card">
     <h2>Have a question we haven't answered?</h2>
     <p>The best pages on this site started as a question somebody's class actually asked. <a href="/classroom/submit-a-lesson/#questions">Send us the questions your class asked</a> — if we build the answer, the page says who asked.</p>
   </div>
+`}
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 </body>

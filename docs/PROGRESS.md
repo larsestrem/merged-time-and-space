@@ -12590,3 +12590,35 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
 - Verified in Chromium: buttons enable on load, "Winter solstice" repaints
   the card to the Tropic of Capricorn with the chip pressed and the instant
   named; no page errors. Full build passes both gates.
+
+## 2026-09-02 — Classroom paused: no door invites a teacher to send anything
+
+- Owner's call: the message e-mail is not reaching him yet, so until the
+  classroom update ships (October or November) nothing on the site may take a
+  teacher's submission and lose it. One switch does all of it —
+  `CLASSROOM_PAUSED` in the new `seo/tools/site-flags.mjs` — flip to false and
+  rebuild to restore everything; nothing was deleted.
+- While paused: Classroom leaves the section tabs and the hamburger, "Submit
+  a Lesson Plan" leaves the menu and the footer line; the site-idea box under
+  every page, the home page's collaboration form, both classroom forms and
+  the feedback form embedded in the nineteen static lesson/archive pages are
+  not emitted; the four simulator "help us turn it into a lesson plan" lines,
+  the glossary's questions card, the home directory's Classroom card and the
+  home guides link go; every remaining link to /classroom/, /classroom/#ask
+  or the submit page anywhere is unwrapped to plain text by build-inline; and
+  every page under /classroom/ plus /about/work-with-us/ opens with the pause
+  note under its H1 (injected by build-inline, so the static lesson pages did
+  not have to be edited by hand).
+- Left alone, deliberately: /report/ (abuse reports must stay reachable),
+  /suggest-event/, /wrong-date/ and the footer's "Suggest an event" link —
+  they post to the same endpoint, and the owner should decide those.
+  Everything posted to /api/report is still written to KV for 90 days and
+  readable at /admin/reports/ with the admin key, so nothing already sent is
+  lost — only the e-mail is missing.
+- Files: seo/tools/site-flags.mjs (new), section-nav.mjs, build-inline.mjs,
+  build-home.mjs, build-classroom.mjs, build-daynight.mjs, build-solar.mjs,
+  build-orbital.mjs, build-simulator.mjs, build-glossary.mjs.
+- Verified in Chromium: /classroom/ shows the note under the H1, the tabs and
+  the menu read Home · Time · Earth · Space; grep across the built site finds
+  no site-idea box, no Classroom or Submit row, and no link to the hub or the
+  form page. Full build passes both gates.

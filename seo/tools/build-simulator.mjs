@@ -38,6 +38,7 @@ import {
   SYS_RS, SYS_REO, SYS_RE, SYS_RMO, SYS_RM,
   SYS_INC_DRAWN, sysOrbitWidget,
 } from "./system-orbit.mjs";
+import { CLASSROOM_PAUSED } from "./site-flags.mjs";
 export { SIDEREAL };
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -1015,7 +1016,7 @@ const teachCard = hubQuestionsCard(SIM_PATH, "What this picture is telling you",
 const classroomCard = `  <div class="card sim-teach" id="classroom">
     <h2>Using it in a classroom</h2>
     <p>Every control here is a lesson. Set the slider to a <strong>day</strong> and press Play — the Earth turns, and the marker rides in and out of the light. That is day and night. Leave it on a <strong>month</strong> and watch the moon–sun angle and the phase disc together: 0° is new, 180° is full. Nothing covers the moon up.</p>
-    <p>The scale card above is the activity students remember: a marble, a peppercorn, and a ball down the corridor. The link builder below hands every screen the same sky — and if you have taught a lesson on this page, <a href="/classroom/">help us turn it into a lesson plan</a> every teacher can use.</p>
+    <p>The scale card above is the activity students remember: a marble, a peppercorn, and a ball down the corridor. The link builder below hands every screen the same sky${CLASSROOM_PAUSED ? "" : ` — and if you have taught a lesson on this page, <a href="/classroom/">help us turn it into a lesson plan</a> every teacher can use`}.</p>
   </div>
 `;
 
@@ -1272,7 +1273,7 @@ const sysWatchCard = `  <div class="card" id="learn">
     <p><strong>2 · The moon shows us one face, but the sun lights whichever half it likes.</strong> The grey patch on the moon always points at the Earth — the moon genuinely turns exactly once per orbit, so we only ever see one side (that is tidal locking, and why the far side stayed unphotographed until 1959). But its <em>lit</em> half tracks the SUN, not us. Follow one lap: when the moon sits between Earth and sun, the face we see is all shadow (new moon); on the far side, all lit (full moon). <em>Same face, different lighting — that is the whole phase cycle</em>, and you can check tonight's result against <a href="/moon/">the real phase</a>. It is also why "the dark side of the moon" is a misnomer: the far side gets exactly as much sun as the near side.</p>
     <p><strong>3 · The axis leans one fixed way — and that lean is the seasons.</strong> The Earth's pole is tilted 23.4° and keeps pointing at the same patch of sky all year (toward Polaris). It does NOT swivel to follow the sun — watch the little axis hold its angle through the whole orbit. So on one side of the orbit the north pole leans sunward (June — long days, high sun) and half a year later it leans away (December). Nothing about the Earth changed; only which end leans toward the light. The lean is easiest to see from the side — <strong>drag the tilt slider under the picture</strong> to tip the orbit edge on, and watch the axis stay parallel to itself all the way round the loop. The full argument — including why "closer to the sun" cannot be the reason — is at <a href="/concepts/why-do-we-have-seasons/">why we have seasons</a>.</p>
     <p><strong>4 · Why eclipses are rare — visible from the side.</strong> Seen from above, the moon crosses the sun–Earth line twice a month and you would expect an eclipse every crossing. Now <strong>tip the orbit edge on with the slider</strong>: the moon's orbit is tilted out of the Earth's, so at most new and full moons it slides <em>above</em> or <em>below</em> the sun–Earth line instead of through it. The tilt is drawn steeper than its real 5.1° so you can see it (the scale card below says by how much), but the miss is genuine — the real angle still carries the moon several times its own width off the exact line, which is why eclipses come in occasional seasons and <a href="/moon/eclipses/">the real list</a> is short. The whole story is at <a href="/concepts/why-isnt-there-an-eclipse-every-month/">why there isn’t an eclipse every month</a>.</p>
-    <p class="hint">Teach with this picture? <a href="/classroom/">Help us turn what you do with it into a lesson plan</a> — built with you, published free, credited to you.</p>
+${CLASSROOM_PAUSED ? "" : `    <p class="hint">Teach with this picture? <a href="/classroom/">Help us turn what you do with it into a lesson plan</a> — built with you, published free, credited to you.</p>`}
   </div>
 `;
 
