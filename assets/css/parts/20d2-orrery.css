@@ -891,8 +891,10 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-timeline{margin:14px 0 4px}
 .dn-timeline>.sim-flab{display:block;text-align:center;font-weight:750;line-height:1.4}
 .dn-timeline [data-dn-showing]{color:var(--accent);font-variant-numeric:tabular-nums}
-.dn-scale-label,.dn-fixed-step{display:flex;align-items:center;justify-content:center;gap:7px;
-  margin:7px 0 0;color:var(--muted);font-size:12.5px;font-weight:650}
+/* the arrow step and the view select share one centred line */
+.dn-step-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 22px;margin:7px 0 0}
+.dn-scale-label,.dn-fixed-step{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+  color:var(--muted);font-size:12.5px;font-weight:650}
 .dn-scale-label select{min-height:32px;padding:4px 28px 4px 9px;border:1px solid var(--border);
   border-radius:8px;background:var(--card);color:var(--text);font:inherit}
 .dn-slider-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;
@@ -938,13 +940,10 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-tools-main{margin:4px 0 12px}
 .dn-tools-side{margin:12px 0 4px}
 .dn-tools-year{margin:12px 0 8px}
-/* the view select and its one-paragraph key, under each simulator */
-.dn-view-ctl{margin:0 0 6px}
-.dn-view-row{display:flex;justify-content:center;margin:0 0 6px}
-.dn-view-pick{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:12.5px;font-weight:650}
+/* the view select: on the arrow-step line and in the tab row */
+.dn-view-pick{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;color:var(--muted);font-size:12.5px;font-weight:650}
 .dn-view-pick select{min-height:32px;padding:4px 28px 4px 9px;border:1px solid var(--border);
   border-radius:8px;background:var(--card);color:var(--text);font:inherit;font-size:13px}
-.dn-view-help{margin:0 auto;max-width:62em;text-align:center;color:var(--muted);font-size:12.5px;line-height:1.5}
 .dn-map-note{margin:6px 0 0;max-width:68em}
 .dn-map-note a{white-space:nowrap}
 .dn-instructions>summary{position:relative;list-style:none;cursor:pointer;padding-right:30px;
@@ -978,8 +977,7 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-view-compact .dn-lesson-sections{display:none}
 .dn-view-normal .dn-lesson-sections>:not(.dn-compact-sections){display:none}
 .dn-view-compact .dn-side-card .dn-timeline,.dn-view-compact .dn-year-card .dn-timeline,
-.dn-view-compact .dn-tools-side,.dn-view-compact .dn-tools-year,
-.dn-view-compact .dn-side-card .dn-view-ctl,.dn-view-compact .dn-year-card .dn-view-ctl{display:none}
+.dn-view-compact .dn-tools-side,.dn-view-compact .dn-tools-year{display:none}
 .dn-lesson-page .dn-sim-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   align-items:start;gap:14px}
 .dn-lesson-page .dn-sim-pair>.card{margin:0;min-width:0}

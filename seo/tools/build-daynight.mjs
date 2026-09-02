@@ -687,35 +687,33 @@ const jumpRow = (cls, withLoc) => `    <p class="${cls}">
       <button type="button" class="chip" data-dn-jump="dec" disabled>Winter solstice</button>
     </p>`;
 
-/* HOW MUCH OF THE PAGE TO SHOW. One <select>, repeated where the old toggle
-   was (under each view and in the tab row) so the choice is never a scroll
-   away; the script keeps every copy on the same value. Compact hides all but
-   the copy under the map, so the page it describes shows it exactly once. The
-   one-paragraph key rides only with the copy under the map: the other copies
-   are a control, not a second reading of the same paragraph. It ships
-   disabled: without JS it could change nothing. */
+/* HOW MUCH OF THE PAGE TO SHOW. One <select>, on the arrow-step line of each
+   timeline and in the tab row, so the choice is never a scroll away; the
+   script keeps every copy on the same value. Compact shows only the map's
+   timeline, so the page it describes shows the select exactly once. The
+   option labels carry the explanation — a key paragraph under it was tried
+   and was the tallest thing under the map. It ships disabled: without JS it
+   could change nothing. */
 const VIEW_OPTIONS = [
   ["compact", "Compact — only simulators"],
   ["normal", "Normal — simulators with limited info"],
   ["full", "Full details — everything"],
 ];
 const viewSelect = (id) => `<label class="dn-view-pick" for="${id}">View <select id="${id}" data-dn-view disabled>${VIEW_OPTIONS.map(([v, t]) => `<option value="${v}"${v === "compact" ? " selected" : ""}>${esc(t)}</option>`).join("")}</select></label>`;
-const VIEW_HELP = `<p class="dn-view-help"><strong>Compact</strong> shows the three simulators alone, all driven by the one slider and the season buttons under the map. <strong>Normal</strong> gives each simulator its own slider and season buttons, and adds things to try and the questions this page answers. <strong>Full details</strong> adds the instructions, the explanation under each view, the FAQ and the onward reading.</p>`;
-const viewControl = (id, withHelp = true) => `    <div class="dn-view-ctl">
-      <p class="dn-view-row">${viewSelect(id)}</p>
-      ${withHelp ? VIEW_HELP : ""}
-    </div>`;
+
 const jumpBtn = (k, t) => `<button type="button" class="chip" data-dn-jump="${k}" disabled>${esc(t)}</button>`;
 
-const timelineControl = (id, mapScale = false) => `    <div class="dn-timeline" data-dn-timeline="${id}"${mapScale ? "" : ` data-dn-step-min="10080"`}>
+const timelineControl = (id, mapScale = false, viewId = null) => `    <div class="dn-timeline" data-dn-timeline="${id}"${mapScale ? "" : ` data-dn-step-min="10080"`}>
       <label class="sim-flab" for="${id}-slider"><span data-dn-range>Jan. 1st to Dec. 31st</span> — One orbit of Earth — Showing <span data-dn-showing>${dayName(NOW)}, ${CURRENT_YEAR}</span></label>
+      <div class="dn-step-row">
       ${mapScale ? `<label class="dn-scale-label" for="${id}-scale">Arrow step
         <select id="${id}-scale" data-dn-scale>
           <option value="60">1 hour</option><option value="120">2 hours</option><option value="240">4 hours</option>
           <option value="480">8 hours</option><option value="720">12 hours</option><option value="1440" selected>24 hours</option>
           <option value="10080">1 week</option>
         </select>
-      </label>` : `<span class="dn-fixed-step">Arrow step: 1 week</span>`}
+      </label>` : `<span class="dn-fixed-step">Arrow step: 1 week</span>`}${viewId ? "\n      " + viewSelect(viewId) : ""}
+      </div>
       <div class="dn-slider-row">
         <button type="button" class="chip dn-step" data-dn-step-dir="-1" disabled aria-label="Move back">&lt;</button>
         <input type="range" class="orr-slider" id="${id}-slider" data-dn-slider min="0" max="${SPAN_MIN}" step="1" value="0" disabled aria-label="Move through one calendar year">
@@ -731,9 +729,9 @@ ${heading ? `    <h2>${ico("globe")} Day &amp; Night Map</h2>
     <div class="dn-figwrap">
       ${MAP_SVG}
     </div>
-${timelineControl("dn-map", true)}
+${timelineControl("dn-map", true, view ? "dn-view-map" : null)}
 ${jumpRow("dn-tools dn-tools-main", true)}
-${view ? viewControl("dn-view-map") + "\n" : ""}    <p class="dn-sunline" id="dn-sunline">${seasonSunHtml(SS.dec, SS.lon, subsolar(NOW + 7 * 86400000).dec, TILT)}</p>
+    <p class="dn-sunline" id="dn-sunline">${seasonSunHtml(SS.dec, SS.lon, subsolar(NOW + 7 * 86400000).dec, TILT)}</p>
     <p class="hint" id="dn-loc-msg"></p>
     <p class="dn-me-line" id="dn-mewrap" hidden><b id="dn-o-me">&nbsp;</b> <a id="dn-me-sun" href="/sun/near-me/?geo=1">Your sunrise and sunset →</a></p>
     <p class="hint dn-map-note"><strong>Map limitation:</strong> Earth is a globe flattened into a rectangle, so shapes and distances — especially near the poles — are distorted. The Sun and Moon markers are enlarged so you can see them. <a href="/concepts/why-is-this-map-flat/">Why this map is flat →</a></p>
@@ -776,9 +774,8 @@ const sideCard = `  <div class="card dn-side-card" id="sun-angle">
     <h2>${ico("globe")} Angle of the Sun Based on the Time of the Year</h2>
     <p class="dn-side-intro">This view turns Earth sideways so the cause of the seasons is easier to see. Earth’s axis keeps its ${n1(TILT)}° tilt while the direction toward the Sun changes through the orbit. The yellow centre line lands at the subsolar point, moving between the two tropics as the year passes.</p>
     <div class="dns-wrap" id="dn-side">${sideView(SS.dec, TILT)}</div>
-${timelineControl("dn-angle")}
+${timelineControl("dn-angle", false, "dn-view-side")}
 ${jumpRow("dn-tools dn-tools-side", false)}
-${viewControl("dn-view-side", false)}
     <p class="dns-cap" id="dn-side-cap">${sideCapText(SS.dec, TILT, "now", NOW)}</p>
     <div class="dn-side-support">
     <p>The two dashed chords are the tropics, at ±${n1(TILT)}°. They are the tilt written on the surface. Jump the map to a solstice and watch the yellow line stop there.</p>
@@ -796,9 +793,8 @@ ${viewControl("dn-view-side", false)}
 const systemCard = `  <div class="card dn-year-card" id="earth-sun-moon-year">
     <h2>${ico("earthmoon")} Earth, the Sun &amp; the Moon Through One Year</h2>
     <div class="sys-figwrap dn-system-wrap">${SYSTEM_SVG}</div>
-${timelineControl("dn-year")}
+${timelineControl("dn-year", false, "dn-view-year")}
 ${jumpRow("dn-tools dn-tools-year", false)}
-${viewControl("dn-view-year", false)}
     <p class="dn-system-meta"><span>The orbital plane is viewed at ${SYSTEM_VIEW_DEG}°. Earth’s axial tilt remains ${n1(TILT)}°.</span></p>
     <p class="hint dn-system-note">This wider view answers the missing question: where is Earth in its orbit while the daylight pattern changes? The same instant drives all three simulators. Sizes and distances are compressed to fit. The Moon’s real ${ORBIT_TILT}° orbital tilt is drawn at ${SYS_INC_DRAWN}° so a near miss — or an eclipse alignment — is easier to see. <a href="${SYS_PATH}">Open the full Earth–Sun–Moon simulator →</a></p>
   </div>

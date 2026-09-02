@@ -12536,3 +12536,14 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
 - The view key paragraph appears once (under the map); the other selects are
   a control only.
 - Files: `seo/_data/concepts.json`, `seo/tools/build-daynight.mjs`.
+
+## 2026-09-02 — Seasons page: the view select joins the arrow-step line
+
+- The block under the map was the tallest thing on the compact page: a view
+  select on its own line and a three-line key under it. The select now sits
+  on the same centred line as Arrow step, and the key paragraph is gone —
+  the option labels ("Compact — only simulators") say what each view is.
+  The map card lost ~100px; all three cards still end inside 900px at 1400
+  wide. Labels are nowrap so "Arrow step" stays on one line.
+- Files: `seo/tools/build-daynight.mjs` (timelineControl takes the view
+  select id; viewControl/VIEW_HELP removed), `assets/css/parts/20d2-orrery.css`.
