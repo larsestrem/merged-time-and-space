@@ -176,9 +176,9 @@ function sideCapText(dec, tilt, kind, ms) {
   };
   var when = ms ? date(ms) : '';
   if (kind === 'mar') return '<a href="/holiday-countdowns/spring-equinox/">The spring equinox</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical spring</a> in the Northern Hemisphere (autumn in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
-  if (kind === 'jun') return '<a href="/holiday-countdowns/summer-solstice/">The summer solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical summer</a> in the Northern Hemisphere and gives it the year\'s longest period of daylight. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther north. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
+  if (kind === 'jun') return '<a href="/holiday-countdowns/summer-solstice/">The summer solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical summer</a> in the Northern Hemisphere (winter in the Southern Hemisphere): the north gets its longest daylight of the year and the south its shortest. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther north. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
   if (kind === 'sep') return '<a href="/holiday-countdowns/fall-equinox/">The fall equinox</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical fall</a> in the Northern Hemisphere (spring in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
-  if (kind === 'dec') return '<a href="/holiday-countdowns/winter-solstice/">The winter solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical winter</a> in the Northern Hemisphere and gives it the year\'s shortest period of daylight. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-capricorn/">Tropic of Capricorn</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther south. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
+  if (kind === 'dec') return '<a href="/holiday-countdowns/winter-solstice/">The winter solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical winter</a> in the Northern Hemisphere (summer in the Southern Hemisphere): the north gets its shortest daylight of the year and the south its longest. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-capricorn/">Tropic of Capricorn</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther south. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
   var a = Math.abs(dec), n = dec >= 0, x = a.toFixed(1), gap = (tilt - a).toFixed(1);
   var TC = n
     ? '<a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a>'
@@ -272,11 +272,11 @@ function state(alt){
    This is the same projected geometry as /earth-sun-moon-orbit-simulator/,
    but it has no requestAnimationFrame of its own. paint() hands it AT, so the
    three diagrams cannot disagree about the moment on screen. The orbital
-   plane is viewed at 80 degrees. Earth's axial lean remains the real 23.4. */
+   plane is viewed at 80 degrees. Earth's axial lean is TILT, solved at build. */
 function makeSystemRenderer(scene){
   if(!scene) return null;
   var CX=${SYS_CX},CY=${SYS_CY},REO=${SYS_REO},RMO=${SYS_RMO},RS=${SYS_RS},RE=${SYS_RE},RM=${SYS_RM},AXL=${SYS_AXL},
-      DRAW_INC=${SYS_INC_DRAWN}*Math.PI/180,REAL_INC=${ORBIT_TILT}*Math.PI/180,AX=23.4*Math.PI/180,
+      DRAW_INC=${SYS_INC_DRAWN}*Math.PI/180,REAL_INC=${ORBIT_TILT}*Math.PI/180,AX=TILT*Math.PI/180,
       V=${SYSTEM_VIEW_DEG}*Math.PI/180,cv=Math.cos(V),sv=Math.sin(V),SC=1+0.42*Math.sin(V),
       NS='http://www.w3.org/2000/svg',R=Math.PI/180;
   function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
@@ -690,8 +690,10 @@ const jumpRow = (cls, withLoc) => `    <p class="${cls}">
 /* HOW MUCH OF THE PAGE TO SHOW. One <select>, repeated where the old toggle
    was (under each view and in the tab row) so the choice is never a scroll
    away; the script keeps every copy on the same value. Compact hides all but
-   the copy under the map, so the page it describes shows it exactly once. It
-   ships disabled: without JS it could change nothing. */
+   the copy under the map, so the page it describes shows it exactly once. The
+   one-paragraph key rides only with the copy under the map: the other copies
+   are a control, not a second reading of the same paragraph. It ships
+   disabled: without JS it could change nothing. */
 const VIEW_OPTIONS = [
   ["compact", "Compact — only simulators"],
   ["normal", "Normal — simulators with limited info"],
@@ -699,9 +701,9 @@ const VIEW_OPTIONS = [
 ];
 const viewSelect = (id) => `<label class="dn-view-pick" for="${id}">View <select id="${id}" data-dn-view disabled>${VIEW_OPTIONS.map(([v, t]) => `<option value="${v}"${v === "compact" ? " selected" : ""}>${esc(t)}</option>`).join("")}</select></label>`;
 const VIEW_HELP = `<p class="dn-view-help"><strong>Compact</strong> shows the three simulators alone, all driven by the one slider and the season buttons under the map. <strong>Normal</strong> gives each simulator its own slider and season buttons, and adds things to try and the questions this page answers. <strong>Full details</strong> adds the instructions, the explanation under each view, the FAQ and the onward reading.</p>`;
-const viewControl = (id) => `    <div class="dn-view-ctl">
+const viewControl = (id, withHelp = true) => `    <div class="dn-view-ctl">
       <p class="dn-view-row">${viewSelect(id)}</p>
-      ${VIEW_HELP}
+      ${withHelp ? VIEW_HELP : ""}
     </div>`;
 const jumpBtn = (k, t) => `<button type="button" class="chip" data-dn-jump="${k}" disabled>${esc(t)}</button>`;
 
@@ -776,7 +778,7 @@ const sideCard = `  <div class="card dn-side-card" id="sun-angle">
     <div class="dns-wrap" id="dn-side">${sideView(SS.dec, TILT)}</div>
 ${timelineControl("dn-angle")}
 ${jumpRow("dn-tools dn-tools-side", false)}
-${viewControl("dn-view-side")}
+${viewControl("dn-view-side", false)}
     <p class="dns-cap" id="dn-side-cap">${sideCapText(SS.dec, TILT, "now", NOW)}</p>
     <div class="dn-side-support">
     <p>The two dashed chords are the tropics, at ±${n1(TILT)}°. They are the tilt written on the surface. Jump the map to a solstice and watch the yellow line stop there.</p>
@@ -796,7 +798,7 @@ const systemCard = `  <div class="card dn-year-card" id="earth-sun-moon-year">
     <div class="sys-figwrap dn-system-wrap">${SYSTEM_SVG}</div>
 ${timelineControl("dn-year")}
 ${jumpRow("dn-tools dn-tools-year", false)}
-${viewControl("dn-view-year")}
+${viewControl("dn-view-year", false)}
     <p class="dn-system-meta"><span>The orbital plane is viewed at ${SYSTEM_VIEW_DEG}°. Earth’s axial tilt remains ${n1(TILT)}°.</span></p>
     <p class="hint dn-system-note">This wider view answers the missing question: where is Earth in its orbit while the daylight pattern changes? The same instant drives all three simulators. Sizes and distances are compressed to fit. The Moon’s real ${ORBIT_TILT}° orbital tilt is drawn at ${SYS_INC_DRAWN}° so a near miss — or an eclipse alignment — is easier to see. <a href="${SYS_PATH}">Open the full Earth–Sun–Moon simulator →</a></p>
   </div>
@@ -828,8 +830,8 @@ const tryCard = `  <div class="card" id="things-to-try">
     <ul class="facts">
       <li><strong>Read one date three ways.</strong> Choose the summer solstice. The map shows longer northern daylight, the side view puts the overhead Sun at the Tropic of Cancer, and the orbit view shows the north end of Earth leaning toward the Sun. Those are three consequences of the same geometry.</li>
       <li><strong>Swap the hemispheres.</strong> Move from the summer solstice to the winter solstice. Watch what reverses and what does not. Earth’s axial tilt keeps the same size and direction; which hemisphere leans into the sunlight changes.</li>
-      <li><strong>Find the balance points.</strong> Compare the spring and fall equinoxes. The day/night boundary runs nearly pole to pole and the overhead Sun crosses the equator, yet Earth is on opposite sides of its orbit.</li>
-      <li><strong>Test the distance myth.</strong> In the orbit view, compare Earth’s distance from the Sun with the season in each hemisphere. Both hemispheres are the same distance from the Sun, but they have opposite seasons. Distance cannot be the cause.</li>
+      <li><strong>Find the balance points.</strong> Compare the spring and fall equinoxes. The day/night boundary runs through both poles and the overhead Sun crosses the equator, yet Earth is on opposite sides of its orbit.</li>
+      <li><strong>Test the distance myth.</strong> In the orbit view, compare where Earth is in June and in December with the season in each hemisphere. The whole planet is at one distance from the Sun on any given day, yet the two hemispheres have opposite seasons, so distance cannot be the switch. Earth is in fact slightly closer to the Sun in early January — <a href="/concepts/why-do-we-have-seasons/">how much, and why it does not win</a>.</li>
       <li><strong>Follow the overhead Sun.</strong> Press Play and watch the yellow point move between the tropics. It never crosses them because their latitude is Earth’s ${n1(TILT)}° axial tilt written onto the globe.</li>
       <li><strong>Look for an eclipse alignment.</strong> Open a known eclipse date with the year, date, and time URL variables. The Moon can line up with the Sun and Earth, but it does not change Earth’s seasons—the axial tilt and annual orbit do.</li>
     </ul>
@@ -838,11 +840,9 @@ const tryCard = `  <div class="card" id="things-to-try">
 `;
 
 const LESSON_FAQ = [
-  ["What causes the seasons?", "Earth’s axis is tilted about 23.4°. As Earth orbits the Sun, one hemisphere leans toward the sunlight while the other leans away. Six months later they swap. The changing angle of sunlight and length of daylight create the seasons."],
-  ["Are seasons caused by Earth being closer to the Sun?", "No. Both hemispheres are always the same distance from the Sun, yet they have opposite seasons. Earth is actually closest to the Sun during northern winter. Tilt changes the angle and daily duration of sunlight; distance is not the seasonal switch."],
-  ["Do the solstices and equinoxes start the seasons?", "They mark the starts of the astronomical seasons. The June and December solstices are the longest and shortest daylight days in each hemisphere. The March and September equinoxes have nearly equal day and night worldwide."],
+  ["Why do the three views move together?", "They are one model of one instant, not three separate animations. The map shows where that instant’s sunlight lands, the side view shows the angle it arrives at, and the orbit view shows where Earth is when it happens. Move any control and all three redraw from the same clock, so they cannot disagree about the moment on screen."],
   ["Why is the Moon included in a seasons simulator?", "The Moon does not cause the seasons. It is included so the three-body positions stay visible on exact dates, including eclipse dates, and so students can distinguish the Moon’s monthly orbit from Earth’s yearly seasonal cycle."],
-  ["Can I share a particular year, date, season, or eclipse alignment?", "Yes. The simulator reads year, date, time, and season from the URL. For example, year=2024, date=2024-04-08, and time=18:18 opens that precise UTC minute in all three synchronized views."],
+  ["Can I share a particular year, date, season, or view?", "Yes. The page reads year, date, time, season and view from the URL. For example, year=2024, date=2024-04-08 and time=18:18 opens that precise UTC minute in all three views, and view=full opens the page with every explanation showing."],
 ];
 
 const faqCard = `  <div class="card" id="season-questions">
@@ -901,7 +901,7 @@ const lessonPage = `<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Earth’s Tilt, the Sun &amp; Seasons — Interactive Simulators</title>
-<meta name="description" content="Explore how Earth’s 23.4° axial tilt creates the seasons with three synchronized simulators for daylight, the Sun’s angle, and Earth’s yearly orbit.">
+<meta name="description" content="Explore how Earth’s ${n1(TILT)}° axial tilt creates the seasons with three synchronized simulators for daylight, the Sun’s angle, and Earth’s yearly orbit.">
 <link rel="canonical" href="${SITE}${LESSON_PATH}">
 <meta property="og:title" content="Earth’s Tilt, the Sun &amp; Seasons — Interactive Simulators">
 <meta property="og:description" content="Run three synchronized views through a year and see how axial tilt changes sunlight, day length, solstices, and equinoxes.">

@@ -6,7 +6,8 @@
     "shortAnswer": "The Tropic of Cancer is the circle at {tilt}° north. On one day each year — the summer solstice, around {juneSolstice} — the Sun stands straight overhead on this line. North of it, the Sun is never straight overhead.",
     "teasers": {
       "/": "The dashed gold line north of the equator on the map above — the Sun never stands overhead north of it.",
-      "/earth/": "The northern edge of the band where a flagpole can have no shadow."
+      "/earth/": "The northern edge of the band where a flagpole can have no shadow.",
+      "/earth-tilt-sun-seasons/": "The upper dashed chord in the side view. Press Summer solstice and the yellow centre line stops exactly on it, {tilt}° north — the Sun never stands overhead beyond that."
     },
     "ledeHtml": "The Tropic of Cancer is the circle at {tilt}° north. This circle is where the Sun stands <a href=\"/concepts/what-is-the-subsolar-point/\">straight overhead</a> — a flagpole there would cast no shadow — on the <a href=\"/concepts/why-do-we-have-seasons/\">summer solstice</a>, around {juneSolstice}. That is the longest day of the year in the north. The Sun is never straight overhead anywhere north of this line. The number {tilt}° is <a href=\"/concepts/what-is-earths-axial-tilt/\">Earth’s tilt</a>.",
     "title": "What Is the Tropic of Cancer?",
@@ -123,7 +124,10 @@
         "href": "/day-night-map/#tropics",
         "label": "Jump the map to the December solstice"
       }
-    ]
+    ],
+    "teasers": {
+      "/earth-tilt-sun-seasons/": "The lower dashed chord. Press Winter solstice and the centre line stops there instead, {tilt}° south — the same lean, six months on."
+    }
   },
   {
     "slug": "what-is-the-subsolar-point",
@@ -233,7 +237,8 @@
     "shortAnswer": "Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.",
     "teasers": {
       "/": "The axis is not upright. That lean is why the tropics and the polar circles sit where they do.",
-      "/earth/": "The same number that sets the tropics is the lean in the orbit drawing above."
+      "/earth/": "The same number that sets the tropics is the lean in the orbit drawing above.",
+      "/earth-tilt-sun-seasons/": "Watch the short white axis on Earth in the orbit view: it points the same way all year. Seasons happen because the Sun is on different sides of that fixed lean, not because the lean changes."
     },
     "title": "What Is Earth’s Axial Tilt?",
     "description": "Earth’s axial tilt is about 23.4°. The tropics sit at that latitude, the polar circles at 90° minus it, and the seasons are that lean facing toward or away from the Sun.",
@@ -332,7 +337,10 @@
         "href": "/day-night-map/#polar-circles",
         "label": "Find the Arctic Circle on the map"
       }
-    ]
+    ],
+    "teasers": {
+      "/earth-tilt-sun-seasons/": "Jump the map to a solstice and watch the Arctic: the night shading never reaches it in June and never leaves it in December. The circles mark how far that reaches — 90° minus the tilt."
+    }
   },
   {
     "slug": "what-is-twilight",
@@ -564,7 +572,8 @@
     "teasers": {
       "/": "Not because Earth gets closer to the Sun. Because it leans, and the lean faces a different way as it goes around.",
       "/earth/": "Summer is the hemisphere leaned into the light — the orbit view above is that lean, running.",
-      "/space/": "Earth is not the only world that leans. The tilt is the season machine, and it is drawn here too."
+      "/space/": "Earth is not the only world that leans. The tilt is the season machine, and it is drawn here too.",
+      "/earth-tilt-sun-seasons/": "In the orbit view Earth is no nearer the Sun in June than in December. What changes is which hemisphere leans into the light, and the map shows that hemisphere keeping more of each day."
     },
     "title": "Why Do We Have Seasons?",
     "description": "Seasons are the tilt, not the distance. Earth’s axis leans 23.4° and holds still, so each hemisphere takes a turn leaning into the sunlight.",
@@ -2531,7 +2540,10 @@
         "href": "/sun/near-me/",
         "label": "Your own longest and shortest day, computed for your town"
       }
-    ]
+    ],
+    "teasers": {
+      "/earth-tilt-sun-seasons/": "Press Summer solstice and read all three views at once: the overhead Sun at its northern limit, the north pole in daylight all the way round, and Earth at the June end of its orbit."
+    }
   },
   {
     "slug": "what-is-an-equinox",
@@ -2593,7 +2605,10 @@
         "href": "/sun/near-me/",
         "label": "Check your own equinox daylight against twelve hours"
       }
-    ]
+    ],
+    "teasers": {
+      "/earth-tilt-sun-seasons/": "Press either equinox: the day/night line runs through both poles, the centre line lands on the equator, and Earth sits halfway between its two solstice positions."
+    }
   },
   {
     "slug": "what-is-a-supermoon",

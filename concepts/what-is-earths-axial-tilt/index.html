@@ -1014,10 +1014,12 @@ background:rgba(252,211,77,.14)}
 .dn-tools-main{margin:4px 0 12px}
 .dn-tools-side{margin:12px 0 4px}
 .dn-tools-year{margin:12px 0 8px}
-.dn-details-prompt{text-align:center;margin:-2px 0 8px}
-.dn-details-toggle{appearance:none;border:0;background:none;padding:3px 8px;color:var(--muted);
-font:inherit;font-size:12.5px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.dn-details-toggle:hover,.dn-details-toggle:focus-visible{color:var(--accent)}
+.dn-view-ctl{margin:0 0 6px}
+.dn-view-row{display:flex;justify-content:center;margin:0 0 6px}
+.dn-view-pick{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:12.5px;font-weight:650}
+.dn-view-pick select{min-height:32px;padding:4px 28px 4px 9px;border:1px solid var(--border);
+border-radius:8px;background:var(--card);color:var(--text);font:inherit;font-size:13px}
+.dn-view-help{margin:0 auto;max-width:62em;text-align:center;color:var(--muted);font-size:12.5px;line-height:1.5}
 .dn-map-note{margin:6px 0 0;max-width:68em}
 .dn-map-note a{white-space:nowrap}
 .dn-instructions>summary{position:relative;list-style:none;cursor:pointer;padding-right:30px;
@@ -1034,15 +1036,26 @@ margin:8px 0 10px;font-size:13px;line-height:1.45}
 .dn-system-meta b{font-variant-numeric:tabular-nums}
 .dn-system-meta span{color:var(--muted)}
 .dn-system-note{margin:8px 0 0;line-height:1.5}
-.dn-only .dn-page-intro,.dn-only .dn-lesson-sections{display:none}
+.dn-lite .dn-page-intro{display:none}
+.dn-view-compact .dn-tabs{display:none}
+.dn-compact-sections{display:contents}
+.dn-view-compact .dn-lesson-sections{display:none}
+.dn-view-normal .dn-lesson-sections>:not(.dn-compact-sections){display:none}
+.dn-view-compact .dn-side-card .dn-timeline,.dn-view-compact .dn-year-card .dn-timeline,
+.dn-view-compact .dn-tools-side,.dn-view-compact .dn-tools-year,
+.dn-view-compact .dn-side-card .dn-view-ctl,.dn-view-compact .dn-year-card .dn-view-ctl{display:none}
 .dn-lesson-page .dn-sim-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
 align-items:start;gap:14px}
 .dn-lesson-page .dn-sim-pair>.card{margin:0;min-width:0}
-.dn-only .dn-tools-main,.dn-only .dn-tools-side,.dn-only .dn-tools-year{display:flex}
-.dn-only .dn-side-intro,.dn-only .dn-side-support,.dn-only .dn-map-note{display:none}
-.dn-only .dn-sunline,.dn-only .dn-me-line,.dn-only #dn-loc-msg,.dn-only .dns-cap,
-.dn-only .dn-system-meta,.dn-only .dn-system-note{display:none!important}
-.dn-only .dn-detail-tab{display:none}
+@media(min-width:901px){
+.dn-lesson-page .dn-sim-pair.dn-mas{grid-auto-rows:7px;row-gap:0}
+.dn-view-compact .dn-sim-pair{grid-template-columns:1.25fr 1fr}
+.dn-view-compact .dn-system-wrap{max-width:480px;margin:0 auto}
+}
+.dn-lite .dn-side-intro,.dn-lite .dn-side-support,.dn-lite .dn-map-note{display:none}
+.dn-lite .dn-sunline,.dn-lite .dn-me-line,.dn-lite #dn-loc-msg,.dn-lite .dns-cap,
+.dn-lite .dn-system-meta,.dn-lite .dn-system-note{display:none!important}
+.dn-view-toggle{margin-left:auto}
 .dn-more-lesson{text-align:center;margin:14px 0 0;font-weight:700}
 .dn-faq{border-top:1px solid var(--border);padding:10px 0}
 .dn-faq:first-of-type{border-top:0}
@@ -1324,7 +1337,7 @@ font-weight: 700;
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Earth’s axial tilt?","acceptedAnswer":{"@type":"Answer","text":"Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Axial tilt","description":"Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.","url":"https://timeandspace.science/concepts/what-is-earths-axial-tilt/","inDefinedTermSet":"https://timeandspace.science/glossary/"}</script>
 
-<!-- build 9078dafb7b44 · generated 2026-09-01T21:13:12.296Z -->
+<!-- build 3450a56e0ccf · generated 2026-09-02T03:51:59.214Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
@@ -1470,7 +1483,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   <h1>What is Earth’s axial tilt?</h1>
   <p class="answer">Earth’s spin axis is not upright. It leans about 23.4° from the vertical to its orbit. That lean is why we have tropics, polar circles, and seasons — and it barely changes from one year to the next.</p>
   <figure class="graphic-block dn">
-  <div class="dns-wrap"><svg class="dns-svg" viewBox="0 0 600 276" width="100%" role="img" aria-label="Earth seen from the side of its orbit, axis leaning, tropics as dashed chords at the tilt angle."><circle class="dns-glow" cx="54" cy="138" r="54"/><circle class="dns-sun" cx="54" cy="138" r="34"/><line class="dns-ray" x1="98" y1="46" x2="278" y2="46"/><line class="dns-ray" x1="98" y1="92" x2="278" y2="92"/><line class="dns-ray" x1="98" y1="184" x2="278" y2="184"/><line class="dns-ray" x1="98" y1="230" x2="278" y2="230"/><text class="dns-lab" x="98" y="26">Sunlight, arriving parallel</text><circle class="dns-earth" cx="372" cy="138" r="86"/><path class="dns-night" d="M372 52A86 86 0 0 1 372 224Z"/><line class="dns-term" x1="372" y1="40" x2="372" y2="236"/><line class="dns-axis" x1="387.1" y1="245.3" x2="356.9" y2="30.7"/><text class="dns-lab" text-anchor="middle" x="355.2" y="18.8">N</text><text class="dns-lab" text-anchor="middle" x="388.8" y="257.2">S</text><line class="dns-par dns-trop" x1="289.1" y1="115.2" x2="445.4" y2="93.1"/><line class="dns-par dns-trop" x1="298.6" y1="182.9" x2="454.9" y2="160.8"/><line class="dns-par dns-eq" x1="286.8" y1="150" x2="457.2" y2="126"/><line class="dns-ctr" x1="54" y1="138" x2="372" y2="138"/><circle class="dns-hit" cx="286" cy="138" r="6"/><text class="dns-lab dns-lab-d" text-anchor="end" x="278" y="120">sun overhead here</text><text class="dns-lab dns-lab-t" x="455.4" y="97.1">Tropic of Cancer</text><text class="dns-lab" x="467.2" y="130">Equator</text><text class="dns-lab dns-lab-t" x="464.9" y="164.8">Tropic of Capricorn</text></svg></div>
+  <div class="dns-wrap"><svg class="dns-svg" viewBox="0 0 600 276" width="100%" role="img" aria-label="Earth seen from the side of its orbit, axis leaning, tropics as dashed chords at the tilt angle."><circle class="dns-glow" cx="54" cy="138" r="54"/><circle class="dns-sun" cx="54" cy="138" r="34"/><line class="dns-ray" x1="98" y1="46" x2="278" y2="46"/><line class="dns-ray" x1="98" y1="92" x2="278" y2="92"/><line class="dns-ray" x1="98" y1="184" x2="278" y2="184"/><line class="dns-ray" x1="98" y1="230" x2="278" y2="230"/><text class="dns-lab" x="98" y="26">Sunlight, arriving parallel</text><circle class="dns-earth" cx="372" cy="138" r="86"/><path class="dns-night" d="M372 52A86 86 0 0 1 372 224Z"/><line class="dns-term" x1="372" y1="40" x2="372" y2="236"/><line class="dns-axis" x1="386.9" y1="245.3" x2="357.1" y2="30.7"/><text class="dns-lab" text-anchor="middle" x="355.4" y="18.8">N</text><text class="dns-lab" text-anchor="middle" x="388.6" y="257.2">S</text><line class="dns-par dns-trop" x1="289.1" y1="115" x2="445.4" y2="93.2"/><line class="dns-par dns-trop" x1="298.6" y1="182.8" x2="454.9" y2="161"/><line class="dns-par dns-eq" x1="286.8" y1="149.9" x2="457.2" y2="126.1"/><line class="dns-ctr" x1="54" y1="138" x2="372" y2="138"/><circle class="dns-hit" cx="286" cy="138" r="6"/><text class="dns-lab dns-lab-d" text-anchor="end" x="278" y="120">sun overhead here</text><text class="dns-lab dns-lab-t" x="455.4" y="97.2">Tropic of Cancer</text><text class="dns-lab" x="467.2" y="130.1">Equator</text><text class="dns-lab dns-lab-t" x="464.9" y="165">Tropic of Capricorn</text></svg></div>
   <figcaption>The axis is drawn leaning by the Sun’s declination. That is not a sketch of the seasons. Seen from the orbital plane, that component of the tilt is what the seasons are.</figcaption>
 </figure>
   <section data-band="5-12">

@@ -12512,3 +12512,27 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
 - Verified in Chromium at 1400×900 and 375×812: one visible select in
   compact, four in sync in Normal/Full, URL round-trips, `?view=details` and
   `#things-to-try` / `#tropics` open the right view, no page errors.
+
+## 2026-09-02 — Seasons page copy: its own teasers, one FAQ, both hemispheres
+
+- The seven "Questions This Page Answers" lines on `/earth-tilt-sun-seasons/`
+  were the first sentence of each concept's short answer — the same words the
+  reader meets again as that page's lede. They now have bespoke `teasers`
+  for this hub in `concepts.json`, each pointing at what the reader can DO on
+  the three views (press Summer solstice and watch the centre line stop on the
+  chord; watch the axis point the same way all year). Rule going forward: no
+  hub inherits a generic teaser — write the line for the page it sits on.
+- FAQ cut from five to three, all about this page (why the views move
+  together, why the Moon is there, the URL parameters incl. `view=`). The
+  seasons/distance/solstice definitions belong to the concept pages, which the
+  teasers already send readers to.
+- Distance myth reworded: "always the same distance" was an absolute that is
+  not quite true; now "one distance on any given day … slightly closer in
+  early January", linking to the concept page for the size of the effect.
+- June and December captions now name the Southern Hemisphere, as the equinox
+  captions already did. "Nearly pole to pole" → "through both poles", matching
+  the equinox page. The orbit view's axis and the meta description use the
+  SOLVED tilt instead of a typed 23.4.
+- The view key paragraph appears once (under the map); the other selects are
+  a control only.
+- Files: `seo/_data/concepts.json`, `seo/tools/build-daynight.mjs`.
