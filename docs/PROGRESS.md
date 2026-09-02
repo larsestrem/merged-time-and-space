@@ -12486,3 +12486,29 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
   the lesson from its lede and a dedicated card, and has matching title/meta copy.
 - Full build/check gates and Chromium interaction tests passed at 900/901/1280px.
 
+
+## 2026-09-01 — Seasons lesson gets three views, and Compact fits on one screen
+
+- `/earth-tilt-sun-seasons/` now has THREE views instead of a two-state toggle:
+  Compact (default) is the three simulators alone, driven by ONE slider and
+  one row of five season buttons under the map; Normal returns each view's
+  own slider and season row plus Things to Try and the questions; Full
+  details is everything. The old "See more details" link (tab row + under
+  each card) is a `<select>` with a one-paragraph key under it saying what
+  each view shows. Compact shows that control exactly once, under the map,
+  and hides the tab row, since every tab target is on screen or hidden.
+- URL: `?view=normal|full`; compact writes nothing. `?view=details` (the old
+  URL) still opens Full. A hash into Things to Try / the questions opens at
+  least Normal; a deeper hash (instructions, FAQ, concept anchors) opens
+  Full — then scrolls, because the browser's own jump landed on display:none.
+- COMPACT IS BUILT TO FIT ONE SCREEN. Above 900px the map (the only card with
+  controls) takes a 1.25fr column and the two figures pack beside it; the
+  orbit figure is capped at 480px wide. Measured at 1400×900: all three cards
+  end at 877px. Arrow step stays at its 24-hour default.
+- Classes on `.wrap`: `dn-view-compact|normal|full` plus `dn-lite` on the two
+  non-full views (one selector for "hide the explanations"), replacing
+  `dn-only`. `/day-night-map/` shares the generator and is unchanged.
+- Files: `seo/tools/build-daynight.mjs`, `assets/css/parts/20d2-orrery.css`.
+- Verified in Chromium at 1400×900 and 375×812: one visible select in
+  compact, four in sync in Normal/Full, URL round-trips, `?view=details` and
+  `#things-to-try` / `#tropics` open the right view, no page errors.

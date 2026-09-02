@@ -190,7 +190,7 @@ function sideCapText(dec, tilt, kind, ms) {
 
 /* ---- the page's own script ----------------------------------------------
  * Controls ship INERT — the slider and season buttons disabled, Play and the
- * compact-view toggle hidden — because without JS none could do anything, and
+ * view select disabled — because without JS none could do anything, and
  * a dead control on a classroom page is worse than no control. The script's
  * first act is to enable them.
  *
@@ -529,9 +529,15 @@ for(var j=0;j<jumps.length;j++){
   });
 }
 
-/* The seasons lesson opens as a compact simulator workspace. Any of the small
-   text controls beneath the seasonal jumps reveals or hides the same lesson
-   details, so the choice is available without scrolling back to a top tab. */
+/* THREE WAYS TO READ THE SAME PAGE. Compact is the three simulators alone,
+   driven by the one slider and the five season buttons under the map, so all
+   three fit on one screen and the relationship between them is the thing on
+   show. Normal gives each simulator its own slider and season row and keeps
+   Things to Try and the questions. Full details is everything. The choice is
+   a <select> under the map (and, outside compact, under the other two views
+   and in the tab row), and every copy shows the same value. It lives in the
+   URL as ?view=normal|full — compact is the default and writes nothing — so a
+   teacher can share the page in the shape they want it opened in. */
 /* Pack the three simulator cards the same way the section-page boards pack
    uneven cards: tiny grid rows let the third card rise directly under the
    shorter card instead of waiting for the taller card beside it. */
@@ -559,30 +565,38 @@ if(simGrid&&simPackMq){
   packSimGrid();
 }
 
-var wrap=document.querySelector('.wrap'),detailBtns=[].slice.call(document.querySelectorAll('[data-dn-details-toggle]'));
-function setSimOnly(on,writeUrl){
-  if(!wrap||!detailBtns.length) return;
-  wrap.classList.toggle('dn-only',on);
-  for(var n=0;n<detailBtns.length;n++){detailBtns[n].textContent=on?'See more details':'Show simulators only';detailBtns[n].setAttribute('aria-expanded',on?'false':'true');}
-  if(writeUrl&&history.replaceState){
-    var u=new URL(location.href);
-    if(on) u.searchParams.delete('view'); else u.searchParams.set('view','details');
-    history.replaceState(null,'',u.pathname+(u.searchParams.toString()?'?'+u.searchParams.toString():'')+u.hash);
-  }
+var wrap=document.querySelector('.wrap'),viewSels=[].slice.call(document.querySelectorAll('[data-dn-view]')),VIEWS=['compact','normal','full'];
+function setView(mode,writeUrl){
+  if(!wrap||!viewSels.length) return;
+  if(VIEWS.indexOf(mode)<0) mode='compact';
+  for(var v=0;v<VIEWS.length;v++) wrap.classList.toggle('dn-view-'+VIEWS[v],VIEWS[v]===mode);
+  wrap.classList.toggle('dn-lite',mode!=='full');
+  for(var n=0;n<viewSels.length;n++) viewSels[n].value=mode;
+  if(writeUrl) replaceUrl(function(u){ if(mode==='compact') u.searchParams.delete('view'); else u.searchParams.set('view',mode); });
   queueSimPack();
 }
-if(detailBtns.length){
-  for(var db=0;db<detailBtns.length;db++) detailBtns[db].addEventListener('click',function(){setSimOnly(!wrap.classList.contains('dn-only'),1);});
+if(viewSels.length){
+  for(var vs=0;vs<viewSels.length;vs++){viewSels[vs].disabled=false;viewSels[vs].addEventListener('change',function(){setView(this.value,1);});}
   var lessonLinks=document.querySelectorAll('.dn-tabs a');
   for(var q=0;q<lessonLinks.length;q++) lessonLinks[q].addEventListener('click',function(){
     for(var x=0;x<lessonLinks.length;x++) lessonLinks[x].classList.remove('is-here');
     this.classList.add('is-here');
   });
+  /* A link into the details opens the view that can show them: a deep hash
+     (the instructions, the FAQ, a concept anchor) needs full, Things to Try
+     or the questions need at least normal, and ?view=details — the old
+     two-state URL — still means full. Then scroll, because the browser's own
+     jump happened while the target was display:none. */
   try{
-    var viewUrl=new URL(location.href),hashTarget=viewUrl.hash?document.getElementById(viewUrl.hash.slice(1)):null;
-    var deepDetail=!!(hashTarget&&hashTarget.closest('.dn-lesson-sections')&&!hashTarget.closest('.dn-compact-sections'));
-    setSimOnly(viewUrl.searchParams.get('view')!=='details'&&!deepDetail,0);
-  }catch(e){setSimOnly(1,0);}
+    var viewUrl=new URL(location.href),want=(viewUrl.searchParams.get('view')||'').toLowerCase(),
+        hashTarget=viewUrl.hash?document.getElementById(viewUrl.hash.slice(1)):null;
+    if(want==='details') want='full';
+    if(hashTarget&&hashTarget.closest('.dn-lesson-sections')){
+      if(!hashTarget.closest('.dn-compact-sections')) want='full'; else if(want!=='full') want='normal';
+    }
+    setView(want,0);
+    if(hashTarget&&want!=='compact') hashTarget.scrollIntoView();
+  }catch(e){setView('compact',0);}
 }
 
 /* ---- my location --------------------------------------------------------
@@ -663,16 +677,32 @@ setInterval(function(){
 
 /* THE FOUR CORNERS OF THE YEAR, AS A CONTROL. The full lesson keeps a row with
    each diagram so a student never has to scroll away from the thing it changes.
-   The compact view keeps that same five-button row below every visual. */
+   Compact keeps only the row under the map, which drives all three. */
 const locChip = `<button type="button" class="chip dn-loc-chip" aria-label="Put my location on the map" title="Put my location on the map" hidden disabled>${PIN}</button>`;
-const jumpRow = (cls, withLoc, withDetails = false) => `    <p class="${cls}">
+const jumpRow = (cls, withLoc) => `    <p class="${cls}">
       <button type="button" class="chip" data-dn-jump="now" disabled>Now</button>
       ${withLoc ? locChip + "\n      " : ""}<button type="button" class="chip" data-dn-jump="mar" disabled>Spring equinox</button>
       <button type="button" class="chip" data-dn-jump="jun" disabled>Summer solstice</button>
       <button type="button" class="chip" data-dn-jump="sep" disabled>Fall equinox</button>
       <button type="button" class="chip" data-dn-jump="dec" disabled>Winter solstice</button>
-    </p>${withDetails ? `
-    <p class="dn-details-prompt"><button type="button" class="dn-details-toggle" data-dn-details-toggle aria-expanded="false" aria-controls="dn-lesson-details">See more details</button></p>` : ""}`;
+    </p>`;
+
+/* HOW MUCH OF THE PAGE TO SHOW. One <select>, repeated where the old toggle
+   was (under each view and in the tab row) so the choice is never a scroll
+   away; the script keeps every copy on the same value. Compact hides all but
+   the copy under the map, so the page it describes shows it exactly once. It
+   ships disabled: without JS it could change nothing. */
+const VIEW_OPTIONS = [
+  ["compact", "Compact — only simulators"],
+  ["normal", "Normal — simulators with limited info"],
+  ["full", "Full details — everything"],
+];
+const viewSelect = (id) => `<label class="dn-view-pick" for="${id}">View <select id="${id}" data-dn-view disabled>${VIEW_OPTIONS.map(([v, t]) => `<option value="${v}"${v === "compact" ? " selected" : ""}>${esc(t)}</option>`).join("")}</select></label>`;
+const VIEW_HELP = `<p class="dn-view-help"><strong>Compact</strong> shows the three simulators alone, all driven by the one slider and the season buttons under the map. <strong>Normal</strong> gives each simulator its own slider and season buttons, and adds things to try and the questions this page answers. <strong>Full details</strong> adds the instructions, the explanation under each view, the FAQ and the onward reading.</p>`;
+const viewControl = (id) => `    <div class="dn-view-ctl">
+      <p class="dn-view-row">${viewSelect(id)}</p>
+      ${VIEW_HELP}
+    </div>`;
 const jumpBtn = (k, t) => `<button type="button" class="chip" data-dn-jump="${k}" disabled>${esc(t)}</button>`;
 
 const timelineControl = (id, mapScale = false) => `    <div class="dn-timeline" data-dn-timeline="${id}"${mapScale ? "" : ` data-dn-step-min="10080"`}>
@@ -693,15 +723,15 @@ const timelineControl = (id, mapScale = false) => `    <div class="dn-timeline" 
     </div>`;
 
 /* ---- the simulator card -------------------------------------------------- */
-const simCard = ({ heading = false, details = false } = {}) => `  <div class="card dn-card" id="day-night-map">
+const simCard = ({ heading = false, view = false } = {}) => `  <div class="card dn-card" id="day-night-map">
 ${heading ? `    <h2>${ico("globe")} Day &amp; Night Map</h2>
 ` : ""}    <span class="dn-anchor-target" id="subsolar"></span><span class="dn-anchor-target" id="terminator"></span><span class="dn-anchor-target" id="twilight"></span><span class="dn-anchor-target" id="projection"></span><span class="dn-anchor-target" id="daytime-moon"></span>
     <div class="dn-figwrap">
       ${MAP_SVG}
     </div>
 ${timelineControl("dn-map", true)}
-${jumpRow("dn-tools dn-tools-main", true, details)}
-    <p class="dn-sunline" id="dn-sunline">${seasonSunHtml(SS.dec, SS.lon, subsolar(NOW + 7 * 86400000).dec, TILT)}</p>
+${jumpRow("dn-tools dn-tools-main", true)}
+${view ? viewControl("dn-view-map") + "\n" : ""}    <p class="dn-sunline" id="dn-sunline">${seasonSunHtml(SS.dec, SS.lon, subsolar(NOW + 7 * 86400000).dec, TILT)}</p>
     <p class="hint" id="dn-loc-msg"></p>
     <p class="dn-me-line" id="dn-mewrap" hidden><b id="dn-o-me">&nbsp;</b> <a id="dn-me-sun" href="/sun/near-me/?geo=1">Your sunrise and sunset →</a></p>
     <p class="hint dn-map-note"><strong>Map limitation:</strong> Earth is a globe flattened into a rectangle, so shapes and distances — especially near the poles — are distorted. The Sun and Moon markers are enlarged so you can see them. <a href="/concepts/why-is-this-map-flat/">Why this map is flat →</a></p>
@@ -745,7 +775,8 @@ const sideCard = `  <div class="card dn-side-card" id="sun-angle">
     <p class="dn-side-intro">This view turns Earth sideways so the cause of the seasons is easier to see. Earth’s axis keeps its ${n1(TILT)}° tilt while the direction toward the Sun changes through the orbit. The yellow centre line lands at the subsolar point, moving between the two tropics as the year passes.</p>
     <div class="dns-wrap" id="dn-side">${sideView(SS.dec, TILT)}</div>
 ${timelineControl("dn-angle")}
-${jumpRow("dn-tools dn-tools-side", false, true)}
+${jumpRow("dn-tools dn-tools-side", false)}
+${viewControl("dn-view-side")}
     <p class="dns-cap" id="dn-side-cap">${sideCapText(SS.dec, TILT, "now", NOW)}</p>
     <div class="dn-side-support">
     <p>The two dashed chords are the tropics, at ±${n1(TILT)}°. They are the tilt written on the surface. Jump the map to a solstice and watch the yellow line stop there.</p>
@@ -764,7 +795,8 @@ const systemCard = `  <div class="card dn-year-card" id="earth-sun-moon-year">
     <h2>${ico("earthmoon")} Earth, the Sun &amp; the Moon Through One Year</h2>
     <div class="sys-figwrap dn-system-wrap">${SYSTEM_SVG}</div>
 ${timelineControl("dn-year")}
-${jumpRow("dn-tools dn-tools-year", false, true)}
+${jumpRow("dn-tools dn-tools-year", false)}
+${viewControl("dn-view-year")}
     <p class="dn-system-meta"><span>The orbital plane is viewed at ${SYSTEM_VIEW_DEG}°. Earth’s axial tilt remains ${n1(TILT)}°.</span></p>
     <p class="hint dn-system-note">This wider view answers the missing question: where is Earth in its orbit while the daylight pattern changes? The same instant drives all three simulators. Sizes and distances are compressed to fit. The Moon’s real ${ORBIT_TILT}° orbital tilt is drawn at ${SYS_INC_DRAWN}° so a near miss — or an eclipse alignment — is easier to see. <a href="${SYS_PATH}">Open the full Earth–Sun–Moon simulator →</a></p>
   </div>
@@ -825,11 +857,11 @@ const pageTabs = `  <nav class="home-tabs sec-switch dn-tabs" aria-label="Explor
     <a class="chip home-tab" href="#earth-sun-moon-year">Earth, Sun &amp; Moon</a>
     <a class="chip home-tab" href="#things-to-try">Things to Try</a>
     <a class="chip home-tab" href="#questions-answered">Questions Answered</a>
-    <button type="button" class="chip home-tab dn-view-toggle" data-dn-details-toggle aria-expanded="false" aria-controls="dn-lesson-details">See more details</button>
+    <span class="dn-view-toggle">${viewSelect("dn-view-tabs")}</span>
   </nav>`;
 
 const simulatorPair = `  <div class="dn-sim-pair">
-${simCard({ heading: true, details: true })}${sideCard}${systemCard}
+${simCard({ heading: true, view: true })}${sideCard}${systemCard}
   </div>
 `;
 
@@ -882,7 +914,7 @@ ${faqLd(LESSON_FAQ)}
 ${GA_SNIPPET}
 </head>
 <body>
-<div class="wrap wrap-wide dn-lesson-page dn-only">
+<div class="wrap wrap-wide dn-lesson-page dn-view-compact dn-lite">
   ${brand()}
   <h1>Earth’s Tilt, the Sun &amp; Seasons</h1>
   <p class="sub dn-page-intro">Earth’s ${n1(TILT)}° axial tilt changes both the angle of sunlight and how long the Sun stays above the horizon. These three synchronized views connect that tilt to daylight, solstices, equinoxes, and the opposite seasons in the Northern and Southern Hemispheres.</p>

@@ -3808,10 +3808,13 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-tools-main{margin:4px 0 12px}
 .dn-tools-side{margin:12px 0 4px}
 .dn-tools-year{margin:12px 0 8px}
-.dn-details-prompt{text-align:center;margin:-2px 0 8px}
-.dn-details-toggle{appearance:none;border:0;background:none;padding:3px 8px;color:var(--muted);
-  font:inherit;font-size:12.5px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.dn-details-toggle:hover,.dn-details-toggle:focus-visible{color:var(--accent)}
+/* the view select and its one-paragraph key, under each simulator */
+.dn-view-ctl{margin:0 0 6px}
+.dn-view-row{display:flex;justify-content:center;margin:0 0 6px}
+.dn-view-pick{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:12.5px;font-weight:650}
+.dn-view-pick select{min-height:32px;padding:4px 28px 4px 9px;border:1px solid var(--border);
+  border-radius:8px;background:var(--card);color:var(--text);font:inherit;font-size:13px}
+.dn-view-help{margin:0 auto;max-width:62em;text-align:center;color:var(--muted);font-size:12.5px;line-height:1.5}
 .dn-map-note{margin:6px 0 0;max-width:68em}
 .dn-map-note a{white-space:nowrap}
 .dn-instructions>summary{position:relative;list-style:none;cursor:pointer;padding-right:30px;
@@ -3832,12 +3835,21 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-system-meta span{color:var(--muted)}
 .dn-system-note{margin:8px 0 0;line-height:1.5}
 
-/* The seasons page opens in simulator-only mode. Things to Try and Questions
-   Answered remain below the workspace because they help visitors use what is
-   on screen; the longer explanation, FAQ and onward reading are the details. */
-.dn-only .dn-page-intro{display:none}
+/* THREE VIEWS OF ONE PAGE, chosen by the select under the map. The wrap
+   carries dn-view-compact | dn-view-normal | dn-view-full, plus dn-lite on the
+   two that are not full. Compact: the three simulators alone, one slider and
+   one season row under the map, the select once — so all three sit on one
+   screen and the relationship between them is what is on show. Normal: each
+   view gets its own slider and season row back, plus Things to Try and the
+   questions. Full: everything. */
+.dn-lite .dn-page-intro{display:none}
+.dn-view-compact .dn-tabs{display:none}
 .dn-compact-sections{display:contents}
-.dn-only .dn-lesson-sections>:not(.dn-compact-sections){display:none}
+.dn-view-compact .dn-lesson-sections{display:none}
+.dn-view-normal .dn-lesson-sections>:not(.dn-compact-sections){display:none}
+.dn-view-compact .dn-side-card .dn-timeline,.dn-view-compact .dn-year-card .dn-timeline,
+.dn-view-compact .dn-tools-side,.dn-view-compact .dn-tools-year,
+.dn-view-compact .dn-side-card .dn-view-ctl,.dn-view-compact .dn-year-card .dn-view-ctl{display:none}
 .dn-lesson-page .dn-sim-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   align-items:start;gap:14px}
 .dn-lesson-page .dn-sim-pair>.card{margin:0;min-width:0}
@@ -3846,11 +3858,16 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
    instead of inheriting the taller second card's row height. */
 @media(min-width:901px){
   .dn-lesson-page .dn-sim-pair.dn-mas{grid-auto-rows:7px;row-gap:0}
+  /* Compact is meant to fit on ONE screen: the map (with the only controls)
+     takes the wider column, and the two figures beside it pack into the
+     other. The orbit figure is capped so the pair fits under 900px tall; it
+     is the widest of the three and its bodies are large enough at 480px. */
+  .dn-view-compact .dn-sim-pair{grid-template-columns:1.25fr 1fr}
+  .dn-view-compact .dn-system-wrap{max-width:480px;margin:0 auto}
 }
-.dn-only .dn-tools-main,.dn-only .dn-tools-side,.dn-only .dn-tools-year{display:flex}
-.dn-only .dn-side-intro,.dn-only .dn-side-support,.dn-only .dn-map-note{display:none}
-.dn-only .dn-sunline,.dn-only .dn-me-line,.dn-only #dn-loc-msg,.dn-only .dns-cap,
-.dn-only .dn-system-meta,.dn-only .dn-system-note{display:none!important}
+.dn-lite .dn-side-intro,.dn-lite .dn-side-support,.dn-lite .dn-map-note{display:none}
+.dn-lite .dn-sunline,.dn-lite .dn-me-line,.dn-lite #dn-loc-msg,.dn-lite .dns-cap,
+.dn-lite .dn-system-meta,.dn-lite .dn-system-note{display:none!important}
 .dn-view-toggle{margin-left:auto}
 .dn-more-lesson{text-align:center;margin:14px 0 0;font-weight:700}
 .dn-faq{border-top:1px solid var(--border);padding:10px 0}
