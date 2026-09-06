@@ -12640,3 +12640,14 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
   building with both flags false (forms and hrefs back on the static pages)
   and true again.
 - Files: seo/tools/site-flags.mjs, seo/tools/build-inline.mjs.
+
+
+## 2026-09-06 — Sticky seasons controls and uninterrupted compact diagrams
+
+- The seasons page now pins a transparent, two-row progression toolbar in compact, normal and full views, including phones.
+- First row: accessible icon-only play/pause, previous-day arrow, shared year slider and next-day arrow.
+- Second row: Now followed by all four equinox/solstice shortcuts, kept together in one row with abbreviated months on narrow screens.
+- Date, view and speed settings remain available above the toolbar and scroll away to preserve diagram space.
+- Compact hides headings, captions, location text and the comparison/explanation panels; diagram labels and solid dark cards remain, with reduced spacing.
+- Files: seo/tools/build-daynight.mjs, assets/css/parts/20d2-orrery.css and this progress log. Generated pages continue to be rebuilt during deployment.
+- Validation: full npm run build passed; focused checks verified play/pause accessibility, preserved SVG icons, shared control order and generated script syntax. Final responsive CSS passed page composition. No browser layout test was run.

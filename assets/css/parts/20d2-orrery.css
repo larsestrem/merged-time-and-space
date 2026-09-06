@@ -976,29 +976,39 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-lesson-page .dn-sim-pair h2{margin:0 0 10px;font-size:18px}
 .dn-cue{margin:10px 0 0;font-size:13px;color:var(--muted);line-height:1.5}
 .dn-back-controls{display:inline-block;font-size:13px;margin-top:8px}
-.dn-shared-controls{padding:14px 18px;margin:14px 0;border:1px solid var(--border);border-radius:14px;background:#101214;z-index:20;scroll-margin-top:12px}
-.dn-control-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.dn-control-head strong{font-size:17px}
-.dn-control-hint{display:block;color:var(--muted);font-size:13px}
-.dn-control-head .dn-view-pick{margin:0;font-size:13px}
-.dn-control-head select{min-height:44px;background:#1b1e21}
-.dn-shared-playback{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
-.dn-shared-playback .chip{min-height:44px;width:auto}
-.dn-shared-playback .dn-play{background:var(--accent);color:var(--accent-text);font-weight:800;min-width:100px}
-.dn-shared-playback .dn-play[aria-pressed="true"]{color:var(--accent-text)}
-.dn-shared-playback time{font-size:14px;font-variant-numeric:tabular-nums;color:var(--text);margin-left:4px}
-.dn-shared-controls .dn-timeline{margin:2px 0 0}
-.dn-shared-controls .dn-slider-row{grid-template-columns:44px minmax(0,1fr) 44px;gap:10px;margin:0}
-.dn-shared-controls .dn-step{width:44px;height:44px}
+.dn-shared-controls{position:sticky;top:0;top:env(safe-area-inset-top,0px);padding:4px 0;margin:6px 0;background:transparent;z-index:30;scroll-margin-top:8px}
+.dn-control-options{display:flex;align-items:center;flex-wrap:wrap;gap:6px 16px;margin:10px 0 4px}
+.dn-control-options time{font-size:14px;font-variant-numeric:tabular-nums}
+.dn-control-options .dn-view-pick{margin:0 0 0 auto;font-size:14px}
+.dn-control-options select{font-size:14px}
+.dn-shared-controls .dn-timeline{margin:0}
+.dn-shared-controls .dn-slider-row{grid-template-columns:40px 40px minmax(0,1fr) 40px;gap:6px;margin:0}
+.dn-shared-controls .chip{background:var(--card);color:var(--text)}
+.dn-shared-controls .dn-step,.dn-shared-controls .dn-play{display:inline-flex;align-items:center;justify-content:center;width:100%;height:40px;min-height:40px;padding:0}
+.dn-shared-controls .dn-play{background:var(--accent);color:var(--accent-text)}
+.dn-pause-icon,.dn-play[aria-pressed="true"] .dn-play-icon{display:none}
+.dn-play[aria-pressed="true"] .dn-pause-icon{display:block}
 .dn-year-track{min-width:0}
 .dn-year-track .orr-slider{display:block;width:100%;height:32px;margin:0;accent-color:var(--accent)}
-.dn-months{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:-4px}
-.dn-season-row{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:13px}
-.dn-season-row>span{white-space:nowrap;color:var(--muted)}
-.dn-season-row .dn-tools{justify-content:flex-start;gap:6px;margin:0}
-.dn-season-row .chip{width:auto;min-height:40px;font-size:13px;padding:8px 12px}
-.dn-date-settings{margin-top:8px;font-size:13px}
+.dn-season-row{margin-top:4px}
+.dn-season-row .dn-tools{display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:4px;margin:0}
+.dn-season-row .chip{width:auto;min-width:0;min-height:40px;font-size:14px;line-height:1.15;padding:6px 10px;white-space:nowrap}
+.dn-season-row .chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--card)}
+.dn-month-short{display:none}
+.dn-date-settings{font-size:14px}
+.dn-date-settings[open]{flex-basis:100%}
 .dn-date-settings summary{cursor:pointer;color:var(--accent);min-height:28px;padding:4px 0}
+.dn-lesson-page [id],.dn-lesson-page :is(#day-night-map,#sun-angle,#earth-sun-moon-year,#things-to-try,#questions-answered){scroll-margin-top:110px}
+.dn-back-controls{display:none}
+/* Compact is three uninterrupted diagrams, with their internal labels intact. */
+.dn-view-compact .dn-sim-pair>.card>h2,
+.dn-view-compact .dn-cue,
+.dn-view-compact #dn-loc-msg,
+.dn-view-compact .dn-me-line,
+.dn-view-compact .dn-season-comparison,
+.dn-view-compact .dn-evidence{display:none}
+.dn-lesson-page.dn-view-compact .dn-sim-pair{gap:6px}
+.dn-lesson-page.dn-view-compact .dn-sim-pair>.card{padding:6px}
 .dn-date-fields{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
 .dn-date-fields label{display:flex;flex-direction:column;gap:4px;margin:0;min-width:0;font-size:13px}
 .dn-date-fields input,.dn-date-fields select{font:inherit;min-height:44px;background:#1b1e21;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:6px 10px;color-scheme:dark;max-width:100%}
@@ -1022,28 +1032,22 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-faq p{margin:8px 0 0;color:var(--muted)}
 @media(min-width:901px){
   .dn-lesson-page .dn-sim-pair{grid-template-columns:1.15fr 1fr 1fr}
-  .dn-shared-controls{position:sticky;top:8px;box-shadow:0 8px 24px #0009}
-  .dn-lesson-page [id]{scroll-margin-top:300px}
-  .dn-back-controls{display:none}
+}
+@media(max-width:760px){
+  .dn-season-row .dn-tools{display:grid;grid-template-columns:minmax(40px,.65fr) repeat(4,minmax(0,1fr))}
+  .dn-season-row .chip{padding:4px 2px;min-height:40px}
+  .dn-month-full{display:none}
+  .dn-month-short,.dn-season-kind{display:block}
+  .dn-season-kind{font-size:12px}
 }
 @media(max-width:600px){
-  .dn-shared-controls{padding:12px}
-  .dn-control-head{align-items:flex-start}
-  .dn-control-head strong{font-size:15px}
-  .dn-control-hint{font-size:12px;max-width:26ch}
-  .dn-control-head .dn-view-pick{display:flex;flex-direction:column;gap:2px;align-items:flex-start}
-  .dn-shared-playback time{flex-basis:100%;margin:2px 0 0;font-size:13px}
-  .dn-season-row{display:block}
-  .dn-season-row>span{display:none}
-  .dn-season-row .dn-tools{display:grid;grid-template-columns:1fr 1fr}
-  .dn-season-row .chip{padding:7px;font-size:12px;min-height:44px}
   .dn-season-comparison{gap:8px}
   .dn-season-comparison strong{font-size:16px}
   .dn-season-comparison span{font-size:11px}
   .dn-evidence th,.dn-evidence td{padding:8px 5px}
   .dn-date-fields label{flex:1 1 125px}
 }
-html.pj .dn-shared-controls,html.pj .dn-lesson-page .dn-sim-pair>.card{background:#000}
+html.pj .dn-lesson-page .dn-sim-pair>.card{background:#000}
 @media(max-width:520px){
   .dn-map-page .dn-slider-row{grid-template-columns:auto minmax(0,1fr) auto}
   .dn-map-page .dn-slider-row .dn-play{grid-column:1/-1;width:100%}

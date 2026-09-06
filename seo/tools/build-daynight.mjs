@@ -422,8 +422,17 @@ function paint(){
 }
 
 /* ---- the controls ---- */
+function updatePlayButtons(playing){
+  for(var i=0;i<playBtns.length;i++){
+    var btn=playBtns[i],label=playing?'Pause':'Play';
+    if(!btn.hasAttribute('data-dn-icon-play')) btn.textContent=label;
+    btn.setAttribute('aria-label',label);
+    btn.setAttribute('title',label);
+    btn.setAttribute('aria-pressed',String(playing));
+  }
+}
 function stop(){ PLAY=0; if(RAF) cancelAnimationFrame(RAF); RAF=0;
-  for(var i=0;i<playBtns.length;i++){playBtns[i].textContent=document.querySelector('.dn-lesson-page')?'Play year':'Play';playBtns[i].setAttribute('aria-pressed','false');}
+  updatePlayButtons(false);
   svg.classList.remove('is-playing'); }
 function replaceUrl(change){
   if(!history.replaceState) return;
@@ -484,7 +493,7 @@ function frame(ts){
   paint(); RAF=requestAnimationFrame(frame);
 }
 function start(){ PLAY=1; LAST=0;
-  for(var i=0;i<playBtns.length;i++){playBtns[i].textContent='Pause';playBtns[i].setAttribute('aria-pressed','true');}
+  updatePlayButtons(true);
   SELECTED=''; TRACK_NOW=0; writeMovingUrl(); syncJumpState();
   svg.classList.add('is-playing'); RAF=requestAnimationFrame(frame); }
 
@@ -742,7 +751,7 @@ ${timelineControl("dn-map", view ? "dn-view-map" : null)}
 ${jumpRow("dn-tools dn-tools-main", true)}
   </div>
 `;
-const simCard = ({ heading = false, view = false, controlsInside = true } = {}) => `  <div class="card dn-card" id="day-night-map">
+const simCard = ({ heading = false, view = false, controlsInside = true } = {}) => `  <div class="card dn-card" id="day-night-map" role="region" aria-label="Day and night map">
 ${heading ? `    <h2>${ico("globe")} 1. Day &amp; night</h2>
 ` : ""}    <span class="dn-anchor-target" id="subsolar"></span><span class="dn-anchor-target" id="terminator"></span><span class="dn-anchor-target" id="twilight"></span><span class="dn-anchor-target" id="projection"></span><span class="dn-anchor-target" id="daytime-moon"></span>
     <div class="dn-figwrap">
@@ -788,7 +797,7 @@ const lessonHowCard = `  <details class="card dn-instructions" id="instructions"
 `;
 
 /* ---- the side view: original drawing, short caption, jump controls -------- */
-const sideCard = `  <div class="card dn-side-card" id="sun-angle">
+const sideCard = `  <div class="card dn-side-card" id="sun-angle" role="region" aria-label="Sunlight angle">
     <h2>${ico("globe")} 2. Sunlight angle</h2>
     <p class="dn-side-intro">This view turns Earth sideways so the cause of the seasons is easier to see. Earth’s axis keeps its ${n1(TILT)}° tilt while the direction toward the Sun changes through the orbit. The yellow centre line lands at the subsolar point, moving between the two tropics as the year passes.</p>
     <div class="dns-wrap" id="dn-side">${sideView(SS.dec, TILT)}</div>
@@ -808,7 +817,7 @@ const sideCard = `  <div class="card dn-side-card" id="sun-angle">
 /* The annual view completes the seasons lesson: it shows the fixed axial lean
    carried around the Sun, with the Moon included so a shared eclipse date can
    reveal all three bodies in the same model. */
-const systemCard = `  <div class="card dn-year-card" id="earth-sun-moon-year">
+const systemCard = `  <div class="card dn-year-card" id="earth-sun-moon-year" role="region" aria-label="Earth’s orbit">
     <h2>${ico("earthmoon")} 3. Earth’s orbit</h2>
     <div class="sys-figwrap dn-system-wrap">${SYSTEM_SVG}</div>
 
@@ -873,28 +882,29 @@ const pageTabs = `  <nav class="home-tabs sec-switch dn-tabs" aria-label="Explor
     <a class="chip home-tab" href="#questions-answered">Questions Answered</a>
   </nav>`;
 
-const sharedControls = `  <section class="dn-shared-controls" id="dn-controls" aria-label="Shared controls for all three simulators">
-    <div class="dn-control-head"><div><strong>One date. Three views.</strong><span class="dn-control-hint">Move the timeline and watch all three change together.</span></div>${viewSelect("dn-view-shared")}</div>
-    <div class="dn-shared-playback">
-      <button type="button" class="chip dn-play" data-dn-play aria-pressed="false" hidden>Play year</button>
-      <button type="button" class="chip" data-dn-jump="now" disabled>Now</button>
-      <time data-dn-showing>${dayName(NOW)}, ${CURRENT_YEAR}</time>
-    </div>
-    <div class="dn-timeline" data-dn-timeline="dn-shared" data-dn-step-min="${STEP_MIN}">
-      <div class="dn-slider-row">
-        <button type="button" class="chip dn-step" data-dn-step-dir="-1" disabled aria-label="Move back one day">&lt;</button>
-        <div class="dn-year-track"><input type="range" class="orr-slider" id="dn-shared-slider" data-dn-slider min="0" max="${SPAN_MIN-1}" step="1" value="0" disabled aria-label="Shared date for all three simulators"><div class="dn-months" aria-hidden="true"><span>Jan</span><span>Apr</span><span>Jul</span><span>Oct</span><span>Dec</span></div></div>
-        <button type="button" class="chip dn-step" data-dn-step-dir="1" disabled aria-label="Move forward one day">&gt;</button>
-      </div>
-    </div>
-    <div class="dn-season-row"><span>Jump to</span><div class="dn-tools">
-      ${jumpBtn("mar", "March equinox")}${jumpBtn("jun", "June solstice")}${jumpBtn("sep", "September equinox")}${jumpBtn("dec", "December solstice")}
-    </div></div>
+/* Secondary settings scroll away; only the two progression rows stay pinned. */
+const seasonShortcut = (key, month, shortMonth, kind) => `<button type="button" class="chip" data-dn-jump="${key}" disabled aria-label="${month} ${kind}" title="${month} ${kind}"><span class="dn-month-full">${month}</span><span class="dn-month-short" aria-hidden="true">${shortMonth}</span><span class="dn-season-kind"> ${kind}</span></button>`;
+const sharedControls = `  <div class="dn-control-options">
+    <time data-dn-showing>${dayName(NOW)}, ${CURRENT_YEAR}</time>
+    ${viewSelect("dn-view-shared")}
     <details class="dn-date-settings"><summary>Date &amp; speed</summary><div class="dn-date-fields">
       <label for="dn-date">Date (UTC)<input id="dn-date" type="date" min="1800-01-01" max="2200-12-31" disabled></label>
       <label for="dn-time">Time (UTC)<input id="dn-time" type="time" step="60" disabled></label>
       <label for="dn-speed">Playback speed<select id="dn-speed" disabled><option value="0.5">Slow · 4 min / year</option><option value="1" selected>Normal · 2 min / year</option><option value="2">Fast · 1 min / year</option></select></label>
     </div><p id="dn-date-error" role="status"></p></details>
+  </div>
+  <section class="dn-shared-controls" id="dn-controls" aria-label="Shared controls for all three simulators">
+    <div class="dn-timeline" data-dn-timeline="dn-shared" data-dn-step-min="${STEP_MIN}">
+      <div class="dn-slider-row">
+        <button type="button" class="chip dn-play" data-dn-play data-dn-icon-play aria-label="Play" title="Play" aria-pressed="false" hidden><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false"><path class="dn-play-icon" d="M7 4v16l13-8z"/><path class="dn-pause-icon" d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg></button>
+        <button type="button" class="chip dn-step" data-dn-step-dir="-1" disabled aria-label="Move back one day">&lt;</button>
+        <div class="dn-year-track"><input type="range" class="orr-slider" id="dn-shared-slider" data-dn-slider min="0" max="${SPAN_MIN-1}" step="1" value="0" disabled aria-label="Shared date for all three simulators"></div>
+        <button type="button" class="chip dn-step" data-dn-step-dir="1" disabled aria-label="Move forward one day">&gt;</button>
+      </div>
+    </div>
+    <div class="dn-season-row"><div class="dn-tools">
+      ${jumpBtn("now", "Now")}${seasonShortcut("mar", "March", "Mar", "equinox")}${seasonShortcut("jun", "June", "Jun", "solstice")}${seasonShortcut("sep", "September", "Sep", "equinox")}${seasonShortcut("dec", "December", "Dec", "solstice")}
+    </div></div>
     <noscript><p>Enable JavaScript to move the date. The diagrams below show the page’s build date.</p></noscript>
   </section>`;
 const bakedQuarter = NOW < YEAR.up ? 3 : NOW < YEAR.maxMs ? 0 : NOW < YEAR.down ? 1 : NOW < YEAR.minMs ? 2 : 3;
