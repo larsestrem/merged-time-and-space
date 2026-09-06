@@ -1618,10 +1618,10 @@ ${sectionSwitcher("/")}
              move by seconds. */""
         }<div class="wk-seasons">
           <button type="button" class="chip wk-nowbtn" id="wk-nowbtn" disabled>Now</button>
-          <button type="button" class="chip" data-wk-at="${WK_YEAR.up}" disabled>Spring equinox</button>
-          <button type="button" class="chip" data-wk-at="${WK_YEAR.maxMs}" disabled>Summer solstice</button>
-          <button type="button" class="chip" data-wk-at="${WK_YEAR.down}" disabled>Fall equinox</button>
-          <button type="button" class="chip" data-wk-at="${WK_YEAR.minMs}" disabled>Winter solstice</button>
+          <button type="button" class="chip" data-wk-at="${WK_YEAR.up}" disabled>March equinox</button>
+          <button type="button" class="chip" data-wk-at="${WK_YEAR.maxMs}" disabled>June solstice</button>
+          <button type="button" class="chip" data-wk-at="${WK_YEAR.down}" disabled>September equinox</button>
+          <button type="button" class="chip" data-wk-at="${WK_YEAR.minMs}" disabled>December solstice</button>
         </div>
       </div>
       <div class="home-hero-side">
@@ -1637,7 +1637,7 @@ ${sectionSwitcher("/")}
     <span class="home-q-lab">Start with a question</span>
     <a class="chip" href="/concepts/why-is-the-night-sky-dark/">Why is the night sky so dark?</a>
     <a class="chip" href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall in?</a>
-    <a class="chip" href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a>
+    <a class="chip" href="${SEASONS_PATH}">Why do we have seasons?</a>
     <a class="chip" href="/concepts/why-can-the-moon-be-up-in-the-daytime/">Can the moon be up in the daytime?</a>
     <a class="chip" href="/concepts/why-does-the-moon-change-shape/">Why does the moon change shape?</a>
     <a class="chip chip-alt" href="/glossary/">More questions →</a>
@@ -1647,7 +1647,7 @@ ${sectionSwitcher("/")}
     <h2>Where the clock comes from</h2>
     <p class="hub-blurb">Nobody invented time — people read it off the sky. A day is Earth spinning once. A year is Earth's orbit, announced by the seasons its tilt creates. A month is the Moon's cycle. Every hour and minute since is bookkeeping for those three motions.</p>
     <a class="wk-all" href="/concepts/who-invented-time/">Who invented time? →</a>
-    ${hubQs(["what-is-a-solar-day", "why-do-we-have-seasons", "what-is-a-synodic-month"], "/")}
+    ${hubQs(["what-is-a-solar-day", "what-is-a-synodic-month"], "/")}
   </div>
   ${/* SECOND CARD: THE TILT AND THE SEASONS (owner's call), the door to
        /earth-tilt-sun-seasons/. The side view from that page — parallel
@@ -1668,10 +1668,10 @@ ${sectionSwitcher("/")}
     <p class="dns-cap" id="tj-cap">${sideCapPlain(subsolar(+_hbNow).dec, WK_TILT)}</p>
     <p class="dn-tools">
       <button type="button" class="chip" data-tj-at="now" aria-pressed="true" disabled>Now</button>
-      <button type="button" class="chip" data-tj-at="${WK_YEAR.up}" data-tj-lab="the spring equinox" aria-pressed="false" disabled>Spring equinox</button>
-      <button type="button" class="chip" data-tj-at="${WK_YEAR.maxMs}" data-tj-lab="the summer solstice" aria-pressed="false" disabled>Summer solstice</button>
-      <button type="button" class="chip" data-tj-at="${WK_YEAR.down}" data-tj-lab="the fall equinox" aria-pressed="false" disabled>Fall equinox</button>
-      <button type="button" class="chip" data-tj-at="${WK_YEAR.minMs}" data-tj-lab="the winter solstice" aria-pressed="false" disabled>Winter solstice</button>
+      <button type="button" class="chip" data-tj-at="${WK_YEAR.up}" data-tj-lab="the March equinox" aria-pressed="false" disabled>March equinox</button>
+      <button type="button" class="chip" data-tj-at="${WK_YEAR.maxMs}" data-tj-lab="the June solstice" aria-pressed="false" disabled>June solstice</button>
+      <button type="button" class="chip" data-tj-at="${WK_YEAR.down}" data-tj-lab="the September equinox" aria-pressed="false" disabled>September equinox</button>
+      <button type="button" class="chip" data-tj-at="${WK_YEAR.minMs}" data-tj-lab="the December solstice" aria-pressed="false" disabled>December solstice</button>
     </p>
     <div class="home-simlinks">
       <a class="wk-all" href="${SEASONS_PATH}">More on how Earth’s tilt changes the seasons →</a>
@@ -1683,7 +1683,7 @@ ${sectionSwitcher("/")}
       <a class="chip" href="${SEASONS_PATH}#sun-angle">From the side · the angle of the sun</a>
       <a class="chip" href="${SEASONS_PATH}#earth-sun-moon-year">From beyond the orbit · Earth, Sun &amp; Moon through a year</a>
     </p>
-    ${hubQs(["why-do-we-have-seasons", "what-is-earths-axial-tilt"], "/")}
+    ${hubQs(["what-is-earths-axial-tilt"], "/")}
   </div>
   <div class="card hub-sim">
     <p class="hub-kicker">Earth</p>

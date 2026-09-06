@@ -16,6 +16,7 @@
  * ordinary contextual links stay free to be one-way.
  */
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
+import { conceptLearningPath } from "./concepts.mjs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, relative } from "node:path";
 
@@ -141,8 +142,9 @@ if (problems.length) {
       const norm = path.endsWith("/") ? path : path + "/";
       if (!existsSync(fileFor(norm))) continue;
       const hubHtml = readFileSync(fileFor(norm), "utf8");
-      if (!hubHtml.includes(`/concepts/${c.slug}/`)) {
-        problems.push(`hub ${norm} does not link to /concepts/${c.slug}/`);
+      const learningPath = conceptLearningPath(c.slug, norm);
+      if (!hubHtml.includes(`href="${learningPath}"`)) {
+        problems.push(`hub ${norm} does not link to ${learningPath}`);
       }
     }
   }

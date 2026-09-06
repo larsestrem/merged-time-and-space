@@ -150,11 +150,11 @@ const MAP_SVG = `<svg id="dn-svg" class="dn-svg" viewBox="${DN_VIEWBOX}" width="
    plane, not Earth's axial tilt: the axis remains the real 23.4°. The browser
    builds the bodies inside this empty scene from the same AT used by the map
    and side view, so there is no second animation clock that can drift. */
-const SYSTEM_VIEW_DEG = 80;
+const SYSTEM_VIEW_DEG = 35;
 const SYSTEM_SVG = `<svg id="dn-system-svg" class="sys-fig dn-system-fig" viewBox="0 0 ${SYS_W} ${SYS_H}" role="img" aria-label="Earth orbiting the Sun while the Moon orbits Earth, viewed with the orbital plane tilted ${SYSTEM_VIEW_DEG} degrees; all positions match the date on the day and night map">
   <rect width="${SYS_W}" height="${SYS_H}" rx="16" fill="#0a1020"/>
-  <text x="12" y="${SYS_CY - 8}" font-size="11" fill="#94a3b8">June — North leans sunward</text>
-  <text x="${SYS_W - 12}" y="${SYS_CY - 8}" text-anchor="end" font-size="11" fill="#94a3b8">December — North leans away</text>
+  <text x="12" y="${SYS_CY - 8}" font-size="11" fill="#94a3b8">June</text>
+  <text x="${SYS_W - 12}" y="${SYS_CY - 8}" text-anchor="end" font-size="11" fill="#94a3b8">December</text>
   <text x="${SYS_CX}" y="16" text-anchor="middle" font-size="11" fill="#94a3b8">March equinox</text>
   <text x="${SYS_CX}" y="${SYS_H - 12}" text-anchor="middle" font-size="11" fill="#94a3b8">September equinox</text>
   <g id="dn-system-scene"></g>
@@ -171,16 +171,24 @@ const SYSTEM_SVG = `<svg id="dn-system-svg" class="sys-fig dn-system-fig" viewBo
  * reader wants to know is what that does to the length of their day. The
  * solstice gets its own branch: "0.0 degrees short of the tropic" is a worse
  * sentence than "right on it", and it is the sentence that matters most. */
+function daylightHours(lat, dec) {
+  var x=-Math.tan(lat*Math.PI/180)*Math.tan(dec*Math.PI/180);
+  return 24*Math.acos(Math.max(-1,Math.min(1,x)))/Math.PI;
+}
+function daylightWords(hours) {
+  var m=Math.round(hours*60);
+  return Math.floor(m/60)+' h '+String(m%60).padStart(2,'0')+' min';
+}
 function sideCapText(dec, tilt, kind, ms) {
   var date = function (at) {
     try { return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(at)); }
     catch (e) { return new Date(at).toUTCString().replace(/ 00:00:00 GMT$/, ''); }
   };
   var when = ms ? date(ms) : '';
-  if (kind === 'mar') return '<a href="/holiday-countdowns/spring-equinox/">The spring equinox</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical spring</a> in the Northern Hemisphere (autumn in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
-  if (kind === 'jun') return '<a href="/holiday-countdowns/summer-solstice/">The summer solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical summer</a> in the Northern Hemisphere (winter in the Southern Hemisphere): the north gets its longest daylight of the year and the south its shortest. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther north. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
-  if (kind === 'sep') return '<a href="/holiday-countdowns/fall-equinox/">The fall equinox</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical fall</a> in the Northern Hemisphere (spring in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
-  if (kind === 'dec') return '<a href="/holiday-countdowns/winter-solstice/">The winter solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical winter</a> in the Northern Hemisphere (summer in the Southern Hemisphere): the north gets its shortest daylight of the year and the south its longest. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-capricorn/">Tropic of Capricorn</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther south. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
+  if (kind === 'mar') return '<a href="/holiday-countdowns/spring-equinox/">The March equinox</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical spring</a> in the Northern Hemisphere (autumn in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
+  if (kind === 'jun') return '<a href="/holiday-countdowns/summer-solstice/">The June solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical summer</a> in the Northern Hemisphere (winter in the Southern Hemisphere): the north gets its longest daylight of the year and the south its shortest. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther north. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
+  if (kind === 'sep') return '<a href="/holiday-countdowns/fall-equinox/">The September equinox</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical fall</a> in the Northern Hemisphere (spring in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
+  if (kind === 'dec') return '<a href="/holiday-countdowns/winter-solstice/">The December solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical winter</a> in the Northern Hemisphere (summer in the Southern Hemisphere): the north gets its shortest daylight of the year and the south its longest. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-capricorn/">Tropic of Capricorn</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther south. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
   var a = Math.abs(dec), n = dec >= 0, x = a.toFixed(1), gap = (tilt - a).toFixed(1);
   var TC = n
     ? '<a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a>'
@@ -252,6 +260,11 @@ function syncTimelineLabels(){
   var end=T0+SPAN*60000-60000,range=rangeDate(T0)+' to '+rangeDate(end);
   for(var i=0;i<ends.length;i++) ends[i].textContent=range;
   for(var j=0;j<shown.length;j++) shown[j].textContent=showingDate(AT);
+  var d=new Date(AT), date=$('dn-date'), time=$('dn-time');
+  if(date&&document.activeElement!==date) date.value=d.toISOString().slice(0,10);
+  if(time&&document.activeElement!==time) time.value=d.toISOString().slice(11,16);
+  for(var k=0;k<sliders.length;k++) sliders[k].setAttribute('aria-valuetext',showingDate(AT));
+  set('dn-year-label',String(d.getUTCFullYear()));
 }
 
 /* the caption under the side view — ONE source, shipped as its own text. See
@@ -274,7 +287,7 @@ function state(alt){
    This is the same projected geometry as /earth-sun-moon-orbit-simulator/,
    but it has no requestAnimationFrame of its own. paint() hands it AT, so the
    three diagrams cannot disagree about the moment on screen. The orbital
-   plane is viewed at 80 degrees. Earth's axial lean is TILT, solved at build. */
+   plane is viewed at ${SYSTEM_VIEW_DEG} degrees. Earth's axial lean is TILT, solved at build. */
 function makeSystemRenderer(scene){
   if(!scene) return null;
   var CX=${SYS_CX},CY=${SYS_CY},REO=${SYS_REO},RMO=${SYS_RMO},RS=${SYS_RS},RE=${SYS_RE},RM=${SYS_RM},AXL=${SYS_AXL},
@@ -379,6 +392,23 @@ function paint(){
   if(sideBox) sideBox.innerHTML=dnSide(ss.dec,TILT, HOME&&HOME.lat!=null?HOME.lat:null);
   if(sideCapEl) sideCapEl.innerHTML=sideCap(ss.dec,SELECTED,AT);
   if(systemRender) systemRender(AT);
+  if($('dn-north-season')){
+    var y=yearOf(AT),quarter=AT<seasonMs('mar',y)?3:AT<seasonMs('jun',y)?0:AT<seasonMs('sep',y)?1:AT<seasonMs('dec',y)?2:3;
+    set('dn-north-season',['Spring','Summer','Autumn','Winter'][quarter]);
+    set('dn-south-season',['Autumn','Winter','Spring','Summer'][quarter]);
+    function daylight(lat){
+      return (${daylightHours.toString()})(lat,ss.dec);
+    }
+    var hours=(${daylightWords.toString()});
+    set('dn-north-day',hours(daylight(45)));
+    set('dn-south-day',hours(daylight(-45)));
+    set('dn-north-angle',(90-Math.abs(45-ss.dec)).toFixed(1)+'°');
+    set('dn-south-angle',(90-Math.abs(-45-ss.dec)).toFixed(1)+'°');
+    set('dn-overhead',Math.abs(ss.dec)<0.05?'Equator':Math.abs(ss.dec).toFixed(1)+'° '+(ss.dec>=0?'N':'S'));
+    set('dn-observe',Math.abs(ss.dec)<0.6
+      ? 'Near an equinox: both hemispheres receive about 12 hours of daylight. Earth is still tilted.'
+      : (ss.dec>0?'North':'South')+' leans toward the Sun: longer days and more direct midday sunlight. The other hemisphere gets less.');
+  }
   for(var i=0;i<sliders.length;i++) sliders[i].value=Math.round((AT-T0)/60000);
   if(HOME){
     var a=dnAlt(HOME.lat,HOME.lon,ss.dec,ss.lon), s2=state(a);
@@ -393,7 +423,7 @@ function paint(){
 
 /* ---- the controls ---- */
 function stop(){ PLAY=0; if(RAF) cancelAnimationFrame(RAF); RAF=0;
-  for(var i=0;i<playBtns.length;i++){playBtns[i].textContent='Play';playBtns[i].setAttribute('aria-pressed','false');}
+  for(var i=0;i<playBtns.length;i++){playBtns[i].textContent=document.querySelector('.dn-lesson-page')?'Play year':'Play';playBtns[i].setAttribute('aria-pressed','false');}
   svg.classList.remove('is-playing'); }
 function replaceUrl(change){
   if(!history.replaceState) return;
@@ -411,7 +441,7 @@ function validYear(raw){
 function setYearRange(year,at){
   var end=Date.UTC(year+1,0,1);
   T0=Date.UTC(year,0,1);SPAN=Math.round((end-T0)/60000);
-  for(var i=0;i<sliders.length;i++) sliders[i].max=SPAN;
+  for(var i=0;i<sliders.length;i++) sliders[i].max=SPAN-1;
   AT=Math.max(T0,Math.min(end-60000,at==null?T0:at));
   syncTimelineLabels();
 }
@@ -450,7 +480,7 @@ function frame(ts){
   if(!PLAY) return;
   if(!LAST) LAST=ts;
   AT+=(ts-LAST)*RATE; LAST=ts;
-  if(AT>T0+SPAN*60000) AT=T0;      /* round again from the start of the year */
+  if(AT>=T0+SPAN*60000) AT=T0+(AT-T0)%(SPAN*60000);      /* round again from the start of the year */
   paint(); RAF=requestAnimationFrame(frame);
 }
 function start(){ PLAY=1; LAST=0;
@@ -495,7 +525,9 @@ function spanLab(){syncTimelineLabels();}
  * answer off the declination: its highest point is the June solstice, its
  * lowest the December one, and the two crossings of zero are the equinoxes.
  * A table would have to be maintained; this cannot go stale. */
+var SEASON_TIMES={};
 function seasonMs(kind,year){
+  var key=year+':'+kind;if(SEASON_TIMES[key]!==undefined)return SEASON_TIMES[key];
   var t=Date.UTC(year,0,1),end=Date.UTC(year+1,0,1),best=null,bestV=null,prev=null,ms,d;
   for(ms=t; ms<end; ms+=3600000){
     d=dnSub(ms).dec;
@@ -507,7 +539,7 @@ function seasonMs(kind,year){
     }
     prev=d;
   }
-  return best||t;
+  return SEASON_TIMES[key]=best||t;
 }
 var jumps=document.querySelectorAll('[data-dn-jump]');
 function syncJumpState(){
@@ -529,60 +561,15 @@ for(var j=0;j<jumps.length;j++){
   });
 }
 
-/* THREE WAYS TO READ THE SAME PAGE. Compact is the three simulators alone,
-   driven by the one slider and the five season buttons under the map, so all
-   three fit on one screen and the relationship between them is the thing on
-   show. Normal gives each simulator its own slider and season row and keeps
-   Things to Try and the questions. Full details is everything. The choice is
-   a <select> under the map (and, outside compact, under the other two views
-   and in the tab row), and every copy shows the same value. It lives in the
-   URL as ?view=normal|full — compact is the default and writes nothing — so a
-   teacher can share the page in the shape they want it opened in. */
-/* Pack the three simulator cards the same way the section-page boards pack
-   uneven cards: tiny grid rows let the third card rise directly under the
-   shorter card instead of waiting for the taller card beside it. */
-var simGrid=document.querySelector('.dn-sim-pair'),simPackMq=window.matchMedia&&window.matchMedia('(min-width:901px)'),simPackQueued=false;
-function clearSimPack(){
-  if(!simGrid)return;
-  simGrid.classList.remove('dn-mas');
-  for(var i=0;i<simGrid.children.length;i++)simGrid.children[i].style.gridRowEnd='';
-}
-function packSimGrid(){
-  simPackQueued=false;
-  if(!simGrid||!simPackMq||!simPackMq.matches){clearSimPack();return;}
-  simGrid.classList.add('dn-mas');
-  var cs=getComputedStyle(simGrid),rowH=parseFloat(cs.gridAutoRows),gap=parseFloat(cs.columnGap)||14;
-  if(!rowH){clearSimPack();return;}
-  var kids=[].slice.call(simGrid.children),heights=[],i;
-  for(i=0;i<kids.length;i++)heights[i]=kids[i].getBoundingClientRect().height;
-  for(i=0;i<kids.length;i++)kids[i].style.gridRowEnd='span '+Math.max(1,Math.ceil((heights[i]+gap)/rowH));
-}
-function queueSimPack(){if(!simPackQueued){simPackQueued=true;requestAnimationFrame(packSimGrid);}}
-if(simGrid&&simPackMq){
-  window.addEventListener('resize',queueSimPack);
-  if(simPackMq.addEventListener)simPackMq.addEventListener('change',queueSimPack);
-  if(window.ResizeObserver){var simRo=new ResizeObserver(queueSimPack);for(var sr=0;sr<simGrid.children.length;sr++)simRo.observe(simGrid.children[sr]);}
-  packSimGrid();
-}
-
+/* Layout changes never recreate controls or reset the shared instant. */
 var wrap=document.querySelector('.wrap'),viewSels=[].slice.call(document.querySelectorAll('[data-dn-view]')),VIEWS=['compact','normal','full'];
-/* the map's control block: above the pictures in compact, under the map in
-   the other views. Moving the node keeps its listeners, so nothing rebinds. */
-var ctlBlock=document.getElementById('dn-controls'),mapFig=document.querySelector('#day-night-map .dn-figwrap');
-function placeControls(mode){
-  if(!ctlBlock||!mapFig||!simGrid) return;
-  if(mode==='compact'){ if(ctlBlock.nextSibling!==simGrid) simGrid.parentNode.insertBefore(ctlBlock,simGrid); }
-  else if(mapFig.nextSibling!==ctlBlock) mapFig.parentNode.insertBefore(ctlBlock,mapFig.nextSibling);
-}
 function setView(mode,writeUrl){
   if(!wrap||!viewSels.length) return;
   if(VIEWS.indexOf(mode)<0) mode='compact';
   for(var v=0;v<VIEWS.length;v++) wrap.classList.toggle('dn-view-'+VIEWS[v],VIEWS[v]===mode);
   wrap.classList.toggle('dn-lite',mode!=='full');
-  placeControls(mode);
   for(var n=0;n<viewSels.length;n++) viewSels[n].value=mode;
   if(writeUrl) replaceUrl(function(u){ if(mode==='compact') u.searchParams.delete('view'); else u.searchParams.set('view',mode); });
-  queueSimPack();
 }
 if(viewSels.length){
   for(var vs=0;vs<viewSels.length;vs++){viewSels[vs].disabled=false;viewSels[vs].addEventListener('change',function(){setView(this.value,1);});}
@@ -590,6 +577,8 @@ if(viewSels.length){
   for(var q=0;q<lessonLinks.length;q++) lessonLinks[q].addEventListener('click',function(){
     for(var x=0;x<lessonLinks.length;x++) lessonLinks[x].classList.remove('is-here');
     this.classList.add('is-here');
+    var target=document.getElementById(this.hash.slice(1));
+    if(target&&target.closest('.dn-lesson-sections')&&wrap.classList.contains('dn-view-compact')) setView('normal',1);
   });
   /* A link into the details opens the view that can show them: a deep hash
      (the instructions, the FAQ, a concept anchor) needs full, Things to Try
@@ -607,6 +596,20 @@ if(viewSels.length){
     if(hashTarget&&want!=='compact') hashTarget.scrollIntoView();
   }catch(e){setView('compact',0);}
 }
+
+
+var dateInput=$('dn-date'),timeInput=$('dn-time'),speedInput=$('dn-speed');
+function applyDateInputs(){
+  if(!dateInput||!timeInput) return;
+  var u=new URL(location.href);u.searchParams.set('date',dateInput.value);u.searchParams.set('time',timeInput.value||'12:00');
+  var ms=parseDateState(u);
+  if(ms===null||!validYear(String(yearOf(ms)))){set('dn-date-error','Choose a valid date from 1800 to 2200.');return;}
+  set('dn-date-error','');stop();SELECTED='';TRACK_NOW=0;setYearRange(yearOf(ms),ms);syncJumpState();writeExactUrl(AT);paint();
+}
+if(dateInput){dateInput.disabled=false;dateInput.addEventListener('change',applyDateInputs);}
+if(timeInput){timeInput.disabled=false;timeInput.addEventListener('change',applyDateInputs);}
+if(speedInput){speedInput.disabled=false;speedInput.addEventListener('change',function(){RATE=${PLAY_RATE}*Number(this.value);});}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&PLAY){stop();writeExactUrl(AT);}});
 
 /* ---- my location --------------------------------------------------------
  * ASKED FOR ON LOAD, and the button is only what is left when that does not
@@ -662,6 +665,7 @@ try{
   rawSeason=(initialUrl.searchParams.get('season')||'').toLowerCase();
   rawDate=initialUrl.searchParams.get('date')||'';
   pickedDate=parseDateState(initialUrl);
+  if(pickedDate!==null&&!validYear(String(yearOf(pickedDate)))) pickedDate=null;
   pickedYear=validYear(initialUrl.searchParams.get('year')||'');
   initialSeason=SEASON_ALIAS[rawSeason]||'now';
 }catch(e){}
@@ -690,10 +694,10 @@ setInterval(function(){
 const locChip = `<button type="button" class="chip dn-loc-chip" aria-label="Put my location on the map" title="Put my location on the map" hidden disabled>${PIN}</button>`;
 const jumpRow = (cls, withLoc) => `    <p class="${cls}">
       <button type="button" class="chip" data-dn-jump="now" disabled>Now</button>
-      ${withLoc ? locChip + "\n      " : ""}<button type="button" class="chip" data-dn-jump="mar" disabled>Spring equinox</button>
-      <button type="button" class="chip" data-dn-jump="jun" disabled>Summer solstice</button>
-      <button type="button" class="chip" data-dn-jump="sep" disabled>Fall equinox</button>
-      <button type="button" class="chip" data-dn-jump="dec" disabled>Winter solstice</button>
+      ${withLoc ? locChip + "\n      " : ""}<button type="button" class="chip" data-dn-jump="mar" disabled>March equinox</button>
+      <button type="button" class="chip" data-dn-jump="jun" disabled>June solstice</button>
+      <button type="button" class="chip" data-dn-jump="sep" disabled>September equinox</button>
+      <button type="button" class="chip" data-dn-jump="dec" disabled>December solstice</button>
     </p>`;
 
 /* HOW MUCH OF THE PAGE TO SHOW. One <select>, at the end of each timeline's
@@ -704,9 +708,9 @@ const jumpRow = (cls, withLoc) => `    <p class="${cls}">
    and was the tallest thing under the map. It ships disabled: without JS it
    could change nothing. */
 const VIEW_OPTIONS = [
-  ["compact", "Compact — only simulators"],
-  ["normal", "Normal — simulators with limited info"],
-  ["full", "Full details — everything"],
+  ["compact", "Compact"],
+  ["normal", "Normal"],
+  ["full", "Full details"],
 ];
 const viewSelect = (id) => `<label class="dn-view-pick" for="${id}">View <select id="${id}" data-dn-view disabled>${VIEW_OPTIONS.map(([v, t]) => `<option value="${v}"${v === "compact" ? " selected" : ""}>${esc(t)}</option>`).join("")}</select></label>`;
 
@@ -721,7 +725,7 @@ const timelineControl = (id, viewId = null) => `    <div class="dn-timeline" dat
       <label class="sim-flab" for="${id}-slider"><span data-dn-range>Jan. 1st to Dec. 31st</span> — One orbit of Earth — Showing <span data-dn-showing>${dayName(NOW)}, ${CURRENT_YEAR}</span></label>
       <div class="dn-slider-row${viewId ? " has-view" : ""}">
         <button type="button" class="chip dn-step" data-dn-step-dir="-1" disabled aria-label="Move back one day">&lt;</button>
-        <input type="range" class="orr-slider" id="${id}-slider" data-dn-slider min="0" max="${SPAN_MIN}" step="1" value="0" disabled aria-label="Move through one calendar year">
+        <input type="range" class="orr-slider" id="${id}-slider" data-dn-slider min="0" max="${SPAN_MIN-1}" step="1" value="0" disabled aria-label="Move through one calendar year">
         <button type="button" class="chip dn-step" data-dn-step-dir="1" disabled aria-label="Move forward one day">&gt;</button>
         <button type="button" class="chip dn-obtn dn-play" data-dn-play aria-pressed="false" hidden>Play</button>${viewId ? "\n        " + viewSelect(viewId) : ""}
       </div>
@@ -739,11 +743,12 @@ ${jumpRow("dn-tools dn-tools-main", true)}
   </div>
 `;
 const simCard = ({ heading = false, view = false, controlsInside = true } = {}) => `  <div class="card dn-card" id="day-night-map">
-${heading ? `    <h2>${ico("globe")} Day &amp; Night Map</h2>
+${heading ? `    <h2>${ico("globe")} 1. Day &amp; night</h2>
 ` : ""}    <span class="dn-anchor-target" id="subsolar"></span><span class="dn-anchor-target" id="terminator"></span><span class="dn-anchor-target" id="twilight"></span><span class="dn-anchor-target" id="projection"></span><span class="dn-anchor-target" id="daytime-moon"></span>
     <div class="dn-figwrap">
       ${MAP_SVG}
     </div>
+${heading ? `<p class="dn-cue">Watch how much of each hemisphere lies in daylight.</p><a class="dn-back-controls" href="#dn-controls">Change the shared date ↑</a>` : ""}
 ${controlsInside ? mapControls(view) : ""}    <p class="dn-sunline" id="dn-sunline">${seasonSunHtml(SS.dec, SS.lon, subsolar(NOW + 7 * 86400000).dec, TILT)}</p>
     <p class="hint" id="dn-loc-msg"></p>
     <p class="dn-me-line" id="dn-mewrap" hidden><b id="dn-o-me">&nbsp;</b> <a id="dn-me-sun" href="/sun/near-me/?geo=1">Your sunrise and sunset →</a></p>
@@ -771,7 +776,7 @@ const howCard = `  <details class="card dn-instructions" id="instructions">
 const lessonHowCard = `  <details class="card dn-instructions" id="instructions">
     <summary>Earth’s Tilt, the Sun &amp; Seasons Instructions</summary>
     <div class="dn-instructions-body">
-      <p>These are three views of one instant, not three separate models. Move any slider, press any seasonal button, or press Play under any view and all three update together.</p>
+      <p>These are three views of one instant, not three separate models. Use the shared timeline, choose a solstice or equinox, or press Play year. All three diagrams and the daylight comparison update to that same date. Open Date &amp; speed to choose an exact UTC time or another year.</p>
       <div class="wc-facts">
         <div class="wc-frow"><span>Day &amp; Night Map</span><b>Shows the result: which places receive daylight, twilight, or night.</b></div>
         <div class="wc-frow"><span>Angle of the Sun</span><b>Shows the mechanism: the overhead Sun moves between the tropics as Earth’s tilted axis changes its lean toward the Sun.</b></div>
@@ -784,11 +789,11 @@ const lessonHowCard = `  <details class="card dn-instructions" id="instructions"
 
 /* ---- the side view: original drawing, short caption, jump controls -------- */
 const sideCard = `  <div class="card dn-side-card" id="sun-angle">
-    <h2>${ico("globe")} Angle of the Sun Based on the Time of the Year</h2>
+    <h2>${ico("globe")} 2. Sunlight angle</h2>
     <p class="dn-side-intro">This view turns Earth sideways so the cause of the seasons is easier to see. Earth’s axis keeps its ${n1(TILT)}° tilt while the direction toward the Sun changes through the orbit. The yellow centre line lands at the subsolar point, moving between the two tropics as the year passes.</p>
     <div class="dns-wrap" id="dn-side">${sideView(SS.dec, TILT)}</div>
-${timelineControl("dn-angle", "dn-view-side")}
-${jumpRow("dn-tools dn-tools-side", false)}
+
+    <p class="dn-cue">The overhead Sun moves between the tropics. Earth’s tilt stays the same.</p><a class="dn-back-controls" href="#dn-controls">Change the shared date ↑</a>
     <p class="dns-cap" id="dn-side-cap">${sideCapText(SS.dec, TILT, "now", NOW)}</p>
     <div class="dn-side-support">
     <p>The two dashed chords are the tropics, at ±${n1(TILT)}°. They are the tilt written on the surface. Jump the map to a solstice and watch the yellow line stop there.</p>
@@ -804,10 +809,10 @@ ${jumpRow("dn-tools dn-tools-side", false)}
    carried around the Sun, with the Moon included so a shared eclipse date can
    reveal all three bodies in the same model. */
 const systemCard = `  <div class="card dn-year-card" id="earth-sun-moon-year">
-    <h2>${ico("earthmoon")} Earth, the Sun &amp; the Moon Through One Year</h2>
+    <h2>${ico("earthmoon")} 3. Earth’s orbit</h2>
     <div class="sys-figwrap dn-system-wrap">${SYSTEM_SVG}</div>
-${timelineControl("dn-year", "dn-view-year")}
-${jumpRow("dn-tools dn-tools-year", false)}
+
+    <p class="dn-cue">Follow the white axis: it keeps pointing the same way all year. Sizes and distances are not to scale.</p><a class="dn-back-controls" href="#dn-controls">Change the shared date ↑</a>
     <p class="dn-system-meta"><span>The orbital plane is viewed at ${SYSTEM_VIEW_DEG}°. Earth’s axial tilt remains ${n1(TILT)}°.</span></p>
     <p class="hint dn-system-note">This wider view answers the missing question: where is Earth in its orbit while the daylight pattern changes? The same instant drives all three simulators. Sizes and distances are compressed to fit. The Moon’s real ${ORBIT_TILT}° orbital tilt is drawn at ${SYS_INC_DRAWN}° so a near miss — or an eclipse alignment — is easier to see. <a href="${SYS_PATH}">Open the full Earth–Sun–Moon simulator →</a></p>
   </div>
@@ -837,9 +842,9 @@ ${STRETCH_ROWS.map((lat) => `      <div class="wc-frow"><span>${lat === 0 ? "At 
 const tryCard = `  <div class="card" id="things-to-try">
     <h2>${ico("classroom")} Things to Try</h2>
     <ul class="facts">
-      <li><strong>Read one date three ways.</strong> Choose the summer solstice. The map shows longer northern daylight, the side view puts the overhead Sun at the Tropic of Cancer, and the orbit view shows the north end of Earth leaning toward the Sun. Those are three consequences of the same geometry.</li>
-      <li><strong>Swap the hemispheres.</strong> Move from the summer solstice to the winter solstice. Watch what reverses and what does not. Earth’s axial tilt keeps the same size and direction; which hemisphere leans into the sunlight changes.</li>
-      <li><strong>Find the balance points.</strong> Compare the spring and fall equinoxes. The day/night boundary runs through both poles and the overhead Sun crosses the equator, yet Earth is on opposite sides of its orbit.</li>
+      <li><strong>Read one date three ways.</strong> Choose the June solstice. The map shows longer northern daylight, the side view puts the overhead Sun at the Tropic of Cancer, and the orbit view shows the north end of Earth leaning toward the Sun. Those are three consequences of the same geometry.</li>
+      <li><strong>Swap the hemispheres.</strong> Move from the June solstice to the December solstice. Watch what reverses and what does not. Earth’s axial tilt keeps the same size and direction; which hemisphere leans into the sunlight changes.</li>
+      <li><strong>Find the balance points.</strong> Compare the March and September equinoxes. The day/night boundary runs through both poles and the overhead Sun crosses the equator, yet Earth is on opposite sides of its orbit.</li>
       <li><strong>Test the distance myth.</strong> In the orbit view, compare where Earth is in June and in December with the season in each hemisphere. The whole planet is at one distance from the Sun on any given day, yet the two hemispheres have opposite seasons, so distance cannot be the switch. Earth is in fact slightly closer to the Sun in early January, a small effect that the tilt swamps.</li>
       <li><strong>Follow the overhead Sun.</strong> Press Play and watch the yellow point move between the tropics. It never crosses them because their latitude is Earth’s ${n1(TILT)}° axial tilt written onto the globe.</li>
       <li><strong>Look for an eclipse alignment.</strong> Open a known eclipse date with the year, date, and time URL variables. The Moon can line up with the Sun and Earth, but it does not change Earth’s seasons—the axial tilt and annual orbit do.</li>
@@ -866,12 +871,52 @@ const pageTabs = `  <nav class="home-tabs sec-switch dn-tabs" aria-label="Explor
     <a class="chip home-tab" href="#earth-sun-moon-year">Earth, Sun &amp; Moon</a>
     <a class="chip home-tab" href="#things-to-try">Things to Try</a>
     <a class="chip home-tab" href="#questions-answered">Questions Answered</a>
-    <span class="dn-view-toggle">${viewSelect("dn-view-tabs")}</span>
   </nav>`;
 
-const simulatorPair = `${mapControls(true)}  <div class="dn-sim-pair">
-${simCard({ heading: true, view: true, controlsInside: false })}${sideCard}${systemCard}
+const sharedControls = `  <section class="dn-shared-controls" id="dn-controls" aria-label="Shared controls for all three simulators">
+    <div class="dn-control-head"><div><strong>One date. Three views.</strong><span class="dn-control-hint">Move the timeline and watch all three change together.</span></div>${viewSelect("dn-view-shared")}</div>
+    <div class="dn-shared-playback">
+      <button type="button" class="chip dn-play" data-dn-play aria-pressed="false" hidden>Play year</button>
+      <button type="button" class="chip" data-dn-jump="now" disabled>Now</button>
+      <time data-dn-showing>${dayName(NOW)}, ${CURRENT_YEAR}</time>
+    </div>
+    <div class="dn-timeline" data-dn-timeline="dn-shared" data-dn-step-min="${STEP_MIN}">
+      <div class="dn-slider-row">
+        <button type="button" class="chip dn-step" data-dn-step-dir="-1" disabled aria-label="Move back one day">&lt;</button>
+        <div class="dn-year-track"><input type="range" class="orr-slider" id="dn-shared-slider" data-dn-slider min="0" max="${SPAN_MIN-1}" step="1" value="0" disabled aria-label="Shared date for all three simulators"><div class="dn-months" aria-hidden="true"><span>Jan</span><span>Apr</span><span>Jul</span><span>Oct</span><span>Dec</span></div></div>
+        <button type="button" class="chip dn-step" data-dn-step-dir="1" disabled aria-label="Move forward one day">&gt;</button>
+      </div>
+    </div>
+    <div class="dn-season-row"><span>Jump to</span><div class="dn-tools">
+      ${jumpBtn("mar", "March equinox")}${jumpBtn("jun", "June solstice")}${jumpBtn("sep", "September equinox")}${jumpBtn("dec", "December solstice")}
+    </div></div>
+    <details class="dn-date-settings"><summary>Date &amp; speed</summary><div class="dn-date-fields">
+      <label for="dn-date">Date (UTC)<input id="dn-date" type="date" min="1800-01-01" max="2200-12-31" disabled></label>
+      <label for="dn-time">Time (UTC)<input id="dn-time" type="time" step="60" disabled></label>
+      <label for="dn-speed">Playback speed<select id="dn-speed" disabled><option value="0.5">Slow · 4 min / year</option><option value="1" selected>Normal · 2 min / year</option><option value="2">Fast · 1 min / year</option></select></label>
+    </div><p id="dn-date-error" role="status"></p></details>
+    <noscript><p>Enable JavaScript to move the date. The diagrams below show the page’s build date.</p></noscript>
+  </section>`;
+const bakedQuarter = NOW < YEAR.up ? 3 : NOW < YEAR.maxMs ? 0 : NOW < YEAR.down ? 1 : NOW < YEAR.minMs ? 2 : 3;
+const seasonComparison = `  <section class="dn-season-comparison" aria-label="Compare the hemispheres">
+    <div><span>Northern Hemisphere</span><strong id="dn-north-season">${["Spring","Summer","Autumn","Winter"][bakedQuarter]}</strong></div>
+    <div><span>Southern Hemisphere</span><strong id="dn-south-season">${["Autumn","Winter","Spring","Summer"][bakedQuarter]}</strong></div>
+    <div><span>Sun directly overhead</span><strong id="dn-overhead">${n1(SS.dec)}°</strong></div>
+    <p id="dn-observe">Earth’s axis keeps pointing the same way as Earth orbits the Sun.</p>
+  </section>`;
+const simulatorPair = `${sharedControls}${seasonComparison}  <div class="dn-sim-pair">
+${simCard({ heading: true, controlsInside: false })}${sideCard}${systemCard}
   </div>
+  <section class="card dn-evidence" id="why-seasons">
+    <h2>What does that mean on the ground?</h2>
+    <p>Compare two places equally far from the equator. Longer days give the ground more time to warm up. A higher midday Sun concentrates its light on a smaller area.</p>
+    <div class="dn-evidence-table"><table><thead><tr><th>Example latitude</th><th>Daylight</th><th>Midday Sun above horizon</th></tr></thead><tbody>
+      <tr><th>45° north</th><td id="dn-north-day">${daylightWords(daylightHours(45,SS.dec))}</td><td id="dn-north-angle">${n1(90-Math.abs(45-SS.dec))}°</td></tr>
+      <tr><th>45° south</th><td id="dn-south-day">${daylightWords(daylightHours(-45,SS.dec))}</td><td id="dn-south-angle">${n1(90-Math.abs(-45-SS.dec))}°</td></tr>
+    </tbody></table></div>
+    <p class="hint">Approximate geometry for a level horizon, without atmospheric refraction. Seasons shown are astronomical seasons; local weather and tropical wet/dry seasons vary.</p>
+    <details><summary>Try it: can distance explain opposite seasons?</summary><p>Predict which place gets more daylight in June. Choose June solstice, then December solstice. Both places are on the same planet at the same distance from the Sun. Their daylight and Sun angles change in opposite directions because of Earth’s tilt.</p><p>Earth’s real orbit is slightly elliptical, with its closest approach in early January. The orbit drawing here uses a circle and enlarged bodies for clarity; it cannot measure that distance change. <a href="https://spaceplace.nasa.gov/seasons/">NASA: what causes the seasons?</a></p></details>
+  </section>
 `;
 
 const mapPage = `<!DOCTYPE html>
@@ -926,7 +971,7 @@ ${GA_SNIPPET}
 <div class="wrap wrap-wide dn-lesson-page dn-view-compact dn-lite">
   ${brand()}
   <h1>Earth’s Tilt, the Sun &amp; Seasons</h1>
-  <p class="sub dn-page-intro">Earth’s ${n1(TILT)}° axial tilt changes both the angle of sunlight and how long the Sun stays above the horizon. These three synchronized views connect that tilt to daylight, solstices, equinoxes, and the opposite seasons in the Northern and Southern Hemispheres.</p>
+  <p class="sub dn-page-intro">Why is it summer in one half of Earth and winter in the other? Earth’s ${n1(TILT)}° tilt changes the angle of sunlight and the length of the day. Choose a date to see the connection.</p>
 ${pageTabs}
 
 ${simulatorPair}  <div class="dn-lesson-sections" id="dn-lesson-details">

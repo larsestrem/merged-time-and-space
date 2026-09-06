@@ -963,62 +963,90 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-system-meta span{color:var(--muted)}
 .dn-system-note{margin:8px 0 0;line-height:1.5}
 
-/* THREE VIEWS OF ONE PAGE, chosen by the select under the map. The wrap
-   carries dn-view-compact | dn-view-normal | dn-view-full, plus dn-lite on the
-   two that are not full. Compact: the three simulators alone, one slider and
-   one season row under the map, the select once — so all three sit on one
-   screen and the relationship between them is what is on show. Normal: each
-   view gets its own slider and season row back, plus Things to Try and the
-   questions. Full: everything. */
-.dn-lite .dn-page-intro{display:none}
-.dn-view-compact .dn-tabs{display:none}
+/* One shared control panel stays in the same place in every reading mode. */
+.dn-lesson-page .dn-tabs{font-size:13px;margin-bottom:12px}
+.dn-view-compact .dn-tabs,.dn-view-compact .dn-page-intro{display:none}
 .dn-compact-sections{display:contents}
 .dn-view-compact .dn-lesson-sections{display:none}
 .dn-view-normal .dn-lesson-sections>:not(.dn-compact-sections){display:none}
-.dn-view-compact .dn-side-card .dn-timeline,.dn-view-compact .dn-year-card .dn-timeline,
-.dn-view-compact .dn-tools-side,.dn-view-compact .dn-tools-year{display:none}
-/* COMPACT IS THE CONTROLS, THEN THREE PICTURES. The control block sits above
-   the grid (the script moves it there), the cards lose their titles and their
-   frames, and the pictures sit 6px apart — so the three fit one screen and
-   read as one instrument rather than three articles. */
-.dn-view-compact .dn-controls{margin:0 0 6px}
-.dn-view-compact .dn-controls .dn-timeline{margin:6px 0 2px}
-.dn-view-compact .dn-controls .dn-tools-main{margin:2px 0 0}
-.dn-lesson-page.dn-view-compact .dn-sim-pair{gap:6px}  /* outranks the 14px lesson gap below */
-.dn-view-compact .dn-sim-pair>.card{background:none;border:0;border-radius:0;padding:0;box-shadow:none;backdrop-filter:none}
-.dn-view-compact .dn-sim-pair>.card>h2,.dn-view-compact .dn-sim-pair .dn-anchor-target{display:none}
-.dn-view-compact .dn-figwrap,.dn-view-compact .dn-side-card .dns-wrap,.dn-view-compact .dn-system-wrap{margin:0}
-.dn-lesson-page .dn-sim-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  align-items:start;gap:14px}
-.dn-lesson-page .dn-sim-pair>.card{margin:0;min-width:0}
-/* The script measures each card into 7px rows, like the Earth/Time/Space home
-   boards. The third simulator then follows the shorter first-column card
-   instead of inheriting the taller second card's row height. */
-@media(min-width:901px){
-  .dn-lesson-page .dn-sim-pair.dn-mas{grid-auto-rows:7px;row-gap:0}
-  /* Compact is meant to fit on ONE screen: the map (with the only controls)
-     takes the wider column, and the two figures beside it pack into the
-     other. The orbit figure is capped so the pair fits under 900px tall; it
-     is the widest of the three and its bodies are large enough at 480px. */
-  .dn-view-compact .dn-sim-pair{grid-template-columns:1.4fr 1fr}
-  .dn-view-compact .dn-sim-pair.dn-mas{grid-auto-rows:3px}
-}
 .dn-lite .dn-side-intro,.dn-lite .dn-side-support,.dn-lite .dn-map-note{display:none}
-.dn-lite .dn-sunline,.dn-lite .dn-me-line,.dn-lite #dn-loc-msg,.dn-lite .dns-cap,
-.dn-lite .dn-system-meta,.dn-lite .dn-system-note{display:none!important}
-.dn-view-toggle{margin-left:auto}
+.dn-lite .dn-sunline,.dn-lite .dns-cap,.dn-lite .dn-system-meta,.dn-lite .dn-system-note{display:none}
+.dn-lesson-page .dn-sim-pair{display:grid;grid-template-columns:1fr;align-items:start;gap:14px}
+.dn-lesson-page .dn-sim-pair>.card{margin:0;min-width:0;padding:14px;background:rgba(10,12,14,.92);backdrop-filter:none}
+.dn-lesson-page .dn-sim-pair h2{margin:0 0 10px;font-size:18px}
+.dn-cue{margin:10px 0 0;font-size:13px;color:var(--muted);line-height:1.5}
+.dn-back-controls{display:inline-block;font-size:13px;margin-top:8px}
+.dn-shared-controls{padding:14px 18px;margin:14px 0;border:1px solid var(--border);border-radius:14px;background:#101214;z-index:20;scroll-margin-top:12px}
+.dn-control-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.dn-control-head strong{font-size:17px}
+.dn-control-hint{display:block;color:var(--muted);font-size:13px}
+.dn-control-head .dn-view-pick{margin:0;font-size:13px}
+.dn-control-head select{min-height:44px;background:#1b1e21}
+.dn-shared-playback{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.dn-shared-playback .chip{min-height:44px;width:auto}
+.dn-shared-playback .dn-play{background:var(--accent);color:var(--accent-text);font-weight:800;min-width:100px}
+.dn-shared-playback .dn-play[aria-pressed="true"]{color:var(--accent-text)}
+.dn-shared-playback time{font-size:14px;font-variant-numeric:tabular-nums;color:var(--text);margin-left:4px}
+.dn-shared-controls .dn-timeline{margin:2px 0 0}
+.dn-shared-controls .dn-slider-row{grid-template-columns:44px minmax(0,1fr) 44px;gap:10px;margin:0}
+.dn-shared-controls .dn-step{width:44px;height:44px}
+.dn-year-track{min-width:0}
+.dn-year-track .orr-slider{display:block;width:100%;height:32px;margin:0;accent-color:var(--accent)}
+.dn-months{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:-4px}
+.dn-season-row{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:13px}
+.dn-season-row>span{white-space:nowrap;color:var(--muted)}
+.dn-season-row .dn-tools{justify-content:flex-start;gap:6px;margin:0}
+.dn-season-row .chip{width:auto;min-height:40px;font-size:13px;padding:8px 12px}
+.dn-date-settings{margin-top:8px;font-size:13px}
+.dn-date-settings summary{cursor:pointer;color:var(--accent);min-height:28px;padding:4px 0}
+.dn-date-fields{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.dn-date-fields label{display:flex;flex-direction:column;gap:4px;margin:0;min-width:0;font-size:13px}
+.dn-date-fields input,.dn-date-fields select{font:inherit;min-height:44px;background:#1b1e21;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:6px 10px;color-scheme:dark;max-width:100%}
+#dn-date-error:empty{display:none}
+.dn-season-comparison{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 16px;margin:14px 0}
+.dn-season-comparison>div{border-left:2px solid var(--accent);padding-left:10px}
+.dn-season-comparison span{display:block;font-size:12px;color:var(--muted)}
+.dn-season-comparison strong{display:block;font-size:19px;font-variant-numeric:tabular-nums}
+.dn-season-comparison p{grid-column:1/-1;margin:4px 0;font-size:14px}
+.dn-evidence h2{margin-top:0}
+.dn-evidence-table{overflow-x:auto}
+.dn-evidence table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;text-align:left}
+.dn-evidence th,.dn-evidence td{padding:10px;border-bottom:1px solid var(--border)}
+.dn-evidence th{font-size:13px}
+.dn-evidence td{color:var(--accent);font-weight:700}
+.dn-evidence summary{cursor:pointer;color:var(--accent);padding:8px 0}
 .dn-more-lesson{text-align:center;margin:14px 0 0;font-weight:700}
 .dn-faq{border-top:1px solid var(--border);padding:10px 0}
 .dn-faq:first-of-type{border-top:0}
 .dn-faq summary{cursor:pointer;font-weight:750}
 .dn-faq p{margin:8px 0 0;color:var(--muted)}
-@media(max-width:900px){
-  .dn-lesson-page .dn-sim-pair{grid-template-columns:1fr}
+@media(min-width:901px){
+  .dn-lesson-page .dn-sim-pair{grid-template-columns:1.15fr 1fr 1fr}
+  .dn-shared-controls{position:sticky;top:8px;box-shadow:0 8px 24px #0009}
+  .dn-lesson-page [id]{scroll-margin-top:300px}
+  .dn-back-controls{display:none}
 }
+@media(max-width:600px){
+  .dn-shared-controls{padding:12px}
+  .dn-control-head{align-items:flex-start}
+  .dn-control-head strong{font-size:15px}
+  .dn-control-hint{font-size:12px;max-width:26ch}
+  .dn-control-head .dn-view-pick{display:flex;flex-direction:column;gap:2px;align-items:flex-start}
+  .dn-shared-playback time{flex-basis:100%;margin:2px 0 0;font-size:13px}
+  .dn-season-row{display:block}
+  .dn-season-row>span{display:none}
+  .dn-season-row .dn-tools{display:grid;grid-template-columns:1fr 1fr}
+  .dn-season-row .chip{padding:7px;font-size:12px;min-height:44px}
+  .dn-season-comparison{gap:8px}
+  .dn-season-comparison strong{font-size:16px}
+  .dn-season-comparison span{font-size:11px}
+  .dn-evidence th,.dn-evidence td{padding:8px 5px}
+  .dn-date-fields label{flex:1 1 125px}
+}
+html.pj .dn-shared-controls,html.pj .dn-lesson-page .dn-sim-pair>.card{background:#000}
 @media(max-width:520px){
-  .dn-slider-row,.dn-slider-row.has-view{grid-template-columns:auto minmax(0,1fr) auto}
-  .dn-slider-row .dn-play{grid-column:1/-1;width:100%}
-  .dn-slider-row>.dn-view-pick{grid-column:1/-1;justify-content:center}
+  .dn-map-page .dn-slider-row{grid-template-columns:auto minmax(0,1fr) auto}
+  .dn-map-page .dn-slider-row .dn-play{grid-column:1/-1;width:100%}
 }
 .dn-me-line{margin:4px 0 10px;font-size:14.5px}
 
