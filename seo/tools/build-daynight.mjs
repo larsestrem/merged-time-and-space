@@ -595,8 +595,19 @@ for(var eb=0;eb<eclipseBtns.length;eb++){
     var ms=Date.parse(this.getAttribute('data-dn-eclipse'));
     stop();SELECTED='';TRACK_NOW=0;setYearRange(yearOf(ms),ms);
     syncJumpState();spanLab();writeExactUrl(AT);paint();
-    var controls=document.getElementById('dn-controls');
-    if(controls)controls.scrollIntoView({behavior:'smooth',block:'start'});
+    /* A sticky toolbar is already in view, so scrolling to it does nothing.
+       Bring the updated map below the toolbar, including mobile safe areas. */
+    var map=document.getElementById('day-night-map'),controls=document.getElementById('dn-controls');
+    if(map){
+      if(controls){
+        var inset=parseFloat(window.getComputedStyle(controls).top)||0;
+        map.style.scrollMarginTop=Math.ceil(controls.getBoundingClientRect().height+Math.max(0,inset)+12)+'px';
+      }
+      replaceUrl(function(u){u.hash='day-night-map';});
+      map.setAttribute('tabindex','-1');map.focus({preventScroll:true});
+      var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      map.scrollIntoView({behavior:reduced?'instant':'smooth',block:'start'});
+    }
   });
 }
 var eclipseExamples=document.getElementById('dn-next-eclipses');

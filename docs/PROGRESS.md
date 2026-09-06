@@ -12673,3 +12673,13 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
 - Added the next two solar/lunar eclipse date buttons under Things to Try, synchronized across all three views and filtered against the visitor’s actual clock. NASA catalogue dates cover 2027–2030; refresh before 2031.
 - Verified and linked the existing eclipse concept and lunar-eclipse hub. The lesson explains that these are approximate body alignments, not local eclipse visibility or shadow predictions.
 - Validation: rendered the favicon at native tab sizes and the orbit at seasonal/eclipse dates; checked 365 days for finite geometry, frame bounds and ring continuity, and exercised actual eclipse handlers for year/date and upcoming-date rollover. Full build and required date/link checks run before release completion.
+
+
+## 2026-09-06 — Eclipse buttons reveal the updated day/night map
+
+- Fixed the eclipse buttons scrolling to the already-visible sticky toolbar, which gave visitors no visible movement.
+- Both solar and lunar selections now update the shared clock, then jump directly to the day/night map in every layout.
+- Measure the toolbar height and safe-area inset so it cannot cover the map’s top when the jump finishes.
+- Move keyboard focus to the map without a second scroll; respect reduced-motion preferences and update the URL anchor for sharing.
+- Files: seo/tools/build-daynight.mjs and this log.
+- Validation: exercised the actual handler with desktop/mobile toolbar sizes, a safe-area inset and reduced motion; verified date updates occur before map navigation. Full site build and deployed source checks run before completion.
