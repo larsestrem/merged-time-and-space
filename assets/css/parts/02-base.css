@@ -8,10 +8,12 @@
 html,body{margin:0;padding:0}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  /* faint themed motif tiled over the gradient (both fixed) */
+  /* Quiet, cached star field; black is the fallback before the image loads. */
+  background-color:#000;
   background-image:var(--motif,none),var(--bg);
   background-size:var(--motif-size,200px),cover;
   background-repeat:repeat,no-repeat; background-attachment:fixed;
+  background-position:center, right bottom;
   color:var(--text); min-height:100vh; line-height:1.5; -webkit-font-smoothing:antialiased;
 }
 a{color:var(--accent)}
@@ -489,3 +491,9 @@ textarea{resize:vertical;min-height:64px}
   .lp-blank,.lp-blank-wide{border-color:#111}
   .lp-blank-wide{background:repeating-linear-gradient(to bottom,transparent,transparent 1.5em,#777 1.55em)}
 }
+
+/* Static Earth home button: explicit dimensions prevent header movement. */
+a.brand-dd .logo{width:48px;height:48px;border-radius:50%;object-fit:contain}
+a.brand-dd:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+html.pj body{background-image:none;background-color:#000}

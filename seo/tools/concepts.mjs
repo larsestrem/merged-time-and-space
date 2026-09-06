@@ -167,11 +167,17 @@ function teaserFor(c, hubPath) {
   return first.length >= 24 ? first : full;
 }
 
+export function conceptLearningPath(slug, hubPath = "") {
+  return slug === "why-do-we-have-seasons" && hubPath !== "/earth-tilt-sun-seasons/"
+    ? "/earth-tilt-sun-seasons/" : `/concepts/${slug}/`;
+}
+
 function teaserLi(c, hubPath, used) {
   let hid = teaserAnchor(c, hubPath);
   if (used.has(hid)) hid = c.slug;
   used.add(hid);
-  return `<li id="${esc(hid)}"><p><a href="/concepts/${esc(c.slug)}/">${esc(c.question)}</a> ${esc(teaserFor(c, hubPath))}</p></li>`;
+  const href = conceptLearningPath(c.slug, hubPath);
+  return `<li id="${esc(hid)}"><p><a href="${esc(href)}">${esc(c.question)}</a> ${esc(teaserFor(c, hubPath))}</p></li>`;
 }
 
 /* ---- graphics: the live-site drawings, baked at the current instant ------ */

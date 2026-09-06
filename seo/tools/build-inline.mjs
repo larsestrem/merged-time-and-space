@@ -1041,29 +1041,10 @@ function stripTitleBrand(html) {
   return html.replace(/(<title>[\s\S]*?)\s*\|\s*Alarm-clock\.org(\s*<\/title>)/i, "$1$2");
 }
 
-/* Brand logo — a self-contained alarm-clock SVG used in place of the
- * "timeandspace.science" wordmark in the top-left. Fixed colours so it reads on any
- * theme/background. The link keeps a visually-hidden wordmark for SEO + a11y. */
-const LOGO_SVG =
-  '<svg class="logo" viewBox="0 0 200 200" width="48" height="48" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">' +
-  '<path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#2A3B4C" stroke-width="6" stroke-linecap="round"/>' +
-  '<path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#D6AF5C" stroke-width="2" stroke-linecap="round"/>' +
-  '<path d="M 97 40 V 30 H 90 C 88 30, 88 22, 90 22 H 110 C 112 22, 112 30, 110 30 H 103 V 40 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/>' +
-  '<path d="M 60 160 L 50 185 L 60 185 L 75 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/>' +
-  '<path d="M 140 160 L 150 185 L 140 185 L 125 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/>' +
-  '<circle cx="100" cy="105" r="65" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/>' +
-  '<circle cx="100" cy="105" r="57" fill="#F4EED1" stroke="#2A3B4C" stroke-width="2.5"/>' +
-  '<g transform="translate(54.5, 54.5) rotate(-42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g>' +
-  '<g transform="translate(145.5, 54.5) rotate(42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g>' +
-  '<g fill="#2A3B4C"><circle cx="100" cy="63" r="3.4"/><circle cx="121" cy="69" r="3"/><circle cx="136.4" cy="84" r="3"/><circle cx="142" cy="105" r="3"/><circle cx="136.4" cy="126" r="3"/><circle cx="121" cy="141" r="3"/><circle cx="100" cy="147" r="3"/><circle cx="79" cy="141" r="3"/><circle cx="63.6" cy="126" r="3"/><circle cx="58" cy="105" r="3"/><circle cx="63.6" cy="84" r="3"/><circle cx="79" cy="69" r="3"/></g>' +
-  '<line x1="100" y1="105" x2="130" y2="75" stroke="#C04A41" stroke-width="4" stroke-linecap="round"/>' +
-  '<line x1="100" y1="105" x2="73" y2="90" stroke="#C04A41" stroke-width="5" stroke-linecap="round"/>' +
-  '<circle cx="100" cy="105" r="5" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/>' +
-  '</svg>';
-/* Use the same clock logo as the favicon: write it to /favicon.svg (a clean
- * standalone SVG, sans the in-page class/aria attributes). */
-await writeFile(path.join(root, "favicon.svg"),
-  LOGO_SVG.replace('class="logo" ', '').replace(' width="48" height="48"', '').replace(' aria-hidden="true" focusable="false"', ''));
+/* Static Earth image is shared by every home button. Keep a small vector
+ * Earth favicon for browsers, and raster variants for bookmarks/metadata. */
+const BRAND_LOGO = '<img class="logo" src="/assets/img/earth-home.webp" width="48" height="48" alt="" decoding="async">';
+await writeFile(path.join(root, "favicon.svg"), faviconSvg("globe"));
 /* ---- THE LOGO IS THE SECTION MENU ---------------------------------------
  * The home page is four tabs — Time, Earth, Space, Classroom — and until now
  * the only way to reach one was to land on the home page and press a tab.
@@ -1091,7 +1072,7 @@ await writeFile(path.join(root, "favicon.svg"),
    above), and the mark does what every reader expects a mark to do. */
 const BRAND_DD =
   `<a class="brand-dd brand-home" href="/" aria-label="Time and Space Science home">`
-  + `${LOGO_SVG}<span class="visually-hidden">Time and Space Science — home</span></a>`;
+  + `${BRAND_LOGO}<span class="visually-hidden">Time and Space Science — home</span></a>`;
 
 /* ---- THE WORDMARK -------------------------------------------------------
  * The domain, set so a run-together string reads as words: capitals at each
@@ -1232,6 +1213,11 @@ for (const rel of HTML) {
   html = injectSiteLinks(html, rel);  /* About + countdown links (per page type) + trademark line */
   html = injectCopyright(html);       /* © line under every footer */
   html = injectSuggestBox(html, rel); /* "share an idea" box above the footer */
+  /* Seasons explanations open the coordinated lesson. Its own onward link
+     retains the focused written article, which keeps its canonical URL. */
+  if (rel !== "earth-tilt-sun-seasons/index.html" && rel !== "concepts/why-do-we-have-seasons/index.html") {
+    html = html.replaceAll('href="/concepts/why-do-we-have-seasons/"', 'href="/earth-tilt-sun-seasons/"');
+  }
   html = injectPauses(html, rel);       /* the classroom and message-form pauses — see site-flags.mjs */
   html = injectPrivacyNotice(html);   /* GDPR/CCPA notice, shown only to qualifying visitors */
 

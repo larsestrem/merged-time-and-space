@@ -69,12 +69,10 @@ function motifVar(key) {
 }
 
 function decls(t) {
-  const v = [`--bg:linear-gradient(160deg,${t.bg[0]},${t.bg[1]})`, `--accent:${t.accent}`, `--text:${t.text}`];
+  const v = ['--bg:url("/assets/img/starfield.webp")', `--accent:${t.accent}`, `--text:${t.text}`];
   if (t.at) v.push(`--accent-text:${t.at}`);
-  /* a theme with motif:null wants a clean background — set --motif:none so it
-   * overrides the generic motif inherited from :root rather than falling back to it */
-  if (t.motif) { const mo = motifVar(t.motif); v.push(`--motif:${mo.url}`); v.push(`--motif-size:${mo.size}px`); }
-  else v.push(`--motif:none`);
+  // Topic accents remain; every page shares the quiet astronomical background.
+  v.push('--motif:none');
   return v.join(";");
 }
 /* legacy theme-id aliases: keep old shared links (e.g. ?theme=newyear) rendering

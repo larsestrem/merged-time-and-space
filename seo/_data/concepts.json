@@ -7,7 +7,7 @@
     "teasers": {
       "/": "The dashed gold line north of the equator on the map above — the Sun never stands overhead north of it.",
       "/earth/": "The northern edge of the band where a flagpole can have no shadow.",
-      "/earth-tilt-sun-seasons/": "The upper dashed chord in the side view. Press Summer solstice and the yellow centre line stops exactly on it, {tilt}° north — the Sun never stands overhead beyond that."
+      "/earth-tilt-sun-seasons/": "The upper dashed chord in the side view. Press June solstice and the yellow centre line stops exactly on it, {tilt}° north — the Sun never stands overhead beyond that."
     },
     "ledeHtml": "The Tropic of Cancer is the circle at {tilt}° north. This circle is where the Sun stands <a href=\"/concepts/what-is-the-subsolar-point/\">straight overhead</a> — a flagpole there would cast no shadow — on the <a href=\"/concepts/why-do-we-have-seasons/\">summer solstice</a>, around {juneSolstice}. That is the longest day of the year in the north. The Sun is never straight overhead anywhere north of this line. The number {tilt}° is <a href=\"/concepts/what-is-earths-axial-tilt/\">Earth’s tilt</a>.",
     "title": "What Is the Tropic of Cancer?",
@@ -126,7 +126,7 @@
       }
     ],
     "teasers": {
-      "/earth-tilt-sun-seasons/": "The lower dashed chord. Press Winter solstice and the centre line stops there instead, {tilt}° south — the same lean, six months on."
+      "/earth-tilt-sun-seasons/": "The lower dashed chord. Press December solstice and the centre line stops there instead, {tilt}° south — the same lean, six months on."
     }
   },
   {
@@ -573,7 +573,7 @@
       "/": "Not because Earth gets closer to the Sun. Because it leans, and the lean faces a different way as it goes around.",
       "/earth/": "Summer is the hemisphere leaned into the light — the orbit view above is that lean, running.",
       "/space/": "Earth is not the only world that leans. The tilt is the season machine, and it is drawn here too.",
-      "/earth-tilt-sun-seasons/": "In the orbit view Earth is no nearer the Sun in June than in December. What changes is which hemisphere leans into the light, and the map shows that hemisphere keeping more of each day."
+      "/earth-tilt-sun-seasons/": "Both hemispheres share the same distance from the Sun, yet have opposite seasons. The tilted hemisphere facing the Sun receives more direct sunlight and longer days."
     },
     "title": "Why Do We Have Seasons?",
     "description": "Seasons are the tilt, not the distance. Earth’s axis leans 23.4° and holds still, so each hemisphere takes a turn leaning into the sunlight.",
@@ -2542,7 +2542,7 @@
       }
     ],
     "teasers": {
-      "/earth-tilt-sun-seasons/": "Press Summer solstice and read all three views at once: the overhead Sun at its northern limit, the north pole in daylight all the way round, and Earth at the June end of its orbit."
+      "/earth-tilt-sun-seasons/": "Press June solstice and read all three views at once: the overhead Sun at its northern limit, the north pole in daylight all the way round, and Earth at the June end of its orbit."
     }
   },
   {
