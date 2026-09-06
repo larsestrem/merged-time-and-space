@@ -972,7 +972,7 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-lite .dn-side-intro,.dn-lite .dn-side-support,.dn-lite .dn-map-note{display:none}
 .dn-lite .dn-sunline,.dn-lite .dns-cap,.dn-lite .dn-system-meta,.dn-lite .dn-system-note{display:none}
 .dn-lesson-page .dn-sim-pair{display:grid;grid-template-columns:1fr;align-items:start;gap:14px}
-.dn-lesson-page .dn-sim-pair>.card{margin:0;min-width:0;padding:14px;background:rgba(10,12,14,.92);backdrop-filter:none}
+.dn-lesson-page .dn-sim-pair>.card{margin:0;min-width:0;padding:14px;background:var(--card);backdrop-filter:none}
 .dn-lesson-page .dn-sim-pair h2{margin:0 0 10px;font-size:18px}
 .dn-cue{margin:10px 0 0;font-size:13px;color:var(--muted);line-height:1.5}
 .dn-back-controls{display:inline-block;font-size:13px;margin-top:8px}
