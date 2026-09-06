@@ -76,8 +76,9 @@
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://api.tidesandcurrents.noaa.gov https://geocoding-api.open-meteo.com https://api.bigdatacloud.net https://static.cloudflareinsights.com https://cloudflareinsights.com; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
 
 # Section tabs must not keep an obsolete page layout in a browser cache.
-# The zone currently raises max-age=0 to four hours. Explicit no-cache still
-# requires browser revalidation; Cloudflare keeps its own five-minute cache.
+# Intended origin policy: revalidate in browsers; cache at Cloudflare for five minutes.
+# Verified 2026-09-06: the custom-domain zone overrides even explicit no-cache.
+# Its Browser TTL/cache response rule must respect origin headers for this to apply.
 # These rules add no-cache to the shared HTML Cache-Control directives above.
 /time/
   Cache-Control: no-cache

@@ -12704,3 +12704,4 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
 - This is scoped to the tabbed hubs; content-hashed scripts and image cache policies are unaffected. An already-cached document still needs its first reload before receiving the new policy.
 - Files: _headers and this log.
 - Validation: full build, existing heading/navigation checks and post-deploy response headers; no browser-cache purge or account setting change is claimed.
+- Post-deploy result: all four live hubs have no H1 or breadcrumb and retain their tabs; full build and deployed checks passed. The custom domain still strips no-cache and sends max-age=14400, while the Pages origin preserves no-cache on an existing service-worker rule. The origin policy is committed, but correcting the zone Browser TTL/cache response override requires Cloudflare account access; the browser-cache issue is not resolved by this commit.
