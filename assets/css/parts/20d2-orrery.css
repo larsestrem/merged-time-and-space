@@ -994,7 +994,6 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 .dn-season-row .dn-tools{display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:4px;margin:0}
 .dn-season-row .chip{width:auto;min-width:0;min-height:40px;font-size:14px;line-height:1.15;padding:6px 10px;white-space:nowrap}
 .dn-season-row .chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--card)}
-.dn-month-short{display:none}
 .dn-date-settings{font-size:14px}
 .dn-date-settings[open]{flex-basis:100%}
 .dn-date-settings summary{cursor:pointer;color:var(--accent);min-height:28px;padding:4px 0}
@@ -1033,12 +1032,19 @@ a.sys-vlad-tile:hover,a.sys-vlad-tile:focus-visible{border-color:var(--accent)}
 @media(min-width:901px){
   .dn-lesson-page .dn-sim-pair{grid-template-columns:1.15fr 1fr 1fr}
 }
+@media(max-width:900px){
+  .dn-shared-controls{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:8px}
+  .dn-lesson-page .dn-tabs{display:flex}
+  .dn-lesson-page .dn-tabs .dn-sim-tab{display:none}
+}
 @media(max-width:760px){
   .dn-season-row .dn-tools{display:grid;grid-template-columns:minmax(40px,.65fr) repeat(4,minmax(0,1fr))}
   .dn-season-row .chip{padding:4px 2px;min-height:40px}
-  .dn-month-full{display:none}
-  .dn-month-short,.dn-season-kind{display:block}
+  .dn-season-name,.dn-season-kind{display:block}
   .dn-season-kind{font-size:12px}
+}
+@media(max-width:380px){
+  .dn-season-name{font-size:13px}
 }
 @media(max-width:600px){
   .dn-season-comparison{gap:8px}

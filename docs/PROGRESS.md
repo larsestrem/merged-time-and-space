@@ -12651,3 +12651,14 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
 - Compact hides headings, captions, location text and the comparison/explanation panels; diagram labels and solid dark cards remain, with reduced spacing.
 - Files: seo/tools/build-daynight.mjs, assets/css/parts/20d2-orrery.css and this progress log. Generated pages continue to be rebuilt during deployment.
 - Validation: full npm run build passed; focused checks verified play/pause accessibility, preserved SVG icons, shared control order and generated script syntax. Final responsive CSS passed page composition. No browser layout test was run.
+
+
+## 2026-09-06 — Mobile toolbar surface, seasonal names and lesson tabs
+
+- Mobile sticky controls now use the standard solid card background, border and rounded corners.
+- Restored Spring equinox, Summer solstice, Fall equinox and Winter solstice on the shared buttons, including accessible names and matching lesson instructions.
+- All five shortcuts remain in one row; complete seasonal labels stack on small screens instead of being abbreviated to months.
+- Mobile keeps only Things to Try and Questions Answered tabs, including compact mode; their existing links reveal the lesson sections when needed.
+- Desktop retains the compact sticky progression toolbar. View, current date and Date & speed stay in the separate scrollable block above it on every screen size.
+- Files: seo/tools/build-daynight.mjs, assets/css/parts/20d2-orrery.css and this progress log.
+- Validation: source syntax and scoped diff checks passed. The release runs the full build locally and through CI/Cloudflare, with live markup checked after deployment.

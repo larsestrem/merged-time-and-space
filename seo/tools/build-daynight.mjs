@@ -851,9 +851,9 @@ ${STRETCH_ROWS.map((lat) => `      <div class="wc-frow"><span>${lat === 0 ? "At 
 const tryCard = `  <div class="card" id="things-to-try">
     <h2>${ico("classroom")} Things to Try</h2>
     <ul class="facts">
-      <li><strong>Read one date three ways.</strong> Choose the June solstice. The map shows longer northern daylight, the side view puts the overhead Sun at the Tropic of Cancer, and the orbit view shows the north end of Earth leaning toward the Sun. Those are three consequences of the same geometry.</li>
-      <li><strong>Swap the hemispheres.</strong> Move from the June solstice to the December solstice. Watch what reverses and what does not. Earth’s axial tilt keeps the same size and direction; which hemisphere leans into the sunlight changes.</li>
-      <li><strong>Find the balance points.</strong> Compare the March and September equinoxes. The day/night boundary runs through both poles and the overhead Sun crosses the equator, yet Earth is on opposite sides of its orbit.</li>
+      <li><strong>Read one date three ways.</strong> Choose Summer solstice. The map shows longer northern daylight, the side view puts the overhead Sun at the Tropic of Cancer, and the orbit view shows the north end of Earth leaning toward the Sun. Those are three consequences of the same geometry.</li>
+      <li><strong>Swap the hemispheres.</strong> Move from Summer solstice to Winter solstice. Watch what reverses and what does not. Earth’s axial tilt keeps the same size and direction; which hemisphere leans into the sunlight changes.</li>
+      <li><strong>Find the balance points.</strong> Compare Spring equinox and Fall equinox. The day/night boundary runs through both poles and the overhead Sun crosses the equator, yet Earth is on opposite sides of its orbit.</li>
       <li><strong>Test the distance myth.</strong> In the orbit view, compare where Earth is in June and in December with the season in each hemisphere. The whole planet is at one distance from the Sun on any given day, yet the two hemispheres have opposite seasons, so distance cannot be the switch. Earth is in fact slightly closer to the Sun in early January, a small effect that the tilt swamps.</li>
       <li><strong>Follow the overhead Sun.</strong> Press Play and watch the yellow point move between the tropics. It never crosses them because their latitude is Earth’s ${n1(TILT)}° axial tilt written onto the globe.</li>
       <li><strong>Look for an eclipse alignment.</strong> Open a known eclipse date with the year, date, and time URL variables. The Moon can line up with the Sun and Earth, but it does not change Earth’s seasons—the axial tilt and annual orbit do.</li>
@@ -875,15 +875,15 @@ const faqCard = `  <div class="card" id="season-questions">
 `;
 
 const pageTabs = `  <nav class="home-tabs sec-switch dn-tabs" aria-label="Explore this page">
-    <a class="chip home-tab is-here" href="#day-night-map">Day/Night Map</a>
-    <a class="chip home-tab" href="#sun-angle">Angle of the Sun</a>
-    <a class="chip home-tab" href="#earth-sun-moon-year">Earth, Sun &amp; Moon</a>
+    <a class="chip home-tab dn-sim-tab is-here" href="#day-night-map">Day/Night Map</a>
+    <a class="chip home-tab dn-sim-tab" href="#sun-angle">Angle of the Sun</a>
+    <a class="chip home-tab dn-sim-tab" href="#earth-sun-moon-year">Earth, Sun &amp; Moon</a>
     <a class="chip home-tab" href="#things-to-try">Things to Try</a>
     <a class="chip home-tab" href="#questions-answered">Questions Answered</a>
   </nav>`;
 
 /* Secondary settings scroll away; only the two progression rows stay pinned. */
-const seasonShortcut = (key, month, shortMonth, kind) => `<button type="button" class="chip" data-dn-jump="${key}" disabled aria-label="${month} ${kind}" title="${month} ${kind}"><span class="dn-month-full">${month}</span><span class="dn-month-short" aria-hidden="true">${shortMonth}</span><span class="dn-season-kind"> ${kind}</span></button>`;
+const seasonShortcut = (key, season, kind) => `<button type="button" class="chip" data-dn-jump="${key}" disabled aria-label="${season} ${kind}" title="${season} ${kind}"><span class="dn-season-name">${season}</span><span class="dn-season-kind"> ${kind}</span></button>`;
 const sharedControls = `  <div class="dn-control-options">
     <time data-dn-showing>${dayName(NOW)}, ${CURRENT_YEAR}</time>
     ${viewSelect("dn-view-shared")}
@@ -903,7 +903,7 @@ const sharedControls = `  <div class="dn-control-options">
       </div>
     </div>
     <div class="dn-season-row"><div class="dn-tools">
-      ${jumpBtn("now", "Now")}${seasonShortcut("mar", "March", "Mar", "equinox")}${seasonShortcut("jun", "June", "Jun", "solstice")}${seasonShortcut("sep", "September", "Sep", "equinox")}${seasonShortcut("dec", "December", "Dec", "solstice")}
+      ${jumpBtn("now", "Now")}${seasonShortcut("mar", "Spring", "equinox")}${seasonShortcut("jun", "Summer", "solstice")}${seasonShortcut("sep", "Fall", "equinox")}${seasonShortcut("dec", "Winter", "solstice")}
     </div></div>
     <noscript><p>Enable JavaScript to move the date. The diagrams below show the page’s build date.</p></noscript>
   </section>`;
@@ -925,7 +925,7 @@ ${simCard({ heading: true, controlsInside: false })}${sideCard}${systemCard}
       <tr><th>45° south</th><td id="dn-south-day">${daylightWords(daylightHours(-45,SS.dec))}</td><td id="dn-south-angle">${n1(90-Math.abs(-45-SS.dec))}°</td></tr>
     </tbody></table></div>
     <p class="hint">Approximate geometry for a level horizon, without atmospheric refraction. Seasons shown are astronomical seasons; local weather and tropical wet/dry seasons vary.</p>
-    <details><summary>Try it: can distance explain opposite seasons?</summary><p>Predict which place gets more daylight in June. Choose June solstice, then December solstice. Both places are on the same planet at the same distance from the Sun. Their daylight and Sun angles change in opposite directions because of Earth’s tilt.</p><p>Earth’s real orbit is slightly elliptical, with its closest approach in early January. The orbit drawing here uses a circle and enlarged bodies for clarity; it cannot measure that distance change. <a href="https://spaceplace.nasa.gov/seasons/">NASA: what causes the seasons?</a></p></details>
+    <details><summary>Try it: can distance explain opposite seasons?</summary><p>Predict which place gets more daylight in June. Choose Summer solstice, then Winter solstice. Both places are on the same planet at the same distance from the Sun. Their daylight and Sun angles change in opposite directions because of Earth’s tilt.</p><p>Earth’s real orbit is slightly elliptical, with its closest approach in early January. The orbit drawing here uses a circle and enlarged bodies for clarity; it cannot measure that distance change. <a href="https://spaceplace.nasa.gov/seasons/">NASA: what causes the seasons?</a></p></details>
   </section>
 `;
 
