@@ -31,7 +31,7 @@ import { hubQuestionsCard } from "./concepts.mjs";
 import { SYS_PATH } from "./build-simulator.mjs";
 import {
   SIDEREAL, ORBIT_TILT,
-  SYS_W, SYS_H, SYS_CX, SYS_CY, SYS_RS, SYS_REO, SYS_RE, SYS_RMO, SYS_RM,
+  SYS_W, SYS_CX, SYS_CY, SYS_RS, SYS_REO, SYS_RE, SYS_RMO, SYS_RM,
   SYS_AXL, SYS_INC_DRAWN,
 } from "./system-orbit.mjs";
 import {
@@ -48,6 +48,8 @@ const SITE = JSON.parse(readFileSync(join(root, "seo/_data/site.json"), "utf8"))
 const PATH = DAYNIGHT_PATH;
 const LESSON_PATH = "/earth-tilt-sun-seasons/";
 const NOW = Date.now();
+const ECLIPSE_DATES = JSON.parse(readFileSync(join(root, "seo/_data/lesson-eclipses.json"), "utf8")).events;
+const NEXT_ECLIPSES = ECLIPSE_DATES.filter(e => Date.parse(e.utc) > NOW).slice(0, 2);
 
 /* ONE CALENDAR YEAR. The three drawings now share one clock: the day/night
    map turns daily, the Moon completes about 13.4 real sidereal orbits, and
@@ -150,13 +152,20 @@ const MAP_SVG = `<svg id="dn-svg" class="dn-svg" viewBox="${DN_VIEWBOX}" width="
    plane, not Earth's axial tilt: the axis remains the real 23.4°. The browser
    builds the bodies inside this empty scene from the same AT used by the map
    and side view, so there is no second animation clock that can drift. */
-const SYSTEM_VIEW_DEG = 35;
-const SYSTEM_SVG = `<svg id="dn-system-svg" class="sys-fig dn-system-fig" viewBox="0 0 ${SYS_W} ${SYS_H}" role="img" aria-label="Earth orbiting the Sun while the Moon orbits Earth, viewed with the orbital plane tilted ${SYSTEM_VIEW_DEG} degrees; all positions match the date on the day and night map">
-  <rect width="${SYS_W}" height="${SYS_H}" rx="16" fill="#0a1020"/>
+const SYSTEM_VIEW_DEG = 80;
+/* Crop the drawing as well as flattening its orbit. Reserve the greatest
+   projected body/axis/label extent over the entire year, plus season labels. */
+const SYSTEM_COS = Math.cos(SYSTEM_VIEW_DEG * Math.PI / 180);
+const SYSTEM_SCALE = 1 + 0.42 * Math.sin(SYSTEM_VIEW_DEG * Math.PI / 180);
+const SYSTEM_TOP = Math.ceil(Math.max(SYS_REO * SYSTEM_COS + (SYS_AXL + 10) * 1.18, SYS_RS + 14) * SYSTEM_SCALE + 24);
+const SYSTEM_BOTTOM = Math.ceil((SYS_REO * SYSTEM_COS + (SYS_RE + 35) * 1.18) * SYSTEM_SCALE + 24);
+const SYSTEM_Y = SYS_CY - SYSTEM_TOP, SYSTEM_HEIGHT = SYSTEM_TOP + SYSTEM_BOTTOM;
+const SYSTEM_SVG = `<svg id="dn-system-svg" class="sys-fig dn-system-fig" viewBox="0 ${SYSTEM_Y} ${SYS_W} ${SYSTEM_HEIGHT}" role="img" aria-label="Earth orbiting the Sun while the Moon orbits Earth, viewed with the orbital plane tilted ${SYSTEM_VIEW_DEG} degrees; all positions match the date on the day and night map">
+  <rect y="${SYSTEM_Y}" width="${SYS_W}" height="${SYSTEM_HEIGHT}" rx="16" fill="#0a1020"/>
   <text x="12" y="${SYS_CY - 8}" font-size="11" fill="#94a3b8">June</text>
   <text x="${SYS_W - 12}" y="${SYS_CY - 8}" text-anchor="end" font-size="11" fill="#94a3b8">December</text>
-  <text x="${SYS_CX}" y="16" text-anchor="middle" font-size="11" fill="#94a3b8">March equinox</text>
-  <text x="${SYS_CX}" y="${SYS_H - 12}" text-anchor="middle" font-size="11" fill="#94a3b8">September equinox</text>
+  <text x="${SYS_CX}" y="${SYSTEM_Y + 16}" text-anchor="middle" font-size="11" fill="#94a3b8">March equinox</text>
+  <text x="${SYS_CX}" y="${SYSTEM_Y + SYSTEM_HEIGHT - 12}" text-anchor="middle" font-size="11" fill="#94a3b8">September equinox</text>
   <g id="dn-system-scene"></g>
 </svg>`;
 
@@ -291,7 +300,7 @@ function state(alt){
 function makeSystemRenderer(scene){
   if(!scene) return null;
   var CX=${SYS_CX},CY=${SYS_CY},REO=${SYS_REO},RMO=${SYS_RMO},RS=${SYS_RS},RE=${SYS_RE},RM=${SYS_RM},AXL=${SYS_AXL},
-      DRAW_INC=${SYS_INC_DRAWN}*Math.PI/180,REAL_INC=${ORBIT_TILT}*Math.PI/180,AX=TILT*Math.PI/180,
+      DRAW_INC=${SYS_INC_DRAWN}*Math.PI/180,AX=TILT*Math.PI/180,
       V=${SYSTEM_VIEW_DEG}*Math.PI/180,cv=Math.cos(V),sv=Math.sin(V),SC=1+0.42*Math.sin(V),
       NS='http://www.w3.org/2000/svg',R=Math.PI/180;
   function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
@@ -327,7 +336,7 @@ function makeSystemRenderer(scene){
   var gS=el('g'),gE=el('g'),gM=el('g');
   gS.appendChild(el('circle',{r:RS+14,fill:'#fcd34d','fill-opacity':'.16'}));
   gS.appendChild(el('circle',{r:RS,fill:'#fcd34d'}));
-  var tS=el('text',{y:RS+18,'text-anchor':'middle','font-size':'13',fill:'#fcd34d'});tS.textContent='Sun';gS.appendChild(tS);
+  var tS=el('text',{x:-RS-18,y:5,'text-anchor':'end','font-size':'13',fill:'#fcd34d'});tS.textContent='Sun';gS.appendChild(tS);
   gE.appendChild(el('circle',{r:RE,fill:'#2f74ad'}));
   var eDark=el('path',{d:half(RE),fill:'#050a16','fill-opacity':'.84'});gE.appendChild(eDark);
   gE.appendChild(el('circle',{r:RE,fill:'none',stroke:'#9dc2e0','stroke-opacity':'.55'}));
@@ -341,11 +350,15 @@ function makeSystemRenderer(scene){
 
   return function(ms){
     var L=dnEcl(ms)*R,m=moonEcl(ms),E=[-REO*Math.sin(L),REO*Math.cos(L),0];
-    /* Solve the current lunar node from the real latitude, then redraw that
-       same plane at 18 degrees so its five-degree miss is visible. At an
-       eclipse the real latitude approaches zero, so the exaggerated drawing
-       still crosses the exact Sun-Earth line instead of inventing a miss. */
-    var node=m.lon-Math.asin(clamp(Math.sin(m.lat)/Math.sin(REAL_INC)));
+    /* Two neighboring positions determine the local orbital plane. A single
+       arcsine of latitude loses the descending half of the orbit and makes
+       the ring swing around every month. Keep both branches by using its
+       normal; the drawn 18-degree inclination remains exaggerated. */
+    var next=moonEcl(ms+3600000);
+    var u=[Math.cos(m.lat)*Math.cos(m.lon),Math.cos(m.lat)*Math.sin(m.lon),Math.sin(m.lat)];
+    var v=[Math.cos(next.lat)*Math.cos(next.lon),Math.cos(next.lat)*Math.sin(next.lon),Math.sin(next.lat)];
+    var nx=u[1]*v[2]-u[2]*v[1],ny=u[2]*v[0]-u[0]*v[2];
+    var node=Math.atan2(nx,-ny);
     function moonPoint(a){
       var z=RMO*Math.sin(DRAW_INC)*Math.sin(a-node),h=Math.sqrt(Math.max(0,RMO*RMO-z*z));
       return [E[0]+h*Math.sin(a),E[1]-h*Math.cos(a),z];
@@ -354,6 +367,8 @@ function makeSystemRenderer(scene){
     for(i=0;i<=48;i++){a=i/48*2*Math.PI;q=moonPoint(a);d+=(i?'L':'M')+px(q).toFixed(1)+' '+py(q).toFixed(1);}
     mring.setAttribute('d',d+'Z');
     place(gS,[0,0,0],1);place(gE,E,0.7);place(gM,M,0.7);
+    /* At the equinoxes the flattened orbit puts Earth beside the Sun. */
+    tE.setAttribute('x',Math.abs(E[0])<60?60:0);
     shade(eDark,E,RE);shade(mDark,M,RM);
     var dx=px(E)-px(M),dy=py(E)-py(M),dl=Math.sqrt(dx*dx+dy*dy)||1;
     mPatch.setAttribute('cx',(dx/dl*RM*0.45).toFixed(2));mPatch.setAttribute('cy',(dy/dl*RM*0.45).toFixed(2));
@@ -569,6 +584,23 @@ for(var j=0;j<jumps.length;j++){
     showSeason(k,1);
   });
 }
+
+/* Upcoming dates follow the visitor's real clock, not the simulated year. */
+var eclipseBtns=document.querySelectorAll('[data-dn-eclipse]'),eclipseCount=0;
+for(var eb=0;eb<eclipseBtns.length;eb++){
+  var eclipseMs=Date.parse(eclipseBtns[eb].getAttribute('data-dn-eclipse'));
+  eclipseBtns[eb].hidden=!(eclipseMs>Date.now()&&eclipseCount++<2);
+  eclipseBtns[eb].disabled=false;
+  eclipseBtns[eb].addEventListener('click',function(){
+    var ms=Date.parse(this.getAttribute('data-dn-eclipse'));
+    stop();SELECTED='';TRACK_NOW=0;setYearRange(yearOf(ms),ms);
+    syncJumpState();spanLab();writeExactUrl(AT);paint();
+    var controls=document.getElementById('dn-controls');
+    if(controls)controls.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+}
+var eclipseExamples=document.getElementById('dn-next-eclipses');
+if(eclipseExamples)eclipseExamples.hidden=eclipseCount===0;
 
 /* Layout changes never recreate controls or reset the shared instant. */
 var wrap=document.querySelector('.wrap'),viewSels=[].slice.call(document.querySelectorAll('[data-dn-view]')),VIEWS=['compact','normal','full'];
@@ -851,16 +883,31 @@ ${STRETCH_ROWS.map((lat) => `      <div class="wc-frow"><span>${lat === 0 ? "At 
 const tryCard = `  <div class="card" id="things-to-try">
     <h2>${ico("classroom")} Things to Try</h2>
     <ul class="facts">
+      <li><strong>Step one day at a time.</strong> Click the arrows on either side of the slider repeatedly. Each click moves forward or backward 24 hours, showing the same time on the next or previous day. Watch the Moon travel around Earth while Earth moves a little farther around the Sun. Keep stepping through the months: the Moon’s tilted path meets the sunlight from changing directions, much as Earth’s lean faces toward or away from the Sun through the year.</li>
       <li><strong>Read one date three ways.</strong> Choose Summer solstice. The map shows longer northern daylight, the side view puts the overhead Sun at the Tropic of Cancer, and the orbit view shows the north end of Earth leaning toward the Sun. Those are three consequences of the same geometry.</li>
       <li><strong>Swap the hemispheres.</strong> Move from Summer solstice to Winter solstice. Watch what reverses and what does not. Earth’s axial tilt keeps the same size and direction; which hemisphere leans into the sunlight changes.</li>
       <li><strong>Find the balance points.</strong> Compare Spring equinox and Fall equinox. The day/night boundary runs through both poles and the overhead Sun crosses the equator, yet Earth is on opposite sides of its orbit.</li>
       <li><strong>Test the distance myth.</strong> In the orbit view, compare where Earth is in June and in December with the season in each hemisphere. The whole planet is at one distance from the Sun on any given day, yet the two hemispheres have opposite seasons, so distance cannot be the switch. Earth is in fact slightly closer to the Sun in early January, a small effect that the tilt swamps.</li>
       <li><strong>Follow the overhead Sun.</strong> Press Play and watch the yellow point move between the tropics. It never crosses them because their latitude is Earth’s ${n1(TILT)}° axial tilt written onto the globe.</li>
-      <li><strong>Look for an eclipse alignment.</strong> Open a known eclipse date with the year, date, and time URL variables. The Moon can line up with the Sun and Earth, but it does not change Earth’s seasons—the axial tilt and annual orbit do.</li>
+      <li><strong>Look for an eclipse alignment.</strong> Choose an eclipse below, then step backward and forward a day to watch the bodies move into and out of alignment. The Moon can line up with the Sun and Earth, but it does not change Earth’s seasons—the axial tilt and annual orbit do.</li>
     </ul>
+    <section id="dn-next-eclipses" aria-labelledby="dn-eclipse-title"${NEXT_ECLIPSES.length ? "" : " hidden"}>
+      <h3 id="dn-eclipse-title">Try the next two eclipses</h3>
+      <p>Choose a date to see all three views near the eclipse’s greatest alignment. For a solar eclipse, the Moon is between us and the Sun. For a lunar eclipse, Earth is in the middle; the Moon passes through part of Earth’s shadow.</p>
+      <div class="dn-tools dn-eclipse-buttons">
+        ${ECLIPSE_DATES.map(e => `<button type="button" class="chip" data-dn-eclipse="${e.utc}" disabled${NEXT_ECLIPSES.includes(e) ? "" : " hidden"}>${dayName(Date.parse(e.utc))}, ${new Date(e.utc).getUTCFullYear()} · ${esc(e.label)}</button>`).join("\n        ")}
+      </div>
+      <p class="hint">The positions are approximate, and sizes and distances are changed to fit. This shows the arrangement of the bodies, not an eclipse shadow or where it is visible. A penumbral lunar eclipse only brushes Earth’s faint outer shadow.</p>
+      <p><a href="/concepts/why-isnt-there-an-eclipse-every-month/">More information about eclipses →</a> · <a href="/moon/eclipses/">Upcoming lunar eclipses</a></p>
+      <p class="hint">Eclipse dates: NASA’s <a href="https://eclipse.gsfc.nasa.gov/SEcat5/SE2001-2100.html">solar</a> and <a href="https://eclipse.gsfc.nasa.gov/LEcat5/LE2001-2100.html">lunar eclipse catalogues</a>.</p>
+    </section>
 ${CLASSROOM_PAUSED ? "" : `    <p class="hint">Taught one of these, or something better? <a href="/classroom/">Help us turn it into a lesson plan</a> — we build them with teachers and publish them free, credited to you.</p>`}
   </div>
 `;
+
+const lessonQuestionsCard = hubQuestionsCard(LESSON_PATH, "Questions This Page Answers", { id: "questions-answered" })
+  .replace('<ul class="hub-qs">', `<ul class="hub-qs">
+    <li id="two-orbits-two-tilts"><p><strong>Is the Moon’s tilted orbit the same as Earth’s tilt?</strong> No. Picture Earth’s path around the Sun as a flat tabletop. The Moon circles Earth on a smaller path tipped about 5° from that tabletop. Earth’s ${n1(TILT)}° tilt describes something else: the lean of its spinning axis, like a tilted spinning top. Earth’s lean gives us seasons; the Moon’s tipped path explains why most new and full moons do not bring an eclipse. <a href="/concepts/why-isnt-there-an-eclipse-every-month/">See how the two paths fit together →</a></p></li>`);
 
 const LESSON_FAQ = [
   ["Why do the three views move together?", "They are one model of one instant, not three separate animations. The map shows where that instant’s sunlight lands, the side view shows the angle it arrives at, and the orbit view shows where Earth is when it happens. Move any control and all three redraw from the same clock, so they cannot disagree about the moment on screen."],
@@ -986,7 +1033,7 @@ ${pageTabs}
 
 ${simulatorPair}  <div class="dn-lesson-sections" id="dn-lesson-details">
 ${lessonHowCard}    <div class="dn-compact-sections">
-${tryCard}${hubQuestionsCard(LESSON_PATH, "Questions This Page Answers", { id: "questions-answered" })}    </div>
+${tryCard}${lessonQuestionsCard}    </div>
 ${faqCard}  <div class="card">
     <h2>Keep Exploring the Seasons</h2>
     <p>Use the simulators here to see the relationship, then open a focused page when you want the deeper explanation or the numbers for your own location.</p>

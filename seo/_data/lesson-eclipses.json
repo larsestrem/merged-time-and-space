@@ -1,0 +1,89 @@
+{
+  "sources": [
+    "https://eclipse.gsfc.nasa.gov/SEcat5/SE2001-2100.html",
+    "https://eclipse.gsfc.nasa.gov/LEcat5/LE2001-2100.html"
+  ],
+  "note": "Greatest eclipse, converted from catalogue TD to approximate UTC using each row\u2019s delta-T. Refresh coverage before 2031. July 2027 is the marginal penumbral event listed by NASA.",
+  "events": [
+    {
+      "utc": "2027-02-06T15:59:32Z",
+      "label": "Annular solar eclipse"
+    },
+    {
+      "utc": "2027-02-20T23:12:50Z",
+      "label": "Penumbral lunar eclipse"
+    },
+    {
+      "utc": "2027-07-18T16:02:53Z",
+      "label": "Penumbral lunar eclipse"
+    },
+    {
+      "utc": "2027-08-02T10:06:34Z",
+      "label": "Total solar eclipse"
+    },
+    {
+      "utc": "2027-08-17T07:13:43Z",
+      "label": "Penumbral lunar eclipse"
+    },
+    {
+      "utc": "2028-01-12T04:12:57Z",
+      "label": "Partial lunar eclipse"
+    },
+    {
+      "utc": "2028-01-26T15:07:43Z",
+      "label": "Annular solar eclipse"
+    },
+    {
+      "utc": "2028-07-06T18:19:40Z",
+      "label": "Partial lunar eclipse"
+    },
+    {
+      "utc": "2028-07-22T02:55:23Z",
+      "label": "Total solar eclipse"
+    },
+    {
+      "utc": "2028-12-31T16:51:58Z",
+      "label": "Total lunar eclipse"
+    },
+    {
+      "utc": "2029-01-14T17:12:31Z",
+      "label": "Partial solar eclipse"
+    },
+    {
+      "utc": "2029-06-12T04:04:56Z",
+      "label": "Partial solar eclipse"
+    },
+    {
+      "utc": "2029-06-26T03:22:05Z",
+      "label": "Total lunar eclipse"
+    },
+    {
+      "utc": "2029-07-11T15:36:02Z",
+      "label": "Partial solar eclipse"
+    },
+    {
+      "utc": "2029-12-05T15:02:41Z",
+      "label": "Partial solar eclipse"
+    },
+    {
+      "utc": "2029-12-20T22:41:54Z",
+      "label": "Total lunar eclipse"
+    },
+    {
+      "utc": "2030-06-01T06:27:55Z",
+      "label": "Annular solar eclipse"
+    },
+    {
+      "utc": "2030-06-15T18:33:16Z",
+      "label": "Partial lunar eclipse"
+    },
+    {
+      "utc": "2030-11-25T06:50:19Z",
+      "label": "Total solar eclipse"
+    },
+    {
+      "utc": "2030-12-09T22:27:33Z",
+      "label": "Penumbral lunar eclipse"
+    }
+  ]
+}

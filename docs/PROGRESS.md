@@ -12662,3 +12662,14 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
 - Desktop retains the compact sticky progression toolbar. View, current date and Date & speed stay in the separate scrollable block above it on every screen size.
 - Files: seo/tools/build-daynight.mjs, assets/css/parts/20d2-orrery.css and this progress log.
 - Validation: source syntax and scoped diff checks passed. The release runs the full build locally and through CI/Cloudflare, with live markup checked after deployment.
+
+
+## 2026-09-06 — Earth favicon, flatter orbit and eclipse activities
+
+- Replaced every browser-tab icon with one high-contrast Earth globe using the existing coastline geometry; the globe fills almost the entire square. Added hashed SVG/PNG URLs and a 16/32/48px ICO.
+- The shared lesson’s third simulator now uses an 80-degree camera view and a 248-unit frame, down from 448; Earth’s physical axial tilt stays unchanged.
+- Fixed the lunar orbit ring’s lost descending branch by deriving its plane from adjacent Moon positions, so daily stepping shows a continuous orbital plane.
+- Added the repeated 24-hour arrow activity and a Questions Answered tabletop analogy distinguishing lunar orbital inclination from Earth’s axial tilt.
+- Added the next two solar/lunar eclipse date buttons under Things to Try, synchronized across all three views and filtered against the visitor’s actual clock. NASA catalogue dates cover 2027–2030; refresh before 2031.
+- Verified and linked the existing eclipse concept and lunar-eclipse hub. The lesson explains that these are approximate body alignments, not local eclipse visibility or shadow predictions.
+- Validation: rendered the favicon at native tab sizes and the orbit at seasonal/eclipse dates; checked 365 days for finite geometry, frame bounds and ring continuity, and exercised actual eclipse handlers for year/date and upcoming-date rollover. Full build and required date/link checks run before release completion.

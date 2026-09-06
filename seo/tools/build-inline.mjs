@@ -21,7 +21,8 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import { writeFileSync, mkdirSync, readdirSync, rmSync } from "node:fs";
-import { ico, faviconSvg } from "./icons.mjs";
+import { ico } from "./icons.mjs";
+import { SITE_FAVICON_SVG, FAVICON_HASH, FAVICON_SVG_HREF, FAVICON_PNG_HREF } from "./site-favicon.mjs";
 import { UNITS_JS, UNITS_MENU_ITEM } from "./units.mjs";
 import { LOCALTIME_JS } from "./localtime.mjs";
 import { POPOUT_JS, SUN_ICON_DEFS } from "./lib.mjs";
@@ -939,70 +940,16 @@ function injectBuildStamp(html) {
  * always strips every prior copy before inserting one fresh snippet. */
 const GA_RE = /(?:<!--[^>]*Google[^>]*-->\s*)?(?:<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=[^"]*"><\/script>\s*)?<script>\s*window\.dataLayer=window\.dataLayer\|\|\[\][\s\S]*?gtag\('config'[\s\S]*?<\/script>\s*/g;
 const ADS_RE = /<script[^>]*src="https:\/\/pagead2\.googlesyndication\.com\/[^"]*"[^>]*><\/script>\s*/g;
-/* Per-page favicons: the browser tab shows the same glyph as the hamburger
- * menu item for that tool, instead of the alarm-clock mark everywhere. One
- * file per icon actually assigned below, written from the same G table the
- * menu draws from (icons.mjs) so the two can't drift apart.
- *
- * FAVICON_RULES is checked in order, most specific prefix first; a page that
- * matches nothing keeps the site's alarm-clock mark (/favicon.svg) — that's
- * the safe default for the home page, static/legal pages, and anything new
- * nobody has assigned an icon to yet. Countdown hub folders (birthday-
- * countdowns/, holiday-countdowns/, …) are derived from popular.categories
- * rather than hand-listed, so a new category picks up the rule for free. */
-const COUNTDOWN_ICON_HUBS = popular.categories.map((c) => c.hub);
-const { planetPath: _planetPath } = await import("./solar-pages.mjs");
-const SOLAR_PLANET_PREFIXES = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune", "pluto"]
-  .map((slug, i) => [_planetPath(slug, i).slice(1), slug === "earth" ? "earthmoon" : "solar"]);
-const FAVICON_RULES = [
-  ["sun-moon-earth-movement-simulator/", "earthmoon"],
-  ["planets/", "solar"],
-  ["solar-system-simulator/", "solar"],
-  ["orbital-velocity-simulator/", "solar"],
-  ["rocket-launch-simulator", "rocket"],
-  /* the planet pages are FLAT now (/jupiter-and-moons-simulator/), so the
-     solar-system-simulator/ prefix above no longer reaches them. Derived from
-     the registry rather than nine hand-typed prefixes, so a planet whose URL
-     changes keeps its icon. Earth's own page is the Earth-and-Moon view, so it
-     takes the earthmoon glyph the sibling simulator uses. */
-  ...SOLAR_PLANET_PREFIXES,
-  ["classroom/", "classroom"],
-  ["timer/", "timer"],
-  ["stopwatch/", "stopwatch"],
-  ["world-clock/", "globe"],
-  ["time-difference-calculator/", "globe"],
-  ["24-hour-clock-converter/", "clock24"],
-  ["sun/", "sunrise"],
-  ["moon/", "moon"],
-  ["moon-simulator/", "moon"],
-  ["tides/", "wave"],
-  ["methodology/", "gear"],
-  ["work/", "briefcase"],
-  ["calendar/", "calendar"],
-  ["countdown/", "confetti"],
-  ["countries/", "confetti"],
-  ...COUNTDOWN_ICON_HUBS.map((h) => [`${h}/`, "confetti"]),
-];
-function faviconIconFor(rel) {
-  for (const [prefix, name] of FAVICON_RULES) if (rel.startsWith(prefix)) return name;
-  return null;
-}
-/* Write one favicon-<name>.svg per icon the rules above actually use. The PNG
- * + apple-touch-icon fallback stays a single site-wide raster — those two
- * exist only for iOS home-screen bookmarks and Bing's favicon crawler, never
- * for the browser tab, so a matching raster per icon isn't worth a render
- * pass per glyph (see make-logo-raster.mjs). */
+/* One prominent Earth favicon on every page. Hashed asset URLs bypass old
+ * browser icon caches; raster fallbacks precede the scalable SVG. */
 mkdirSync(path.join(root, "assets/favicon"), { recursive: true });
-for (const name of new Set(FAVICON_RULES.map(([, n]) => n))) {
-  const svg = faviconSvg(name);
-  if (!svg) throw new Error(`favicon rule references unknown icon "${name}"`);
-  await writeFile(path.join(root, "assets/favicon", `${name}.svg`), svg);
-}
-function faviconLinks(rel) {
-  const name = faviconIconFor(rel);
-  const iconHref = name ? `/assets/favicon/${name}.svg` : "/favicon.svg";
-  return `<link rel="icon" type="image/svg+xml" href="${iconHref}">`
-    + '<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png">'
+await writeFile(path.join(root, FAVICON_SVG_HREF.slice(1)), SITE_FAVICON_SVG);
+/* Fail a stale raster build instead of silently pairing two different marks. */
+await readFile(path.join(root, FAVICON_PNG_HREF.slice(1)));
+function faviconLinks() {
+  return `<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="/favicon.ico?v=${FAVICON_HASH}">`
+    + `<link rel="icon" type="image/png" sizes="48x48" href="${FAVICON_PNG_HREF}">`
+    + `<link rel="icon" type="image/svg+xml" sizes="any" href="${FAVICON_SVG_HREF}">`
     + '<link rel="apple-touch-icon" href="/apple-touch-icon.png">';
 }
 /* og:site_name appeared on ZERO pages. It is one of Google's documented inputs
@@ -1044,7 +991,7 @@ function stripTitleBrand(html) {
 /* Static Earth image is shared by every home button. Keep a small vector
  * Earth favicon for browsers, and raster variants for bookmarks/metadata. */
 const BRAND_LOGO = '<img class="logo" src="/assets/img/earth-home.webp" width="48" height="48" alt="" decoding="async">';
-await writeFile(path.join(root, "favicon.svg"), faviconSvg("globe"));
+await writeFile(path.join(root, "favicon.svg"), SITE_FAVICON_SVG);
 /* ---- THE LOGO IS THE SECTION MENU ---------------------------------------
  * The home page is four tabs — Time, Earth, Space, Classroom — and until now
  * the only way to reach one was to land on the home page and press a tab.
