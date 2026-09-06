@@ -12,7 +12,7 @@
      used as text. Anything that has to invert against the page reads this. */
   --bg-solid:#000;
   --accent:#fcd34d; --text:#f8fafc;
-  --card: rgba(255,255,255,.08); --border: rgba(255,255,255,.16);
+  --card: #141618; --border: rgba(255,255,255,.16);
   --muted: rgba(255,255,255,.65);
   --accent-text:#17150b; /* text drawn on top of an --accent background */
   --menu-bg:#151719; --menu-text:#f8fafc; /* solid surface for dropdown menus */
