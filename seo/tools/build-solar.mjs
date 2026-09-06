@@ -874,8 +874,8 @@ ${items.map(([label, url]) => `      <a class="chip" href="${url}">${label}</a>`
    other page — press to choose, lit when chosen — but the thing being chosen is
    where the rocket is going, which is the only question /rocket-launches/ asks.
    "Nowhere" is a real answer: it is the system with no flight path drawn. */
-const destButtons = () => `<button type="button" class="chip sol-destbtn" data-sol-dest="0" aria-pressed="true" data-sol-inert disabled>Nowhere yet</button>`
-  + TR_TARGETS.map(([i, n]) => `<button type="button" class="chip sol-destbtn" data-sol-dest="${i}" aria-pressed="false" data-sol-inert disabled>${esc(n)}</button>`).join("");
+const destButtons = (active = 0) => `<button type="button" class="chip sol-destbtn" data-sol-dest="0" aria-pressed="${active === 0}" data-sol-inert disabled>Nowhere yet</button>`
+  + TR_TARGETS.map(([i, n]) => `<button type="button" class="chip sol-destbtn" data-sol-dest="${i}" aria-pressed="${active === i}" data-sol-inert disabled>${esc(n)}</button>`).join("");
 
 /* THE LADDER IS BUTTONS ON THE HUB AND LINKS EVERYWHERE ELSE.
  *
@@ -964,7 +964,7 @@ const simCard = (rung = "inner", launch = 0, self = "", hub = 0, tilt = TILT_DEF
         }${launch ? `<div class="sol-destrow">
           <div class="sol-field sol-field-wide">
             <span class="sim-flab" id="sol-tolab">Select a destination</span>
-            <div class="sol-zooms" role="group" aria-labelledby="sol-tolab" id="sol-dests">${destButtons()}</div>
+            <div class="sol-zooms" role="group" aria-labelledby="sol-tolab" id="sol-dests">${destButtons(LAUNCH_DESTS.find(d => d.rung === rung)?.idx || 0)}</div>
           </div>
           <div class="sol-field sol-launchrow" id="sol-launchrow" hidden>
             <label class="sim-flab" for="sol-launch">Launch window</label>
@@ -1790,7 +1790,7 @@ function buildWindows() {
     return `        <tr><th>${esc(m.name)}</th><td>${esc(planetName(m.target))}</td><td>${esc(dateShort(lift))}</td><td>${esc(dateShort(land))}</td><td>${num(real)} d</td><td>${ref ? num(ref.flightDays) + " d" : "—"}</td><td>${verdict}</td><td>${m.assists.length ? esc(m.assists.join(", ")) : "none"}</td></tr>`;
   }).join("\n");
 
-  const cards = simCard("belt", 1)
+  const cards = simCard("mars", 1)
     + `  <div class="card" id="windows">
     <h2>The next window to each planet</h2>
     <p>None of these dates is written into this page. Each one is solved when the page is built, and again in your browser when it loads, by asking a single question of the real orbits: when is the target positioned such that, after the time a minimum-energy transfer takes, it will have arrived at the far end of that transfer?</p>
@@ -1852,7 +1852,7 @@ ${missionRows}
     h1: "Rocket Launch Simulator",
     sub: "A rocket cannot point at Mars and fire. It has to leave on an orbit around the <strong>sun</strong> that meets Mars where Mars will be — and that is only possible for a few weeks every couple of years. Every date here is solved from the real orbits when the page loads.",
     cards,
-    cfg: { rung: "belt", path },
+    cfg: { rung: "mars", path, to: PLANET.MARS },
     jsName: "launch", needs: LAUNCH_NEEDS,
   }));
 

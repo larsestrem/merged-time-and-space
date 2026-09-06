@@ -12683,3 +12683,14 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
 - Move keyboard focus to the map without a second scroll; respect reduced-motion preferences and update the URL anchor for sharing.
 - Files: seo/tools/build-daynight.mjs and this log.
 - Validation: exercised the actual handler with desktop/mobile toolbar sizes, a safe-area inset and reduced motion; verified date updates occur before map navigation. Full site build and deployed source checks run before completion.
+
+
+## 2026-09-06 — Simpler section headers and Mars launch default
+
+- Removed the breadcrumb row beneath the logo sitewide, at source and when processing older static/generated headers.
+- Removed H1 headings from /earth/, /space/, /time/ and /classroom/ so those hubs open directly on their section navigation.
+- The page validator explicitly recognizes those four requested heading omissions; all other pages retain the H1 requirement and every page retains content, metadata and navigation checks.
+- Kept the existing classroom notice in place after its section tabs now that the hub has no heading anchor.
+- The rocket-launch hub now opens on Mars with the matching view frame, selected destination and solved launch flight. Explicit destination URLs and other destination pages still select their requested planets.
+- Files: lib.mjs, build-inline.mjs, build-home.mjs, build-classroom.mjs, build-solar.mjs, check-pages.mjs and this log.
+- Validation: generator syntax, rendered section headers and launch configuration checked; full build and live verification cover the release, including the eclipse-to-map fix.

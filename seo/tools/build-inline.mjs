@@ -820,8 +820,13 @@ function injectPauses(html, rel) {
   /* the classroom */
   html = pauseLinks(html, CLASSROOM_PAUSED, CLASSROOM_LINK);
   html = pauseBlocks(html, CLASSROOM_PAUSED && rel.startsWith("classroom/"), "classroom", FEEDBACK_FORM_RE);
-  if (CLASSROOM_PAUSED && (rel.startsWith("classroom/") || rel.startsWith("about/work-with-us/")))
-    html = html.replace(/(<\/h1>)/, `$1\n  ${classroomPauseNote()}`);
+  if (CLASSROOM_PAUSED && (rel.startsWith("classroom/") || rel.startsWith("about/work-with-us/"))) {
+    /* The section hub intentionally has no H1; keep its existing notice
+       immediately after the section navigation instead. */
+    const anchor = rel === "classroom/index.html"
+      ? /(<nav class="home-tabs sec-switch"[\s\S]*?<\/nav>)/ : /(<\/h1>)/;
+    html = html.replace(anchor, `$1\n  ${classroomPauseNote()}`);
+  }
   /* the message forms */
   if (MESSAGE_FORMS_PAUSED) html = html
     .replace(/ · <a href="\/wrong-date\/[^"]*">Wrong date\?<\/a>/g, "")
@@ -1049,14 +1054,8 @@ const wordmark = (isHome) => isHome
   : `<a class="brand-word" href="/" aria-label="Time and Space Science home">${WORDMARK}</a>`;
 const brandBlock = (isHome) => `<!--bd-->${BRAND_DD}${wordmark(isHome)}<!--/bd-->`;
 
-/* Matches its own previous output OR the original anchor — and ANY brand-cat
- * crumb links that follow it. THE CRUMBS ARE KEPT NOW: for a while the bar
- * stripped them site-wide, which left ~4,200 pages emitting BreadcrumbList
- * JSON-LD for a hierarchy no human could see — a reader landing on
- * /sun/london/ from a search result had no visible way up. The tail is
- * captured and re-emitted after the logo block, so the replacement stays
- * idempotent and the hand-maintained pages (whose brand markup is literal in
- * the file and never passes through lib.mjs brand()) keep theirs too. */
+/* Match both newly generated headers and older static headers. Consume their
+ * breadcrumb tails as well: the owner removed this control sitewide. */
 const CRUMB_TAIL = '((?:\\s*<nav class="brand-crumbs"[^>]*>[\\s\\S]*?</nav>|(?:\\s*<a class="brand-cat"[^>]*>[\\s\\S]*?</a>)+)?)';
 const BRAND_RE = new RegExp(
   '(?:<!--bd-->[\\s\\S]*?<!--/bd-->'
@@ -1075,13 +1074,7 @@ const COPY_JS_RE = /<script>document\.addEventListener\("click",function\(e\)\{v
 function injectLogo(html, rel) {
   const isHome = rel === "index.html";
   let out = html.replace(COPY_DD_RE, "").replace(COPY_JS_RE, "");
-  out = out.replace(BRAND_RE, (m, tail) => {
-    /* normalise whatever the tail held — bare anchors from lib.mjs brand(),
-       or a wrapper from a previous run of this very function — into one
-       <nav> that sits as a full-width second row of the bar's grid */
-    const links = ((tail || "").match(/<a class="brand-cat"[\s\S]*?<\/a>/g) || []).join("");
-    return brandBlock(isHome) + (links ? `<nav class="brand-crumbs" aria-label="Breadcrumb">${links}</nav>` : "");
-  });
+  out = out.replace(BRAND_RE, () => brandBlock(isHome));
   /* the home page's centred "Time and Space" heading is now the wordmark on
      the left, so the old one would be a second copy of the same name */
   if (isHome) out = out.replace(/<h1 class="brand-h1">Time and Space<\/h1>\s*/g, "");

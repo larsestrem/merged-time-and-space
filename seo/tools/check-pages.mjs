@@ -14,7 +14,7 @@
  * and, for pages meant to be indexed (they carry <link rel="canonical"> and are
  * NOT robots=noindex), additionally:
  *   - a non-empty <meta name="description">
- *   - a non-empty <h1>
+ *   - a non-empty <h1>, except the four section hubs whose headings the owner removed
  * plus, on every page:
  *   - every application/ld+json block parses
  *   - no double-escaped entity ("&amp;amp;") in the title, description, og:*
@@ -79,6 +79,9 @@ const visibleText = (html) => {
 };
 const tagText = (html, re) => { const m = re.exec(html); return m ? m[1].replace(/<[^>]+>/g, "").trim() : null; };
 
+/* These four section hubs intentionally open directly on their section tabs
+ * (owner request, 2026-09-06). All other content/metadata checks still apply. */
+const SECTION_HUBS_WITHOUT_H1 = new Set(["earth/index.html", "space/index.html", "time/index.html", "classroom/index.html"]);
 const MIN_BYTES = 500, MIN_VISIBLE = 120;
 const problems = [];
 for (const f of files) {
@@ -105,7 +108,7 @@ for (const f of files) {
     const desc = /<meta[^>]+name=["']description["'][^>]*content=["']([^"']*)["']/i.exec(html);
     if (!desc || !desc[1].trim()) fail("indexable page missing a non-empty meta description");
     const h1 = tagText(html, /<h1[^>]*>([\s\S]*?)<\/h1>/i);
-    if (!h1) fail("indexable page missing a non-empty <h1>");
+    if (!h1 && !SECTION_HUBS_WITHOUT_H1.has(rel)) fail("indexable page missing a non-empty <h1>");
     /* AND ITS NAVIGATION. build-inline injects the hamburger by matching the
        .brand div; a page whose brand markup drifts out of that match loses the
        whole site menu and everything else about it still looks right, which is
@@ -227,4 +230,4 @@ if (problems.length) {
   if (problems.length > 100) console.error(`  … and ${problems.length - 100} more`);
   process.exit(1);
 }
-console.log(`✓ check-pages: all ${files.length} pages have a title, real body content, inlined CSS, no merge-conflict markers, parsing JSON-LD with no double-escaped entities, and (where indexable) a description, an H1 and the site nav.`);
+console.log(`✓ check-pages: all ${files.length} pages have a title, real body content, inlined CSS, no merge-conflict markers, parsing JSON-LD with no double-escaped entities, and (where indexable) a description, the expected heading structure and the site nav.`);

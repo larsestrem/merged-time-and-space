@@ -1878,7 +1878,6 @@ const SECTION_PAGES = [
 
 for (const S of SECTION_PAGES) {
   const body = `  ${brand({ crumb: { slug: S.slug, url: `/${S.slug}/` } })}
-  <h1>${S.h1}</h1>
 ${sectionSwitcher(`/${S.slug}/`)}
   <p class="home-lede">${S.lede}</p>
   <div class="home-board">

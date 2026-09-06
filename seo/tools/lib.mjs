@@ -60,39 +60,20 @@ export const GA = "G-Z6VS7WYEP7";
  * inline tag back, restore the snippet here (the GA id above is unchanged). */
 export const GA_SNIPPET = "";
 
-/* ---- page header: a breadcrumb (domain [/ first-folder]) plus a copy/share
- * dropdown. It doubles as breadcrumb, page identity and a share affordance.
- * Stays <div>-free inside the .brand wrapper so build-inline's nav injector
- * (which matches the first </div>) keeps working. ---- */
+/* ---- page header: home identity and optional heading. Keep this wrapper
+ * free of nested divs for build-inline's site-navigation injector. ---- */
 const COPY_ICON =
   `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 15l6-6M10.5 6.5l1.8-1.8a4 4 0 0 1 5.7 5.7l-1.8 1.8M13.5 17.5l-1.8 1.8a4 4 0 0 1-5.7-5.7l1.8-1.8"/></svg>`;
 const COPY_SCRIPT =
   `<script>document.addEventListener("click",function(e){var b=e.target.closest(".copy-item");if(!b)return;e.preventDefault();var u=location.origin+b.getAttribute("data-path");function done(){var o=b.getAttribute("data-label");b.textContent="Copied!";b.classList.add("copied");setTimeout(function(){b.textContent=o;b.classList.remove("copied");},1300);var d=b.closest("details");if(d)d.removeAttribute("open");}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(done,done);}else{var t=document.createElement("textarea");t.value=u;document.body.appendChild(t);t.select();try{document.execCommand("copy");}catch(_){}document.body.removeChild(t);done();}});</script>`;
 
-/* brand({ crumb, page }) — crumb {slug,url} is the first folder shown after the
- * domain (and linked to its hub); page {label,url} is the current leaf, used
- * only as the last "copy link" option. With no args it renders just the domain
- * (the home page). Copy options are ordered by site architecture: site, folder,
- * page. */
-/* h1: an <h1> to sit INSIDE the brand bar, between the logo and the menu. The
- * home page uses it — that page's heading is the site's name for itself, so it
- * belongs on the same line as the logo rather than repeating below it. Every
- * other page keeps its heading in the body where it describes that page. */
-export function brand({ crumb = null, page = null, sub = null, h1 = null } = {}) {
+/* The breadcrumb control has been removed sitewide at the owner's request.
+ * Existing callers may still pass crumb/page/sub metadata; it is not rendered.
+ * h1 is used by the home page to put its heading inside the brand bar. */
+export function brand({ h1 = null } = {}) {
   const home = `<a class="brand-name" href="/">Time and Space Science</a>`;
-  const cat = crumb ? `<a class="brand-cat" href="${esc(crumb.url)}">/${esc(crumb.slug)}</a>` : "";
-  const seg = sub ? `<a class="brand-cat" href="${esc(sub.url)}">/${esc(sub.slug)}</a>` : "";
-  const items = [{ label: "Time and Space Science", path: "/" }];
-  if (crumb) items.push({ label: crumb.slug, path: crumb.url });
-  if (sub) items.push({ label: sub.slug, path: sub.url });
-  if (page && (!crumb || page.url !== crumb.url)) items.push({ label: page.label, path: page.url });
-  /* THE COPY-LINK DROPDOWN IS GONE (owner's call, with the breadcrumb). The
-     bar is now logo | wordmark | menu and nothing else; `items` above is left
-     in place because it costs nothing and is what a future share control
-     would be built from. build-inline strips any copy-dd still sitting in the
-     hand-maintained pages, whose brand markup never passes through here. */
   const head = h1 ? `<h1 class="brand-h1">${h1}</h1>` : "";
-  return `<div class="brand${h1 ? " brand-titled" : ""}"><span class="crumbs">${home}${cat}${seg}</span>${head}</div>`;
+  return `<div class="brand${h1 ? " brand-titled" : ""}"><span class="crumbs">${home}</span>${head}</div>`;
 }
 
 /* BreadcrumbList JSON-LD for richer search results. items: [{name,url}] from

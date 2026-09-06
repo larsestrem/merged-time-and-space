@@ -70,7 +70,6 @@ ${GA_SNIPPET}
 <body>
 <div class="wrap">
   ${brand({ crumb: { slug: "classroom", url: CLASSROOM_PATH } })}
-  <h1>Classroom</h1>
 ${sectionSwitcher(CLASSROOM_PATH)}
   <p class="sub"><strong>We create Earth and space science content. Teachers create the lessons.</strong> Our goal is making better education accessible to every teacher — free, no sign-up, nothing installed.</p>
 
