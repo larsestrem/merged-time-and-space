@@ -12694,3 +12694,13 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
 - The rocket-launch hub now opens on Mars with the matching view frame, selected destination and solved launch flight. Explicit destination URLs and other destination pages still select their requested planets.
 - Files: lib.mjs, build-inline.mjs, build-home.mjs, build-classroom.mjs, build-solar.mjs, check-pages.mjs and this log.
 - Validation: generator syntax, rendered section headers and launch configuration checked; full build and live verification cover the release, including the eclipse-to-map fix.
+
+
+## 2026-09-06 — Revalidate section hubs so removed headers stay removed
+
+- Confirmed /time/, /earth/, /space/ and /classroom/ already ship without the visible breadcrumb row or H1; the tabs remain.
+- Live responses nevertheless advertise max-age=14400, overriding the repository’s max-age=0 and allowing old section layouts to remain in browser caches for four hours.
+- Added explicit no-cache directives for those four hub URLs so browsers must revalidate, with separate Cloudflare-CDN-Cache-Control preserving the five-minute edge cache.
+- This is scoped to the tabbed hubs; content-hashed scripts and image cache policies are unaffected. An already-cached document still needs its first reload before receiving the new policy.
+- Files: _headers and this log.
+- Validation: full build, existing heading/navigation checks and post-deploy response headers; no browser-cache purge or account setting change is claimed.

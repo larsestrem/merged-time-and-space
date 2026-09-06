@@ -75,6 +75,26 @@
   Permissions-Policy: geolocation=(self), fullscreen=(self "https://www.youtube-nocookie.com"), accelerometer=(self), gyroscope=(self), camera=(), microphone=(), payment=(), usb=(), magnetometer=(), midi=(), interest-cohort=()
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://api.tidesandcurrents.noaa.gov https://geocoding-api.open-meteo.com https://api.bigdatacloud.net https://static.cloudflareinsights.com https://cloudflareinsights.com; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
 
+# Section tabs must not keep an obsolete page layout in a browser cache.
+# The zone currently raises max-age=0 to four hours. Explicit no-cache still
+# requires browser revalidation; Cloudflare keeps its own five-minute cache.
+# These rules add no-cache to the shared HTML Cache-Control directives above.
+/time/
+  Cache-Control: no-cache
+  Cloudflare-CDN-Cache-Control: public, max-age=300
+
+/earth/
+  Cache-Control: no-cache
+  Cloudflare-CDN-Cache-Control: public, max-age=300
+
+/space/
+  Cache-Control: no-cache
+  Cloudflare-CDN-Cache-Control: public, max-age=300
+
+/classroom/
+  Cache-Control: no-cache
+  Cloudflare-CDN-Cache-Control: public, max-age=300
+
 # Images, the moon sprite and the favicon are CONTENT, not the page. They do not
 # change when the baked "today" values do, so the reasoning above ("the HTML is
 # the whole page") does not apply to them: revalidating a 170KB hero image on
