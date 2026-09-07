@@ -84,6 +84,17 @@ All these destinations already exist. Creating another page for each repeated pa
 
 The rest of the inventory is a screening backlog, not a claim of a sentence-by-sentence review. No pages were deleted or redirected as part of this content pass.
 
+### Maintenance findings from the site checks
+
+The September 7 check completed successfully, but reported existing editorial maintenance items outside the three simulator lessons:
+
+- The World Series countdown uses an estimated October 20 date that needs confirmation as it approaches.
+- The Super Bowl LXI date is due for source re-verification. The Daytona 500 entry has no verified date.
+- Two external links returned HTTP 404: the Labor Day countdown's Department of Labor link and the Dude Perfect birthday page's Compassion partnership link. Verify replacement destinations before updating them.
+- Of 518 external URLs checked, 83 could not be verified because of blocking or timeouts. This does not establish that those links are broken.
+
+These are a maintenance backlog, not findings that the simulator calculations failed. The day/night, planet and solar-system calculation checks passed.
+
 ## Accuracy and trust corrections
 
 - Corrected the supporting orbit answer that said the Sun moves out of a falling planet’s way. The relevant motion is the planet’s, with gravity bending its path. Also removed the blanket claim that gravity changes direction only: in a noncircular orbit it changes speed too.
@@ -109,4 +120,12 @@ Science checks used [NASA’s Moon facts](https://science.nasa.gov/moon/facts/),
 
 ## Validation record
 
-Actual new activity handlers were exercised for state changes, date/offset consistency, resetting old layers, model focus and scroll. The orbit controller was checked for paused initial state, Play/Pause/Reset, scrubbing, presets and finite SVG geometry across a year. Full build, date/link checks and production browser checks are recorded in the release progress entry. The remote browser could not access the local preview host, so local rendering was not claimed as a browser test.
+Actual new activity handlers were exercised for state changes, date/offset consistency, resetting old layers, model focus and scroll. The orbit controller was checked for paused initial state, Play/Pause/Reset, scrubbing, presets and finite SVG geometry across a year.
+
+- The complete local `npm run build` passed, including all 4,235 page checks and reciprocal concept/city link checks. GitHub's build passed for release `e8d6981`.
+- `npm run check` completed with the maintenance findings listed above; day/night, planet and solar-system calculation checks passed.
+- Cloudflare Pages reported a successful deployment of `e8d6981`. Fresh public-site URLs showed the new lessons on all three priority pages and the revised supporting orbit explanation.
+- Live desktop browser checks confirmed the local day/month presets and 24-hour date change; orbit Play/Pause, Reset, end-of-year scrubbing and all view presets; solar inner/all-eight/100-year presets and century scrubbing; expandable answers; model disclosures and Escape dismissal. Activity buttons focused and scrolled to the model. No horizontal page overflow or site JavaScript errors were observed at the available 1363 × 936 viewport. Browser-extension diagnostic errors were excluded.
+- Desktop model and activity layouts were visually inspected. The remote browser could not access the local preview host, and a narrow phone viewport was unavailable. Mobile CSS and control behavior were reviewed, but this is not a claim of a mobile-device visual test or measured student comprehension.
+
+The existing custom-domain cache can retain an older page. Fresh query-string URLs were used to verify the deployed release; this content change does not alter the hosting cache configuration.
