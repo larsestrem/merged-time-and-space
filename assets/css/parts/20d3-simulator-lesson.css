@@ -1,0 +1,49 @@
+/* Simulator lessons: readable text, small navigation, optional model notes. */
+.lesson-nav{display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 0 16px;font-size:15px}
+.lesson-nav a{padding:5px 0;text-underline-offset:4px}
+.lesson-copy{font-size:17px;line-height:1.6}
+.lesson-copy p{max-width:65ch;margin:10px 0}
+.lesson-copy h2{margin-top:0}
+.lesson-copy h3{font-size:18px;line-height:1.35;margin:0 0 8px}
+.lesson-activities{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.lesson-activities article{min-width:0;padding:8px 0}
+.lesson-activities .chip{min-height:44px;white-space:normal;text-align:left;margin:5px 0;font-size:16px}
+.lesson-copy summary{cursor:pointer;min-height:44px;padding:10px 0;font-weight:650;line-height:1.45}
+.lesson-question{border-top:1px solid var(--border, #444);padding:4px 0}
+.lesson-question p{margin:0 0 16px}
+.lesson-deeper{margin-top:14px}
+.lesson-related{padding-left:22px;max-width:70ch}
+.lesson-related li{padding:7px 0}
+.lesson-related span{display:block;color:var(--muted)}
+.lesson-status:empty{display:none}
+.lesson-status{border-left:3px solid var(--accent);padding-left:12px}
+.lesson-focus{scroll-margin-top:16px}
+.lesson-focus:focus-visible, .lesson-copy summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.sim-figwrap,.sys-figwrap{position:relative}
+.lesson-model{position:absolute;top:8px;right:8px;z-index:8;line-height:1.5;font-size:16px}
+.lesson-model>summary{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--border, #555);border-radius:50%;background:var(--bg-solid,#151719);color:var(--text);font:bold 23px/1 system-ui;cursor:pointer;list-style:none;box-shadow:0 2px 8px #0005}
+.lesson-model>summary::-webkit-details-marker{display:none}
+.lesson-model[open]>summary{border-color:var(--accent)}
+.lesson-model-body{position:absolute;right:0;top:50px;width:min(32rem,calc(100vw - 80px));max-height:65vh;overflow:auto;box-sizing:border-box;padding:18px;background:var(--bg-solid,#151719);color:var(--text);border:1px solid var(--border,#555);border-radius:12px;box-shadow:0 8px 25px #0008;text-align:left}
+.lesson-model-body h3{font-size:18px;margin:0 0 8px}
+.lesson-model-body p{font-size:16px;line-height:1.5;margin:10px 0}
+.lesson-model-body li{margin:8px 0}
+.lesson-model-body ul{padding-left:20px}
+.lesson-model-body a{color:var(--accent)}
+.lesson-model-body .wc-frow{font-size:14px}
+.lesson-model-body .wc-frow b{text-align:left}
+.sys-playrow{display:flex;align-items:center;flex-wrap:wrap;gap:10px;max-width:620px;margin:12px auto}
+.sys-playrow input{flex:1;min-width:100px}
+.sys-playrow .chip{min-height:44px}
+.lesson-small-note{font-size:15px;line-height:1.5;max-width:65ch}
+.lesson-readings{margin-top:12px}
+.lesson-readings summary{cursor:pointer;padding:10px 0;min-height:44px;box-sizing:border-box}
+@media(max-width:760px){
+ .lesson-activities{grid-template-columns:1fr;gap:12px}
+ .lesson-activities article+article{border-top:1px solid var(--border,#444);padding-top:20px}
+ .lesson-copy{font-size:16px}
+ .lesson-nav{gap:6px 14px;font-size:14px}
+ .lesson-model-body{max-height:55vh}
+}
+
+.sol-fields>.lesson-readings{grid-column:1/-1}

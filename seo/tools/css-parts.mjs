@@ -85,6 +85,7 @@ const SPEC = [
   ["20c-xlink.css", "core"],  /* .xl-* related-astronomy strip: sun, moon AND tides */
   ["20d-sun2.css", "sun"],  /* sun dial, year chart, golden hour, hub minis */
   ["20d2-orrery.css", "orrery"],  /* the Sun-Earth-Moon view: /sun/ AND /moon/ place pages */
+  ["20d3-simulator-lesson.css", "orrery"],
   ["20e-content2.css", "core"],  /* search dropdown, soon rail, calendar chips, rank lists */
   ["20f-event.css", "event"],  /* works chips, media tiles, song rows, artist module */
   ["20g-content3.css", "core"],  /* give-cta, tool-faq, .pl-facts */

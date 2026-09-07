@@ -40,7 +40,8 @@ import { esc, GA_SNIPPET, brand, faqLd, breadcrumbLD, appLd, learningLd } from "
    browser if their units are imperial — see units.mjs */
 import { kmSig, km, kmPerS, temps } from "./units.mjs";
 import { ico } from "./icons.mjs";
-import { viewLadder } from "./view-ladder.mjs";
+import { lessonNav, modelNotes, plainFaq, lessonJs } from "./simulator-lesson.mjs";
+import { SOLAR_QUESTIONS, solarLesson, solarAnswers, solarRelated } from "./simulator-lessons.mjs";
 import { GLOBE_JS, globeSvg, globeRadius, globeCaption, PL_OBL } from "./globe.mjs";
 import { MOON_CORE } from "./moon.mjs";
 import { PLANETS_JS, SOLAR_JS, RUNGS, SOL_FRAME, FRAME_R, planetName, planetPeriodDays, planetPos, PL_DIA, PL_AU, PL_EL, PLANET } from "./planets.mjs";
@@ -617,6 +618,14 @@ ${SOLAR_JS}
     var b=e.target.closest('[data-sol-zoombtn]'); if(!b) return;
     RUNG=b.getAttribute('data-sol-zoombtn'); layerFor(RUNG); markZoom(); syncSpeed(); markMoons(); paint(); share();
   });
+  document.querySelectorAll('[data-sol-activity]').forEach(function(b){b.disabled=false;b.addEventListener('click',function(){
+    stop();var key=b.getAttribute('data-sol-activity');RUNG=key==='race'?'inner':'neptune';SPAN=key==='slow'?'century':'year';OFF=0;TARGET=0;SOLN=null;LAYER.belt=0;LAYER.comets=0;TILT=0;SPEED=key==='slow'?90:15;
+    $('sol-span').value=SPAN;$('sol-tilt').value=String(TILT);
+    if($('sol-belt'))$('sol-belt').setAttribute('aria-pressed','false');if($('sol-comets'))$('sol-comets').setAttribute('aria-pressed','false');
+    markZoom();syncSpeed();tiltLabel();markMoons();paint();pushUrl();
+    var status=$('sol-activity-status');if(status)status.textContent=key==='race'?'Inner planets, one year. Press Play and count Mercury’s laps.':key==='space'?'All eight planets are shown. Look for the small inner orbits near the Sun.':'A 100-year span is ready. Drag the time slider and follow Neptune.';
+    var stage=$('solar-model');stage.focus({preventScroll:true});stage.scrollIntoView({block:'start',behavior:'instant'});
+  });});
   $('sol-start').addEventListener('change',function(){
     /* keep the time of day that is already set and move only the date, so
        stepping a day forward does not silently jump the clock to midnight */
@@ -913,7 +922,7 @@ const spanOptions = SPANS.map(([v, l]) => `<option value="${v}"${v === "year" ? 
    rung is a moon system and the code is not shipped, so they sat there greyed
    out under a heading about the solar system on a page about one planet.
    Offering a dead control is worse than offering none. */
-const simCard = (rung = "inner", launch = 0, self = "", hub = 0, tilt = TILT_DEF, layers = 0) => `  <div class="card sol-card">
+const simCard = (rung = "inner", launch = 0, self = "", hub = 0, tilt = TILT_DEF, layers = 0) => `  <div class="card sol-card lesson-focus" id="solar-model" tabindex="-1">
     <div class="sol-stage">
       <div class="sol-figwrap">
         ${/* THE THREE LIVE CONTROLS RIDE ON THE PICTURE, bottom right. They were
@@ -927,6 +936,7 @@ const simCard = (rung = "inner", launch = 0, self = "", hub = 0, tilt = TILT_DEF
              panel. The box exists because #sol-fig's contents are replaced on
              every repaint; anything inside it would be wiped. */""
         }<div class="sol-figbox">
+        ${modelNotes(`<p id="sol-note">The picture is a model. Its scale and timing depend on the selected view.</p>${hub ? `<p>Planet dots are enlarged. Orbit tilts are exaggerated in angled views. Use View angle 0° to look straight down without that exaggeration.</p><p>Distances between orbits use one scale within a view. The date changes the approximate planet positions.</p><p><a href="/concepts/why-are-the-planets-drawn-so-close/">Explore size and distance</a>. <a href="https://ssd.jpl.nasa.gov/planets/approx_pos.html">NASA/JPL’s position model</a>.</p>` : `<p>Read the note above before comparing sizes, distances or positions. The model explains motion; it is not a spacecraft flight plan.</p>`}`)}
         <div class="sol-fig" id="sol-fig">${bakedFig(rung, tilt)}</div>
         ${/* every planet dot and its orbit ring in a "sys" rung carry
              data-sol-planet (see solSystemView, planets.mjs); hovering either
@@ -989,7 +999,7 @@ const simCard = (rung = "inner", launch = 0, self = "", hub = 0, tilt = TILT_DEF
                as one family of controls; split around the zoom buttons they
                read as strays. The zoom ladder follows, then the two date
                fields you set once. */""
-          }<div class="sol-sliders">
+          }${hub ? `<details class="lesson-readings"><summary>View angle &amp; playback speed</summary>` : ""}<div class="sol-sliders">
           <div class="sol-field sol-field-wide sol-tiltfield">
             <label class="sim-flab" for="sol-tilt">View tilt</label>
             <p class="sol-tiltrow">
@@ -1010,7 +1020,7 @@ const simCard = (rung = "inner", launch = 0, self = "", hub = 0, tilt = TILT_DEF
               <span class="sol-speedout" id="sol-speedout">—</span>
             </p>
           </div>
-          </div>
+          </div>${hub ? "</details>" : ""}
           ${/* THE LADDER AND THE LAYERS. The zoom buttons flow inline and wrap
                with a small, even gap; Include and its two layer chips share one
                line with their label (they are three short words — a line each
@@ -1064,14 +1074,14 @@ const simCard = (rung = "inner", launch = 0, self = "", hub = 0, tilt = TILT_DEF
             <select class="sim-span" id="sol-span" aria-label="How much time the slider covers" data-sol-inert disabled>${spanOptions}</select>
           </div>
         </div>
-        <div class="sim-rows sol-rows" id="sol-rows"></div>
+        ${hub ? `<details class="lesson-readings"><summary>Planet distances &amp; angles</summary>` : ""}<div class="sim-rows sol-rows" id="sol-rows"></div>${hub ? `<p>AU means Earth’s average distance from the Sun. The angle marks a planet’s place around its orbit.</p></details>` : ""}
         ${launch ? `<div class="sim-rows sol-rows sol-mission" id="sol-mission"></div>` : ""}
-        <p class="sol-note" id="sol-note"></p>
-        ${launch ? "" : (hub || layers ? jumpLinks(self)
+
+        ${launch || hub ? "" : (layers ? jumpLinks(self)
           : `<p class="sim-jump sol-jump"><a class="chip" href="${SOLAR_PATH}">The whole solar system &rarr;</a></p>`)}
       </div>
     </div>
-    <p class="hint">Distances from the sun are in <strong>AU</strong> — one AU is the Earth’s average distance, ${kmSig(PL_AU, 6)} — and the angle is where the body sits around its orbit, measured from the March equinox direction.</p>
+    ${hub ? "" : `<p class="hint">Distances use AU: Earth’s average distance from the Sun, ${kmSig(PL_AU, 6)}. Angles mark positions around an orbit.</p>`}
   </div>
 `;
 
@@ -1281,79 +1291,6 @@ const TRANSFER_NOTE = `  <div class="card">
   </div>
 `;
 
-/* ---------------------------------------------------------------------------
- * FAQ (hub)
- * ------------------------------------------------------------------------- */
-const outerRung = SYS_RUNGS[SYS_RUNGS.length - 1], innerRung = SYS_RUNGS[0];
-const FAQ = [
-  ["Why does the view jump between zoom levels instead of scrolling smoothly?",
-    `Because the solar system will not fit in one frame. Out to Mars the outermost orbit is only about ${ratio(innerRung).toFixed(0)} times the innermost, and everything is separable. Out to Saturn it is ${ratio(SYS_RUNGS[3]).toFixed(0)} times and the inner four are a tight knot. Out to Neptune it is ${ratio(outerRung).toFixed(0)} times: Mercury's whole orbit is ${orbitPx(0, outerRung.outer).toFixed(1)} pixels across and Earth's is ${orbitPx(2, outerRung.outer).toFixed(0)}. Each rung of the ladder is a view where something is legible; a smooth zoom would just pass through a lot of frames where nothing is.`],
-  ["Can I see the moons of the other planets?",
-    "Yes — each of the five planets that has large moons gets a view of its own, where the frame is the moon system rather than the solar system. The orbits, the periods, the sizes and the direction of travel are all real, and the planet's own disc is to scale against them. What is not solved for is where each moon sits on its orbit at a given moment, and the picture says so: watch Io lap Europa twice while Europa laps Ganymede twice, which is a real resonance, rather than reading it as tonight's sky."],
-  ["Are the planets drawn to scale?",
-    `The ORBITS are, within each view. The planets themselves cannot be: at the Saturn view, Jupiter — the largest planet — would be ${bodyPx("Jupiter", SYS_RUNGS[3].outer).toFixed(3)} of a pixel across, and Earth ${bodyPx("Earth", SYS_RUNGS[3].outer).toFixed(4)}. So the dots are legibility sizes, not measurements. The exception is the Earth and Moon view, which is to scale in both size and distance at once.`],
-  ["When is the next launch window to Mars?",
-    `Every launch window on this site is solved from the orbits when the page loads, not written into it — the answer for Mars right now is ${dateLong(launchWindow(3, +NOW).depart)}, with an arrival ${num(launchWindow(3, +NOW).flightDays)} days later. Windows to Mars come round roughly every 26 months, because that is how long it takes Earth to lap Mars and line the two orbits up again.`],
-  ["Where is the asteroid belt, and why does it have gaps?",
-    `Between Mars and Jupiter, from about ${beltEdges()[0].toFixed(2)} to ${beltEdges()[1].toFixed(2)} AU. The gaps are Jupiter's doing: an asteroid whose orbital period is a simple fraction of Jupiter's gets the same tug at the same point over and over until it is pushed out. This page computes every edge and every gap from Jupiter's own orbit rather than drawing them from a remembered number, which is why they land on the Kirkwood gaps at ${resonanceAU(3, 1).toFixed(2)}, ${resonanceAU(5, 2).toFixed(2)} and ${resonanceAU(7, 3).toFixed(2)} AU.`],
-  ["How accurate are the positions?",
-    "The planets come from Keplerian elements with per-century rates — the standard approximate-positions method — good to a few arcminutes over 1800–2050 — JPL's own stated maxima run to about ten arcminutes for Jupiter and Saturn, which is still around one pixel at the widest zoom here. The date picker stops at 2050 for that reason: past it the linear rates are being extrapolated.  The comets are published osculating elements propagated as a two-body orbit, which is right about where in the system a comet is and not right to the day: a real comet is pulled about by the planets and shoved by its own outgassing. None of this is an ephemeris."],
-  ["Can I share a particular date?",
-    "Yes. The date, the zoom level, the span, the speed, the belt and comet layers and any flight path are all in the address bar, so copying the URL shares exactly what is on screen, and the builder near the bottom writes one for you."],
-];
-
-/* ---------------------------------------------------------------------------
- * The hub
- * ------------------------------------------------------------------------- */
-const howItWorksCard = () => `  <div class="card" id="how">
-    <h2>What this is, and how it works</h2>
-    <p>This is a working model of the solar system. The planets sit on their real orbits, moving at their real relative speeds — Mercury really does lap everyone; Neptune really does barely move in a lifetime.</p>
-    <p><strong>Span</strong> is how much time the slider covers: a month, a year, a decade or a century. <strong>Speed</strong> is how fast that time plays. <strong>Zoom</strong> climbs a ladder of views, because the whole system will not fit in one frame. <strong>Now</strong> jumps back to this moment. <strong>Tilt</strong> tips the view so the orbits look like ellipses instead of circles. Switch on the asteroid belt, the comets, and a flight path to Mars when you want them.</p>
-    <p>The orbits are to scale within each zoom. The planet dots are not — they would be smaller than a pixel. The ladder card below says by how much, computed from the drawing itself.</p>
-  </div>
-`;
-
-const bodyLinks = () => `  <div class="card">
-    <h2>A page for every planet</h2>
-    <p>Each one carries its own moon system, its physical figures worked out from its mass rather than copied in, the open questions about it, and what has been learned lately. <a href="${PLANETS_PATH}">The planets</a> is the way in if you would rather see them side by side first — a picture and a couple of paragraphs each, in orbital order.</p>
-    <div class="chips">
-      <a class="chip chip-alt" href="${PLANETS_PATH}">All the planets</a>
-${FACTS.bodies.map((b) => `      <a class="chip" href="${planetPath(b.slug, b.idx)}">${esc(b.name)}</a>`).join("\n")}
-${FACTS.extras.map((b) => `      <a class="chip" href="${SOLAR_PATH}${b.slug}/">${esc(b.name)}</a>`).join("\n")}
-      <a class="chip chip-alt" href="${LAUNCH_PATH}">Rocket launches</a>
-    </div>
-  </div>
-`;
-
-const ladderCard = () => `  <div class="card sim-teach">
-    <h2>Why the view climbs a ladder instead of zooming smoothly</h2>
-    <p>The solar system does not fit in one frame, and the reason is a ratio. What decides whether you can see anything is how many times bigger the outermost drawn orbit is than the innermost one:</p>
-    <div class="wc-facts">
-${SYS_RUNGS.map((r) => `      <div class="wc-frow"><span>${esc(r.label)}</span><b>${ratio(r).toFixed(0)}:1 — Mercury’s orbit ${orbitPx(0, r.outer).toFixed(orbitPx(0, r.outer) < 10 ? 1 : 0)} px across${r.outer > 9 ? ", the inner four a knot" : ""}</b></div>`).join("\n")}
-    </div>
-    <p>So each rung is a view where something is legible, rather than a smooth zoom that spends most of its travel in frames where nothing is. The outermost rung keeps the inner four as a labelled knot on purpose — that <em>is</em> the shape of the solar system, and it is the part every evenly-spaced textbook diagram hides.</p>
-
-    <h3>Why the frame is square</h3>
-    <p>Everything drawn here is a set of concentric circles, and a circle in a widescreen frame is limited by the short side — the corners hold nothing. A page column sets the WIDTH, so the honest comparison is a 16:9 frame of the same width: squaring it buys about <strong>${Math.round((FRAME_R / WIDE_R - 1) * 100)}% more drawing radius</strong>, which on the outer rung is the difference between Mercury’s orbit being ${(orbitPx(0, outerRung.outer) * WIDE_R / FRAME_R).toFixed(1)} pixels wide and ${orbitPx(0, outerRung.outer).toFixed(1)}.</p>
-
-    <h3>What is to scale here, and what is not</h3>
-    <p>The <strong>orbits</strong> are to scale within each view. The <strong>planets</strong> are not, and cannot be: at the Saturn view Jupiter would be <strong>${bodyPx("Jupiter", SYS_RUNGS[3].outer).toFixed(3)} of a pixel</strong> across and Earth <strong>${bodyPx("Earth", SYS_RUNGS[3].outer).toFixed(4)}</strong>. The dots are sized to be seen, not measured.</p>
-    <p>The one exception is <strong>Earth &amp; the Moon</strong>, and it is worth looking at for that reason alone: it is the only view on this site that is to scale in size <em>and</em> distance at the same time. The moon really does sit about 30 Earth-diameters away — far further than almost every diagram draws it, and close enough to fit on a screen.</p>
-    <p>On a <strong>moon system</strong> view, the planet’s own disc <em>is</em> to scale against its moons’ orbits — so Saturn’s rings really are that wide compared with Titan’s orbit, and Phobos really is that close to Mars. The moons themselves are drawn oversize by a factor the picture prints, because at the zoom where Callisto’s orbit fills the frame, Ganymede is half a pixel across.</p>
-
-    <h3>How far anything actually gets</h3>
-    <div class="mn-tablewrap">
-      <table class="mn-table sol-table">
-        <thead><tr><th>Span</th><th>Mercury</th><th>Earth</th><th>Jupiter</th><th>Saturn</th><th>Neptune</th></tr></thead>
-        <tbody>
-${SPANS.map(([, label, days]) => `      <tr><th>${esc(label)}</th>${[0, 2, 4, 5, 7].map((i) => `<td>${travelWords(i, days)}</td>`).join("")}</tr>`).join("\n")}
-        </tbody>
-      </table>
-    </div>
-    <p class="hint">Which is why the zoom, the span and the speed belong together. A month is the right span for Mercury and means nothing for Neptune; a century sends Mercury round ${travelWords(0, 36525)} — an unreadable blur — while Neptune still has not finished a single lap, because one Neptune year is ${num(planetPeriodDays(7) / 365.25, 0)} of ours. The speed slider is there so you can slow a century down until the outer planets separate, or run a month fast enough to see Mercury move.</p>
-  </div>
-`;
-
 const shareCard = (path = SOLAR_PATH) => `  <div class="card">
     <h2>Make a link to a particular view</h2>
     <p>The date, the zoom, the span, the speed, the layers and any flight path are all in the address bar, so copying the URL shares exactly what is on screen. Set it up above, then take the link — it is the quickest way to hand a class one specific thing to look at.</p>
@@ -1403,11 +1340,11 @@ ${head({ title, desc, path, ld, faq })}
 <div class="wrap wrap-wide">
   ${brand(crumbPage ? { crumb: crumb || { slug: "solar", url: SOLAR_PATH }, page: crumbPage } : { crumb: crumb || { slug: "solar", url: SOLAR_PATH } })}
   <h1>${h1}</h1>
-${trail ? solarCrumbs(trail) : ""}  <p class="sub">${sub}</p>
+  <p class="sub">${sub}</p>
 
 ${cards}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
-${(sim ? assertNeeds(path, cfg.rung, needs) : 0, script(jsName, needs, cfg, sim))}
+${(sim ? assertNeeds(path, cfg.rung, needs) : 0, script(jsName, needs, cfg, sim))}${lessonJs}
 </body>
 </html>
 `;
@@ -1415,31 +1352,18 @@ ${(sim ? assertNeeds(path, cfg.rung, needs) : 0, script(jsName, needs, cfg, sim)
 /* THINGS TO TRY (owner's ask, August 2026): every simulator carries both the
    questions it raises AND a set of find-it-yourself tasks — learning by
    doing, phrased against the controls this page actually has. */
-const tryCard = `  <div class="card">
-    <h2>Things to try</h2>
-    <ul class="facts">
-      <li><strong>Run the race.</strong> Press <strong>Inner planets</strong>, put a <strong>year</strong> on the span, and press Play. Count Mercury's laps while Earth makes one — about four — and notice the pattern: the closer to the sun, the faster the lap. That one pattern is most of orbital mechanics.</li>
-      <li><strong>Find the true shape of the system.</strong> Zoom <strong>To Neptune</strong> and watch the four inner planets collapse into a labelled knot around the sun. Every evenly-spaced poster hides this: the outer system is mostly emptiness, and Neptune's orbit is about 80 times wider than Mercury's.</li>
-      <li><strong>Switch on the asteroid belt</strong> and zoom <strong>To the belt</strong>. Look for the empty lanes inside it — gaps swept clean by Jupiter's repeated tugs — and the two clouds of asteroids riding ahead of and behind Jupiter on its own orbit.</li>
-      <li><strong>Switch on the comets</strong> and put a <strong>century</strong> on the span. A comet spends decades crawling through the outer dark, then whips around the sun in months. Nothing shows "faster when closer" more dramatically.</li>
-      <li><strong>Give the slider a century.</strong> Mercury becomes a blur; Neptune manages barely more than half a lap. A Neptune year is longer than a human life — nobody who has ever seen Neptune discovered has also seen it complete an orbit since.</li>
-    </ul>
-${CLASSROOM_PAUSED ? "" : `    <p class="hint">Taught something good with this page? <a href="/classroom/">Help us turn it into a lesson plan</a> — built with you, published free, credited to you.</p>`}
-  </div>
-`;
-
 function buildHub() {
   const html = page({
-    title: `${TITLE} — Planets, Moons, Comets & Launch Windows`,
-    desc: "An interactive solar system: watch the planets on their real orbits, zoom in on Jupiter's moons or Saturn's rings, switch on the asteroid belt and the comets, and see when the next launch window to Mars opens. Free, runs in your browser.",
+    title: `${TITLE} — Explore Planet Orbits`,
+    desc: "Explore the eight planets and their orbits. Compare their speeds, zoom out to Neptune, and try short activities about distance and the length of a year.",
     path: SOLAR_PATH,
     trail: HUB_TRAIL,
     ld: `${trailLd(HUB_TRAIL)}\n${learningLd({ name: TITLE, url: `${SITE}${SOLAR_PATH}`, description: "An interactive model of the solar system: the planets on their real orbits, their moons, the asteroid belt, the comets and the launch windows between them." })}`,
-    faq: FAQ,
+    faq: plainFaq(SOLAR_QUESTIONS),
     h1: "Solar System Simulator",
-    sub: `The planets on their real orbits, moving. Drag through a <strong>month</strong>, a <strong>year</strong>, a <strong>decade</strong> or a <strong>century</strong>; zoom from Jupiter’s moons all the way out to Neptune; switch on the asteroid belt, the comets, and the flight path to Mars.`,
-    cards: viewLadder("solar") + simCard("inner", 0, SOLAR_PATH, 1) + howItWorksCard() + tryCard + hubQuestionsCard(SOLAR_PATH) + bodyLinks() + windowCard(PLANET.MARS) + TRANSFER_NOTE + ladderCard()
-      + shareCard(SOLAR_PATH) + elsewhereCard(),
+    sub: `Eight planets travel around the Sun. Which one finishes a lap first? Press Play, change the view, and compare their paths. A path around the Sun is called an <a href="/concepts/how-does-an-orbit-work/">orbit</a>.`,
+    cards: lessonNav + simCard("inner", 0, SOLAR_PATH, 1) + solarLesson + solarAnswers + solarRelated
+      + shareCard(SOLAR_PATH),
     cfg: { rung: "inner", path: SOLAR_PATH },
     /* the one page that keeps every module — its ladder climbs every rung in
        place, which is the whole point of it */
@@ -2067,5 +1991,5 @@ SYS_VIEWS.forEach(buildSysView);
 buildWindows();
 
 console.log(`Generated ${SOLAR_PATH} + ${SOLAR_SLUGS.length} child pages (${RUNGS.length} zoom rungs, ${SPANS.length} spans; `
-  + `Mercury's orbit ${orbitPx(0, SYS_RUNGS[0].outer).toFixed(0)}px at the inner view, ${orbitPx(0, outerRung.outer).toFixed(1)}px at the outer; `
+  + `Mercury's orbit ${orbitPx(0, SYS_RUNGS[0].outer).toFixed(0)}px at the inner view, ${orbitPx(0, SYS_RUNGS[SYS_RUNGS.length - 1].outer).toFixed(1)}px at the outer; `
   + `next Mars window ${launchWindow(3, +NOW).depart.toISOString().slice(0, 10)}).`);

@@ -12705,3 +12705,14 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
 - Files: _headers and this log.
 - Validation: full build, existing heading/navigation checks and post-deploy response headers; no browser-cache purge or account setting change is claimed.
 - Post-deploy result: all four live hubs have no H1 or breadcrumb and retain their tabs; full build and deployed checks passed. The custom domain still strips no-cache and sends max-age=14400, while the Pages origin preserves no-cache on an existing service-worker rule. The origin policy is committed, but correcting the zone Browser TTL/cache response override requires Cloudflare account access; the browser-cache issue is not resolved by this commit.
+
+## 2026-09-07 — Focused simulator lessons and full-site content review
+
+- Inventoried 4,230 index pages and reviewed the three priority simulators, 20 representative pages and eight prerequisite concepts; saved the findings and full inventory under docs/content-review-2026-09-07.md and docs/content-inventory-2026-09-07.csv.
+- Rebuilt the three lesson flows around short introductions, What to look for, Questions answered and Explore related topics; all 1,103 local city simulators share the improvements.
+- Added nine working activity presets with state updates and focus/scroll to the model, expandable answers, optional advanced material and keyboard-accessible model disclosures.
+- Added pause/play/reset/year scrubbing to the Earth–Sun–Moon schematic and clarified that View angle changes the viewpoint, not Earth’s physical tilt.
+- Removed duplicate static today facts from local simulator prose and reduced readout/settings clutter. Rocket-flight material now stays on the dedicated launch pages; the solar-family visible breadcrumb was also removed.
+- Simplified eight linked concept pages; corrected orbit/gravity explanations, scale comparisons and Jupiter’s mass tagline. Preserved topic routes, reciprocal links and matching visible FAQ/schema answers.
+- Sources: build-simulator.mjs, build-solar.mjs, system-orbit.mjs, simulator-lesson.mjs, simulator-lessons.mjs, css-parts.mjs, 20d3-simulator-lesson.css, concepts.json, solar-facts.json and the two review artifacts.
+- Validation: source syntax, targeted actual-controller tests and generated priority-page checks passed. Full build and npm run check are running for the release; production verification follows deployment. The browser could not reach the local preview host, so no local browser rendering claim is made.

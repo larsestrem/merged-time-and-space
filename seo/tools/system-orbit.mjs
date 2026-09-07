@@ -65,11 +65,11 @@ export const sysFigure = `<svg viewBox="0 0 ${SYS_W} ${SYS_H}" role="img" aria-l
   <circle cx="${SYS_CX}" cy="${SYS_CY}" r="${SYS_RS + 14}" fill="#fcd34d" fill-opacity=".16"/>
   <circle cx="${SYS_CX}" cy="${SYS_CY}" r="${SYS_RS}" fill="#fcd34d"/>
   <text x="${SYS_CX}" y="${SYS_CY + SYS_RS + 18}" text-anchor="middle" font-size="13" fill="#fcd34d">Sun</text>
-  <g class="sys-eorbit" style="--sys-o:${SYS_CX}px ${SYS_CY}px;animation-duration:${SYS_EARTH_S}s">
+  <g class="sys-eorbit" style="--sys-o:${SYS_CX}px ${SYS_CY}px;animation-duration:${SYS_EARTH_S}s;animation-play-state:paused">
     <circle cx="${SYS_EX}" cy="${SYS_CY}" r="${SYS_RE}" fill="#2f74ad"/>
     <path d="M${SYS_EX} ${SYS_CY - SYS_RE}A${SYS_RE} ${SYS_RE} 0 0 1 ${SYS_EX} ${SYS_CY + SYS_RE}Z" fill="#050a16" fill-opacity=".84"/>
     <circle cx="${SYS_EX}" cy="${SYS_CY}" r="${SYS_RE}" fill="none" stroke="#9dc2e0" stroke-opacity=".45"/>
-    <g class="sys-rev" style="--sys-o:${SYS_EX}px ${SYS_CY}px;animation-duration:${SYS_EARTH_S}s">
+    <g class="sys-rev" style="--sys-o:${SYS_EX}px ${SYS_CY}px;animation-duration:${SYS_EARTH_S}s;animation-play-state:paused">
       ${/* the axis is a VERTICAL line rotated into its lean by a transform on
            this group, rather than baked into the endpoints with trig — that is
            what lets the tilt slider drive it with one setAttribute. The baked
@@ -81,8 +81,8 @@ export const sysFigure = `<svg viewBox="0 0 ${SYS_W} ${SYS_H}" role="img" aria-l
       <text x="${SYS_EX}" y="${SYS_CY + SYS_RE + 30}" text-anchor="middle" font-size="12" fill="#e2e8f0">Earth</text>
     </g>
     <circle cx="${SYS_EX}" cy="${SYS_CY}" r="${SYS_RMO}" fill="none" stroke="#cbd5e1" stroke-opacity=".3" stroke-width="1" stroke-dasharray="2 4"/>
-    <g class="sys-mo" style="--sys-o:${SYS_EX}px ${SYS_CY}px;animation-duration:${SYS_MOON_S}s">
-      <g class="sys-rev" style="--sys-o:${SYS_MX}px ${SYS_CY}px;animation-duration:${SYS_MOON_S}s">
+    <g class="sys-mo" style="--sys-o:${SYS_EX}px ${SYS_CY}px;animation-duration:${SYS_MOON_S}s;animation-play-state:paused">
+      <g class="sys-rev" style="--sys-o:${SYS_MX}px ${SYS_CY}px;animation-duration:${SYS_MOON_S}s;animation-play-state:paused">
         <circle cx="${SYS_MX}" cy="${SYS_CY}" r="${SYS_RM}" fill="#d8dee9"/>
         <path d="M${SYS_MX} ${SYS_CY - SYS_RM}A${SYS_RM} ${SYS_RM} 0 0 1 ${SYS_MX} ${SYS_CY + SYS_RM}Z" fill="#050a16" fill-opacity=".84"/>
       </g>
@@ -104,12 +104,13 @@ export const SYS_INC_DRAWN = 18;   /* drawn inclination of the moon's orbit, deg
  * mislabel it. */
 export const SYS_VIEW_START = 60;
 export const SYS_VIEW_UI = `    <div class="sys-tiltrow">
-      <label for="sys-view">Tilt Earth&rsquo;s orbit</label>
+      <label for="sys-view">View angle</label>
       <input type="range" id="sys-view" min="0" max="90" step="1" value="0" disabled aria-describedby="sys-view-note">
       <output id="sys-view-v" for="sys-view">flat on</output>
       <button type="button" class="chip" id="sys-view-side" hidden>Edge on</button>
     </div>
-    <p class="hint sys-tiltnote" id="sys-view-note">Drag to tip the whole orbit away from you. It flattens as it goes — wider and shorter — until you are looking along its edge, where the Earth loops in front of the sun and then behind it, and the moon&rsquo;s tilted orbit visibly misses the sun&ndash;Earth line.</p>`;
+    <p class="hint sys-tiltnote" id="sys-view-note">Change where you look from. Earth’s real tilt stays the same.</p>
+    <div class="sys-playrow"><button type="button" class="chip" id="sys-play" disabled aria-pressed="false">Play</button><button type="button" class="chip" id="sys-reset" disabled>Reset</button><input type="range" id="sys-time" min="0" max="365.25" step="0.25" value="0" disabled aria-label="Move through one Earth year"><output id="sys-day" for="sys-time">Day 0</output></div>`;
 export const SYS_VIEW_JS = `<script>(function(){
   var scene=document.getElementById('sys-scene'), s=document.getElementById('sys-view'),
       out=document.getElementById('sys-view-v'), note=document.getElementById('sys-view-note'),
@@ -218,9 +219,9 @@ export const SYS_VIEW_JS = `<script>(function(){
     for(i=0;i<3;i++) scene.appendChild(order[i][1]);
   }
   function caption(){
-    if(vdeg<10) return 'The orbit lying flat, seen face on \\u2014 the classic textbook diagram. From here the moon\\u2019s own tilt is invisible: its orbit looks like a flat ring inside Earth\\u2019s, and nothing in the picture explains why there is no eclipse every month. Tip it over.';
-    if(vdeg<75) return 'Tipping over: both orbits are flattening into ellipses \\u2014 wider than they are tall \\u2014 and the moon has started riding visibly above and below the plane of Earth\\u2019s orbit as it goes round. Earth\\u2019s axis tips with the orbit, holding its 23.4\\u00B0 lean.';
-    return 'Edge on. Earth\\u2019s orbit is now a line, and Earth runs along it \\u2014 passing in front of the sun, then behind it. That loop is the year. And watch the moon: its tilted orbit carries it above or below the sun\\u2013Earth line at most new and full moons, so the three rarely line up exactly \\u2014 which is why eclipses are rare events rather than a monthly schedule. (The moon\\u2019s tilt is drawn at ${SYS_INC_DRAWN}\\u00B0 so it is visible at this size; the real ${ORBIT_TILT}\\u00B0 still carries it several times its own width off the exact line.)';
+    if(vdeg<10) return 'From above: follow Earth’s large orbit and the Moon’s small orbit.';
+    if(vdeg<75) return 'Angled view: watch both orbits and the bright sides facing the Sun.';
+    return 'From the side: watch the Moon move above and below Earth’s orbit.';
   }
   function applyView(){
     cv=Math.cos(vdeg*Math.PI/180); sv=Math.sin(vdeg*Math.PI/180);
@@ -229,22 +230,42 @@ export const SYS_VIEW_JS = `<script>(function(){
     note.textContent=caption();
     side.hidden=vdeg>80;
   }
-  var th0=0, ph0=0, t0=null, still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function frame(ts){
-    if(t0===null)t0=ts;
-    var t=(ts-t0)/1000;
-    render(th0+2*Math.PI*t/ES, ph0+2*Math.PI*t/MS);
-    requestAnimationFrame(frame);
+  var day=0, playing=false, last=null, raf=0;
+  var play=document.getElementById('sys-play'), time=document.getElementById('sys-time'), reset=document.getElementById('sys-reset');
+  function paintDay(){
+    render(2*Math.PI*day/365.25,2*Math.PI*day/${SIDEREAL});
+    time.value=String(day); document.getElementById('sys-day').textContent='Day '+Math.floor(day);
   }
-  s.addEventListener('input',function(){ vdeg=+s.value; applyView(); if(still) render(0.8,2.1); });
-  side.addEventListener('click',function(){ s.value=90; vdeg=90; applyView(); if(still) render(0.8,2.1); });
-  s.value=vdeg; applyView(); s.disabled=false;
-  if(still){ render(0.8,2.1); } else { requestAnimationFrame(frame); }
+  function stop(){playing=false;last=null;cancelAnimationFrame(raf);play.textContent='Play';play.setAttribute('aria-pressed','false');}
+  function frame(ts){
+    if(!playing)return;
+    if(last!==null)day+=Math.min((ts-last)/1000,0.2)*365.25/ES;
+    last=ts;
+    if(day>=365.25){day=365.25;stop();}
+    paintDay();if(playing)raf=requestAnimationFrame(frame);
+  }
+  play.addEventListener('click',function(){if(playing){stop();return;}if(day>=365.25)day=0;playing=true;last=null;play.textContent='Pause';play.setAttribute('aria-pressed','true');raf=requestAnimationFrame(frame);});
+  reset.addEventListener('click',function(){stop();day=0;paintDay();});
+  time.addEventListener('input',function(){stop();day=+time.value;paintDay();});
+  s.addEventListener('input',function(){vdeg=+s.value;applyView();paintDay();});
+  side.addEventListener('click',function(){s.value=90;vdeg=90;applyView();paintDay();});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)stop();});
+  function bindActivities(){document.querySelectorAll('[data-sys-activity]').forEach(function(b){
+    b.disabled=false;b.addEventListener('click',function(){
+      stop();day=0;var key=b.getAttribute('data-sys-activity');vdeg=key==='side'?90:key==='light'?0:60;s.value=vdeg;applyView();paintDay();
+      var message=key==='year'?'One Earth year is ready. Press Play and count the Moon’s orbits.':key==='light'?'Looking from above. Press Play and follow the sunlit sides.':'Side view is ready. Press Play and follow the Moon’s tilted path.';
+      var status=document.getElementById('sys-activity-status');if(status)status.textContent=message;
+      var stage=document.getElementById('orbit-model');if(stage){stage.focus({preventScroll:true});stage.scrollIntoView({block:'start',behavior:'instant'});}
+    });
+  });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bindActivities,{once:true});else bindActivities();
+  s.value=vdeg;applyView();paintDay();s.disabled=false;play.disabled=false;time.disabled=false;reset.disabled=false;
 })();</script>`;
 
 /** Figure + tilt slider + the projection script. One copy, both pages. */
-export function sysOrbitWidget() {
-  return `<div class="sys-figwrap">${sysFigure}</div>
+export function sysOrbitWidget(notes = "") {
+  return `<div class="sys-figwrap">${sysFigure}${notes}</div>
 ${SYS_VIEW_UI}
 ${SYS_VIEW_JS}`;
 }

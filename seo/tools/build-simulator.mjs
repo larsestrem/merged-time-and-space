@@ -30,7 +30,8 @@ import { MOON_CORE, moonIllum, moonName, moonTimes, moonPos, moonGlyph, compass 
 import { ORRERY_JS, ORR_GEOM, orrerySvg, orreryNote, orreryLocalValue, orreryCalc } from "./orrery.mjs";
 import { ico } from "./icons.mjs";
 import { hubQuestionsCard } from "./concepts.mjs";
-import { viewLadder } from "./view-ladder.mjs";
+import { lessonNav, modelNotes, plainFaq, lessonJs } from "./simulator-lesson.mjs";
+import { LOCAL_QUESTIONS, localLesson, localAnswers, localRelated, ORBIT_QUESTIONS, orbitLesson, orbitAnswers, orbitRelated } from "./simulator-lessons.mjs";
 import { CITIES } from "./city-registry.mjs";
 import { placeLd, resolvePlace } from "./place.mjs";
 import {
@@ -123,47 +124,7 @@ const seed = ALL.filter((c) => c.curated)
 const tideOf = Object.fromEntries(ALL.filter((c) => c.tide).map((c) => [c.slug, c.tide.split("/")[2]]));
 const clockOf = ALL.filter((c) => c.clock).map((c) => c.slug);
 
-const FAQ = [
-  ["Is this drawing to scale?",
-    `No, and it cannot be. The moon is drawn about ${num(wrongBy("moonDist"))} times too close to the Earth, and the sun about ${num(wrongBy("sunDist"))} times too close and ${num(wrongBy("sunSize"))} times too small. Shrink the Earth to a ${MARBLE_MM} mm marble and the moon is a ${marble.moonD.toFixed(1)} mm bead about ${Math.round(marble.moonDist * 100)} cm away, while the sun is a ${marble.sunD.toFixed(1)} m ball roughly ${Math.round(marble.sunDist)} m down the road. What IS true here is every direction and angle: where the sun and moon lie around the Earth, which half of the Earth is lit, and where you are on it.`],
-  ["What am I looking at?",
-    "The Earth from far above its orbit, looking down from your own hemisphere. Sunlight arrives from the top left, so the half of the Earth facing that way is having its day. The marker is the place you chose, the dotted circle inside the globe is the path that spot rides as the Earth turns, and the moon sits at its true angle from the sun."],
-  ["Why does the moon always look half lit?",
-    "Because from this vantage you are looking at the moon side-on: the sun lights one half of it, and from above you see the boundary edge-on. The phase people see from Earth is not how much of the moon is lit — it is how much of the lit half faces us, and that is the ANGLE between the moon and the sun in this picture. Line the moon up with the sun and it is a new moon; put it opposite and it is full. The phase disc beside the read-out shows the same instant as it looks from the ground."],
-  ["Why do we always see the same side of the moon?",
-    "Because the moon turns on its own axis exactly once per orbit — 27.3 days for both — so the same hemisphere faces us permanently. Earth's pull slowed its spin over billions of years until the two matched, which is called tidal locking. A wobble in the orbit lets us see about 59% of the surface over time. It also means \"the dark side of the moon\" is a misnomer: the far side gets exactly as much sunlight, and at new moon it is the fully lit one."],
-  ["Does it show eclipses?",
-    "No — deliberately. Earth's real shadow reaches well past the moon's orbit, so drawing it would put the moon inside it at every full moon and imply an eclipse every month. What actually decides an eclipse is how far the moon sits above or below the plane of Earth's orbit, and that is the one thing this flat view cannot show. Lunar eclipses have their own pages."],
-  ["How accurate are the positions?",
-    "The sun and moon positions come from the same solver the rest of the site uses — good to about a minute of time for sunrise and sunset, and to a fraction of a degree for the moon. It runs entirely in your browser, so nothing is cached or stale. The methodology pages set out where each figure stops being reliable."],
-  ["Can I share the exact view I am looking at?",
-    "Yes. The location, date, time and span are all in the address bar, so copying the URL shares the exact sky on screen. The link builder further down writes one for you if you would rather fill in a form than edit a URL."],
-];
-
-/* PER-CITY QUESTIONS. The generic set above is the hub's, and it stayed the
- * hub's: shipping one identical FAQPage on 1,104 pages is the "same markup,
- * near-identical page" signal that gets a family folded, and since 2023 Google
- * shows FAQ rich results for government and health sites only — so the generic
- * block was earning nothing anywhere and costing differentiation everywhere.
- * These are computed from figures the page already has, which turns the
- * duplication into the thing these pages were short of: content only this city
- * has. */
-function cityFaq(c, f) {
-  const label = c.st ? `${c.city}, ${c.st}` : c.city;
-  const out = [
-    [`What time does the moon rise in ${label} tonight?`,
-      f.moonRise === "—"
-        ? `The moon does not rise at all on this date in ${label} — it happens roughly once a month, because moonrise slides later each day until a calendar day gets skipped entirely. It sets at ${f.moonSet}. The simulator above recalculates both for any date you set.`
-        : `Tonight the moon rises at ${f.moonRise} and sets at ${f.moonSet} in ${label}, and it is a ${f.moonName.toLowerCase()}, ${f.moonPct}% lit.${f.moonLag != null ? ` Tomorrow it rises at ${f.moonRiseNext} — ${Math.abs(f.moonLag)} minutes ${f.moonLag >= 0 ? "later" : "earlier"}, because while the Earth turns once the moon has moved on about 13° round its orbit and this spot has to turn that bit further to catch it.` : ""} These are today's figures; the simulator recalculates them in your browser for any date.`],
-    [`Why is the moon that shape from ${label} tonight?`,
-      `Because the moon is ${f.elong}° away from the sun in the sky right now, and that angle IS the phase — nothing is covering the moon up. At 0° it sits in the same direction as the sun and we see its unlit side (new moon); at 180° it is opposite the sun and fully lit. ${f.elong}° gives a ${f.moonName.toLowerCase()}, ${f.moonPct}% lit. Everyone on Earth sees the same phase at the same instant; what changes with where you stand is which way up it looks, and the disc on this page is drawn the right way up for ${c.lat < 0 ? "the southern" : "the northern"} hemisphere.`],
-    [`What time is sunrise and sunset in ${label} today?`,
-      `The sun rises at ${f.rise} and sets at ${f.set}, giving ${f.len} of daylight. At ${Math.abs(c.lat).toFixed(1)}° ${c.lat >= 0 ? "north" : "south"} the longest day of the year runs to ${lenWords(Math.max(dayLenAt(c, 5, 21), dayLenAt(c, 11, 21)))} and the shortest to ${lenWords(Math.min(dayLenAt(c, 5, 21), dayLenAt(c, 11, 21)))}. Set the slider to a day and press Play to watch the marker ride in and out of the lit half.`],
-    ["Is this drawing to scale?",
-      `No, and it cannot be. The moon is drawn about ${num(wrongBy("moonDist"))} times too close to the Earth, and the sun about ${num(wrongBy("sunDist"))} times too close and ${num(wrongBy("sunSize"))} times too small. What IS true is every direction and angle: where the sun and moon lie around the Earth, which half of the Earth is lit, and where ${label} is on it.`],
-  ];
-  return out;
-}
+const FAQ = plainFaq(LOCAL_QUESTIONS);
 
 /* ---------------------------------------------------------------------------
  * The page
@@ -286,7 +247,7 @@ ${ORRERY_JS}
   function repaint(){
     var t=when();
     $('sim-fig').innerHTML=orrSvg(t,P.lat,P.lon,P.name.split(',')[0],figW());
-    $('sim-note').innerHTML=orrNote(t,P.lat,P.lon,P.name.split(',')[0],false);
+    $('sim-note').textContent='Follow the marker for '+P.name+'. The Moon disc shows the view from the ground.';
     /* the instant, in the PLACE's clock — the only clock this page uses */
     /* THE HOUR IS INFORMATION ONLY WHILE THE SLIDER COVERS A DAY. Over a week
        or a month it is noise — and noise that changes width on every frame,
@@ -461,6 +422,12 @@ ${ORRERY_JS}
   /* controls */
   $('sim-slider').addEventListener('input',function(){ OFF=+this.value||0; stop(); repaint(); });
   $('sim-now').addEventListener('click',function(){ START=Date.now()-(Date.now()%60000); OFF=0; stop(); repaint(); });
+  document.querySelectorAll('[data-sim-activity]').forEach(function(b){b.disabled=false;b.addEventListener('click',function(){
+    var key=b.getAttribute('data-sim-activity'), current=when();stop();
+    START=current+(key==='next-day'?86400000:0);OFF=0;SPAN=key==='day'?'day':'month';$('sim-span').value=SPAN;repaint();
+    var status=$('sim-activity-status');if(status)status.textContent=key==='next-day'?'Moved ahead 24 hours. Compare the Moon with its last position.':key==='day'?'One day is ready. Press Play and follow your place on Earth.':'One month is ready. Press Play and watch the Moon disc.';
+    var stage=$('local-model');stage.focus({preventScroll:true});stage.scrollIntoView({block:'start',behavior:'instant'});
+  });});
   /* Play sweeps the span in about 25 seconds — nobody drags a slider slowly
      enough to read the moon's month — but NOT FASTER THAN ONE SIMULATED DAY
      PER REAL SECOND. A fixed 25-second sweep works up to a month and falls
@@ -845,7 +812,8 @@ function nearbyCities(c) {
  * full-screen view be the same markup rather than a second design. The layout
  * is the same in both: ONE row under the picture holding the instant on the
  * left and the buttons on the right, then the slider full width beneath it. */
-const simCard = (c, f) => `  <div class="card sim-card">
+const localModelNotes = modelNotes(`<p>This is a view from above Earth’s orbit. The marker is your chosen place. It turns with Earth.</p><ul><li>Sizes and distances are changed to keep all three bodies visible.</li><li>The Sun and Moon positions are approximate calculations for the date and place shown.</li><li>This flat view leaves out the Moon’s orbital tilt. It does not predict eclipses.</li></ul><p><a href="/concepts/why-isnt-there-an-eclipse-every-month/">See why that tilt matters</a>. <a href="/methodology/moon-phase/">How Moon positions are calculated</a> · <a href="/methodology/sunrise-sunset/">How Sun times are calculated</a>.</p>`);
+const simCard = (c, f) => `  <div class="card sim-card lesson-focus" id="local-model" tabindex="-1">
     <h2 class="sim-title">Showing <span id="sim-place">${c ? esc(c.city) : "—"}</span>${/*
       the coordinates, and nothing else — the time zone used to sit here and it
       is already on the page twice. They link to the exact spot on a map, which
@@ -864,7 +832,7 @@ const simCard = (c, f) => `  <div class="card sim-card">
          rotation selects it with `.sim-stage:fullscreen ~ .sim-dlg`. */""
     }<div class="sim-top">
     <div class="sim-stage" id="sim-stage"><div class="sim-inner">
-    <div class="sim-figwrap">
+    <div class="sim-figwrap">${localModelNotes}
     ${/* baked for the build minute so a crawler and a no-JS visitor both get a
          real picture of a real sky, not an empty box the script fills in */""
     }<div class="orr-fig sim-fig" id="sim-fig">${c ? orrerySvg(NOW.getTime(), c.lat, c.lon, c.city) : ""}</div>
@@ -960,16 +928,16 @@ const simCard = (c, f) => `  <div class="card sim-card">
         <span class="hint"><span id="sim-lit">${c ? `${f.moonPct}%` : "—"}</span> lit</span>
         <span class="hint sim-moonlab">from the ground at <span id="sim-moonwhen">—</span></span>
       </div>
-      <div class="sim-rows">
-        <div class="sun-srow sun-main"><span>Sun altitude</span><b id="sim-sun-alt">${c ? `${f.sunAlt}°` : "—"}</b></div>
+      <details class="lesson-readings"><summary>Sun and Moon times &amp; directions</summary><div class="sim-rows">
+        <div class="sun-srow sun-main"><span>Sun height</span><b id="sim-sun-alt">${c ? `${f.sunAlt}°` : "—"}</b></div>
         <div class="sun-srow"><span>Sun direction</span><b id="sim-sun-az">${c ? esc(f.sunDir) : "—"}</b></div>
-        <div class="sun-srow sun-main"><span>Moon altitude</span><b id="sim-moon-alt">${c ? `${f.moonAlt}°` : "—"}</b></div>
+        <div class="sun-srow sun-main"><span>Moon height</span><b id="sim-moon-alt">${c ? `${f.moonAlt}°` : "—"}</b></div>
         <div class="sun-srow"><span>Moon direction</span><b id="sim-moon-az">${c ? esc(f.moonDir) : "—"}</b></div>
         <div class="sun-srow"><span>Moon–sun angle</span><b id="sim-elong">${c ? `${f.elong}°` : "—"}</b></div>
         <div class="sun-srow"><span>Daylight that day</span><b id="sim-len">${c ? esc(f.len) : "—"}</b></div>
         <div class="sun-srow"><span>Sunrise · sunset</span><b><span id="sim-rise">${c ? esc(f.rise) : "—"}</span> · <span id="sim-set">${c ? esc(f.set) : "—"}</span></b></div>
         <div class="sun-srow"><span>Moonrise · moonset</span><b><span id="sim-mrise">${c ? esc(f.moonRise) : "—"}</span> · <span id="sim-mset">${c ? esc(f.moonSet) : "—"}</span></b></div>
-      </div>
+      </div><p class="lesson-small-note">Height: 0° is the horizon. Below 0° means below the horizon.</p></details>
     </div>
     </div>
 
@@ -980,52 +948,11 @@ const simCard = (c, f) => `  <div class="card sim-card">
       <button type="button" class="chip" data-sim-inert disabled data-sim-phase="3">last quarter</button>
     </p>
 
-    <p class="hint orr-note" id="sim-note">${c ? orreryNote(NOW.getTime(), c.lat, c.lon, c.city, false) : ""}</p>
-  </div>
-`;
-
-/* the corridor walk, as prose — shared with sysScaleCard below (the /system/
-   page's own not-to-scale card) so the same physical demonstration is not
-   independently retyped in two places that could then disagree. It describes
-   REAL, not DRAWN, ratios, so it is exactly as true on one page as the other. */
-const CORRIDOR_PARA = `<p><strong>Try it in a corridor.</strong> Shrink the Earth to a ${MARBLE_MM} mm marble. The moon is then a <strong>${marble.moonD.toFixed(1)} mm bead</strong> — about a peppercorn — held <strong>${Math.round(marble.moonDist * 100)} cm away</strong>. The sun is a <strong>${marble.sunD.toFixed(1)} metre ball</strong>, taller than a person, standing <strong>${Math.round(marble.sunDist)} metres</strong> down the road: nearly two football pitches. Nothing about that fits on a screen, so this picture keeps the angles honest and lets the distances go.</p>`;
-
-const scaleCard = `  <div class="card">
-    <h2>This picture is not to scale — here is how far out it is</h2>
-    <p>Every direction and angle in the simulator is real. Every <em>size</em> and <em>distance</em> is not, and it is worth being exact about which, because a diagram that quietly lies about the solar system is how people end up thinking the moon is a few Earth-widths away.</p>
-    <div class="wc-facts">
-      <div class="wc-frow"><span>The moon is drawn</span><b>about ${num(wrongBy("moonDist"))}× too close</b></div>
-      <div class="wc-frow"><span>The sun is drawn</span><b>about ${num(wrongBy("sunDist"))}× too close, and ${num(wrongBy("sunSize"))}× too small</b></div>
-      <div class="wc-frow"><span>The moon’s size next to Earth</span><b>very nearly right — ${(DRAWN.moonSize * 100).toFixed(0)}% of Earth’s width, against a real ${(TRUE_RATIO.moonSize * 100).toFixed(0)}%</b></div>
-    </div>
-    ${CORRIDOR_PARA}
-    <p class="hint">Those figures are for the picture as it sits on this page. The drawing's HEIGHT is what sets every size in it, so a wider frame changes nothing except the gap between the sun and the Earth — which is why <strong>full screen is less wrong than this</strong>: it hands the picture the screen's own shape, and on a phone held sideways that puts the sun roughly ${num(wrongBy("sunDist") / 2)}× too close instead of ${num(wrongBy("sunDist"))}×. Still hopeless, and better.</p>
-    <p class="hint">What you can trust here: the direction of the sun and the moon from the Earth and from your own spot; which half of the Earth is in daylight; the angle between the moon and the sun, which is the phase; the tilt of the Earth’s axis and how much of your daily circle falls in the light. What you cannot: any distance, the sun’s size, or anything about eclipses.</p>
-  </div>
-`;
-
-const howWorksCard = `  <div class="card">
-    <h2>What this is, and how it works</h2>
-    <p>This is a working model of the Sun, Earth and Moon for one place on Earth. The Earth turns, the Moon goes around it, and the Sun sits off to the left. Drag the slider through a <strong>day</strong>, a <strong>week</strong> or a <strong>month</strong>. <strong>Now</strong> jumps back to this moment. <strong>Tilt</strong> tips the view. Playback speed is how fast that time plays.</p>
-    <p>Every angle is real. Every size and distance is not — the card below says by how much, computed from the drawing itself.</p>
-  </div>
-`;
-
-const teachCard = hubQuestionsCard(SIM_PATH, "What this picture is telling you", { id: "learn" });
-
-const classroomCard = `  <div class="card sim-teach" id="classroom">
-    <h2>Using it in a classroom</h2>
-    <p>Every control here is a lesson. Set the slider to a <strong>day</strong> and press Play — the Earth turns, and the marker rides in and out of the light. That is day and night. Leave it on a <strong>month</strong> and watch the moon–sun angle and the phase disc together: 0° is new, 180° is full. Nothing covers the moon up.</p>
-    <p>The scale card above is the activity students remember: a marble, a peppercorn, and a ball down the corridor. The link builder below hands every screen the same sky${CLASSROOM_PAUSED ? "" : ` — and if you have taught a lesson on this page, <a href="/classroom/">help us turn it into a lesson plan</a> every teacher can use`}.</p>
+    <p class="hint orr-note" id="sim-note">Follow the marker as Earth turns. Compare the Moon in space with the Moon disc seen from the ground.</p>
   </div>
 `;
 
 const builderCard = `  <div class="card">
-    <h2>Zoom out, one step at a time</h2>
-    <p>This page is one town, looking up. <a href="${SYS_PATH}">The next step out</a> is the three bodies moving together — Earth going round the sun, the moon going round the Earth, on one screen and openly not to scale, with the real ratio between the two the one thing kept honest. Beyond that is where the <em>planets</em> are — Mercury and Venus racing round inside us, Jupiter and Saturn crawling, Neptune barely moving in a lifetime — the <a href="/solar-system-simulator/">solar system simulator</a>, with the same kind of slider over a month, a year, a decade or a century, and a zoom that climbs from the Earth and Moon out to Neptune.</p>
-  </div>
-
-  <div class="card">
     <h2>Make a link to a particular sky</h2>
     <p>Pick a place, a starting date and time and how much time the slider should cover. The link builds itself as you choose, and the sentence under it says in words where that link goes — so you can check it before you send it.</p>
     ${/* The form seeds itself from whatever the simulator is showing and keeps
@@ -1050,24 +977,7 @@ const builderCard = `  <div class="card">
     </p>
     <p class="sim-sum" id="b-sum"></p>
 
-    <details class="sim-params">
-      <summary>What the parameters mean</summary>
-      <div class="wc-facts">
-        <div class="wc-frow"><span><code>city</code></span><b>a city slug — <code>?city=seattle</code></b></div>
-        <div class="wc-frow"><span><code>lat</code> &amp; <code>lon</code></span><b>any coordinates — <code>?lat=47.6&amp;lon=-122.33</code>, with optional <code>name</code> and <code>tz</code></b></div>
-        <div class="wc-frow"><span><code>date</code></span><b><code>YYYY-MM-DD</code>, the day the span starts</b></div>
-        <div class="wc-frow"><span><code>time</code></span><b><code>HH:MM</code> in the place’s own clock</b></div>
-        <div class="wc-frow"><span><code>span</code></span><b><code>day</code>, <code>week</code> or <code>month</code></b></div>
-      </div>
-      <p class="hint">City slugs are the ones in the address of a city page: <code>/sun/<strong>seattle</strong>/</code>. Coordinates win if you give both.</p>
-    </details>
-  </div>
-`;
 
-const faqCard = (faq = FAQ, heading = "Simulator FAQ") => `  <div class="card tool-about">
-    <h2>${esc(heading)}</h2>
-    ${faq.map(([q, a]) => `<p><strong>${esc(q)}</strong> ${esc(a)}</p>`).join("\n    ")}
-    <p class="hint">How the positions are worked out, and where they stop being reliable: <a href="/methodology/sunrise-sunset/">sunrise &amp; sunset</a>, <a href="/methodology/moon-phase/">moon phase</a>.</p>
   </div>
 `;
 
@@ -1116,9 +1026,9 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "simulator", url: SIM_PATH } })}
   <h1>Sun, Moon &amp; Earth Movement Simulator</h1>
-  <p class="sub">Watch where the sun and the moon actually are, from any place on Earth, at any moment you like. Drag the slider through a <strong>day</strong>, a <strong>week</strong> or a <strong>month</strong> and the picture, the phase and every number move with it.</p>
+  <p class="sub">Follow the Sun and Moon from a place on Earth. Move through a day to see day and night. Move through a month to watch the Moon’s shape change.</p>
 
-${viewLadder("town")}${simCard(HUB_CITY, hubFacts)}${howWorksCard}${scaleCard}${teachCard}  <div class="card">
+${lessonNav}${simCard(HUB_CITY, hubFacts)}${localLesson}${localAnswers}${localRelated}  <div class="card">
     <h2>Pick a city</h2>
     <p>Every city with a sunrise page has a simulator page of its own — ${ALL.length.toLocaleString("en-US")} of them. The largest are here; for anywhere else, use the search above or start from that city’s <a href="/sun/">sunrise</a> or <a href="/moon/">moon</a> page.</p>
     <div class="chips sim-citylist">
@@ -1135,9 +1045,9 @@ ${featured.map((c) => `      <a class="chip" href="${SIM_PATH}${c.slug}/">${esc(
     <p class="hint">Or browse the families: <a href="/sun/">sunrise &amp; sunset by city</a>, <a href="/moon/">moonrise, moonset &amp; phase</a>, <a href="/tides/">predicted tide times</a>, <a href="/world-clock/">world clock</a>.</p>
   </div>
 
-${classroomCard}${builderCard}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
+${builderCard}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
-${script(HUB_CITY)}
+${script(HUB_CITY)}${lessonJs}
 </body>
 </html>
 `;
@@ -1169,7 +1079,7 @@ ${head({
        "Sun, Moon &amp;amp; Earth" into the title, og:title and the JSON-LD
        name on all 1,103 city pages. check-pages.mjs now gates the pattern. */
     title: `Sun, Moon & Earth Simulator for ${label} — Any Date or Time`,
-    desc: `Watch the sun and moon move around the Earth as seen from ${label}: scrub a day, a week or a month, see the phase, altitude and direction of both, sunrise ${f.rise}, sunset ${f.set} and today's ${f.moonName.toLowerCase().replace(/ moon$/, "")} moon.`,
+    desc: `Explore day, night and Moon phases in ${label}. Try short activities, move through a day or month, and see Sun and Moon times for your chosen date.`,
     path,
     ld: `\n<script type="application/ld+json">${breadcrumbLD(SITE, [{ name: "Time and Space Science", url: "/" }, { name: "Sun, Moon & Earth simulator", url: SIM_PATH }, { name: label, url: path }])}</script>\n${placeLd({ ...resolvePlace(c), elevKey: c.slug, url: `${SITE}${path}` })}`,
   })}
@@ -1177,29 +1087,10 @@ ${head({
 <body>
 <div class="wrap">
   ${brand({ crumb: { slug: "simulator", url: SIM_PATH }, page: { label: c.slug, url: path } })}
-  <h1>Sun, Moon &amp; Earth Movement Simulator for ${esc(label)}</h1>
-  <p class="sub">Where the sun and the moon are from ${esc(label)}, at any moment you choose. Today the sun rises at <b>${esc(f.rise)}</b> and sets at <b>${esc(f.set)}</b> — <b>${esc(f.len)}</b> of daylight — and the moon is a <b>${esc(f.moonName.toLowerCase())}</b>, ${f.moonPct}% lit. Drag the slider through a day, a week or a month and watch all of it move.</p>
-
-${viewLadder("town")}${simCard(c, f)}  <div class="card">
-    <h2>What ${esc(c.city)}’s latitude does to the picture</h2>
-    <p>${latitudeLine(c)}</p>
-    <div class="wc-facts">
-      <div class="wc-frow"><span>Sunrise · sunset today</span><b>${esc(f.rise)} · ${esc(f.set)}</b></div>
-      <div class="wc-frow"><span>Daylight today</span><b>${esc(f.len)}</b></div>
-      <div class="wc-frow"><span>Moonrise · moonset today</span><b>${esc(f.moonRise)} · ${esc(f.moonSet)}</b></div>
-      ${f.moonLag != null ? `<div class="wc-frow"><span>Moonrise tomorrow</span><b>${esc(f.moonRiseNext)} — ${Math.abs(f.moonLag)} min ${f.moonLag >= 0 ? "later" : "earlier"}</b></div>` : ""}
-      <div class="wc-frow"><span>Moon–sun angle now</span><b>${f.elong}° — ${esc(f.moonName.toLowerCase())}</b></div>
-      <div class="wc-frow"><span>Longest · shortest day of ${YEAR}</span><b>${lenWords(Math.max(dayLenAt(c, 5, 21), dayLenAt(c, 11, 21)))} · ${lenWords(Math.min(dayLenAt(c, 5, 21), dayLenAt(c, 11, 21)))}</b></div>
-      <div class="wc-frow"><span>Time zone</span><b>${esc(c.tz.replace(/_/g, " "))}</b></div>
-    </div>
-    <p class="hint">Baked for the moment this page was built; the simulator above recomputes everything in your browser for whatever instant you set.</p>
-    <ul class="hub-qs">
-      <li><p><a href="/concepts/why-does-the-moon-change-shape/">Why does the Moon change shape?</a> The angle between the Moon and the Sun is the phase.</p></li>
-      <li><p><a href="/concepts/what-is-tidal-locking/">What is tidal locking?</a> The Moon turns once per orbit, so the same face stays toward us.</p></li>
-    </ul>
-    <p class="hint">The full stack of questions sits on the <a href="${SIM_PATH}">simulator’s own page</a>.</p>
-
-  </div>
+  <h1>Sun &amp; Moon Simulator: ${esc(label)}</h1>
+  <p class="sub">Follow the Sun and Moon from ${esc(label)}. Move through a day to see day and night. Move through a month to watch the Moon’s shape change.</p>
+${lessonNav}${simCard(c, f)}${localLesson}${localAnswers}${localRelated}
+  <details class="card lesson-copy"><summary>Why this place has different day lengths</summary><p>${latitudeLine(c)}</p><p><a href="/earth-tilt-sun-seasons/">Explore how Earth’s tilt changes daylight</a>.</p></details>
 
   <div class="card">
     <h2>${esc(c.city)} on the rest of the site</h2>
@@ -1211,7 +1102,7 @@ ${fam.map(([href, t, x]) => `      <a class="chip" href="${href}"${x ? ` data-xl
 
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
-${script(c)}
+${script(c)}${lessonJs}
 </body>
 </html>
 `;
@@ -1257,60 +1148,9 @@ const SYS_WRONG = {
    this compressed a distance — the one figure here that runs the other way */
 const SYS_MOON_BIG = (SYS_RM / SYS_RE) / TRUE_RATIO.moonSize;
 
-const sysFigureCard = `  <div class="card">
-    ${sysOrbitWidget()}
-    <p class="hint">The Earth crosses its own big ring once every drawn orbit; watch the Moon and it crosses its small one about <strong>thirteen times</strong> in that same span — the real ratio between a ${SIDEREAL}-day month and a 365.25-day year, kept even though neither ring is at the real distance. Every dark half faces away from the sun, the moon's grey patch keeps facing the Earth, and the Earth's axis keeps one fixed lean — the four cards below say why each of those is worth staring at.</p>
-  </div>
-`;
-
-/* id="learn" is the anchor both sibling simulator pages carry for "the part
-   that explains rather than draws" (teachCard above, and build-solar's), and
-   the home page's cards link to it on all three. This page had the card and
-   not the anchor, so its "Educational info" link had nowhere to land. */
-const sysWatchCard = `  <div class="card" id="learn">
-    <h2>Four true things hiding in this toy drawing</h2>
-    <p><strong>1 · The lit sides always face the sun.</strong> Watch the Earth all the way round: its bright half tracks the sun the whole lap, because day and night are nothing but which half faces the light. The moon's bright half does the same — which leads directly to the strange part.</p>
-    <p><strong>2 · The moon shows us one face, but the sun lights whichever half it likes.</strong> The grey patch on the moon always points at the Earth — the moon genuinely turns exactly once per orbit, so we only ever see one side (that is tidal locking, and why the far side stayed unphotographed until 1959). But its <em>lit</em> half tracks the SUN, not us. Follow one lap: when the moon sits between Earth and sun, the face we see is all shadow (new moon); on the far side, all lit (full moon). <em>Same face, different lighting — that is the whole phase cycle</em>, and you can check tonight's result against <a href="/moon/">the real phase</a>. It is also why "the dark side of the moon" is a misnomer: the far side gets exactly as much sun as the near side.</p>
-    <p><strong>3 · The axis leans one fixed way — and that lean is the seasons.</strong> The Earth's pole is tilted 23.4° and keeps pointing at the same patch of sky all year (toward Polaris). It does NOT swivel to follow the sun — watch the little axis hold its angle through the whole orbit. So on one side of the orbit the north pole leans sunward (June — long days, high sun) and half a year later it leans away (December). Nothing about the Earth changed; only which end leans toward the light. The lean is easiest to see from the side — <strong>drag the tilt slider under the picture</strong> to tip the orbit edge on, and watch the axis stay parallel to itself all the way round the loop. The full argument — including why "closer to the sun" cannot be the reason — is at <a href="/earth-tilt-sun-seasons/">why we have seasons</a>.</p>
-    <p><strong>4 · Why eclipses are rare — visible from the side.</strong> Seen from above, the moon crosses the sun–Earth line twice a month and you would expect an eclipse every crossing. Now <strong>tip the orbit edge on with the slider</strong>: the moon's orbit is tilted out of the Earth's, so at most new and full moons it slides <em>above</em> or <em>below</em> the sun–Earth line instead of through it. The tilt is drawn steeper than its real 5.1° so you can see it (the scale card below says by how much), but the miss is genuine — the real angle still carries the moon several times its own width off the exact line, which is why eclipses come in occasional seasons and <a href="/moon/eclipses/">the real list</a> is short. The whole story is at <a href="/concepts/why-isnt-there-an-eclipse-every-month/">why there isn’t an eclipse every month</a>.</p>
-${CLASSROOM_PAUSED ? "" : `    <p class="hint">Teach with this picture? <a href="/classroom/">Help us turn what you do with it into a lesson plan</a> — built with you, published free, credited to you.</p>`}
-  </div>
-`;
-
-const sysScaleCard = `  <div class="card">
-    <h2>This picture is not to scale — by how much</h2>
-    <p>The <em>directions</em> each body turns, and the <em>ratio</em> between the two periods, are real. Every <em>size</em> and every <em>distance</em> is invented, because a drawing that held the Earth's orbit AND the Moon's true distance at once has no room left to show the Moon at all — it would sit closer to the Earth than the line marking the Earth's own edge.</p>
-    <div class="wc-facts">
-      <div class="wc-frow"><span>The Earth's orbit is drawn</span><b>about ${num(SYS_WRONG.sunDist)}× too close to the sun</b></div>
-      <div class="wc-frow"><span>The sun itself is drawn</span><b>about ${num(SYS_WRONG.sunSize)}× too small</b></div>
-      <div class="wc-frow"><span>The moon's orbit is drawn</span><b>about ${num(SYS_WRONG.moonDist)}× too close to the Earth</b></div>
-      <div class="wc-frow"><span>The moon itself is drawn</span><b>about ${SYS_MOON_BIG.toFixed(1)}× too big next to the Earth — it has to be, to still be visible at that distance</b></div>
-      <div class="wc-frow"><span>The moon's orbit tilt is drawn</span><b>at ${SYS_INC_DRAWN}° — about ${(SYS_INC_DRAWN / +ORBIT_TILT).toFixed(1)}× the real ${ORBIT_TILT}°, which at this orbit's drawn size would be a two-pixel wobble</b></div>
-    </div>
-    ${CORRIDOR_PARA}
-    <p class="hint">What you can trust here: which way each body turns and orbits, that the moon genuinely completes about thirteen trips round the Earth for every trip the Earth makes round the sun, and — with the orbit tipped edge on — that the moon's orbit really does carry it off the sun–Earth line at most new and full moons. What you cannot: any size, any distance, the drawn steepness of that tilt (exaggerated, as the table says), or the direction its crossing line points — a drawing choice, so nothing here says <em>when</em> in the year real eclipse seasons fall.</p>
-  </div>
-`;
-
-/* the old "Where this sits between the other two" card at the FOOT of the
-   page became the viewLadder strip at its HEAD (view-ladder.mjs, shared by
-   all three simulators — the relationship between the views is the hardest
-   thing here to teach and cannot live below the fold). Its what-each-view-
-   trades paragraph survives as the strip's note. */
-const sysTradeNote = `    <p class="hint sys-vlad-note">Each view trades one kind of honesty for another. <a href="${SIM_PATH}">The single-location simulator</a> gets the sun and moon's real position from your own town, but only ever shows one place. This page adds the Earth's own orbit and keeps the real ratio between the two periods, but invents every size and distance to fit them both on a screen. <a href="/solar-system-simulator/">The solar system simulator</a> gets distance right — orbits drawn to actual scale — by giving up on size, since a to-scale Jupiter would be a fraction of a pixel.</p>
-`;
-
-const SYS_FAQ = [
-  ["Is this to scale?", "No, and it says so on the page: every size and every distance here is invented so the Earth's orbit and the moon's orbit can both fit on one screen. What is real is the direction each body turns, the ratio between the two periods, the fixed lean of the Earth's axis, and which half of each body is lit."],
-  ["Why does the moon go round so much faster than the Earth does?", "Because it really does: the moon completes an orbit in about 27.3 days against the stars, and the Earth takes 365.25 days to go once round the sun — about thirteen moon orbits to one Earth orbit, which is the speed this page's animation runs at."],
-  ["Does the same side of the moon always face the Earth?", "Yes — the grey patch in the drawing marks it. The moon rotates exactly once per orbit, so one face points at us permanently. But the SUN lights whichever half faces it, so the face we see swings from fully dark (new moon) to fully lit (full moon) and back. Same face, changing light: that is what the phases are."],
-  ["Is the Earth's tilt really why we have seasons?", "Yes. The axis leans 23.4 degrees and keeps pointing the same way in space all year — watch it hold its angle through the whole drawn orbit. When your hemisphere's pole leans sunward the days run long and the sun stands high; half an orbit later it leans away. Distance is not the cause — the Earth is actually closest to the sun in early January, in the middle of the northern winter."],
-  ["What does the tilt slider do?", "It tips Earth's whole orbit away from you, from lying flat and face on to standing edge on. As it tips, the orbit flattens — wider and shorter — until it is a line. Edge on you can see the things a flat diagram cannot show: Earth passing in front of the sun and then behind it, which is the year, and the moon's tilted orbit carrying it above or below the sun-Earth line at most new and full moons, which is why eclipses are rare. Earth's axis keeps its 23.4-degree lean relative to the orbit throughout and tips along with it."],
-  ["Why isn't there an eclipse every month?", "Because the moon's orbit is tilted about 5 degrees out of the plane of the Earth's, so at most new and full moons the moon passes above or below the exact sun-Earth line instead of through it. Tip the orbit edge on with the slider and you can watch it happen — the drawn tilt is exaggerated so it is visible at this size, but the miss is real: even 5 degrees carries the moon several times its own width off the line."],
-  ["Where can I see this to scale?", "Nowhere on one screen, at both distances at once — that is the whole point of this page. The Earth and the Moon ARE drawn to real scale, in both size and distance, on the Earth & the Moon rung of the solar system simulator; that view has no room left to also show the sun."],
-];
-
-const sysTeachCard = hubQuestionsCard(SYS_PATH, "What this picture is telling you", { id: "learn" });
+const orbitModelNotes = modelNotes(`<p>This model compares two orbits. It is not a map of the bodies’ positions on a real date.</p><ul><li>Earth and the Moon move at their real relative rates: about 13 Moon orbits per Earth year.</li><li>Sizes and distances are changed to fit the screen. The Moon’s orbit is about ${num(SYS_WRONG.moonDist)} times too close to Earth in the base drawing.</li><li>The Moon’s orbit is tilted ${SYS_INC_DRAWN}° in the drawing to make it visible. Its real tilt is about ${ORBIT_TILT}°.</li><li>View angle moves your viewpoint. It does not change Earth’s 23.4° axial tilt.</li><li>Use this to explore motion, not to predict eclipse dates.</li></ul><p><a href="/earth-and-moon-simulator/">See Earth and the Moon to scale</a> · <a href="/concepts/why-isnt-there-an-eclipse-every-month/">Explore eclipses</a>.</p>`);
+const sysFigureCard = `<div class="card lesson-focus" id="orbit-model" tabindex="-1">${sysOrbitWidget(orbitModelNotes)}<p class="lesson-small-note">Earth follows the large ring. The Moon follows the small ring around Earth.</p></div>`;
+const SYS_FAQ = plainFaq(ORBIT_QUESTIONS);
 
 function buildSystemView() {
   const html = `<!DOCTYPE html>
@@ -1318,7 +1158,7 @@ function buildSystemView() {
 <head>
 ${head({
     title: "Earth, the Sun & the Moon — All Three Moving at Once",
-    desc: "A schematic of the Earth going round the sun while the moon goes round the Earth, drawn small enough to fit one screen. Not to scale — the page says by how much — but the real ratio between the two orbital periods.",
+    desc: "Watch Earth orbit the Sun while the Moon orbits Earth. Compare their journeys, pause the model, change your view, and try short activities about space.",
     path: SYS_PATH,
     ld: `\n<script type="application/ld+json">${breadcrumbLD(SITE, [{ name: "Time and Space Science", url: "/" }, { name: "Earth, Sun & Moon orbit simulator", url: SYS_PATH }])}</script>\n${learningLd({ name: "Earth, Sun & Moon: the whole system moving", url: `${SITE}${SYS_PATH}`, description: "A schematic showing the Earth orbiting the sun while the moon orbits the Earth, at the real ratio between the two periods and an openly invented scale." })}`,
     faq: SYS_FAQ,
@@ -1328,9 +1168,8 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "earth-sun-moon-orbit-simulator", url: SYS_PATH } })}
   <h1>Earth, the Sun &amp; the Moon — All Three Moving</h1>
-  <p class="sub">The picture neither of this site's other simulators draws: the Earth going round the sun while the moon goes round the Earth, both at once. It is drawn small enough to fit a screen, which means it cannot be to scale — and the card below it says exactly how far out it is.</p>
-
-${viewLadder("system", { note: sysTradeNote })}${sysFigureCard}${sysWatchCard}${sysTeachCard}${sysScaleCard}${faqCard(SYS_FAQ, "Common questions")}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
+  <p class="sub">Earth travels around the Sun. The Moon travels around Earth at the same time. Press Play to follow both trips, or drag the slider to move at your own pace.</p>
+${lessonNav}${sysFigureCard}${orbitLesson}${orbitAnswers}${orbitRelated}${lessonJs}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 </body>
 </html>
