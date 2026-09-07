@@ -26,6 +26,16 @@ This release revises the three requested simulator templates, including all 1,10
 | Earth–Sun–Moon orbit | 1,745 paragraph words; 15 paragraphs over 60 words; longest 145 words | Repeated explanations and question sections; ambiguous “Tilt Earth’s orbit” label; continuous animation has no pause/time control | Play/Pause, Reset and a year slider; View angle label; three experiments; one answer section; optional distinction between axial and orbital tilt |
 | Solar system | 1,505 paragraph words; 9 paragraphs over 60 words; longest 100 words | Planet lesson interrupted by flight calculations, layout justifications and long scale explanations; too many settings/readings immediately visible | Planet race, spacing and 100-year comparisons; optional settings/readings; short question answers; rocket, comet and planet material linked to existing dedicated pages |
 
+After revision, the same paragraph-count method gives:
+
+| Page | Before | After | Longest paragraph after |
+|---|---:|---:|---:|
+| New York local simulator | 413 | 582 | 46 words |
+| Earth–Sun–Moon orbit | 1,745 | 431 | 36 words |
+| Solar system | 1,505 | 529 | 53 words |
+
+The orbit and solar pages reduce paragraph text by about 75% and 65%. New York gains a missing lesson and optional answers instead of merely losing words. All three have zero paragraphs over 60 words. These totals include closed answers and footer paragraphs; they are not the amount a child must read before trying the model.
+
 On the orbit page’s initial desktop screen, the figure began about 353 CSS pixels down at a 1363 × 936 viewport. The introductory three-view navigation consumed substantial space. The revision replaces it with compact links to the lesson sections and puts the other simulator choices in related topics.
 
 ## The reusable page structure

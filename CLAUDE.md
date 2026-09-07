@@ -507,11 +507,17 @@ every 15s to 2 min, every 30s to 10 min, every minute to 30 min, every 5 min to
 
 ## Page conventions (enforced by the generators)
 
-- **The solar family's tree is `Home / Planets / <page>`.** `solarCrumbs()` in
-  `solar-pages.mjs` draws it under the H1 and the SAME array becomes the
-  BreadcrumbList JSON-LD, so the visible trail and the structured one cannot
-  disagree. `/planets/` is the section hub; the simulator is one of its
-  children, not its parent.
+- **Science lessons start with a grade 4–6 explanation.** Keep one main topic
+  per page: short introduction, simulator, What to look for, Questions answered,
+  then Explore related topics. Optional grade 6–7 detail belongs farther down.
+  Define and link prerequisites in context. Keep model assumptions in a compact
+  `?` disclosure and teacher/implementation material out of the first lesson.
+  `simulator-lesson.mjs` and `simulator-lessons.mjs` provide the first shared
+  implementation; see `docs/content-review-2026-09-07.md` for remaining work.
+- **The solar family's hierarchy is `Home / Planets / <page>` in structured
+  data.** Visible breadcrumbs were removed at the owner's request, including
+  the separate trail beneath the H1. Do not reintroduce them. The Time, Earth,
+  Space and Classroom section hubs also intentionally omit visible H1s.
 - **Full screen on a solar page is a LANDSCAPE grid: picture in column one,
   everything else in column two.** The drawing is square, so height is the only
   thing that can make it bigger, and a square in a 16:9 frame leaves ~40% of the
