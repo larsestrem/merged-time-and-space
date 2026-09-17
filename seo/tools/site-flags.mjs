@@ -24,8 +24,8 @@ export const MESSAGE_FORMS_PAUSED = true;
 
 /* the note atop every classroom and lesson-plan page; data-ac marks it so
    build-inline can re-inject it idempotently */
-export const classroomPauseNote = () =>
-  `<p class="tool-msg tool-msg-warn cr-pause" data-ac="cr-pause" role="note"><strong>The classroom pages are being updated.</strong> We are making an update to the classroom and lesson-plan pages, expected in ${CLASSROOM_PAUSE_WHEN}. Lesson-plan submissions are paused until then — please check back.</p>`;
+export const classroomPauseNote = (rel = "") =>
+  `<p class="tool-msg tool-msg-warn cr-pause" data-ac="cr-pause" role="note">${rel === "classroom/index.html" ? "The classroom guides are being updated, and lesson-plan submissions are paused. You can still explore the simulations and use the activities on their pages." : rel.includes("seasons-grades-7-8/") ? "This grades 7–8 seasons lesson is being updated. You can still use the seasons simulator to compare daylight and Sun angles through the year." : rel.includes("solar-system-grades-3-4/") ? "This grades 3–4 solar-system lesson is being updated. You can still use the solar-system simulator to compare the planets’ paths around the Sun." : "Lesson-plan submissions are paused while the classroom pages are updated. Please check back for reopening information."}</p>`;
 
 /* the note atop /report/, /suggest-event/ and /wrong-date/ while their forms are paused */
 export const messageFormsNote = () =>

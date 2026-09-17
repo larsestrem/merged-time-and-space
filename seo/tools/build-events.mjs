@@ -8,7 +8,7 @@
  *
  *   node seo/tools/build-events.mjs   (run before build-inline)
  */
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { esc, GA_SNIPPET, brand, breadcrumbLD, nextOccurrence, iso, loadEvents, epochFor, songRow } from "./lib.mjs";
@@ -17,6 +17,8 @@ import { ART } from "./art.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
+// The 2026 kickoff was archived after its date passed; do not retain stale output.
+rmSync(join(root, "sports-countdowns", "nfl-kickoff"), { recursive: true, force: true });
 
 /* ---- the hero illustration ------------------------------------------------
  * These are the LCP element on the seven pages that have one, so they carry

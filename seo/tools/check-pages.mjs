@@ -24,7 +24,7 @@
  * carry no canonical, so they're held only to the not-empty/not-truncated bar.
  *   node seo/tools/check-pages.mjs
  */
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, relative } from "node:path";
 
@@ -84,10 +84,23 @@ const tagText = (html, re) => { const m = re.exec(html); return m ? m[1].replace
 const SECTION_HUBS_WITHOUT_H1 = new Set(["earth/index.html", "space/index.html", "time/index.html", "classroom/index.html"]);
 const MIN_BYTES = 500, MIN_VISIBLE = 120;
 const problems = [];
+const retiredConcepts = new Set(JSON.parse(readFileSync(join(root, "seo/_data/retired-concepts.json"), "utf8")));
+for (const slug of retiredConcepts) {
+  if (existsSync(join(root, "concepts", slug, "index.html"))) problems.push([`concepts/${slug}/`, "retired concept page was regenerated"]);
+}
+const sitemap = readFileSync(join(root, "sitemap.xml"), "utf8");
+for (const slug of retiredConcepts) {
+  if (sitemap.includes(`/concepts/${slug}/`)) problems.push(["sitemap.xml", `retired concept still indexed: ${slug}`]);
+}
+
 for (const f of files) {
   const rel = relative(root, f);
   let html = "";
   try { html = readFileSync(f, "utf8"); } catch (e) { problems.push([rel, `unreadable (${e.message})`]); continue; }
+  for (const match of html.matchAll(/\/concepts\/([a-z0-9-]+)\//g)) {
+    if (retiredConcepts.has(match[1])) problems.push([rel, `reference to retired concept: ${match[1]}`]);
+  }
+
   const fail = (msg) => problems.push([rel, msg]);
 
   const noindex = /<meta[^>]+name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html);

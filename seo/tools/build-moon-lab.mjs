@@ -38,7 +38,7 @@ ${GA_SNIPPET}
 <div class="wrap">
   ${brand({ crumb: { slug: "moon-simulator", url: MOON_LAB_PATH } })}
   <h1>Test the Moon</h1>
-  <p class="sub">Choose a question. Change one thing. Watch what changes, then explain why. The <code>state</code> in the URL selects the experiment, so a teacher or concept page can open this same engine at exactly the right task.</p>
+  <p class="sub">Explore Moon phases, eclipses and the way the Moon moves. Choose an experiment, change one setting and watch what happens.</p>
   ${moonLabHtml({ state: "phases", hub: true })}
   <div class="card">
     <h2>Every experiment has a direct link</h2>
@@ -50,7 +50,7 @@ ${GA_SNIPPET}
     <p>These are explanatory models, not an ephemeris. Periods and tilt come from the same Moon and orbit constants used elsewhere on the site; the supermoon distance range is sampled from the site’s Moon solver. Sizes and separations are enlarged to keep the relationships visible.</p>
     <p class="hint">For tonight’s real phase, rise time and distance, use <a href="/moon/">the Moon pages</a>. For the three bodies at a real place and instant, use the <a href="/sun-moon-earth-movement-simulator/">Sun, Moon and Earth movement simulator</a>.</p>
   </div>
-  <p class="footer"><a href="/questions/">Questions you can test</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
+  <p class="footer"><a href="/questions/">Questions about time, Earth and space</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 <script data-ac="shared" data-name="moon-lab">${MOON_LAB_JS}</script>
 </body>

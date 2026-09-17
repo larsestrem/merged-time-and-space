@@ -46,6 +46,7 @@ ${GA_SNIPPET}
 <div class="wrap">
   ${brand({ crumb: { slug: "alarm-clock", url: "/alarm-clock/" } })}
   <h1>Online Alarm Clock</h1>
+  <p class="sub">Choose a time, label your alarm and press Save. Keep this page open, your device awake and the sound on for the alarm to ring.</p>
 
   ${PANEL_HTML}
   <p class="ac-wake-note" id="ac-wake-note" hidden></p>

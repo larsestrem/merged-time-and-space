@@ -60,7 +60,7 @@ ${GA_SNIPPET}
 <div class="wrap">
   ${brand({ crumb: { slug: "time-difference-calculator", url: "/time-difference-calculator/" } })}
   <h1>Time Difference Calculator</h1>
-  <p class="sub">Find the hours and minutes between two clock times &mdash; each one in its own time zone, so a flight, a shift, or a call across the country all come out right.</p>
+  <p class="sub">Calculate the time between two dates and times, including locations in different time zones. Use it to compare a journey, work shift or scheduled call.</p>
 
   <div class="card">
     ${tdiffForm()}

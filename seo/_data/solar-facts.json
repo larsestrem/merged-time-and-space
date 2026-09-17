@@ -85,7 +85,8 @@
       "overview": [
         "Mercury is the smallest planet and the closest to the sun: 4,879 km across, which makes it smaller than Ganymede and smaller than Titan, both of which are moons. It is mostly iron. The core takes up about 85% of the radius, a proportion nothing else here comes close to, and the leading explanation is that a young Mercury lost most of its rock in a collision.",
         "It goes round the sun in 88 days and turns exactly three times for every two of those orbits, so a day from one sunrise to the next lasts 176 Earth days — two of its years. With almost no atmosphere to move heat around, the ground reaches about 430 °C in that long noon and falls to −180 °C at night. Radar and MESSENGER found water ice in craters at the poles that the sun has never reached."
-      ]
+      ],
+      "intro": "Mercury is the smallest planet and the closest to the Sun. Watch it rotate, explore its cratered surface and compare its slow spin with its short year."
     },
     {
       "slug": "venus",
@@ -129,7 +130,8 @@
       "overview": [
         "Venus is very nearly Earth's size — 12,104 km across against Earth's 12,742 — and is the least Earth-like place in the solar system. The atmosphere is carbon dioxide at 92 times Earth's surface pressure, the equivalent of being 900 m underwater, and it holds the surface at about 465 °C everywhere: at the poles, at the equator, and right through the night. That is hotter than Mercury, which is twice as close to the sun.",
         "It also turns backwards, and slowly: one rotation takes 243 Earth days while one orbit takes 225, so Venus's day is longer than its year. The cloud deck is sulfuric acid and completely unbroken, which is why no telescope has ever seen the ground through it in visible light and why the globe here is drawn blank. Everything known about the surface underneath comes from radar and from a handful of Soviet landers that survived minutes."
-      ]
+      ],
+      "intro": "Venus is close to Earth in size, but it has a thick atmosphere and an extremely hot surface. Watch its slow rotation and compare its day and year with Earth’s."
     },
     {
       "slug": "earth",
@@ -169,7 +171,8 @@
       "overview": [
         "Earth is the only place known where water sits liquid on the surface, and the only place known with life. It is the largest and densest of the four rocky planets, the only one with plate tectonics running today, and the only one with a large moon — Ganymede and Titan are bigger than our moon, but they orbit planets hundreds of times heavier than the worlds they circle.",
         "That moon is a quarter of Earth's width, which makes the pair closer to a double planet than anything else in the inner solar system, and it holds the tilt of Earth's axis steady at about 23.4°. The tilt is what gives the year seasons; without the moon it would wander, and the climate with it. The oceans' tides are the moon's doing too, and the drag of them is pushing it about 3.8 cm further away every year."
-      ]
+      ],
+      "intro": "Compare Earth and the Moon, then watch the Moon travel around us. Explore their sizes, the space between them and the features on each world."
     },
     {
       "slug": "mars",
@@ -221,7 +224,8 @@
       "overview": [
         "Mars is half Earth's width and about a tenth of its mass, with a day of 24 hours 37 minutes and a tilt of 25° — so it has seasons that run on a two-year calendar. The atmosphere is carbon dioxide at about 0.6% of Earth's surface pressure, thin enough that liquid water on the surface boils and freezes at the same time, and thick enough to raise dust storms that can cover the planet for weeks.",
         "It holds the extremes of the solar system's geography: Olympus Mons stands about 22 km high, and Valles Marineris runs 4,000 km along the equator, which on Earth would reach from California to New York. Riverbeds, deltas and lake floors are everywhere in the older terrain, so the water was there and stayed long enough to move rock. Where it went, and when, is the question every rover on the ground is there to answer."
-      ]
+      ],
+      "intro": "Explore Mars’s surface and watch its two small moons, Phobos and Deimos. Compare the planet’s size, day and year with Earth’s."
     },
     {
       "slug": "jupiter",
@@ -269,7 +273,8 @@
       "overview": [
         "Jupiter is two and a half times the mass of every other planet, moon, asteroid and comet in the solar system put together. It is hydrogen and helium in roughly the sun's proportions, with no surface at all: the gas simply gets denser with depth until it behaves like a liquid metal. It turns once in under ten hours, faster than anything else here, and that spin visibly squashes it — the equator is about 7% wider than the poles.",
         "The Great Red Spot has been watched for at least 190 years and is still shrinking; it was more than twice Earth's width in the 1800s and is now about one Earth across. Four of its moons are worlds in their own right, and Io, Europa and Ganymede are locked in a resonance that keeps flexing them: Io is the most volcanically active body known, and Europa holds a salt-water ocean under its ice with more water in it than every ocean on Earth."
-      ]
+      ],
+      "intro": "Jupiter is the largest planet in our solar system. Explore its cloud bands and Great Red Spot, then watch its four large moons move around it."
     },
     {
       "slug": "saturn",
@@ -318,7 +323,8 @@
       "overview": [
         "Saturn is the second-largest planet and the least dense object in the solar system — mean density about 0.69 that of water. The rings are its own signature: 280,000 km across and in most places only tens of metres thick, made of water ice from dust grains up to boulders. Drawn to scale they are a sheet of paper the width of a football pitch, which is why they vanish to a line when Earth passes through their plane, as it last did in March 2025.",
         "It has more confirmed moons than every other planet put together, and two of them are among the most interesting places anywhere. Titan is bigger than Mercury and the only moon with a thick atmosphere, with rivers, rain and seas of liquid methane on a surface at −179 °C. Enceladus, 500 km across, sprays water from an ocean under its south pole through cracks in its ice — Cassini flew through those plumes and tasted salt and organic molecules in them."
-      ]
+      ],
+      "intro": "Explore Saturn’s rings and watch its moons move around the planet. Compare their sizes and paths, and see how Saturn’s tilted rings look from Earth."
     },
     {
       "slug": "uranus",
@@ -363,7 +369,8 @@
       "overview": [
         "Uranus lies on its side. Its axis is tilted 98°, so instead of spinning like a top it rolls along its orbit, and each pole spends 42 years in continuous sunlight followed by 42 years of night. The most likely cause is an impact with something Earth-sized early on, though the moons orbit tidily around the tipped equator, which is hard to arrange with a single blow.",
         "It is the coldest atmosphere measured anywhere in the solar system, −224 °C, colder than Neptune despite being closer to the sun — nobody has fully explained that. In visible light it is nearly featureless, a flat blue-green from methane absorbing red light, and it has been visited exactly once: Voyager 2 flew past in January 1986 and everything since has come from telescopes. Nine of its narrow, dark rings were found in 1977 when they blocked the light of a star; later observations brought the count to 13."
-      ]
+      ],
+      "intro": "Uranus spins on its side. Explore its unusual tilt, watch its moons and compare its long year with Earth’s."
     },
     {
       "slug": "neptune",
@@ -408,7 +415,8 @@
       "overview": [
         "Neptune is the farthest planet, 30 times Earth's distance from the sun, and it was found with mathematics before anyone looked: Uranus was not keeping to its predicted path, and in 1846 Neptune was located within a degree of where the calculations said the missing pull had to come from. One of its years lasts 165 of ours, so it has completed a single orbit since that night.",
         "It has the fastest winds anywhere — measured near 2,000 km/h — on a planet that receives about a thousandth of Earth's sunlight, which means the weather is driven from inside rather than from above. Triton, its big moon, goes round backwards, which means it did not form there: it is a captured Kuiper belt object, and it has nitrogen geysers on a surface at −235 °C."
-      ]
+      ],
+      "intro": "Explore Neptune and watch Triton move around it in the opposite direction to the planet’s spin. Compare Neptune’s size, rotation and long year with Earth’s."
     },
     {
       "slug": "pluto",
@@ -454,7 +462,8 @@
       "overview": [
         "Pluto is a dwarf planet, and the label is a statement about its neighbourhood rather than about the world itself. The IAU's 2006 definition asks a planet to have cleared its orbital region; Pluto shares the Kuiper belt with a great many other bodies, one of which — Eris — turned out to be more massive. It is 2,377 km across, smaller than our moon, and its 248-year orbit is tilted and elliptical enough to bring it inside Neptune's for 20 years at a time.",
         "It is also a double world. Charon is half Pluto's diameter, and the point the two of them orbit lies outside Pluto's surface — nothing else here does that. When New Horizons arrived in July 2015 and turned a fuzzy dot into a place, it found a 1,000 km glacier of nitrogen ice with no craters on it at all, mountains of water ice standing 3 km high, and a hazy blue atmosphere in dozens of layers. It has been visited once, for a single day."
-      ]
+      ],
+      "intro": "Explore Pluto, its large moon Charon and four smaller moons. Watch how Pluto and Charon move around a shared centre while the smaller moons travel around the pair."
     }
   ],
   "extras": [
@@ -500,7 +509,8 @@
       "overview": [
         "Between Mars and Jupiter, from roughly 2.1 to 3.3 times Earth's distance from the sun, is a broad ring of rock and metal that never became a planet. Jupiter is the reason: its gravity stirred the region hard enough that the material there kept colliding at speeds that broke bodies apart rather than building them up. What is left is not the wreckage of an exploded world — the pieces have different compositions and never formed one.",
         "There is far less of it than the pictures suggest. Everything in the belt put together comes to about 3% of the mass of the Moon, and Ceres alone — a dwarf planet 940 km across — is roughly a third of that. The typical gap between two named objects runs to millions of kilometres, which is why every spacecraft sent to the outer planets has flown straight through without steering around anything."
-      ]
+      ],
+      "intro": "The asteroid belt lies between Mars and Jupiter. Explore where its objects orbit and how Jupiter’s gravity helps shape the gaps in the belt."
     },
     {
       "slug": "comets",
@@ -536,7 +546,8 @@
           "when": "2024",
           "what": "12P/Pons-Brooks made its first return since 1954, becoming a naked-eye object during the April total solar eclipse, and C/2023 A3 (Tsuchinshan-ATLAS) became the brightest comet in nearly two decades that autumn."
         }
-      ]
+      ],
+      "intro": "Follow eight comets along their orbits around the Sun. Compare their paths with the planets’ and see how long each comet takes to return."
     }
   ],
   "missions_note": "Real interplanetary missions. Launch and arrival are HISTORY and cannot be derived, which is why they are here; everything compared against them on /rocket-launches/ (the minimum-energy flight time for the same window, and how much longer or shorter the mission actually took) is solved by transfer.mjs at build time. target is the planet index used by planets.mjs. assists lists the gravity-assist flybys in order.",

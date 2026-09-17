@@ -199,11 +199,7 @@ const durations = data.durations.map((s) => {
        tell what an unlabelled button did, so every control is named. The
        pop-out clause carries .desk-only, the same 560px breakpoint that hides
        the button. */
-    sub: `The ${phrase} timer is ready \u2014 press <strong>Start</strong>. `
-      + `Tap (${SOUND_ICON_INLINE}) to pick a sound and check your volume. `
-      + `<strong>Edit</strong> adds or removes time before you start. `
-      + `<strong>Add</strong> runs a second timer.`
-      + `<span class="desk-only"> <strong>Pop out</strong> floats the timer above your other apps.</span>`,
+    sub: `Your ${phrase} timer is ready. Press Start, or change the duration before you begin.`,
     /* supporting content: a per-duration use-case set (distinct from the meta's)
      * plus the seconds figure (the hours form is in the equivalent line above). */
     /* On the longer durations, "wake me at 7" is a real alternative to "count
@@ -920,10 +916,7 @@ write("timer", pageHtml({
      That guessing is what produced two support emails on the preset pages.
      The pop-out clause carries .desk-only, the same 560px breakpoint that hides
      the button itself. */
-  sub: `<strong>Add a timer</strong>, set its length, then press <strong>Start</strong> — up to three at once, each ringing on its own. `
-    + `Tap (${SOUND_ICON_INLINE}) to pick a sound and check your volume. `
-    + `The arrows go full screen, and <strong>Hide</strong> clears the page down to the timers.`
-    + `<span class="desk-only"> <strong>Pop out</strong> floats the timers above your other apps.</span>`,
+  sub: `Set a duration and press Start. Run up to three timers at once, with a separate sound for each.`,
   presetSeconds: 0,
   multi: true,
   aboutSlot: true,   /* "How it works" sits after "Timers for a purpose" (see browse) */

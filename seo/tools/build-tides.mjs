@@ -455,7 +455,7 @@ ${faqLd(FAQ(""))}
 <div class="wrap">
   ${brand({ crumb: { slug: "tides", url: "/tides/" } })}
   <h1>Tide Charts &amp; Tide Times</h1>
-  <p class="sub">Official NOAA tide predictions for 3,300+ U.S. coastal stations — today's highs and lows, an interactive chart, and a high-tide finder that looks up to a year ahead. Want your local tides? <a href="/tides/near-me/">Tides near me →</a></p>
+  <p class="sub">Find NOAA tide predictions for a U.S. coastal location. See high and low tide times, compare water levels and explore the chart for another date.</p>
 ${BETA_NOTE}
 ${TOOL(true, "")}
   <div class="card" id="how">
@@ -512,7 +512,7 @@ const NEARME_INDEX_JS = `window.TIDE_NEAR=${JSON.stringify(NEARME_PLACES)};`;
 /* shared intro copy: the meta description AND the on-page sub use the same
  * sentence (the sub just adds a "pick a location" call to action), so the two
  * never drift. */
-const NEARME_INTRO = "High tide, low tide, tide times, tide charts and more. See what you can expect when you get to the beach.";
+const NEARME_INTRO = "Choose a coastal location to see predicted high and low tides. Use the chart to compare times and water levels for your selected date.";
 
 /* Search box that replaces the old "tide charts by state" directory. It
  * pre-populates from the existing tide pages (window.TIDE_NEAR — every station
@@ -689,7 +689,7 @@ ${faqLd(nearMeFaq)}
 <div class="wrap">
   ${brand({ crumb: { slug: "tides", url: "/tides/" }, page: { label: "Tides near me", url: "/tides/near-me/" } })}
   <h1>High &amp; low tides near me</h1>
-  <p class="sub">${NEARME_INTRO} Select a location below to see local tide charts.</p>
+  <p class="sub">${NEARME_INTRO}</p>
 ${BETA_NOTE}
   <div class="card td-nearme">
     <h2>Nearest tide locations</h2>
@@ -1085,7 +1085,7 @@ ${placeJsonLd}
 <div class="wrap">
   ${brand({ crumb: { slug: "tides", url: "/tides/" }, page: { label, url: `/tides/${s.slug}/` } })}
   <h1>${esc(label)} Tide Chart</h1>
-  <p class="sub">Today's high and low tide times for ${esc(label)} — see the next high and low tide, water heights, and a live tide chart, straight from NOAA.</p>
+  <p class="sub">See NOAA’s predicted high and low tides for ${esc(label)} for the date shown below. Check the next tide, compare water heights or choose another date.</p>
 ${tideAnswer(s.city, todayTides.get(s.slug))}${localTimeLine(`${s.city}, ${s.st}`, s.tz)}${bakedData(s)}${STATION_TOOL({ stateLink: adminStateLink, ssrChart: ssrChartFor(s), note: BETA_NOTE, bakedTable: tidesTable(todayTides.get(s.slug), s), sunCard: sunCardFor(s) })}
   ${character}
   ${about}
@@ -1171,7 +1171,7 @@ ${faqLd(destFaq)}
 <div class="wrap">
   ${brand({ crumb: { slug: "tides", url: "/tides/" }, page: { label, url: `/tides/${d.slug}/` } })}
   <h1>${esc(label)} Tide Chart</h1>
-  <p class="sub">Today's high and low tide times for ${esc(d.name)} — see the next high and low tide, water heights, and a live tide chart from the nearest NOAA station (${esc(src.name)}, ${dist} mi).</p>
+  <p class="sub">See predicted high and low tides near ${esc(d.name)} for the date shown below. Predictions use NOAA’s ${esc(src.name)} station, ${dist} miles away. Choose another date to compare.</p>
 ${tideAnswer(d.name, todayTides.get(src.slug), { name: src.name, dist })}${localTimeLine(d.st ? `${d.name}, ${d.st}` : d.name, d.tz)}${bakedData(src)}${STATION_TOOL({ stateLink: `<a href="${stateUrl}">${esc(stName)} tide charts →</a>`, ssrChart: ssrChartFor(src), note: DEST_NOTE, bakedTable })}
   ${/* which station serves this beach + what its tides are like: two halves
        of "where do these numbers come from", paired on a wide screen */""}

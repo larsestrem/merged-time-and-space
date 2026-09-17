@@ -413,7 +413,7 @@ export function seasonSunHtml(dec, lon, laterDec, tilt) {
   var lo = Math.abs(lon).toFixed(1) + '\u00B0 ' + (lon >= 0 ? 'E' : 'W');
   var a = Math.abs(dec), n = dec >= 0, rising = laterDec > dec;
   var orbit = '<a href="/earth-sun-moon-orbit-simulator/">Earth\u2019s orbit</a>';
-  var sub = '<a href="/concepts/what-is-the-subsolar-point/">subsolar point</a>';
+  var sub = 'subsolar point';
   var head = 'The sun is overhead at <b>' + lat + ', ' + lo + '</b> \u2014 this is the ' + sub + '. ';
   if (a < 0.6) {
     if (rising) return head + 'Day and night are about equal everywhere \u2014 this is the spring equinox, the start of spring in the northern half of the world. Days there will get longer as Earth tilts toward the sun in ' + orbit + '.';

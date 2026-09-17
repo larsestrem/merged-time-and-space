@@ -120,7 +120,7 @@ const sunUrl = page({
   title: "How Sunrise & Sunset Times Are Calculated",
   desc: "The exact solar-position method behind the sunrise, sunset and twilight times on this site — the horizon angle, the simplifications, and a measured bound on the error.",
   h1: "How sunrise and sunset are calculated",
-  sub: `Every time on a <a href="/sun/">sunrise &amp; sunset page</a> is solved in your browser from the page's own latitude and longitude. This is the method, in the order the code does it — and, at the end, what it gets wrong.`,
+  sub: `Learn how latitude, longitude and date are used to estimate sunrise and sunset. This guide explains the calculation and why local conditions can change the times you observe.`,
   body: `
   <div class="card">
     <h2>The calculation, step by step</h2>
@@ -201,7 +201,7 @@ const moonUrl = page({
   title: "How the Moon Phase & Moonrise Are Calculated",
   desc: "The Meeus periodic-term series behind the moon phase, illumination, moonrise and moonset on this site — and where the truncated version stops being exact.",
   h1: "How the moon phase is calculated",
-  sub: `Every figure on a <a href="/moon/">moon page</a> — the phase, the illuminated percentage, moonrise and moonset, the next full moon — is computed in your browser. This is the method and its limits.`,
+  sub: `Learn how the site estimates Moon phases, illumination, moonrise and moonset. This guide explains the calculations and their limits.`,
   body: `
   <div class="card">
     <h2>Where the moon is</h2>
@@ -267,7 +267,7 @@ const tideUrl = page({
   title: "Where the Tide Predictions Come From",
   desc: "The NOAA CO-OPS source behind every tide chart on this site, what MLLW heights mean, and the weather effects these astronomical predictions deliberately exclude.",
   h1: "Where the tide predictions come from",
-  sub: `Every number on a <a href="/tides/">tide page</a> is NOAA's. This is which NOAA product, how it reaches the page, what the numbers mean — and, most importantly, what they leave out.`,
+  sub: `The tide pages use NOAA predictions. This guide explains the data source, the water-level reference and why actual water levels can differ from the prediction.`,
   body: `
   <div class="card">
     <h2>The source</h2>
@@ -330,7 +330,7 @@ const tzUrl = page({
   title: "How Time Zones & Daylight Saving Are Handled",
   desc: "Why this site stores IANA zone names instead of UTC offsets, how daylight saving is detected, and what happens when a country changes its rules.",
   h1: "How time zones and daylight saving are handled",
-  sub: `Every local time on this site — the <a href="/world-clock/">world clock</a>, the sunrise times, the tide times — is produced the same way, and it is deliberately not the obvious way.`,
+  sub: `Learn how the site converts times between locations, including daylight saving changes. This guide explains the time-zone data and how dates affect the result.`,
   body: `
   <div class="card">
     <h2>No offsets are stored. Anywhere.</h2>
@@ -396,7 +396,7 @@ const timUrl = page({
   title: "How Accurate Is a Browser Timer? Measured Results",
   desc: `Measured setInterval drift, tick error under CPU load, and the nested-setTimeout clamp in Chromium ${eng.version} — plus the three behaviours that could not be measured and why.`,
   h1: "How accurate is a browser timer?",
-  sub: `The <a href="/timer/">timer</a>, <a href="/stopwatch/">stopwatch</a> and <a href="/alarm-clock/">alarm clock</a> here all run on browser timers. Rather than describe how those behave, this page measures it — and is equally specific about what it could not measure.`,
+  sub: `See how accurately this browser runs an alarm, timer or stopwatch. The tests measure timing delays and explain which conditions they cannot check.`,
   body: `
   <div class="card">
     <h2>The setup</h2>
@@ -473,7 +473,7 @@ page({
   slug: "", title: "Methodology — How These Numbers Are Worked Out",
   desc: "The algorithms and data sources behind the sunrise, moon, tide, time zone and timer figures on Time and Space Science — including what each method does not model.",
   h1: "Methodology",
-  sub: `This site publishes a lot of computed numbers — sunrise in one city, the next high tide at one station, what time it is somewhere else. These pages say how each one is worked out, and where it stops being reliable.`,
+  sub: `Learn where this site’s times, positions and tide predictions come from. Each guide explains the method, the data source and the limits of the result.`,
   body: `
   <div class="card">
     <h2>The pages</h2>

@@ -241,7 +241,7 @@ ${GA_SNIPPET}
 <div class="wrap wrap-wide">
   ${brand({ crumb: { slug: "planets", url: PLANETS_PATH } })}
   <h1>The Planets</h1>
-${solarCrumbs(trail)}  <p class="sub">Eight planets, one dwarf planet and the belt of rubble between them — in the order they go round the sun. Every picture here is drawn from the real thing: real features at their real coordinates, real sizes against each other, and for Saturn the ring opening solved for today rather than assumed.</p>
+${solarCrumbs(trail)}  <p class="sub">Compare the eight planets and Pluto. Explore their sizes, surfaces, moons and orbits, then choose a world to open its simulation.</p>
 
 ${openCard()}${cards}${scaleCard()}${hubQuestionsCard(PLANETS_PATH)}${elsewhereCard()}  <div class="card tool-about">
     <h2>Questions people ask about the planets</h2>

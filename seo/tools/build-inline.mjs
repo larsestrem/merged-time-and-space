@@ -433,9 +433,9 @@ const NOTICE_RE = /<!--nb-->[\s\S]*?<!--\/nb-->\s*/g;
    picture and a line of context instead of a bare row. */
 const BRAND_SECTIONS = [
   ["/", "Home", "home"],
-  ["/time/", "Time", "timer"],
   ["/earth/", "Earth", "globe"],
   ["/space/", "Space", "solar"],
+  ["/time/", "Time", "timer"],
   ["/classroom/", "Classroom", "classroom"],
 ].filter(([url]) => !(CLASSROOM_PAUSED && url === "/classroom/")); /* see site-flags.mjs */
 
@@ -825,7 +825,7 @@ function injectPauses(html, rel) {
        immediately after the section navigation instead. */
     const anchor = rel === "classroom/index.html"
       ? /(<nav class="home-tabs sec-switch"[\s\S]*?<\/nav>)/ : /(<\/h1>)/;
-    html = html.replace(anchor, `$1\n  ${classroomPauseNote()}`);
+    html = html.replace(anchor, `$1\n  ${classroomPauseNote(rel)}`);
   }
   /* the message forms */
   if (MESSAGE_FORMS_PAUSED) html = html

@@ -1,0 +1,198 @@
+[
+  {
+    "slug": "what-is-twilight",
+    "term": "Twilight",
+    "definition": "Twilight is sunlight scattered through the atmosphere while the Sun is below the horizon.",
+    "href": "/concepts/what-is-twilight/",
+    "label": "What is twilight?"
+  },
+  {
+    "slug": "how-does-an-orbit-work",
+    "term": "Orbital motion",
+    "definition": "Orbital motion is movement around another object under the pull of gravity.",
+    "href": "/concepts/how-does-an-orbit-work/",
+    "label": "How does an orbit work?"
+  },
+  {
+    "slug": "why-can-the-moon-be-up-in-the-daytime",
+    "term": "Daytime moon",
+    "definition": "The daytime Moon is the Moon seen during daylight, when it is above the horizon and bright enough to see.",
+    "href": "/concepts/why-can-the-moon-be-up-in-the-daytime/",
+    "label": "Can the moon be up in the daytime?"
+  },
+  {
+    "slug": "why-does-the-moon-change-shape",
+    "term": "Moon phases",
+    "definition": "Moon phases are the changing views of the Moon’s sunlit half as it orbits Earth.",
+    "href": "/concepts/why-does-the-moon-change-shape/",
+    "label": "Why does the Moon change shape?"
+  },
+  {
+    "slug": "what-causes-tides",
+    "term": "Tides",
+    "definition": "Tides are changes in sea level driven mainly by the Moon’s and Sun’s gravity, with local patterns shaped by coastlines and the ocean floor.",
+    "href": "/concepts/what-causes-tides/",
+    "label": "What causes tides?"
+  },
+  {
+    "slug": "what-is-a-synodic-month",
+    "term": "Synodic month",
+    "definition": "A synodic month is one complete cycle of Moon phases, lasting about 29.5 days.",
+    "href": "/concepts/what-is-a-synodic-month/",
+    "label": "What is a synodic month?"
+  },
+  {
+    "slug": "what-is-tidal-locking",
+    "term": "Tidal locking",
+    "definition": "Tidal locking is rotation that takes the same time as one orbit, keeping the same side facing the object being orbited.",
+    "href": "/concepts/what-is-tidal-locking/",
+    "label": "What is tidal locking?"
+  },
+  {
+    "slug": "what-is-libration",
+    "term": "Libration",
+    "definition": "Libration is the Moon’s apparent rocking as seen from Earth, which lets us see a little beyond its usual edges over time.",
+    "href": "/concepts/what-is-libration/",
+    "label": "What is libration?"
+  },
+  {
+    "slug": "why-does-moonrise-get-later",
+    "term": "Moonrise delay",
+    "definition": "Moonrise delay is the change in the Moon’s rising time from one day to the next; it usually rises later as it moves along its orbit.",
+    "href": "/concepts/why-does-moonrise-get-later/",
+    "label": "Why does moonrise get later each night?"
+  },
+  {
+    "slug": "why-isnt-there-an-eclipse-every-month",
+    "term": "Orbital tilt of the Moon",
+    "definition": "The Moon’s orbital tilt is the angle of about 5° between its orbit around Earth and Earth’s orbit around the Sun.",
+    "href": "/concepts/why-isnt-there-an-eclipse-every-month/",
+    "label": "Why isn’t there an eclipse every month?"
+  },
+  {
+    "slug": "what-is-the-asteroid-belt",
+    "term": "Asteroid belt",
+    "definition": "The asteroid belt is a region between Mars and Jupiter containing many small bodies orbiting the Sun, including the dwarf planet Ceres.",
+    "href": "/solar-system-simulator/asteroid-belt/#asteroid-belt-explained",
+    "label": "What is the asteroid belt?"
+  },
+  {
+    "slug": "why-is-mars-red",
+    "term": "Mars’s colour",
+    "definition": "Mars’s reddish color comes mainly from iron oxides in dust on its surface.",
+    "href": "/mars-and-moons-simulator/#mars-color",
+    "label": "Why is Mars red?"
+  },
+  {
+    "slug": "why-does-triton-orbit-backwards",
+    "term": "Triton’s retrograde orbit",
+    "definition": "Triton’s retrograde orbit carries it around Neptune in the opposite direction to Neptune’s rotation.",
+    "href": "/neptune-and-moons-simulator/#triton-orbit",
+    "label": "Why does Triton orbit Neptune backwards?"
+  },
+  {
+    "slug": "why-does-saturn-have-so-many-moons",
+    "term": "Saturn’s moons",
+    "definition": "Saturn’s moons are natural objects that orbit Saturn, ranging from large worlds such as Titan to small icy and rocky bodies.",
+    "href": "/saturn-and-moons-simulator/#saturn-moons",
+    "label": "Why does Saturn have so many moons?"
+  },
+  {
+    "slug": "why-do-planets-have-moons",
+    "term": "How moons form",
+    "definition": "Moon formation is the process by which natural satellites develop, including formation around a planet, impacts and capture.",
+    "href": "/concepts/why-do-planets-have-moons/",
+    "label": "Why do planets have moons, and how are they made?"
+  },
+  {
+    "slug": "how-are-the-planets-formed",
+    "term": "Planet formation",
+    "definition": "Planet formation is the growth of planets from material in a disk around a young star.",
+    "href": "/concepts/how-are-the-planets-formed/",
+    "label": "How were the planets formed?"
+  },
+  {
+    "slug": "why-is-pluto-a-dwarf-planet",
+    "term": "Dwarf planet",
+    "definition": "A dwarf planet orbits the Sun, is nearly round under its own gravity, has not cleared its orbital neighborhood, and is not a moon.",
+    "href": "/pluto-and-moons-simulator/#dwarf-planet",
+    "label": "Why is Pluto a dwarf planet and not a planet?"
+  },
+  {
+    "slug": "what-is-daylight-saving-time",
+    "term": "Daylight saving time",
+    "definition": "Daylight saving time is a seasonal change to local clocks, usually one hour ahead of standard time during part of the year.",
+    "href": "/concepts/what-is-daylight-saving-time/",
+    "label": "What is daylight saving time?"
+  },
+  {
+    "slug": "what-is-a-leap-year",
+    "term": "Leap year",
+    "definition": "A leap year has an extra day to help keep the calendar aligned with Earth’s orbit; in the Gregorian calendar, that day is February 29.",
+    "href": "/concepts/what-is-a-leap-year/",
+    "label": "What is a leap year?"
+  },
+  {
+    "slug": "what-is-the-international-date-line",
+    "term": "International Date Line",
+    "definition": "The International Date Line is an imaginary boundary across the Pacific where the calendar date changes by one day.",
+    "href": "/concepts/what-is-the-international-date-line/",
+    "label": "What is the International Date Line?"
+  },
+  {
+    "slug": "how-do-you-calculate-military-time",
+    "term": "Military time",
+    "definition": "Military time is a way of writing 24-hour time using four digits, such as 1430 for 2:30 PM.",
+    "href": "/24-hour-clock-converter/#military-time",
+    "label": "How do you calculate military time?"
+  },
+  {
+    "slug": "what-is-a-solstice",
+    "term": "Solstice",
+    "definition": "A solstice is an instant when the Sun reaches its farthest position north or south of the celestial equator during the year.",
+    "href": "/concepts/what-is-a-solstice/",
+    "label": "What is a solstice?"
+  },
+  {
+    "slug": "what-is-an-equinox",
+    "term": "Equinox",
+    "definition": "An equinox is an instant when the Sun crosses the celestial equator, occurring once in March and once in September.",
+    "href": "/concepts/what-is-an-equinox/",
+    "label": "What is an equinox?"
+  },
+  {
+    "slug": "what-is-a-supermoon",
+    "term": "Supermoon",
+    "definition": "A supermoon is a new or full Moon near its closest point to Earth; the term is most often used for a full Moon.",
+    "href": "/concepts/what-is-a-supermoon/",
+    "label": "What is a supermoon?"
+  },
+  {
+    "slug": "what-is-a-blue-moon",
+    "term": "Blue moon",
+    "definition": "A blue moon commonly means the second full Moon in a calendar month; another definition is the third full Moon in a season containing four.",
+    "href": "/concepts/what-is-a-blue-moon/",
+    "label": "What is a blue moon?"
+  },
+  {
+    "slug": "what-are-the-moon-phases-called",
+    "term": "Moon phase names",
+    "definition": "Moon phase names describe eight stages of the cycle: new, waxing crescent, first quarter, waxing gibbous, full, waning gibbous, last quarter and waning crescent.",
+    "href": "/concepts/what-are-the-moon-phases-called/",
+    "label": "What are the moon phases called?"
+  },
+  {
+    "slug": "does-the-moon-have-a-dark-side",
+    "term": "Far side of the Moon",
+    "definition": "The far side of the Moon is the hemisphere that mostly faces away from Earth; it receives sunlight too.",
+    "href": "/concepts/does-the-moon-have-a-dark-side/",
+    "label": "Does the Moon have a dark side?"
+  },
+  {
+    "slug": "what-is-a-spring-tide",
+    "term": "Spring and neap tides",
+    "definition": "Spring tides have a larger tidal range near new and full Moon; neap tides have a smaller range near first and last quarter.",
+    "href": "/concepts/what-is-a-spring-tide/",
+    "label": "What is a spring tide?"
+  }
+]

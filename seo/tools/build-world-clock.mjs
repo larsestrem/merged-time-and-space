@@ -318,7 +318,7 @@ ${GA_SNIPPET}
 <div class="wrap">
   ${brand({ crumb: { slug: "world-clock", url: "/world-clock/" } })}
   <h1>World Clock</h1>
-  <p class="sub">Live times around the world, with sunrise &amp; sunset for each city. The list starts just west of your own zone and wraps around the globe — your zone is highlighted. To see the same thing as a picture, open the <a href="/day-night-map/">day/night map</a>: which half of the planet is in sunlight, right now.</p>
+  <p class="sub">Compare the current time in cities around the world. Your time zone is highlighted, and each city also shows its sunrise and sunset times.</p>
   <div class="wc-search">
     <label class="wc-search-lab" for="wc-q">Find the time in any city</label>
     <div class="wc-search-row">
@@ -564,7 +564,7 @@ ${GA_SNIPPET}
 <div class="wrap">
   ${brand({ crumb: { slug: "world-clock", url: "/world-clock/" }, page: { label: c.city, url: path } })}
   <h1>Current Time in ${esc(label)}</h1>
-  <p class="sub">${esc(c.city)} is on ${esc(zone || c.tz)}, ${esc(off)}. ${esc(dstLine)} ${sunLine}</p>
+  <p class="sub">See the current time in ${esc(c.city)}, its difference from UTC and today’s sunrise and sunset. Change the display to compare it with another location.</p>
   <div class="card wc-nowcard" id="wcp" data-tz="${esc(c.tz)}" data-city="${esc(c.city)}">
     <div class="wc-bigtime" id="wc-big">${esc(cityTime(c.tz, buildNow))}</div>
     <div class="wc-bigdate" id="wc-bigdate">${esc(cityDate(c.tz, buildNow))}</div>
@@ -581,7 +581,7 @@ ${GA_SNIPPET}
     <div class="td-tablewrap"><table class="wc-ptable"><thead><tr><th>City</th><th>Local time</th><th>Difference from ${esc(c.city)}</th></tr></thead><tbody>${refRows}</tbody></table></div>
     <p class="hint">Differences follow each region's daylight-saving rules, so they change when either city's clocks move.</p>
   </div>
-${astroCard}${placeQuestionsCard(["what-is-a-time-zone", "what-is-utc", "what-is-daylight-saving-time"], "/world-clock/")}  <div class="card tool-about">
+${astroCard}${placeQuestionsCard(["what-is-daylight-saving-time"], "/world-clock/")}  <div class="card tool-about">
     <h2>About ${esc(c.city)} time</h2>
     <p>This page shows the local time in ${esc(label)} — the same clock people there are reading. ${esc(dstShort)}</p>
     <p>Comparing several places at once? The <a href="/world-clock/">world clock</a> lists every major UTC offset side by side and marks your own. Waiting for a moment that lands at the same instant everywhere, whatever the zone? Follow a <a href="/countdown/">countdown</a>, or set a <a href="/timer/">timer</a> or an <a href="/alarm-clock/">alarm</a>. <a href="/methodology/time-zones/">How this page knows the offset and the daylight-saving state</a>.</p>

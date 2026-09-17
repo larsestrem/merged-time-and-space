@@ -1,3 +1,30 @@
+# Retired Q&A pages approved 2026-09-17
+/concepts/what-is-a-time-zone/ /world-clock/ 301
+/concepts/what-is-a-solar-day/ /planets/ 301
+/concepts/what-is-the-equation-of-time/ /sun/ 301
+/concepts/why-is-this-map-flat/ /day-night-map/ 301
+/concepts/why-doesnt-earth-have-a-ring/ /saturn-and-moons-simulator/ 301
+/concepts/why-does-pluto-have-so-many-moons/ /pluto-and-moons-simulator/ 301
+/concepts/why-do-other-planets-have-seasons/ /planets/ 301
+/concepts/how-does-an-orbit-change/ /concepts/how-does-an-orbit-work/ 301
+/concepts/why-didnt-the-asteroid-belt-become-a-planet/ /solar-system-simulator/asteroid-belt/#asteroid-belt-explained 301
+/concepts/why-is-the-night-sky-dark/ /space/ 301
+/concepts/who-invented-time/ /time/ 301
+/concepts/why-are-the-planets-drawn-so-close/ /solar-system-simulator/ 301
+/concepts/what-is-the-24-hour-clock/ /24-hour-clock-converter/ 301
+/concepts/what-is-the-subsolar-point/ /day-night-map/ 301
+/concepts/what-is-the-terminator/ /day-night-map/ 301
+/concepts/what-is-the-tropic-of-capricorn/ /earth-tilt-sun-seasons/ 301
+/concepts/what-is-the-tropic-of-cancer/ /earth-tilt-sun-seasons/ 301
+/concepts/what-is-earths-axial-tilt/ /earth-tilt-sun-seasons/ 301
+/concepts/what-are-the-polar-circles/ /earth-tilt-sun-seasons/ 301
+/concepts/why-dont-planets-fall-into-the-sun/ /concepts/how-does-an-orbit-work/ 301
+/concepts/what-is-a-sidereal-day/ /planets/ 301
+/concepts/what-is-utc/ /world-clock/ 301
+/concepts/why-do-asteroids-collide/ /solar-system-simulator/asteroid-belt/#asteroid-belt-explained 301
+/concepts/why-arent-the-inner-planets-gas-giants/ /concepts/how-are-the-planets-formed/ 301
+/concepts/why-does-jupiter-have-so-many-moons/ /jupiter-and-moons-simulator/ 301
+/concepts/why-do-we-have-seasons/ /earth-tilt-sun-seasons/ 301
 # /questions/ is BACK (owner's call, August 2026) — no longer the old chain
 # index, but a derived by-topic index of the concept pages, built by
 # build-glossary.mjs from the same concepts.json. No splat rule: the old page
@@ -465,3 +492,15 @@
 # the archive folder itself is not a page
 /classroom/archive/  /classroom/  301
 /classroom/archive  /classroom/  301
+
+# Expired 2026 NFL kickoff countdown
+/sports-countdowns/nfl-kickoff /sports-countdowns/ 301
+/sports-countdowns/nfl-kickoff/ /sports-countdowns/ 301
+
+# Additional owner-approved consolidations
+/concepts/why-does-saturn-have-so-many-moons/ /saturn-and-moons-simulator/#saturn-moons 301
+/concepts/how-do-you-calculate-military-time/ /24-hour-clock-converter/#military-time 301
+/concepts/what-is-the-asteroid-belt/ /solar-system-simulator/asteroid-belt/#asteroid-belt-explained 301
+/concepts/why-is-mars-red/ /mars-and-moons-simulator/#mars-color 301
+/concepts/why-does-triton-orbit-backwards/ /neptune-and-moons-simulator/#triton-orbit 301
+/concepts/why-is-pluto-a-dwarf-planet/ /pluto-and-moons-simulator/#dwarf-planet 301

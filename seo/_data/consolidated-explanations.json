@@ -1,0 +1,62 @@
+[
+  {
+    "path": "/saturn-and-moons-simulator/",
+    "id": "saturn-moons",
+    "heading": "Why does Saturn have so many moons?",
+    "paragraphs": [
+      "Saturn has a large family of moons with different histories. Some likely formed from material around the young planet. Many small outer moons are thought to be captured objects or fragments from collisions. Saturn’s gravity keeps them in orbit, but gravity alone does not explain their number.",
+      "Compare Titan with the smaller moons. Notice that Saturn’s ring particles are not all counted as individual moons."
+    ],
+    "source": "https://science.nasa.gov/saturn/moons/"
+  },
+  {
+    "path": "/24-hour-clock-converter/",
+    "id": "military-time",
+    "heading": "How do you calculate military time?",
+    "paragraphs": [
+      "Use four digits for the hour and minutes. For AM times, keep hours 1–11 and add a leading zero when needed: 7:05 AM becomes 0705. Change 12 AM to 00, so 12:30 AM becomes 0030. For PM hours 1–11, add 12: 4:45 PM becomes 1645. Noon stays 1200; midnight is 0000.",
+      "The minutes stay the same. To convert back, subtract 12 from hours 13–23 and use PM. Whole hours can be spoken as hundreds: 1300 is “thirteen hundred.” Some schedules use 2400 for the end of a day, the same instant as 0000 on the next date."
+    ],
+    "source": ""
+  },
+  {
+    "path": "/solar-system-simulator/asteroid-belt/",
+    "id": "asteroid-belt-explained",
+    "heading": "What is the asteroid belt?",
+    "paragraphs": [
+      "The asteroid belt lies between Mars and Jupiter. It contains the dwarf planet Ceres and many smaller bodies left from the early solar system. Its objects are widely separated; it is not a crowded wall of rocks or the remains of one shattered planet.",
+      "Jupiter’s gravity disturbed the material as the solar system formed. Repeated gravitational effects at certain orbital periods also help create the Kirkwood gaps, regions where fewer asteroids orbit. Compare the belt’s location with the paths of Mars and Jupiter."
+    ],
+    "source": "https://science.nasa.gov/solar-system/asteroids/facts/"
+  },
+  {
+    "path": "/mars-and-moons-simulator/",
+    "id": "mars-color",
+    "heading": "Why is Mars red?",
+    "paragraphs": [
+      "Mars looks reddish because much of its dust contains iron oxides, often called rust. Winds spread this dust across the surface and sometimes lift it into the atmosphere.",
+      "Not every Martian rock is red. Darker rocks and volcanic areas can show through the dust. The red color tells us about surface minerals, but does not by itself explain exactly when or how all of those minerals formed."
+    ],
+    "source": "https://science.nasa.gov/mars/facts/"
+  },
+  {
+    "path": "/neptune-and-moons-simulator/",
+    "id": "triton-orbit",
+    "heading": "Why does Triton orbit backwards?",
+    "paragraphs": [
+      "Triton moves around Neptune in the opposite direction to Neptune’s spin. This is called a retrograde orbit. It is strong evidence that Triton formed elsewhere and was later captured, rather than forming from a disk around Neptune.",
+      "Scientists think Triton may have come from the Kuiper belt. Its capture is an explanation supported by its unusual orbit, not an event anyone observed. Compare Triton’s orbital direction with Neptune’s rotation in the model."
+    ],
+    "source": "https://science.nasa.gov/neptune/moons/triton/"
+  },
+  {
+    "path": "/pluto-and-moons-simulator/",
+    "id": "dwarf-planet",
+    "heading": "Why is Pluto a dwarf planet?",
+    "paragraphs": [
+      "The Solar System’s planet definition has three tests: an object orbits the Sun, its gravity makes it nearly round, and it has cleared its orbital neighborhood. Pluto meets the first two but not the third. It belongs to a population of objects in the Kuiper belt.",
+      "“Cleared” means being gravitationally dominant in the orbital neighborhood, not having a completely empty path. A dwarf planet is also not a moon. The classification does not change Pluto’s mountains, glaciers, atmosphere or moons."
+    ],
+    "source": "https://science.nasa.gov/dwarf-planets/pluto/facts/"
+  }
+]

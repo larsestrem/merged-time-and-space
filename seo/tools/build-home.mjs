@@ -57,7 +57,8 @@ import { PLANETS_JS, SOLAR_JS } from "./planets.mjs";
  *  answers were already on the page with no structured data at all. */
 const QS_BY_HUB = {};
 function withQs(card, slugs, hub) {
-  if (!slugs || !slugs.length) return card;
+  slugs = (slugs || []).filter((slug) => conceptBySlug().has(slug));
+  if (!slugs.length) return card;
   (QS_BY_HUB[hub] = QS_BY_HUB[hub] || []).push(...slugs);
   const qs = hubQs(slugs, hub);
   const i = card.lastIndexOf("</div>");
@@ -719,11 +720,7 @@ const CONVERT_CARD = `    <div class="tc tc-mini tc-conv">
  * Text-only, on purpose — the point being made is the idea, not a picture —
  * so this reuses the plain PLANETS_CARD shape (data-href on the whole tile,
  * one paragraph, one link) rather than inventing a new card style. */
-const TIME_ORIGIN_CARD = `    <div class="tc tc-mini tc-origin" data-href="/concepts/who-invented-time/">
-      <div class="tc-head">${ico("earthmoon")} Where the Clock Comes From</div>
-      <p class="home-simtxt">Nobody invented time — people read it off the sky. A day is Earth spinning once. A year is Earth's orbit, announced by the seasons the tilt creates. A month is the Moon's cycle. Every hour and minute since is bookkeeping for those three motions.</p>
-      <a class="wk-all" href="/concepts/who-invented-time/">Who invented time? →</a>
-    </div>`;
+
 
 /* ---- THE STEP BETWEEN THE TWO SIMULATORS, as its own card -----------------
  * /earth-sun-moon-orbit-simulator/ draws the three bodies moving
@@ -1262,10 +1259,10 @@ ${SEARCH}
  * sun and moon city pages, six stopwatches, spans from a day to a century.
  */
 const LEDE = {
-  all: `<strong>Gravity, motion, time and space.</strong> A day is Earth turning. A year is it going round. Seasons are that turn being tilted. Built for classrooms and for anyone else who is curious.`,
-  time: `<strong>Clocks, and what they are counting.</strong> An <a href="/alarm-clock/">alarm</a>, a <a href="/timer/">timer</a>, a <a href="/stopwatch/">stopwatch</a>, <a href="/world-clock/">every time zone at once</a>, and a <a href="/countdown/">countdown</a> to the day you are waiting for. All of it runs in the browser, with nothing to install and no sign-up.`,
-  earth: `<strong>Your sky is Earth’s motion made visible.</strong> Start with <a href="${SEASONS_PATH}">three synchronized views of Earth’s tilt, sunlight and the seasons</a>, then explore <a href="/sun/">sunrise and sunset</a>, <a href="/moon/">tonight's moon</a>, and <a href="/tides/">when the tide turns</a>. Every figure is computed from the real motions rather than looked up in a table.`,
-  space: `<strong>Where everything actually is, right now.</strong> <a href="${PLANETS_PATH}">Every planet</a>, a page each, turning on its own axis with its moons going round it — the <a href="/solar-system-simulator/">whole system on its real orbits</a>, and the <a href="${ROCKET_PATH}">next launch window to Mars</a>. The positions are solved when the page loads, not drawn from memory.`,
+  all: `Explore Earth, the Moon and the solar system with interactive simulations. See what changes as you move through a day, a month or a year, or use an alarm, timer, stopwatch or world clock.`,
+  time: `Set an alarm, start a timer, record lap times or check the time around the world. You can also convert between 12-hour and 24-hour time or find a countdown to an upcoming event.`,
+  earth: `See how Earth’s motion shapes day and night and the seasons. Explore the Moon’s phases and tides, or choose a location to check sunrise, sunset and Moon times.`,
+  space: `Explore the solar system, from the planets and their moons to asteroids and comets. Compare their sizes and orbits, change an object’s speed, or follow a model journey to another planet.`,
   class: `<strong>Made to go on a projector.</strong> A timer big enough to read from the back, <a href="/stopwatch/multiple/">six stopwatches at once</a>, and simulators you can drag through a day, a month or a century. And if you teach with any of it, <a href="/classroom/">bring us the lesson</a> — we build lesson plans with teachers and publish them free.`,
 };
 
@@ -1630,13 +1627,11 @@ ${sectionSwitcher("/")}
         <a class="wk-all" href="${DAYNIGHT_PATH}">Open the day and night map →</a>
       </div>
     </div>
-    ${hubQs(["what-is-the-tropic-of-cancer", "what-is-the-terminator", "why-can-the-moon-be-up-in-the-daytime"], "/")}
+    ${hubQs(["why-can-the-moon-be-up-in-the-daytime"], "/")}
   </div>
   ${/* the curiosity door: real questions, no audience label */""
   }<div class="home-q">
     <span class="home-q-lab">Start with a question</span>
-    <a class="chip" href="/concepts/why-is-the-night-sky-dark/">Why is the night sky so dark?</a>
-    <a class="chip" href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall in?</a>
     <a class="chip" href="${SEASONS_PATH}">Why do we have seasons?</a>
     <a class="chip" href="/concepts/why-can-the-moon-be-up-in-the-daytime/">Can the moon be up in the daytime?</a>
     <a class="chip" href="/concepts/why-does-the-moon-change-shape/">Why does the moon change shape?</a>
@@ -1646,8 +1641,8 @@ ${sectionSwitcher("/")}
     <p class="hub-kicker">Time</p>
     <h2>Where the clock comes from</h2>
     <p class="hub-blurb">Nobody invented time — people read it off the sky. A day is Earth spinning once. A year is Earth's orbit, announced by the seasons its tilt creates. A month is the Moon's cycle. Every hour and minute since is bookkeeping for those three motions.</p>
-    <a class="wk-all" href="/concepts/who-invented-time/">Who invented time? →</a>
-    ${hubQs(["what-is-a-solar-day", "what-is-a-synodic-month"], "/")}
+
+    ${hubQs(["what-is-a-synodic-month"], "/")}
   </div>
   ${/* SECOND CARD: THE TILT AND THE SEASONS (owner's call), the door to
        /earth-tilt-sun-seasons/. The side view from that page — parallel
@@ -1683,7 +1678,6 @@ ${sectionSwitcher("/")}
       <a class="chip" href="${SEASONS_PATH}#sun-angle">From the side · the angle of the sun</a>
       <a class="chip" href="${SEASONS_PATH}#earth-sun-moon-year">From beyond the orbit · Earth, Sun &amp; Moon through a year</a>
     </p>
-    ${hubQs(["what-is-earths-axial-tilt"], "/")}
   </div>
   <div class="card hub-sim">
     <p class="hub-kicker">Earth</p>
@@ -1701,7 +1695,6 @@ ${sectionSwitcher("/")}
     <div class="hub-live pc-anim pc-anim-sol" id="home-sol">${solFirst}</div>
     <p class="home-moonprog-lab">A year every 24 seconds. Positions are real. Planet dots are not — they would be smaller than a pixel.</p>
     <a class="wk-all" href="/solar-system-simulator/">See the solar system simulator →</a>
-    ${hubQs(["why-dont-planets-fall-into-the-sun"], "/")}
   </div>
   <div class="card hub-sim">
     <p class="hub-kicker">Earth</p>
@@ -1738,9 +1731,9 @@ ${sectionSwitcher("/")}
     <h2>The rest of the site</h2>
     <p class="sub">A hint, not a catalogue. Each tab is its own page.</p>
     <div class="dir-grid">
-      <a class="card" href="/time/"><h2>Time</h2><p>Clocks, and what they are counting — a world clock, a countdown to the day you are waiting for.</p></a>
       <a class="card" href="/earth/"><h2>Earth</h2><p>Your own sky: day and night, sunrise, the Moon, and why the tropics sit where they do.</p></a>
       <a class="card" href="/space/"><h2>Space</h2><p>Where everything actually is — planets, orbits, gravity, and the questions that open the door.</p></a>
+      <a class="card" href="/time/"><h2>Time</h2><p>Clocks, and what they are counting — a world clock, a countdown to the day you are waiting for.</p></a>
 ${CLASSROOM_PAUSED ? "" : `      <a class="card" href="/classroom/"><h2>Classroom</h2><p>Projector mode, questions written for ten-year-olds first, and a way to send the lesson you already run.</p></a>
 `}    </div>
   </div>
@@ -1829,7 +1822,7 @@ const SECTION_PAGES = [
       [withQs(WORLD_CLOCK_CARD, ["who-invented-time", "what-is-a-time-zone", "what-is-utc", "what-is-the-international-date-line"], "/time/"), 6],
       [withQs(TIMEDIFF_CARD, ["what-is-daylight-saving-time"], "/time/"), 6],
       [withQs(CONVERT_CARD, ["what-is-the-24-hour-clock"], "/time/"), 6],
-      [TIME_ORIGIN_CARD, 6], [COUNTDOWN_BLOCK, 6],
+      [COUNTDOWN_BLOCK, 6],
     ],
     js: () => `<script data-ac="shared" data-name="sec-time">${HOME_CLOCK_JS}${HOME_COLOR_JS}${WORLD_MAP_JS}${TDIFF_JS}${CONV_JS}${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>`,
   },
@@ -1862,12 +1855,12 @@ const SECTION_PAGES = [
       [SIM_CARD, 4],
       ...MOON_CARDS.map((c, i) => {
         const qs = {
-          mars: ["why-is-mars-red"],
+          mars: [],
           jupiter: ["why-does-jupiter-have-so-many-moons", "why-do-planets-have-moons"],
-          saturn: ["why-does-saturn-have-so-many-moons", "why-doesnt-earth-have-a-ring"],
+          saturn: ["why-doesnt-earth-have-a-ring"],
           uranus: ["why-do-other-planets-have-seasons"],
-          neptune: ["why-does-triton-orbit-backwards"],
-          pluto: ["why-does-pluto-have-so-many-moons", "why-is-pluto-a-dwarf-planet"],
+          neptune: [],
+          pluto: ["why-does-pluto-have-so-many-moons"],
         }[MOON_PLANETS[i].slug];
         return [qs ? withQs(c, qs, "/space/") : c, 4];
       }),
@@ -1884,7 +1877,7 @@ ${sectionSwitcher(`/${S.slug}/`)}
 ${S.board.map(([card, n]) => sp(card, n, S.slug)).join("\n")}
   </div>
   <div class="home-foot">
-    <p class="home-suggest">Start with a question — <a href="/concepts/why-dont-planets-fall-into-the-sun/">why don't the planets fall into the sun</a>, or <a href="/glossary/">any of the others</a>. Or jump across: ${SECTION_LINKS.filter(([u]) => u !== `/${S.slug}/`).map(([u, l]) => `<a href="${u}">${l}</a>`).join(" · ")}.</p>
+    <p class="home-suggest">Start with <a href="/concepts/how-does-an-orbit-work/">how an orbit works</a>, or <a href="/glossary/">any of the others</a>. Or jump across: ${SECTION_LINKS.filter(([u]) => u !== `/${S.slug}/`).map(([u, l]) => `<a href="${u}">${l}</a>`).join(" · ")}.</p>
   </div>`;
   /* the Q&A pairs this page already shows, as FAQPage JSON-LD — the answers
      are the concepts' own shortAnswers, so the markup cannot say something

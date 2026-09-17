@@ -446,7 +446,7 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "moon", url: "/moon/" } })}
   <h1>Moon Phase Today</h1>
-  <p class="sub">Tonight's phase, how much of the moon is lit, and exactly how long until the next full moon — counted down in your own time zone.</p>
+  <p class="sub">See the Moon’s current phase, how much is lit and when the next full moon occurs. Times are shown in your time zone.</p>
 
 ${searchCard({ placeholder: "Search any US city or state \u2014 Miami, Canby, Oregon\u2026",
     extra: `    <p class="hint">Moonrise and moonset depend on where you are — the phase doesn’t. <a href="/moon/near-me/">See exact location</a>.</p>\n` })}
@@ -728,9 +728,10 @@ function calendarPage({ year, month }) {
   const prev = CAL_MONTHS[idx - 1], next = CAL_MONTHS[idx + 1];
   const full = list.find((p) => p.kind === 2);
 
-  const lead = full
-    ? `The full moon in ${mn} is ${utcDate(full.t)}${full.name ? ` — the ${full.name}` : ""}.`
-    : `${mn} has no full moon: the 29.5-day cycle skips it.`;
+  const monthFulls = list.filter((p) => p.kind === 2);
+  const lead = monthFulls.length
+    ? `Full moon occurs on ${monthFulls.map((p) => utcDate(p.t)).join(" and ")} (UTC).`
+    : `There is no full moon this month.`;
 
   const faq = calFaq(year, month, list);
   return { path, slug, html: `<!DOCTYPE html>
@@ -748,7 +749,7 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "moon", url: "/moon/" }, sub: { slug: "calendar", url: "/moon/calendar/" }, page: { label: mn, url: path } })}
   <h1>Moon Calendar — ${esc(mn)}</h1>
-  <p class="sub">${esc(lead)} Every day of the month is drawn below with its phase and how much of the disc is lit. Tap any day for that night's detail.</p>
+  <p class="sub">See the Moon’s phase on every day of ${esc(mn)}. ${esc(lead)} Select a day to explore its phase and illumination.</p>
 
   <div class="card">
     <div class="mn-cal-nav">
@@ -824,7 +825,7 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "moon", url: "/moon/" }, page: { label: "Calendar", url: "/moon/calendar/" } })}
   <h1>Moon Phase Calendar</h1>
-  <p class="sub">Every day of the month with the moon drawn as it will look, not just the four primary phases. Showing ${esc(mn)} — pick any other month below.</p>
+  <p class="sub">See the Moon’s phase on every day of ${esc(mn)}. Choose another month, or select a day for more detail.</p>
 
   <div class="card">
     <div class="mn-cal-nav"><span></span><b class="mn-cal-title">${esc(mn)}</b><a class="chip" href="/moon/calendar/${monthSlug(y, m)}/">This month in full →</a></div>
@@ -905,7 +906,7 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "moon", url: "/moon/" }, page: { label: "full-moon-calendar", url: "/moon/full-moon-calendar/" } })}
   <h1>Full Moon Calendar</h1>
-  <p class="sub">Every full moon in ${years[0]} and ${years[1]}, with the exact instant it happens, its traditional name, and how far away the moon is at the time. The next one is highlighted.</p>
+  <p class="sub">Find full moon dates and times for ${years[0]} and ${years[1]}, with the Moon’s distance and commonly used full moon names. The next full moon is highlighted.</p>
   <p class="mn-lead">Next full moon: <b data-mn-at="${isoAttr(nextFull)}">${esc(utcDate(nextFull))}</b> <span data-mn-time="${isoAttr(nextFull)}">${utcTime(nextFull)} UTC</span> · <span data-mn-cd="${isoAttr(nextFull)}"></span></p>
 
 ${years.map(section).join("\n")}
@@ -1001,7 +1002,7 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "moon", url: "/moon/" }, page: { label: `${year}`, url: `/moon/${year}/` } })}
   <h1>Moon Phases ${year}</h1>
-  <p class="sub">All ${phases.length} primary moon phases in ${year} — ${fulls.length} full moons, listed with the exact instant each one happens. Times convert to your own time zone.</p>
+  <p class="sub">Find the dates and times of new moons, quarter moons and full moons in ${year}. Times are shown in your time zone.</p>
 
   <div class="card">
     <h2>${year} at a glance</h2>
@@ -1320,7 +1321,7 @@ function buildCity(c) {
   const stateHub = c.st ? SUN_STATES.find((s) => s.st === c.st) : null;
 
   const riseTxt = timeOrDash(today, "rise", c.tz), setTxt = timeOrDash(today, "set", c.tz);
-  const answer = `Tonight in ${label} the moon${today.rise ? ` rises at <b id="mnc-a-rise">${esc(riseTxt)}</b>${today.riseDir ? ` in the <span id="mnc-a-rdir">${esc(today.riseDir)}</span>` : ""}` : ` does not rise (<span id="mnc-a-rise">${esc(riseTxt).toLowerCase()}</span>)`}${today.set ? ` and sets at <b id="mnc-a-set">${esc(setTxt)}</b>${today.setDir ? ` in the <span id="mnc-a-sdir">${esc(today.setDir)}</span>` : ""}` : ""}. It is a <span id="mnc-a-phase">${esc(phase.toLowerCase())}</span>, <span id="mnc-a-pct">${pct}%</span> illuminated.`;
+  const answer = `For <span id="mnc-a-date">${esc(new Intl.DateTimeFormat("en-US", {timeZone: c.tz, dateStyle: "long"}).format(new Date(day0)))}</span> in ${esc(label)}, the Moon is <span id="mnc-a-phase">${esc(phase.toLowerCase())}</span> and <span id="mnc-a-pct">${pct}%</span> lit. See the moonrise and moonset times below, with the date and direction for each event.`;
 
   const faq = [
     [`What time does the moon rise in ${label} tonight?`, `${today.rise ? `Moonrise is at ${riseTxt} ${today.riseDir ? `in the ${today.riseDir} ` : ""}tonight (${tzDateLong(NOW.getTime(), c.tz)}, ${label} local time). The time shifts by roughly 30–70 minutes from one night to the next, so check the 7-day table for the rest of the week.` : `The moon is ${today.alwaysUp ? "above the horizon all day today" : today.alwaysDown ? "below the horizon all day today" : "not rising during today's calendar day"} in ${label} — see the 7-day table for when it next rises.`}`],
@@ -1499,6 +1500,7 @@ function paint(){
   var ref=mnRefMs(), d0=mnRefDay0(), il=mnIllum(ref), t=mnTimes(d0,C.lat,C.lon);
   var g=document.getElementById('mn-glyph'); if(g) g.innerHTML=mnGlyph(il.fraction,il.waxing,68,C.south);
   put('mnc-phase',mnName(il.phase)); put('mnc-pct',Math.round(il.fraction*100)+'%');
+  put('mnc-a-date',new Intl.DateTimeFormat('en-US',{timeZone:C.tz,dateStyle:'long'}).format(new Date(ref)));
   put('mnc-a-phase',mnName(il.phase).toLowerCase()); put('mnc-a-pct',Math.round(il.fraction*100)+'%');
   var rd=t.rise?mnCompass(mnPos(t.rise,C.lat,C.lon).az):null, sd=t.set?mnCompass(mnPos(t.set,C.lat,C.lon).az):null;
   put('mnc-rise',cell(t,'rise')+(rd?' <span class="mn-dir">'+rd+'</span>':''));
@@ -1604,7 +1606,7 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "moon", url: "/moon/" }, page: { label: s.slug, url: `/moon/state/${s.slug}/` } })}
   <h1>Moonrise &amp; Moonset in ${esc(s.state)}</h1>
-  <p class="sub">Pick a city for tonight's moonrise and moonset, the direction to look, the current phase and the next 7 days — all in local time. Grouped by county, A–Z.</p>
+  <p class="sub">Choose a city in ${esc(s.state)} to see Moon phases, moonrise and moonset in local time.</p>
   <div class="card">
 ${groups}
   </div>

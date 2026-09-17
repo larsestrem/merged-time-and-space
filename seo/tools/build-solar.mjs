@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { consolidatedExplanation } from "./consolidated-explanations.mjs";
 /* build-solar.mjs — /solar-system-simulator/ and its twelve children.
  *
  * WHY A SECOND SIMULATOR. /sun-moon-earth-movement-simulator/ answers "where
@@ -936,7 +937,7 @@ const simCard = (rung = "inner", launch = 0, self = "", hub = 0, tilt = TILT_DEF
              panel. The box exists because #sol-fig's contents are replaced on
              every repaint; anything inside it would be wiped. */""
         }<div class="sol-figbox">
-        ${modelNotes(`<p id="sol-note">The picture is a model. Its scale and timing depend on the selected view.</p>${hub ? `<p>Planet dots are enlarged. Orbit tilts are exaggerated in angled views. Use View angle 0° to look straight down without that exaggeration.</p><p>Distances between orbits use one scale within a view. The date changes the approximate planet positions.</p><p><a href="/concepts/why-are-the-planets-drawn-so-close/">Explore size and distance</a>. <a href="https://ssd.jpl.nasa.gov/planets/approx_pos.html">NASA/JPL’s position model</a>.</p>` : `<p>Read the note above before comparing sizes, distances or positions. The model explains motion; it is not a spacecraft flight plan.</p>`}`)}
+        ${modelNotes(`<p id="sol-note">The picture is a model. Its scale and timing depend on the selected view.</p>${hub ? `<p>Planet dots are enlarged. Orbit tilts are exaggerated in angled views. Use View angle 0° to look straight down without that exaggeration.</p><p>Distances between orbits use one scale within a view. The date changes the approximate planet positions.</p><p>Explore size and distance. <a href="https://ssd.jpl.nasa.gov/planets/approx_pos.html">NASA/JPL’s position model</a>.</p>` : `<p>Read the note above before comparing sizes, distances or positions. The model explains motion; it is not a spacecraft flight plan.</p>`}`)}
         <div class="sol-fig" id="sol-fig">${bakedFig(rung, tilt)}</div>
         ${/* every planet dot and its orbit ring in a "sys" rung carry
              data-sol-planet (see solSystemView, planets.mjs); hovering either
@@ -1342,7 +1343,7 @@ ${head({ title, desc, path, ld, faq })}
   <h1>${h1}</h1>
   <p class="sub">${sub}</p>
 
-${cards}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
+${cards}${consolidatedExplanation(path)}  <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 ${(sim ? assertNeeds(path, cfg.rung, needs) : 0, script(jsName, needs, cfg, sim))}${lessonJs}
 </body>
@@ -1500,9 +1501,7 @@ ${FACTS.extras.map((x) => `      <a class="chip" href="${SOLAR_PATH}${x.slug}/">
     faq,
     crumbPage: { label: b.slug, url: path },
     h1: `${name}`,
-    sub: hasSim
-      ? `${esc(b.tagline)} Where it is right now, how big and how heavy, ${nMoons ? "what goes round it, " : ""}and what is still unexplained.`
-      : `${esc(b.tagline)} The planet itself, turning at its real rate — how big and how heavy, how long its day and its year, and what is still unexplained.`,
+    sub: esc(b.intro || b.tagline),
     cards,
     cfg: hasSim ? { rung, path, tilt: pageTilt } : { path },
     sim: hasSim ? 1 : 0,
@@ -1608,7 +1607,7 @@ ${bigRows}
     faq,
     crumbPage: { label: b.slug, url: path },
     h1: "The Asteroid Belt",
-    sub: `${esc(b.tagline)} Where it sits, why it has clean lanes through it, and why the gaps are really a portrait of Jupiter.`,
+    sub: esc(b.intro || b.tagline),
     cards,
     cfg: { rung: "belt", path, belt: 1 },
     jsName: b.slug, needs: EXTRA_VIEWS["asteroid-belt"].needs,
@@ -1661,7 +1660,7 @@ ${rows}
     faq,
     crumbPage: { label: b.slug, url: path },
     h1: "Comets",
-    sub: `${esc(b.tagline)} Eight of them drawn on their real orbits, with the next return of each solved rather than looked up.`,
+    sub: esc(b.intro || b.tagline),
     cards,
     cfg: { rung: "saturn", path, comets: 1 },
     jsName: b.slug, needs: EXTRA_VIEWS.comets.needs,
@@ -1774,7 +1773,7 @@ ${missionRows}
     faq,
     crumb: { slug: "rocket-launches", url: path },
     h1: "Rocket Launch Simulator",
-    sub: "A rocket cannot point at Mars and fire. It has to leave on an orbit around the <strong>sun</strong> that meets Mars where Mars will be — and that is only possible for a few weeks every couple of years. Every date here is solved from the real orbits when the page loads.",
+    sub: "Explore why a spacecraft must aim for where a planet will be when it arrives. Choose a destination to see an estimated launch opportunity and a simplified flight path around the Sun.",
     cards,
     cfg: { rung: "mars", path, to: PLANET.MARS },
     jsName: "launch", needs: LAUNCH_NEEDS,
@@ -1883,7 +1882,7 @@ ${LAUNCH_DESTS.filter((x) => x.slug !== d.slug).map((x) => `      <a class="chip
     crumb: { slug: "rocket-launches", url: LAUNCH_PATH },
     crumbPage: { label: d.slug, url: path },
     h1: `Rocket Launch to ${esc(name)}`,
-    sub: `The next window opens around <strong>${esc(dateShort(w.depart))}</strong>, and the crossing takes about <strong>${num(w.flightDays)} days</strong>. Both are solved from the real orbits when the page loads — and the path is drawn above, framed on the flight.`,
+    sub: `Explore a simplified journey from Earth to ${esc(name)}. The model estimates a departure around ${esc(dateShort(w.depart))} and a travel time of about ${num(w.flightDays)} days. Real missions can use different routes and schedules.`,
     cards,
     /* opens with the flight to this destination already drawn */
     cfg: { rung: d.rung, path, to: d.idx },
@@ -1970,8 +1969,8 @@ ${group.map((b) => `      <a class="chip" href="${planetPath(b.slug, b.idx)}">${
     crumbPage: { label: v.slug, url: path },
     h1: v.name,
     sub: v.slug === "inner-planets"
-      ? "Mercury, Venus, Earth and Mars on their real orbits, to scale with each other. Drag through a month, a year or a decade and watch the inner four lap one another."
-      : "Jupiter, Saturn, Uranus and Neptune on their real orbits, at the scale that shows how much room there is between them.",
+      ? "Watch Mercury, Venus, Earth and Mars move around the Sun. Change the date to compare their orbital speeds. The orbit spacing is to scale; the planet dots are enlarged."
+      : "Watch Jupiter, Saturn, Uranus and Neptune move around the Sun. Compare their wide orbits and long years. The planet dots are enlarged so you can see them.",
     cards,
     cfg: { rung: v.rung, path },
     jsName: v.slug, needs: v.needs,
