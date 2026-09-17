@@ -47,7 +47,7 @@
     "term": "Orbital motion",
     "shortAnswer": "An orbit is a path around another object in space. A planet is already moving. The Sun’s gravity pulls it inward and bends its path. Press Play to watch. Then try Slow down or Speed up.",
     "teasers": {
-      "/": "Falling toward, already moving sideways. Change the sideways and the far side of the path is what moves.",
+      "/": "Gravity pulls inward while the moon moves forward, continually bending its path.",
       "/space/": "Change the Moon’s speed and watch how its orbit changes."
     },
     "title": "How Does an Orbit Work?",
@@ -238,7 +238,7 @@
     "term": "Tides",
     "shortAnswer": "Tides are the regular rise and fall of sea level. They are caused mainly by differences in the Moon’s gravitational pull across Earth, with the Sun contributing too. The shape of the coast affects local tide times and heights.",
     "teasers": {
-      "/": "Two bulges of water, Earth turning under them. Most coasts therefore see two highs a day.",
+      "/": "The Moon’s and Sun’s gravity cause tides. Explore why the pattern differs from one coast to another.",
       "/earth/": "The charts above are the pull of the Moon on a real harbour, hour by hour."
     },
     "title": "What Causes Tides?",

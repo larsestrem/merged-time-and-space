@@ -1259,7 +1259,7 @@ ${SEARCH}
  * sun and moon city pages, six stopwatches, spans from a day to a century.
  */
 const LEDE = {
-  all: `Explore Earth, the Moon and the solar system with interactive simulations. See what changes as you move through a day, a month or a year, or use an alarm, timer, stopwatch or world clock.`,
+  all: `Explore day and night, seasons, Moon phases, tides and planetary orbits. Change a date or setting to see what happens and discover why.`,
   time: `Set an alarm, start a timer, record lap times or check the time around the world. You can also convert between 12-hour and 24-hour time or find a countdown to an upcoming event.`,
   earth: `See how Earth’s motion shapes day and night and the seasons. Explore the Moon’s phases and tides, or choose a location to check sunrise, sunset and Moon times.`,
   space: `Explore the solar system, from the planets and their moons to asteroids and comets. Compare their sizes and orbits, change an object’s speed, or follow a model journey to another planet.`,
@@ -1434,12 +1434,25 @@ const solFirst = SOL_MINI(+_hbNow, "inner", {});
  * location button. Its own IIFE with its own copy of the solar core, because
  * WORLD_MAP_JS keeps its core private to its closure — a few duplicated lines
  * in a cached file beats restructuring a script three pages share. */
+// All-page captions share the numerical model, with their own approved wording.
+function allSunCaption(dec, lon, laterDec, tilt) {
+  var head='The Sun is directly overhead at <b>'+Math.abs(dec).toFixed(1)+'° '+(dec>=0?'N':'S')+', '+Math.abs(lon).toFixed(1)+'° '+(lon>=0?'E':'W')+'</b>. ';
+  var state='Daylight is '+(laterDec>dec?'increasing':'decreasing')+' in the Northern Hemisphere as Earth moves around the Sun. ';
+  if(Math.abs(dec)<0.6) state='Day and night are approximately equal in length in most places near the equinox. ';
+  else if(tilt-Math.abs(dec)<0.15) state='The Northern Hemisphere is near its '+(dec>0?'longest':'shortest')+' daylight period of the year. ';
+  return head+state+'Earth’s axis keeps pointing in nearly the same direction.';
+}
+function allTiltCaption(dec) {
+  var head='The Sun is directly overhead at '+Math.abs(dec).toFixed(1)+'° '+(dec>=0?'north':'south')+'. ';
+  return head+(Math.abs(dec)<0.6?'Day and night are approximately equal in length in most places.':'The '+(dec>=0?'Northern':'Southern')+' Hemisphere currently has longer days than nights.');
+}
+
 const HOME_HERO_JS = `
 (function(){${DN_CORE}
   ${/* the tilt card's season buttons: same DN_CORE, so it costs nothing extra.
        Runs before the hero's own early return — the card does not need the map. */""
   }${TILT_JUMP_JS}
-  tiltJumps(${WK_TILT}, function(dec){ return (${sideCapPlain.toString()})(dec,${WK_TILT}); });
+  tiltJumps(${WK_TILT}, function(dec){ return (${allTiltCaption.toString()})(dec); });
   var slider=document.getElementById('wk-slider'); if(!slider) return;
   var night=document.getElementById('wk-night'), sunG=document.getElementById('wk-sun'),
       meG=document.getElementById('wk-me'), share=document.getElementById('wk-share'),
@@ -1448,7 +1461,7 @@ const HOME_HERO_JS = `
   var sunline=document.getElementById('wk-sunline');
   var orbitNow=document.getElementById('wk-orbit-now');
   var TILT=${WK_TILT};
-  var seasonSun=function(dec,lon,laterDec){ return (${seasonSunHtml.toString()})(dec,lon,laterDec,TILT); };
+  var seasonSun=function(dec,lon,laterDec){ return (${allSunCaption.toString()})(dec,lon,laterDec,TILT); };
   /* DAY0 is the midnight the slider is scrubbing — today's, until a season
      button moves it to a solstice or an equinox. */
   function midnightOf(ms){ var d=new Date(ms); d.setHours(0,0,0,0); return +d; }
@@ -1572,6 +1585,45 @@ ${t.cards.map(([ic, title, line, href]) => `      <a class="pc-card" href="${hre
     </div>
   </section>`;
 
+const ALL_ORBIT_JS = ORBIT_JS.replace(/var NOTE=\{[\s\S]*?\n  \};/, `var NOTE={
+    circle:'At this speed, the moon follows a circular orbit.',
+    slow:'Reducing the speed brings the opposite side of the orbit closer to the planet. The moon speeds up as it approaches the planet.',
+    fast:'Increasing the speed moves the opposite side of the orbit farther from the planet. The moon slows down as it moves away.',
+    esc:'The moon has reached escape speed and no longer follows a closed orbit.'
+  };`);
+const ALL_LEARNING_PANELS = `
+<div class="home-learning">
+  <div class="home-learning-actions" hidden>
+    <button type="button" class="chip" aria-expanded="false" aria-controls="all-learning-guide" data-all-panel="all-learning-guide">Learning guide <span aria-hidden="true">▾</span></button>
+    <button type="button" class="chip" aria-expanded="false" aria-controls="all-teacher-notes" data-all-panel="all-teacher-notes">Teacher notes <span aria-hidden="true">▾</span></button>
+  </div>
+  <section class="card home-learning-panel" id="all-learning-guide" aria-label="Learning guide">
+    <h2>Learning guide</h2>
+    <h3>What you’ll learn</h3><p>Identify how Earth’s rotation, Earth’s orbit, the Moon’s motion and gravity explain familiar patterns in the sky and ocean.</p>
+    <h3>What to change</h3><p>Start with one activity. Move the time slider on the daylight map, choose a season, or change the moon’s orbital speed.</p>
+    <h3>What to observe</h3><p>Look for what changes, what stays the same, and whether the same pattern repeats.</p>
+    <h3>Why it happens</h3><p>Each activity links to a focused explanation. Use it to connect your observation to Earth’s motion, sunlight or gravity.</p>
+  </section>
+  <section class="card home-learning-panel" id="all-teacher-notes" aria-label="Teacher notes">
+    <h2>Teacher notes</h2>
+    <p><strong>Objective:</strong> Students choose an activity, describe one observed change and use its focused learning page to explain the cause.</p>
+    <p><strong>Suggested ages:</strong> 9–14 for the introductory activities, with adult adaptation for the group. This is an editorial suggestion, not a verified grade alignment.</p>
+    <p><strong>Suggested duration:</strong> 5 minutes to choose an activity, followed by the duration suggested on its learning page.</p>
+    <p><strong>Prerequisites:</strong> Vary by activity. Check the focused page’s Teacher notes before teaching.</p>
+    <p><strong>Common misconception:</strong> A simulation’s sizes, distances and speeds are necessarily shown to scale. Ask students to read the model-limitations note.</p>
+    <p><strong>Sources and limitations:</strong> Read the <a href="/methodology/">methodology</a> and the sources on each focused learning page. Animations simplify sizes, distances or speeds and should not be treated as exact measurements or predictions.</p>
+    <p><strong>Lesson status:</strong> These are exploration activities. <a href="/classroom/">Lesson development and drafts</a> are separate; classroom testing is not implied.</p>
+  </section>
+</div>`;
+const ALL_LEARNING_JS = `<script>(function(){
+  var buttons=[].slice.call(document.querySelectorAll('[data-all-panel]'));
+  function setPanel(button,open){var panel=document.getElementById(button.getAttribute('data-all-panel'));panel.hidden=!open;button.setAttribute('aria-expanded',String(open));button.querySelector('span').textContent=open?'▴':'▾';}
+  buttons.forEach(function(button){setPanel(button,false);button.addEventListener('click',function(){setPanel(button,button.getAttribute('aria-expanded')!=='true');});});
+  var actions=document.querySelector('.home-learning-actions');if(actions)actions.hidden=false;
+  function revealHash(){var target=document.getElementById(location.hash.slice(1));if(!target)return;var panel=target.closest('.home-learning-panel');if(!panel)return;buttons.forEach(function(button){if(button.getAttribute('data-all-panel')===panel.id)setPanel(button,true);});target.scrollIntoView();}
+  window.addEventListener('hashchange',revealHash);revealHash();
+})();</script>`;
+
 const portalBody = `  ${/* ?tab= URLs from the tabbed era are shared and bookmarked; they now mean
        a page of their own. Inline and first, so the redirect wins the race
        against rendering a page the visitor did not ask for. */""
@@ -1583,6 +1635,7 @@ ${sectionSwitcher("/")}
        the same line the old All tab led with, which every claim on the page
        already backs. */""
   }<p class="home-lede">${LEDE.all}</p>
+${ALL_LEARNING_PANELS}
   ${/* THE HERO IS THE SITE — but it must not BE the whole first screen
        (owner's call: at full wrap width the map alone was ~560px tall and
        everything else fell below the fold). Two columns on a desktop: the map
@@ -1591,6 +1644,7 @@ ${sectionSwitcher("/")}
   }<div class="card home-hero">
     <p class="hub-kicker">Earth</p>
     <h2><a href="${DAYNIGHT_PATH}">Where is the Sun right now?</a></h2>
+    <p>Move the time slider and watch which places enter daylight or darkness as Earth rotates.</p>
     <div class="home-hero-grid">
       <div class="home-hero-map">
         <a class="home-dn-link" href="${DAYNIGHT_PATH}" aria-label="Open the day and night map">
@@ -1623,7 +1677,7 @@ ${sectionSwitcher("/")}
       </div>
       <div class="home-hero-side">
         <p class="home-hero-line"><strong>Half the Earth is always in daylight, and the other half is night.</strong></p>
-        <p class="wk-sunline" id="wk-sunline">${seasonSunHtml(subsolar(+_hbNow).dec, subsolar(+_hbNow).lon, subsolar(+_hbNow + 7 * 86400000).dec, WK_TILT)}</p>
+        <p class="wk-sunline" id="wk-sunline">${allSunCaption(subsolar(+_hbNow).dec, subsolar(+_hbNow).lon, subsolar(+_hbNow + 7 * 86400000).dec, WK_TILT)}</p>
         <a class="wk-all" href="${DAYNIGHT_PATH}">Open the day and night map →</a>
       </div>
     </div>
@@ -1636,13 +1690,6 @@ ${sectionSwitcher("/")}
     <a class="chip" href="/concepts/why-can-the-moon-be-up-in-the-daytime/">Can the moon be up in the daytime?</a>
     <a class="chip" href="/concepts/why-does-the-moon-change-shape/">Why does the moon change shape?</a>
     <a class="chip chip-alt" href="/glossary/">More questions →</a>
-  </div>
-  <div class="card hub-sim">
-    <p class="hub-kicker">Time</p>
-    <h2>Where the clock comes from</h2>
-    <p class="hub-blurb">Nobody invented time — people read it off the sky. A day is Earth spinning once. A year is Earth's orbit, announced by the seasons its tilt creates. A month is the Moon's cycle. Every hour and minute since is bookkeeping for those three motions.</p>
-
-    ${hubQs(["what-is-a-synodic-month"], "/")}
   </div>
   ${/* SECOND CARD: THE TILT AND THE SEASONS (owner's call), the door to
        /earth-tilt-sun-seasons/. The side view from that page — parallel
@@ -1658,9 +1705,10 @@ ${sectionSwitcher("/")}
   }<div class="card hub-sim" id="home-tilt">
     <p class="hub-kicker">Earth</p>
     <h2><a href="${SEASONS_PATH}">Earth’s tilt makes the seasons</a></h2>
-    <p class="hub-blurb">Earth’s axis leans ${WK_TILT.toFixed(1)}° and keeps pointing the same way in space all year. So as Earth goes round the Sun, the northern half leans into the light for half the year and away from it for the other half — and the southern half does the opposite. That lean, not distance, is what changes the seasons. Below is the Sun and the Earth from the side, drawn for <b id="tj-when">right now</b>. The yellow line lands where the sun is straight overhead; press a season and watch it move between the tropics.</p>
+    <p class="hub-blurb">Earth’s tilt changes the angle of sunlight and the length of the day. Choose a season and watch where the Sun is directly overhead.</p>
+    <p class="hint">Showing <span id="tj-when">right now</span>.</p>
     <div class="dns-wrap" id="tj-side">${sideView(subsolar(+_hbNow).dec, WK_TILT)}</div>
-    <p class="dns-cap" id="tj-cap">${sideCapPlain(subsolar(+_hbNow).dec, WK_TILT)}</p>
+    <p class="dns-cap" id="tj-cap">${allTiltCaption(subsolar(+_hbNow).dec)}</p>
     <p class="dn-tools">
       <button type="button" class="chip" data-tj-at="now" aria-pressed="true" disabled>Now</button>
       <button type="button" class="chip" data-tj-at="${WK_YEAR.up}" data-tj-lab="the March equinox" aria-pressed="false" disabled>March equinox</button>
@@ -1672,42 +1720,42 @@ ${sectionSwitcher("/")}
       <a class="wk-all" href="${SEASONS_PATH}">More on how Earth’s tilt changes the seasons →</a>
       <a class="wk-all" href="${SYS_PATH}">Open the full orbit simulator →</a>
     </div>
-    <p class="hint">Three interactive simulators on that page show it from three different places to stand:</p>
+    <p class="hint">Explore the daylight map, sunlight angle and Earth’s orbit.</p>
     <p class="dn-tools">
-      <a class="chip" href="${SEASONS_PATH}#day-night-map">From above · the day &amp; night map</a>
-      <a class="chip" href="${SEASONS_PATH}#sun-angle">From the side · the angle of the sun</a>
-      <a class="chip" href="${SEASONS_PATH}#earth-sun-moon-year">From beyond the orbit · Earth, Sun &amp; Moon through a year</a>
+      <a class="chip" href="${SEASONS_PATH}#day-night-map">Daylight map</a>
+      <a class="chip" href="${SEASONS_PATH}#sun-angle">Sunlight angle</a>
+      <a class="chip" href="${SEASONS_PATH}#earth-sun-moon-year">Earth’s orbit</a>
     </p>
   </div>
   <div class="card hub-sim">
     <p class="hub-kicker">Earth</p>
-    <h2>The Moon around the Earth</h2>
-    <p class="hub-blurb">The Sun holds still on the left. Earth and the Moon sit to the right so there is more sky between them. The Moon is about a quarter the width of Earth — that size is true. Distances are not: the simulator says by how much.</p>
+    <h2>The Moon’s orbit and phases</h2>
+    <p class="hub-blurb">Watch the Moon orbit Earth. Then open the simulator to explore why the Moon’s appearance changes through the month.</p>
     <div class="hub-live pc-anim pc-anim-orr" id="home-orr">${orrFirst}</div>
-    <p class="home-moonprog-lab">${SIDEREAL}-day orbit. This picture is the phases. A month passes in about 24 seconds.</p>
+    <p class="home-moonprog-lab">The Moon orbits Earth in about ${SIDEREAL} days. Its phases repeat about every 29.5 days. Distances are not to scale.</p>
     <a class="wk-all" href="/sun-moon-earth-movement-simulator/">See the Sun, Earth & Moon simulator →</a>
     ${hubQs(["why-does-the-moon-change-shape", "what-is-a-synodic-month", "what-is-tidal-locking"], "/")}
   </div>
   <div class="card hub-sim">
-    <p class="hub-kicker">Space</p>
-    <h2>The solar system, flat-on</h2>
-    <p class="hub-blurb">The inner planets on their real orbits. Mercury laps everybody — that difference in speed is the whole story of orbits. Distances are compressed so they fit.</p>
-    <div class="hub-live pc-anim pc-anim-sol" id="home-sol">${solFirst}</div>
-    <p class="home-moonprog-lab">A year every 24 seconds. Positions are real. Planet dots are not — they would be smaller than a pixel.</p>
-    <a class="wk-all" href="/solar-system-simulator/">See the solar system simulator →</a>
-  </div>
-  <div class="card hub-sim">
     <p class="hub-kicker">Earth</p>
     <h2>When the tide turns</h2>
-    <p class="hub-blurb">The Moon pulls harder on the water nearer to it than on Earth’s centre, and harder on the centre than on the far-side water. The ocean stretches into two bulges. Earth then turns under those bulges, so most coasts see two high tides a day.</p>
+    <p class="hub-blurb">The Moon’s and Sun’s gravity cause tides. Compare the charts to see how high and low tides differ between coastal locations.</p>
     <div class="home-tides-charts">${_homeTideCharts.join("\n")}</div>
     <a class="wk-all" href="/tides/">See the tide charts →</a>
     ${hubQs(["what-causes-tides"], "/")}
   </div>
   <div class="card hub-sim">
     <p class="hub-kicker">Space</p>
+    <h2>Explore the solar system</h2>
+    <p class="hub-blurb">Compare Mercury, Venus, Earth and Mars as they orbit the Sun. Which planet completes an orbit first?</p>
+    <div class="hub-live pc-anim pc-anim-sol" id="home-sol">${solFirst}</div>
+    <p class="home-moonprog-lab">One Earth year passes in about 24 seconds. Planets are enlarged so you can see them. Distances are adjusted for visibility.</p>
+    <a class="wk-all" href="/solar-system-simulator/">See the solar system simulator →</a>
+  </div>
+  <div class="card hub-sim">
+    <p class="hub-kicker">Space</p>
     <h2>What if a moon slowed down?</h2>
-    <p class="hub-blurb">Nothing spirals in. Take speed away and the far side of the orbit drops toward the planet; add speed and it climbs away — and either way the moon comes back through the point where you changed it.</p>
+    <p class="hub-blurb">Change the moon’s speed and watch how its orbit changes. Compare the closest and farthest points of each path.</p>
     <div class="home-orb" id="ho-wrap">
       <div class="hub-live">
         <svg viewBox="0 0 320 200" width="100%" aria-hidden="true" id="ho-svg">
@@ -1717,7 +1765,7 @@ ${sectionSwitcher("/")}
           <circle id="ho-moon" cx="230" cy="100" r="4.5" fill="#e8eef7"/>
         </svg>
       </div>
-      <p class="home-orbtxt" id="ho-note">A circle: falling exactly as fast as the curve carries it away.</p>
+      <p class="home-orbtxt" id="ho-note">At this speed, the moon follows a circular orbit.</p>
       <p class="home-orbbtns">
         <button type="button" class="chip" id="ho-slow">Slow it down</button>
         <button type="button" class="chip" id="ho-fast">Speed it up</button>
@@ -1727,13 +1775,19 @@ ${sectionSwitcher("/")}
     <a class="wk-all" href="${OV_PATH}">See the orbital velocity simulator →</a>
     ${hubQs(["how-does-an-orbit-work"], "/")}
   </div>
+  <div class="card hub-sim">
+    <p class="hub-kicker">Time</p>
+    <h2>Time tools for the classroom</h2>
+    <p>Set a timer for an activity, measure elapsed time with a stopwatch, or compare local times around the world.</p>
+    <a class="wk-all" href="/time/">Open Time tools →</a>
+  </div>
   <div class="home-rest">
-    <h2>The rest of the site</h2>
-    <p class="sub">A hint, not a catalogue. Each tab is its own page.</p>
+    <h2>Explore by topic</h2>
+    <p class="sub">Choose Earth, Space or Time to continue.</p>
     <div class="dir-grid">
-      <a class="card" href="/earth/"><h2>Earth</h2><p>Your own sky: day and night, sunrise, the Moon, and why the tropics sit where they do.</p></a>
-      <a class="card" href="/space/"><h2>Space</h2><p>Where everything actually is — planets, orbits, gravity, and the questions that open the door.</p></a>
-      <a class="card" href="/time/"><h2>Time</h2><p>Clocks, and what they are counting — a world clock, a countdown to the day you are waiting for.</p></a>
+      <a class="card" href="/earth/"><h2>Earth</h2><p>Explore day and night, seasons, Moon phases and tides.</p></a>
+      <a class="card" href="/space/"><h2>Space</h2><p>Explore the solar system, planets and moons, gravity and orbits.</p></a>
+      <a class="card" href="/time/"><h2>Time</h2><p>Use alarms, timers, stopwatches, countdowns and world clocks.</p></a>
 ${CLASSROOM_PAUSED ? "" : `      <a class="card" href="/classroom/"><h2>Classroom</h2><p>Projector mode, questions written for ten-year-olds first, and a way to send the lesson you already run.</p></a>
 `}    </div>
   </div>
@@ -1794,9 +1848,9 @@ ${CLASSROOM_PAUSED ? "" : `      <a class="card" href="/classroom/"><h2>Classroo
   }<div class="card home-how">
     <h2>How this site works</h2>
     <div class="wc-facts">
-      <div class="wc-frow"><span>Computed, never copied</span><b>Every figure is worked out live from the real motions. Where a picture is not to scale, it says so — in numbers. <a href="/methodology/">How each number is worked out →</a></b></div>
-      <div class="wc-frow"><span>Free, with nothing attached</span><b>No account, no app, no ads, nothing for sale, nothing collected from children. <a href="/about/">Why it exists, and how it is paid for →</a></b></div>
-      <div class="wc-frow"><span>Built with the people who use it</span><b>If a class asks for something and we build it, the class is credited on the page. <a href="/about/work-with-us/">How that works →</a></b></div>
+      <div class="wc-frow"><span>Sources and model limitations</span><b>Read where the data comes from, how calculations are made and what each model simplifies. <a href="/methodology/">How each number is worked out →</a></b></div>
+      <div class="wc-frow"><span>Free to use</span><b>Explore the activities in your browser without creating an account. <a href="/privacy">Privacy</a>. <a href="/about/">Why it exists, and how it is paid for →</a></b></div>
+      <div class="wc-frow"><span>Help improve the activities</span><b>Suggest an improvement or learn how to contribute a lesson. <a href="/about/work-with-us/">How that works →</a></b></div>
     </div>
   </div>
   <div class="home-foot">
@@ -1905,7 +1959,7 @@ writeFileSync(join(root, "index.html"), doc({
   ogTitle: "TimeAndSpace.Science — Track, Record & Understand the Universe",
   body: portalBody,
   ld: webSiteLd(SITE) + appLd({ name: "Time and Space Science", url: SITE + "/", description: "Free online alarm clock, timer, stopwatch and shareable countdowns — no sign-up.", category: "UtilitiesApplication" }),
-  extraJs: `<script data-ac="shared" data-name="home-landing">${WORLD_MAP_JS}${HOME_HERO_JS}${LIVE_TILES_JS}</script>${ORBIT_JS}`,
+  extraJs: `<script data-ac="shared" data-name="home-landing">${WORLD_MAP_JS}${HOME_HERO_JS}${LIVE_TILES_JS}</script>${ALL_ORBIT_JS}${ALL_LEARNING_JS}`,
 }));
 
 /* ---- countdown hub (/countdown/) ---- */
