@@ -1731,9 +1731,9 @@ ${sectionSwitcher("/")}
     <h2>The rest of the site</h2>
     <p class="sub">A hint, not a catalogue. Each tab is its own page.</p>
     <div class="dir-grid">
-      <a class="card" href="/time/"><h2>Time</h2><p>Clocks, and what they are counting — a world clock, a countdown to the day you are waiting for.</p></a>
       <a class="card" href="/earth/"><h2>Earth</h2><p>Your own sky: day and night, sunrise, the Moon, and why the tropics sit where they do.</p></a>
       <a class="card" href="/space/"><h2>Space</h2><p>Where everything actually is — planets, orbits, gravity, and the questions that open the door.</p></a>
+      <a class="card" href="/time/"><h2>Time</h2><p>Clocks, and what they are counting — a world clock, a countdown to the day you are waiting for.</p></a>
 ${CLASSROOM_PAUSED ? "" : `      <a class="card" href="/classroom/"><h2>Classroom</h2><p>Projector mode, questions written for ten-year-olds first, and a way to send the lesson you already run.</p></a>
 `}    </div>
   </div>

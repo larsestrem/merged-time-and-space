@@ -433,9 +433,9 @@ const NOTICE_RE = /<!--nb-->[\s\S]*?<!--\/nb-->\s*/g;
    picture and a line of context instead of a bare row. */
 const BRAND_SECTIONS = [
   ["/", "Home", "home"],
-  ["/time/", "Time", "timer"],
   ["/earth/", "Earth", "globe"],
   ["/space/", "Space", "solar"],
+  ["/time/", "Time", "timer"],
   ["/classroom/", "Classroom", "classroom"],
 ].filter(([url]) => !(CLASSROOM_PAUSED && url === "/classroom/")); /* see site-flags.mjs */
 
