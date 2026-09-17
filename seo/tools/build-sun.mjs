@@ -830,11 +830,12 @@ const PAGE_BODY_JS = `
     if(ansEl&&!isToday){
       var dl=dayLong(d.getTime()), city=esc0(C.city||'this location');
       ansEl.innerHTML = s2.rise
-        ? 'On <b>'+esc0(dl)+'</b> the sun rises in '+city+' at <b>'+hm(s2.rise)+'</b> and sets at <b>'+hm(s2.set)+'</b>, giving <b>'+lenWords(s2.set-s2.rise)+'</b> of daylight. First light is at <b>'+(tw2.rise?hm(tw2.rise):'—')+'</b>, last light at <b>'+(tw2.set?hm(tw2.set):'—')+'</b>, and solar noon at <b>'+hm(s2.noon)+'</b>.'
+        ? 'In '+city+' on <b>'+esc0(dl)+'</b>, sunrise is <b>'+hm(s2.rise)+'</b> and sunset is <b>'+hm(s2.set)+'</b>, giving <b>'+lenWords(s2.set-s2.rise)+'</b> of daylight. Choose another date to compare.'
         : 'On <b>'+esc0(dl)+'</b> '+city+' has no ordinary sunrise or sunset — at this latitude the sun stays continuously above or below the horizon. Solar noon is <b>'+hm(s2.noon)+'</b>.';
     }
     if(isToday){
       if(ansEl&&ANSWER0) ansEl.innerHTML=ANSWER0;
+      put('sun-a-date',dayLong(d.getTime()));
       put('sun-a-rise', s2.rise?hm(s2.rise):'—');
       put('sun-a-set', s2.set?hm(s2.set):'—');
       put('sun-a-noon', hm(s2.noon));
@@ -1348,7 +1349,7 @@ ${head({
        already updates, so the sentence follows the visitor's real "today" (and
        any date they pick) instead of the build's. The polar case gets its own
        wording, because "rises at —" would be nonsense there. */
-    ssr.hasSun ? `<p class="sub" id="sun-answer">The sun rises in ${esc(c.city)} today at <b id="sun-a-rise">${ssr.rise}</b> and sets at <b id="sun-a-set">${ssr.set}</b>, giving <b id="sun-a-len">${ssr.lenWords}</b> of daylight${ssr.delta ? ` — <span id="sun-a-delta">${esc(ssr.delta)}</span>` : ""}. First light is at <b id="sun-a-dawn">${ssr.dawn}</b>, last light at <b id="sun-a-dusk">${ssr.dusk}</b>, and solar noon at <b id="sun-a-noon">${ssr.noon}</b>.</p>
+    ssr.hasSun ? `<p class="sub" id="sun-answer">In ${esc(c.city)} on <span id="sun-a-date">${esc(new Intl.DateTimeFormat("en-US", {timeZone: c.tz, dateStyle: "long"}).format(new Date()))}</span>, sunrise is <b id="sun-a-rise">${ssr.rise}</b> and sunset is <b id="sun-a-set">${ssr.set}</b>, giving <b id="sun-a-len">${ssr.lenWords}</b> of daylight. Choose another date to compare.</p>
   ` : `<p class="sub" id="sun-answer">${esc(c.city)} has no ordinary sunrise or sunset around this date — at this latitude the sun stays continuously above or below the horizon (midnight sun or polar night). Solar noon is <b id="sun-a-noon">${ssr.noon}</b>.</p>
   `}${localTimeLine(c.city, c.tz)}<p class="hint sun-tzline">${ssr.tzName ? `${esc(ssr.tzName)} · ` : ``}<span id="sun-today">${ssr.today}</span> · Calculated for central ${esc(c.city)} — recomputed live in your browser for today's date.</p>
 ${sunArcCard(ssr, c.city, c.slug)}  <div class="card sun-dial-card">
@@ -1400,7 +1401,7 @@ ${/* the two prose cards — why the day length moves here, then the direct
   </div>` : `  <div class="card">
     ${faqHtml}
   </div>`}
-${placeFacts({ ...resolvePlace(c), nearby: nearestMajor(c, SUN_ALL), kind: "sun" , elevKey: c.slug })}${astroStrip({ from: "sun", slug: c.slug, city: c.city, lat: c.lat, lon: c.lon, tz: c.tz })}${placeQuestionsCard(["why-do-we-have-seasons", "what-is-twilight", "what-is-daylight-saving-time"], "/sun/")}${neighbors.length ? `
+${placeFacts({ ...resolvePlace(c), nearby: nearestMajor(c, SUN_ALL), kind: "sun" , elevKey: c.slug })}${astroStrip({ from: "sun", slug: c.slug, city: c.city, lat: c.lat, lon: c.lon, tz: c.tz })}${placeQuestionsCard(["what-is-twilight", "what-is-daylight-saving-time"], "/sun/")}${neighbors.length ? `
   <div class="card">
     <h2>Nearby &amp; related</h2>
     <div class="timer-presets">${neighbors.map((n) => `<a class="chip" href="/sun/${n.slug}/">${esc(cityLabel(n))}</a>`).join("")}${stateHub ? `<a class="chip" href="/sun/state/${stateHub.slug}/">All ${esc(stateHub.state)} cities →</a>` : ""}<a class="chip" href="/sun/">All cities →</a></div>
@@ -1438,7 +1439,7 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "sun", url: "/sun/" }, page: { label: s.state, url: path } })}
   <h1>Sunrise &amp; Sunset in ${esc(s.state)}</h1>
-  <p class="sub">Pick a city for today's sunrise, sunset, first light, last light, solar noon and day length — plus a date picker, a 7-day outlook and the annual daylight curve. Largest cities first.</p>
+  <p class="sub">Choose a city in ${esc(s.state)} to see sunrise, sunset and daylight hours for your selected date.</p>
   <div class="card">
     <h2>${esc(s.state)} cities</h2>
     <div class="timer-presets">${s.cities.map((c) => `<a class="chip" href="/sun/${c.slug}/">${esc(c.city)}</a>`).join("")}</div>
@@ -2246,7 +2247,7 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "sun", url: "/sun/" } })}
   <h1>Sunrise &amp; Sunset Times</h1>
-  <p class="sub">Pick a city for today's sunrise, sunset, first light, last light, solar noon and day length — plus the next 7 days. Calculated estimates, computed live from each city's coordinates for today's date.</p>
+  <p class="sub">Choose a city to see sunrise, sunset and daylight hours. Check the next seven days or choose another date to see how the daylight changes.</p>
   <div class="card">
     <div class="td-qrow">
       <input id="sun-q" type="search" placeholder="Search a city or state — Miami, Salem, Oregon…" autocomplete="off" aria-label="Search a city or state">

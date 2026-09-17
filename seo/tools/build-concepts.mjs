@@ -5,7 +5,7 @@
  *
  * Chrome matches the live site (brand + wrap); build-inline injects nav/CSS.
  */
-import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
+import { mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { esc, GA_SNIPPET, brand, breadcrumbLD, faqLd, learningLd } from "./lib.mjs";
@@ -15,6 +15,11 @@ import { MOON_LAB_JS } from "./moon-lab.mjs";
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
 const SITE = JSON.parse(readFileSync(join(root, "seo/_data/site.json"), "utf8")).origin;
+const retired = JSON.parse(readFileSync(join(root, "seo/_data/retired-concepts.json"), "utf8"));
+for (const slug of retired) {
+  if (!/^[a-z0-9-]+$/.test(slug)) throw new Error(`Invalid retired concept: ${slug}`);
+  rmSync(join(root, "concepts", slug), { recursive: true, force: true });
+}
 const data = loadConcepts();
 const bySlug = conceptBySlug();
 
@@ -107,10 +112,10 @@ ${GA_SNIPPET}
     <h2>See it live</h2>
     <ul>${see}</ul>
 ${hubs ? `    <p>On the hub: ${hubs}</p>\n` : ""}  </div>
-  <div class="card related">
+  ${c.relatedSlugs.length ? `<div class="card related">
     <h2>Related questions</h2>
     ${relatedPartial(c.relatedSlugs, bySlug)}
-  </div>
+  </div>` : ""}
   <p class="footer"><a href="/glossary/">Glossary</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 ${c.slug === "how-does-an-orbit-work" ? `<script data-ac="js">${ORBIT_LESSON_JS}</script>` : ""}

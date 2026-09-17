@@ -127,6 +127,7 @@ export function hubQuestionsCard(hubPath, heading = "Questions this page answers
  *  hubPath ("/", "/earth/", …) picks a one-line framing so the same question
  *  does not repeat its paragraph on every hub. */
 export function hubQs(slugs, hubPath = "") {
+  if (!slugs.length) return "";
   const by = conceptBySlug();
   const used = new Set();
   const items = slugs.map((slug) => {
@@ -145,6 +146,7 @@ export function hubQs(slugs, hubPath = "") {
  * rank. Slugs are named by the caller: the mapping is editorial, not derived,
  * because "which question does a sunrise table raise" is a judgement. */
 export function placeQuestionsCard(slugs, hubPath) {
+  if (!slugs.length) return "";
   return `  <div class="card hub-teasers">
     <h2>Questions this page answers</h2>
     ${hubQs(slugs, hubPath)}

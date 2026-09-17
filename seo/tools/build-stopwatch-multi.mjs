@@ -113,7 +113,7 @@ ${GA_SNIPPET}
 <div class="wrap">
   ${brand({ crumb: { slug: "stopwatch", url: "/stopwatch/" }, sub: { slug: "multiple", url: PATH } })}
   <h1>Multiple Stopwatches</h1>
-  <p class="sub">Up to ${MAX_DESK} independent stopwatches on one screen — each with its own name, its own colour, its own laps and its own Start. For lanes, heats, groups, stations or six things on the stove.</p>
+  <p class="sub">Time several activities on one screen. Give each stopwatch a name, start it separately or start them together, and record laps for comparison.</p>
 
   <div class="mt-wrap" id="ms" data-view="desk">
     <div class="mt-board ms-board" id="ms-board" data-count="0"></div>

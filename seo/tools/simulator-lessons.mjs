@@ -29,7 +29,7 @@ export const orbitLesson = activities('sys', [
   {key:'light',title:'2. Follow the sunlight',prompt:'Which side of each body will be bright?',action:'Look from above',watch:'Press Play. Watch the bright side of Earth and the Moon as they move.',answer:'Each bright side faces the Sun. The Sun lights these worlds; they do not make their own light.'},
   {key:'side',title:'3. Look from the side',prompt:'Does the Moon always stay level with Earth’s large ring?',action:'Look from the side',watch:'Press Play. Watch the Moon move above and below the flat surface of Earth’s orbit.',answer:'The Moon’s orbit is tilted. The tilt helps explain <a href="/concepts/why-isnt-there-an-eclipse-every-month/">why eclipses do not happen every month</a>.'},
 ]);
-export const orbitAnswers = questions(ORBIT_QUESTIONS, `<h3>Two different kinds of tilt</h3><p>Earth’s axis leans about 23.4° from an upright position. The Moon’s orbit tilts about 5° compared with the flat surface of Earth’s orbit. One describes a spinning world. The other describes a path around it.</p><p><a href="/concepts/what-is-earths-axial-tilt/">Explore Earth’s axis</a> or <a href="/concepts/why-isnt-there-an-eclipse-every-month/">explore the Moon’s tilted path</a>.</p>`);
+export const orbitAnswers = questions(ORBIT_QUESTIONS, `<h3>Two different kinds of tilt</h3><p>Earth’s axis leans about 23.4° from an upright position. The Moon’s orbit tilts about 5° compared with the flat surface of Earth’s orbit. One describes a spinning world. The other describes a path around it.</p><p><a href="/concepts/why-isnt-there-an-eclipse-every-month/">explore the Moon’s tilted path</a>.</p>`);
 export const orbitRelated = relatedTopics('/earth-sun-moon-orbit-simulator/', [
   ['/sun-moon-earth-movement-simulator/','See the Sun and Moon from your town','Connect these orbits with day, night and Moon phases.'],
   ['/earth-tilt-sun-seasons/','Explore Earth’s tilt and the seasons','Compare sunlight at different times of year.'],
@@ -40,7 +40,7 @@ export const orbitRelated = relatedTopics('/earth-sun-moon-orbit-simulator/', [
 export const SOLAR_QUESTIONS = [
   ["Which planet finishes an orbit first?", "Mercury. Its year lasts about 88 Earth days. In one Earth year, Mercury goes around the Sun a little more than four times."],
   ["Why do the outer planets take longer?", "They have much larger paths to travel and move more slowly. Neptune takes about 165 Earth years to go around the Sun. <a href=\"/concepts/how-does-an-orbit-work/\">See how gravity shapes an orbit</a>."],
-  ["Why do the inner planets bunch together when I zoom out?", "They really are close to the Sun compared with the outer planets. Zooming out shows more space, so their orbits look smaller. <a href=\"/concepts/why-are-the-planets-drawn-so-close/\">Explore solar-system scale</a>."],
+  ["Why do the inner planets bunch together when I zoom out?", "They really are close to the Sun compared with the outer planets. Zooming out shows more space, so their orbits look smaller."],
   ["Can I explore a single planet?", "Yes. Click a planet in the drawing to open its page, or use <a href=\"/planets/\">the planet guide</a>. Each planet has its own story. Worlds with moons also have closer views of their moon systems."],
 ];
 export const solarLesson = activities('sol', [
@@ -48,7 +48,7 @@ export const solarLesson = activities('sol', [
   {key:'space',title:'2. See the gaps',prompt:'Are the planets evenly spaced?',action:'Show all eight planets',watch:'Look near the Sun. Can you find the four small inner orbits?',answer:'The planets are not evenly spaced. The outer solar system has much larger gaps. The planet dots are enlarged so you can see them.'},
   {key:'slow',title:'3. Give Neptune more time',prompt:'Will Neptune finish a lap in 100 years?',action:'Compare 100 years',watch:'Drag the time slider from left to right. Follow Neptune’s outer ring.',answer:'No. Neptune completes only about three-fifths of its orbit in 100 Earth years. Its full year takes about 165 Earth years.'},
 ]);
-export const solarAnswers = questions(SOLAR_QUESTIONS, `<h3>What does AU mean?</h3><p>AU is a unit for measuring space. One AU is Earth’s average distance from the Sun, about 150 million kilometres. Neptune is about 30 AU away. That is about 30 times farther from the Sun than Earth.</p><h3>What keeps a planet moving around the Sun?</h3><p>A planet is already moving. The Sun’s <a href="/concepts/why-dont-planets-fall-into-the-sun/">gravity pulls it inward</a> and bends its path. Gravity does not switch off when the planet is far away.</p>`);
+export const solarAnswers = questions(SOLAR_QUESTIONS, `<h3>What does AU mean?</h3><p>AU is a unit for measuring space. One AU is Earth’s average distance from the Sun, about 150 million kilometres. Neptune is about 30 AU away. That is about 30 times farther from the Sun than Earth.</p><h3>What keeps a planet moving around the Sun?</h3><p>A planet is already moving. The Sun’s gravity pulls it inward and bends its path. Gravity does not switch off when the planet is far away.</p>`);
 export const solarRelated = relatedTopics('/solar-system-simulator/', [
   ['/planets/','Meet the planets','Compare their sizes and what each world is like.'],
   ['/earth-sun-moon-orbit-simulator/','Follow Earth and the Moon','Watch their two orbits at once.'],

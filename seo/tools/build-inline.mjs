@@ -825,7 +825,7 @@ function injectPauses(html, rel) {
        immediately after the section navigation instead. */
     const anchor = rel === "classroom/index.html"
       ? /(<nav class="home-tabs sec-switch"[\s\S]*?<\/nav>)/ : /(<\/h1>)/;
-    html = html.replace(anchor, `$1\n  ${classroomPauseNote()}`);
+    html = html.replace(anchor, `$1\n  ${classroomPauseNote(rel)}`);
   }
   /* the message forms */
   if (MESSAGE_FORMS_PAUSED) html = html

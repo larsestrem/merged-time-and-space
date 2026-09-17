@@ -293,7 +293,7 @@ ${rows}
     title: `${kindWord} Lunar Eclipse — ${uDate(e.maxMs)}`,
     desc: `${label} on ${uDate(e.maxMs)}: every phase in UTC and your own time zone, ${e.durationTotalMin ? `${mins(e.durationTotalMin)} of totality, ` : ""}and whether the moon is above your horizon.`,
     h1: `${esc(label)} — ${esc(uDate(e.maxMs))}`,
-    sub: `${upcoming ? "Coming up" : "This one has passed"}: every phase timed to the minute, the same instant worldwide, converted to your own clock — and whether the moon is up where you are.`,
+  sub: `Explore the ${esc(kindWord.toLowerCase())} lunar eclipse on ${esc(uDate(e.maxMs))}. See when its stages occur and whether the Moon is above the horizon at your location. Visibility also depends on local sky conditions.`,
     body, faq: [], js: ECL_JS,
   })); }
   PAGES.push({ slug, e });
@@ -335,7 +335,7 @@ if (isMain) writeFileSync(join(root, "moon", "eclipses", "index.html"), doc({
   title: "Lunar Eclipses — Dates, Times & Whether You Can See Them",
   desc: `Every lunar eclipse from ${Y - 1} to ${Y + 3}: exact times for each phase in UTC and your own zone, how long totality lasts, and whether the moon is above your horizon.`,
   h1: `${ico("moon")} Lunar eclipses`,
-  sub: `Every lunar eclipse from ${Y - 1} through ${Y + 3} — ${ECLIPSES.length} of them, ${totals} total. Each one is computed, not copied from a list, and each page converts the times to your own clock.`,
+  sub: `Explore lunar eclipses from ${Y - 1} to ${Y + 3}. Open an eclipse to see its type, estimated timing and whether the Moon is above your horizon.`,
   body: `${nextCard}
 ${yearBlocks}
 

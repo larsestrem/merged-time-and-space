@@ -1,0 +1,90 @@
+{
+  "archived": "2026-09-17",
+  "reason": "Expired countdown retired; original copy retained as history, not a verified event report.",
+  "event": {
+    "type": "nfl-kickoff-countdown",
+    "related": [
+      "patrick-mahomes",
+      "travis-kelce"
+    ],
+    "slug": "",
+    "label": "NFL Kickoff",
+    "name": "NFL Season Kickoff",
+    "once": "2026-09-09",
+    "time": "20:20",
+    "tz": "America/New_York",
+    "theme": "football",
+    "art": "football",
+    "effect": "confetti",
+    "sound": "cheer",
+    "title": "NFL Kickoff 2026 Countdown: How Many Days Until Football Is Back?",
+    "desc": "Live countdown to the 2026 NFL season kickoff, a Super Bowl LX rematch between the Seahawks and Patriots.",
+    "h1": "Countdown to the 2026 NFL Kickoff",
+    "intro": "Football returns with the NFL Kickoff Game on Wednesday night, September 9, 2026, a Super Bowl LX rematch as the Seattle Seahawks host the New England Patriots. Since 2004 the season has opened at the home of the defending Super Bowl champion; this is only the second time the opener has fallen on a Wednesday. This countdown ticks to kickoff.",
+    "sections": [
+      {
+        "h": "Why a Wednesday this year?",
+        "p": "The NFL created the standalone Thursday opener in 2002 (a concert-and-football spectacle in Times Square) and made it the champion's showcase in 2004. The 2026 opener shifts to Wednesday, September 9 — only the second time in league history the Kickoff Game hasn't fallen on a Thursday, after a similar 2012 shift around the Democratic National Convention."
+      },
+      {
+        "h": "How the 2025 opener went",
+        "p": "The Kickoff Game has gone to the reigning champion for two straight seasons. In 2025 the Philadelphia Eagles, fresh off Super Bowl LIX, beat the Dallas Cowboys 24-20 at Lincoln Financial Field on September 4 — a game delayed 65 minutes by lightning, and decided by Jalen Hurts and Saquon Barkley in a back-and-forth second half."
+      },
+      {
+        "h": "The longest offseason in sports",
+        "p": "The NFL plays the fewest games of any major league, so its fans wait the longest — about seven months from the Super Bowl to kickoff. That scarcity is exactly why this one night out-rates almost everything else on TV all year."
+      }
+    ],
+    "facts": [
+      "The 2026 season opens Wednesday, September 9 — a Super Bowl LX rematch between the Seahawks and Patriots",
+      "The 2025 opener: Philadelphia 24, Dallas 20 — the champion Eagles held on at home",
+      "Since 2004 the opener is hosted by the defending champion",
+      "The Thursday-night kickoff tradition began in 2002",
+      "NFL games are the most-watched broadcasts on U.S. television"
+    ],
+    "recordsLabel": "NFL Kickoff Game Records",
+    "records": [
+      {
+        "label": "Most-watched Kickoff Game ever",
+        "value": "2024 opener, Ravens vs. Chiefs — 29.2 million viewers on NBC and Peacock"
+      },
+      {
+        "label": "Highest-scoring Kickoff Game",
+        "value": "76 combined points, tied twice — Denver 49, Baltimore 27 (2013) and Green Bay 42, New Orleans 34 (2011)"
+      },
+      {
+        "label": "Most passing yards in a Kickoff Game",
+        "value": "Peyton Manning — 462 yards, 7 TDs, no interceptions, for Denver in 2013"
+      },
+      {
+        "label": "Most Kickoff Game appearances",
+        "value": "New England and Kansas City, 4 each, both 3-1"
+      },
+      {
+        "label": "Home teams usually win the opener",
+        "value": "The home team has won all but 6 Kickoff Games since 2002"
+      }
+    ],
+    "howToWatch": {
+      "text": "The NFL Kickoff Game airs nationally on NBC and streams on Peacock as part of NBC's Sunday Night Football franchise, which has held the rights since 2006. The game usually opens the season on the Thursday before Week 1, though the date isn't fixed year to year — it shifted to a Wednesday in 2012, and again for the 2026 opener.",
+      "links": [
+        {
+          "label": "NFL Kickoff (official hub)",
+          "url": "https://www.nfl.com/kickoff"
+        }
+      ]
+    },
+    "links": [
+      {
+        "label": "NFL",
+        "url": "https://www.nfl.com"
+      },
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/NFL_Kickoff_Game"
+      }
+    ],
+    "message": "Football is BACK.",
+    "verified": "2026-07-31"
+  }
+}

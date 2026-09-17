@@ -55,13 +55,13 @@
           "label": "Beyoncé",
           "slug": "beyonce",
           "name": "Beyoncé's Birthday",
-          "date": "2026-09-04"
+          "date": "2027-09-04"
         },
         {
           "label": "The Pope",
           "slug": "the-pope",
           "name": "Pope Leo XIV's Birthday",
-          "date": "2026-09-14"
+          "date": "2027-09-14"
         },
         {
           "label": "LeBron James",
@@ -135,7 +135,7 @@
           "label": "Keanu Reeves",
           "slug": "keanu-reeves",
           "name": "Keanu Reeves' Birthday",
-          "date": "2026-09-02"
+          "date": "2027-09-02"
         },
         {
           "label": "Patrick Mahomes",
@@ -743,13 +743,6 @@
           "name": "Boston Marathon 2027",
           "date": "2027-04-19",
           "path": "boston-marathon-countdown"
-        },
-        {
-          "label": "NFL Kickoff 2026",
-          "slug": "",
-          "name": "NFL Kickoff 2026",
-          "date": "2026-09-09",
-          "path": "nfl-kickoff-countdown"
         },
         {
           "label": "NFL Draft 2027",

@@ -537,13 +537,13 @@ ${head({
 <div class="wrap wrap-wide">
   ${brand({ crumb: { slug: "orbital-velocity", url: OV_PATH } })}
   <h1>Orbital Velocity Simulator</h1>
-  <p class="sub">Set how far out a planet sits and how fast it is moving sideways, and watch what gravity does with it — a circle, a long ellipse, an escape, or a fall into the sun. The two arrows are the whole story: where it is going, and where it is being pulled.</p>
+  <p class="sub">Change an object’s distance and sideways speed to see how its orbit changes. Watch gravity bend its path into a circle or oval, or see what happens when it escapes or falls toward the Sun.</p>
 
 ${simCard}${whyShort}${tryCard}${hubQuestionsCard(OV_PATH)}${tableCard}  <div class="card">
     <h2>Keep going</h2>
     <p class="timer-presets">
       <a class="chip" href="/glossary/">The glossary of every term</a>
-      <a class="chip" href="/concepts/why-dont-planets-fall-into-the-sun/">Why planets don't fall into the sun</a>
+
       <a class="chip" href="${OV_WHY}">Newton's cannonball, with the tables</a>
       <a class="chip" href="/solar-system-simulator/">The whole solar system, moving</a>
       <a class="chip" href="/earth-sun-moon-orbit-simulator/">Earth, sun &amp; moon together</a>
@@ -577,7 +577,7 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "orbital-velocity", url: OV_PATH }, page: { label: "why planets don't fall in", url: OV_WHY } })}
   <h1>Why Don't the Planets Fall Into the Sun?</h1>
-  <p class="sub">Short answer: they <em>are</em> falling into the sun. They keep missing. The question lives at <a href="/concepts/why-dont-planets-fall-into-the-sun/">Why don’t planets fall into the Sun?</a> — this page keeps the unique numbers: pull per kilogram at each planet, the speed that answers it, and what it actually takes to hit the Sun.</p>
+  <p class="sub">Gravity pulls planets toward the Sun while their sideways motion keeps their paths curving around it. Compare the strength of gravity and orbital speed at different distances from the Sun.</p>
 
   <div class="card">
     <h2>1 · The pull really is much stronger close in</h2>

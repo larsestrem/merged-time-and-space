@@ -172,9 +172,7 @@ ${GA_SNIPPET}
 <div class="wrap">
   ${brand({ crumb: { slug: "alarm-clock", url: "/alarm-clock/" }, sub: { slug: t.slug, url: `/alarm-clock/${t.slug}/` } })}
   <h1>Set an Alarm for ${esc(t.disp)}</h1>
-  <p class="sub">${t.h >= 4 && t.h <= 11
-    ? `Need to be up by ${esc(t.disp)}? It's already filled in below — tap <strong>Save</strong>, keep this tab open, and the alarm rings right at ${esc(t.disp)}. Tap <strong>Full screen</strong> to turn your phone into a ${esc(t.disp)} bedside alarm.`
-    : `Need an alarm at ${esc(t.disp)}? It's already filled in below — tap <strong>Save</strong>, keep this tab open, and it rings right at ${esc(t.disp)}. One-time or repeating, no app and no sign-up.`}</p>
+  <p class="sub">${t.h >= 4 && t.h <= 11 ? `The alarm is set to ${esc(t.disp)}. Press Save and test the sound. It can ring only while the page remains open, your device stays awake and audio is enabled.` : `The alarm is set to ${esc(t.disp)}. Press Save, then keep this page open, your device awake and the sound on. Test the sound before relying on it.`}</p>
   <p class="tool-uses">A ${esc(t.disp)} alarm is a popular choice for ${wakeUses(t)}.</p>
 
   ${PANEL_HTML}

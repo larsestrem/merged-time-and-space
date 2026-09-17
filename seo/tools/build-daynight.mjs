@@ -194,17 +194,17 @@ function sideCapText(dec, tilt, kind, ms) {
     catch (e) { return new Date(at).toUTCString().replace(/ 00:00:00 GMT$/, ''); }
   };
   var when = ms ? date(ms) : '';
-  if (kind === 'mar') return '<a href="/holiday-countdowns/spring-equinox/">The March equinox</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical spring</a> in the Northern Hemisphere (autumn in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
-  if (kind === 'jun') return '<a href="/holiday-countdowns/summer-solstice/">The June solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical summer</a> in the Northern Hemisphere (winter in the Southern Hemisphere): the north gets its longest daylight of the year and the south its shortest. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther north. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
-  if (kind === 'sep') return '<a href="/holiday-countdowns/fall-equinox/">The September equinox</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical fall</a> in the Northern Hemisphere (spring in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
-  if (kind === 'dec') return '<a href="/holiday-countdowns/winter-solstice/">The December solstice</a> occurs about <strong>' + when + '</strong>. It begins <a href="/concepts/why-do-we-have-seasons/">astronomical winter</a> in the Northern Hemisphere (summer in the Southern Hemisphere): the north gets its shortest daylight of the year and the south its longest. The Sun–Earth centre line reaches the <a href="/concepts/what-is-the-tropic-of-capricorn/">Tropic of Capricorn</a>: the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> goes no farther south. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
+  if (kind === 'mar') return '<a href="/holiday-countdowns/spring-equinox/">The March equinox</a> occurs about <strong>' + when + '</strong>. It begins astronomical spring in the Northern Hemisphere (autumn in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the subsolar point on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
+  if (kind === 'jun') return '<a href="/holiday-countdowns/summer-solstice/">The June solstice</a> occurs about <strong>' + when + '</strong>. It begins astronomical summer in the Northern Hemisphere (winter in the Southern Hemisphere): the north gets its longest daylight of the year and the south its shortest. The Sun–Earth centre line reaches the Tropic of Cancer: the subsolar point goes no farther north. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
+  if (kind === 'sep') return '<a href="/holiday-countdowns/fall-equinox/">The September equinox</a> occurs about <strong>' + when + '</strong>. It begins astronomical fall in the Northern Hemisphere (spring in the Southern Hemisphere), with nearly equal daylight and darkness. The Sun–Earth centre line meets the subsolar point on the equator. <a href="/concepts/what-is-an-equinox/">Why an equinox happens →</a>';
+  if (kind === 'dec') return '<a href="/holiday-countdowns/winter-solstice/">The December solstice</a> occurs about <strong>' + when + '</strong>. It begins astronomical winter in the Northern Hemisphere (summer in the Southern Hemisphere): the north gets its shortest daylight of the year and the south its longest. The Sun–Earth centre line reaches the Tropic of Capricorn: the subsolar point goes no farther south. <a href="/concepts/what-is-a-solstice/">Why a solstice happens →</a>';
   var a = Math.abs(dec), n = dec >= 0, x = a.toFixed(1), gap = (tilt - a).toFixed(1);
   var TC = n
-    ? '<a href="/concepts/what-is-the-tropic-of-cancer/">Tropic of Cancer</a>'
-    : '<a href="/concepts/what-is-the-tropic-of-capricorn/">Tropic of Capricorn</a>';
-  if (a < 0.6) return 'The Sun–Earth centre line lands on the equator at the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a>. Earth is still tilted, but its axis leans sideways to the Sun at this moment, so daylight is close to twelve hours worldwide.';
-  if (tilt - a < 0.15) return 'The Sun–Earth centre line lands on the ' + TC + ', at <strong>' + x + '° ' + (n ? 'N' : 'S') + '</strong> — the furthest ' + (n ? 'north' : 'south') + ' the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a> reaches. One hemisphere is at its maximum lean toward the Sun.';
-  return 'The Sun–Earth centre line lands at <strong>' + x + '° ' + (n ? 'N' : 'S') + '</strong>, ' + gap + '° short of the ' + TC + '. The ' + (n ? 'Northern' : 'Southern') + ' Hemisphere is leaning into the light, so its days are longer than its nights. <a href="/concepts/why-do-we-have-seasons/">See how tilt makes the seasons →</a>';
+    ? 'Tropic of Cancer'
+    : 'Tropic of Capricorn';
+  if (a < 0.6) return 'The Sun–Earth centre line lands on the equator at the subsolar point. Earth is still tilted, but its axis leans sideways to the Sun at this moment, so daylight is close to twelve hours worldwide.';
+  if (tilt - a < 0.15) return 'The Sun–Earth centre line lands on the ' + TC + ', at <strong>' + x + '° ' + (n ? 'N' : 'S') + '</strong> — the furthest ' + (n ? 'north' : 'south') + ' the subsolar point reaches. One hemisphere is at its maximum lean toward the Sun.';
+  return 'The Sun–Earth centre line lands at <strong>' + x + '° ' + (n ? 'N' : 'S') + '</strong>, ' + gap + '° short of the ' + TC + '. The ' + (n ? 'Northern' : 'Southern') + ' Hemisphere is leaning into the light, so its days are longer than its nights. ';
 }
 
 /* ---- the page's own script ----------------------------------------------
@@ -804,7 +804,7 @@ ${heading ? `<p class="dn-cue">Watch how much of each hemisphere lies in dayligh
 ${controlsInside ? mapControls(view) : ""}    <p class="dn-sunline" id="dn-sunline">${seasonSunHtml(SS.dec, SS.lon, subsolar(NOW + 7 * 86400000).dec, TILT)}</p>
     <p class="hint" id="dn-loc-msg"></p>
     <p class="dn-me-line" id="dn-mewrap" hidden><b id="dn-o-me">&nbsp;</b> <a id="dn-me-sun" href="/sun/near-me/?geo=1">Your sunrise and sunset →</a></p>
-    <p class="hint dn-map-note"><strong>Map limitation:</strong> Earth is a globe flattened into a rectangle, so shapes and distances — especially near the poles — are distorted. The Sun and Moon markers are enlarged so you can see them. <a href="/concepts/why-is-this-map-flat/">Why this map is flat →</a></p>
+    <p class="hint dn-map-note"><strong>Map limitation:</strong> Earth is a globe flattened into a rectangle, so shapes and distances — especially near the poles — are distorted. The Sun and Moon markers are enlarged so you can see them. </p>
   </div>
 `;
 
@@ -814,7 +814,7 @@ const howCard = `  <details class="card dn-instructions" id="instructions">
     <div class="dn-instructions-body">
     <p>This map solves which half of Earth faces the Sun at the instant shown above the slider. Bright areas have the Sun above the horizon, dark areas have it below, and the <strong>soft band</strong> is <a href="/concepts/what-is-twilight/">twilight</a>.</p>
     <p>Drag the slider to choose any instant in the year. The arrow buttons move one day at a time. <strong>Play</strong> runs through the year, <strong>Now</strong> returns to the current moment, and the seasonal buttons reveal how the day/night boundary changes across the year.</p>
-    <p>The <strong>yellow marker</strong> is the <a href="/concepts/what-is-the-subsolar-point/">subsolar point</a>, where the Sun is straight overhead. The <strong>moon marker</strong> is where the Moon stands overhead, drawn in its phase at that moment—it can be a <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">daytime Moon</a>. The <strong>dashed gold lines</strong> are the tropics, and the curved boundary is the <a href="/concepts/what-is-the-terminator/">terminator</a>. Its daily sweep also shows why longitude matters to <a href="/concepts/what-is-a-time-zone/">time zones</a>.</p>
+    <p>The <strong>yellow marker</strong> is the subsolar point, where the Sun is straight overhead. The <strong>moon marker</strong> is where the Moon stands overhead, drawn in its phase at that moment—it can be a <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">daytime Moon</a>. The <strong>dashed gold lines</strong> are the tropics, and the curved boundary is the terminator. Its daily sweep also shows why longitude matters to time zones.</p>
     <div class="wc-facts">
       <div class="wc-frow"><span>Yellow marker</span><b>Subsolar point — a flagpole there casts no shadow.</b></div>
       <div class="wc-frow"><span>Moon marker</span><b>Overhead, in the phase of that moment. One orbit around Earth takes ${SIDEREAL} days.</b></div>
@@ -872,7 +872,7 @@ const systemCard = `  <div class="card dn-year-card" id="earth-sun-moon-year" ro
 
 const tiltCard = `  <div class="card">
     <h2>How the shadow changes through the year</h2>
-    <p>Half the Earth is lit at every moment. Winter is not more shadow. The tilt (${n1(TILT)}°) changes <em>where</em> the line falls, so one hemisphere sits in the lit half longer — that is <a href="/concepts/why-do-we-have-seasons/">why we have seasons</a>. Jump to a solstice to see the Arctic swap from all-light to all-dark. The same lean is drawn on <a href="${SYS_PATH}">Earth’s orbit around the sun</a>.</p>
+    <p>Half the Earth is lit at every moment. Winter is not more shadow. The tilt (${n1(TILT)}°) changes <em>where</em> the line falls, so one hemisphere sits in the lit half longer — that is why we have seasons. Jump to a solstice to see the Arctic swap from all-light to all-dark. The same lean is drawn on <a href="${SYS_PATH}">Earth’s orbit around the sun</a>.</p>
 ${jumpRow("dn-tools")}
     <div class="wc-facts">
       <div class="wc-frow"><span>March and September equinox</span><b>The line runs nearly pole to pole. ${jumpBtn("mar", "March")} ${jumpBtn("sep", "September")}</b></div>
@@ -1008,7 +1008,7 @@ ${GA_SNIPPET}
 <div class="wrap wrap-wide dn-map-page">
   ${brand()}
   <h1>Day and Night Map</h1>
-  <p class="sub">See where sunlight reaches Earth at this moment—or choose any date and time. The bright half is day, the dark half is night, and the soft boundary is twilight.</p>
+  <p class="sub">See where sunlight reaches Earth now, or choose another date and time. Bright areas show day, dark areas show night, and the shaded band between them shows twilight.</p>
 ${simCard()}${howCard}  <p class="dn-more-lesson"><a href="${LESSON_PATH}">Explore how Earth’s tilt creates the seasons in three synchronized simulators →</a></p>
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
@@ -1039,7 +1039,7 @@ ${GA_SNIPPET}
 <div class="wrap wrap-wide dn-lesson-page dn-view-compact dn-lite">
   ${brand()}
   <h1>Earth’s Tilt, the Sun &amp; Seasons</h1>
-  <p class="sub dn-page-intro">Why is it summer in one half of Earth and winter in the other? Earth’s ${n1(TILT)}° tilt changes the angle of sunlight and the length of the day. Choose a date to see the connection.</p>
+  <p class="sub dn-page-intro">Why is it summer in one half of Earth and winter in the other? Earth’s tilted axis changes the angle of sunlight and the length of the day. Choose a date to see how the seasons change.</p>
 ${pageTabs}
 
 ${simulatorPair}  <div class="dn-lesson-sections" id="dn-lesson-details">
@@ -1049,8 +1049,8 @@ ${faqCard}  <div class="card">
     <h2>Keep Exploring the Seasons</h2>
     <p>Use the simulators here to see the relationship, then open a focused page when you want the deeper explanation or the numbers for your own location.</p>
     <p class="timer-presets">
-      <a class="chip" href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a>
-      <a class="chip" href="/concepts/what-is-earths-axial-tilt/">What is axial tilt?</a>
+
+
       <a class="chip" href="/concepts/what-is-a-solstice/">What is a solstice?</a>
       <a class="chip" href="/concepts/what-is-an-equinox/">What is an equinox?</a>
       <a class="chip" href="${PATH}">Focused day &amp; night map</a>

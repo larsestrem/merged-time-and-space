@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { consolidatedExplanation } from "./consolidated-explanations.mjs";
 /* build-clock-convert.mjs — /24-hour-clock-converter/, the 12-hour ⇄ 24-hour
  * (military time) converter, plus one page per half hour at
  * /24-hour-clock-converter/<hhmm>/ — 48 of them, "1430", "0730", "0000".
@@ -120,7 +121,7 @@ ${GA_SNIPPET}
 <div class="wrap">
   ${brand({ crumb: { slug: "24-hour-clock-converter", url: HUB } })}
   <h1>12-Hour and 24-Hour Clock Converter</h1>
-  <p class="sub">Set either clock and read the other. 14:30 is 2:30 PM, 9:45 PM is 21:45 &mdash; the minutes never move, only the hour and the AM/PM label.</p>
+  <p class="sub">Convert between 12-hour and 24-hour time. Change either clock to see the matching time: 14:30 is 2:30 PM.</p>
 
   <div class="card">
     ${convForm(14, 30)}
@@ -147,6 +148,7 @@ ${GA_SNIPPET}
       `<a class="chip" href="${HUB}${t.slug}/">${esc(t.t24)}</a>`).join("")}</div>
   </div>
 
+  ${consolidatedExplanation(HUB)}
   <div class="card faq-card">
     <h2>Common questions</h2>
 ${HUB_FAQ.map(([q, a]) => `    <p><strong>${esc(q)}</strong><br>${esc(a)}</p>`).join("\n")}

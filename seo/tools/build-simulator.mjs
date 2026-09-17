@@ -1026,7 +1026,7 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "simulator", url: SIM_PATH } })}
   <h1>Sun, Moon &amp; Earth Movement Simulator</h1>
-  <p class="sub">Follow the Sun and Moon from a place on Earth. Move through a day to see day and night. Move through a month to watch the Moon’s shape change.</p>
+  <p class="sub">Follow the Sun and Moon from a place on Earth. Move through a day to see day and night, or through a month to watch the Moon’s phases change.</p>
 
 ${lessonNav}${simCard(HUB_CITY, hubFacts)}${localLesson}${localAnswers}${localRelated}  <div class="card">
     <h2>Pick a city</h2>
@@ -1088,7 +1088,7 @@ ${head({
 <div class="wrap">
   ${brand({ crumb: { slug: "simulator", url: SIM_PATH }, page: { label: c.slug, url: path } })}
   <h1>Sun &amp; Moon Simulator: ${esc(label)}</h1>
-  <p class="sub">Follow the Sun and Moon from ${esc(label)}. Move through a day to see day and night. Move through a month to watch the Moon’s shape change.</p>
+  <p class="sub">Follow the Sun and Moon from ${esc(label)}. Move through a day to see day and night, or through a month to watch the Moon’s phases change.</p>
 ${lessonNav}${simCard(c, f)}${localLesson}${localAnswers}${localRelated}
   <details class="card lesson-copy"><summary>Why this place has different day lengths</summary><p>${latitudeLine(c)}</p><p><a href="/earth-tilt-sun-seasons/">Explore how Earth’s tilt changes daylight</a>.</p></details>
 

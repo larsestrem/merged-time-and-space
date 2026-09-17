@@ -11,13 +11,13 @@
 <meta property="og:description" content="An equinox is a day the Sun stands over the equator — around March 20 and September 23 — and day and night run close to twelve hours each, everywhere on Earth.">
 <meta property="og:type" content="article">
 <style data-ac="css">:root{
---bg:linear-gradient(#0b0e1c,#0b0e1c);
---bg-solid:#0b0e1c;
+--bg:url("/assets/img/starfield.webp");
+--bg-solid:#000;
 --accent:#fcd34d; --text:#f8fafc;
---card: rgba(255,255,255,.08); --border: rgba(255,255,255,.16);
+--card: #141618; --border: rgba(255,255,255,.16);
 --muted: rgba(255,255,255,.65);
---accent-text:#1e1b4b;
---menu-bg:#141a3a; --menu-text:#f8fafc;
+--accent-text:#17150b;
+--menu-bg:#151719; --menu-text:#f8fafc;
 }
 html.pj{
 --bg:linear-gradient(#000,#000);
@@ -99,9 +99,11 @@ background:var(--accent);color:var(--accent-text);font-weight:700;text-decoratio
 html,body{margin:0;padding:0}
 body{
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+background-color:#000;
 background-image:var(--motif,none),var(--bg);
 background-size:var(--motif-size,200px),cover;
 background-repeat:repeat,no-repeat; background-attachment:fixed;
+background-position:center, right bottom;
 color:var(--text); min-height:100vh; line-height:1.5; -webkit-font-smoothing:antialiased;
 }
 a{color:var(--accent)}
@@ -380,6 +382,9 @@ a{color:#111;text-decoration:underline}
 .lp-blank,.lp-blank-wide{border-color:#111}
 .lp-blank-wide{background:repeating-linear-gradient(to bottom,transparent,transparent 1.5em,#777 1.55em)}
 }
+a.brand-dd .logo{width:48px;height:48px;border-radius:50%;object-fit:contain}
+a.brand-dd:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+html.pj body{background-image:none;background-color:#000}
 .celebrate-list li{margin:7px 0}
 .faq-card summary{cursor:pointer;font-weight:700;padding:12px 0;list-style:none;position:relative;padding-right:26px}
 .faq-card summary::-webkit-details-marker{display:none}
@@ -1011,6 +1016,8 @@ border:1px solid var(--border);background:rgba(0,0,0,.18)}
 .dn-tools{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 8px}
 .dn-tools .chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);
 background:rgba(252,211,77,.14)}
+.dn-eclipse-buttons{justify-content:flex-start}
+.dn-eclipse-buttons .chip{max-width:100%;white-space:normal;text-align:left;line-height:1.35}
 .dn-tools-main{margin:4px 0 12px}
 .dn-tools-side{margin:12px 0 4px}
 .dn-tools-year{margin:12px 0 8px}
@@ -1033,44 +1040,98 @@ margin:8px 0 10px;font-size:13px;line-height:1.45}
 .dn-system-meta b{font-variant-numeric:tabular-nums}
 .dn-system-meta span{color:var(--muted)}
 .dn-system-note{margin:8px 0 0;line-height:1.5}
-.dn-lite .dn-page-intro{display:none}
-.dn-view-compact .dn-tabs{display:none}
+.dn-lesson-page .dn-tabs{font-size:13px;margin-bottom:12px}
+.dn-view-compact .dn-tabs,.dn-view-compact .dn-page-intro{display:none}
 .dn-compact-sections{display:contents}
 .dn-view-compact .dn-lesson-sections{display:none}
 .dn-view-normal .dn-lesson-sections>:not(.dn-compact-sections){display:none}
-.dn-view-compact .dn-side-card .dn-timeline,.dn-view-compact .dn-year-card .dn-timeline,
-.dn-view-compact .dn-tools-side,.dn-view-compact .dn-tools-year{display:none}
-.dn-view-compact .dn-controls{margin:0 0 6px}
-.dn-view-compact .dn-controls .dn-timeline{margin:6px 0 2px}
-.dn-view-compact .dn-controls .dn-tools-main{margin:2px 0 0}
-.dn-lesson-page.dn-view-compact .dn-sim-pair{gap:6px}
-.dn-view-compact .dn-sim-pair>.card{background:none;border:0;border-radius:0;padding:0;box-shadow:none;backdrop-filter:none}
-.dn-view-compact .dn-sim-pair>.card>h2,.dn-view-compact .dn-sim-pair .dn-anchor-target{display:none}
-.dn-view-compact .dn-figwrap,.dn-view-compact .dn-side-card .dns-wrap,.dn-view-compact .dn-system-wrap{margin:0}
-.dn-lesson-page .dn-sim-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-align-items:start;gap:14px}
-.dn-lesson-page .dn-sim-pair>.card{margin:0;min-width:0}
-@media(min-width:901px){
-.dn-lesson-page .dn-sim-pair.dn-mas{grid-auto-rows:7px;row-gap:0}
-.dn-view-compact .dn-sim-pair{grid-template-columns:1.4fr 1fr}
-.dn-view-compact .dn-sim-pair.dn-mas{grid-auto-rows:3px}
-}
 .dn-lite .dn-side-intro,.dn-lite .dn-side-support,.dn-lite .dn-map-note{display:none}
-.dn-lite .dn-sunline,.dn-lite .dn-me-line,.dn-lite #dn-loc-msg,.dn-lite .dns-cap,
-.dn-lite .dn-system-meta,.dn-lite .dn-system-note{display:none!important}
-.dn-view-toggle{margin-left:auto}
+.dn-lite .dn-sunline,.dn-lite .dns-cap,.dn-lite .dn-system-meta,.dn-lite .dn-system-note{display:none}
+.dn-lesson-page .dn-sim-pair{display:grid;grid-template-columns:1fr;align-items:start;gap:14px}
+.dn-lesson-page .dn-sim-pair>.card{margin:0;min-width:0;padding:14px;background:var(--card);backdrop-filter:none}
+.dn-lesson-page .dn-sim-pair h2{margin:0 0 10px;font-size:18px}
+.dn-cue{margin:10px 0 0;font-size:13px;color:var(--muted);line-height:1.5}
+.dn-back-controls{display:inline-block;font-size:13px;margin-top:8px}
+.dn-shared-controls{position:sticky;top:0;top:env(safe-area-inset-top,0px);padding:4px 0;margin:6px 0;background:transparent;z-index:30;scroll-margin-top:8px}
+.dn-control-options{display:flex;align-items:center;flex-wrap:wrap;gap:6px 16px;margin:10px 0 4px}
+.dn-control-options time{font-size:14px;font-variant-numeric:tabular-nums}
+.dn-control-options .dn-view-pick{margin:0 0 0 auto;font-size:14px}
+.dn-control-options select{font-size:14px}
+.dn-shared-controls .dn-timeline{margin:0}
+.dn-shared-controls .dn-slider-row{grid-template-columns:40px 40px minmax(0,1fr) 40px;gap:6px;margin:0}
+.dn-shared-controls .chip{background:var(--card);color:var(--text)}
+.dn-shared-controls .dn-step,.dn-shared-controls .dn-play{display:inline-flex;align-items:center;justify-content:center;width:100%;height:40px;min-height:40px;padding:0}
+.dn-shared-controls .dn-play{background:var(--accent);color:var(--accent-text)}
+.dn-pause-icon,.dn-play[aria-pressed="true"] .dn-play-icon{display:none}
+.dn-play[aria-pressed="true"] .dn-pause-icon{display:block}
+.dn-year-track{min-width:0}
+.dn-year-track .orr-slider{display:block;width:100%;height:32px;margin:0;accent-color:var(--accent)}
+.dn-season-row{margin-top:4px}
+.dn-season-row .dn-tools{display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:4px;margin:0}
+.dn-season-row .chip{width:auto;min-width:0;min-height:40px;font-size:14px;line-height:1.15;padding:6px 10px;white-space:nowrap}
+.dn-season-row .chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--card)}
+.dn-date-settings{font-size:14px}
+.dn-date-settings[open]{flex-basis:100%}
+.dn-date-settings summary{cursor:pointer;color:var(--accent);min-height:28px;padding:4px 0}
+.dn-lesson-page [id],.dn-lesson-page :is(#day-night-map,#sun-angle,#earth-sun-moon-year,#things-to-try,#questions-answered){scroll-margin-top:110px}
+.dn-back-controls{display:none}
+.dn-view-compact .dn-sim-pair>.card>h2,
+.dn-view-compact .dn-cue,
+.dn-view-compact #dn-loc-msg,
+.dn-view-compact .dn-me-line,
+.dn-view-compact .dn-season-comparison,
+.dn-view-compact .dn-evidence{display:none}
+.dn-lesson-page.dn-view-compact .dn-sim-pair{gap:6px}
+.dn-lesson-page.dn-view-compact .dn-sim-pair>.card{padding:6px}
+.dn-date-fields{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.dn-date-fields label{display:flex;flex-direction:column;gap:4px;margin:0;min-width:0;font-size:13px}
+.dn-date-fields input,.dn-date-fields select{font:inherit;min-height:44px;background:#1b1e21;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:6px 10px;color-scheme:dark;max-width:100%}
+#dn-date-error:empty{display:none}
+.dn-season-comparison{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 16px;margin:14px 0}
+.dn-season-comparison>div{border-left:2px solid var(--accent);padding-left:10px}
+.dn-season-comparison span{display:block;font-size:12px;color:var(--muted)}
+.dn-season-comparison strong{display:block;font-size:19px;font-variant-numeric:tabular-nums}
+.dn-season-comparison p{grid-column:1/-1;margin:4px 0;font-size:14px}
+.dn-evidence h2{margin-top:0}
+.dn-evidence-table{overflow-x:auto}
+.dn-evidence table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;text-align:left}
+.dn-evidence th,.dn-evidence td{padding:10px;border-bottom:1px solid var(--border)}
+.dn-evidence th{font-size:13px}
+.dn-evidence td{color:var(--accent);font-weight:700}
+.dn-evidence summary{cursor:pointer;color:var(--accent);padding:8px 0}
 .dn-more-lesson{text-align:center;margin:14px 0 0;font-weight:700}
 .dn-faq{border-top:1px solid var(--border);padding:10px 0}
 .dn-faq:first-of-type{border-top:0}
 .dn-faq summary{cursor:pointer;font-weight:750}
 .dn-faq p{margin:8px 0 0;color:var(--muted)}
-@media(max-width:900px){
-.dn-lesson-page .dn-sim-pair{grid-template-columns:1fr}
+@media(min-width:901px){
+.dn-lesson-page .dn-sim-pair{grid-template-columns:1.15fr 1fr 1fr}
 }
+@media(max-width:900px){
+.dn-shared-controls{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:8px}
+.dn-lesson-page .dn-tabs{display:flex}
+.dn-lesson-page .dn-tabs .dn-sim-tab{display:none}
+}
+@media(max-width:760px){
+.dn-season-row .dn-tools{display:grid;grid-template-columns:minmax(40px,.65fr) repeat(4,minmax(0,1fr))}
+.dn-season-row .chip{padding:4px 2px;min-height:40px}
+.dn-season-name,.dn-season-kind{display:block}
+.dn-season-kind{font-size:12px}
+}
+@media(max-width:380px){
+.dn-season-name{font-size:13px}
+}
+@media(max-width:600px){
+.dn-season-comparison{gap:8px}
+.dn-season-comparison strong{font-size:16px}
+.dn-season-comparison span{font-size:11px}
+.dn-evidence th,.dn-evidence td{padding:8px 5px}
+.dn-date-fields label{flex:1 1 125px}
+}
+html.pj .dn-lesson-page .dn-sim-pair>.card{background:#000}
 @media(max-width:520px){
-.dn-slider-row,.dn-slider-row.has-view{grid-template-columns:auto minmax(0,1fr) auto}
-.dn-slider-row .dn-play{grid-column:1/-1;width:100%}
-.dn-slider-row>.dn-view-pick{grid-column:1/-1;justify-content:center}
+.dn-map-page .dn-slider-row{grid-template-columns:auto minmax(0,1fr) auto}
+.dn-map-page .dn-slider-row .dn-play{grid-column:1/-1;width:100%}
 }
 .dn-me-line{margin:4px 0 10px;font-size:14.5px}
 .dns-wrap{margin:14px 0 4px;border:1px solid var(--border);border-radius:12px;
@@ -1122,6 +1183,53 @@ fill:#e2e8f0;font-weight:700;paint-order:stroke;stroke:#0a1428;stroke-width:3.5}
 .dns-svg{min-width:520px}
 .dns-lab{font-size:13px}
 }
+.lesson-nav{display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 0 16px;font-size:15px}
+.lesson-nav a{padding:5px 0;text-underline-offset:4px}
+.lesson-copy{font-size:17px;line-height:1.6}
+.lesson-copy p{max-width:65ch;margin:10px 0}
+.lesson-copy h2{margin-top:0}
+.lesson-copy h3{font-size:18px;line-height:1.35;margin:0 0 8px}
+.lesson-activities{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.lesson-activities article{min-width:0;padding:8px 0}
+.lesson-activities .chip{min-height:44px;white-space:normal;text-align:left;margin:5px 0;font-size:16px}
+.lesson-copy summary{cursor:pointer;min-height:44px;padding:10px 0;font-weight:650;line-height:1.45}
+.lesson-question{border-top:1px solid var(--border, #444);padding:4px 0}
+.lesson-question p{margin:0 0 16px}
+.lesson-deeper{margin-top:14px}
+.lesson-related{padding-left:22px;max-width:70ch}
+.lesson-related li{padding:7px 0}
+.lesson-related span{display:block;color:var(--muted)}
+.lesson-status:empty{display:none}
+.lesson-status{border-left:3px solid var(--accent);padding-left:12px}
+.lesson-focus{scroll-margin-top:16px}
+.lesson-focus:focus-visible, .lesson-copy summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.sim-figwrap,.sys-figwrap{position:relative}
+.lesson-model{position:absolute;top:8px;right:8px;z-index:8;line-height:1.5;font-size:16px}
+.lesson-model>summary{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--border, #555);border-radius:50%;background:var(--bg-solid,#151719);color:var(--text);font:bold 23px/1 system-ui;cursor:pointer;list-style:none;box-shadow:0 2px 8px #0005}
+.lesson-model>summary::-webkit-details-marker{display:none}
+.lesson-model[open]>summary{border-color:var(--accent)}
+.lesson-model-body{position:absolute;right:0;top:50px;width:min(32rem,calc(100vw - 80px));max-height:65vh;overflow:auto;box-sizing:border-box;padding:18px;background:var(--bg-solid,#151719);color:var(--text);border:1px solid var(--border,#555);border-radius:12px;box-shadow:0 8px 25px #0008;text-align:left}
+.lesson-model-body h3{font-size:18px;margin:0 0 8px}
+.lesson-model-body p{font-size:16px;line-height:1.5;margin:10px 0}
+.lesson-model-body li{margin:8px 0}
+.lesson-model-body ul{padding-left:20px}
+.lesson-model-body a{color:var(--accent)}
+.lesson-model-body .wc-frow{font-size:14px}
+.lesson-model-body .wc-frow b{text-align:left}
+.sys-playrow{display:flex;align-items:center;flex-wrap:wrap;gap:10px;max-width:620px;margin:12px auto}
+.sys-playrow input{flex:1;min-width:100px}
+.sys-playrow .chip{min-height:44px}
+.lesson-small-note{font-size:15px;line-height:1.5;max-width:65ch}
+.lesson-readings{margin-top:12px}
+.lesson-readings summary{cursor:pointer;padding:10px 0;min-height:44px;box-sizing:border-box}
+@media(max-width:760px){
+.lesson-activities{grid-template-columns:1fr;gap:12px}
+.lesson-activities article+article{border-top:1px solid var(--border,#444);padding-top:20px}
+.lesson-copy{font-size:16px}
+.lesson-nav{gap:6px 14px;font-size:14px}
+.lesson-model-body{max-height:55vh}
+}
+.sol-fields>.lesson-readings{grid-column:1/-1}
 * contexts — same fix as the tides admin card) */
 .card:has(#sun-mypanel:not([hidden])),.card:has(#sun-results:not([hidden])){position:relative;z-index:40}
 .hs-results{list-style:none;margin:6px 0 0;padding:6px;position:absolute;left:0;right:0;z-index:30;background:var(--menu-bg);border:1px solid var(--border);border-radius:12px;max-height:340px;overflow:auto;box-shadow:0 14px 34px rgba(0,0,0,.45)}
@@ -1337,13 +1445,13 @@ font-weight: 700;
 .ol-status.is-bad { color: #f87171; }
 .ol-note { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); min-height: 3.2em; font-variant-numeric: tabular-nums; }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Time and Space Science","item":"https://timeandspace.science/"},{"@type":"ListItem","position":2,"name":"Glossary","item":"https://timeandspace.science/glossary/"},{"@type":"ListItem","position":3,"name":"Equinox","item":"https://timeandspace.science/concepts/what-is-an-equinox/"}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"What is an equinox?","url":"https://timeandspace.science/concepts/what-is-an-equinox/","description":"An equinox is one of the two days a year the Sun stands directly over the equator — around March 20 and again around September 23. Day and night are then close to twelve hours each everywhere on Earth, pole to pole. One equinox starts spring in your hemisphere; the other starts fall.","learningResourceType":"explanation","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"student"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an equinox?","acceptedAnswer":{"@type":"Answer","text":"An equinox is one of the two days a year the Sun stands directly over the equator — around March 20 and again around September 23. Day and night are then close to twelve hours each everywhere on Earth, pole to pole. One equinox starts spring in your hemisphere; the other starts fall."}}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Equinox","description":"An equinox is one of the two days a year the Sun stands directly over the equator — around March 20 and again around September 23. Day and night are then close to twelve hours each everywhere on Earth, pole to pole. One equinox starts spring in your hemisphere; the other starts fall.","url":"https://timeandspace.science/concepts/what-is-an-equinox/","inDefinedTermSet":"https://timeandspace.science/glossary/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"What is an equinox?","url":"https://timeandspace.science/concepts/what-is-an-equinox/","description":"An equinox is the moment the Sun crosses Earth’s equator, around March and September. Day and night are then close to equal in length across much of the world.","learningResourceType":"explanation","educationalUse":["instruction","self-study"],"educationalLevel":"beginner","audience":{"@type":"EducationalAudience","educationalRole":"student"},"isAccessibleForFree":true,"inLanguage":"en"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an equinox?","acceptedAnswer":{"@type":"Answer","text":"An equinox is the moment the Sun crosses Earth’s equator, around March and September. Day and night are then close to equal in length across much of the world."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Equinox","description":"An equinox is the moment the Sun crosses Earth’s equator, around March and September. Day and night are then close to equal in length across much of the world.","url":"https://timeandspace.science/concepts/what-is-an-equinox/","inDefinedTermSet":"https://timeandspace.science/glossary/"}</script>
 
-<!-- build 25aeb555a1d8 · generated 2026-09-02T18:00:36.598Z -->
+<!-- build a3e14e99411a · generated 2026-09-17T18:53:41.213Z -->
 <script>try{if(localStorage.getItem("ac_pj")==="1")document.documentElement.classList.add("pj")}catch(e){}</script>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="512x512" href="/assets/img/logo-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="/favicon.ico?v=4fefad3286"><link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon/earth.4fefad3286.png"><link rel="icon" type="image/svg+xml" sizes="any" href="/assets/favicon/earth.4fefad3286.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Time and Space Science">
 
 <meta property="og:image" content="https://timeandspace.science/api/og?name=What%20Is%20an%20Equinox%3F&amp;theme=generic">
@@ -1354,7 +1462,7 @@ font-weight: 700;
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
 <div class="wrap" id="main" role="main">
-  <div class="brand"><span class="crumbs"><!--bd--><a class="brand-dd brand-home" href="/" aria-label="Time and Space Science home"><svg class="logo" viewBox="0 0 200 200" width="48" height="48" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#2A3B4C" stroke-width="6" stroke-linecap="round"/><path d="M 55.5 45 C 55.5 5, 144.5 5, 144.5 45" fill="none" stroke="#D6AF5C" stroke-width="2" stroke-linecap="round"/><path d="M 97 40 V 30 H 90 C 88 30, 88 22, 90 22 H 110 C 112 22, 112 30, 110 30 H 103 V 40 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 60 160 L 50 185 L 60 185 L 75 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><path d="M 140 160 L 150 185 L 140 185 L 125 160 Z" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"/><circle cx="100" cy="105" r="65" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/><circle cx="100" cy="105" r="57" fill="#F4EED1" stroke="#2A3B4C" stroke-width="2.5"/><g transform="translate(54.5, 54.5) rotate(-42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g transform="translate(145.5, 54.5) rotate(42)" fill="#D6AF5C" stroke="#2A3B4C" stroke-width="3" stroke-linejoin="round"><rect x="-4" y="-34" width="8" height="12" rx="3"/><path d="M -23 0 C -23 -35, 23 -35, 23 0 Z"/></g><g fill="#2A3B4C"><circle cx="100" cy="63" r="3.4"/><circle cx="121" cy="69" r="3"/><circle cx="136.4" cy="84" r="3"/><circle cx="142" cy="105" r="3"/><circle cx="136.4" cy="126" r="3"/><circle cx="121" cy="141" r="3"/><circle cx="100" cy="147" r="3"/><circle cx="79" cy="141" r="3"/><circle cx="63.6" cy="126" r="3"/><circle cx="58" cy="105" r="3"/><circle cx="63.6" cy="84" r="3"/><circle cx="79" cy="69" r="3"/></g><line x1="100" y1="105" x2="130" y2="75" stroke="#C04A41" stroke-width="4" stroke-linecap="round"/><line x1="100" y1="105" x2="73" y2="90" stroke="#C04A41" stroke-width="5" stroke-linecap="round"/><circle cx="100" cy="105" r="5" fill="#C04A41" stroke="#2A3B4C" stroke-width="3"/></svg><span class="visually-hidden">Time and Space Science — home</span></a><a class="brand-word" href="/" aria-label="Time and Space Science home"><span class="wm-w">Time</span><span class="wm-j">And</span><span class="wm-w">Space</span><span class="wm-j wm-dot">.</span><span class="wm-w wm-tld">Science</span></a><!--/bd--><nav class="brand-crumbs" aria-label="Breadcrumb"><a class="brand-cat" href="/glossary/">/concepts</a></nav></span><nav class="topnav"><script>document.addEventListener("click",function(e){document.querySelectorAll(".nav-dd[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})})</script></nav><details class="nav-dd menu-dd"><summary class="hamburger" aria-label="Menu">☰</summary><ul class="menu"><li><a href="/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M3.4 11.2 12 3.6l8.6 7.6-1.2 1.4-1.4-1.2V20a1 1 0 0 1-1 1h-4v-5.4h-2V21H7a1 1 0 0 1-1-1v-8.6l-1.4 1.2z" fill="#fcd34d"/><path d="M6 11.4V20h4v-5.4h4V20h4v-8.6L12 6.2z" fill="#b45309"/><rect x="10" y="14.6" width="4" height="6.4" fill="#7c2d12"/><path d="M12 6.2l6 5.2V20h-2v-6.4h-8V20H6v-8.6z" fill="#f59e0b"/></g></svg> Home</a></li><li><a href="/time/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="6" y="2" width="12" height="2.4" rx="1.2" fill="#92400e"/><rect x="6" y="19.6" width="12" height="2.4" rx="1.2" fill="#92400e"/><path d="M7.4 4.4h9.2c0 3.2-2 4.6-3.4 5.8-.5.4-.5 1.2 0 1.6 1.4 1.2 3.4 2.6 3.4 5.8H7.4c0-3.2 2-4.6 3.4-5.8.5-.4.5-1.2 0-1.6C9.4 9 7.4 7.6 7.4 4.4z" fill="#bae6fd" opacity=".5"/><path d="M9.2 6h5.6c-.5 1.6-1.6 2.4-2.8 3.4C10.8 8.4 9.7 7.6 9.2 6z" fill="#f59e0b"/><path d="M12 13.4c1.6 1.2 3 2.2 3.4 4.2H8.6c.4-2 1.8-3 3.4-4.2z" fill="#f59e0b"/></g></svg> Time</a></li><li><a href="/earth/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> Earth</a></li><li><a href="/space/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Space</a></li><li class="sep" aria-hidden="true"></li><li class="menu-units"><span class="menu-ulab"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="1.6" y="13.4" width="13.6" height="5" rx="1.2" fill="#d4a373" transform="rotate(-14 8.4 15.9)"/><rect x="9.4" y="8.2" width="13.6" height="5" rx="1.2" fill="#e8c39e" transform="rotate(22 16.2 10.7)"/><g stroke="#8a5a33" stroke-width="1" stroke-linecap="round" opacity=".8"><path d="M4.2 14.6v1.8M6.9 13.9v2.6M9.6 13.2v1.8M12.3 12.6v2.6"/><path d="M12.6 10.9l.6 1.7M15.2 9.8l.9 2.4M17.8 8.7l.6 1.7M20.4 7.6l.9 2.4"/></g><circle cx="10.6" cy="12.6" r="1.15" fill="#8a5a33"/></g></svg> <span>Units</span></span><span class="menu-useg" role="group" aria-label="Measurement units"><button type="button" class="menu-ubtn" data-uset="metric" aria-pressed="false">Metric</button><button type="button" class="menu-ubtn" data-uset="imperial" aria-pressed="false">Imperial</button></span></li><li><button type="button" class="menu-pj" id="ac-pj" aria-pressed="false"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="2.4" y="7.6" width="15.4" height="10.2" rx="2" fill="#475569"/><rect x="2.4" y="7.6" width="15.4" height="3.4" rx="2" fill="#64748b"/><circle cx="7.4" cy="13.4" r="3.1" fill="#0f172a"/><circle cx="7.4" cy="13.4" r="1.7" fill="#93c5fd"/><circle cx="14.4" cy="10.4" r="1" fill="#fbbf24"/><path d="M17.8 10.4 22.6 6.6v12.4l-4.8-3.8z" fill="#fde68a" opacity=".75"/><path d="M4.6 17.8v2.2M15.4 17.8v2.2" stroke="#334155" stroke-width="1.8" stroke-linecap="round"/></g></svg> <span>Projector mode</span></button></li></ul></details><script>(function(){var b=document.getElementById("ac-pj");if(!b)return;
+  <div class="brand"><span class="crumbs"><!--bd--><a class="brand-dd brand-home" href="/" aria-label="Time and Space Science home"><img class="logo" src="/assets/img/earth-home.webp" width="48" height="48" alt="" decoding="async"><span class="visually-hidden">Time and Space Science — home</span></a><a class="brand-word" href="/" aria-label="Time and Space Science home"><span class="wm-w">Time</span><span class="wm-j">And</span><span class="wm-w">Space</span><span class="wm-j wm-dot">.</span><span class="wm-w wm-tld">Science</span></a><!--/bd--></span><nav class="topnav"><script>document.addEventListener("click",function(e){document.querySelectorAll(".nav-dd[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})})</script></nav><details class="nav-dd menu-dd"><summary class="hamburger" aria-label="Menu">☰</summary><ul class="menu"><li><a href="/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><path d="M3.4 11.2 12 3.6l8.6 7.6-1.2 1.4-1.4-1.2V20a1 1 0 0 1-1 1h-4v-5.4h-2V21H7a1 1 0 0 1-1-1v-8.6l-1.4 1.2z" fill="#fcd34d"/><path d="M6 11.4V20h4v-5.4h4V20h4v-8.6L12 6.2z" fill="#b45309"/><rect x="10" y="14.6" width="4" height="6.4" fill="#7c2d12"/><path d="M12 6.2l6 5.2V20h-2v-6.4h-8V20H6v-8.6z" fill="#f59e0b"/></g></svg> Home</a></li><li><a href="/time/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="6" y="2" width="12" height="2.4" rx="1.2" fill="#92400e"/><rect x="6" y="19.6" width="12" height="2.4" rx="1.2" fill="#92400e"/><path d="M7.4 4.4h9.2c0 3.2-2 4.6-3.4 5.8-.5.4-.5 1.2 0 1.6 1.4 1.2 3.4 2.6 3.4 5.8H7.4c0-3.2 2-4.6 3.4-5.8.5-.4.5-1.2 0-1.6C9.4 9 7.4 7.6 7.4 4.4z" fill="#bae6fd" opacity=".5"/><path d="M9.2 6h5.6c-.5 1.6-1.6 2.4-2.8 3.4C10.8 8.4 9.7 7.6 9.2 6z" fill="#f59e0b"/><path d="M12 13.4c1.6 1.2 3 2.2 3.4 4.2H8.6c.4-2 1.8-3 3.4-4.2z" fill="#f59e0b"/></g></svg> Time</a></li><li><a href="/earth/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><circle cx="12" cy="12" r="9.4" fill="#2563eb"/><path d="M10.2 4.4C12.4 3.2,15.6 3.4,17 5.4C17.9 6.8,16.6 8,17.2 9.6C17.7 11,15.8 11.6,14.8 12.8C16.4 13.4,17.8 14.6,18.4 16.8C18.8 18.6,17.4 20.2,15 19.6C13.6 19.2,13.4 18,12.4 16.6C11.6 19,10.4 20.4,9 19.4C7.8 18.4,8.4 15.8,9.6 14.4C8 13,7.2 11,7.6 8.8C8 6.8,8.8 5.2,10.2 4.4Z" fill="#34d399"/><ellipse cx="8.6" cy="7.4" rx="2.6" ry="1.5" fill="#ffffff" opacity=".3" transform="rotate(-28 8.6 7.4)"/></g></svg> Earth</a></li><li><a href="/space/"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><g transform="rotate(-18 12 12)"><ellipse cx="12" cy="12" rx="9.8" ry="5" fill="none" stroke="#7dd3fc" stroke-width="1.1" opacity=".85"/><ellipse cx="12" cy="12" rx="5.8" ry="2.9" fill="none" stroke="#c4b5fd" stroke-width="1.1" opacity=".85"/><circle cx="18.9" cy="8.5" r="1.7" fill="#38bdf8"/><circle cx="6.6" cy="13" r="1.3" fill="#f97316"/></g><circle cx="12" cy="12" r="4.6" fill="#fbbf24" opacity=".35"/><circle cx="12" cy="12" r="3.2" fill="#f59e0b"/><ellipse cx="10.8" cy="10.6" rx="1.3" ry=".8" fill="#fff7ed" opacity=".7" transform="rotate(-30 10.8 10.6)"/></g></svg> Space</a></li><li class="sep" aria-hidden="true"></li><li class="menu-units"><span class="menu-ulab"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="1.6" y="13.4" width="13.6" height="5" rx="1.2" fill="#d4a373" transform="rotate(-14 8.4 15.9)"/><rect x="9.4" y="8.2" width="13.6" height="5" rx="1.2" fill="#e8c39e" transform="rotate(22 16.2 10.7)"/><g stroke="#8a5a33" stroke-width="1" stroke-linecap="round" opacity=".8"><path d="M4.2 14.6v1.8M6.9 13.9v2.6M9.6 13.2v1.8M12.3 12.6v2.6"/><path d="M12.6 10.9l.6 1.7M15.2 9.8l.9 2.4M17.8 8.7l.6 1.7M20.4 7.6l.9 2.4"/></g><circle cx="10.6" cy="12.6" r="1.15" fill="#8a5a33"/></g></svg> <span>Units</span></span><span class="menu-useg" role="group" aria-label="Measurement units"><button type="button" class="menu-ubtn" data-uset="metric" aria-pressed="false">Metric</button><button type="button" class="menu-ubtn" data-uset="imperial" aria-pressed="false">Imperial</button></span></li><li><button type="button" class="menu-pj" id="ac-pj" aria-pressed="false"><svg class="nav-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g><rect x="2.4" y="7.6" width="15.4" height="10.2" rx="2" fill="#475569"/><rect x="2.4" y="7.6" width="15.4" height="3.4" rx="2" fill="#64748b"/><circle cx="7.4" cy="13.4" r="3.1" fill="#0f172a"/><circle cx="7.4" cy="13.4" r="1.7" fill="#93c5fd"/><circle cx="14.4" cy="10.4" r="1" fill="#fbbf24"/><path d="M17.8 10.4 22.6 6.6v12.4l-4.8-3.8z" fill="#fde68a" opacity=".75"/><path d="M4.6 17.8v2.2M15.4 17.8v2.2" stroke="#334155" stroke-width="1.8" stroke-linecap="round"/></g></svg> <span>Projector mode</span></button></li></ul></details><script>(function(){var b=document.getElementById("ac-pj");if(!b)return;
 function sync(){var on=document.documentElement.classList.contains("pj");b.setAttribute("aria-pressed",on?"true":"false");}
 sync();b.addEventListener("click",function(){var on=document.documentElement.classList.toggle("pj");
 try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(e){}sync();});})();</script><script>(function(){
@@ -1485,7 +1593,7 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
 })();</script></div>
   <p class="kicker">Equinox</p>
   <h1>What is an equinox?</h1>
-  <p class="answer">An equinox is a day the Sun stands directly over the equator, which happens twice a year — around March 20 and around September 23. On those days the <a href="/concepts/what-is-the-terminator/">day/night line</a> runs through both poles and everywhere on Earth gets close to twelve hours of daylight; the name is Latin for “equal night.” The March equinox begins spring in the northern hemisphere and fall in the southern, and the September one swaps them. Between equinoxes, the <a href="/concepts/what-is-the-subsolar-point/">overhead Sun</a> is always somewhere on its way from one tropic to the other.</p>
+  <p class="answer">An equinox is the moment the Sun crosses Earth’s equator, around March and September. Day and night are then close to equal in length across much of the world.</p>
   <figure class="graphic-block dn">
   <div class="dns-wrap"><svg class="dns-svg" viewBox="0 0 600 276" width="100%" role="img" aria-label="Side view of Earth at an equinox, with sunlight arriving directly over the equator and the terminator passing through both poles."><circle class="dns-glow" cx="54" cy="138" r="54"/><circle class="dns-sun" cx="54" cy="138" r="34"/><line class="dns-ray" x1="98" y1="46" x2="278" y2="46"/><line class="dns-ray" x1="98" y1="92" x2="278" y2="92"/><line class="dns-ray" x1="98" y1="184" x2="278" y2="184"/><line class="dns-ray" x1="98" y1="230" x2="278" y2="230"/><text class="dns-lab" x="98" y="26">Sunlight, arriving parallel</text><circle class="dns-earth" cx="372" cy="138" r="86"/><path class="dns-night" d="M372 52A86 86 0 0 1 372 224Z"/><line class="dns-term" x1="372" y1="40" x2="372" y2="236"/><line class="dns-axis" x1="372" y1="246.4" x2="372" y2="29.6"/><text class="dns-lab" text-anchor="middle" x="372" y="17.6">N</text><text class="dns-lab" text-anchor="middle" x="372" y="258.4">S</text><line class="dns-par dns-trop" x1="293.1" y1="103.8" x2="450.9" y2="103.8"/><line class="dns-par dns-trop" x1="293.1" y1="172.2" x2="450.9" y2="172.2"/><line class="dns-par dns-eq" x1="286" y1="138" x2="458" y2="138"/><line class="dns-ctr" x1="54" y1="138" x2="372" y2="138"/><circle class="dns-hit" cx="286" cy="138" r="6"/><text class="dns-lab dns-lab-d" text-anchor="end" x="278" y="120">sun overhead here</text><text class="dns-lab dns-lab-t" x="460.9" y="107.8">Tropic of Cancer</text><text class="dns-lab" x="468" y="142">Equator</text><text class="dns-lab dns-lab-t" x="460.9" y="176.2">Tropic of Capricorn</text></svg></div>
   <figcaption>The side view at an equinox: sunlight meets Earth square-on to the equator, and the day/night line runs pole to pole.</figcaption>
@@ -1512,10 +1620,8 @@ try{on?localStorage.setItem("ac_pj","1"):localStorage.removeItem("ac_pj")}catch(
   </div>
   <div class="card related">
     <h2>Related questions</h2>
-    <p><a href="/concepts/what-is-a-solstice/">What is a solstice?</a> A solstice is a day the Sun reaches the farthest point it ever gets from the equator — 23.4° north around June 21, 23.4° south around December 21. For the hemisphere leaning in it is the longest day of the year; for the other, the shortest. The word means “the Sun stands still”: its slow drift north or south stops and turns around.</p>
-<p><a href="/concepts/why-do-we-have-seasons/">Why do we have seasons?</a> Not because Earth gets closer to the Sun. When it is summer in the United States it is winter in Australia, on the same planet, at the same distance. Seasons happen because the axis is tilted 23.4° and keeps pointing the same way all year.</p>
-<p><a href="/concepts/what-is-the-terminator/">What is the terminator?</a> The terminator is the line between day and night — the circle on Earth where the Sun sits on the horizon. Sunrise is where you cross it going into the light; sunset is where you cross it going out.</p>
-<p><a href="/concepts/what-is-a-leap-year/">What is a leap year?</a> A year with 29 February. The Earth takes about 365.242 days to go around the Sun, so a 365-day calendar drifts. Adding a day most years that divide by 4 — but not most centuries — keeps the seasons from walking off the months.</p>
+    <p><a href="/concepts/what-is-a-solstice/">What is a solstice?</a> A solstice marks the longest or shortest day of the year in each hemisphere. Around June, the Northern Hemisphere has its longest day and the Southern Hemisphere its shortest. Around December, they swap.</p>
+<p><a href="/concepts/what-is-a-leap-year/">What is a leap year?</a> A leap year has an extra day, February 29, giving it 366 days. That extra day helps keep our calendar aligned with the seasons because a year is a little longer than 365 days.</p>
   </div>
   <p class="footer"><a href="/glossary/">Glossary</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
   <p class="footer copyright">© 2026 Time and Space Science. All rights reserved.</p>

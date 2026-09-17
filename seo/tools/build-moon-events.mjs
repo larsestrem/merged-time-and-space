@@ -119,7 +119,7 @@ writeFileSync(join(root, "moon", "supermoons", "index.html"), doc({
   title: "Supermoons — Dates, Distances & What You Actually See",
   desc: `Every supermoon from ${Y - 1} to ${Y + 3} with its exact distance, the threshold used to decide the list, and an honest answer to how much bigger it looks.`,
   h1: "Supermoons",
-  sub: `Every full moon closer than ${km(SUPERMOON_KM)} from ${Y - 1} through ${Y + 3} — ${SUPER.length} of them — with the distance of each, and the rule used to draw the line.`,
+  sub: `Find full moons that occur near the Moon’s closest approach to Earth. Compare their dates and distances, and see the distance threshold this list uses for a supermoon.`,
   body: `${nextSuper ? `
   <div class="card mn-hero">
     <div class="mn-hero-top"><div class="mn-hero-art">${moonGlyph(moonIllum(nextSuper.t).fraction, moonIllum(nextSuper.t).waxing, 68)}</div></div>
@@ -185,7 +185,7 @@ writeFileSync(join(root, "moon", "blue-moons", "index.html"), doc({
   title: "Blue Moons — Every Date, and What the Name Really Means",
   desc: `Every blue moon from ${Y - 1} to ${Y + 3} with exact times, both definitions of the term explained, and why the date can depend on your time zone.`,
   h1: "Blue moons",
-  sub: `The second full moon in a calendar month — ${BLUE.length === 1 ? "one falls" : `${BLUE.length} fall`} between ${Y - 1} and ${Y + 3}. Nothing about it is blue, and it is a fact about the calendar rather than about the moon.`,
+  sub: `Find dates when two full moons fall in the same calendar month. The second is called a monthly blue moon; its colour does not change.`,
   body: `${nextBlue ? `
   <div class="card mn-hero">
     <div class="mn-hero-top"><div class="mn-hero-art">${moonGlyph(moonIllum(nextBlue.blue.t).fraction, moonIllum(nextBlue.blue.t).waxing, 68)}</div></div>

@@ -12718,3 +12718,34 @@ Full build + both gates + `npm run check` green; no JS errors on any page.
 - Validation: source syntax, actual-controller tests, the full local build (4,235 pages), reciprocal link checks and GitHub build passed. npm run check completed; calculation checks passed, with existing maintenance findings for three event dates, two external HTTP 404s and 83 blocked/timed-out external links recorded in the review.
 - Release gates caught and corrected a related-section CSS token collision and a fourth duplicate eclipse-concept link. New paragraph totals are 582 (New York), 431 (orbit), and 529 (solar), including closed answers/footer; all three have no paragraph over 60 words. CLAUDE.md now records the requested reading/structure standard and breadcrumb removal.
 - Release e8d6981 deployed successfully through Cloudflare Pages. Public-site desktop checks confirmed all three lessons, activity presets, date/span changes, orbit playback/reset/scrubbing, question expansion, model disclosure/Escape and focus/scroll to the model. No site JavaScript errors or horizontal overflow were observed at 1363 × 936. The supporting orbit explanation was also verified live. Fresh query URLs avoid the existing custom-domain cache; no cache settings changed. Local browser access and a narrow phone viewport were unavailable, so neither local rendering nor mobile-device visual QA is claimed.
+
+
+## 2026-09-17 — Remove 26 approved Q&A pages
+
+- Removed the 26 owner-approved concept entries and page outputs; 28 concept pages remain.
+- Removed their teaser lists, glossary entries, related-question references and inline links at generator source.
+- Added retirement cleanup and a page/sitemap regression gate so future builds cannot bring the pages or their links back.
+- Added relevant permanent redirects for old bookmarks; internal navigation no longer uses retired URLs.
+- Empty question cards and the retired time-origin promotional tile are suppressed.
+- Rendering and cross-link checks passed; 4,209 output pages passed the retired-link/page validator after cleanup.
+- Full production build is blocked by the pre-existing expired NFL Kickoff 2026 event and its curated listing. Date gate remains intact; no event date has been invented or changed.
+- Intro rewrites are review-only and are not part of this removal change. Production publication awaits resolution of the unrelated date blocker.
+
+## 2026-09-17 — Approved intros and glossary follow-up
+
+- Applied the approved introduction review across 106 entries/template variants; retained the home, Earth, Space and Time openings for separate owner review.
+- Updated authoritative generators and content data, including removal of legacy ledeHtml overrides so visible Q&A text matches the approved answers.
+- City Sun/Moon intros track selected dates; monthly Moon intros include both full moons when applicable.
+- Completed the 26-page removal by unwrapping remaining links in 13 static classroom/archived lesson sources.
+- Archived the expired 2026 NFL kickoff source under docs/archive, removed its upcoming listing/output and added sports-hub redirects; preserved normal recurring date rolls.
+- Full npm build passed: 4,208 pages, 28 concepts, internal/reciprocal links and date gate. All 110 review entries checked (106 approved, four unchanged); two-full-moon wording and expired-output checks passed.
+- Day/night and solar checks passed; browser scripts parse. npm check was attempted, but its external-link stage stalled and was stopped. Browser execution was unavailable because the Chromium download timed out.
+- Saved a full glossary review recommending six further merges/cuts plus new intros for the four hubs; those additional proposals are not implemented.
+
+## 2026-09-17 — Approved glossary consolidation and hub intros
+
+- Applied the approved home, Earth, Space and Time intros.
+- Added 28 dedicated glossary definitions, shared by visible entries and structured data; the glossary retains six terms whose explanations moved into tools.
+- Consolidated six Q&A pages into named sections on Saturn, Mars, Neptune, Pluto, the asteroid belt and the clock converter; updated destinations and permanent redirects.
+- 22 standalone Q&A pages remain. Renamed the question index to avoid promising an experiment for every topic.
+- Verified glossary destinations and six unique section anchors. All 4,202 pages passed page and retired-link checks; reciprocal link checks passed.
