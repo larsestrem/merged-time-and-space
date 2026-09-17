@@ -617,11 +617,11 @@ if(eclipseExamples)eclipseExamples.hidden=eclipseCount===0;
 var wrap=document.querySelector('.wrap'),viewSels=[].slice.call(document.querySelectorAll('[data-dn-view]')),VIEWS=['compact','normal','full'];
 function setView(mode,writeUrl){
   if(!wrap||!viewSels.length) return;
-  if(VIEWS.indexOf(mode)<0) mode='compact';
+  if(VIEWS.indexOf(mode)<0) mode='normal';
   for(var v=0;v<VIEWS.length;v++) wrap.classList.toggle('dn-view-'+VIEWS[v],VIEWS[v]===mode);
   wrap.classList.toggle('dn-lite',mode!=='full');
   for(var n=0;n<viewSels.length;n++) viewSels[n].value=mode;
-  if(writeUrl) replaceUrl(function(u){ if(mode==='compact') u.searchParams.delete('view'); else u.searchParams.set('view',mode); });
+  if(writeUrl) replaceUrl(function(u){ if(mode==='normal') u.searchParams.delete('view'); else u.searchParams.set('view',mode); });
 }
 if(viewSels.length){
   for(var vs=0;vs<viewSels.length;vs++){viewSels[vs].disabled=false;viewSels[vs].addEventListener('change',function(){setView(this.value,1);});}
@@ -632,7 +632,8 @@ if(viewSels.length){
     var target=document.getElementById(this.hash.slice(1));
     if(target&&target.closest('.dn-lesson-sections')&&wrap.classList.contains('dn-view-compact')) setView('normal',1);
   });
-  /* A link into the details opens the view that can show them: a deep hash
+  /* An explicit valid view wins. Otherwise, a link into the details opens
+     the view that can show them: a deep hash
      (the instructions, the FAQ, a concept anchor) needs full, Things to Try
      or the questions need at least normal, and ?view=details — the old
      two-state URL — still means full. Then scroll, because the browser's own
@@ -641,12 +642,12 @@ if(viewSels.length){
     var viewUrl=new URL(location.href),want=(viewUrl.searchParams.get('view')||'').toLowerCase(),
         hashTarget=viewUrl.hash?document.getElementById(viewUrl.hash.slice(1)):null;
     if(want==='details') want='full';
-    if(hashTarget&&hashTarget.closest('.dn-lesson-sections')){
+    if(VIEWS.indexOf(want)<0&&hashTarget&&hashTarget.closest('.dn-lesson-sections')){
       if(!hashTarget.closest('.dn-compact-sections')) want='full'; else if(want!=='full') want='normal';
     }
     setView(want,0);
     if(hashTarget&&want!=='compact') hashTarget.scrollIntoView();
-  }catch(e){setView('compact',0);}
+  }catch(e){setView('normal',0);}
 }
 
 
@@ -764,7 +765,7 @@ const VIEW_OPTIONS = [
   ["normal", "Normal"],
   ["full", "Full details"],
 ];
-const viewSelect = (id) => `<label class="dn-view-pick" for="${id}">View <select id="${id}" data-dn-view disabled>${VIEW_OPTIONS.map(([v, t]) => `<option value="${v}"${v === "compact" ? " selected" : ""}>${esc(t)}</option>`).join("")}</select></label>`;
+const viewSelect = (id) => `<label class="dn-view-pick" for="${id}">View <select id="${id}" data-dn-view disabled>${VIEW_OPTIONS.map(([v, t]) => `<option value="${v}"${v === "normal" ? " selected" : ""}>${esc(t)}</option>`).join("")}</select></label>`;
 
 const jumpBtn = (k, t) => `<button type="button" class="chip" data-dn-jump="${k}" disabled>${esc(t)}</button>`;
 
@@ -1036,7 +1037,7 @@ ${faqLd(LESSON_FAQ)}
 ${GA_SNIPPET}
 </head>
 <body>
-<div class="wrap wrap-wide dn-lesson-page dn-view-compact dn-lite">
+<div class="wrap wrap-wide dn-lesson-page dn-view-normal dn-lite">
   ${brand()}
   <h1>Earth’s Tilt, the Sun &amp; Seasons</h1>
   <p class="sub dn-page-intro">Why is it summer in one half of Earth and winter in the other? Earth’s tilted axis changes the angle of sunlight and the length of the day. Choose a date to see how the seasons change.</p>

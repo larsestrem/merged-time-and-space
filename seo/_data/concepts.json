@@ -48,7 +48,7 @@
     "shortAnswer": "An orbit is a path around another object in space. A planet is already moving. The Sun’s gravity pulls it inward and bends its path. Press Play to watch. Then try Slow down or Speed up.",
     "teasers": {
       "/": "Falling toward, already moving sideways. Change the sideways and the far side of the path is what moves.",
-      "/space/": "The Slow down / Speed up buttons on this card are the sentence above, runnable."
+      "/space/": "Change the Moon’s speed and watch how its orbit changes."
     },
     "title": "How Does an Orbit Work?",
     "description": "An orbit is falling toward the Sun and missing. Gravity pulls inward; sideways speed keeps the path from hitting. One speed at each distance makes a circle.",
