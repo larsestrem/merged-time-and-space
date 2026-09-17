@@ -27,7 +27,6 @@ import { dirname, join } from "node:path";
 import { esc, GA_SNIPPET, brand, faqLd, breadcrumbLD, appLd, learningLd } from "./lib.mjs";
 import { ico } from "./icons.mjs";
 import { WC_CITY_LIST } from "./wc-cities.mjs";
-import { hubQuestionsCard } from "./concepts.mjs";
 import { SYS_PATH } from "./build-simulator.mjs";
 import {
   SIDEREAL, ORBIT_TILT,
@@ -610,8 +609,29 @@ for(var eb=0;eb<eclipseBtns.length;eb++){
     }
   });
 }
-var eclipseExamples=document.getElementById('dn-next-eclipses');
-if(eclipseExamples)eclipseExamples.hidden=eclipseCount===0;
+
+
+/* Lesson disclosures preserve the simulator and its shared date. */
+var panelButtons=[].slice.call(document.querySelectorAll('[data-dn-panel]'));
+function setLessonPanel(id,open){
+  var panel=document.getElementById(id);if(!panel)return;
+  panel.hidden=!open;
+  for(var i=0;i<panelButtons.length;i++)if(panelButtons[i].getAttribute('data-dn-panel')===id){
+    panelButtons[i].setAttribute('aria-expanded',String(open));
+    panelButtons[i].querySelector('span').textContent=open?'▴':'▾';
+  }
+}
+for(var pb=0;pb<panelButtons.length;pb++){
+  setLessonPanel(panelButtons[pb].getAttribute('data-dn-panel'),false);
+  panelButtons[pb].addEventListener('click',function(){setLessonPanel(this.getAttribute('data-dn-panel'),this.getAttribute('aria-expanded')!=='true');});
+}
+var panelActions=document.querySelector('.dn-learning-actions');if(panelActions)panelActions.hidden=false;
+function revealLessonTarget(target){
+  if(!target)return;
+  var panel=target.closest('.dn-learning-panel');
+  if(panel)setLessonPanel(panel.id,true);
+}
+window.addEventListener('hashchange',function(){var target=document.getElementById(location.hash.slice(1));revealLessonTarget(target);if(target&&target.closest('.dn-learning-panel'))target.scrollIntoView();});
 
 /* Layout changes never recreate controls or reset the shared instant. */
 var wrap=document.querySelector('.wrap'),viewSels=[].slice.call(document.querySelectorAll('[data-dn-view]')),VIEWS=['compact','normal','full'];
@@ -621,6 +641,7 @@ function setView(mode,writeUrl){
   for(var v=0;v<VIEWS.length;v++) wrap.classList.toggle('dn-view-'+VIEWS[v],VIEWS[v]===mode);
   wrap.classList.toggle('dn-lite',mode!=='full');
   for(var n=0;n<viewSels.length;n++) viewSels[n].value=mode;
+  for(var p=0;p<panelButtons.length;p++)setLessonPanel(panelButtons[p].getAttribute('data-dn-panel'),mode==='full');
   if(writeUrl) replaceUrl(function(u){ if(mode==='normal') u.searchParams.delete('view'); else u.searchParams.set('view',mode); });
 }
 if(viewSels.length){
@@ -630,6 +651,7 @@ if(viewSels.length){
     for(var x=0;x<lessonLinks.length;x++) lessonLinks[x].classList.remove('is-here');
     this.classList.add('is-here');
     var target=document.getElementById(this.hash.slice(1));
+    revealLessonTarget(target);
     if(target&&target.closest('.dn-lesson-sections')&&wrap.classList.contains('dn-view-compact')) setView('normal',1);
   });
   /* An explicit valid view wins. Otherwise, a link into the details opens
@@ -646,6 +668,7 @@ if(viewSels.length){
       if(!hashTarget.closest('.dn-compact-sections')) want='full'; else if(want!=='full') want='normal';
     }
     setView(want,0);
+    revealLessonTarget(hashTarget);
     if(hashTarget&&want!=='compact') hashTarget.scrollIntoView();
   }catch(e){setView('normal',0);}
 }
@@ -826,30 +849,16 @@ const howCard = `  <details class="card dn-instructions" id="instructions">
   </details>
 `;
 
-const lessonHowCard = `  <details class="card dn-instructions" id="instructions">
-    <summary>Earth’s Tilt, the Sun &amp; Seasons Instructions</summary>
-    <div class="dn-instructions-body">
-      <p>These are three views of one instant, not three separate models. Use the shared timeline, choose a solstice or equinox, or press Play year. All three diagrams and the daylight comparison update to that same date. Open Date &amp; speed to choose an exact UTC time or another year.</p>
-      <div class="wc-facts">
-        <div class="wc-frow"><span>Day &amp; Night Map</span><b>Shows the result: which places receive daylight, twilight, or night.</b></div>
-        <div class="wc-frow"><span>Angle of the Sun</span><b>Shows the mechanism: the overhead Sun moves between the tropics as Earth’s tilted axis changes its lean toward the Sun.</b></div>
-        <div class="wc-frow"><span>Earth, Sun &amp; Moon</span><b>Shows the full year: Earth carries the same tilted axis around the Sun while the Moon orbits Earth.</b></div>
-      </div>
-      <p>Start with the two solstices and compare all three views. Then choose either equinox. Ask what changed, what stayed fixed, and which hemisphere receives the longer daily path through sunlight.</p>
-    </div>
-  </details>
-`;
-
 /* ---- the side view: original drawing, short caption, jump controls -------- */
 const sideCard = `  <div class="card dn-side-card" id="sun-angle" role="region" aria-label="Sunlight angle">
     <h2>${ico("globe")} 2. Sunlight angle</h2>
-    <p class="dn-side-intro">This view turns Earth sideways so the cause of the seasons is easier to see. Earth’s axis keeps its ${n1(TILT)}° tilt while the direction toward the Sun changes through the orbit. The yellow centre line lands at the subsolar point, moving between the two tropics as the year passes.</p>
+    <p class="dn-side-intro">The yellow line shows where the Sun is directly overhead, called the subsolar point. Change the date to follow this point between the Tropic of Cancer and the Tropic of Capricorn.</p>
     <div class="dns-wrap" id="dn-side">${sideView(SS.dec, TILT)}</div>
 
     <p class="dn-cue">The overhead Sun moves between the tropics. Earth’s tilt stays the same.</p><a class="dn-back-controls" href="#dn-controls">Change the shared date ↑</a>
     <p class="dns-cap" id="dn-side-cap">${sideCapText(SS.dec, TILT, "now", NOW)}</p>
     <div class="dn-side-support">
-    <p>The two dashed chords are the tropics, at ±${n1(TILT)}°. They are the tilt written on the surface. Jump the map to a solstice and watch the yellow line stop there.</p>
+    <p>The dashed lines mark the tropics, about ${n1(TILT)}° north and south of the equator. At the June solstice, the Sun is overhead at the Tropic of Cancer. At the December solstice, it is overhead at the Tropic of Capricorn.</p>
     <div class="wc-facts">
       <div class="wc-frow"><span>Tropic of Cancer, ${n1(TILT)}°N</span><b>Furthest north the sun can stand overhead. ${jumpBtn("jun", "Show me")}</b></div>
       <div class="wc-frow"><span>Tropic of Capricorn, ${n1(TILT)}°S</span><b>The same limit going south. ${jumpBtn("dec", "Show me")}</b></div>
@@ -865,9 +874,8 @@ const systemCard = `  <div class="card dn-year-card" id="earth-sun-moon-year" ro
     <h2>${ico("earthmoon")} 3. Earth’s orbit</h2>
     <div class="sys-figwrap dn-system-wrap">${SYSTEM_SVG}</div>
 
-    <p class="dn-cue">Follow the white axis: it keeps pointing the same way all year. Sizes and distances are not to scale.</p><a class="dn-back-controls" href="#dn-controls">Change the shared date ↑</a>
-    <p class="dn-system-meta"><span>The orbital plane is viewed at ${SYSTEM_VIEW_DEG}°. Earth’s axial tilt remains ${n1(TILT)}°.</span></p>
-    <p class="hint dn-system-note">This wider view answers the missing question: where is Earth in its orbit while the daylight pattern changes? The same instant drives all three simulators. Sizes and distances are compressed to fit. The Moon’s real ${ORBIT_TILT}° orbital tilt is drawn at ${SYS_INC_DRAWN}° so a near miss — or an eclipse alignment — is easier to see. <a href="${SYS_PATH}">Open the full Earth–Sun–Moon simulator →</a></p>
+    <p class="dn-cue">Follow the white axis as Earth orbits the Sun. It keeps pointing in nearly the same direction. Sizes and distances are not to scale.</p><a class="dn-back-controls" href="#dn-controls">Change the shared date ↑</a>
+    <p class="hint dn-system-note">Earth’s axis points in nearly the same direction as Earth travels around the Sun. Compare June and December to see which hemisphere tilts toward the Sun. <a href="${SYS_PATH}">Explore Earth’s orbit →</a></p>
   </div>
 `;
 
@@ -892,46 +900,59 @@ ${STRETCH_ROWS.map((lat) => `      <div class="wc-frow"><span>${lat === 0 ? "At 
   </div>
 `;
 
-const tryCard = `  <div class="card" id="things-to-try">
-    <h2>${ico("classroom")} Things to Try</h2>
-    <ul class="facts">
-      <li><strong>Step one day at a time.</strong> Click the arrows on either side of the slider repeatedly. Each click moves forward or backward 24 hours, showing the same time on the next or previous day. Watch the Moon travel around Earth while Earth moves a little farther around the Sun. Keep stepping through the months: the Moon’s tilted path meets the sunlight from changing directions, much as Earth’s lean faces toward or away from the Sun through the year.</li>
-      <li><strong>Read one date three ways.</strong> Choose Summer solstice. The map shows longer northern daylight, the side view puts the overhead Sun at the Tropic of Cancer, and the orbit view shows the north end of Earth leaning toward the Sun. Those are three consequences of the same geometry.</li>
-      <li><strong>Swap the hemispheres.</strong> Move from Summer solstice to Winter solstice. Watch what reverses and what does not. Earth’s axial tilt keeps the same size and direction; which hemisphere leans into the sunlight changes.</li>
-      <li><strong>Find the balance points.</strong> Compare Spring equinox and Fall equinox. The day/night boundary runs through both poles and the overhead Sun crosses the equator, yet Earth is on opposite sides of its orbit.</li>
-      <li><strong>Test the distance myth.</strong> In the orbit view, compare where Earth is in June and in December with the season in each hemisphere. The whole planet is at one distance from the Sun on any given day, yet the two hemispheres have opposite seasons, so distance cannot be the switch. Earth is in fact slightly closer to the Sun in early January, a small effect that the tilt swamps.</li>
-      <li><strong>Follow the overhead Sun.</strong> Press Play and watch the yellow point move between the tropics. It never crosses them because their latitude is Earth’s ${n1(TILT)}° axial tilt written onto the globe.</li>
-      <li><strong>Look for an eclipse alignment.</strong> Choose an eclipse below, then step backward and forward a day to watch the bodies move into and out of alignment. The Moon can line up with the Sun and Earth, but it does not change Earth’s seasons—the axial tilt and annual orbit do.</li>
-    </ul>
-    <section id="dn-next-eclipses" aria-labelledby="dn-eclipse-title"${NEXT_ECLIPSES.length ? "" : " hidden"}>
-      <h3 id="dn-eclipse-title">Try the next two eclipses</h3>
-      <p>Choose a date to see all three views near the eclipse’s greatest alignment. For a solar eclipse, the Moon is between us and the Sun. For a lunar eclipse, Earth is in the middle; the Moon passes through part of Earth’s shadow.</p>
-      <div class="dn-tools dn-eclipse-buttons">
-        ${ECLIPSE_DATES.map(e => `<button type="button" class="chip" data-dn-eclipse="${e.utc}" disabled${NEXT_ECLIPSES.includes(e) ? "" : " hidden"}>${dayName(Date.parse(e.utc))}, ${new Date(e.utc).getUTCFullYear()} · ${esc(e.label)}</button>`).join("\n        ")}
-      </div>
-      <p class="hint">The positions are approximate, and sizes and distances are changed to fit. This shows the arrangement of the bodies, not an eclipse shadow or where it is visible. A penumbral lunar eclipse only brushes Earth’s faint outer shadow.</p>
-      <p><a href="/concepts/why-isnt-there-an-eclipse-every-month/">More information about eclipses →</a> · <a href="/moon/eclipses/">Upcoming lunar eclipses</a></p>
-      <p class="hint">Eclipse dates: NASA’s <a href="https://eclipse.gsfc.nasa.gov/SEcat5/SE2001-2100.html">solar</a> and <a href="https://eclipse.gsfc.nasa.gov/LEcat5/LE2001-2100.html">lunar eclipse catalogues</a>.</p>
-    </section>
-${CLASSROOM_PAUSED ? "" : `    <p class="hint">Taught one of these, or something better? <a href="/classroom/">Help us turn it into a lesson plan</a> — we build them with teachers and publish them free, credited to you.</p>`}
-  </div>
-`;
-
-const lessonQuestionsCard = hubQuestionsCard(LESSON_PATH, "Questions This Page Answers", { id: "questions-answered" })
-  .replace('<ul class="hub-qs">', `<ul class="hub-qs">
-    <li id="two-orbits-two-tilts"><p><strong>Is the Moon’s tilted orbit the same as Earth’s tilt?</strong> No. Picture Earth’s path around the Sun as a flat tabletop. The Moon circles Earth on a smaller path tipped about 5° from that tabletop. Earth’s ${n1(TILT)}° tilt describes something else: the lean of its spinning axis, like a tilted spinning top. Earth’s lean gives us seasons; the Moon’s tipped path explains why most new and full moons do not bring an eclipse. <a href="/concepts/why-isnt-there-an-eclipse-every-month/">See how the two paths fit together →</a></p></li>`);
-
 const LESSON_FAQ = [
-  ["Why do the three views move together?", "They are one model of one instant, not three separate animations. The map shows where that instant’s sunlight lands, the side view shows the angle it arrives at, and the orbit view shows where Earth is when it happens. Move any control and all three redraw from the same clock, so they cannot disagree about the moment on screen."],
-  ["Why is the Moon included in a seasons simulator?", "The Moon does not cause the seasons. It is included so the three-body positions stay visible on exact dates, including eclipse dates, and so students can distinguish the Moon’s monthly orbit from Earth’s yearly seasonal cycle."],
-  ["Can I share a particular year, date, season, or view?", "Yes. The page reads year, date, time, season and view from the URL. For example, year=2024, date=2024-04-08 and time=18:18 opens that precise UTC minute in all three views, and view=full opens the page with every explanation showing."],
+  ["Why are the seasons opposite?", "When one hemisphere tilts toward the Sun, the other tilts away. The hemisphere tilted toward the Sun receives more direct sunlight and has longer days."],
+  ["Does being closer to the Sun cause summer?", "No. Both hemispheres are essentially the same distance from the Sun on a given date, yet their seasons are opposite. Earth’s tilt explains this difference."],
+  ["What happens at an equinox?", "The overhead Sun crosses the equator, and day and night are approximately equal in length in most places."],
 ];
 
-const faqCard = `  <div class="card" id="season-questions">
-    <h2>Questions About Earth’s Tilt and Seasons</h2>
-    ${LESSON_FAQ.map(([q, a]) => `<details class="dn-faq"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join("\n    ")}
-  </div>
-`;
+const lessonPanels = `  <div class="dn-learning-tools">
+    <div class="dn-learning-actions" hidden>
+      <button type="button" class="chip" data-dn-panel="dn-learning-guide" aria-expanded="false" aria-controls="dn-learning-guide">Learning guide <span aria-hidden="true">▾</span></button>
+      <button type="button" class="chip" data-dn-panel="dn-teacher-notes" aria-expanded="false" aria-controls="dn-teacher-notes">Teacher notes <span aria-hidden="true">▾</span></button>
+    </div>
+    <section class="card dn-learning-panel" id="dn-learning-guide" aria-label="Learning guide">
+      <h2>Learning guide</h2>
+      <h3>What you’ll learn</h3>
+      <p>Explain how Earth’s tilted axis changes day length and the angle of sunlight, producing opposite seasons in the Northern and Southern Hemispheres.</p>
+      <section id="instructions"><h3>Explore: what to change</h3>
+        <p>Choose Summer solstice, then Winter solstice. Compare the daylight map, sunlight angle and Earth’s position in its orbit. Then choose Spring equinox or Fall equinox.</p>
+      </section>
+      <section id="things-to-try"><h3>What to look for</h3>
+        <ol class="facts">
+          <li>Which hemisphere has longer days at Summer solstice in June? What changes at Winter solstice in December?</li>
+          <li>Where does the yellow marker show the Sun directly overhead?</li>
+          <li>Does Earth’s axis change direction as Earth moves around the Sun?</li>
+        </ol>
+      </section>
+      <h3>Why it happens</h3>
+      <p>Earth’s axis stays tilted in nearly the same direction throughout the year. As Earth orbits the Sun, each hemisphere takes a turn tilting toward it. That hemisphere receives more direct sunlight and has longer days, increasing the energy it receives each day.</p>
+      <section id="questions-answered"><h3>Questions answered</h3>
+        <div id="season-questions">${LESSON_FAQ.map(([q, a]) => `<p><strong>${esc(q)}</strong> ${esc(a)}</p>`).join("\n")}</div>
+        <p id="solstice"><strong>What is a solstice?</strong> A solstice occurs when the overhead Sun reaches its farthest point north or south of the equator. It marks the longest or shortest daylight period of the year in most places outside the tropics.</p>
+        <p id="equinox"><strong>What is an equinox?</strong> An equinox occurs when the overhead Sun crosses the equator. Compare Spring equinox and Fall equinox to see the similar daylight pattern on opposite sides of Earth’s orbit.</p>
+      </section>
+      <h3>Keep exploring</h3>
+      <p>Compare daylight through the year for your town. Then use the day and night map to compare places near the equator and the poles.</p>
+      <p class="timer-presets"><a class="chip" href="/sun/near-me/">Daylight for your location</a> <a class="chip" href="${PATH}">Day and night map</a> <a class="chip" href="${SYS_PATH}">Earth–Sun–Moon simulator</a></p>
+    </section>
+    <section class="card dn-learning-panel" id="dn-teacher-notes" aria-label="Teacher notes">
+      <h2>Teacher notes</h2>
+      <p><strong>Learning objective:</strong> Use the three views to explain why day length and sunlight angle change through the year and why the hemispheres have opposite seasons.</p>
+      <p><strong>Suggested age range:</strong> 9–14 years. <strong>Suggested duration:</strong> 10–15 minutes. These are suggested starting points, not classroom-tested estimates.</p>
+      <p><strong>Prerequisite knowledge:</strong> Earth rotates once a day and orbits the Sun once a year. Students should be able to locate the equator and both hemispheres.</p>
+      <p><strong>Common misconception:</strong> Summer happens because Earth is closer to the Sun. Ask students to explain the opposite seasons visible on the same date.</p>
+      <p><strong>Check understanding:</strong> Ask, “Why does the Northern Hemisphere have longer days in June while the Southern Hemisphere has shorter days?” A complete answer connects Earth’s tilt, daylight duration and sunlight angle.</p>
+      <p><strong>Season names:</strong> The seasonal buttons use Northern Hemisphere names. The comparison below the controls shows the season in each hemisphere.</p>
+      <p><strong>Source:</strong> <a href="https://spaceplace.nasa.gov/seasons/en/">NASA Space Place: What Causes the Seasons?</a></p>
+      <p><strong>Model limitations:</strong> Sizes and distances are not to scale. The flat map distorts shapes near the poles. Earth’s axis is tilted about ${n1(TILT)}° from a line perpendicular to its orbital plane. The orbit diagram is viewed at ${SYSTEM_VIEW_DEG}°, and the Moon’s orbital tilt is exaggerated from about ${ORBIT_TILT}° to ${SYS_INC_DRAWN}° for visibility. This model shows seasonal sunlight patterns; it does not predict temperature, weather or local climate.</p>
+      <p><strong>Sharing a view:</strong> Copy the page URL after choosing a date. Normal is the default; a URL can also request Compact or Full details. Use Date &amp; speed to choose an exact date or another year.</p>
+      <p><strong>Lesson status:</strong> This is an exploration guide, not a classroom-tested lesson plan. <a href="/classroom/">Lesson development and drafts</a> are separate.</p>
+      <section id="two-orbits-two-tilts"><h3>Explore eclipses separately</h3>
+        <p id="dn-next-eclipses">Earth’s axial tilt causes the seasons. The Moon’s tilted orbit helps explain why eclipses do not happen every month. <a href="/moon-simulator/?state=eclipse-tilt">Change the Moon’s orbital tilt in the eclipse activity</a>, then compare the alignment at new and full moon.</p>
+      </section>
+    </section>
+  </div>`;
 
 const pageTabs = `  <nav class="home-tabs sec-switch dn-tabs" aria-label="Explore this page">
     <a class="chip home-tab dn-sim-tab is-here" href="#day-night-map">Day/Night Map</a>
@@ -1039,28 +1060,13 @@ ${GA_SNIPPET}
 <body>
 <div class="wrap wrap-wide dn-lesson-page dn-view-normal dn-lite">
   ${brand()}
-  <h1>Earth’s Tilt, the Sun &amp; Seasons</h1>
-  <p class="sub dn-page-intro">Why is it summer in one half of Earth and winter in the other? Earth’s tilted axis changes the angle of sunlight and the length of the day. Choose a date to see how the seasons change.</p>
+  <h1>Earth’s tilt and the seasons</h1>
+  <p class="sub dn-page-intro">Change the date to see how Earth’s tilt affects sunlight and day length in each hemisphere.</p>
+${lessonPanels}
 ${pageTabs}
 
-${simulatorPair}  <div class="dn-lesson-sections" id="dn-lesson-details">
-${lessonHowCard}    <div class="dn-compact-sections">
-${tryCard}${lessonQuestionsCard}    </div>
-${faqCard}  <div class="card">
-    <h2>Keep Exploring the Seasons</h2>
-    <p>Use the simulators here to see the relationship, then open a focused page when you want the deeper explanation or the numbers for your own location.</p>
-    <p class="timer-presets">
-
-
-      <a class="chip" href="/concepts/what-is-a-solstice/">What is a solstice?</a>
-      <a class="chip" href="/concepts/what-is-an-equinox/">What is an equinox?</a>
-      <a class="chip" href="${PATH}">Focused day &amp; night map</a>
-      <a class="chip" href="${SYS_PATH}">Full Earth–Sun–Moon simulator</a>
-      <a class="chip" href="/sun/near-me/">Your daylight and seasons</a>
-      <a class="chip" href="/classroom/">Use these in a lesson</a>
-    </p>
-  </div>
-  </div>
+  <p class="dn-cue">Compare Summer solstice and Winter solstice.</p>
+${simulatorPair}
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 ${PAGE_JS}

@@ -1129,3 +1129,11 @@ html.pj .dn-lesson-page .dn-sim-pair>.card{background:#000}
   .dns-svg{min-width:520px}
   .dns-lab{font-size:13px}
 }
+
+/* Compact, consistent lesson disclosures; closed panels take no space. */
+.dn-learning-actions{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.dn-learning-actions[hidden],.dn-learning-panel[hidden]{display:none}
+.dn-learning-actions .chip{min-height:44px;cursor:pointer}
+.dn-learning-panel{margin:12px 0}
+.dn-learning-panel h3{margin-top:18px}
+.dn-learning-panel section{scroll-margin-top:24px}
