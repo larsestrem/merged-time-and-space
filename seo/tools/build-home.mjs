@@ -785,12 +785,36 @@ const SYSTEM_CARD = `    <div class="tc tc-mini tc-sim" data-href="/earth-sun-mo
    an orbit card. The same thumbnail establishes the annual motion, while the
    copy names the two observable consequences of tilt: sunlight angle and day
    length. The full orbit view remains one explicit link away. */
+// Edge-on orbital plane: the axis is 23.4 degrees from its perpendicular.
+// Both solstice positions use the same axis vector; sizes and distances are schematic.
+const EARTH_SEASONS_DIAGRAM = `<svg viewBox="0 0 540 300" role="img" aria-labelledby="earth-season-title earth-season-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="earth-season-title">Earth’s fixed axial tilt at the two solstices</title>
+  <desc id="earth-season-desc">An edge-on view of Earth’s orbital plane. Both north poles point up and right. At the left position, the Northern Hemisphere tilts toward the Sun in June. At the right position, the Southern Hemisphere tilts toward the Sun in December. The axis is tilted 23.4 degrees from the perpendicular to the orbital plane.</desc>
+  <rect width="540" height="300" rx="12" fill="#0b1020"/>
+  <g font-family="system-ui,sans-serif" fill="#f1f5f9" text-anchor="middle">
+  <text x="270" y="28" font-size="17">The axis keeps the same direction</text>
+  <path d="M35 150H505" stroke="#7c889e" stroke-dasharray="5 5"/>
+  <circle cx="270" cy="150" r="27" fill="#ffd84a"/><text x="270" y="197" font-size="17">Sun</text>
+  ${[110,430].map((x,i)=>`<g transform="translate(${x} 150)">
+    <path d="M0 -77V69" stroke="#a7b2c5" stroke-dasharray="4 4"/>
+    <circle r="36" fill="#16385e"/>
+    <path d="M0 -36A36 36 0 0 ${i ? 0 : 1} 0 36Z" fill="#67b9ef"/>
+    <path d="M-22.24 51.40L22.24 -51.40" stroke="#fff" stroke-width="3"/>
+    <path d="M0 -67A67 67 0 0 1 26.61 -61.49" fill="none" stroke="#ffd84a" stroke-width="2"/>
+    <text x="45" y="-73" fill="#ffd84a" font-size="17">23.4°</text>
+    <text x="30" y="-53" font-size="17">N</text><text x="-30" y="69" font-size="17">S</text>
+  </g>`).join('')}
+  <text x="110" y="246" font-size="18">June solstice</text><text x="430" y="246" font-size="18">December solstice</text>
+  <text x="110" y="270" font-size="16">North tilts toward Sun</text><text x="430" y="270" font-size="16">South tilts toward Sun</text>
+  </g>
+</svg><p class="home-simtxt">Two positions in Earth’s orbit, viewed edge-on. The horizontal line marks the orbital plane; the vertical guides are perpendicular to it. Sizes and distances are not to scale.</p>`;
+
 const SEASONS_CARD = `    <div class="tc tc-mini tc-sim" data-href="${SEASONS_PATH}">
       <div class="tc-head">${ico("sunrise")} Earth’s Tilt, the Sun &amp; Seasons</div>
-      <div class="home-simwide">${_systemThumb}</div>
+      <div class="home-simwide">${EARTH_SEASONS_DIAGRAM}</div>
       <p class="home-simtxt">Earth carries the same 23.4° tilted axis around the Sun. That tilt changes the angle of sunlight and the hours of daylight, giving the hemispheres opposite seasons.</p>
       <div class="home-simlinks">
-        <a class="wk-all" href="${SEASONS_PATH}">Explore the three synchronized views →</a>
+        <a class="wk-all" href="${SEASONS_PATH}">Explore how Earth’s tilt causes seasons →</a>
         <a class="wk-all" href="${SYS_PATH}">Open the full orbit simulator →</a>
       </div>
     </div>`;
@@ -1865,6 +1889,31 @@ ${CLASSROOM_PAUSED ? "" : `      <a class="card" href="/classroom/"><h2>Classroo
  * the four pages and marked with aria-current where you stand.
  * ------------------------------------------------------------------------- */
 
+const EARTH_LEARNING_PANELS = `<div class="home-learning">
+  <div class="home-learning-actions" hidden>
+    <button type="button" class="chip" aria-expanded="false" aria-controls="earth-learning-guide" data-all-panel="earth-learning-guide">Learning guide <span aria-hidden="true">▾</span></button>
+    <button type="button" class="chip" aria-expanded="false" aria-controls="earth-teacher-notes" data-all-panel="earth-teacher-notes">Teacher notes <span aria-hidden="true">▾</span></button>
+  </div>
+  <section class="card home-learning-panel" id="earth-learning-guide" aria-label="Learning guide">
+    <h2>Learning guide</h2>
+    <h3>What you’ll learn</h3><p>Explain how Earth’s rotation, its tilted axis and the Moon’s motion affect daylight, seasons, Moon phases and tides.</p>
+    <h3>What to change</h3><p>Choose a date or location in one of the linked activities.</p>
+    <h3>What to observe</h3><p>Compare daylight duration, the Moon’s illuminated shape, or the timing and height of tides.</p>
+    <h3>Why it happens</h3><p>Earth’s rotation causes day and night. Its tilted axis changes seasonal sunlight as Earth orbits the Sun. The Moon’s orbit changes the amount of its sunlit half we can see. The Moon’s and Sun’s gravity cause tides.</p>
+  </section>
+  <section class="card home-learning-panel" id="earth-teacher-notes" aria-label="Teacher notes">
+    <h2>Teacher notes</h2>
+    <p><strong>Learning objective:</strong> Describe one observed pattern and explain its cause using Earth’s motion, the Moon’s motion or gravity.</p>
+    <p><strong>Suggested ages:</strong> 9–14. Adapt the activity to your group.</p>
+    <p><strong>Suggested duration:</strong> 10–15 minutes for one activity.</p>
+    <p><strong>Prerequisite knowledge:</strong> Earth rotates on its axis and orbits the Sun.</p>
+    <p><strong>Common misconception:</strong> Earth’s shadow causes ordinary Moon phases. Phases arise because we see different amounts of the Moon’s sunlit half; Earth’s shadow causes a lunar eclipse.</p>
+    <p><strong>Sources:</strong> NASA explains <a href="https://spaceplace.nasa.gov/seasons/en/">seasons</a> and <a href="https://science.nasa.gov/moon/moon-phases/">Moon phases</a>. NOAA explains <a href="https://oceanservice.noaa.gov/facts/tides.html">tides</a>. Read our <a href="/methodology/">methods and data sources</a> for individual tools.</p>
+    <p><strong>Model limitations:</strong> Illustrations simplify sizes, distances and motion. The seasons diagram compares two solstice positions, viewed edge-on, with the same axis direction. Check each activity’s limitations before using it for measurements.</p>
+    <p><strong>Lesson status:</strong> These are exploration activities. Ages and durations are suggestions, not classroom-tested results. <a href="/classroom/">Lesson development and unfinished drafts</a> are separate.</p>
+  </section>
+</div>`;
+
 const SECTION_PAGES = [
   {
     slug: "time", h1: "Time",
@@ -1886,14 +1935,14 @@ const SECTION_PAGES = [
     desc: "Explore Earth with interactive maps and simulators: see how axial tilt creates seasons, follow daylight, sunrise and moon phases, and check tide predictions.",
     lede: LEDE.earth,
     board: [
-      [withQs(MOON_CARD, ["why-does-the-moon-change-shape"], "/earth/"), 6],
-      [withQs(SIM_CARD, ["what-is-a-synodic-month", "why-does-moonrise-get-later", "what-is-tidal-locking"], "/earth/"), 6],
-      [withQs(SEASONS_CARD, ["why-do-we-have-seasons", "what-is-earths-axial-tilt", "what-is-a-solstice", "what-is-an-equinox"], "/earth/"), 6],
-      [SUN_HOME_CARD, 6],
-      [withQs(TIDES_HOME_CARD, ["what-causes-tides"], "/earth/"), 12],
       [withQs(WORLD_CLOCK_CARD, ["what-is-the-tropic-of-cancer", "what-is-the-terminator", "why-can-the-moon-be-up-in-the-daytime"], "/earth/"), 12],
+      [SUN_HOME_CARD, 6],
+      [withQs(SEASONS_CARD, ["why-do-we-have-seasons", "what-is-earths-axial-tilt", "what-is-a-solstice", "what-is-an-equinox"], "/earth/"), 6],
+      [withQs(MOON_CARD, ["why-does-the-moon-change-shape"], "/earth/"), 6],
+      [withQs(SIM_CARD.replace('Educational info →', 'How the Sun, Earth and Moon move →'), ["what-is-a-synodic-month", "why-does-moonrise-get-later", "what-is-tidal-locking"], "/earth/"), 6],
+      [withQs(TIDES_HOME_CARD, ["what-causes-tides"], "/earth/"), 12],
     ],
-    js: () => `<script data-ac="shared" data-name="sec-earth">${WORLD_MAP_JS}${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>`,
+    js: () => `<script data-ac="shared" data-name="sec-earth">${WORLD_MAP_JS}${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>${ALL_LEARNING_JS}`,
   },
   {
     slug: "space", h1: "Space",
@@ -1927,11 +1976,12 @@ for (const S of SECTION_PAGES) {
   const body = `  ${brand({ crumb: { slug: S.slug, url: `/${S.slug}/` } })}
 ${sectionSwitcher(`/${S.slug}/`)}
   <p class="home-lede">${S.lede}</p>
+  ${S.slug === "earth" ? EARTH_LEARNING_PANELS : ""}
   <div class="home-board">
 ${S.board.map(([card, n]) => sp(card, n, S.slug)).join("\n")}
   </div>
   <div class="home-foot">
-    <p class="home-suggest">Start with <a href="/concepts/how-does-an-orbit-work/">how an orbit works</a>, or <a href="/glossary/">any of the others</a>. Or jump across: ${SECTION_LINKS.filter(([u]) => u !== `/${S.slug}/`).map(([u, l]) => `<a href="${u}">${l}</a>`).join(" · ")}.</p>
+    <p class="home-suggest">${S.slug === "earth" ? `Keep exploring <a href="/day-night-map/">day and night</a>, <a href="${SEASONS_PATH}">seasons</a>, <a href="/moon-simulator/">Moon phases</a> and <a href="/tides/">tides</a>.` : `Start with <a href="/concepts/how-does-an-orbit-work/">how an orbit works</a>, or <a href="/glossary/">any of the others</a>.`} Or jump across: ${SECTION_LINKS.filter(([u]) => u !== `/${S.slug}/`).map(([u, l]) => `<a href="${u}">${l}</a>`).join(" · ")}.</p>
   </div>`;
   /* the Q&A pairs this page already shows, as FAQPage JSON-LD — the answers
      are the concepts' own shortAnswers, so the markup cannot say something

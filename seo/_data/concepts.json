@@ -114,7 +114,7 @@
     "shortAnswer": "Yes. The Moon can be above the horizon during daylight as well as at night. When it is bright enough and far enough from the Sun in the sky, you can see it against the blue sky.",
     "teasers": {
       "/": "The Moon is up about twelve hours of every twenty-four, and those hours drift through the day.",
-      "/earth/": "Tonight's phase card above does not wait for dark."
+      "/earth/": "The Moon can be above the horizon during daylight as well as at night."
     },
     "title": "Can the Moon Be Up in the Daytime?",
     "description": "The moon is up in daylight about as often as at night. It does not belong to the night; it just happens to be easier to notice then.",
@@ -171,7 +171,7 @@
     "shortAnswer": "The Moon does not change shape. Sunlight lights half of it. As the Moon goes around Earth, we see different amounts of that bright half. These changing views are called phases.",
     "teasers": {
       "/": "One half is always lit. The picture above is that lit half, seen from a different angle each night.",
-      "/earth/": "The phase over your house is the same Moon as the one in the simulator — only the view has moved."
+      "/earth/": "As the Moon orbits Earth, we see different amounts of its sunlit half."
     },
     "title": "Why Does the Moon Change Shape?",
     "description": "Moon phases are a changing view of a ball that is always half-lit. The Moon does not change; your angle on the lit half does.",
@@ -239,7 +239,7 @@
     "shortAnswer": "Tides are the regular rise and fall of sea level. They are caused mainly by differences in the Moon’s gravitational pull across Earth, with the Sun contributing too. The shape of the coast affects local tide times and heights.",
     "teasers": {
       "/": "The Moon’s and Sun’s gravity cause tides. Explore why the pattern differs from one coast to another.",
-      "/earth/": "The charts above are the pull of the Moon on a real harbour, hour by hour."
+      "/earth/": "Compare predicted tide heights and times at three coastal locations."
     },
     "title": "What Causes Tides?",
     "description": "Tides are two ocean bulges raised by the Moon’s gravity, with a smaller assist from the Sun. Earth turning under the bulges makes the daily rhythm.",
@@ -297,7 +297,7 @@
     "shortAnswer": "A synodic month is one full cycle of Moon phases, lasting about 29.5 days. It is the time from one full moon to the next, or from one new moon to the next.",
     "teasers": {
       "/": "Full moon to full moon is about 29.5 days, a little longer than one trip around Earth.",
-      "/earth/": "The simulator's month and the calendar month are not the same length, and that difference is this."
+      "/earth/": "The Moon orbits Earth in about 27.3 days, while its phases repeat about every 29.5 days."
     },
     "title": "What Is a Synodic Month?",
     "description": "The synodic month is full moon to full moon, about 29.5 days — longer than the 27.3-day sidereal month.",
@@ -359,7 +359,7 @@
     "shortAnswer": "The Moon spins once each time it travels around Earth. These two motions take the same amount of time, so the same side keeps facing us. This match is called tidal locking.",
     "teasers": {
       "/": "The same face stays toward us because the Moon turns once per orbit.",
-      "/earth/": "The near-side drawing on the moon card is not a choice of illustration. The far side never shows."
+      "/earth/": "The Moon rotates once per orbit, so roughly the same side faces Earth."
     },
     "title": "What Is Tidal Locking?",
     "description": "Tidal locking is a spin matching an orbit, so one face stays toward the planet. The Moon’s far side still has day and night.",
