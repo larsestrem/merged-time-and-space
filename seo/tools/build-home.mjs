@@ -1977,6 +1977,31 @@ const SPACE_LEARNING_PANELS = `<div class="home-learning">
   </section>
 </div>`;
 
+const TIME_LEARNING_PANELS = `<div class="home-learning">
+  <div class="home-learning-actions" hidden>
+    <button type="button" class="chip" aria-expanded="false" aria-controls="time-learning-guide" data-all-panel="time-learning-guide">Learning guide <span aria-hidden="true">▾</span></button>
+    <button type="button" class="chip" aria-expanded="false" aria-controls="time-teacher-notes" data-all-panel="time-teacher-notes">Teacher notes <span aria-hidden="true">▾</span></button>
+  </div>
+  <section class="card home-learning-panel" id="time-learning-guide" aria-label="Learning guide">
+    <h2>Learning guide</h2>
+    <h3>What you’ll learn</h3><p>Measure elapsed time, convert clock formats, and compare local times.</p>
+    <h3>What to change</h3><p>Set a duration, enter start and end times, or choose locations.</p>
+    <h3>What to observe</h3><p>Compare elapsed time, equivalent clock readings, and local times.</p>
+    <h3>Why it happens</h3><p>Different clock formats can represent the same time. Time zones use different offsets to determine local time.</p>
+  </section>
+  <section class="card home-learning-panel" id="time-teacher-notes" aria-label="Teacher notes">
+    <h2>Teacher notes</h2>
+    <p><strong>Learning objective:</strong> Measure an interval or compare two representations of time.</p>
+    <p><strong>Suggested ages:</strong> 9–14. Adapt the activity to your group.</p>
+    <p><strong>Suggested duration:</strong> 5–10 minutes for one activity.</p>
+    <p><strong>Prerequisite knowledge:</strong> Read a clock and understand hours, minutes and seconds.</p>
+    <p><strong>Common misconception:</strong> Confusing noon and midnight. In 12-hour notation, 12 a.m. is midnight and 12 p.m. is noon.</p>
+    <p><strong>Sources and methodology:</strong> Read our <a href="/methodology/">methods and data sources</a>, including <a href="/methodology/browser-timing/">browser timing</a> and <a href="/methodology/time-zones/">time zones</a>.</p>
+    <p><strong>Tool limitations:</strong> Clock readings depend on your device’s time and time-zone data. Closing the tab, putting the device to sleep or muting sound can prevent an alarm from being heard. Check each tool’s instructions before using it in class.</p>
+    <p><strong>Lesson status:</strong> These are classroom tools and short exploration activities. Ages and durations are suggestions, not classroom-tested results. <a href="/classroom/">Lesson development and unfinished drafts</a> are separate.</p>
+  </section>
+</div>`;
+
 const SECTION_PAGES = [
   {
     slug: "time", h1: "Time",
@@ -1985,12 +2010,12 @@ const SECTION_PAGES = [
     lede: LEDE.time,
     board: [
       [ALARM_CARD, 4], [TIMER_CARD, 4], [STOPWATCH_CARD, 4],
-      [withQs(WORLD_CLOCK_CARD, ["who-invented-time", "what-is-a-time-zone", "what-is-utc", "what-is-the-international-date-line"], "/time/"), 6],
-      [withQs(TIMEDIFF_CARD, ["what-is-daylight-saving-time"], "/time/"), 6],
-      [withQs(CONVERT_CARD, ["what-is-the-24-hour-clock"], "/time/"), 6],
+      [withQs(WORLD_CLOCK_CARD.replace("Where it is day right now", "World clock and daylight"), ["who-invented-time", "what-is-a-time-zone", "what-is-utc", "what-is-the-international-date-line"], "/time/"), 6],
+      [withQs(TIMEDIFF_CARD.replace("Time Between Two Times", "Calculate elapsed time"), ["what-is-daylight-saving-time"], "/time/"), 6],
+      [withQs(CONVERT_CARD.replace("Full converter, chart &amp; every half hour →", "Explore 12-hour and 24-hour time →"), ["what-is-the-24-hour-clock"], "/time/"), 6],
       [COUNTDOWN_BLOCK, 6],
     ],
-    js: () => `<script data-ac="shared" data-name="sec-time">${HOME_CLOCK_JS}${HOME_COLOR_JS}${WORLD_MAP_JS}${TDIFF_JS}${CONV_JS}${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>`,
+    js: () => `<script data-ac="shared" data-name="sec-time">${HOME_CLOCK_JS}${HOME_COLOR_JS}${WORLD_MAP_JS}${TDIFF_JS}${CONV_JS}${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>${ALL_LEARNING_JS}`,
   },
   {
     slug: "earth", h1: "Earth",
@@ -2039,12 +2064,12 @@ for (const S of SECTION_PAGES) {
   const body = `  ${brand({ crumb: { slug: S.slug, url: `/${S.slug}/` } })}
 ${sectionSwitcher(`/${S.slug}/`)}
   <p class="home-lede">${S.lede}</p>
-  ${S.slug === "earth" ? EARTH_LEARNING_PANELS : S.slug === "space" ? SPACE_LEARNING_PANELS : ""}
+  ${S.slug === "earth" ? EARTH_LEARNING_PANELS : S.slug === "space" ? SPACE_LEARNING_PANELS : S.slug === "time" ? TIME_LEARNING_PANELS : ""}
   <div class="home-board">
 ${S.board.map(([card, n]) => sp(card, n, S.slug)).join("\n")}
   </div>
   <div class="home-foot">
-    <p class="home-suggest">${S.slug === "earth" ? `Keep exploring <a href="/day-night-map/">day and night</a>, <a href="${SEASONS_PATH}">seasons</a>, <a href="/moon-simulator/">Moon phases</a> and <a href="/tides/">tides</a>.` : S.slug === "space" ? `Keep exploring <a href="/solar-system-simulator/">the solar system</a>, <a href="${PLANETS_PATH}">planets and moons</a>, <a href="${OV_PATH}">gravity and orbits</a>, and <a href="${ROCKET_PATH}">space exploration</a>.` : `Start with <a href="/concepts/how-does-an-orbit-work/">how an orbit works</a>, or <a href="/glossary/">any of the others</a>.`} Or jump across: ${SECTION_LINKS.filter(([u]) => u !== `/${S.slug}/`).map(([u, l]) => `<a href="${u}">${l}</a>`).join(" · ")}.</p>
+    <p class="home-suggest">${S.slug === "earth" ? `Keep exploring <a href="/day-night-map/">day and night</a>, <a href="${SEASONS_PATH}">seasons</a>, <a href="/moon-simulator/">Moon phases</a> and <a href="/tides/">tides</a>.` : S.slug === "space" ? `Keep exploring <a href="/solar-system-simulator/">the solar system</a>, <a href="${PLANETS_PATH}">planets and moons</a>, <a href="${OV_PATH}">gravity and orbits</a>, and <a href="${ROCKET_PATH}">space exploration</a>.` : S.slug === "time" ? `Keep exploring <a href="/timer/">timers</a>, <a href="/stopwatch/">stopwatches</a>, <a href="/world-clock/">world clocks</a> and <a href="/24-hour-clock-converter/">time conversion</a>.` : `Start with <a href="/concepts/how-does-an-orbit-work/">how an orbit works</a>, or <a href="/glossary/">any of the others</a>.`} Or jump across: ${SECTION_LINKS.filter(([u]) => u !== `/${S.slug}/`).map(([u, l]) => `<a href="${u}">${l}</a>`).join(" · ")}.</p>
   </div>`;
   /* the Q&A pairs this page already shows, as FAQPage JSON-LD — the answers
      are the concepts' own shortAnswers, so the markup cannot say something
