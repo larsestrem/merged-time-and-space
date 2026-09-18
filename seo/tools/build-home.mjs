@@ -1735,13 +1735,7 @@ ${ALL_LEARNING_PANELS}
       </div>
     </div>
     ${hubQs(["why-can-the-moon-be-up-in-the-daytime"], "/")}
-<div class="home-q">
-    <span class="home-q-lab">Start with a question</span>
-    <a class="chip" href="${SEASONS_PATH}">Why do we have seasons?</a>
-    <a class="chip" href="/concepts/why-can-the-moon-be-up-in-the-daytime/">Can the moon be up in the daytime?</a>
-    <a class="chip" href="/concepts/why-does-the-moon-change-shape/">Why does the moon change shape?</a>
-    <a class="chip chip-alt" href="/glossary/">More questions →</a>
-  </div>
+
   </div>
   ${/* the curiosity door: real questions, no audience label */""
   }
@@ -1780,6 +1774,13 @@ ${ALL_LEARNING_PANELS}
       <a class="chip" href="${SEASONS_PATH}#sun-angle">Sunlight angle</a>
       <a class="chip" href="${SEASONS_PATH}#earth-sun-moon-year">Earth’s orbit</a>
     </p>
+  </div>
+<div class="home-q">
+    <span class="home-q-lab">Start with a question</span>
+    <a class="chip" href="${SEASONS_PATH}">Why do we have seasons?</a>
+    <a class="chip" href="/concepts/why-can-the-moon-be-up-in-the-daytime/">Can the moon be up in the daytime?</a>
+    <a class="chip" href="/concepts/why-does-the-moon-change-shape/">Why does the moon change shape?</a>
+    <a class="chip chip-alt" href="/glossary/">More questions →</a>
   </div>
   <div class="card hub-sim">
     <p class="hub-kicker">Earth</p>
