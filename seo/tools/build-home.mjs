@@ -1914,6 +1914,36 @@ const EARTH_LEARNING_PANELS = `<div class="home-learning">
   </section>
 </div>`;
 
+// Keep approved hub copy scoped to Space when cards are shared with other pages.
+function spaceCard(card, text, learningLabel) {
+  const updated = card.replace(/<p class="home-simtxt">[\s\S]*?<\/p>/, `<p class="home-simtxt">${text}</p>`);
+  return learningLabel ? updated.replace('Educational info →', learningLabel) : updated;
+}
+const SPACE_LEARNING_PANELS = `<div class="home-learning">
+  <div class="home-learning-actions" hidden>
+    <button type="button" class="chip" aria-expanded="false" aria-controls="space-learning-guide" data-all-panel="space-learning-guide">Learning guide <span aria-hidden="true">▾</span></button>
+    <button type="button" class="chip" aria-expanded="false" aria-controls="space-teacher-notes" data-all-panel="space-teacher-notes">Teacher notes <span aria-hidden="true">▾</span></button>
+  </div>
+  <section class="card home-learning-panel" id="space-learning-guide" aria-label="Learning guide">
+    <h2>Learning guide</h2>
+    <h3>What you’ll learn</h3><p>Compare planetary motion and explain how gravity and speed shape an orbit.</p>
+    <h3>What to change</h3><p>Choose a planet, change orbital speed, or select a model journey.</p>
+    <h3>What to observe</h3><p>Compare orbit size, time to complete an orbit, and changes in speed.</p>
+    <h3>Why it happens</h3><p>Gravity continually changes an orbiting object’s direction. Its position and velocity determine its path.</p>
+  </section>
+  <section class="card home-learning-panel" id="space-teacher-notes" aria-label="Teacher notes">
+    <h2>Teacher notes</h2>
+    <p><strong>Learning objective:</strong> Describe one observed pattern and explain it using gravity or orbital motion.</p>
+    <p><strong>Suggested ages:</strong> 9–14. Adapt the activity to your group.</p>
+    <p><strong>Suggested duration:</strong> 10–15 minutes for one activity.</p>
+    <p><strong>Prerequisite knowledge:</strong> Recognize the Sun, planets and moons, and distinguish a planet from a moon.</p>
+    <p><strong>Common misconception:</strong> Orbiting objects experience no gravity. Gravity continually changes their direction of motion, keeping them in orbit.</p>
+    <p><strong>Sources:</strong> Read our <a href="/methodology/">methods and data sources</a> and the sources on each linked activity.</p>
+    <p><strong>Model limitations:</strong> Previews simplify sizes, distances and motion. The solar-system thumbnail uses illustrative positions rather than the planets’ current positions. Model journeys illustrate orbital mechanics; they are not mission schedules. Check each activity’s assumptions before using it for measurements.</p>
+    <p><strong>Lesson status:</strong> These are exploration activities. Ages and durations are suggestions, not classroom-tested results. <a href="/classroom/">Lesson development and unfinished drafts</a> are separate.</p>
+  </section>
+</div>`;
+
 const SECTION_PAGES = [
   {
     slug: "time", h1: "Time",
@@ -1950,12 +1980,12 @@ const SECTION_PAGES = [
     desc: "Where everything actually is, right now: the solar system on its real orbits, every planet with its moons, gravity and orbital-velocity simulators, launch windows to Mars, and the moon systems of Jupiter, Saturn, Uranus and Neptune.",
     lede: LEDE.space,
     board: [
-      [withQs(SOLAR_CARD, ["why-dont-planets-fall-into-the-sun", "how-are-the-planets-formed", "why-arent-the-inner-planets-gas-giants"], "/space/"), 4],
-      [withQs(ORBIT_CARD, ["how-does-an-orbit-work"], "/space/"), 4],
-      [withQs(PLANETS_CARD, ["why-didnt-the-asteroid-belt-become-a-planet", "why-do-asteroids-collide"], "/space/"), 4],
-      [withQs(SYSTEM_CARD, ["why-do-we-have-seasons"], "/space/"), 4],
-      [ROCKET_CARD, 4],
-      [SIM_CARD, 4],
+      [withQs(spaceCard(SOLAR_CARD, "Watch the four inner planets orbit the Sun. Compare how quickly they complete an orbit. This preview illustrates their motion; it does not show their current positions.", "How planets orbit →"), ["why-dont-planets-fall-into-the-sun", "how-are-the-planets-formed", "why-arent-the-inner-planets-gas-giants"], "/space/"), 4],
+      [withQs(spaceCard(ORBIT_CARD, "Change the moon’s speed and compare the orbit’s shape. Watch how its speed changes as it moves closer to or farther from the planet."), ["how-does-an-orbit-work"], "/space/"), 4],
+      [withQs(spaceCard(PLANETS_CARD, "Explore the eight planets in order from the Sun. Compare their sizes, rotation and moons, then investigate dwarf planets, asteroids and comets."), ["why-didnt-the-asteroid-belt-become-a-planet", "why-do-asteroids-collide"], "/space/"), 4],
+      [withQs(spaceCard(SYSTEM_CARD, "Watch the Moon orbit Earth as Earth travels around the Sun. Change the viewing angle to compare the two orbits.", "How the two orbits fit together →"), ["why-do-we-have-seasons"], "/space/"), 4],
+      [spaceCard(ROCKET_CARD, "Explore model journeys to Mars, Jupiter and Saturn. Compare departure opportunities, travel times and the changes in speed each journey requires."), 4],
+      [spaceCard(SIM_CARD, "Choose a location and time to explore the Sun’s and Moon’s positions in the sky.", "How the Sun, Earth and Moon move →"), 4],
       ...MOON_CARDS.map((c, i) => {
         const qs = {
           mars: [],
@@ -1968,7 +1998,7 @@ const SECTION_PAGES = [
         return [qs ? withQs(c, qs, "/space/") : c, 4];
       }),
     ],
-    js: () => `<script data-ac="shared" data-name="sec-space">${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>${ORBIT_JS}`,
+    js: () => `<script data-ac="shared" data-name="sec-space">${HOME_MASONRY_JS}${HOME_WIDGETS_JS}</script>${ORBIT_JS}${ALL_LEARNING_JS}`,
   },
 ];
 
@@ -1976,7 +2006,7 @@ for (const S of SECTION_PAGES) {
   const body = `  ${brand({ crumb: { slug: S.slug, url: `/${S.slug}/` } })}
 ${sectionSwitcher(`/${S.slug}/`)}
   <p class="home-lede">${S.lede}</p>
-  ${S.slug === "earth" ? EARTH_LEARNING_PANELS : ""}
+  ${S.slug === "earth" ? EARTH_LEARNING_PANELS : S.slug === "space" ? SPACE_LEARNING_PANELS : ""}
   <div class="home-board">
 ${S.board.map(([card, n]) => sp(card, n, S.slug)).join("\n")}
   </div>
