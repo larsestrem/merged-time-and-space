@@ -412,21 +412,16 @@ export function seasonSunHtml(dec, lon, laterDec, tilt) {
   var lat = Math.abs(dec).toFixed(1) + '\u00B0 ' + (dec >= 0 ? 'N' : 'S');
   var lo = Math.abs(lon).toFixed(1) + '\u00B0 ' + (lon >= 0 ? 'E' : 'W');
   var a = Math.abs(dec), n = dec >= 0, rising = laterDec > dec;
-  var orbit = '<a href="/earth-sun-moon-orbit-simulator/">Earth\u2019s orbit</a>';
-  var sub = 'subsolar point';
-  var head = 'The sun is overhead at <b>' + lat + ', ' + lo + '</b> \u2014 this is the ' + sub + '. ';
+  var head = 'The Sun is overhead at <b>' + lat + ', ' + lo + '</b>. This is the subsolar point. ';
+  var axis = ' Earth’s axis keeps pointing in nearly the same direction.';
   if (a < 0.6) {
-    if (rising) return head + 'Day and night are about equal everywhere \u2014 this is the spring equinox, the start of spring in the northern half of the world. Days there will get longer as Earth tilts toward the sun in ' + orbit + '.';
-    return head + 'Day and night are about equal everywhere \u2014 this is the fall equinox, the start of fall in the northern half of the world. Days there will get shorter as Earth tilts away from the sun in ' + orbit + '.';
+    return head + 'Near the ' + (rising ? 'spring' : 'fall') + ' equinox, day and night are approximately equal in length in most places. Days in the Northern Hemisphere will get ' + (rising ? 'longer' : 'shorter') + ' as Earth travels around the Sun.' + axis;
   }
   if (tilt - a < 0.15) {
-    if (n) return head + 'The sun is as far north as it ever gets \u2014 the summer solstice, the start of summer and the longest days in the northern half of the world. From here Earth starts tilting away from the sun in ' + orbit + '.';
-    return head + 'The sun is as far south as it ever gets \u2014 the winter solstice, the start of winter and the shortest days in the northern half of the world. From here Earth starts tilting back toward the sun in ' + orbit + '.';
+    return head + (n ? 'Near the summer solstice, the overhead Sun reaches its northern limit and the Northern Hemisphere has its longest days. Days there then begin to get shorter.' : 'Near the winter solstice, the overhead Sun reaches its southern limit and the Northern Hemisphere has its shortest days. Days there then begin to get longer.') + axis;
   }
-  if (n && !rising) return head + 'This time of year the sun is moving from summer toward fall, and days in the northern half of the world are getting shorter because Earth is tilting away from the sun in ' + orbit + '.';
-  if (n && rising) return head + 'This time of year the sun is moving from spring toward summer, and days in the northern half of the world are getting longer because Earth is tilting toward the sun in ' + orbit + '.';
-  if (!n && !rising) return head + 'This time of year the sun is moving from fall toward winter, and days in the northern half of the world are getting shorter because Earth is tilting away from the sun in ' + orbit + '.';
-  return head + 'This time of year the sun is moving from winter toward spring, and days in the northern half of the world are getting longer because Earth is tilting toward the sun in ' + orbit + '.';
+  return head + 'Days are getting ' + (rising ? 'longer' : 'shorter') + ' in the Northern Hemisphere as Earth travels around the Sun.' + axis;
+
 }
 
 /* ---- Earth around the sun, with the four season corners ------------------

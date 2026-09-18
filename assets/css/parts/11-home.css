@@ -617,3 +617,18 @@
 .is-impact .home-impact-flash{animation:home-impact-burst .55s ease-out both}
 @keyframes home-impact-burst{0%{transform:scale(.25);opacity:1}65%{transform:scale(1.35);opacity:1}100%{transform:scale(.8);opacity:.8}}
 @media(prefers-reduced-motion:reduce){.is-impact .home-impact-flash{animation:none}}
+
+/* Home activities: pair a wide daylight map with seasons, then half-width cards. */
+.home-activity-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;margin:18px 0}
+.home-activity-grid>*{min-width:0;margin:0}
+.home-activity-grid .home-hero-grid{display:block}
+.home-activity-grid .home-hero-side{margin-top:12px}
+.home-activity-grid .home-q{margin:14px 0 0}
+@media(min-width:980px){
+  .home-activity-grid{grid-template-columns:repeat(12,minmax(0,1fr));align-items:start}
+  .home-activity-grid>*{grid-column:span 6}
+  .home-activity-grid>.home-hero,.home-activity-grid>.home-how{grid-column:span 8}
+  .home-activity-grid>#home-tilt,.home-activity-grid>.home-time-tools{grid-column:span 4}
+  .home-rest .dir-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #all-learning-guide,#all-teacher-notes{max-width:calc((100% - 18px)/3*2)}
+}

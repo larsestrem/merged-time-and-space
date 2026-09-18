@@ -1693,7 +1693,8 @@ ${ALL_LEARNING_PANELS}
        everything else fell below the fold). Two columns on a desktop: the map
        at 7/12 width, and beside it the pitch, the four clocks stacked two by
        two, and the links. On a phone it stacks back to map-first. */""
-  }<div class="card home-hero">
+  }<div class="home-activity-grid">
+  <div class="card home-hero">
     <p class="hub-kicker">Earth</p>
     <h2><a href="${DAYNIGHT_PATH}">Where is the Sun right now?</a></h2>
     <p>Move the time slider and watch which places enter daylight or darkness as Earth rotates.</p>
@@ -1734,15 +1735,16 @@ ${ALL_LEARNING_PANELS}
       </div>
     </div>
     ${hubQs(["why-can-the-moon-be-up-in-the-daytime"], "/")}
-  </div>
-  ${/* the curiosity door: real questions, no audience label */""
-  }<div class="home-q">
+<div class="home-q">
     <span class="home-q-lab">Start with a question</span>
     <a class="chip" href="${SEASONS_PATH}">Why do we have seasons?</a>
     <a class="chip" href="/concepts/why-can-the-moon-be-up-in-the-daytime/">Can the moon be up in the daytime?</a>
     <a class="chip" href="/concepts/why-does-the-moon-change-shape/">Why does the moon change shape?</a>
     <a class="chip chip-alt" href="/glossary/">More questions →</a>
   </div>
+  </div>
+  ${/* the curiosity door: real questions, no audience label */""
+  }
   ${/* SECOND CARD: THE TILT AND THE SEASONS (owner's call), the door to
        /earth-tilt-sun-seasons/. The side view from that page — parallel
        sunlight, the one line from the Sun's centre to the Earth's, the axis
@@ -1832,11 +1834,20 @@ ${ALL_LEARNING_PANELS}
     <a class="wk-all" href="${OV_PATH}">See the orbital velocity simulator →</a>
     ${hubQs(["how-does-an-orbit-work"], "/")}
   </div>
-  <div class="card hub-sim">
+  <div class="card hub-sim home-time-tools">
     <p class="hub-kicker">Time</p>
     <h2>Time tools for the classroom</h2>
     <p>Set a timer for an activity, measure elapsed time with a stopwatch, or compare local times around the world.</p>
     <a class="wk-all" href="/time/">Open Time tools →</a>
+  </div>
+  <div class="card home-how">
+    <h2>How this site works</h2>
+    <div class="wc-facts">
+      <div class="wc-frow"><span>Sources and model limitations</span><b>Read where the data comes from, how calculations are made and what each model simplifies. <a href="/methodology/">How each number is worked out →</a></b></div>
+      <div class="wc-frow"><span>Free to use</span><b>Explore the activities in your browser without creating an account. <a href="/privacy">Privacy</a>. <a href="/about/">Why it exists, and how it is paid for →</a></b></div>
+      <div class="wc-frow"><span>Help improve the activities</span><b>Suggest an improvement or learn how to contribute a lesson. <a href="/about/work-with-us/">How that works →</a></b></div>
+    </div>
+  </div>
   </div>
   <div class="home-rest">
     <h2>Explore by topic</h2>
@@ -1902,14 +1913,7 @@ ${CLASSROOM_PAUSED ? "" : `      <a class="card" href="/classroom/"><h2>Classroo
   </div>`}
   ${/* the three differentiators, one line each — why this site is safe to
        trust and safe to hand to a class */""
-  }<div class="card home-how">
-    <h2>How this site works</h2>
-    <div class="wc-facts">
-      <div class="wc-frow"><span>Sources and model limitations</span><b>Read where the data comes from, how calculations are made and what each model simplifies. <a href="/methodology/">How each number is worked out →</a></b></div>
-      <div class="wc-frow"><span>Free to use</span><b>Explore the activities in your browser without creating an account. <a href="/privacy">Privacy</a>. <a href="/about/">Why it exists, and how it is paid for →</a></b></div>
-      <div class="wc-frow"><span>Help improve the activities</span><b>Suggest an improvement or learn how to contribute a lesson. <a href="/about/work-with-us/">How that works →</a></b></div>
-    </div>
-  </div>
+  }
   <div class="home-foot">
     <p class="home-suggest">Guides: ${CLASSROOM_PAUSED ? "" : `<a href="/classroom/">using this in a classroom</a> · `}<a href="/methodology/">how these numbers are worked out</a> · <a href="/how-it-works/">how countdowns work</a> · <a href="/browser-limitations/">browser limitations</a> · <a href="/about/">about this site</a>.</p>
   </div>`;

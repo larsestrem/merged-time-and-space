@@ -631,6 +631,7 @@ function revealLessonTarget(target){
   var panel=target.closest('.dn-learning-panel');
   if(panel)setLessonPanel(panel.id,true);
 }
+if(!document.querySelector('[data-dn-view]'))revealLessonTarget(document.getElementById(location.hash.slice(1)));
 window.addEventListener('hashchange',function(){var target=document.getElementById(location.hash.slice(1));revealLessonTarget(target);if(target&&target.closest('.dn-learning-panel'))target.scrollIntoView();});
 
 /* Layout changes never recreate controls or reset the shared instant. */
@@ -833,21 +834,37 @@ ${controlsInside ? mapControls(view) : ""}    <p class="dn-sunline" id="dn-sunli
 `;
 
 /* ---- the explanation (thinned: essays live on /concepts/) ---------------- */
-const howCard = `  <details class="card dn-instructions" id="instructions">
-    <summary>Day &amp; Night Map Instructions</summary>
-    <div class="dn-instructions-body">
-    <p>This map solves which half of Earth faces the Sun at the instant shown above the slider. Bright areas have the Sun above the horizon, dark areas have it below, and the <strong>soft band</strong> is <a href="/concepts/what-is-twilight/">twilight</a>.</p>
-    <p>Drag the slider to choose any instant in the year. The arrow buttons move one day at a time. <strong>Play</strong> runs through the year, <strong>Now</strong> returns to the current moment, and the seasonal buttons reveal how the day/night boundary changes across the year.</p>
-    <p>The <strong>yellow marker</strong> is the subsolar point, where the Sun is straight overhead. The <strong>moon marker</strong> is where the Moon stands overhead, drawn in its phase at that moment—it can be a <a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">daytime Moon</a>. The <strong>dashed gold lines</strong> are the tropics, and the curved boundary is the terminator. Its daily sweep also shows why longitude matters to time zones.</p>
-    <div class="wc-facts">
-      <div class="wc-frow"><span>Yellow marker</span><b>Subsolar point — a flagpole there casts no shadow.</b></div>
-      <div class="wc-frow"><span>Moon marker</span><b>Overhead, in the phase of that moment. One orbit around Earth takes ${SIDEREAL} days.</b></div>
-      <div class="wc-frow"><span>Soft band</span><b>Twilight, widest toward the poles.</b></div>
-      <div class="wc-frow"><span>Dark half</span><b>Night, solved per meridian, not stamped on.</b></div>
-    </div>
-    </div>
-  </details>
-`;
+const mapLearningPanels = `  <div class="dn-learning-tools">
+  <div class="dn-learning-actions" hidden>
+    <button type="button" class="chip" data-dn-panel="dn-learning-guide" aria-expanded="false" aria-controls="dn-learning-guide">Learning guide <span aria-hidden="true">▾</span></button>
+    <button type="button" class="chip" data-dn-panel="dn-teacher-notes" aria-expanded="false" aria-controls="dn-teacher-notes">Teacher notes <span aria-hidden="true">▾</span></button>
+  </div>
+  <section class="card dn-learning-panel" id="dn-learning-guide" aria-label="Learning guide">
+    <h2>Learning guide</h2>
+    <h3>What you’ll learn</h3><p>Explain how Earth’s rotation produces day and night.</p>
+    <section id="instructions"><h3>What to change</h3><p>Choose a date and time. Use Now to return to the present.</p>
+      <p>Drag the slider to choose a time in the year. The arrow buttons move one day at a time. Play runs through the year. The seasonal buttons let you compare the daylight pattern at equinoxes and solstices.</p></section>
+    <h3>What to observe</h3><p>Find a place in daylight and another in darkness. Watch the boundary move as time changes.</p>
+    <h3>Why it happens</h3><p>Earth rotates, bringing places into sunlight and then turning them away.</p>
+    <h3>Reading the map</h3><p>The map shows which parts of Earth face the Sun at the selected time. Bright areas show daylight. Dark areas are places where the Sun is below the horizon. The band between them shows twilight.</p>
+    <p>The yellow marker shows where the Sun is directly overhead, called the subsolar point. The Moon marker shows where the Moon is overhead and its phase at the selected time. The dashed gold lines mark the tropics. The boundary between day and night is called the terminator.</p>
+    <section id="questions"><h3>Questions answered</h3>
+      <p><strong>Why does night happen?</strong> Your part of Earth faces away from the Sun.</p>
+      <p><strong><a href="/concepts/what-is-twilight/">What is twilight?</a></strong> Sunlight scattered through the atmosphere lights the sky while the Sun is below the horizon.</p>
+      <p><strong><a href="/concepts/why-can-the-moon-be-up-in-the-daytime/">Can the Moon appear during daylight?</a></strong> Yes. The Moon can be above the horizon during the day as well as at night.</p></section>
+  </section>
+  <section class="card dn-learning-panel" id="dn-teacher-notes" aria-label="Teacher notes">
+    <h2>Teacher notes</h2>
+    <p><strong>Learning objective:</strong> Explain the changing daylight pattern using Earth’s rotation.</p>
+    <p><strong>Suggested ages:</strong> 9–14. Adapt the activity to your group.</p>
+    <p><strong>Suggested duration:</strong> 10 minutes.</p>
+    <p><strong>Prerequisite knowledge:</strong> Earth is a rotating globe.</p>
+    <p><strong>Common misconception:</strong> The Sun circles Earth each day. The daily change between daylight and darkness is caused by Earth rotating.</p>
+    <p><strong>Sources:</strong> Read our <a href="/methodology/">methods and data sources</a> and NASA’s <a href="https://spaceplace.nasa.gov/days/en/">explanation of a day</a>.</p>
+    <p><strong>Model limitations:</strong> Flattening Earth into a rectangular map distorts shapes and distances, especially near the poles. Sun and Moon markers are enlarged for visibility. The map illustrates sunlight geometry; local terrain and weather affect what you see.</p>
+    <p><strong>Lesson status:</strong> Ages and duration are suggestions, not classroom-tested results. <a href="/classroom/">Lesson development and unfinished drafts</a> are separate.</p>
+  </section>
+</div>`;
 
 /* ---- the side view: original drawing, short caption, jump controls -------- */
 const sideCard = `  <div class="card dn-side-card" id="sun-angle" role="region" aria-label="Sunlight angle">
@@ -1030,8 +1047,8 @@ ${GA_SNIPPET}
 <div class="wrap wrap-wide dn-map-page">
   ${brand()}
   <h1>Day and Night Map</h1>
-  <p class="sub">See where sunlight reaches Earth now, or choose another date and time. Bright areas show day, dark areas show night, and the shaded band between them shows twilight.</p>
-${simCard()}${howCard}  <p class="dn-more-lesson"><a href="${LESSON_PATH}">Explore how Earth’s tilt creates the seasons in three synchronized simulators →</a></p>
+  <p class="sub">Change the date and time to see where Earth is in daylight, darkness or twilight.</p>
+${mapLearningPanels}${simCard()}  <p class="dn-more-lesson"><a href="${LESSON_PATH}">Explore why day length changes through the year →</a></p>
   <p class="footer"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></p>
 </div>
 ${PAGE_JS}
