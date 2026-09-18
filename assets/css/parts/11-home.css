@@ -610,3 +610,10 @@
 .home-learning-actions .chip{min-height:44px;cursor:pointer}
 .home-learning-panel{margin:12px 0}
 .home-learning-panel h3{margin-top:18px}
+
+/* One brief impact burst; the stopped simulation waits for an explicit restart. */
+#ho-restart[hidden]{display:none}
+.home-impact-flash{transform-box:fill-box;transform-origin:center}
+.is-impact .home-impact-flash{animation:home-impact-burst .55s ease-out both}
+@keyframes home-impact-burst{0%{transform:scale(.25);opacity:1}65%{transform:scale(1.35);opacity:1}100%{transform:scale(.8);opacity:.8}}
+@media(prefers-reduced-motion:reduce){.is-impact .home-impact-flash{animation:none}}

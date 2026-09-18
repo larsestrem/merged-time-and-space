@@ -927,7 +927,7 @@ const MOON_CARDS = MOON_PLANETS.map((p) => {
       <p class="home-simtxt">${drawn.length === 1
     ? `${esc(drawn[0][0])} goes round in ${fmtDays(Math.abs(drawn[0][2]))}.`
     : `${esc(inner[0])} laps ${esc(frame[0])} about ${laps < 10 ? laps.toFixed(1) : Math.round(laps)} times over — ${fmtDays(Math.abs(inner[2]))} against ${fmtDays(Math.abs(frame[2]))}.`
-} Orbits, periods and sizes are real; where each moon sits on its ring is not solved here${beyond ? `, and ${beyond} further out ${beyond === 1 ? "is" : "are"} off the edge of this frame` : ""}.${retro.length ? ` ${esc(retro.join(" and "))} goes round backwards.` : ""}</p>
+} The preview uses orbital data, but the moons’ positions are illustrative.${beyond ? ` ${beyond} outer ${beyond === 1 ? "moon is" : "moons are"} outside this view.` : ""}${retro.length ? ` ${esc(retro.join(" and "))} goes round backwards.` : ""}</p>
       <p class="home-moonline">${total} confirmed moon${total === 1 ? "" : "s"} · ${drawn.length} drawn</p>
       <a class="wk-all" href="${planetPath(p.slug, p.idx)}">${esc(p.name)} and its moons →</a>
     </div>`;
@@ -994,12 +994,17 @@ const ORBIT_CARD = `    <div class="tc tc-mini tc-sim" data-href="${OV_PATH}">
           <ellipse id="ho-path" cx="160" cy="100" rx="70" ry="70" fill="none" stroke="#9dc2e0" stroke-opacity=".38" stroke-width="1" stroke-dasharray="3 4"/>
           <circle cx="160" cy="100" r="13" fill="#2f74ad"/>
           <circle id="ho-moon" cx="230" cy="100" r="4.5" fill="#e8eef7"/>
+          <g id="ho-impact" visibility="hidden"><g class="home-impact-flash">
+            <path d="M0 -20L5 -9L17 -14L11 -3L23 3L10 7L13 20L2 12L-8 22L-9 9L-22 7L-12 -2L-19 -13L-6 -9Z" fill="#ff8b35"/>
+            <circle r="9" fill="#ffe778"/><circle r="4" fill="#fff7dd"/>
+          </g></g>
         </svg>
-        <p class="home-orbtxt" id="ho-note">A circle: falling exactly as fast as the curve carries it away.</p>
+        <p class="home-orbtxt" id="ho-note" role="status" aria-live="polite">At this speed, the moon follows a circular orbit.</p>
         <p class="home-orbbtns">
           <button type="button" class="chip" id="ho-slow">Slow it down</button>
           <button type="button" class="chip" id="ho-fast">Speed it up</button>
           <button type="button" class="chip chip-alt" id="ho-reset">Circle</button>
+          <button type="button" class="chip" id="ho-restart" hidden>Restart</button>
         </p>
       </div>
       <p class="home-simtxt">Nothing spirals in. Take speed away and the far side of the orbit drops toward the planet; add speed and it climbs away — and either way the moon comes back through the point where you changed it.</p>
@@ -1013,11 +1018,14 @@ const ORBIT_JS = `<script>(function(){
   var path=document.getElementById('ho-path'), moon=document.getElementById('ho-moon'),
       note=document.getElementById('ho-note');
   var R=70, CX=160, CY=100, k=1, th=0, iv=0;
+  var impact=document.getElementById('ho-impact'), restart=document.getElementById('ho-restart');
+  var controls=['ho-slow','ho-fast','ho-reset'].map(function(id){return document.getElementById(id);});
+  var crashed=false, contact=13+4.5;
   var NOTE={
-    circle:'A circle: falling exactly as fast as the curve carries it away.',
-    slow:'Slower at that point \u2014 so the far side of the orbit drops in toward the planet. It speeds up again as it falls.',
-    fast:'Faster at that point \u2014 so the far side climbs away. It slows down as it climbs, and comes back.',
-    esc:'Past escape speed \u2014 about 1.41 times the circular speed \u2014 the orbit stops being a loop at all.'
+    circle:'At this speed, the moon follows a circular orbit.',
+    slow:'Reducing the speed brings the opposite side of the orbit closer to the planet. The moon speeds up as it approaches the planet.',
+    fast:'Increasing the speed moves the opposite side of the orbit farther from the planet. The moon slows down as it moves away.',
+    esc:'The moon has reached escape speed and no longer follows a closed orbit.'
   };
   /* the vis-viva result: everything the picture does comes from these two lines */
   function geom(){
@@ -1035,27 +1043,52 @@ const ORBIT_JS = `<script>(function(){
     path.setAttribute('rx',g.a.toFixed(2)); path.setAttribute('ry',g.b.toFixed(2));
     path.setAttribute('cx',g.cx.toFixed(2));
   }
-  function step(){
-    var g=geom(); if(!g) return;
-    /* r from the FOCUS — the planet — with the push point held on the right at
-       radius R: that point is perihelion when the moon was sped up and
-       aphelion when it was slowed down, which is the sign flip below and the
-       whole reason the ellipse pivots about the moon instead of sliding. */
-    var r=g.a*(1-g.e*g.e)/(1+(k<1?-1:1)*g.e*Math.cos(th));
-    /* Kepler's second law, as a drawing rule: sweep dtheta proportional to
-       1/r squared, which is what makes it crawl at the far end */
-    th+=0.05*Math.pow(R/r,2);
-    if(th>Math.PI*2) th-=Math.PI*2;
-    moon.setAttribute('cx',(CX+r*Math.cos(th)).toFixed(2));
-    moon.setAttribute('cy',(CY+r*Math.sin(th)).toFixed(2));
+  function radius(g,angle){return g.a*(1-g.e*g.e)/(1+(k<1?-1:1)*g.e*Math.cos(angle));}
+  function place(r,angle){
+    moon.setAttribute('cx',(CX+r*Math.cos(angle)).toFixed(2));
+    moon.setAttribute('cy',(CY+r*Math.sin(angle)).toFixed(2));
   }
-  function set(nk,msg){ k=Math.max(0.45,Math.min(1.45,nk)); draw();
-    note.textContent=(k>=1.414?NOTE.esc:msg); }
-  document.getElementById('ho-slow').addEventListener('click',function(e){ e.stopPropagation(); set(k-0.12,NOTE.slow); });
-  document.getElementById('ho-fast').addEventListener('click',function(e){ e.stopPropagation(); set(k+0.12,NOTE.fast); });
-  document.getElementById('ho-reset').addEventListener('click',function(e){ e.stopPropagation(); th=0; set(1,NOTE.circle); });
+  function collide(angle){
+    crashed=true; run(false); place(contact,angle);
+    // Put the impact flash on the planet's visible surface, not at its centre.
+    impact.setAttribute('transform','translate('+(CX+13*Math.cos(angle))+','+(CY+13*Math.sin(angle))+')');
+    impact.setAttribute('visibility','visible'); impact.classList.add('is-impact');
+    moon.setAttribute('visibility','hidden'); path.setAttribute('visibility','hidden');
+    controls.forEach(function(button){button.disabled=true;}); restart.hidden=false;
+    note.textContent='Impact! The moon hit the planet. The simulation has stopped. Select Restart to try again.';
+  }
+  function step(){
+    if(crashed) return;
+    var g=geom(); if(!g) return;
+    // Small time steps prevent fast motion near the planet from skipping contact.
+    for(var i=0;i<20;i++){
+      var r=radius(g,th), next=th+0.0025*Math.pow(R/r,2);
+      if(radius(g,next)<=contact){
+        var lo=th,hi=next;
+        for(var j=0;j<24;j++){var mid=(lo+hi)/2;if(radius(g,mid)>contact)lo=mid;else hi=mid;}
+        th=hi; collide(th); return;
+      }
+      th=next%(Math.PI*2);
+    }
+    place(radius(g,th),th);
+  }
+  function set(nk,msg){
+    if(crashed) return;
+    k=Math.max(0.45,Math.min(1.45,nk)); th=0; draw(); place(R,th);
+    note.textContent=(k*k>=2?NOTE.esc:msg);
+  }
+  controls[0].addEventListener('click',function(e){e.stopPropagation();set(k-0.12,NOTE.slow);});
+  controls[1].addEventListener('click',function(e){e.stopPropagation();set(k+0.12,NOTE.fast);});
+  controls[2].addEventListener('click',function(e){e.stopPropagation();set(1,NOTE.circle);});
+  restart.addEventListener('click',function(e){
+    e.stopPropagation(); crashed=false; restart.hidden=true;
+    impact.setAttribute('visibility','hidden');impact.classList.remove('is-impact');
+    moon.setAttribute('visibility','visible');path.setAttribute('visibility','visible');
+    controls.forEach(function(button){button.disabled=false;});
+    set(1,NOTE.circle);run(!document.hidden);controls[0].focus();
+  });
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  function run(on){ if(iv){ clearInterval(iv); iv=0; } if(on&&!reduce) iv=setInterval(step,45); }
+  function run(on){ if(iv){ clearInterval(iv); iv=0; } if(on&&!reduce&&!crashed) iv=setInterval(step,45); }
   document.addEventListener('visibilitychange',function(){ run(!document.hidden); });
   draw(); run(!document.hidden);
 })();</script>`;
@@ -1609,12 +1642,7 @@ ${t.cards.map(([ic, title, line, href]) => `      <a class="pc-card" href="${hre
     </div>
   </section>`;
 
-const ALL_ORBIT_JS = ORBIT_JS.replace(/var NOTE=\{[\s\S]*?\n  \};/, `var NOTE={
-    circle:'At this speed, the moon follows a circular orbit.',
-    slow:'Reducing the speed brings the opposite side of the orbit closer to the planet. The moon speeds up as it approaches the planet.',
-    fast:'Increasing the speed moves the opposite side of the orbit farther from the planet. The moon slows down as it moves away.',
-    esc:'The moon has reached escape speed and no longer follows a closed orbit.'
-  };`);
+const ALL_ORBIT_JS = ORBIT_JS;
 const ALL_LEARNING_PANELS = `
 <div class="home-learning">
   <div class="home-learning-actions" hidden>
@@ -1787,13 +1815,18 @@ ${ALL_LEARNING_PANELS}
           <ellipse id="ho-path" cx="160" cy="100" rx="70" ry="70" fill="none" stroke="#9dc2e0" stroke-opacity=".38" stroke-width="1" stroke-dasharray="3 4"/>
           <circle cx="160" cy="100" r="13" fill="#2f74ad"/>
           <circle id="ho-moon" cx="230" cy="100" r="4.5" fill="#e8eef7"/>
+          <g id="ho-impact" visibility="hidden"><g class="home-impact-flash">
+            <path d="M0 -20L5 -9L17 -14L11 -3L23 3L10 7L13 20L2 12L-8 22L-9 9L-22 7L-12 -2L-19 -13L-6 -9Z" fill="#ff8b35"/>
+            <circle r="9" fill="#ffe778"/><circle r="4" fill="#fff7dd"/>
+          </g></g>
         </svg>
       </div>
-      <p class="home-orbtxt" id="ho-note">At this speed, the moon follows a circular orbit.</p>
+      <p class="home-orbtxt" id="ho-note" role="status" aria-live="polite">At this speed, the moon follows a circular orbit.</p>
       <p class="home-orbbtns">
         <button type="button" class="chip" id="ho-slow">Slow it down</button>
         <button type="button" class="chip" id="ho-fast">Speed it up</button>
         <button type="button" class="chip chip-alt" id="ho-reset">Circle</button>
+          <button type="button" class="chip" id="ho-restart" hidden>Restart</button>
       </p>
     </div>
     <a class="wk-all" href="${OV_PATH}">See the orbital velocity simulator →</a>
@@ -1977,7 +2010,7 @@ const SECTION_PAGES = [
   {
     slug: "space", h1: "Space",
     title: "Space — The Planets, Orbits, Moons & Solar System Simulators",
-    desc: "Where everything actually is, right now: the solar system on its real orbits, every planet with its moons, gravity and orbital-velocity simulators, launch windows to Mars, and the moon systems of Jupiter, Saturn, Uranus and Neptune.",
+    desc: "Explore planets and moons, compare orbital motion, change an object’s speed, and investigate model journeys through the solar system.",
     lede: LEDE.space,
     board: [
       [withQs(spaceCard(SOLAR_CARD, "Watch the four inner planets orbit the Sun. Compare how quickly they complete an orbit. This preview illustrates their motion; it does not show their current positions.", "How planets orbit →"), ["why-dont-planets-fall-into-the-sun", "how-are-the-planets-formed", "why-arent-the-inner-planets-gas-giants"], "/space/"), 4],
@@ -2011,7 +2044,7 @@ ${sectionSwitcher(`/${S.slug}/`)}
 ${S.board.map(([card, n]) => sp(card, n, S.slug)).join("\n")}
   </div>
   <div class="home-foot">
-    <p class="home-suggest">${S.slug === "earth" ? `Keep exploring <a href="/day-night-map/">day and night</a>, <a href="${SEASONS_PATH}">seasons</a>, <a href="/moon-simulator/">Moon phases</a> and <a href="/tides/">tides</a>.` : `Start with <a href="/concepts/how-does-an-orbit-work/">how an orbit works</a>, or <a href="/glossary/">any of the others</a>.`} Or jump across: ${SECTION_LINKS.filter(([u]) => u !== `/${S.slug}/`).map(([u, l]) => `<a href="${u}">${l}</a>`).join(" · ")}.</p>
+    <p class="home-suggest">${S.slug === "earth" ? `Keep exploring <a href="/day-night-map/">day and night</a>, <a href="${SEASONS_PATH}">seasons</a>, <a href="/moon-simulator/">Moon phases</a> and <a href="/tides/">tides</a>.` : S.slug === "space" ? `Keep exploring <a href="/solar-system-simulator/">the solar system</a>, <a href="${PLANETS_PATH}">planets and moons</a>, <a href="${OV_PATH}">gravity and orbits</a>, and <a href="${ROCKET_PATH}">space exploration</a>.` : `Start with <a href="/concepts/how-does-an-orbit-work/">how an orbit works</a>, or <a href="/glossary/">any of the others</a>.`} Or jump across: ${SECTION_LINKS.filter(([u]) => u !== `/${S.slug}/`).map(([u, l]) => `<a href="${u}">${l}</a>`).join(" · ")}.</p>
   </div>`;
   /* the Q&A pairs this page already shows, as FAQPage JSON-LD — the answers
      are the concepts' own shortAnswers, so the markup cannot say something
